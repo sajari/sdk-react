@@ -7,7 +7,7 @@
     "build:copy-files": "babel-node ./scripts/copy-files.js",
     "clean:build": "rimraf build",
     "prebuild": "npm run clean:build",
-    "dev": "npm run prebuild && babel -w ./src/ --out-dir ./build"
+    "dev": "npm run prebuild && npm run build:copy-files && babel -w ./src/ --out-dir ./build"
   },
   "author": {
     "name": "Trent Billington",
@@ -58,6 +58,7 @@
   },
   "peerDependencies": {
     "react": "^15.0.0",
-    "react-dom": "^15.0.0"
+    "react-dom": "^15.0.0",
+    "sajari": "*"
   }
 }
