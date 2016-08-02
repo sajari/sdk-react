@@ -145,7 +145,7 @@ var SearchActions = {
       });
     }, err => {
       console.log(err);
-    })
+    }, true)
   },
 
   update: function(namespace, uuid, componentName, data) {
