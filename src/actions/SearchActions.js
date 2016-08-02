@@ -139,7 +139,7 @@ var SearchActions = {
       AppDispatcher.handleServerAction({
         actionType: SearchConstants.SEARCH,
         actionData: res,
-        searchQuery: req.body[0].text,
+        searchQuery: req,
         namespace: namespace,
       });
     }, err => {

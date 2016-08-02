@@ -47,6 +47,7 @@
     "webpack-dev-server": "^1.8.2"
   },
   "dependencies": {
+    "deep-equal": "^1.0.1",
     "eventemitter3": "^0.1.6",
     "flux": "^2.0.1",
     "keymirror": "^0.1.0",

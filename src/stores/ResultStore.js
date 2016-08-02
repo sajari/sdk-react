@@ -1,6 +1,7 @@
 "use strict";
 
 import Immutable from "immutable";
+import deepEqual from "deep-equal";
 
 import {ChangeEmitter} from "../utils/ChangeEmitter.js";
 import AppDispatcher from "../dispatcher/AppDispatcher";
@@ -205,10 +206,8 @@ _resultStore.dispatchToken = AppDispatcher.register(payload => {
     switch (action.actionType) {
       case SearchConstants.SEARCH:
         const req = RequestStore.getRequest(action.namespace);
-        const body = req.body ? req.body[0] ? req.body[0].text ? req.body[0].text : "" : "" : "";
-        if (action.searchQuery !== body) {
+        if (!deepEqual(action.searchQuery, req)) {
           // Results came back that didn't match the current search query, so we disregard them.
-          // TODO(tbillington): Do this better, it's not a long term solution.
           break;
         }
 
