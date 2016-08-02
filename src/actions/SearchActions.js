@@ -9,6 +9,7 @@ import ConfigStore from "../stores/ConfigStore.js";
 import Components from "../constants/Components.js";
 import RequestStore from "../stores/RequestStore.js";
 import NamespaceStore from "../stores/NamespaceStore.js";
+import ApiStore from "../stores/ApiStore.js";
 import Proto from "../proto/query.js";
 
 const Request = Proto.sajari.engine.query.Request;
@@ -134,7 +135,7 @@ var SearchActions = {
       query.fields(req.fields);
     }
 
-    const api = new Api(ns.project, ns.collection);
+    const api = ApiStore.get(namespace);
     api.search(query, res => {
       AppDispatcher.handleServerAction({
         actionType: SearchConstants.SEARCH,

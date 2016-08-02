@@ -14,9 +14,17 @@ function get(namespace) {
   return _data.get(namespace);
 }
 
+function getAll() {
+  return _data;
+}
+
 class NamespaceStore extends ChangeEmitter {
   get(namespace) {
     return get(namespace);
+  }
+
+  getAll() {
+    return getAll();
   }
 }
 
