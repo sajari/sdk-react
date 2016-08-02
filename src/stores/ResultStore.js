@@ -29,16 +29,16 @@ let _data = Immutable.fromJS({
   },
 });
 
-function setResults(r) {
-  _data = _data.setIn([nameDefault, "results"], r);
+function setResults(namespace, results) {
+  _data = _data.setIn([namespace, "results"], results);
 }
 
-function getResults() {
-  return _data.getIn([nameDefault, "results"]);
+function getResults(namespace) {
+  return _data.getIn([namespace, "results"], Immutable.List());
 }
 
-function setAggregates(a) {
-  _data = _data.setIn([nameDefault, "aggregates"], a);
+function setAggregates(namespace, aggregates) {
+  _data = _data.setIn([namespace, "aggregates"], aggregates);
 }
 
 function getAggregates() {
@@ -53,8 +53,8 @@ function getReads() {
   return _data.getIn([nameDefault, "response", "reads"]);
 }
 
-function setTotalMatches(t) {
-  _data = _data.setIn([nameDefault, "response", "totalMatches"], t);
+function setTotalMatches(namespace, t) {
+  _data = _data.setIn([namespace, "response", "totalMatches"], t);
 }
 
 function getTotalMatches() {
@@ -103,10 +103,10 @@ function getFacets() {
   return _data.getIn([nameDefault, "facets"]);
 }
 
-function updateResponse(result) {
+function updateResponse(namespace, result) {
   // v10
-  setTotalMatches(Number(result.totalResults));
-  setAggregates(result.aggregates);
+  setTotalMatches(namespace, Number(result.totalResults));
+  setAggregates(namespace, result.aggregates);
   return;
 
   // v9
@@ -123,8 +123,8 @@ function updateResponse(result) {
   setFuzzy(result.response.fuzzy);
 }
 
-function getResponse() {
-  return _data.getIn([nameDefault, "response"]);
+function getResponse(namespace) {
+  return _data.getIn([namespace, "response"], Immutable.Map());
 }
 
 function setPage(p) {
@@ -138,16 +138,16 @@ function getPage() {
 // Store for holding search results
 class ResultStore extends ChangeEmitter {
 
-  getResults() {
-    return getResults();
+  getResults(namespace) {
+    return getResults(namespace ? namespace : nameDefault);
   }
 
   getAggregates() {
     return getAggregates();
   }
 
-  getResponse() {
-    return getResponse();
+  getResponse(namespace) {
+    return getResponse(namespace ? namespace : nameDefault);
   }
 
   getReads() {
@@ -189,16 +189,10 @@ class ResultStore extends ChangeEmitter {
   }
 }
 
-function setSearchResults(results) {
-  setResults(Immutable.List(results.results));
-  updateResponse(results);
+function setSearchResults(namespace, results) {
+  setResults(namespace, Immutable.List(results.results));
+  updateResponse(namespace, results);
   setPage(1);
-}
-
-function appendSearchResults(results) {
-  setResults(getResults().concat(results.results));
-  updateResponse(results);
-  setPage(getPage() + 1);
 }
 
 var _resultStore = new ResultStore();
@@ -218,7 +212,7 @@ _resultStore.dispatchToken = AppDispatcher.register(payload => {
           break;
         }
 
-        setSearchResults(action.actionData);
+        setSearchResults(action.namespace, action.actionData);
 
         _resultStore.emitChange();
         break;

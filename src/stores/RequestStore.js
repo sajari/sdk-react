@@ -47,6 +47,9 @@ _requestStore.dispatchToken = AppDispatcher.register(payload => {
 
   if (source === "SEARCH_ACTION") {
     if (action.actionType === SearchConstants.SET_REQUEST_MODIFIER) {
+      if (!_data.has(action.namespace)) {
+        _data = _data.set(action.namespace, Immutable.List());
+      }
       _data = _data.updateIn([action.namespace], modifierList => {
         const pos = modifierList.findIndex(i => {return i.uuid === action.uuid; });
 
