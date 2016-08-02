@@ -7,7 +7,7 @@
     "build:copy-files": "babel-node ./scripts/copy-files.js",
     "clean:build": "rimraf build",
     "prebuild": "npm run clean:build",
-    "hotdev": "webpack-dev-server --hot --inline"
+    "dev": "npm run prebuild && babel -w ./src/ --out-dir ./build"
   },
   "author": {
     "name": "Trent Billington",
