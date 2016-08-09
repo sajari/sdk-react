@@ -1,46 +1,60 @@
-import React from "react";
+import React from 'react';
 
-import ResultStore from "../stores/ResultStore.js";
+import ResultStore from '../stores/ResultStore.js';
+
+function resultsForNamespace(ns) {
+  return {
+    results: ResultStore.getResults(ns).toJS(),
+    response: ResultStore.getResponse(ns).toJS(),
+    fuzzy: ResultStore.getFuzzy(ns),
+    aggregates: ResultStore.getAggregates(ns),
+  };
+}
 
 export default class ResultInjector extends React.Component {
   static propTypes = {
-    namespace: React.PropTypes.string,
+    namespace: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.arrayOf(React.PropTypes.string)
+    ]),
   }
 
   constructor(props) {
     super(props);
-    this._resultsUpdated = this._resultsUpdated.bind(this);
+    this.resultsUpdated = this.resultsUpdated.bind(this);
     this.state = {
-      namespace: props.namespace ? props.namespace : "default",
+      namespace: props.namespace || 'default',
     };
   }
 
   componentDidMount() {
-    ResultStore.addChangeListener(this._resultsUpdated);
+    ResultStore.addChangeListener(this.resultsUpdated);
   }
 
   componentWillUnmount() {
-    ResultStore.removeChangeListener(this._resultsUpdated);
+    ResultStore.removeChangeListener(this.resultsUpdated);
   }
 
-  _resultsUpdated() {
+  resultsUpdated() {
+    const results = {};
+    if (typeof this.state.namespace === 'string') {
+      results[this.state.namespace] = resultsForNamespace(this.state.namespace);
+    } else if (typeof this.state.namespace === 'object') {
+      this.state.namespace.forEach(ns => {
+        results[ns] = resultsForNamespace(ns);
+      });
+    }
     this.setState({
-      results: ResultStore.getResults(this.state.namespace).toJS(),
-      response: ResultStore.getResponse(this.state.namespace).toJS(),
-      fuzzy: ResultStore.getFuzzy(this.state.namespace),
-      aggregates: ResultStore.getAggregates(this.state.namespace),
+      namespace: this.state.namespace,
+      results,
     });
   }
 
   render() {
-    const childrenWithProps = React.Children.map(this.props.children, c => {
-      return React.cloneElement(c, {
-        results: this.state.results,
-        response: this.state.response,
-        fuzzy: this.state.fuzzy,
-        aggregates: this.state.aggregates,
-      });
-    });
+    const results = this.state.results ? this.state.results : null;
+    const childrenWithProps = React.Children.map(this.props.children, c => (
+      React.cloneElement(c, { results })
+    ));
     return (
       <div>
         {childrenWithProps}

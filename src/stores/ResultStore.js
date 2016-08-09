@@ -191,8 +191,8 @@ class ResultStore extends ChangeEmitter {
 }
 
 function setSearchResults(results) {
-  setResults(list(results.results));
-  updateResponse(results);
+  setResults(list(results.response.results));
+  updateResponse(results.response);
   setPage(1);
 }
 
