@@ -8,7 +8,10 @@ export default class Base extends React.Component {
   static propTypes = {
     run: React.PropTypes.oneOf([null, "update", "mount", "all"]),
     runDefault: React.PropTypes.oneOf(["update", "mount", "all"]),
-    namespace: React.PropTypes.string,
+    namespace: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.arrayOf(React.PropTypes.string)
+    ]),
     componentName: React.PropTypes.oneOf(Components.list).isRequired,
     data: React.PropTypes.any.isRequired,
   }
