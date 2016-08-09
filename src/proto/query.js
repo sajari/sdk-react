@@ -1,3 +1,4 @@
+/* eslint-disable */
 module.exports = require("protobufjs").newBuilder({}).import({
   "package": "sajari.engine.query",
   "messages": [{

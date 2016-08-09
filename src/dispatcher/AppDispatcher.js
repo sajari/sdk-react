@@ -1,4 +1,4 @@
-import {Dispatcher as Dispatcher} from "flux";
+import { Dispatcher } from 'flux';
 
 class AppDispatcher extends Dispatcher {
 
@@ -9,29 +9,29 @@ class AppDispatcher extends Dispatcher {
    */
   handleViewAction(action) {
     this.dispatch({
-      source: "VIEW_ACTION",
-      action: action,
+      source: 'VIEW_ACTION',
+      action,
     });
   }
 
   handleServerAction(action) {
     this.dispatch({
-      source: "SERVER_ACTION",
-      action: action,
+      source: 'SERVER_ACTION',
+      action,
     });
   }
 
   handleRequestAction(action) {
     this.dispatch({
-      source: "SEARCH_ACTION",
-      action: action,
+      source: 'SEARCH_ACTION',
+      action,
     });
   }
 
   handleNamespaceAction(action) {
     this.dispatch({
-      source: "NAMESPACE_ACTION",
-      action: action,
+      source: 'NAMESPACE_ACTION',
+      action,
     });
   }
 

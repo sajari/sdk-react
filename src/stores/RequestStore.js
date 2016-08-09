@@ -1,14 +1,11 @@
-import Immutable from "immutable";
+import { Map as map, List as list } from 'immutable';
 
-import {ChangeEmitter} from "../utils/ChangeEmitter.js";
-import AppDispatcher from "../dispatcher/AppDispatcher.js";
-import SearchConstants from "../constants/SearchConstants.js";
-import Proto from "../proto/query.js";
+import { ChangeEmitter } from '../utils/ChangeEmitter.js';
+import AppDispatcher from '../dispatcher/AppDispatcher.js';
+import SearchConstants from '../constants/SearchConstants.js';
 
-const Request = Proto.sajari.engine.query.Request;
-
-let _data = Immutable.Map({
-  "default": Immutable.List(),
+let data = map({
+  default: list(),
 });
 
 function requestBase() {
@@ -28,49 +25,51 @@ function requestBase() {
 }
 
 function buildRequest(namespace) {
-  return _data.get(namespace).reduce((r, t) => {
-    return t.modifier(r);
-  }, requestBase());
+  return data.get(namespace).reduce((r, t) => (
+    t.modifier(r)
+  ), requestBase());
 }
 
 class RequestStore extends ChangeEmitter {
   getRequest(namespace) {
-    return buildRequest(namespace ? namespace : "default");
+    return buildRequest(namespace || 'default');
   }
 }
 
-let _requestStore = new RequestStore();
+const requestStore = new RequestStore();
 
-_requestStore.dispatchToken = AppDispatcher.register(payload => {
+requestStore.dispatchToken = AppDispatcher.register(payload => {
   const action = payload.action;
   const source = payload.source;
 
-  if (source === "SEARCH_ACTION") {
+  if (source === 'SEARCH_ACTION') {
     if (action.actionType === SearchConstants.SET_REQUEST_MODIFIER) {
-      if (!_data.has(action.namespace)) {
-        _data = _data.set(action.namespace, Immutable.List());
+      if (!data.has(action.namespace)) {
+        data = data.set(action.namespace, list());
       }
-      _data = _data.updateIn([action.namespace], modifierList => {
-        const pos = modifierList.findIndex(i => {return i.uuid === action.uuid; });
+      data = data.updateIn([action.namespace], modifierList => {
+        const pos = modifierList.findIndex(i => (i.uuid === action.uuid));
 
-        return pos >= 0 ? modifierList.update(pos, () => {return {
-          uuid: action.uuid,
-          modifier: action.modifier,
-        }; }) : modifierList.push({
+        return pos >= 0 ? modifierList.update(pos, () => (
+          {
+            uuid: action.uuid,
+            modifier: action.modifier,
+          }
+        )) : modifierList.push({
           uuid: action.uuid,
           modifier: action.modifier,
         });
       });
-      _requestStore.emitChange();
+      requestStore.emitChange();
     } else if (action.actionType === SearchConstants.REMOVE_REQUEST_MODIFIER) {
-      _data = _data.updateIn([action.namespace], modifierList => {
-        return modifierList.filter(i => {
-          return i.uuid !== action.uuid;
-        });
-      });
-      _requestStore.emitChange();
+      data = data.updateIn([action.namespace], modifierList => (
+        modifierList.filter(i => (
+          i.uuid !== action.uuid
+        ))
+      ));
+      requestStore.emitChange();
     }
   }
 });
 
-export default _requestStore;
+export default requestStore;

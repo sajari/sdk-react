@@ -1,12 +1,10 @@
-"use strict";
+import { Map as map, fromJS } from 'immutable';
+import uuid from 'uuid';
 
-import Immutable from "immutable";
-import uuid from "uuid";
+const nameDefault = 'default';
 
-const nameDefault = "default";
-
-let _names = Immutable.Map();
-let _data = Immutable.fromJS({
+let names = map();
+let data = fromJS({
   default: {
     fields: [],
     sorts: {},
@@ -24,90 +22,90 @@ class ConfigStore {
   }
 
   getFields() {
-    return _data.getIn([nameDefault, "fields"]);
+    return data.getIn([nameDefault, 'fields']);
   }
 
   setFields(fields) {
-    _data = _data.setIn([nameDefault, "fields"], fields);
+    data = data.setIn([nameDefault, 'fields'], fields);
   }
 
   addName(name, project, collection) {
-    _names = _names.set(name, {
-      project: project,
-      collection: collection,
+    names = names.set(name, {
+      project,
+      collection,
     });
   }
 
   getNameDetails(name) {
-    return _names.get(name);
+    return names.get(name);
   }
 
   getProjectCollection() {
-    return _names.get(nameDefault);
+    return names.get(nameDefault);
   }
 
   setProjectCollection(project, collection) {
-    _names = _names.set(nameDefault, {
-      project: project,
-      collection: collection,
+    names = names.set(nameDefault, {
+      project,
+      collection,
     });
   }
 
   getSortById(id) {
-    return _data.getIn([nameDefault, "sorts", id]);
+    return data.getIn([nameDefault, 'sorts', id]);
   }
 
   getSorts() {
-    return _data.getIn([nameDefault, "sorts"]);
+    return data.getIn([nameDefault, 'sorts']);
   }
 
   setSorts(sorts) {
     const rawSorts = sorts.map((s) => s.raw());
     rawSorts.forEach((s) => {
-      _data = _data.setIn([nameDefault, "sorts", uuid.v4()], s);
+      data = data.setIn([nameDefault, 'sorts', uuid.v4()], s);
     });
-    // console.log(_data.getIn([nameDefault, "sorts"]));
-    // _data = _data.setIn([nameDefault, "sorts"], rawSorts);
+    // console.log(data.getIn([nameDefault, 'sorts']));
+    // data = data.setIn([nameDefault, 'sorts'], rawSorts);
   }
 
   setActiveSort(sort) {
-    _data = _data.setIn([nameDefault, "activeSort"], sort);
+    data = data.setIn([nameDefault, 'activeSort'], sort);
   }
 
   getActiveSort() {
-    return _data.getIn([nameDefault, "activeSort"]);
+    return data.getIn([nameDefault, 'activeSort']);
   }
 
   setInfiniteScroll(enabled) {
-    _data = _data.setIn([nameDefault, "infiniteScroll"], enabled);
+    data = data.setIn([nameDefault, 'infiniteScroll'], enabled);
   }
 
   getInfiniteScroll() {
-    return _data.getIn([nameDefault, "infiniteScroll"]);
+    return data.getIn([nameDefault, 'infiniteScroll']);
   }
 
   setInstantSearch(enabled) {
-    _data = _data.setIn([nameDefault, "instantSearch"], enabled);
+    data = data.setIn([nameDefault, 'instantSearch'], enabled);
   }
 
   getInstantSearch() {
-    return _data.getIn([nameDefault, "instantSearch"]);
+    return data.getIn([nameDefault, 'instantSearch']);
   }
 
   setCustomResultRenderer(component) {
-    _data = _data.setIn([nameDefault, "customResultRenderer"], component);
+    data = data.setIn([nameDefault, 'customResultRenderer'], component);
   }
 
   getCustomResultRenderer() {
-    return _data.getIn([nameDefault, "customResultRenderer"]);
+    return data.getIn([nameDefault, 'customResultRenderer']);
   }
 
   setMaxResults(max) {
-    _data = _data.setIn([nameDefault, "maxResults"], max);
+    data = data.setIn([nameDefault, 'maxResults'], max);
   }
 
   getMaxResults() {
-    return _data.getIn([nameDefault, "maxResults"]);
+    return data.getIn([nameDefault, 'maxResults']);
   }
 }
 

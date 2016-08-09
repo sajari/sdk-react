@@ -1,19 +1,16 @@
-"use strict";
+import { fromJS, List as list } from 'immutable';
 
-import Immutable from "immutable";
-import deepEqual from "deep-equal";
+import { ChangeEmitter } from '../utils/ChangeEmitter.js';
+import AppDispatcher from '../dispatcher/AppDispatcher';
+import SearchConstants from '../constants/SearchConstants.js';
+import RequestStore from './RequestStore.js';
+import SearchActions from '../actions/SearchActions.js';
 
-import {ChangeEmitter} from "../utils/ChangeEmitter.js";
-import AppDispatcher from "../dispatcher/AppDispatcher";
-import SearchConstants from "../constants/SearchConstants.js";
-import ConfigStore from "./ConfigStore.js";
-import RequestStore from "./RequestStore.js";
-import SearchActions from "../actions/SearchActions.js";
-const nameDefault = "default";
+const nameDefault = 'default';
 
-let protectFacets = false; // switch to keep facets from original search around for rendering
+// let protectFacets = false; // switch to keep facets from original search around for rendering
 
-let _data = Immutable.fromJS({
+let data = fromJS({
   default: {
     results: [],
     page: 1,
@@ -22,95 +19,96 @@ let _data = Immutable.fromJS({
       totalMatches: 0,
       msecs: 0,
       statusCode: 0,
-      queryID: "",
+      queryID: '',
     },
     facets: {},
-    fuzzy: "",
+    fuzzy: '',
     aggregates: {},
   },
 });
 
-function setResults(namespace, results) {
-  _data = _data.setIn([namespace, "results"], results);
+function setResults(r) {
+  data = data.setIn([nameDefault, 'results'], r);
 }
 
-function getResults(namespace) {
-  return _data.getIn([namespace, "results"], Immutable.List());
+function getResults() {
+  return data.getIn([nameDefault, 'results']);
 }
 
-function setAggregates(namespace, aggregates) {
-  _data = _data.setIn([namespace, "aggregates"], aggregates);
+function setAggregates(a) {
+  data = data.setIn([nameDefault, 'aggregates'], a);
 }
 
 function getAggregates() {
-  return _data.getIn([nameDefault, "aggregates"]);
+  return data.getIn([nameDefault, 'aggregates']);
 }
 
 function setReads(r) {
-  _data = _data.setIn([nameDefault, "response", "reads"], r);
+  data = data.setIn([nameDefault, 'response', 'reads'], r);
 }
 
 function getReads() {
-  return _data.getIn([nameDefault, "response", "reads"]);
+  return data.getIn([nameDefault, 'response', 'reads']);
 }
 
-function setTotalMatches(namespace, t) {
-  _data = _data.setIn([namespace, "response", "totalMatches"], t);
+function setTotalMatches(t) {
+  data = data.setIn([nameDefault, 'response', 'totalMatches'], t);
 }
 
 function getTotalMatches() {
-  return _data.getIn([nameDefault, "response", "totalMatches"]);
+  return data.getIn([nameDefault, 'response', 'totalMatches']);
 }
 
 function setMsecs(m) {
-  _data = _data.setIn([nameDefault, "response", "msecs"], m);
+  data = data.setIn([nameDefault, 'response', 'msecs'], m);
 }
 
 function getMsecs() {
-  return _data.getIn([nameDefault, "response", "msecs"]);
+  return data.getIn([nameDefault, 'response', 'msecs']);
 }
 
 function setStatusCode(c) {
-  _data = _data.setIn([nameDefault, "response", "statusCode"], c);
+  data = data.setIn([nameDefault, 'response', 'statusCode'], c);
 }
 
 function getStatusCode() {
-  return _data.getIn([nameDefault, "response", "statusCode"]);
+  return data.getIn([nameDefault, 'response', 'statusCode']);
 }
 
 function setQueryID(qid) {
-  _data = _data.setIn([nameDefault, "response", "queryID"], qid);
+  data = data.setIn([nameDefault, 'response', 'queryID'], qid);
 }
 
 function getQueryID() {
-  return _data.getIn([nameDefault, "response", "queryID"]);
+  return data.getIn([nameDefault, 'response', 'queryID']);
 }
 
 function setFuzzy(f) {
-  f = f ? f : "";
-  _data = _data.setIn([nameDefault, "fuzzy"], f);
+  f = f ? f : '';
+  data = data.setIn([nameDefault, 'fuzzy'], f);
 }
 
 function getFuzzy() {
-  return _data.getIn([nameDefault, "fuzzy"]);
+  return data.getIn([nameDefault, 'fuzzy']);
 }
 
 function setFacets(f) {
-  f = f ? f : {};
-  _data = _data.setIn([nameDefault, "facets"], Immutable.fromJS(f));
+  f = f || {};
+  data = data.setIn([nameDefault, 'facets'], fromJS(f));
 }
 
 function getFacets() {
-  return _data.getIn([nameDefault, "facets"]);
+  return data.getIn([nameDefault, 'facets']);
 }
 
-function updateResponse(namespace, result) {
+function updateResponse(result) {
   // v10
-  setTotalMatches(namespace, Number(result.totalResults));
-  setAggregates(namespace, result.aggregates);
+  setTotalMatches(Number(result.totalResults));
+  setAggregates(result.aggregates);
   return;
 
   // v9
+  /*
   if (protectFacets) {
     protectFacets = false;
   } else {
@@ -122,33 +120,34 @@ function updateResponse(namespace, result) {
   setStatusCode(result.statusCode);
   setQueryID(result.response.queryID);
   setFuzzy(result.response.fuzzy);
+  */
 }
 
-function getResponse(namespace) {
-  return _data.getIn([namespace, "response"], Immutable.Map());
+function getResponse() {
+  return data.getIn([nameDefault, 'response']);
 }
 
 function setPage(p) {
-  _data = _data.setIn([nameDefault, "page"], p);
+  data = data.setIn([nameDefault, 'page'], p);
 }
 
 function getPage() {
-  return _data.getIn([nameDefault, "page"]);
+  return data.getIn([nameDefault, 'page']);
 }
 
 // Store for holding search results
 class ResultStore extends ChangeEmitter {
 
-  getResults(namespace) {
-    return getResults(namespace ? namespace : nameDefault);
+  getResults() {
+    return getResults();
   }
 
   getAggregates() {
     return getAggregates();
   }
 
-  getResponse(namespace) {
-    return getResponse(namespace ? namespace : nameDefault);
+  getResponse() {
+    return getResponse();
   }
 
   getReads() {
@@ -184,50 +183,64 @@ class ResultStore extends ChangeEmitter {
   }
 
   clearResults() {
-    setResults(Immutable.List());
+    setResults(list());
     setTotalMatches(0);
     this.emitChange();
   }
 }
 
-function setSearchResults(namespace, results) {
-  setResults(namespace, Immutable.List(results.results));
-  updateResponse(namespace, results);
+function setSearchResults(results) {
+  setResults(list(results.results));
+  updateResponse(results);
   setPage(1);
 }
 
-var _resultStore = new ResultStore();
+function appendSearchResults(results) {
+  setResults(getResults().concat(results.results));
+  updateResponse(results);
+  setPage(getPage() + 1);
+}
 
-_resultStore.dispatchToken = AppDispatcher.register(payload => {
-  var action = payload.action;
-  var source = payload.source;
+const resultStore = new ResultStore();
 
-  if (source === "SERVER_ACTION") {
+resultStore.dispatchToken = AppDispatcher.register(payload => {
+  const action = payload.action;
+  const source = payload.source;
+
+  if (source === 'SERVER_ACTION') {
     switch (action.actionType) {
-      case SearchConstants.SEARCH:
+      case SearchConstants.SEARCH: {
         const req = RequestStore.getRequest(action.namespace);
-        if (!deepEqual(action.searchQuery, req)) {
+        const body = req.body ? req.body[0] ? req.body[0].text ? req.body[0].text : '' : '' : '';
+        if (action.searchQuery !== body) {
           // Results came back that didn't match the current search query, so we disregard them.
+          // TODO(tbillington): Do this better, it's not a long term solution.
           break;
         }
 
-        setSearchResults(action.namespace, action.actionData);
+        setSearchResults(action.actionData);
 
-        _resultStore.emitChange();
+        resultStore.emitChange();
+        break;
+      }
+      default:
         break;
     }
-  } else if (source === "VIEW_ACTION") {
+  } else if (source === 'VIEW_ACTION') {
     switch (action.actionType) {
       case SearchConstants.ADD_FILTER:
       case SearchConstants.REMOVE_FILTER:
-      case SearchConstants.SET_PAGE:
+      case SearchConstants.SET_PAGE: {
         protectFacets = true;
         setTimeout(() => {
           SearchActions.newSearch();
         }, 10);
         break;
+      }
+      default:
+        break;
     }
   }
 });
 
-export default _resultStore;
+export default resultStore;

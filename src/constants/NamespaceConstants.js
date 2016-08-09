@@ -1,17 +1,13 @@
-import KeyMirror from "keymirror";
+import keyMirror from 'keymirror';
 
-let _actions = KeyMirror({
+const actions = keyMirror({
   SET: null,
   REMOVE: null,
 });
 
 // List of the keys to use as react proptyes check
-let _actionKeys = [];
+const actionKeys = Object.keys(actions);
 
-for (const k in _actions) {
-  _actionKeys.push(k);
-}
+actions.list = actionKeys;
 
-_actions.list = _actionKeys;
-
-export default _actions;
+export default actions;

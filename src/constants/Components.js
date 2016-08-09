@@ -1,6 +1,6 @@
-import KeyMirror from "keymirror";
+import keyMirror from 'keymirror';
 
-let _components = KeyMirror({
+const components = keyMirror({
   BODY: null,
   PAGE: null,
   MAXRESULTS: null,
@@ -14,12 +14,8 @@ let _components = KeyMirror({
 });
 
 // List of the keys to use as react proptypes check
-let _componentKeys = [];
+const componentKeys = Object.keys(components);
 
-for (const k in _components) {
-  _componentKeys.push(k);
-}
+components.list = componentKeys;
 
-_components.list = _componentKeys;
-
-export default _components;
+export default components;

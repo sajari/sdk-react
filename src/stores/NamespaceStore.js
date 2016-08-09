@@ -1,21 +1,21 @@
-import Immutable from "immutable";
+import { Map as map } from 'immutable';
 
-import {ChangeEmitter} from "../utils/ChangeEmitter.js";
-import AppDispatcher from "../dispatcher/AppDispatcher.js";
-import NamespaceConstants from "../constants/NamespaceConstants.js";
+import { ChangeEmitter } from '../utils/ChangeEmitter.js';
+import AppDispatcher from '../dispatcher/AppDispatcher.js';
+import NamespaceConstants from '../constants/NamespaceConstants.js';
 
-let _data = Immutable.Map();
+let data = map();
 
-function k(p, c, e) {
-  return {project: p, collection: c, engine: e};
+function k(project, collection, engine) {
+  return { project, collection, engine };
 }
 
 function get(namespace) {
-  return _data.get(namespace);
+  return data.get(namespace);
 }
 
 function getAll() {
-  return _data;
+  return data;
 }
 
 class NamespaceStore extends ChangeEmitter {
@@ -29,28 +29,28 @@ class NamespaceStore extends ChangeEmitter {
 }
 
 function set(project, collection, namespace, engine) {
-  _data = _data.set(namespace, k(project, collection, engine));
+  data = data.set(namespace, k(project, collection, engine));
 }
 
 function remove(namespace) {
-  _data = _data.delete(namespace);
+  data = data.delete(namespace);
 }
 
-let _namespaceStore = new NamespaceStore();
+const namespaceStore = new NamespaceStore();
 
-_namespaceStore.dispatchToken = AppDispatcher.register(payload => {
+namespaceStore.dispatchToken = AppDispatcher.register(payload => {
   const action = payload.action;
   const source = payload.source;
 
-  if (source === "NAMESPACE_ACTION") {
+  if (source === 'NAMESPACE_ACTION') {
     if (action.actionType === NamespaceConstants.SET) {
       set(action.project, action.collection, action.namespace, action.engine);
-      _namespaceStore.emitChange();
+      namespaceStore.emitChange();
     } else if (action.actionType === NamespaceConstants.REMOVE) {
       remove(action.namespace);
-      _namespaceStore.emitChange();
+      namespaceStore.emitChange();
     }
   }
 });
 
-export default _namespaceStore;
+export default namespaceStore;
