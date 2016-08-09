@@ -8,6 +8,7 @@
     "url": "https://www.sajari.com"
   },
   "dependencies": {
+    "deep-equal": "^1.0.1",
     "eventemitter3": "^0.1.6",
     "flux": "^2.0.1",
     "immutable": "^3.8.1",
