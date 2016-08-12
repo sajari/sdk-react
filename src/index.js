@@ -11,6 +11,7 @@ export RegisterNamespace from './components/RegisterNamespace.js';
 export ResultInjector from './components/ResultInjector.js';
 export Sort from './components/Sort.js';
 export Transforms from './components/Transforms.js';
+export Run from './components/Run.js';
 
 // Premade, bare-bones html elements wrapping api components
 export BodyText from './uicomponents/BodyText.js';

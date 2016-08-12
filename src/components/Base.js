@@ -32,9 +32,6 @@ export default class Base extends React.Component {
       this.props.componentName,
       this.props.data,
     );
-    if (this.state.run === "mount" || this.state.run === "all") {
-      SearchActions.nsearch(this.state.namespace);
-    }
   }
 
   componentWillUnmount() {
@@ -43,9 +40,6 @@ export default class Base extends React.Component {
       this.state.uuid,
       this.props.componentName,
     );
-    if (this.state.run === "mount" || this.state.run === "all") {
-      SearchActions.nsearch(this.state.namespace);
-    }
   }
 
   componentWillReceiveProps(newProps) {
