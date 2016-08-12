@@ -4,7 +4,7 @@ export Body from './components/Body.js';
 export Fields from './components/Fields.js';
 export Filter from './components/Filter.js';
 export {IndexBoost, FieldBoost, ScoreBoost} from './components/IndexBoost.js';
-export {MetaBoost, DistanceMetaBoost, ElementBoost, GeoMetaBoost, IntervalMetaBoost, TextMetaBoost} from './components/MetaBoost.js';
+export {MetaBoost, DistanceMetaBoost, ElementBoost, GeoMetaBoost, IntervalMetaBoost, TextMetaBoost, FilterMetaBoost} from './components/MetaBoost.js';
 export MaxResults from './components/MaxResults.js';
 export Page from './components/Page.js';
 export RegisterNamespace from './components/RegisterNamespace.js';

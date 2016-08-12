@@ -3,8 +3,20 @@ import React from "react";
 import Base from "./Base.js";
 import Components from "../constants/Components.js";
 import {
-  DistanceBoost, ElementBoost, GeoBoost, IntervalBoost, Point, TextBoost
+  DistanceBoost, ElementBoost, GeoBoost, IntervalBoost, Point, TextBoost, FilterBoost
 } from "../utils/MetaBoostUtils.js";
+
+export class FilterMetaBoost extends React.Component {
+  render() {
+    const {filter, value, ...others} = this.props;
+    return (
+      <MetaBoost
+        {...others}
+        data={FilterBoost(filter, value)}
+      />
+    )
+  }
+}
 
 export class MetaBoost extends React.Component {
   static propTypes = {
