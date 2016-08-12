@@ -10,6 +10,7 @@ module.exports = keyMirror({
   SET_SORT: null,
   SET_PAGE: null,
   FOXTEL_BLANK: null,
+  SEARCH_INFLIGHT: null,
 
   // New library
   ADD_REQUEST_MODIFIER: null,
