@@ -224,20 +224,6 @@ resultStore.dispatchToken = AppDispatcher.register(payload => {
       default:
         break;
     }
-  } else if (source === 'VIEW_ACTION') {
-    switch (action.actionType) {
-      case SearchConstants.ADD_FILTER:
-      case SearchConstants.REMOVE_FILTER:
-      case SearchConstants.SET_PAGE: {
-        protectFacets = true;
-        setTimeout(() => {
-          SearchActions.newSearch();
-        }, 10);
-        break;
-      }
-      default:
-        break;
-    }
   }
 });
 
