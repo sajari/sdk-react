@@ -28,20 +28,20 @@ let data = fromJS({
   },
 });
 
-function setResults(r) {
-  data = data.setIn([nameDefault, 'results'], r);
+function setResults(namespace, r) {
+  data = data.setIn([namespace, 'results'], r);
 }
 
-function getResults() {
-  return data.getIn([nameDefault, 'results']);
+function getResults(namespace) {
+  return data.getIn([namespace, 'results']);
 }
 
-function setAggregates(a) {
-  data = data.setIn([nameDefault, 'aggregates'], a);
+function setAggregates(namespace, a) {
+  data = data.setIn([namespace, 'aggregates'], a);
 }
 
-function getAggregates() {
-  return data.getIn([nameDefault, 'aggregates']);
+function getAggregates(namespace) {
+  return data.getIn([namespace, 'aggregates']);
 }
 
 function setReads(r) {
@@ -85,8 +85,7 @@ function getQueryID() {
 }
 
 function setFuzzy(f) {
-  f = f ? f : '';
-  data = data.setIn([nameDefault, 'fuzzy'], f);
+  data = data.setIn([nameDefault, 'fuzzy'], f || '');
 }
 
 function getFuzzy() {
@@ -102,10 +101,10 @@ function getFacets() {
   return data.getIn([nameDefault, 'facets']);
 }
 
-function updateResponse(result) {
+function updateResponse(namespace, result) {
   // v10
   setTotalMatches(Number(result.totalResults));
-  setAggregates(result.aggregates);
+  setAggregates(namespace, result.aggregates);
   return;
 
   // v9
@@ -139,16 +138,16 @@ function getPage() {
 // Store for holding search results
 class ResultStore extends ChangeEmitter {
 
-  getResults() {
-    return getResults();
+  getResults(namespace) {
+    return getResults(namespace);
   }
 
-  getAggregates() {
-    return getAggregates();
+  getAggregates(namespace) {
+    return getAggregates(namespace);
   }
 
-  getResponse() {
-    return getResponse();
+  getResponse(namespace) {
+    return getResponse(namespace);
   }
 
   getReads() {
@@ -179,8 +178,8 @@ class ResultStore extends ChangeEmitter {
     return getFacets();
   }
 
-  getFuzzy() {
-    return getFuzzy();
+  getFuzzy(namespace) {
+    return getFuzzy(namespace);
   }
 
   clearResults() {
@@ -190,9 +189,9 @@ class ResultStore extends ChangeEmitter {
   }
 }
 
-function setSearchResults(results) {
-  setResults(list(results.response.results));
-  updateResponse(results.response);
+function setSearchResults(namespace, results) {
+  setResults(namespace, list(results.response.results));
+  updateResponse(namespace, results.response);
   setPage(1);
 }
 
@@ -214,11 +213,10 @@ resultStore.dispatchToken = AppDispatcher.register(payload => {
         const req = RequestStore.getRequest(action.namespace);
         if (!equal(action.searchQuery, req)) {
           // Results came back that didn't match the current search query, so we disregard them.
-          // TODO(tbillington): Do this better, it's not a long term solution.
           break;
         }
 
-        setSearchResults(action.actionData);
+        setSearchResults(action.namespace, action.actionData);
 
         resultStore.emitChange();
         break;
