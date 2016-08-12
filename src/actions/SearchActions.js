@@ -1,12 +1,13 @@
 import Immutable from 'immutable';
 
-import { Query, Body, FieldBoost, Count, FieldEqTo, All } from 'sajari';
+import { Query, body, fieldIndexBoost, countAggregate, FILTER_OP_GT_EQ, COMB_FILTER_OP_ALL, filterMetaBoost, combinatorFilter, fieldFilter } from 'sajari';
 
 import AppDispatcher from '../dispatcher/AppDispatcher.js';
 import SearchConstants from '../constants/SearchConstants.js';
 import Components from '../constants/Components.js';
 import RequestStore from '../stores/RequestStore.js';
 import NamespaceStore from '../stores/NamespaceStore.js';
+import QueryStore from '../stores/QueryStore.js';
 import ApiStore from '../stores/ApiStore.js';
 
 function dispatchSetModifier(namespace, uuid, modifier) {
@@ -91,7 +92,6 @@ builders[Components.AGGREGATE] = ag => (
   }
 );
 
-
 function buildRequest(namespace) {
   const ns = NamespaceStore.get(namespace);
   if (!ns) {
@@ -104,11 +104,16 @@ function buildRequest(namespace) {
   v10q.page(req.page);
   v10q.maxResults(req.max_results);
   v10q.body(
-    req.body.map(b => new Body(b.text, b.weight))
+    req.body.map(b => body(b.text, b.weight))
   );
+  if (req.meta_boosts) {
+    v10q.metaBoosts(
+      req.meta_boosts
+    )
+  }
   if (req.index_boosts) {
     v10q.indexBoosts(
-      req.index_boosts.map(b => FieldBoost(b.field.field, b.field.value))
+      req.index_boosts.map(b => fieldIndexBoost(b.field.field, b.field.value))
     );
   }
   if (req.aggregates) {
@@ -121,11 +126,18 @@ function buildRequest(namespace) {
   }
   if (req.filter.length > 0) {
     v10q.filter(
-      All(req.filter.map(f => (
-        FieldEqTo(f.field.field, f.field.value)
-      )))
+      combinatorFilter(
+        req.filter,
+        COMB_FILTER_OP_ALL,
+      )
     );
   }
+  if (req.fields && req.fields.length > 0) {
+    v10q.fields(req.fields);
+  }
+
+  // Sort
+
   return v10q;
 }
 
@@ -136,7 +148,13 @@ const SearchActions = {
 
     namespaces.forEach(n => {
       const req = RequestStore.getRequest(n);
-      ApiStore.get(n).search(buildRequest(n), res => {
+      const builtReq = buildRequest(n);
+      if (!builtReq) {
+        return;
+      }
+
+      // Send the search request
+      const inFlightRequest = ApiStore.get(n).search(builtReq, res => {
         AppDispatcher.handleServerAction({
           actionType: SearchConstants.SEARCH,
           actionData: res,
@@ -145,6 +163,13 @@ const SearchActions = {
         });
       }, (/* err */) => {
         // TODO(tbillington): Add error to results to that injector can pass it along
+      });
+
+      // Dispatch an action with the in-progress request
+      AppDispatcher.handleRequestAction({
+        actionType: SearchConstants.SEARCH_INFLIGHT,
+        actionData: inFlightRequest,
+        namespace: n,
       });
     });
   },
