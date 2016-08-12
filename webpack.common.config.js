@@ -4,17 +4,16 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       "process.env": {
-        "NODE_ENV": JSON.stringify("development"),
+        "NODE_ENV": JSON.stringify("production"),
       },
     }),
   ],
-  devtool: "eval-source-map",
   module: {
     loaders: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loaders: ["babel-loader?stage=0"],
+        loaders: ["react-hot-loader", "babel-loader?stage=0", "eslint-loader"],
       },
     ],
   },
