@@ -3,8 +3,9 @@ import React from 'react';
 import ResultStore from '../stores/ResultStore.js';
 
 function resultsForNamespace(ns) {
+  const results = ResultStore.getResults(ns);
   return {
-    results: ResultStore.getResults(ns).toJS(),
+    results: results ? results.toJS() : {},
     response: ResultStore.getResponse(ns).toJS(),
     fuzzy: ResultStore.getFuzzy(ns),
     aggregates: ResultStore.getAggregates(ns),
