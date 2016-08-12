@@ -22,10 +22,10 @@ export default class MaxResultsSelect extends React.Component {
     const options = this.props.options.map((n) => {
       return <option key={n} value={n}>{n}</option>;
     });
+
     return (
-      <div className="input-group">
-        <span className="input-group-addon">Results per page</span>
-        <select className="form-control" value={this.state.maxResults} onChange={this.onMaxResultsChange}>
+      <div>
+        <select value={this.state.maxResults} onChange={this.onMaxResultsChange}>
           {options}
         </select>
         <MaxResults maxResults={this.state.maxResults} />

@@ -24,7 +24,6 @@ export default class PageSelect extends React.Component {
     });
     return (
       <div>
-        <label>Page</label>
         <select value={this.state.page} onChange={this.onPageChange}>
           {options}
         </select>

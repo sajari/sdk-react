@@ -24,7 +24,6 @@ export default class SortSelect extends React.Component {
     });
     return (
       <div>
-        <label>Sort</label>
         <select value={this.state.sort} onChange={this.onSortChange}>
           {options}
         </select>

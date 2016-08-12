@@ -5,7 +5,6 @@ import Body from "../components/Body.js";
 export default class BodyText extends React.Component {
   static propTypes = {
     body: React.PropTypes.string,
-    useEmptyBody: React.PropTypes.bool,
     namespace: React.PropTypes.string,
   }
 
@@ -21,12 +20,7 @@ export default class BodyText extends React.Component {
 
   render() {
     const {namespace, ...others} = this.props;
-    const body = this.state.text || this.props.useEmptyBody ? (
-      <Body
-         namespace={namespace}
-         body={this.state.text}
-      />
-    ) : null;
+
     return (
       <div>
         <input
@@ -35,7 +29,10 @@ export default class BodyText extends React.Component {
            value={this.state.text}
            onChange={this.onInputChange}
            />
-        {body}
+        <Body
+           namespace={namespace}
+           body={this.state.text}
+        />
       </div>
     );
   }

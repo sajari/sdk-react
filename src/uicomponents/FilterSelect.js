@@ -6,13 +6,12 @@ import {FieldFilter} from "../utils/FilterUtils.js";
 
 function defaultOption(label) {
   return (
-    <option key={-1} value={-1}>{label}</option>
+    <option key={-1} value={-1}></option>
   );
 }
 
 export default class FilterSelect extends React.Component {
   static propTypes = {
-    label: React.PropTypes.string,
     options: React.PropTypes.arrayOf(React.PropTypes.shape({
       field: React.PropTypes.string,
       op: React.PropTypes.string,
@@ -34,10 +33,10 @@ export default class FilterSelect extends React.Component {
 
   render() {
     const {namespace, ...others} = this.props;
-    const label = this.props.label ? <span>{this.props.label}</span> : null;
-    const options = [defaultOption(this.props.label)].concat(this.props.options.map((n, i) => {
+    const options = [defaultOption()].concat(this.props.options.map((n, i) => {
       return <option key={i} value={i}>{n.value}</option>;
     }));
+
     const filter = this.state.filter >= 0 ? (
       <Filter
         namesapce={namespace}
@@ -48,9 +47,9 @@ export default class FilterSelect extends React.Component {
         )}
       />
     ) : null;
+
     return (
       <div>
-        {label}
         <select value={this.state.filter} onChange={this.onFilterChange}>
           {options}
         </select>

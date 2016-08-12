@@ -13,16 +13,16 @@ export default class ResultRenderer extends React.Component {
   render() {
     const results = this.props.results ? (
       this.props.results.map(r => (
-        <div className="panel panel-default" key={r.meta._id}>
+        <div key={r.meta._id}>
           {this.props.title ? (
-            <div className="panel-heading">
-              <h3 className="panel-title">
+            <div>
+              <h3>
                 {r.meta[this.props.title]}
               </h3>
             </div>
           ) : null}
           {this.props.fields ? (
-            <div className="panel-body">
+            <div>
               {this.props.fields.map(f => <p>{r.meta[f]}</p>)}
             </div>
           ) : null}
