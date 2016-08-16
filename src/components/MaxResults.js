@@ -1,22 +1,22 @@
-import React from "react";
+import React from 'react';
 
-import Base from "./Base.js";
-import Components from "../constants/Components.js";
+import Base from './Base.js';
+import Components from '../constants/Components.js';
 
-export default class MaxResults extends React.Component {
-  static propTypes = {
-    maxResults: React.PropTypes.number.isRequired,
-  };
+const MaxResults = props => {
+  const { maxResults, ...others } = props;
+  return (
+    <Base
+      {...others}
+      runDefault='all'
+      componentName={Components.MAXRESULTS}
+      data={maxResults}
+    />
+  );
+};
 
-  render() {
-    const {maxResults, ...others} = this.props;
-    return (
-      <Base
-        {...others}
-        runDefault="all"
-        componentName={Components.MAXRESULTS}
-        data={maxResults}
-      />
-    );
-  }
-}
+MaxResults.propTypes = {
+  maxResults: React.PropTypes.number.isRequired,
+};
+
+export default MaxResults;

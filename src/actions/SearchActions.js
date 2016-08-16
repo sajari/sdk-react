@@ -1,13 +1,15 @@
-import Immutable from 'immutable';
+import { Map as map } from 'immutable';
 
-import { Query, body, fieldIndexBoost, countAggregate, FILTER_OP_GT_EQ, COMB_FILTER_OP_ALL, filterMetaBoost, combinatorFilter, fieldFilter } from 'sajari';
+import {
+  Query, body, fieldIndexBoost, countAggregate, FILTER_OP_GT_EQ, COMB_FILTER_OP_ALL,
+  filterMetaBoost, combinatorFilter, fieldFilter,
+} from 'sajari';
 
 import AppDispatcher from '../dispatcher/AppDispatcher.js';
 import SearchConstants from '../constants/SearchConstants.js';
 import Components from '../constants/Components.js';
 import RequestStore from '../stores/RequestStore.js';
 import NamespaceStore from '../stores/NamespaceStore.js';
-import QueryStore from '../stores/QueryStore.js';
 import ApiStore from '../stores/ApiStore.js';
 
 function dispatchSetModifier(namespace, uuid, modifier) {
@@ -77,11 +79,9 @@ builders[Components.INDEX_BOOST] = ib => (
     return r;
   }
 );
-builders[Components.TRANSFORMS] = ts => (
+builders[Components.TRANSFORM] = ts => (
   r => {
-    r.transforms = r.transforms.concat(ts.map(t => {
-      return {identifier: t};
-    }));
+    r.transforms.push(ts);
     return r;
   }
 );
@@ -109,7 +109,7 @@ function buildRequest(namespace) {
   if (req.meta_boosts) {
     v10q.metaBoosts(
       req.meta_boosts
-    )
+    );
   }
   if (req.index_boosts) {
     v10q.indexBoosts(
@@ -117,9 +117,9 @@ function buildRequest(namespace) {
     );
   }
   if (req.aggregates) {
-    const a = Immutable.Map(req.aggregates).entrySeq().map(([name, data]) => {
-      return Count(name, data.count.field);
-    }).toArray();
+    const a = map(req.aggregates).entrySeq().map(([name, data]) => (
+      countAggregate(name, data.count.field)
+    )).toArray();
     v10q.aggregates(
       a
     );
@@ -128,7 +128,7 @@ function buildRequest(namespace) {
     v10q.filter(
       combinatorFilter(
         req.filter,
-        COMB_FILTER_OP_ALL,
+        COMB_FILTER_OP_ALL
       )
     );
   }

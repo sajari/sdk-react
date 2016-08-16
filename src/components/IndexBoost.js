@@ -1,63 +1,58 @@
-import React from "react";
+import React from 'react';
+import { fieldIndexBoost, scoreIndexBoost } from 'sajari';
 
-import Base from "./Base.js";
-import Components from "../constants/Components.js";
+import Base from './Base.js';
+import Components from '../constants/Components.js';
 
-import {FieldBoost as fieldBoost, ScoreBoost as scoreBoost} from "../utils/IndexBoostUtils.js";
+const IndexBoost = props => {
+  const { data, namespace, ...others } = props;
+  return (
+    <Base
+      {...others}
+      runDefault='all'
+      componentName={Components.INDEX_BOOST}
+      data={data}
+      namespace={namespace}
+    />
+  );
+};
 
-export class IndexBoost extends React.Component {
-  static propTypes = {
-    data: React.PropTypes.object.isRequired,
-    namespace: React.PropTypes.string,
-  };
+IndexBoost.propTypes = {
+  data: React.PropTypes.object.isRequired,
+  namespace: React.PropTypes.string,
+};
 
-  render() {
-    const {data, namespace, ...others} = this.props;
-    return (
-      <Base
-        {...others}
-        runDefault="all"
-        componentName={Components.INDEX_BOOST}
-        data={data}
-        namespace={namespace}
-      />
-    );
-  }
-}
+const FieldBoost = props => {
+  const { field, value, namespace, ...others } = props;
+  return (
+    <IndexBoost
+      {...others}
+      data={fieldIndexBoost(field, value)}
+      namespace={namespace}
+    />
+  );
+};
 
-export class FieldBoost extends React.Component {
-  static propTypes = {
-    field: React.PropTypes.string.isRequired,
-    value: React.PropTypes.any.isRequired,
-    namespace: React.PropTypes.string,
-  };
+FieldBoost.propTypes = {
+  field: React.PropTypes.string.isRequired,
+  value: React.PropTypes.any.isRequired,
+  namespace: React.PropTypes.string,
+};
 
-  render() {
-    const {field, value, namespace, ...others} = this.props;
-    return (
-      <IndexBoost
-        {...others}
-        data={fieldBoost(field, value)}
-        namespace={namespace}
-      />
-    );
-  }
-}
+const ScoreBoost = props => {
+  const { threshold, namespace, ...others } = props;
+  return (
+    <IndexBoost
+      {...others}
+      data={scoreIndexBoost(threshold)}
+      namespace={namespace}
+    />
+  );
+};
 
-export class ScoreBoost extends React.Component {
-  static propTypes = {
-    threshold: React.PropTypes.number.isRequired,
-    namespace: React.PropTypes.string,
-  };
+ScoreBoost.propTypes = {
+  threshold: React.PropTypes.number.isRequired,
+  namespace: React.PropTypes.string,
+};
 
-  render() {
-    const {threshold, namespace, ...others} = this.props;
-    return (
-      <IndexBoost
-        {...others}
-        data={scoreBoost(threshold)}
-        namespace={namespace}
-      />
-    );
-  }
-}
+export { FieldBoost, ScoreBoost };

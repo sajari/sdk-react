@@ -9,7 +9,7 @@ const components = keyMirror({
   SORT: null,
   META_BOOST: null,
   INDEX_BOOST: null,
-  TRANSFORMS: null,
+  TRANSFORM: null,
   AGGREGATE: null,
 });
 

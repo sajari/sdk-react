@@ -1,22 +1,22 @@
-import React from "react";
+import React from 'react';
 
-import Base from "./Base.js";
-import Components from "../constants/Components.js";
+import Base from './Base.js';
+import Components from '../constants/Components.js';
 
-export default class Filter extends React.Component {
-  static propTypes = {
-    data: React.PropTypes.object.isRequired,
-  };
+const Filter = props => {
+  const { data, ...others } = props;
+  return (
+    <Base
+      {...others}
+      runDefault='all'
+      componentName={Components.FILTER}
+      data={data}
+    />
+  );
+};
 
-  render() {
-    const {data, ...others} = this.props;
-    return (
-      <Base
-        {...others}
-        runDefault="all"
-        componentName={Components.FILTER}
-        data={data}
-      />
-    );
-  }
-}
+Filter.propTypes = {
+  data: React.PropTypes.object.isRequired,
+};
+
+export default Filter;

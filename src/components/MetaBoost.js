@@ -1,137 +1,136 @@
-import React from "react";
-
-import Base from "./Base.js";
-import Components from "../constants/Components.js";
+import React from 'react';
 import {
-  DistanceBoost, ElementBoost, GeoBoost, IntervalBoost, Point, TextBoost, FilterBoost
-} from "../utils/MetaBoostUtils.js";
+  distanceMetaBoost, elementMetaBoost, geoMetaBoost, intervalMetaBoost,
+  textMetaBoost, filterMetaBoost,
+} from 'sajari';
 
-export class FilterMetaBoost extends React.Component {
-  render() {
-    const {filter, value, ...others} = this.props;
-    return (
-      <MetaBoost
-        {...others}
-        data={FilterBoost(filter, value)}
-      />
-    )
-  }
-}
+import Base from './Base.js';
+import Components from '../constants/Components.js';
 
-export class MetaBoost extends React.Component {
-  static propTypes = {
-    data: React.PropTypes.object.isRequired,
-    namespace: React.PropTypes.string,
-  };
+// TODO(tbillington): Use children of intervalMetaBoost as points
 
-  render() {
-    const {data, namespace, ...others} = this.props;
-    return (
-      <Base
-        {...others}
-        runDefault="all"
-        componentName={Components.META_BOOST}
-        data={data}
-        namespace={namespace}
-      />
-    );
-  }
-}
+const MetaBoost = props => {
+  const { data, namespace, ...others } = props;
+  return (
+    <Base
+      {...others}
+      runDefault='all'
+      componentName={Components.META_BOOST}
+      data={data}
+      namespace={namespace}
+    />
+  );
+};
 
-export class DistanceMetaBoost extends React.Component {
-  static propTypes = {
-    field: React.PropTypes.string.isRequired,
-    value: React.PropTypes.number.isRequired,
-    min: React.PropTypes.number.isRequired,
-    max: React.PropTypes.number.isRequired,
-    ref: React.PropTypes.number.isRequired,
-    namespace: React.PropTypes.string,
-  };
+MetaBoost.propTypes = {
+  data: React.PropTypes.object.isRequired,
+  namespace: React.PropTypes.string,
+};
 
-  render() {
-    const {field, value, min, max, ref, namespace, ...others} = this.props;
-    return (
-        <MetaBoost
-          data={DistanceBoost(min, max, ref, field, value)}
-          namespace={namespace}
-        />
-    );
-  }
-}
+const FilterMetaBoost = props => {
+  const { filter, value, ...others } = props;
+  return (
+    <MetaBoost
+      {...others}
+      data={filterMetaBoost(filter, value)}
+    />
+  );
+};
 
-export class ElementMetaBoost extends React.Component {
-  static propTypes = {
-    field: React.PropTypes.string.isRequired,
-    values: React.PropTypes.string.isRequired,
-    namespace: React.PropTypes.string,
-  };
+FilterMetaBoost.propTypes = {
+  filter: React.PropTypes.object.isRequired,
+  value: React.PropTypes.any.isRequired,
+};
 
-  render() {
-    const {field, values, namespace, ...others} = this.props;
-    return (
-        <MetaBoost
-          data={ElementBoost(field, values)}
-          namespace={namespace}
-        />
-    );
-  }
-}
+const DistanceMetaBoost = props => {
+  const { field, value, min, max, ref, namespace, ...others } = props;
+  return (
+    <MetaBoost
+      {...others}
+      data={distanceMetaBoost(min, max, ref, field, value)}
+      namespace={namespace}
+    />
+  );
+};
 
-export class GeoMetaBoost extends React.Component {
-  static propTypes = {
-    fieldLat: React.PropTypes.string.isRequired,
-    fieldLng: React.PropTypes.string.isRequired,
-    lat: React.PropTypes.number.isRequired,
-    lng: React.PropTypes.number.isRequired,
-    radius: React.PropTypes.number.isRequired,
-    value: React.PropTypes.number.isRequired,
-    region: React.PropTypes.string.isRequired,
-    namespace: React.PropTypes.string,
-  };
+DistanceMetaBoost.propTypes = {
+  field: React.PropTypes.string.isRequired,
+  value: React.PropTypes.number.isRequired,
+  min: React.PropTypes.number.isRequired,
+  max: React.PropTypes.number.isRequired,
+  ref: React.PropTypes.number.isRequired,
+  namespace: React.PropTypes.string,
+};
 
-  render() {
-    const {fieldLat, fieldLng, lat, lng, radius, value, region, namespace, ...others} = this.props;
-    return (
-        <MetaBoost
-          data={GeoBoost(fieldLat, fieldLng, lat, lng, radius, value, region)}
-          namespace={namespace}
-        />
-    );
-  }
-}
+const ElementMetaBoost = props => {
+  const { field, values, namespace, ...others } = props;
+  return (
+    <MetaBoost
+      {...others}
+      data={elementMetaBoost(field, values)}
+      namespace={namespace}
+    />
+  );
+};
 
-export class IntervalMetaBoost extends React.Component {
-  static propTypes = {
-    field: React.PropTypes.string.isRequired,
-    points: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-    namespace: React.PropTypes.string,
-  };
+ElementMetaBoost.propTypes = {
+  field: React.PropTypes.string.isRequired,
+  values: React.PropTypes.string.isRequired,
+  namespace: React.PropTypes.string,
+};
 
-  render() {
-    const {field, points, namespace, ...others} = this.props;
-    return (
-        <MetaBoost
-          data={IntervalBoost(field, points)}
-          namespace={namespace}
-        />
-    );
-  }
-}
+const GeoMetaBoost = props => {
+  const { fieldLat, fieldLng, lat, lng, radius, value, region, namespace, ...others } = props;
+  return (
+    <MetaBoost
+      {...others}
+      data={geoMetaBoost(fieldLat, fieldLng, lat, lng, radius, value, region)}
+      namespace={namespace}
+    />
+  );
+};
 
-export class TextMetaBoost extends React.Component {
-  static propTypes = {
-    field: React.PropTypes.string.isRequired,
-    text: React.PropTypes.string.isRequired,
-    namespace: React.PropTypes.string,
-  };
+GeoMetaBoost.propTypes = {
+  fieldLat: React.PropTypes.string.isRequired,
+  fieldLng: React.PropTypes.string.isRequired,
+  lat: React.PropTypes.number.isRequired,
+  lng: React.PropTypes.number.isRequired,
+  radius: React.PropTypes.number.isRequired,
+  value: React.PropTypes.number.isRequired,
+  region: React.PropTypes.string.isRequired,
+  namespace: React.PropTypes.string,
+};
 
-  render() {
-    const {field, text, namespace, ...others} = this.props;
-    return (
-      <MetaBoost
-        data={TextBoost(field, text)}
-        namespace={namespace}
-      />
-    );
-  }
-}
+const IntervalMetaBoost = props => {
+  const { field, points, namespace, ...others } = props;
+  return (
+    <MetaBoost
+      {...others}
+      data={intervalMetaBoost(field, points)}
+      namespace={namespace}
+    />
+  );
+};
+
+IntervalMetaBoost.propTypes = {
+  field: React.PropTypes.string.isRequired,
+  points: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+  namespace: React.PropTypes.string,
+};
+
+const TextMetaBoost = props => {
+  const { field, text, namespace, ...others } = props;
+  return (
+    <MetaBoost
+      {...others}
+      data={textMetaBoost(field, text)}
+      namespace={namespace}
+    />
+  );
+};
+
+TextMetaBoost.propTypes = {
+  field: React.PropTypes.string.isRequired,
+  text: React.PropTypes.string.isRequired,
+  namespace: React.PropTypes.string,
+};

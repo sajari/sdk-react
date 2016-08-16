@@ -1,22 +1,23 @@
-import React from "react";
+import React from 'react';
+import { transform as transformBuilder } from 'sajari';
 
-import Base from "./Base.js";
-import Components from "../constants/Components.js";
+import Base from './Base.js';
+import Components from '../constants/Components.js';
 
-export default class Transforms extends React.Component {
-  static propTypes = {
-    transforms: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-  };
+const Transform = props => {
+  const { transform, ...others } = props;
+  return (
+    <Base
+      {...others}
+      runDefault='update'
+      componentName={Components.TRANSFORM}
+      data={transformBuilder(transform)}
+    />
+  );
+};
 
-  render() {
-    const {transforms, ...others} = this.props;
-    return (
-      <Base
-        {...others}
-        runDefault="update"
-        componentName={Components.TRANSFORMS}
-        data={transforms}
-      />
-    );
-  }
-}
+Transform.propTypes = {
+  transform: React.PropTypes.React.PropTypes.string.isRequired,
+};
+
+export default Transform;
