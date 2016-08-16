@@ -2,7 +2,7 @@ import React from 'react';
 import { sort } from 'sajari';
 
 import Base from './Base.js';
-import Components from '../constants/Components.js';
+import Components from '../constants/QueryComponentConstants.js';
 
 const Sort = props => {
   const { field, ord, ...others } = props;

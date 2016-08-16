@@ -5,7 +5,7 @@ import {
 } from 'sajari';
 
 import Base from './Base.js';
-import Components from '../constants/Components.js';
+import Components from '../constants/QueryComponentConstants.js';
 
 // TODO(tbillington): Use children of intervalMetaBoost as points
 

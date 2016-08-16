@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Base from './Base.js';
-import Components from '../constants/Components.js';
+import Components from '../constants/QueryComponentConstants.js';
 
 const Fields = props => {
   const { fields, ...others } = props;

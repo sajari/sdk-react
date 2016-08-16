@@ -2,7 +2,7 @@ import React from 'react';
 import uuid from 'uuid';
 
 import SearchActions from '../actions/SearchActions.js';
-import Components from '../constants/Components.js';
+import Components from '../constants/QueryComponentConstants.js';
 
 class Base extends React.Component {
   constructor(props) {

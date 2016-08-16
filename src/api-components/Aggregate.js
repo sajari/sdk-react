@@ -2,7 +2,7 @@ import React from 'react';
 import { bucketAggregate, countAggregate, metricAggregate } from 'sajari';
 
 import Base from './Base.js';
-import Components from '../constants/Components.js';
+import Components from '../constants/QueryComponentConstants.js';
 
 const Aggregate = props => {
   const { data, namespace, ...others } = props;

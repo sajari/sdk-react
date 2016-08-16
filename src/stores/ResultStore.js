@@ -1,11 +1,10 @@
 import { fromJS, List as list } from 'immutable';
+import equal from 'deep-equal';
 
 import { ChangeEmitter } from '../utils/ChangeEmitter.js';
 import AppDispatcher from '../dispatcher/AppDispatcher';
 import SearchConstants from '../constants/SearchConstants.js';
 import RequestStore from './RequestStore.js';
-import SearchActions from '../actions/SearchActions.js';
-import equal from 'deep-equal';
 
 const nameDefault = 'default';
 

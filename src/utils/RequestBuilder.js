@@ -1,4 +1,4 @@
-import Components from '../constants/Components.js';
+import Components from '../constants/QueryComponentConstants.js';
 
 const {
   AGGREGATE, BODY, FIELDS, FILTER, INDEX_BOOST, MAXRESULTS, META_BOOST, PAGE, SORT, TRANSFORM,

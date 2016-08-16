@@ -4,7 +4,7 @@ import { Query, COMB_FILTER_OP_ALL, combinatorFilter } from 'sajari';
 
 import AppDispatcher from '../dispatcher/AppDispatcher.js';
 import SearchConstants from '../constants/SearchConstants.js';
-import Components from '../constants/Components.js';
+import Components from '../constants/QueryComponentConstants.js';
 import RequestStore from '../stores/RequestStore.js';
 import NamespaceStore from '../stores/NamespaceStore.js';
 import ApiStore from '../stores/ApiStore.js';
