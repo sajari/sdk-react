@@ -1,37 +1,40 @@
-import React from "react";
+import React from 'react';
 
-import Sort from "../components/Sort.js";
+import Sort from '../components/Sort.js';
 
-export default class SortSelect extends React.Component {
-  static propTypes = {options: React.PropTypes.arrayOf(React.PropTypes.object).isRequired};
-
+class SortSelect extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      sort: 0,
-    };
-
+    this.state = { sort: 0 };
     this.onSortChange = this.onSortChange.bind(this);
   }
 
   onSortChange(evt) {
-    this.setState({sort: Number(evt.target.value)});
+    this.setState({ sort: Number(evt.target.value) });
   }
 
   render() {
-    const options = this.props.options.map((n, i) => {
-      return <option key={i} value={i}>{`${n.field} ${n.ord}`}</option>;
-    });
+    const { options, ...others } = this.props;
+
+    const optionElements = options.map((n, i) => (
+      <option key={i} value={i}>{`${n.field} ${n.ord}`}</option>
+    ));
+
     return (
-      <div>
-        <select value={this.state.sort} onChange={this.onSortChange}>
-          {options}
-        </select>
+      <select value={this.state.sort} onChange={this.onSortChange}>
+        {optionElements}
         <Sort
-          field={this.props.options[this.state.sort].field}
-          ord={this.props.options[this.state.sort].ord}
+          {...others}
+          field={options[this.state.sort].field}
+          ord={options[this.state.sort].ord}
         />
-      </div>
+      </select>
     );
   }
 }
+
+SortSelect.propTypes = {
+  options: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
+};
+
+export default SortSelect;

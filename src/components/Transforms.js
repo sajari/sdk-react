@@ -17,7 +17,7 @@ const Transform = props => {
 };
 
 Transform.propTypes = {
-  transform: React.PropTypes.React.PropTypes.string.isRequired,
+  transform: React.PropTypes.string.isRequired,
 };
 
 export default Transform;

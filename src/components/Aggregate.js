@@ -1,22 +1,19 @@
 import React from 'react';
-import { bucketAggregate } from 'sajari';
+import { bucketAggregate, countAggregate, metricAggregate } from 'sajari';
 
 import Base from './Base.js';
 import Components from '../constants/Components.js';
-import {
-  CountAggregate as countAggregate, MetricAggregate as metricAggregate,
-} from '../utils/AggregateUtils.js';
 
 export { Bucket } from '../utils/AggregateUtils.js';
 
 const Aggregate = props => {
-  const { name, data, namespace, ...others } = props;
+  const { data, namespace, ...others } = props;
   return (
     <Base
       {...others}
       runDefault='all'
       componentName={Components.AGGREGATE}
-      data={{ name, data }}
+      data={data}
       namespace={namespace}
     />
   );
@@ -51,8 +48,7 @@ const CountAggregate = props => {
   return (
     <Aggregate
       {...others}
-      name={name}
-      data={countAggregate(field)}
+      data={countAggregate(name, field)}
       namespace={namespace}
     />
   );

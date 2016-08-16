@@ -21,11 +21,9 @@ Body.propTypes = {
   weight: React.PropTypes.number,
 };
 
-Body.getDefaultProps = () => (
-  {
-    body: '',
-    weight: 1,
-  }
-);
+Body.defaultProps = {
+  body: '',
+  weight: 1,
+};
 
 export default Body;

@@ -1,60 +1,60 @@
-import React from "react";
+import React from 'react';
+import { fieldFilter } from 'sajari';
 
-import Filter from "../components/Filter.js";
+import Filter from '../components/Filter.js';
 
-import {FieldFilter} from "../utils/FilterUtils.js";
-
-function defaultOption(label) {
-  return (
-    <option key={-1} value={-1}></option>
-  );
+function defaultOption() {
+  return <option key={-1} value={-1} />;
 }
 
-export default class FilterSelect extends React.Component {
-  static propTypes = {
-    options: React.PropTypes.arrayOf(React.PropTypes.shape({
-      field: React.PropTypes.string,
-      op: React.PropTypes.string,
-      value: React.PropTypes.string,
-    })).isRequired,
-    namespace: React.PropTypes.string,
-  };
-
+class FilterSelect extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {filter: -1};
-
+    this.state = { filter: -1 };
     this.onFilterChange = this.onFilterChange.bind(this);
   }
 
   onFilterChange(evt) {
-    this.setState({filter: Number(evt.target.value)});
+    this.setState({ filter: Number(evt.target.value) });
   }
 
   render() {
-    const {namespace, ...others} = this.props;
-    const options = [defaultOption()].concat(this.props.options.map((n, i) => {
-      return <option key={i} value={i}>{n.value}</option>;
-    }));
+    const { namespace, ...others } = this.props;
+
+    const options = [defaultOption()].concat(
+      this.props.options.map((n, i) => (
+        <option key={i} value={i}>{n.value}</option>
+      ))
+    );
 
     const filter = this.state.filter >= 0 ? (
       <Filter
+        {...others}
         namesapce={namespace}
-        data={FieldFilter(
+        data={fieldFilter(
           this.props.options[this.state.filter].field,
           this.props.options[this.state.filter].op,
-          this.props.options[this.state.filter].value,
+          this.props.options[this.state.filter].value
         )}
       />
     ) : null;
 
     return (
-      <div>
-        <select value={this.state.filter} onChange={this.onFilterChange}>
-          {options}
-        </select>
+      <select value={this.state.filter} onChange={this.onFilterChange}>
+        {options}
         {filter}
-      </div>
+      </select>
     );
   }
 }
+
+FilterSelect.propTypes = {
+  options: React.PropTypes.arrayOf(React.PropTypes.shape({
+    field: React.PropTypes.string,
+    op: React.PropTypes.string,
+    value: React.PropTypes.string,
+  })).isRequired,
+  namespace: React.PropTypes.string,
+};
+
+export default FilterSelect;

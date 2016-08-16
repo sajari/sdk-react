@@ -14,13 +14,10 @@ export Transforms from './components/Transforms.js';
 export Run from './components/Run.js';
 
 // Premade, bare-bones html elements wrapping api components
-export BodyText from './uicomponents/BodyText.js';
+export BodyInput from './uicomponents/BodyInput.js';
 export FilterSelect from './uicomponents/FilterSelect.js';
 export MaxResultsSelect from './uicomponents/MaxResultsSelect.js';
 export Pagination from './uicomponents/Pagination.js';
 export RequestPreview from './uicomponents/RequestPreview.js';
 export ResultRenderer from './uicomponents/ResultRenderer.js';
 export SortSelect from './uicomponents/SortSelect.js';
-
-// Filter constructors
-export {Any, All, None, One, FieldFilter} from './utils/FilterUtils.js';

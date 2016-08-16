@@ -9,25 +9,25 @@ let data = map({
 });
 
 function requestBase() {
-  return {
-    body: [],
-    terms: [],
-    filter: [],
-    meta_boosts: [],
-    index_boosts: [],
+  return map({
+    body: list(),
+    terms: list(),
+    filters: list(),
+    meta_boosts: list(),
+    index_boosts: list(),
     page: 1,
-    max_results: 20,
-    fields: [],
-    sort: [],
-    aggregates: {},
-    transforms: [],
-  };
+    max_results: 10,
+    fields: list(),
+    sorts: list(),
+    aggregates: list(),
+    transforms: list(),
+  });
 }
 
 function buildRequest(namespace) {
   return data.get(namespace).reduce((r, t) => (
     t.modifier(r)
-  ), requestBase());
+  ), requestBase()).toJS();
 }
 
 class RequestStore extends ChangeEmitter {
