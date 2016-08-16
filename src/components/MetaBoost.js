@@ -134,3 +134,8 @@ TextMetaBoost.propTypes = {
   text: React.PropTypes.string.isRequired,
   namespace: React.PropTypes.string,
 };
+
+export {
+  IntervalMetaBoost, TextMetaBoost, GeoMetaBoost, ElementMetaBoost, DistanceMetaBoost,
+  FilterMetaBoost,
+};

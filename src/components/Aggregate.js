@@ -4,8 +4,6 @@ import { bucketAggregate, countAggregate, metricAggregate } from 'sajari';
 import Base from './Base.js';
 import Components from '../constants/Components.js';
 
-export { Bucket } from '../utils/AggregateUtils.js';
-
 const Aggregate = props => {
   const { data, namespace, ...others } = props;
   return (
@@ -20,8 +18,7 @@ const Aggregate = props => {
 };
 
 Aggregate.propTypes = {
-  name: React.PropTypes.string.isRequired,
-  data: React.PropTypes.object.isRequired,
+  data: React.PropTypes.any.isRequired,
   namespace: React.PropTypes.string,
 };
 
@@ -30,8 +27,7 @@ const BucketAggregate = props => {
   return (
     <Aggregate
       {...others}
-      name={name}
-      data={bucketAggregate(buckets)}
+      data={bucketAggregate(name, buckets)}
       namespace={namespace}
     />
   );
@@ -65,8 +61,7 @@ const MetricAggregate = props => {
   return (
     <Aggregate
       {...others}
-      name={name}
-      data={metricAggregate(field, type)}
+      data={metricAggregate(name, field, type)}
       namespace={namespace}
     />
   );

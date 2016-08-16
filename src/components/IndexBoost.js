@@ -22,7 +22,7 @@ IndexBoost.propTypes = {
   namespace: React.PropTypes.string,
 };
 
-const FieldBoost = props => {
+const FieldIndexBoost = props => {
   const { field, value, namespace, ...others } = props;
   return (
     <IndexBoost
@@ -33,13 +33,13 @@ const FieldBoost = props => {
   );
 };
 
-FieldBoost.propTypes = {
+FieldIndexBoost.propTypes = {
   field: React.PropTypes.string.isRequired,
   value: React.PropTypes.any.isRequired,
   namespace: React.PropTypes.string,
 };
 
-const ScoreBoost = props => {
+const ScoreIndexBoost = props => {
   const { threshold, namespace, ...others } = props;
   return (
     <IndexBoost
@@ -50,9 +50,9 @@ const ScoreBoost = props => {
   );
 };
 
-ScoreBoost.propTypes = {
+ScoreIndexBoost.propTypes = {
   threshold: React.PropTypes.number.isRequired,
   namespace: React.PropTypes.string,
 };
 
-export { FieldBoost, ScoreBoost };
+export { FieldIndexBoost, ScoreIndexBoost };
