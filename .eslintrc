@@ -1,3 +1,14 @@
 {
-  "extends": "airbnb"
+  "extends": "airbnb",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "ecmaVersion": 7,
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "rules": {
+    "react/jsx-filename-extension": 0,
+    "jsx-quotes": 0
+  }
 }
