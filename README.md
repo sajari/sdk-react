@@ -10,6 +10,8 @@ If you're looking for the regular javascript library, see [here](https://github.
  * [ResultsPerPage](#resultsperpage)
  * [Fields](#fields)
  * [RegisterNamespace](#registernamespace)
+ * [ResultInjector](#resultinjector)
+ * [Filter](#filter)
  
  [UI Components](#ui-components)
 
@@ -57,5 +59,23 @@ Registeres your project and collection with a namespace.
 | project | string | Yes | none | The name of your project |
 | collection | string | Yes | none | The name of your collection |
 | namespace | string | No | `'default'` | The name to assign to the project-collection pair |
+
+### ResultInjector
+
+The result injector listens for results from queries and passes them as props to it's children. Use this component to get the results of queries to your components. It will automaticaly update it's childrens props when new results come in.
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| namespace | string \| string array | Yes | none | The namespace(s) to use as the source of the results |
+
+### Filter
+
+The Filter component adds a [filter](https://github.com/sajari/sajari-sdk-js-10#filter) to the query. Filters operate on fields and the values within them, and can be combined to produce complex logic.
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| data | [filter](https://github.com/sajari/sajari-sdk-js-10#filter) | Yes | none | The filter to be applied |
+
+
 
 ## UI Components
