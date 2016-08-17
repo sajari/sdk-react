@@ -13,7 +13,7 @@ If you're looking for the regular javascript library, see [here](https://github.
  * [ResultInjector](#resultinjector)
  * [Filter](#filter)
  
- [UI Components](#ui-components)
+[UI Components](#ui-components)
 
 ## Api Components
 
