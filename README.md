@@ -4,7 +4,9 @@ React provides a simple and elegant way to structure your applications view. The
 
 If you're looking for the regular javascript library, see [here](https://github.com/sajari/sajari-sdk-js/).
 
- [Api Components](#api-components)
+[Example](#example)
+
+[Api Components](#api-components)
  * [Body](#body)
  * [Page](#page)
  * [ResultsPerPage](#resultsperpage)
@@ -14,6 +16,25 @@ If you're looking for the regular javascript library, see [here](https://github.
  * [Filter](#filter)
  
 [UI Components](#ui-components)
+ * [BodyInput](#bodyinput)
+
+## Example
+
+```jsx
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <RegisterNamespace project'bobstools' collection='inventory' />
+        <BodyInput />
+        <ResultInjector>
+          <ResultRenderer />
+        </ResultInjector>
+      </div>
+    );
+  }
+}
+```
 
 ## Api Components
 
@@ -26,7 +47,7 @@ The Body component adds a text body to a search query. It can also take a weight
 | body | string | Yes | `''` | The text to search for |
 | weight | number | No | `1` | The weighting to give the body in the query |
 
-```javascript
+```jsx
 <Body body="red computer parts" weight={1} />
 ```
 
@@ -38,7 +59,7 @@ The Page components sets which page of the search results to use.
 | :-- | :-: | :-: | :-:  | :-- |
 | page | number | Yes | `1` | The page of results to fetch |
 
-```javascript
+```jsx
 <Page page={5} />
 ```
 
@@ -50,7 +71,7 @@ The number of results to return per page.
 | :-- | :-: | :-: | :-:  | :-- |
 | results | number | Yes | `10` | The number of results to return per page |
 
-```javascript
+```jsx
 <ResultsPerPage results={20} />
 ```
 
@@ -62,7 +83,7 @@ The fields of the document to fetch. Restricting this to only the fields you are
 | :-- | :-: | :-: | :-:  | :-- |
 | fields | string array | Yes | none | The fields to return for each result |
 
-```javascript
+```jsx
 <Fields fields={['_id', 'url', 'description']} />
 ```
 
@@ -76,7 +97,7 @@ Registeres your project and collection with a namespace.
 | collection | string | Yes | none | The name of your collection |
 | namespace | string | No | `'default'` | The name to assign to the project-collection pair |
 
-```javascript
+```jsx
 <RegisterNamespace project='myproject' collection='mycollection' />
 ```
 
@@ -88,7 +109,7 @@ The result injector listens for results from queries and passes them as props to
 | :-- | :-: | :-: | :-:  | :-- |
 | namespace | string \| string array | No | `'default'` | The namespace(s) to use as the source of the results |
 
-```javascript
+```jsx
 <ResultInjector>
   <MyResultsRenderer />
 </ResultInjector>
@@ -102,8 +123,21 @@ The Filter component adds a [filter](https://github.com/sajari/sajari-sdk-js-10#
 | :-- | :-: | :-: | :-:  | :-- |
 | data | [filter](https://github.com/sajari/sajari-sdk-js-10#filter) | Yes | none | The filter to be applied |
 
-```javascript
+```jsx
 <Filter data={fieldFilter('price', 100, FILTER_OP_LT)} />
 ```
 
 ## UI Components
+
+### BodyInput
+
+The BodyInput component renders an `<input>` html element and a [body](#body) component. The value of the body component is taken from the input element. This is a barebones premade element made to demonstrate how to link html elements and api components. Looking at the code of this example is a good way to learn how to make your own components that combine html and api components.
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| body | string | No | `''` | The initial value of the input element |
+| namespace | string \| string array | No | `'default'` | The namespace(s) to apply the body to |
+
+```jsx
+<BodyInput />
+```
