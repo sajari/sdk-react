@@ -23,6 +23,10 @@ If you're looking for the vanilla javascript library, see [here](https://github.
   * [RegisterNamespace](#registernamespace)
   * [ResultInjector](#resultinjector)
   * [Filter](#filter)
+  * [Aggregates](#aggregates)
+    * [BucketAggregate](#bucketaggregate)
+    * [CountAggregate](#countaggregate)
+    * [MetricAggregate](#metricaggregate)
 * [UI Components](#ui-components)
   * [BodyInput](#bodyinput)
 * [License](#license)
@@ -40,10 +44,19 @@ npm install --save sajari-sdk-react
 
 ## Getting Started
 
+Here is a barebones use of the library.
+
+- The project and collections is registered to the `default` namespace
+- An `<input>` element is rendered, with it's value being linked to the body of the query
+- The results of the query are injected into `ResultRenderer`
+- `ResultRenderer` renders the results into HTML
+
 ```jsx
+import { RegisterNamespace, BodyInput, ResultInjector, ResultRenderer } from 'sajari-sdk-react'
+
 const App = () => (
   <div>
-    <RegisterNamespace project'bobstools' collection='inventory' />
+    <RegisterNamespace project='bobstools' collection='inventory' />
     <BodyInput />
     <ResultInjector>
       <ResultRenderer />
@@ -54,7 +67,9 @@ const App = () => (
 
 ## API Components
 
-API Components are easily composable React Components which allow you to configure your search query. By themselves they do not render any html. You can think of them as rendering parts of your query instead.
+API Components are easily composable React Components which allow you to configure your search query in a declaritive fashion. By themselves they do not render any html. You can think of them as rendering parts of your query instead. Your query will always reflect the state of these components.
+
+If no namespace is specified, all API components will use the `default` namespace.
 
 ### Body
 
@@ -145,6 +160,52 @@ The Filter component adds a [filter](https://github.com/sajari/sajari-sdk-js-10#
 <Filter data={fieldFilter('price', 100, FILTER_OP_LT)} />
 ```
 
+### Aggregates
+
+Aggregates return data about your query.
+
+#### BucketAggregate
+
+BucketAggregate aggregates into buckets whose values are determined by a filter.
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| name | string | Yes | none | The name to give the aggregate, this is how you identify it in the results |
+| buckets | [bucket array](https://github.com/sajari/sajari-sdk-js-10#bucket-example) | Yes | none | The buckets of data to aggregate
+
+```jsx
+<BucketAggregate name='priceGroups' data={[
+  bucket('under100', fieldFilter('price', 100, FILTER_OP_LT))
+]} />
+```
+
+#### CountAggregate
+
+CountAggregate counts all of the unique values for a particular field in a set of query results.
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| name | string | Yes | none | The name to give the aggregate, this is how you identify it in the results |
+| field | string | Yes | none | The field to aggregate the values from |
+
+```jsx
+<CountAggregate name='count' field='name' />
+```
+
+#### MetricAggregate
+
+MetricAggregate performs metrics over the data in a field. The options are available [here](https://github.com/sajari/sajari-sdk-js-10#aggregates).
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| name | string | Yes | none | The name to give the aggregate, this is how you identify it in the results |
+| field | string | Yes | none | The field to aggregate the values from |
+| type | [enum](https://github.com/sajari/sajari-sdk-js-10#aggregates) | Yes | none | The metric to measure |
+
+```jsx
+<MetricAggregate name='averagePrice' field='price' type={METRIC_TYPE_AVG} />
+```
+
 ## UI Components
 
 ### BodyInput
@@ -166,4 +227,4 @@ We use the [MIT license](./LICENSE)
 
 ## Browser Support
 
-The browser support is dependent on the React library, which currently supports recent versions of Chrome, Firefox, Sajari, Opera, and IE9+.
+The browser support is dependent on the React library, which currently supports recent versions of Chrome, Firefox, Sajari, Opera, and IE9+. (17/8/2016)
