@@ -1,42 +1,60 @@
 # Sajari React SDK
 
-React provides a simple and elegant way to structure your applications view. The Sajari React SDK provides a way to seemlessly integrate Sajari search and recommendations into your existing react app through the use of components.
+![npm](https://npmjs.org/package/sajari-sdk-react) ![license](http://img.shields.io/badge/license-MIT-green.svg?style=flat-square)
 
-If you're looking for the regular javascript library, see [here](https://github.com/sajari/sajari-sdk-js/).
+**sajari-react-sdk** is a library of React Components for the [Sajari](https://www.sajari.com) search platform that helps you build fast and powerful live search interfaces.
 
-[Example](#example)
+React provides a simple and elegant way to structure your applications view. The Sajari React SDK provides a way to seemlessly integrate the Sajari patform into your new or existing React app through the use of easily composable Components.
 
-[Api Components](#api-components)
- * [Body](#body)
- * [Page](#page)
- * [ResultsPerPage](#resultsperpage)
- * [Fields](#fields)
- * [RegisterNamespace](#registernamespace)
- * [ResultInjector](#resultinjector)
- * [Filter](#filter)
- 
-[UI Components](#ui-components)
- * [BodyInput](#bodyinput)
+If you're looking for the vanilla javascript library, see [here](https://github.com/sajari/sajari-sdk-js/).
 
-## Example
 
-```jsx
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <RegisterNamespace project'bobstools' collection='inventory' />
-        <BodyInput />
-        <ResultInjector>
-          <ResultRenderer />
-        </ResultInjector>
-      </div>
-    );
-  }
-}
+## Table of Contents
+
+* [Setup](setup)
+  * [Browser](#browser)
+  * [NPM, browserify, webpack]()
+* [Getting started](#getting-started)
+* [API Components](#api-components)
+  * [Body](#body)
+  * [Page](#page)
+  * [ResultsPerPage](#resultsperpage)
+  * [Fields](#fields)
+  * [RegisterNamespace](#registernamespace)
+  * [ResultInjector](#resultinjector)
+  * [Filter](#filter)
+* [UI Components](#ui-components)
+  * [BodyInput](#bodyinput)
+* [License](#license)
+* [Browser Support](#browser-support)
+
+## Setup
+
+### Browser
+
+### NPM, Browserify, webpack
+
+```
+npm install --save sajari-sdk-react
 ```
 
-## Api Components
+## Getting Started
+
+```jsx
+const App = () => (
+  <div>
+    <RegisterNamespace project'bobstools' collection='inventory' />
+    <BodyInput />
+    <ResultInjector>
+      <ResultRenderer />
+    </ResultInjector>
+  </div>
+)
+```
+
+## API Components
+
+API Components are easily composable React Components which allow you to configure your search query. By themselves they do not render any html. You can think of them as rendering parts of your query instead.
 
 ### Body
 
