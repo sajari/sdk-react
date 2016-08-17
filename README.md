@@ -159,3 +159,11 @@ The BodyInput component renders an `<input>` html element and a [body](#body) co
 ```jsx
 <BodyInput />
 ```
+
+## License
+
+We use the [MIT license](./LICENSE)
+
+## Browser Support
+
+The browser support is dependent on the React library, which currently supports recent versions of Chrome, Firefox, Sajari, Opera, and IE9+.
