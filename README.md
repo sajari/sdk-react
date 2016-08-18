@@ -11,9 +11,9 @@ If you're looking for the vanilla javascript library, see [here](https://github.
 
 ## Table of Contents
 
-* [Setup](setup)
+* [Setup](#setup)
   * [Browser](#browser)
-  * [NPM, browserify, webpack]()
+  * [NPM, Browserify, webpack](#npm-browserify-webpack)
 * [Getting started](#getting-started)
 * [API Components](#api-components)
   * [Body](#body)
