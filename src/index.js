@@ -25,11 +25,3 @@ export ResultsPerPage from './api-components/ResultsPerPage.js';
 export Run from './api-components/Run.js';
 export Sort from './api-components/Sort.js';
 export Transform from './api-components/Transform.js';
-
-export BodyInput from './ui-components/BodyInput.js';
-export FilterSelect from './ui-components/FilterSelect.js';
-export ResultsPerPageSelect from './ui-components/ResultsPerPageSelect.js';
-export Pagination from './ui-components/Pagination.js';
-export RequestPreview from './ui-components/RequestPreview.js';
-export ResultRenderer from './ui-components/ResultRenderer.js';
-export SortSelect from './ui-components/SortSelect.js';
