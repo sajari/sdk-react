@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Page from '../components/Page.js';
+import Page from '../api-components/Page.js';
 import RequestStore from '../stores/RequestStore.js';
 import pageRange from '../utils/PageRange.js';
 

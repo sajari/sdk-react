@@ -1,10 +1,7 @@
-import { Map as map } from 'immutable';
-
 import { Query, COMB_FILTER_OP_ALL, combinatorFilter } from 'sajari';
 
 import AppDispatcher from '../dispatcher/AppDispatcher.js';
 import SearchConstants from '../constants/SearchConstants.js';
-import Components from '../constants/QueryComponentConstants.js';
 import RequestStore from '../stores/RequestStore.js';
 import NamespaceStore from '../stores/NamespaceStore.js';
 import ApiStore from '../stores/ApiStore.js';
@@ -92,8 +89,8 @@ const SearchActions = {
     const namespaces = typeof namespace === 'string' ? [namespace] : namespace;
 
     namespaces.forEach(n => {
-      dispatchSetModifier(namespace, uuid, Builders[componentName](data));
-    })
+      dispatchSetModifier(n, uuid, Builders[componentName](data));
+    });
   },
 
   remove(namespace, uuid, componentName) {

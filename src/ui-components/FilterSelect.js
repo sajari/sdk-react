@@ -1,7 +1,7 @@
 import React from 'react';
 import { fieldFilter } from 'sajari';
 
-import Filter from '../components/Filter.js';
+import Filter from '../api-components/Filter.js';
 
 function defaultOption() {
   return <option key={-1} value={-1} />;

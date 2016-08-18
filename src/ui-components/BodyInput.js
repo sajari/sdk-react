@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Body from '../components/Body.js';
+import Body from '../api-components/Body.js';
 
 class BodyInput extends React.Component {
   constructor(props) {

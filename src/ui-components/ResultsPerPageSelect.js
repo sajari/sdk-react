@@ -1,8 +1,8 @@
 import React from 'react';
 
-import MaxResults from '../components/MaxResults.js';
+import ResultsPerPage from '../api-components/ResultsPerPage.js';
 
-class MaxResultsSelect extends React.Component {
+class ResultsPerPageSelect extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,7 +29,7 @@ class MaxResultsSelect extends React.Component {
         onChange={this.onMaxResultsChange}
       >
         {optionElements}
-        <MaxResults
+        <ResultsPerPage
           {...others}
           namespace={namespace}
           maxResults={this.state.maxResults}
@@ -39,14 +39,14 @@ class MaxResultsSelect extends React.Component {
   }
 }
 
-MaxResultsSelect.propTypes = {
+ResultsPerPageSelect.propTypes = {
   options: React.PropTypes.arrayOf(React.PropTypes.number).isRequired,
   namespace: React.PropTypes.string,
 };
 
-MaxResultsSelect.defaultProps = {
+ResultsPerPageSelect.defaultProps = {
   options: [5, 10, 20, 50],
   namespace: 'default',
 };
 
-export default MaxResultsSelect;
+export default ResultsPerPageSelect;

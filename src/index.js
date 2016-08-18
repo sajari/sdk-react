@@ -1,38 +1,35 @@
-// Api components
-import { Aggregate, BucketAggregate, CountAggregate, MetricAggregate } from './api-components/Aggregate.js';
-import Body from './api-components/Body.js';
-import Fields from './api-components/Fields.js';
-import Filter from './api-components/Filter.js';
-import { FieldIndexBoost, ScoreIndexBoost } from './api-components/IndexBoost.js';
-import { DistanceMetaBoost, ElementMetaBoost, GeoMetaBoost, IntervalMetaBoost, TextMetaBoost, FilterMetaBoost } from './api-components/MetaBoost.js';
-import MaxResults from './api-components/MaxResults.js';
-import Page from './api-components/Page.js';
-import RegisterNamespace from './api-components/RegisterNamespace.js';
-import ResultInjector from './api-components/ResultInjector.js';
-import Sort from './api-components/Sort.js';
-import Transform from './api-components/Transform.js';
-import Run from './api-components/Run.js';
-
-// Premade, bare-bones html elements wrapping api components
-import BodyInput from './ui-components/BodyInput.js';
-import FilterSelect from './ui-components/FilterSelect.js';
-import MaxResultsSelect from './ui-components/MaxResultsSelect.js';
-import Pagination from './ui-components/Pagination.js';
-import RequestPreview from './ui-components/RequestPreview.js';
-import ResultRenderer from './ui-components/ResultRenderer.js';
-import SortSelect from './ui-components/SortSelect.js';
-
-const SearchComponents = {
-  Aggregate, BucketAggregate, CountAggregate, MetricAggregate,
-  Body, Fields, Filter,
-  FieldIndexBoost, ScoreIndexBoost,
-  DistanceMetaBoost, ElementMetaBoost, GeoMetaBoost, IntervalMetaBoost, TextMetaBoost,
+export {
+  BucketAggregate,
+  CountAggregate,
+  MetricAggregate,
+} from './api-components/Aggregate.js';
+export Body from './api-components/Body.js';
+export Fields from './api-components/Fields.js';
+export Filter from './api-components/Filter.js';
+export {
+  FieldIndexBoost,
+  ScoreIndexBoost,
+} from './api-components/IndexBoost.js';
+export {
+  DistanceMetaBoost,
+  ElementMetaBoost,
+  GeoMetaBoost,
+  IntervalMetaBoost,
+  TextMetaBoost,
   FilterMetaBoost,
-  MaxResults, Page, RegisterNamespace, ResultInjector, Sort, Transform, Run,
-};
+} from './api-components/MetaBoost.js';
+export Page from './api-components/Page.js';
+export RegisterNamespace from './api-components/RegisterNamespace.js';
+export ResultInjector from './api-components/ResultInjector.js';
+export ResultsPerPage from './api-components/ResultsPerPage.js';
+export Run from './api-components/Run.js';
+export Sort from './api-components/Sort.js';
+export Transform from './api-components/Transform.js';
 
-const UIComponents = {
-  BodyInput, FilterSelect, MaxResultsSelect, ResultRenderer, SortSelect,
-};
-
-export { SearchComponents, UIComponents };
+export BodyInput from './ui-components/BodyInput.js';
+export FilterSelect from './ui-components/FilterSelect.js';
+export ResultsPerPageSelect from './ui-components/ResultsPerPageSelect.js';
+export Pagination from './ui-components/Pagination.js';
+export RequestPreview from './ui-components/RequestPreview.js';
+export ResultRenderer from './ui-components/ResultRenderer.js';
+export SortSelect from './ui-components/SortSelect.js';

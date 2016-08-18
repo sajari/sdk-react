@@ -19,4 +19,8 @@ Page.propTypes = {
   page: React.PropTypes.number.isRequired,
 };
 
+Page.defaultProps = {
+  page: 1,
+};
+
 export default Page;

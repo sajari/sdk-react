@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 
 import ResultStore from '../stores/ResultStore.js';
 
@@ -12,20 +13,11 @@ function resultsForNamespace(ns) {
   };
 }
 
-export default class ResultInjector extends React.Component {
-  static propTypes = {
-    namespace: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.arrayOf(React.PropTypes.string)
-    ]),
-  }
-
+class ResultInjector extends React.Component {
   constructor(props) {
     super(props);
     this.resultsUpdated = this.resultsUpdated.bind(this);
-    this.state = {
-      namespace: props.namespace || 'default',
-    };
+    this.state = { namespace: props.namespace };
   }
 
   componentDidMount() {
@@ -57,9 +49,22 @@ export default class ResultInjector extends React.Component {
       React.cloneElement(c, { results })
     ));
     return (
-      <div>
+      <View>
         {childrenWithProps}
-      </div>
+      </View>
     );
   }
 }
+
+ResultInjector.propTypes = {
+  namespace: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.arrayOf(React.PropTypes.string),
+  ]),
+};
+
+ResultInjector.defaultProps = {
+  namespace: 'default',
+};
+
+export default ResultInjector;

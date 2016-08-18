@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Sort from '../components/Sort.js';
+import Sort from '../api-components/Sort.js';
 
 class SortSelect extends React.Component {
   constructor(props) {
