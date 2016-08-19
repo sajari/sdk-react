@@ -36,7 +36,7 @@ function buildRequest(namespace) {
   const request = new Query();
 
   request.page(ir.page);
-  request.maxResults(ir.max_results);
+  request.resultsPerPage(ir.max_results);
   request.body(ir.body);
   request.metaBoosts(ir.meta_boosts);
   request.indexBoosts(ir.index_boosts);
@@ -61,15 +61,17 @@ const SearchActions = {
       }
 
       // Send the search request
-      const inFlightRequest = ApiStore.get(n).search(builtReq, res => {
+      const inFlightRequest = ApiStore.get(n).search(builtReq, (err, res) => {
+        if (err) {
+          // TODO(tbillington): Handle error
+          return;
+        }
         AppDispatcher.handleServerAction({
           actionType: SearchConstants.SEARCH,
           actionData: res,
           searchQuery: req,
           namespace: n,
         });
-      }, (/* err */) => {
-        // TODO(tbillington): Add error to results to that injector can pass it along
       });
 
       // Dispatch an action with the in-progress request
