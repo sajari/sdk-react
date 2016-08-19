@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 
 import ResultStore from '../stores/ResultStore.js';
 
@@ -48,9 +49,9 @@ class ResultInjector extends React.Component {
       React.cloneElement(c, { results })
     ));
     return (
-      <div>
+      <View>
         {childrenWithProps}
-      </div>
+      </View>
     );
   }
 }
