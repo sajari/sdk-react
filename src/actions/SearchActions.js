@@ -42,7 +42,11 @@ function buildRequest(namespace) {
   request.metaBoosts(ir.meta_boosts);
   request.indexBoosts(ir.index_boosts);
   request.aggregates(ir.aggregates);
-  request.filter(combinatorFilter(ir.filters, COMB_FILTER_OP_ALL));
+  if (ir.filters.length === 1) {
+    request.filter(ir.filters[0]);
+  } else if (ir.filters.length > 1) {
+    request.filter(combinatorFilter(ir.filters, COMB_FILTER_OP_ALL));
+  }
   request.fields(ir.fields);
   request.sort(ir.sorts);
 
