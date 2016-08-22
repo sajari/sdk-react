@@ -43,95 +43,63 @@ function getAggregates(namespace) {
   return data.getIn([namespace, 'aggregates']);
 }
 
-function setReads(r) {
-  data = data.setIn([nameDefault, 'response', 'reads'], r);
+function setReads(namespace, r) {
+  data = data.setIn([namespace, 'response', 'reads'], r);
 }
 
-function getReads() {
-  return data.getIn([nameDefault, 'response', 'reads']);
+function getReads(namespace) {
+  return data.getIn([namespace, 'response', 'reads']);
 }
 
-function setTotalMatches(t) {
-  data = data.setIn([nameDefault, 'response', 'totalMatches'], t);
+function setTotalMatches(namespace, t) {
+  data = data.setIn([namespace, 'response', 'totalMatches'], t);
 }
 
-function getTotalMatches() {
-  return data.getIn([nameDefault, 'response', 'totalMatches']);
+function getTotalMatches(namespace, ) {
+  return data.getIn([namespace, 'response', 'totalMatches']);
 }
 
-function setMsecs(m) {
-  data = data.setIn([nameDefault, 'response', 'msecs'], m);
+function setMsecs(namespace, m) {
+  data = data.setIn([namespace, 'response', 'msecs'], m);
 }
 
-function getMsecs() {
-  return data.getIn([nameDefault, 'response', 'msecs']);
+function getMsecs(namespace,) {
+  return data.getIn([namespace, 'response', 'msecs']);
 }
 
-function setStatusCode(c) {
-  data = data.setIn([nameDefault, 'response', 'statusCode'], c);
+function setStatusCode(namespace, c) {
+  data = data.setIn([namespace, 'response', 'statusCode'], c);
 }
 
-function getStatusCode() {
-  return data.getIn([nameDefault, 'response', 'statusCode']);
+function getStatusCode(namespace) {
+  return data.getIn([namespace, 'response', 'statusCode']);
 }
 
-function setQueryID(qid) {
-  data = data.setIn([nameDefault, 'response', 'queryID'], qid);
+function setQueryID(namespace, qid) {
+  data = data.setIn([namespace, 'response', 'queryID'], qid);
 }
 
-function getQueryID() {
-  return data.getIn([nameDefault, 'response', 'queryID']);
+function getQueryID(namespace) {
+  return data.getIn([namespace, 'response', 'queryID']);
 }
 
-function setFuzzy(f) {
-  data = data.setIn([nameDefault, 'fuzzy'], f || '');
+function setFuzzy(namespace, f) {
+  data = data.setIn([namespace, 'fuzzy'], f || '');
 }
 
-function getFuzzy() {
-  return data.getIn([nameDefault, 'fuzzy']);
-}
-
-function setFacets(f) {
-  f = f || {};
-  data = data.setIn([nameDefault, 'facets'], fromJS(f));
-}
-
-function getFacets() {
-  return data.getIn([nameDefault, 'facets']);
+function getFuzzy(namespace) {
+  return data.getIn([namespace, 'fuzzy']);
 }
 
 function updateResponse(namespace, result) {
-  // v10
-  setTotalMatches(Number(result.totalResults));
+  setTotalMatches(namespace, Number(result.totalResults));
+  setMsecs(namespace, result.time);
+  setReads(namespace, Number(result.reads));
   setAggregates(namespace, result.aggregates);
-  return;
-
-  // v9
-  /*
-  if (protectFacets) {
-    protectFacets = false;
-  } else {
-    setFacets(result.response.facets);
-  }
-  setReads(result.response.reads);
-  setTotalMatches(result.response.totalmatches);
-  setMsecs(result.msecs);
-  setStatusCode(result.statusCode);
-  setQueryID(result.response.queryID);
-  setFuzzy(result.response.fuzzy);
-  */
 }
 
-function getResponse() {
-  return data.getIn([nameDefault, 'response']);
-}
-
-function setPage(p) {
-  data = data.setIn([nameDefault, 'page'], p);
-}
-
-function getPage() {
-  return data.getIn([nameDefault, 'page']);
+function getResponse(namespace, ) {
+  return data.getIn([namespace, 'response']);
 }
 
 // Store for holding search results
@@ -169,35 +137,14 @@ class ResultStore extends ChangeEmitter {
     return getQueryID();
   }
 
-  getPage() {
-    return getPage();
-  }
-
-  getFacets() {
-    return getFacets();
-  }
-
   getFuzzy(namespace) {
     return getFuzzy(namespace);
-  }
-
-  clearResults() {
-    setResults(list());
-    setTotalMatches(0);
-    this.emitChange();
   }
 }
 
 function setSearchResults(namespace, results) {
   setResults(namespace, list(results.response.results));
   updateResponse(namespace, results.response);
-  setPage(1);
-}
-
-function appendSearchResults(results) {
-  setResults(getResults().concat(results.results));
-  updateResponse(results);
-  setPage(getPage() + 1);
 }
 
 const resultStore = new ResultStore();
@@ -212,6 +159,7 @@ resultStore.dispatchToken = AppDispatcher.register(payload => {
         const req = RequestStore.getRequest(action.namespace);
         if (!equal(action.searchQuery, req)) {
           // Results came back that didn't match the current search query, so we disregard them.
+          // This is caused by results coming back out of order, usually due to networking issues.
           break;
         }
 
