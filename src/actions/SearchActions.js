@@ -4,6 +4,7 @@ import AppDispatcher from '../dispatcher/AppDispatcher.js';
 import SearchConstants from '../constants/SearchConstants.js';
 import RequestStore from '../stores/RequestStore.js';
 import NamespaceStore from '../stores/NamespaceStore.js';
+import '../stores/QueryStore.js';
 import ApiStore from '../stores/ApiStore.js';
 
 import Builders from '../utils/RequestBuilder.js';
