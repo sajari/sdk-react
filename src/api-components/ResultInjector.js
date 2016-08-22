@@ -4,9 +4,10 @@ import ResultStore from '../stores/ResultStore.js';
 
 function resultsForNamespace(ns) {
   const results = ResultStore.getResults(ns);
+  const response = ResultStore.getResponse(ns);
   return {
     results: results ? results.toJS() : [],
-    response: ResultStore.getResponse(ns).toJS(),
+    response: response ? response.toJS() : {},
     fuzzy: ResultStore.getFuzzy(ns),
     aggregates: ResultStore.getAggregates(ns),
   };
