@@ -163,7 +163,7 @@ resultStore.dispatchToken = AppDispatcher.register(payload => {
 
         const req = RequestStore.getRequest(action.namespace);
         if (!equal(action.searchQuery, req)) {
-          // Results came back that didn't match the current search query, so we disregard them.
+          // Results came back that didn't match the current query state, so we disregard them.
           // This is caused by results coming back out of order, usually due to networking issues.
           break;
         }
