@@ -84,11 +84,11 @@ function getQueryID(namespace) {
 }
 
 function setFuzzy(namespace, f) {
-  data = data.setIn([namespace, 'fuzzy'], f || '');
+  data = data.setIn([namespace, 'response', 'fuzzy'], f || '');
 }
 
 function getFuzzy(namespace) {
-  return data.getIn([namespace, 'fuzzy']);
+  return data.getIn([namespace, 'response', 'fuzzy']);
 }
 
 function updateResponse(namespace, result) {
@@ -145,6 +145,7 @@ class ResultStore extends ChangeEmitter {
 function setSearchResults(namespace, results) {
   setResults(namespace, list(results.response.results));
   updateResponse(namespace, results.response);
+  setFuzzy(namespace, results.fuzzy);
 }
 
 const resultStore = new ResultStore();
