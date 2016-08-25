@@ -156,6 +156,11 @@ resultStore.dispatchToken = AppDispatcher.register(payload => {
   if (source === 'SERVER_ACTION') {
     switch (action.actionType) {
       case SearchConstants.SEARCH: {
+        if (!action.actionData) {
+          // Request was cancelled
+          break;
+        }
+
         const req = RequestStore.getRequest(action.namespace);
         if (!equal(action.searchQuery, req)) {
           // Results came back that didn't match the current search query, so we disregard them.
