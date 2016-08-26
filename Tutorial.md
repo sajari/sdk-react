@@ -4,7 +4,7 @@ This tutorial will explain how to get up and running with Sajari and React.
 
 Part 1 will involve setting up a react project as a starting point. If you have an existing React app, jump to [Adding Sajari](#adding-sajari).
 
-# Setting up your app
+# Creating a skeleton
 
 Getting a basic React app up and running on webpack isn't too hard these days. There are plenty of tutorials and sample webpack config files around, but configuring webpack is not the point of this tutorial. I'm going to go with [create-react-app](https://github.com/facebookincubator/create-react-app), currently version `0.2.3`, from Facebook. It makes getting started, developing, and building a optimised build for our app quick and easy. See [here](https://github.com/facebookincubator/create-react-app#why-use-this) for more reasons why.
 
@@ -14,13 +14,13 @@ First we're going to get the create-react-app tool with.
 npm install -g create-react-app
 ```
 
-This will install the tool globally onto your system. Next we're going to pick a name for our project and create it. We'll go with `hello-sajari` for now.
+This will install the tool globally onto your system. Next we're going to pick a name for our project and create it. We'll go with `hello-world` for now.
 
 ```
-create-react-app hello-sajari
+create-react-app hello-world
 ```
 
-This will create a directory called `hello-sajari` with your project in it in the current working directory. We're done with the `create-react-app` tool now.
+This will create a directory called `hello-world` with your project in it in the current working directory. We're done with the `create-react-app` tool now.
 
 Our new project only has 2 commands we need to worry about. `npm start` and `npm run build`. The former will run a hot-reloading server for your code, the latter will build an optimised bundle.
 
@@ -35,11 +35,11 @@ You'll see this ![Image of basic app starting point](http://i.imgur.com/uxxfVmK.
 
 Editing the code in the `src` directory will cause a reload of the page in your browser, so feel free to tinker around before we get started with Part 2.
 
-# Adding Sajari
+# Integrating Sajari
 
 This part will explain how to add sajari to your project. The Sajari React SDK is a React wrapping around the Sajari Javascript SDK. We'll need both of them.
 
-Run this command from within your `hello-sajari` directory.
+Run this command from within your `hello-world` directory.
 
 ```
 npm install --save sajari sajari-sdk-react
@@ -200,7 +200,7 @@ Last step to connect all the bits is to import the `SearchBox` component into yo
 Our little search app is now functional, with instant search and result rendering, all in under 90 lines of simple React.
 
 <p align="center">
-  <img src="http://i.imgur.com/y42FGs8.png" alt="Finished result of tutorial">
+  <img src="http://i.imgur.com/XA6t005.gif" alt="Finished result of tutorial">
 </p>
 
 # Code
