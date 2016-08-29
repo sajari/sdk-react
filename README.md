@@ -27,6 +27,17 @@ If you're looking for the vanilla javascript library, see [here](https://github.
     * [BucketAggregate](#bucketaggregate)
     * [CountAggregate](#countaggregate)
     * [MetricAggregate](#metricaggregate)
+  * [Index Boosts](#index-boosts)
+    * [FieldIndexBoost](#fieldindexboost)
+    * [ScoreIndexBoost](#scoreindexboost)
+  * [Meta Boosts](#meta-boosts)
+    * [FilterMetaBoost](#filtermetaboost)
+    * [TextMetaBoost](#textmetaboost)
+    * [IntervalMetaBoost](#intervalmetaboost)
+    * [GeoMetaBoost](#geometaboost)
+    * [ElementMetaBoost](#elementmetaboost)
+    * [DistanceMetaBoost](#distancemetaboost)
+  * [Sort](#sort)
 * [UI Components](#ui-components)
   * [BodyInput](#bodyinput)
 * [License](#license)
@@ -204,6 +215,151 @@ MetricAggregate performs metrics over the data in a field. The options are avail
 
 ```jsx
 <MetricAggregate name='averagePrice' field='price' type={METRIC_TYPE_AVG} />
+```
+
+### Index Boosts
+
+Index boosts apply to indexed fields.
+
+#### FieldIndexBoost
+
+FieldIndexBoost increases the value of a match in a certain field. This is commonly used make things like a title have more weight than a description.
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| field | string | Yes | none | The field boost |
+| value | number | Yes | none | The value of the boost |
+
+```jsx
+<FieldIndexBoost field='title' value={1.5} />
+```
+
+#### ScoreIndexBoost
+
+ScoreIndexBoost  boosts term instances based on their individual scoring values.
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| threshold | number | Yes | none | The maximum value to allow, used to scale and cap the computed score |
+
+```jsx
+<ScoreIndexBoost threshold={1.5} />
+```
+
+### Meta Boosts
+
+#### FilterMetaBoost
+
+FilterMetaBoost boosts results if they match a specified filter. Filters are defined [here](https://github.com/sajari/sajari-sdk-js/tree/v2#filter).
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| filter | [filter](https://github.com/sajari/sajari-sdk-js/tree/v2#filter) | Yes | none | The filter to use as the condition for the boost |
+| value | number | Yes | none | The value of the boost |
+
+```jsx
+<FilterMetaBoost filter={fieldFilter('price', 100, FILTER_OP_LT)} value={1.5} />
+```
+
+#### TextMetaBoost
+
+TextMetaBoost represents a text-based boosting for search result meta data which compares the text word-by-word and applies a boost based on the number of common words.
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| field | string | Yes | none | The field to operate on |
+| text | string | Yes | none | The text to compare against |
+| value | number | Yes | none | The value of the boost |
+
+```jsx
+<TextMetaBoost field='description' test='sale' value={1.2} />
+```
+
+#### IntervalMetaBoost
+
+IntervalMetaBoost represents distance based boosting that blends between the two points containing the value in the meta field. This uses the [`pointValue`](https://github.com/sajari/sajari-sdk-js/tree/v2#interval-meta-boost-example) function found in [sajari-sdk-js](https://github.com/sajari/sajari-sdk-js/tree/v2).
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| field | string | Yes | none | The field to operate on |
+| points | [point](https://github.com/sajari/sajari-sdk-js/tree/v2#interval-meta-boost-example) array | Yes | none | The points use as the basis for the boost |
+
+```jsx
+<IntervalMetaBoost field='performance' points={[
+  pointValue(0, 0.5),
+  pointValue(80, 1),
+  pointValue(100, 1.5),
+]} />
+```
+
+#### GeoMetaBoost
+
+GeoMetaBoost boosts results based off of distance from lat-lng coordinates. Lat and lng are interpreted as degrees.
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| fieldLat | string | Yes | none | The field containing the latitude value |
+| fieldLng | string | Yes | none | The field containing the longitude value |
+| lat | number | Yes | none | The latitude value to compare against |
+| lng | number | Yes | none | The longitude value to compare against |
+| radius | number | Yes | none | The radius around the lat-lng to boost (km) |
+| region | [enum](https://github.com/sajari/sajari-sdk-js/blob/v2/README.md#geo-meta-boost-example) | Yes | none | The region to apply the boost to |
+| value | number | Yes | none | The value of the boost |
+
+```jsx
+<GeoMetaBoost
+  fieldLat='lat'
+  fieldLng='lng'
+  lat={-33.8688}
+  lng={151.2093}
+  radius={50}
+  region={GEO_META_BOOST_REGION_INSIDE}
+  value={1.5}
+/>
+```
+
+#### ElementMetaBoost
+
+ElementMetaBoost applies a boost based on the number of elements in the meta field that match the supplied elements.
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| field | string | Yes | none | The field to operate on |
+| values | string array | Yes | none | The values to compare against |
+
+```jsx
+<ElementMetaBoost field='keywords' value={['sale', 'discount']} />
+```
+
+#### DistanceMetaBoost
+
+DistanceMetaBoost boosts based off of distance from a particular numeric point
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| field | string | Yes | none | The field to operate on |
+| min | number | Yes | none | The minimum distance from ref to apply the boost |
+| max | number | Yes | none | The maximum distance from ref to apply the boost |
+| ref | number | Yes | none | The reference point of the boost |
+| value | number | Yes | none | The value of the boost |
+
+```jsx
+// Boost values that are within 20 of 50 (30..70)
+<DistanceMetaBoost field='price' min={0} max={20} ref={50} value={1.5} />
+```
+
+### Sort
+
+Sort defines the ordering of result documents.  Specifying a sort overrides the default behvaiour which orders documents by score.
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| field | number | Yes | none | The minimum distance from ref to apply the boost |
+| ord | [enum](https://github.com/sajari/sajari-sdk-js/blob/v2/README.md#sorting) | Yes | none | The ordering of the sort |
+
+
+```jsx
+<Sort field='price' ord={SORT_ASCENDING} />
 ```
 
 ## UI Components
