@@ -7,16 +7,16 @@ export Body from './api-components/Body.js';
 export Fields from './api-components/Fields.js';
 export Filter from './api-components/Filter.js';
 export {
-  FieldIndexBoost,
-  ScoreIndexBoost,
+  FieldInstanceBoost,
+  ScoreInstanceBoost,
 } from './api-components/IndexBoost.js';
 export {
-  DistanceMetaBoost,
-  ElementMetaBoost,
+  DistanceFieldBoost,
+  ElementFieldBoost,
   GeoMetaBoost,
-  IntervalMetaBoost,
-  TextMetaBoost,
-  FilterMetaBoost,
+  IntervalFieldBoost,
+  TextFieldBoost,
+  FilterFieldBoost,
 } from './api-components/MetaBoost.js';
 export Page from './api-components/Page.js';
 export RegisterNamespace from './api-components/RegisterNamespace.js';

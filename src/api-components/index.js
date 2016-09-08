@@ -7,16 +7,16 @@ export Body from './Body.js';
 export Fields from './Fields.js';
 export Filter from './Filter.js';
 export {
-  FieldIndexBoost,
-  ScoreIndexBoost,
+  FieldInstanceBoost,
+  ScoreInstanceBoost,
 } from './IndexBoost.js';
 export {
-  DistanceMetaBoost,
-  ElementMetaBoost,
+  DistanceFieldBoost,
+  ElementFieldBoost,
   GeoMetaBoost,
-  IntervalMetaBoost,
-  TextMetaBoost,
-  FilterMetaBoost,
+  IntervalFieldBoost,
+  TextFieldBoost,
+  FilterFieldBoost,
 } from './MetaBoost.js';
 export Page from './Page.js';
 export RegisterNamespace from './RegisterNamespace.js';

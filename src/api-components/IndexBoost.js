@@ -1,5 +1,5 @@
 import React from 'react';
-import { fieldIndexBoost, scoreIndexBoost } from 'sajari';
+import { fieldInstanceBoost, scoreInstanceBoost } from 'sajari';
 
 import Base from './Base.js';
 import Components from '../constants/QueryComponentConstants.js';
@@ -22,37 +22,37 @@ IndexBoost.propTypes = {
   namespace: React.PropTypes.string,
 };
 
-const FieldIndexBoost = props => {
+const FieldInstanceBoost = props => {
   const { field, value, namespace, ...others } = props;
   return (
     <IndexBoost
       {...others}
-      data={fieldIndexBoost(field, value)}
+      data={fieldInstanceBoost(field, value)}
       namespace={namespace}
     />
   );
 };
 
-FieldIndexBoost.propTypes = {
+FieldInstanceBoost.propTypes = {
   field: React.PropTypes.string.isRequired,
   value: React.PropTypes.any.isRequired,
   namespace: React.PropTypes.string,
 };
 
-const ScoreIndexBoost = props => {
+const ScoreInstanceBoost = props => {
   const { threshold, namespace, ...others } = props;
   return (
     <IndexBoost
       {...others}
-      data={scoreIndexBoost(threshold)}
+      data={scoreInstanceBoost(threshold)}
       namespace={namespace}
     />
   );
 };
 
-ScoreIndexBoost.propTypes = {
+ScoreInstanceBoost.propTypes = {
   threshold: React.PropTypes.number.isRequired,
   namespace: React.PropTypes.string,
 };
 
-export { FieldIndexBoost, ScoreIndexBoost };
+export { FieldInstanceBoost, ScoreInstanceBoost };

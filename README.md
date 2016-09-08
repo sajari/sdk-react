@@ -28,15 +28,15 @@ If you're looking for the vanilla javascript library, see [here](https://github.
     * [CountAggregate](#countaggregate)
     * [MetricAggregate](#metricaggregate)
   * [Index Boosts](#index-boosts)
-    * [FieldIndexBoost](#fieldindexboost)
-    * [ScoreIndexBoost](#scoreindexboost)
+    * [FieldInstanceBoost](#fieldinstanceboost)
+    * [ScoreInstanceBoost](#scoreinstanceboost)
   * [Meta Boosts](#meta-boosts)
-    * [FilterMetaBoost](#filtermetaboost)
-    * [TextMetaBoost](#textmetaboost)
-    * [IntervalMetaBoost](#intervalmetaboost)
+    * [FilterFieldBoost](#filterfieldboost)
+    * [TextFieldBoost](#textfieldboost)
+    * [IntervalFieldBoost](#intervalfieldboost)
     * [GeoMetaBoost](#geometaboost)
-    * [ElementMetaBoost](#elementmetaboost)
-    * [DistanceMetaBoost](#distancemetaboost)
+    * [ElementFieldBoost](#elementfieldboost)
+    * [DistanceFieldBoost](#distancefieldboost)
   * [Sort](#sort)
 * [UI Components](#ui-components)
   * [BodyInput](#bodyinput)
@@ -221,9 +221,9 @@ MetricAggregate performs metrics over the data in a field. The options are avail
 
 Index boosts apply to indexed fields.
 
-#### FieldIndexBoost
+#### FieldInstanceBoost
 
-FieldIndexBoost increases the value of a match in a certain field. This is commonly used make things like a title have more weight than a description.
+FieldInstanceBoost increases the value of a match in a certain field. This is commonly used make things like a title have more weight than a description.
 
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
@@ -231,26 +231,26 @@ FieldIndexBoost increases the value of a match in a certain field. This is commo
 | value | number | Yes | none | The value of the boost |
 
 ```jsx
-<FieldIndexBoost field='title' value={1.5} />
+<FieldInstanceBoost field='title' value={1.5} />
 ```
 
-#### ScoreIndexBoost
+#### ScoreInstanceBoost
 
-ScoreIndexBoost  boosts term instances based on their individual scoring values.
+ScoreInstanceBoost  boosts term instances based on their individual scoring values.
 
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
 | threshold | number | Yes | none | The maximum value to allow, used to scale and cap the computed score |
 
 ```jsx
-<ScoreIndexBoost threshold={1.5} />
+<ScoreInstanceBoost threshold={1.5} />
 ```
 
 ### Meta Boosts
 
-#### FilterMetaBoost
+#### FilterFieldBoost
 
-FilterMetaBoost boosts results if they match a specified filter. Filters are defined [here](https://github.com/sajari/sajari-sdk-js/tree/v2#filter).
+FilterFieldBoost boosts results if they match a specified filter. Filters are defined [here](https://github.com/sajari/sajari-sdk-js/tree/v2#filter).
 
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
@@ -258,12 +258,12 @@ FilterMetaBoost boosts results if they match a specified filter. Filters are def
 | value | number | Yes | none | The value of the boost |
 
 ```jsx
-<FilterMetaBoost filter={fieldFilter('price', 100, FILTER_OP_LT)} value={1.5} />
+<FilterFieldBoost filter={fieldFilter('price', 100, FILTER_OP_LT)} value={1.5} />
 ```
 
-#### TextMetaBoost
+#### TextFieldBoost
 
-TextMetaBoost represents a text-based boosting for search result meta data which compares the text word-by-word and applies a boost based on the number of common words.
+TextFieldBoost represents a text-based boosting for search result meta data which compares the text word-by-word and applies a boost based on the number of common words.
 
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
@@ -272,12 +272,12 @@ TextMetaBoost represents a text-based boosting for search result meta data which
 | value | number | Yes | none | The value of the boost |
 
 ```jsx
-<TextMetaBoost field='description' test='sale' value={1.2} />
+<TextFieldBoost field='description' test='sale' value={1.2} />
 ```
 
-#### IntervalMetaBoost
+#### IntervalFieldBoost
 
-IntervalMetaBoost represents distance based boosting that blends between the two points containing the value in the meta field. This uses the [`pointValue`](https://github.com/sajari/sajari-sdk-js/tree/v2#interval-meta-boost-example) function found in [sajari-sdk-js](https://github.com/sajari/sajari-sdk-js/tree/v2).
+IntervalFieldBoost represents distance based boosting that blends between the two points containing the value in the meta field. This uses the [`pointValue`](https://github.com/sajari/sajari-sdk-js/tree/v2#interval-meta-boost-example) function found in [sajari-sdk-js](https://github.com/sajari/sajari-sdk-js/tree/v2).
 
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
@@ -285,7 +285,7 @@ IntervalMetaBoost represents distance based boosting that blends between the two
 | points | [point](https://github.com/sajari/sajari-sdk-js/tree/v2#interval-meta-boost-example) array | Yes | none | The points use as the basis for the boost |
 
 ```jsx
-<IntervalMetaBoost field='performance' points={[
+<IntervalFieldBoost field='performance' points={[
   pointValue(0, 0.5),
   pointValue(80, 1),
   pointValue(100, 1.5),
@@ -318,9 +318,9 @@ GeoMetaBoost boosts results based off of distance from lat-lng coordinates. Lat 
 />
 ```
 
-#### ElementMetaBoost
+#### ElementFieldBoost
 
-ElementMetaBoost applies a boost based on the number of elements in the meta field that match the supplied elements.
+ElementFieldBoost applies a boost based on the number of elements in the meta field that match the supplied elements.
 
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
@@ -328,12 +328,12 @@ ElementMetaBoost applies a boost based on the number of elements in the meta fie
 | values | string array | Yes | none | The values to compare against |
 
 ```jsx
-<ElementMetaBoost field='keywords' value={['sale', 'discount']} />
+<ElementFieldBoost field='keywords' value={['sale', 'discount']} />
 ```
 
-#### DistanceMetaBoost
+#### DistanceFieldBoost
 
-DistanceMetaBoost boosts based off of distance from a particular numeric point
+DistanceFieldBoost boosts based off of distance from a particular numeric point
 
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
@@ -345,7 +345,7 @@ DistanceMetaBoost boosts based off of distance from a particular numeric point
 
 ```jsx
 // Boost values that are within 20 of 50 (30..70)
-<DistanceMetaBoost field='price' min={0} max={20} ref={50} value={1.5} />
+<DistanceFieldBoost field='price' min={0} max={20} ref={50} value={1.5} />
 ```
 
 ### Sort

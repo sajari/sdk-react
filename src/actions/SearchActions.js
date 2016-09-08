@@ -39,8 +39,8 @@ function buildRequest(namespace) {
   request.page(ir.page);
   request.resultsPerPage(ir.max_results);
   request.body(ir.body);
-  request.metaBoosts(ir.meta_boosts);
-  request.indexBoosts(ir.index_boosts);
+  request.fieldBoosts(ir.meta_boosts);
+  request.instanceBoosts(ir.index_boosts);
   request.aggregates(ir.aggregates);
   if (ir.filters.length === 1) {
     request.filter(ir.filters[0]);

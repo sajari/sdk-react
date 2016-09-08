@@ -1,13 +1,13 @@
 import React from 'react';
 import {
-  distanceMetaBoost, elementMetaBoost, geoMetaBoost, intervalMetaBoost,
-  textMetaBoost, filterMetaBoost,
+  distanceFieldBoost, elementFieldBoost, geoMetaBoost, intervalFieldBoost,
+  textFieldBoost, filterFieldBoost,
 } from 'sajari';
 
 import Base from './Base.js';
 import Components from '../constants/QueryComponentConstants.js';
 
-// TODO(tbillington): Use children of intervalMetaBoost as points
+// TODO(tbillington): Use children of intervalFieldBoost as points
 
 const MetaBoost = props => {
   const { data, namespace, ...others } = props;
@@ -27,33 +27,33 @@ MetaBoost.propTypes = {
   namespace: React.PropTypes.string,
 };
 
-const FilterMetaBoost = props => {
+const FilterFieldBoost = props => {
   const { filter, value, ...others } = props;
   return (
     <MetaBoost
       {...others}
-      data={filterMetaBoost(filter, value)}
+      data={filterFieldBoost(filter, value)}
     />
   );
 };
 
-FilterMetaBoost.propTypes = {
+FilterFieldBoost.propTypes = {
   filter: React.PropTypes.object.isRequired,
   value: React.PropTypes.any.isRequired,
 };
 
-const DistanceMetaBoost = props => {
+const DistanceFieldBoost = props => {
   const { field, value, min, max, ref, namespace, ...others } = props;
   return (
     <MetaBoost
       {...others}
-      data={distanceMetaBoost(min, max, ref, field, value)}
+      data={distanceFieldBoost(min, max, ref, field, value)}
       namespace={namespace}
     />
   );
 };
 
-DistanceMetaBoost.propTypes = {
+DistanceFieldBoost.propTypes = {
   field: React.PropTypes.string.isRequired,
   value: React.PropTypes.number.isRequired,
   min: React.PropTypes.number.isRequired,
@@ -62,18 +62,18 @@ DistanceMetaBoost.propTypes = {
   namespace: React.PropTypes.string,
 };
 
-const ElementMetaBoost = props => {
+const ElementFieldBoost = props => {
   const { field, values, namespace, ...others } = props;
   return (
     <MetaBoost
       {...others}
-      data={elementMetaBoost(field, values)}
+      data={elementFieldBoost(field, values)}
       namespace={namespace}
     />
   );
 };
 
-ElementMetaBoost.propTypes = {
+ElementFieldBoost.propTypes = {
   field: React.PropTypes.string.isRequired,
   values: React.PropTypes.string.isRequired,
   namespace: React.PropTypes.string,
@@ -101,41 +101,41 @@ GeoMetaBoost.propTypes = {
   namespace: React.PropTypes.string,
 };
 
-const IntervalMetaBoost = props => {
+const IntervalFieldBoost = props => {
   const { field, points, namespace, ...others } = props;
   return (
     <MetaBoost
       {...others}
-      data={intervalMetaBoost(field, points)}
+      data={intervalFieldBoost(field, points)}
       namespace={namespace}
     />
   );
 };
 
-IntervalMetaBoost.propTypes = {
+IntervalFieldBoost.propTypes = {
   field: React.PropTypes.string.isRequired,
   points: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   namespace: React.PropTypes.string,
 };
 
-const TextMetaBoost = props => {
+const TextFieldBoost = props => {
   const { field, text, namespace, ...others } = props;
   return (
     <MetaBoost
       {...others}
-      data={textMetaBoost(field, text)}
+      data={textFieldBoost(field, text)}
       namespace={namespace}
     />
   );
 };
 
-TextMetaBoost.propTypes = {
+TextFieldBoost.propTypes = {
   field: React.PropTypes.string.isRequired,
   text: React.PropTypes.string.isRequired,
   namespace: React.PropTypes.string,
 };
 
 export {
-  IntervalMetaBoost, TextMetaBoost, GeoMetaBoost, ElementMetaBoost, DistanceMetaBoost,
-  FilterMetaBoost,
+  IntervalFieldBoost, TextFieldBoost, GeoMetaBoost, ElementFieldBoost, DistanceFieldBoost,
+  FilterFieldBoost,
 };
