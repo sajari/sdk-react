@@ -143,9 +143,8 @@ class ResultStore extends ChangeEmitter {
 }
 
 function setSearchResults(namespace, results) {
-  setResults(namespace, list(results.response.results));
-  updateResponse(namespace, results.response);
-  setFuzzy(namespace, results.fuzzy);
+  setResults(namespace, list(results.searchResponse.results));
+  updateResponse(namespace, results.searchResponse);
 }
 
 const resultStore = new ResultStore();
