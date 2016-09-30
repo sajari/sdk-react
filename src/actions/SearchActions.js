@@ -68,7 +68,12 @@ const SearchActions = {
       // Send the search request
       const inFlightRequest = ApiStore.get(n).search(builtReq, (err, res) => {
         if (err) {
-          // TODO(tbillington): Handle error
+          AppDispatcher.handleServerAction({
+            actionType: SearchConstants.SEARCH_ERROR,
+            actionData: err,
+            searchQuery: req,
+            namespace: n,
+          });
           return;
         }
         AppDispatcher.handleServerAction({

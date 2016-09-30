@@ -20,6 +20,7 @@ let data = fromJS({
       msecs: 0,
       statusCode: 0,
       queryID: '',
+      error: '',
     },
     facets: {},
     fuzzy: '',
@@ -33,6 +34,14 @@ function setResults(namespace, r) {
 
 function getResults(namespace) {
   return data.getIn([namespace, 'results']);
+}
+
+function setError(namespace, msg) {
+  data = data.setIn([namespace, 'response', 'error'], msg)
+}
+
+function getError(namespace) {
+  return data.getIn([namespace, 'response', 'error'])
 }
 
 function setAggregates(namespace, a) {
@@ -145,33 +154,45 @@ class ResultStore extends ChangeEmitter {
 function setSearchResults(namespace, results) {
   setResults(namespace, list(results.searchResponse.results));
   updateResponse(namespace, results.searchResponse);
+  setError(namespace, null)
+}
+
+function setSearchError(namespace, msg) {
+  setError(namespace, msg)
 }
 
 const resultStore = new ResultStore();
+
+function isLatestQuery(query, namespace) {
+  return equal(query, RequestStore.getRequest(namespace))
+}
 
 resultStore.dispatchToken = AppDispatcher.register(payload => {
   const action = payload.action;
   const source = payload.source;
 
   if (source === 'SERVER_ACTION') {
+    if (!action.actionData) {
+      // Request was cancelled
+      return
+    }
+
+    if (!isLatestQuery(action.searchQuery, action.namespace)) {
+      // Results came back that didn't match the current query state, so we disregard them.
+      // This is caused by results coming back out of order, usually due to networking issues.
+      return
+    }
+
     switch (action.actionType) {
       case SearchConstants.SEARCH: {
-        if (!action.actionData) {
-          // Request was cancelled
-          break;
-        }
-
-        const req = RequestStore.getRequest(action.namespace);
-        if (!equal(action.searchQuery, req)) {
-          // Results came back that didn't match the current query state, so we disregard them.
-          // This is caused by results coming back out of order, usually due to networking issues.
-          break;
-        }
-
         setSearchResults(action.namespace, action.actionData);
-
         resultStore.emitChange();
         break;
+      }
+      case SearchConstants.SEARCH_ERROR: {
+        setSearchError(action.namespace, action.actionData)
+        resultStore.emitChange()
+        break
       }
       default:
         break;
