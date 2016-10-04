@@ -4,6 +4,7 @@ import AppDispatcher from '../dispatcher/AppDispatcher.js';
 import SearchConstants from '../constants/SearchConstants.js';
 import RequestStore from '../stores/RequestStore.js';
 import NamespaceStore from '../stores/NamespaceStore.js';
+import QueryDataStore from '../stores/QueryDataStore'
 import '../stores/QueryStore.js';
 import ApiStore from '../stores/ApiStore.js';
 
@@ -34,7 +35,7 @@ function buildRequest(namespace) {
   }
 
   const ir = RequestStore.getRequest(namespace);
-  const request = new Query();
+  const request = QueryDataStore.get(namespace) || new Query();
 
   request.page(ir.page);
   request.resultsPerPage(ir.max_results);
@@ -54,6 +55,12 @@ function buildRequest(namespace) {
   } else if (ir.token_type === 'POS_NEG') {
     request.posNeg(ir.token_key_field)
   }
+
+  AppDispatcher.handleRequestAction({
+    actionType: SearchConstants.QUERY_DATA,
+    data: request,
+    namespace,
+  })
 
   return request;
 }
