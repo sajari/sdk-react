@@ -49,6 +49,11 @@ function buildRequest(namespace) {
   }
   request.fields(ir.fields);
   request.sort(ir.sorts);
+  if (ir.token_type === 'CLICK') {
+    request.click(ir.token_key_field)
+  } else if (ir.token_type === 'POS_NEG') {
+    request.posNeg(ir.token_key_field)
+  }
 
   return request;
 }

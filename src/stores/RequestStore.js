@@ -21,6 +21,8 @@ function requestBase() {
     sorts: list(),
     aggregates: list(),
     transforms: list(),
+    token_key_field: '',
+    token_type: '',
   });
 }
 

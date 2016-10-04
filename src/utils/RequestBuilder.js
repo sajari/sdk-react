@@ -1,7 +1,7 @@
 import Components from '../constants/QueryComponentConstants.js';
 
 const {
-  AGGREGATE, BODY, FIELDS, FILTER, INDEX_BOOST, MAXRESULTS, META_BOOST, PAGE, SORT, TRANSFORM,
+  AGGREGATE, BODY, CLICK_TOKENS, FIELDS, FILTER, INDEX_BOOST, MAXRESULTS, META_BOOST, PAGE, POS_NEG_TOKENS, SORT, TRANSFORM,
 } = Components;
 
 // The builders take data for a particular query component
@@ -36,6 +36,12 @@ const builders = {
   ),
   [AGGREGATE]: aggregate => (
     r => r.update('aggregates', aggregates => aggregates.push(aggregate))
+  ),
+  [CLICK_TOKENS]: field => (
+    r => r.set('token_key_field', field).set('token_type', 'CLICK')
+  ),
+  [POS_NEG_TOKENS]: field => (
+    r => r.set('token_key_field', field).set('token_type', 'POS_NEG')
   ),
 };
 
