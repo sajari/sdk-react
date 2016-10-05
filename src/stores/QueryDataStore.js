@@ -30,6 +30,12 @@ queryDataStore.dispatchToken = AppDispatcher.register(payload => {
   if (source === 'SEARCH_ACTION') {
     if (action.actionType === SearchConstants.QUERY_DATA) {
       setQuery(action.namespace, action.data)
+    } else if (action.actionType === SearchConstants.TRACKING_RESET) {
+      const q = getQuery(action.namespace)
+      if (q) {
+        q.resetID()
+        setQuery(action.namespace)
+      }
     }
   }
 })

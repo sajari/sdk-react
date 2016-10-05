@@ -13,6 +13,7 @@ const components = keyMirror({
   AGGREGATE: null,
   CLICK_TOKENS: null,
   POS_NEG_TOKENS: null,
+  TRACKING_RESET: null,
 });
 
 // List of the keys to use as react proptypes check

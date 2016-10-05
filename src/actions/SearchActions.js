@@ -122,6 +122,13 @@ const SearchActions = {
   remove(namespace, uuid, componentName) {
     dispatchRemoveModifier(namespace, uuid, componentName);
   },
+
+  trackingReset(namespace) {
+    AppDispatcher.handleRequestAction({
+      actionType: SearchConstants.TRACKING_RESET,
+      namespace,
+    })
+  }
 };
 
 export default SearchActions;
