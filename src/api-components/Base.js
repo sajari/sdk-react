@@ -47,7 +47,7 @@ class Base extends React.Component {
 }
 
 Base.propTypes = {
-  run: React.PropTypes.oneOf([null, 'update', 'mount', 'all']),
+  run: React.PropTypes.oneOf([null, 'update', 'mount', 'all', 'none']),
   runDefault: React.PropTypes.oneOf(['update', 'mount', 'all']),
   namespace: React.PropTypes.oneOfType([
     React.PropTypes.string,
