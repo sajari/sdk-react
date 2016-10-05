@@ -47,6 +47,8 @@ function buildRequest(namespace) {
     request.filter(ir.filters[0]);
   } else if (ir.filters.length > 1) {
     request.filter(combinatorFilter(ir.filters, COMB_FILTER_OP_ALL));
+  } else {
+    request.filter()
   }
   request.fields(ir.fields);
   request.sort(ir.sorts);
