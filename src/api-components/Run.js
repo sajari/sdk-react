@@ -4,11 +4,11 @@ import SearchActions from '../actions/SearchActions.js';
 
 class Run extends Component {
   componentDidMount() {
-    SearchActions.nsearch(this.props.namespace);
+    SearchActions.nsearch(this.props.namespace || 'default');
   }
 
   componentWillUnmount() {
-    SearchActions.nsearch(this.props.namespace);
+    SearchActions.nsearch(this.props.namespace || 'default');
   }
 
   render() {
