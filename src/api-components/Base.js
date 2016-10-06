@@ -1,60 +1,68 @@
-import React from 'react';
-import uuid from 'uuid';
+import React from 'react'
+import uuid from 'uuid'
+import equal from 'deep-equal'
 
-import SearchActions from '../actions/SearchActions.js';
-import Components from '../constants/QueryComponentConstants.js';
+import SearchActions from '../actions/SearchActions.js'
+import Components from '../constants/QueryComponentConstants.js'
+
+import { ALL, UPDATE, MOUNT, NONE } from '../constants/RunModes'
 
 class Base extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = {
-      uuid: uuid.v4(),
-      namespace: props.namespace ? props.namespace : 'default',
-      run: props.run ? props.run : props.runDefault,
-    };
+    super(props)
+    this.state = { uuid: uuid.v4() }
+  }
+
+  shouldComponentUpdate(newProps) {
+    return !equal(newProps, this.props)
   }
 
   componentDidMount() {
-    SearchActions.update(
-      this.state.namespace,
-      this.state.uuid,
-      this.props.componentName,
-      this.props.data
-    );
+    const { namespace, componentName, data } = this.props
+    const { uuid } = this.state
+    SearchActions.update(namespace, uuid, componentName, data)
+
+    if (this.props.run === MOUNT || this.props.run === ALL) {
+      SearchActions.nsearch(this.props.namespace)
+    }
   }
 
   componentWillReceiveProps(newProps) {
-    SearchActions.update(
-      this.state.namespace,
-      this.state.uuid,
-      newProps.componentName,
-      newProps.data
-    );
-    if (this.state.run === 'update' || this.state.run === 'all') {
-      SearchActions.nsearch(this.state.namespace);
+    const { namespace, componentName, data } = newProps
+    const { uuid } = this.state
+    SearchActions.update(namespace, uuid, componentName, data)
+
+    if (this.props.run === UPDATE || this.props.run === ALL) {
+      SearchActions.nsearch(this.props.namespace)
     }
   }
 
   componentWillUnmount() {
-    SearchActions.remove(
-      this.state.namespace,
-      this.state.uuid,
-      this.props.componentName
-    );
+    const { namespace, componentName } = this.props
+    const { uuid } = this.state
+    SearchActions.remove(namespace, uuid, componentName)
+
+    if (this.props.run === MOUNT || this.props.run === ALL) {
+      SearchActions.nsearch(this.props.namespace)
+    }
   }
 
-  render() { return null; }
+  render() { return null }
 }
 
 Base.propTypes = {
-  run: React.PropTypes.oneOf([null, 'update', 'mount', 'all', 'none']),
-  runDefault: React.PropTypes.oneOf(['update', 'mount', 'all']),
+  run: React.PropTypes.oneOf([ALL, UPDATE, MOUNT, NONE]),
   namespace: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.arrayOf(React.PropTypes.string),
   ]),
   componentName: React.PropTypes.oneOf(Components.list).isRequired,
   data: React.PropTypes.any.isRequired,
-};
+}
 
-export default Base;
+Base.defaultProps = {
+  run: NONE,
+  namespace: 'default',
+}
+
+export default Base
