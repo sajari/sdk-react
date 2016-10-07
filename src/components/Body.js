@@ -1,5 +1,10 @@
-import React from 'react'
-import {default as BaseBody} from '../api-components/Body'
+import React, { Component } from 'react'
+
+import { fieldFilter, FILTER_OP_HAS_PREFIX, FILTER_OP_CONTAINS } from 'sajari'
+
+import { default as BaseBody } from '../api-components/Body'
+import { FilterFieldBoost } from '../api-components'
+import { ALL } from '../constants/RunModes'
 
 class Body extends Component {
   shouldComponentUpdate(newProps) {
@@ -20,7 +25,7 @@ class Body extends Component {
       prefixBoostComponents.push(
         <FilterFieldBoost
           key={field}
-          filter={filterField(field, text, FILTER_OP_HAS_PREFIX)}
+          filter={fieldFilter(field, text, FILTER_OP_HAS_PREFIX)}
           value={prefixBoosts[field]}
         />
       )
@@ -31,7 +36,7 @@ class Body extends Component {
       containsBoostComponents.push(
         <FilterFieldBoost
           key={field}
-          filter={filterField(field, text, FILTER_OP_CONTAINS)}
+          filter={fieldFilter(field, text, FILTER_OP_CONTAINS)}
           value={containsBoosts[field]}
         />
       )
@@ -41,7 +46,7 @@ class Body extends Component {
       <div>
         {prefixBoostComponents}
         {containsBoostComponents}
-        <Body body={text} run='ALL' />
+        <BaseBody body={text} run={ALL} weight={1} />
       </div>
     )
   }

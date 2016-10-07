@@ -27,3 +27,4 @@ export Sort from './api-components/Sort.js';
 export Transform from './api-components/Transform.js';
 export { ClickTokens, PosNegTokens } from './api-components/Tokens'
 export TrackingReset from './api-components/TrackingReset'
+export { default as NewBody } from './components/Body'
