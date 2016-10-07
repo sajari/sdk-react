@@ -13,10 +13,6 @@ class Base extends React.Component {
     this.state = { uuid: uuid.v4() }
   }
 
-  shouldComponentUpdate(newProps) {
-    return !equal(newProps, this.props)
-  }
-
   componentDidMount() {
     const { namespace, componentName, data } = this.props
     const { uuid } = this.state
@@ -28,6 +24,9 @@ class Base extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
+    if (equal(newProps, this.props)) {
+      return
+    }
     const { namespace, componentName, data } = newProps
     const { uuid } = this.state
     SearchActions.update(namespace, uuid, componentName, data)
