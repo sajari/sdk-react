@@ -24,7 +24,7 @@ class Base extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (equal(newProps, this.props)) {
+    if (!newProps.runIfSame && equal(newProps, this.props)) {
       return
     }
     const { namespace, componentName, data } = newProps
