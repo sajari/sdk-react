@@ -37,4 +37,15 @@ class AppDispatcher extends Dispatcher {
 
 }
 
-export default new AppDispatcher();
+const dispatcher = new AppDispatcher()
+
+// If constructor didn't get run (ie10 and friends), manually construct.
+if (!dispatcher._callbacks) {
+  dispatcher._callbacks = {};
+  dispatcher._isDispatching = false;
+  dispatcher._isHandled = {};
+  dispatcher._isPending = {};
+  dispatcher._lastID = 1;
+}
+
+export default dispatcher;
