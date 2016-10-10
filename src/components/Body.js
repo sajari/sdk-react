@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { fieldFilter, FILTER_OP_HAS_PREFIX, FILTER_OP_CONTAINS } from 'sajari'
 
 import { default as BaseBody } from '../api-components/Body'
+import Page from '../api-components/Page'
 import { FilterFieldBoost } from '../api-components'
 import { ALL } from '../constants/RunModes'
 
@@ -13,7 +14,7 @@ class Body extends Component {
   }
 
   render() {
-    const { text, minLength, prefixBoosts, containsBoosts } = this.props
+    const { text, page, minLength, prefixBoosts, containsBoosts, namespace } = this.props
 
     // Stop rendering happening on initial render if the text doesn't satisfy the minimum length
     if (text < minLength) {
@@ -27,6 +28,7 @@ class Body extends Component {
           key={field}
           filter={fieldFilter(field, text, FILTER_OP_HAS_PREFIX)}
           value={prefixBoosts[field]}
+          namespace={namespace}
         />
       )
     }
@@ -38,6 +40,7 @@ class Body extends Component {
           key={field}
           filter={fieldFilter(field, text, FILTER_OP_CONTAINS)}
           value={containsBoosts[field]}
+          namespace={namespace}
         />
       )
     }
@@ -46,7 +49,8 @@ class Body extends Component {
       <div>
         {prefixBoostComponents}
         {containsBoostComponents}
-        <BaseBody body={text} run={ALL} weight={1} />
+        <Page page={page} namespace={namespace} />
+        <BaseBody body={text} run={ALL} weight={1} namespace={namespace} runIfSame={true} />
       </div>
     )
   }
@@ -54,16 +58,20 @@ class Body extends Component {
 
 Body.propTypes = {
   text: React.PropTypes.string.isRequired,
+  page: React.PropTypes.number,
   minLength: React.PropTypes.number,
   prefixBoosts: React.PropTypes.object,
   containsBoosts: React.PropTypes.object,
+  namespace: React.PropTypes.string,
 }
 
 Body.defaultProps = {
   text: '',
+  page: 1,
   minLength: 3,
   prefixBoosts: {},
   containsBoosts: {},
+  namespace: 'default',
 }
 
 export default Body
