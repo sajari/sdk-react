@@ -28,3 +28,4 @@ export Transform from './api-components/Transform.js';
 export { ClickTokens, PosNegTokens } from './api-components/Tokens'
 export TrackingReset from './api-components/TrackingReset'
 export { default as NewBody } from './components/Body'
+export { default as Pagination } from './components/Pagination'
