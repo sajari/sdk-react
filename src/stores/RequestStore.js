@@ -3,19 +3,20 @@ import { Map as map, List as list } from 'immutable';
 import { ChangeEmitter } from '../utils/ChangeEmitter.js';
 import AppDispatcher from '../dispatcher/AppDispatcher.js';
 import SearchConstants from '../constants/SearchConstants.js';
+import PageStore from './PageStore'
 
 let data = map({
   default: list(),
 });
 
-function requestBase() {
+function requestBase(namespace) {
   return map({
     body: list(),
     terms: list(),
     filters: list(),
     meta_boosts: list(),
     index_boosts: list(),
-    page: 1,
+    page: PageStore.get(namespace) || 1,
     max_results: 10,
     fields: list(),
     sorts: list(),
@@ -29,7 +30,7 @@ function requestBase() {
 function buildRequest(namespace) {
   return data.get(namespace).reduce((r, t) => (
     t.modifier(r)
-  ), requestBase()).toJS();
+  ), requestBase(namespace)).toJS();
 }
 
 class RequestStore extends ChangeEmitter {
