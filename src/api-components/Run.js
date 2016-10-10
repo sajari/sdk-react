@@ -4,11 +4,13 @@ import SearchActions from '../actions/SearchActions.js';
 
 class Run extends Component {
   componentDidMount() {
-    SearchActions.nsearch(this.props.namespace || 'default');
+    SearchActions.nsearch(this.props.namespace);
   }
 
   componentWillUnmount() {
-    SearchActions.nsearch(this.props.namespace || 'default');
+    if (this.props.runOnUnmount) {
+      SearchActions.nsearch(this.props.namespace);
+    }
   }
 
   render() {
@@ -21,6 +23,12 @@ Run.propTypes = {
     React.PropTypes.string,
     React.PropTypes.arrayOf(React.PropTypes.string),
   ]),
+  runOnUnmount: React.PropTypes.boolean,
 };
+
+Run.defaultProps = {
+  namespace: 'default',
+  runOnUnmount: true,
+}
 
 export default Run;
