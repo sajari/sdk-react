@@ -127,7 +127,7 @@ const SearchActions = {
   },
 
   // Export this ()
-  trackingReset(namespace) {
+  resetTracking(namespace) {
     AppDispatcher.handleRequestAction({
       actionType: SearchConstants.TRACKING_RESET,
       namespace,

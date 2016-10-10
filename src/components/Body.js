@@ -7,38 +7,67 @@ import Page from '../api-components/Page'
 import { FilterFieldBoost } from '../api-components'
 import { ALL } from '../constants/RunModes'
 
-function shouldResetTracking(text, oldText) {
-  return text.length === 0 || !text.startsWith(oldText.slice(0, 3))
+class InputBody extends Component {
+  constructor() {
+    this.state = {
+      text: this.props.text
+    }
+    this.onChange = this.onChange.bind(this)
+  }
+
+  onChange(evt) {
+    const v = evt.target.value
+    if (v.length === 0 || !this.state.text.startswith(v.slice(0, 3))) {
+      SearchActions.resetTracking()
+    }
+    this.setState({
+      text: v
+    })
+  }
+
+  render() {
+    // Take out text to prevent it going into others
+    const { text as _, minLength, prefixBoosts, containsBoosts, namespace, ...others } = this.props
+    return (
+      <div>
+        <input type="text" onChange={this.onChange} {...others} />
+        <Body
+          text={this.state.text}
+          minLength={minLength}
+          prefixBoosts={prefixBoosts}
+          containsBoosts={containsBoosts}
+          namespace={namespace}
+        />
+      </div>
+    )
+
+  }
 }
 
 class Body extends Component {
+  constructor(props) {
+    super(props)
+
+    this.onPageChange = this.onPageChange.bind(this)
+  }
+
   shouldComponentUpdate(newProps) {
     // Don't update the component if the text doesn't satisfy the minimum length
     return newProps.text.length >= newProps.minLength
   }
 
-  trackingReset(nextProps) {
-    return shouldResetTracking(this.props.text, nextProps.text)
-  }
-
   componentDidMount() {
     PageStore.AddChangeListener(this.onPageChange)
-    QueryDataStore.AddTrackingResetListener(this.onTrackingReset)
   }
 
   componentWillUnmount() {
     PageStore.RemoveChangeListener(this.onPageChange)
-    QueryDataStore.RemoveTrackingResetListener(this.onTrackingReset)
   }
 
   onPageChange() {
     this.setState({
-      page: PageStore.get(this.props.namespace)
+      page: PageStore.get()
     })
-  }
-
-  onTrackingReset() {
-    PageActions.SetPage(this.props.namespace, 1)
   }
 
   render() {
@@ -73,16 +102,12 @@ class Body extends Component {
       )
     }
 
-    const trackingResetFns = {
-      "UPDATE": this.trackingReset,
-    }
-
     return (
       <div>
         {prefixBoostComponents}
         {containsBoostComponents}
         <Page page={this.state.page} namespace={namespace} />
-        <BaseBody body={text} run={ALL} weight={1} namespace={namespace} runIfSame={true} trackingResetTrigger={trackingResetFns} />
+        <BaseBody body={text} run={ALL} weight={1} namespace={namespace} trackingResetTrigger={trackingResetFns} />
       </div>
     )
   }

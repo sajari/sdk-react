@@ -6,16 +6,6 @@ import SearchActions from '../actions/SearchActions.js'
 import Components from '../constants/QueryComponentConstants.js'
 
 import { ALL, UPDATE, MOUNT, NONE } from '../constants/RunModes'
-import { TR_UPDATE, TR_MOUNT, TR_NONE } from '../constants/TrackingResetModes'
-
-function triggerReset(action, props, state) {
-  if (this.props.triggerTrackingReset) {
-    fn = this.props.triggerTrackingReset[action]
-    if (fn && fn(props, state)) {
-      SearchActions.trackingReset()
-    }
-  }
-}
 
 class Base extends React.Component {
   constructor(props) {
@@ -27,8 +17,6 @@ class Base extends React.Component {
     const { namespace, componentName, data } = this.props
     const { uuid } = this.state
     SearchActions.update(namespace, uuid, componentName, data)
-
-    triggerReset(TR_MOUNT)
 
     if (this.props.run === MOUNT || this.props.run === ALL) {
       SearchActions.nsearch(this.props.namespace)
@@ -43,8 +31,6 @@ class Base extends React.Component {
     const { uuid } = this.state
     SearchActions.update(namespace, uuid, componentName, data)
 
-    triggerReset(TR_UPDATE, newProps)
-
     if (this.props.run === UPDATE || this.props.run === ALL) {
       SearchActions.nsearch(this.props.namespace)
     }
@@ -54,8 +40,6 @@ class Base extends React.Component {
     const { namespace, componentName } = this.props
     const { uuid } = this.state
     SearchActions.remove(namespace, uuid, componentName)
-
-    triggerReset(TR_UNMOUNT)
 
     if (this.props.run === MOUNT || this.props.run === ALL) {
       SearchActions.nsearch(this.props.namespace)
