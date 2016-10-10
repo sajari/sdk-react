@@ -48,4 +48,4 @@ queryDataStore.dispatchToken = AppDispatcher.register(payload => {
   }
 })
 
-export {queryDataStore, AddTrackingResetListener, RemoveTrackingResetListener}
+export { queryDataStore, AddTrackingResetListener, RemoveTrackingResetListener }
