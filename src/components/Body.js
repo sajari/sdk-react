@@ -7,14 +7,42 @@ import Page from '../api-components/Page'
 import { FilterFieldBoost } from '../api-components'
 import { ALL } from '../constants/RunModes'
 
+function shouldResetTracking(text, oldText) {
+  return text.length === 0 || !text.startsWith(oldText.slice(0, 3))
+}
+
 class Body extends Component {
   shouldComponentUpdate(newProps) {
     // Don't update the component if the text doesn't satisfy the minimum length
     return newProps.text.length >= newProps.minLength
   }
 
+  trackingReset(nextProps) {
+    return shouldResetTracking(this.props.text, nextProps.text)
+  }
+
+  componentDidMount() {
+    PageStore.AddChangeListener(this.onPageChange)
+    QueryDataStore.AddTrackingResetListener(this.onTrackingReset)
+  }
+
+  componentWillUnmount() {
+    PageStore.RemoveChangeListener(this.onPageChange)
+    QueryDataStore.RemoveTrackingResetListener(this.onTrackingReset)
+  }
+
+  onPageChange() {
+    this.setState({
+      page: PageStore.get(this.props.namespace)
+    })
+  }
+
+  onTrackingReset() {
+    PageActions.SetPage(this.props.namespace, 1)
+  }
+
   render() {
-    const { text, page, minLength, prefixBoosts, containsBoosts, namespace } = this.props
+    const { text, minLength, prefixBoosts, containsBoosts, namespace } = this.props
 
     // Stop rendering happening on initial render if the text doesn't satisfy the minimum length
     if (text < minLength) {
@@ -45,12 +73,16 @@ class Body extends Component {
       )
     }
 
+    const trackingResetFns = {
+      "UPDATE": this.trackingReset,
+    }
+
     return (
       <div>
         {prefixBoostComponents}
         {containsBoostComponents}
-        <Page page={page} namespace={namespace} />
-        <BaseBody body={text} run={ALL} weight={1} namespace={namespace} runIfSame={true} />
+        <Page page={this.state.page} namespace={namespace} />
+        <BaseBody body={text} run={ALL} weight={1} namespace={namespace} runIfSame={true} trackingResetTrigger={trackingResetFns} />
       </div>
     )
   }
@@ -58,7 +90,6 @@ class Body extends Component {
 
 Body.propTypes = {
   text: React.PropTypes.string.isRequired,
-  page: React.PropTypes.number,
   minLength: React.PropTypes.number,
   prefixBoosts: React.PropTypes.object,
   containsBoosts: React.PropTypes.object,
@@ -67,7 +98,6 @@ Body.propTypes = {
 
 Body.defaultProps = {
   text: '',
-  page: 1,
   minLength: 3,
   prefixBoosts: {},
   containsBoosts: {},

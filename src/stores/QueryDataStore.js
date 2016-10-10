@@ -23,6 +23,14 @@ class QueryDataStore extends ChangeEmitter {
 
 const queryDataStore = new QueryDataStore();
 
+function AddTrackingResetListener(fn) {
+  queryDataStore.addChangeListener(fn);
+}
+
+function RemoveTrackingResetListener(fn) {
+  queryDataStore.removeChangeListener(fn);
+}
+
 queryDataStore.dispatchToken = AppDispatcher.register(payload => {
   const action = payload.action
   const source = payload.source
@@ -34,10 +42,10 @@ queryDataStore.dispatchToken = AppDispatcher.register(payload => {
       const q = getQuery(action.namespace)
       if (q) {
         q.resetID()
-        setQuery(action.namespace)
+        setQuery(action.namespace, q)
       }
     }
   }
 })
 
-export default queryDataStore
+export {queryDataStore, AddTrackingResetListener, RemoveTrackingResetListener}

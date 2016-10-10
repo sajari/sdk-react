@@ -48,7 +48,7 @@
   "peerDependencies": {
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
-    "sajari": "*"
+    "sajari": "sajari/sajari-sdk-js#v0.10.0"
   },
   "repository": {
     "type": "git",

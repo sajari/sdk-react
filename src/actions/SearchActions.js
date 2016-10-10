@@ -69,6 +69,7 @@ function buildRequest(namespace) {
 
 const SearchActions = {
 
+  // Export this
   nsearch(namespace) {
     const namespaces = typeof namespace === 'string' ? [namespace] : namespace;
 
@@ -107,6 +108,7 @@ const SearchActions = {
     });
   },
 
+  // Private (api-component level)
   update(namespace, uuid, componentName, data) {
     if (!data) {
       return;
@@ -119,10 +121,12 @@ const SearchActions = {
     });
   },
 
+  // Private (api-comp)
   remove(namespace, uuid, componentName) {
     dispatchRemoveModifier(namespace, uuid, componentName);
   },
 
+  // Export this ()
   trackingReset(namespace) {
     AppDispatcher.handleRequestAction({
       actionType: SearchConstants.TRACKING_RESET,
