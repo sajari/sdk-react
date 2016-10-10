@@ -2,6 +2,7 @@ import React from "react";
 
 import NamespaceActions from "../actions/NamespaceActions.js";
 import SearchActions from "../actions/SearchActions.js";
+import PageActions from '../actions/PageActions'
 
 import NamespaceStore from "../stores/NamespaceStore.js";
 
@@ -21,6 +22,7 @@ export default class RegisterNamespace extends React.Component {
       engine: props.engine ? props.engine : "v10",
     };
     this.searchOnMount = this.searchOnMount.bind(this);
+    PageActions.set(this.state.namespace, 1)
   }
 
   componentDidMount() {
