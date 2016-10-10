@@ -7,27 +7,30 @@ class PageActions {
       source: 'PAGE_ACTION',
       action: {
         actionType: PageConstants.SET,
-        page: page
+        namespace,
+        page,
       }
-    });
+    })
   }
 
-  next(namespace, page) {
+  next(namespace) {
     AppDispatcher.dispatch({
       source: 'PAGE_ACTION',
       action: {
         actionType: PageConstants.NEXT,
+        namespace,
       }
-    });
+    })
   }
 
-  prev(namespace, page) {
+  prev(namespace) {
     AppDispatcher.dispatch({
       source: 'PAGE_ACTION',
       action: {
         actionType: PageConstants.PREV,
+        namespace,
       }
-    });
+    })
   }
 }
 
