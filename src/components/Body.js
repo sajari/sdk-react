@@ -10,7 +10,6 @@ class Body extends Component {
   constructor(props) {
     super(props)
     this.state = {}
-    this.onPageChange = this.onPageChange.bind(this)
   }
 
   shouldComponentUpdate(newProps) {
