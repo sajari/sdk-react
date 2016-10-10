@@ -4,7 +4,7 @@ import AppDispatcher from '../dispatcher/AppDispatcher.js';
 import SearchConstants from '../constants/SearchConstants.js';
 import RequestStore from '../stores/RequestStore.js';
 import NamespaceStore from '../stores/NamespaceStore.js';
-import QueryDataStore from '../stores/QueryDataStore'
+import { queryDataStore } from '../stores/QueryDataStore'
 import '../stores/QueryStore.js';
 import ApiStore from '../stores/ApiStore.js';
 
@@ -35,7 +35,7 @@ function buildRequest(namespace) {
   }
 
   const ir = RequestStore.getRequest(namespace);
-  const request = QueryDataStore.get(namespace) || new Query();
+  const request = queryDataStore.get(namespace) || new Query();
 
   request.page(ir.page);
   request.resultsPerPage(ir.max_results);
