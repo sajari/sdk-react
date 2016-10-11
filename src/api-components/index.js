@@ -2,14 +2,14 @@ export {
   BucketAggregate,
   CountAggregate,
   MetricAggregate,
-} from './Aggregate.js';
-export Body from './Body.js';
-export Fields from './Fields.js';
-export Filter from './Filter.js';
+} from './Aggregate'
+export Body from './Body'
+export Fields from './Fields'
+export Filter from './Filter'
 export {
   FieldInstanceBoost,
   ScoreInstanceBoost,
-} from './IndexBoost.js';
+} from './IndexBoost'
 export {
   DistanceFieldBoost,
   ElementFieldBoost,
@@ -17,13 +17,13 @@ export {
   IntervalFieldBoost,
   TextFieldBoost,
   FilterFieldBoost,
-} from './MetaBoost.js';
-export Page from './Page.js';
-export RegisterNamespace from './RegisterNamespace.js';
-export ResultInjector from './ResultInjector.js';
-export ResultsPerPage from './ResultsPerPage.js';
-export Run from './Run.js';
-export Sort from './Sort.js';
-export Transform from './Transform.js';
+} from './MetaBoost'
+export Page from './Page'
+export RegisterNamespace from './RegisterNamespace'
+export ResultInjector from './ResultInjector'
+export ResultsPerPage from './ResultsPerPage'
+export Run from './Run'
+export Sort from './Sort'
+export Transform from './Transform'
 export { ClickTokens, PosNegTokens } from './Tokens'
 export TrackingReset from './TrackingReset'
