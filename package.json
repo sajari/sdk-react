@@ -1,22 +1,37 @@
 {
-  "name": "sajari-sdk-react",
-  "description": "React SDK for accessing the Sajari search and recommendations API",
-  "version": "1.0.0",
-  "author": {
-    "name": "Trent Billington",
-    "email": "tbillington@sajari.com",
-    "url": "https://www.sajari.com"
-  },
+  "name": "sajari-react",
+  "description": "React SDK for the Sajari search API",
+  "version": "0.1.0",
+  "author": [
+    {
+      "name": "Trent Billington",
+      "email": "tbillington@sajari.com",
+      "url": "https://www.sajari.com"
+    },
+    {
+      "name": "David Howden",
+      "email": "dhowden@sajari.com",
+      "url": "https://www.sajari.com"
+    }
+  ],
+  "homepage": "https://github.com/sajari/sajari-sdk-react",
+  "bugs": "https://github.com/sajari/sajari-sdk-react/issues",
+  "contributors": [
+    {
+      "name": "Sajari Support <support@sajari.com>",
+      "url": "https://www.sajari.com"
+    }
+  ],
   "dependencies": {
-    "deep-equal": "^1.0.1",
-    "eventemitter3": "^0.1.6",
-    "flux": "^2.0.1",
-    "immutable": "^3.8.1",
-    "keymirror": "^0.1.0",
-    "object-assign": "^2.0.0",
-    "protobufjs": "^5.0.1",
-    "superagent": "^2.0.0",
-    "uuid": "^2.0.2"
+    "deep-equal": "1.0.1",
+    "eventemitter3": "0.1.6",
+    "flux": "2.0.1",
+    "immutable": "3.8.1",
+    "keymirror": "0.1.0",
+    "object-assign": "2.0.0",
+    "protobufjs": "5.0.1",
+    "superagent": "2.0.0",
+    "uuid": "2.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
@@ -48,7 +63,7 @@
   "peerDependencies": {
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
-    "sajari": "sajari/sajari-sdk-js#v0.10.0"
+    "sajari": "0.10.0"
   },
   "repository": {
     "type": "git",
