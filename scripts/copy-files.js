@@ -57,7 +57,7 @@ function createPackageFile() {
     } = packageData;
 
     const minimalPackage = {
-      name: 'sajari-sdk-react',
+      name: 'sajari-react',
       author,
       version,
       description,
