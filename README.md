@@ -4,9 +4,9 @@
 
 **sajari-react-sdk** is a library of React Components for the [Sajari](https://www.sajari.com) search platform that helps you build fast and powerful search interfaces.
 
-React provides a simple and elegant way to structure your applications view. The Sajari React SDK provides a way to seemlessly integrate the Sajari patform into your new or existing React app through the use of easily composable Components.
+React provides a simple and elegant way to structure user interfaces. The Sajari React SDK provides a way to seemlessly integrate the Sajari platform into any React app through the use of easily composable Components.
 
-If you're looking for the vanilla Sajari javascript library, see [here](https://github.com/sajari/sajari-sdk-js/).
+We also provide a vanilla Sajari JS library [here](https://github.com/sajari/sajari-sdk-js/).
 
 
 ## Table of Contents
@@ -76,6 +76,16 @@ const App = () => (
 )
 ```
 
+##
+
+The library is split into 3 main parts:
+
+- `ui-components`: A selection of pre-defined React components for common search use cases.  We also provide some simple event handling to reduce the amount of code you need to write.  This is a great starting point for someone getting to grips with the search system - you should only need to use a few components to get up and running.
+
+- `components`: A high-level set of React components for building search interface, with some event-handling to avoid boilerplate.  Most `components` combine a few `api-components` and do basic event handling for common search use cases. Ideal for customisation of search parameters using `api-components`, whilst also using taking care of basic search session life-cycles.
+
+- `api-components`: A set of React components which correspond directly to query parameters and result handling.  They do not render any HTML directly; including an api-component in a render attaches its corresponding query parameter to the current query.
+
 ## Components
 
 ***Component** refers to a Sajari Component unless specified otherwise.*
@@ -84,15 +94,13 @@ Components are the easiest way to get functionality from the SDK. We recommend u
 
 ### Body
 
-The Body component is for declaring the text you'd like to search for. The most basic usage is to supply it some text to search for through a prop. By default the minimum text length before a search will happen is 3, often results for searches of less than 3 characters are mostly noise.
+The Body component is for declaring text you'd like to search for. The most basic usage is to supply some text via the `text` prop. By default the component won't trigger a search until at least 3 characters of text has been specified.
 
 ```javascript
 <Body text='pumpkin' />
 ```
 
-If you'd like to make results where the text matches the prefix of the result, or where the text matches an exact portion of the result weight more heavily, you can specify boosts for these.
-
-This example is communicating that results in which the title starts with 'pumpkin soup' are worth more, and results whose title contains the exact phrase 'pumpkin soup' are worth a little bit more. Results whose title starts with the exact phrase 'pumpkin soup' will satisfy both these conditions, and therefore receive the highest score.
+We normally recommend adding some boosts for text searches, particularly if the content you're searching includes articles/products/events with important text fields that you want to prioritise if matched i.e. titles, descriptions, keywords etc.  Common boosts applied are prefix-based (i.e. does a field begin with the search phrase), and contains (i.e. does the field contain the exact search phrase).  The `Body` component has props to set both of these.
 
 ```javascript
 const prefixBoosts = { 'title': 1.2 }
