@@ -15,7 +15,7 @@ We also provide a vanilla Sajari JS library [here](https://github.com/sajari/saj
   * [NPM](#npm)
 * [Getting started](#getting-started)
 * [Components](#components)
-  * [Body
+  * [Body](#body)
 * [API Components](#api-components)
   * [Body](#api-body)
   * [Page](#page)
@@ -86,6 +86,27 @@ The library is split into 3 main parts:
 
 - `api-components`: A set of React components which correspond directly to query parameters and result handling.  They do not render any HTML directly; including an api-component in a render attaches its corresponding query parameter to the current query.
 
+## Namespaces
+
+All components are namespaced, and each namespace corresponds to a query object (i.e. the query object that is built from components in its namespace).  By default all components are given the `default` namespace.
+
+Every application must render the `<RegisterNamespace>` component to set the `project` and `collection` for that namespace.
+
+### RegisterNamespace
+
+Registers a project and collection with a namespace.
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| project | string | Yes | none | The name of your project |
+| collection | string | Yes | none | The name of your collection |
+| namespace | string | No | `'default'` | The name to assign to the project-collection pair |
+
+```jsx
+<RegisterNamespace project='myproject' collection='mycollection' />
+```
+
+
 ## Components
 
 ***Component** refers to a Sajari Component unless specified otherwise.*
@@ -94,13 +115,13 @@ Components are the easiest way to get functionality from the SDK. We recommend u
 
 ### Body
 
-The Body component is for declaring text you'd like to search for. The most basic usage is to supply some text via the `text` prop. By default the component won't trigger a search until at least 3 characters of text has been specified.
+The Body component is for declaring text you'd like to search for, which is specified via the `text` prop. By default the component won't trigger a search until at least 3 characters of text has been given.
 
 ```javascript
 <Body text='pumpkin' />
 ```
 
-We normally recommend adding some boosts for text searches, particularly if the content you're searching includes articles/products/events with important text fields that you want to prioritise if matched i.e. titles, descriptions, keywords etc.  Common boosts applied are prefix-based (i.e. does a field begin with the search phrase), and contains (i.e. does the field contain the exact search phrase).  The `Body` component has props to set both of these.
+We normally recommend adding some boosts for text searches, particularly if the content you're searching includes articles/products/events with important text fields that you want to prioritise if matched i.e. titles, descriptions, keywords etc.  Common boosts applied are `prefix`-based (i.e. does a field begin with the search phrase), and `contains` (i.e. does the field contain the exact search phrase).  The `Body` component has props to set both of these:
 
 ```javascript
 const prefixBoosts = { 'title': 1.2 }
@@ -112,6 +133,8 @@ const containsBoosts = { 'title': 1.1 }
 />
 ```
 
+Other props for `Body` are:
+
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
 | text | string | Yes | `''` | The text to search for. Non case sensitive |
@@ -122,7 +145,7 @@ const containsBoosts = { 'title': 1.1 }
 
 ## API Components
 
-API Components are easily composable React Components which allow you to configure your search query in a declaritive fashion. By themselves they do not render any html. You can think of them as rendering parts of your query instead. Your query will always reflect the state of these components.
+API Components are easily composable React Components which allow you to configure your search query in a declaritive fashion. They do not render any HTML directly; including an api-component in a render attaches its corresponding query parameter to the current query.  For instance, rendering a `Filter` component (see below) will add a filter to the query.
 
 If no namespace is specified, all API components will use the `default` namespace.
 
@@ -141,7 +164,7 @@ The Body component adds a text body to a search query. It can also take a weight
 
 ### Page
 
-The Page components sets which page of the search results to use.
+The Page components sets which page of the search results to fetch.
 
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
@@ -173,20 +196,6 @@ The fields of the document to fetch. Restricting this to only the fields you are
 
 ```jsx
 <Fields fields={['_id', 'url', 'description']} />
-```
-
-### RegisterNamespace
-
-Registeres your project and collection with a namespace.
-
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| project | string | Yes | none | The name of your project |
-| collection | string | Yes | none | The name of your collection |
-| namespace | string | No | `'default'` | The name to assign to the project-collection pair |
-
-```jsx
-<RegisterNamespace project='myproject' collection='mycollection' />
 ```
 
 ### ResultInjector
