@@ -1,8 +1,8 @@
 # Sajari React SDK
 
-![npm](https://npmjs.org/package/sajari-sdk-react) ![license](http://img.shields.io/badge/license-MIT-green.svg?style=flat-square)
+![npm](https://npmjs.org/package/sajari-react) ![license](http://img.shields.io/badge/license-MIT-green.svg?style=flat-square)
 
-**sajari-react-sdk** is a library of React Components for the [Sajari](https://www.sajari.com) search platform that helps you build fast and powerful search interfaces.
+**sajari-react** is a library of React Components for the [Sajari](https://www.sajari.com) search platform that helps you build fast and powerful search interfaces.
 
 React provides a simple and elegant way to structure user interfaces. The Sajari React SDK provides a way to seemlessly integrate the Sajari platform into any React app through the use of easily composable Components.
 
@@ -49,7 +49,7 @@ We also provide a vanilla Sajari JS library [here](https://github.com/sajari/saj
 ### NPM
 
 ```
-npm install --save sajari sajari-sdk-react
+npm install --save sajari sajari-react
 ```
 
 ## Getting Started
@@ -62,8 +62,8 @@ Here is a barebones use of the library.
 - `ResultRenderer` renders the results into HTML
 
 ```javascript
-import { RegisterNamespace, ResultInjector } from 'sajari-sdk-react/api-components'
-import { BodyInput } from 'sajari-sdk-react/ui-components'
+import { RegisterNamespace, ResultInjector } from 'sajari-react/api-components'
+import { BodyInput } from 'sajari-react/ui-components'
 
 const App = () => (
   <div>
@@ -111,7 +111,7 @@ Registers a project and collection with a namespace.
 
 ***Component** refers to a Sajari Component unless specified otherwise.*
 
-Components are the easiest way to get functionality from the SDK. We recommend using them over the lower level API-Components unless you need the granularity. If you have a use case that isn't covered by a Component you can make an [issue](https://github.com/sajari/sajari-sdk-react/issues).
+Components are the easiest way to get functionality from the SDK. We recommend using them over the lower level API-Components unless you need the granularity. If you have a use case that isn't covered by a Component you can make an [issue](https://github.com/sajari/sajari-react/issues).
 
 ### Body
 
