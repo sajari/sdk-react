@@ -2,21 +2,22 @@
 
 ![npm](https://npmjs.org/package/sajari-sdk-react) ![license](http://img.shields.io/badge/license-MIT-green.svg?style=flat-square)
 
-**sajari-react-sdk** is a library of React Components for the [Sajari](https://www.sajari.com) search platform that helps you build fast and powerful live search interfaces.
+**sajari-react-sdk** is a library of React Components for the [Sajari](https://www.sajari.com) search platform that helps you build fast and powerful search interfaces.
 
 React provides a simple and elegant way to structure your applications view. The Sajari React SDK provides a way to seemlessly integrate the Sajari patform into your new or existing React app through the use of easily composable Components.
 
-If you're looking for the vanilla javascript library, see [here](https://github.com/sajari/sajari-sdk-js/).
+If you're looking for the vanilla Sajari javascript library, see [here](https://github.com/sajari/sajari-sdk-js/).
 
 
 ## Table of Contents
 
 * [Setup](#setup)
-  * [Browser](#browser)
-  * [NPM, Browserify, webpack](#npm-browserify-webpack)
+  * [NPM](#npm)
 * [Getting started](#getting-started)
+* [Components](#components)
+  * [Body
 * [API Components](#api-components)
-  * [Body](#body)
+  * [Body](#api-body)
   * [Page](#page)
   * [ResultsPerPage](#resultsperpage)
   * [Fields](#fields)
@@ -45,12 +46,10 @@ If you're looking for the vanilla javascript library, see [here](https://github.
 
 ## Setup
 
-### Browser
-
-### NPM, Browserify, webpack
+### NPM
 
 ```
-npm install --save sajari-sdk-react
+npm install --save sajari sajari-sdk-react
 ```
 
 ## Getting Started
@@ -62,19 +61,56 @@ Here is a barebones use of the library.
 - The results of the query are injected into `ResultRenderer`
 - `ResultRenderer` renders the results into HTML
 
-```jsx
-import { RegisterNamespace, BodyInput, ResultInjector, ResultRenderer } from 'sajari-sdk-react'
+```javascript
+import { RegisterNamespace, ResultInjector } from 'sajari-sdk-react/api-components'
+import { BodyInput } from 'sajari-sdk-react/ui-components'
 
 const App = () => (
   <div>
     <RegisterNamespace project='bobstools' collection='inventory' />
     <BodyInput />
     <ResultInjector>
-      <ResultRenderer />
+      <YourResultRenderer />
     </ResultInjector>
   </div>
 )
 ```
+
+## Components
+
+***Component** refers to a Sajari Component unless specified otherwise.*
+
+Components are the easiest way to get functionality from the SDK. We recommend using them over the lower level API-Components unless you need the granularity. If you have a use case that isn't covered by a Component you can make an [issue](https://github.com/sajari/sajari-sdk-react/issues).
+
+### Body
+
+The Body component is for declaring the text you'd like to search for. The most basic usage is to supply it some text to search for through a prop. By default the minimum text length before a search will happen is 3, often results for searches of less than 3 characters are mostly noise.
+
+```javascript
+<Body text='pumpkin' />
+```
+
+If you'd like to make results where the text matches the prefix of the result, or where the text matches an exact portion of the result weight more heavily, you can specify boosts for these.
+
+This example is communicating that results in which the title starts with 'pumpkin soup' are worth more, and results whose title contains the exact phrase 'pumpkin soup' are worth a little bit more. Results whose title starts with the exact phrase 'pumpkin soup' will satisfy both these conditions, and therefore receive the highest score.
+
+```javascript
+const prefixBoosts = { 'title': 1.2 }
+const containsBoosts = { 'title': 1.1 }
+<Body
+  text='pumpkin soup'
+  prefixBoosts={prefixBoosts}
+  containsBoosts={containsBoosts}
+/>
+```
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| text | string | Yes | `''` | The text to search for. Non case sensitive |
+| minLength | number | No | `3` | The minimum length of `text` before a search is performed |
+| prefixBoosts | object | No | `{}` | The dictionary of `field`: `value` to use as `prefix` boosts |
+| containsBoosts | object | No | `{}` | The dictionary of `field`: `value` to use as `contains` boosts |
+| namespace | string \| string array | No | `default` | The namespace to operate on |
 
 ## API Components
 
@@ -82,7 +118,7 @@ API Components are easily composable React Components which allow you to configu
 
 If no namespace is specified, all API components will use the `default` namespace.
 
-### Body
+### API Body
 
 The Body component adds a text body to a search query. It can also take a weighting.
 
