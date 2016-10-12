@@ -40,11 +40,11 @@ FieldInstanceBoost.propTypes = {
 };
 
 const ScoreInstanceBoost = props => {
-  const { threshold, namespace, ...others } = props;
+  const { threshold, min_count, namespace, ...others } = props;
   return (
     <IndexBoost
       {...others}
-      data={scoreInstanceBoost(threshold)}
+      data={scoreInstanceBoost(threshold, min_count)}
       namespace={namespace}
     />
   );
@@ -52,6 +52,7 @@ const ScoreInstanceBoost = props => {
 
 ScoreInstanceBoost.propTypes = {
   threshold: React.PropTypes.number.isRequired,
+  min_count: React.PropTypes.number.isRequired,
   namespace: React.PropTypes.string,
 };
 
