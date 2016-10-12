@@ -14,6 +14,8 @@ We also provide a vanilla Sajari JS library [here](https://github.com/sajari/saj
 * [Setup](#setup)
   * [NPM](#npm)
 * [Getting started](#getting-started)
+* [Examples](#examples)
+  * [Basic Search](#basic-search)
 * [Components](#components)
   * [Body](#body)
   * [Pagination](#pagination)
@@ -86,6 +88,12 @@ The library is split into 3 main parts:
 - `components`: A high-level set of React components for building search interface, with some event-handling to avoid boilerplate.  Most `components` combine a few `api-components` and do basic event handling for common search use cases. Ideal for customisation of search parameters using `api-components`, whilst also using taking care of basic search session life-cycles.
 
 - `api-components`: A set of React components which correspond directly to query parameters and result handling.  They do not render any HTML directly; including an api-component in a render attaches its corresponding query parameter to the current query.
+
+## Examples
+
+### [Basic search](./examples/basic-search/)
+
+[This example](./examples/basic-search/) showcases a simple web app with instant search. It's the best place to see how easy it is to integrate Sajari.
 
 ## Namespaces
 
