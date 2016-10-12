@@ -16,6 +16,7 @@ We also provide a vanilla Sajari JS library [here](https://github.com/sajari/saj
 * [Getting started](#getting-started)
 * [Components](#components)
   * [Body](#body)
+  * [Pagination](#pagination)
 * [API Components](#api-components)
   * [Body](#api-body)
   * [Page](#page)
@@ -142,6 +143,24 @@ Other props for `Body` are:
 | prefixBoosts | object | No | `{}` | The dictionary of `field`: `value` to use as `prefix` boosts |
 | containsBoosts | object | No | `{}` | The dictionary of `field`: `value` to use as `contains` boosts |
 | namespace | string \| string array | No | `default` | The namespace to operate on |
+
+### Pagination
+
+The Pagination component makes it easy to add pagination to your project. It provides it's children with the current page, and callbacks to trigger page change.
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| namespace | string | No | `default` | The namespace to operate on |
+
+Props provided to children.
+
+| Prop | Type | Description |
+| :-- | :-: | :-- |
+| page | number | The current page |
+| next | fn () -> () | A function that will increment the page and perform a search when called |
+| prev | fn () -> () | A function that will decrement the page and perform a search when called |
+| set | fn (number) -> () | A function that allows you to set the current page |
+| ... | any | Any props that are passed to `Pagination` will be passed to it's children |
 
 ## API Components
 
