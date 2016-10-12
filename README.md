@@ -1,6 +1,6 @@
 # Sajari React SDK
 
-![npm version](https://npmjs.org/package/sajari-react) ![license](http://img.shields.io/badge/license-MIT-green.svg?style=flat-square)
+![npm version](https://img.shields.io/npm/v/sajari-react.svg?style=flat-square) ![license](http://img.shields.io/badge/license-MIT-green.svg?style=flat-square)
 
 **sajari-react** is a library of React Components for the [Sajari](https://www.sajari.com) search platform that helps you build fast and powerful search interfaces.
 
