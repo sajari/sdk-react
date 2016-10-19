@@ -241,11 +241,11 @@ The result injector listens for results from queries and passes them as props to
 
 ### Filter
 
-The Filter component adds a [filter](https://github.com/sajari/sajari-sdk-js-10#filter) to the query. Filters operate on fields and the values within them, and can be combined to produce complex logic.
+The Filter component adds a [filter](https://github.com/sajari/sajari-sdk-js#filter) to the query. Filters operate on fields and the values within them, and can be combined to produce complex logic.
 
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
-| data | [filter](https://github.com/sajari/sajari-sdk-js-10#filter) | Yes | none | The filter to be applied |
+| data | [filter](https://github.com/sajari/sajari-sdk-js#filter) | Yes | none | The filter to be applied |
 
 ```jsx
 <Filter data={fieldFilter('price', 100, FILTER_OP_LT)} />
@@ -262,7 +262,7 @@ BucketAggregate aggregates into buckets whose values are determined by a filter.
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
 | name | string | Yes | none | The name to give the aggregate, this is how you identify it in the results |
-| buckets | [bucket array](https://github.com/sajari/sajari-sdk-js-10#bucket-example) | Yes | none | The buckets of data to aggregate
+| buckets | [bucket array](https://github.com/sajari/sajari-sdk-js#bucket-example) | Yes | none | The buckets of data to aggregate
 
 ```jsx
 <BucketAggregate name='priceGroups' data={[
@@ -285,13 +285,13 @@ CountAggregate counts all of the unique values for a particular field in a set o
 
 #### MetricAggregate
 
-MetricAggregate performs metrics over the data in a field. The options are available [here](https://github.com/sajari/sajari-sdk-js-10#aggregates).
+MetricAggregate performs metrics over the data in a field. The options are available [here](https://github.com/sajari/sajari-sdk-js#aggregates).
 
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
 | name | string | Yes | none | The name to give the aggregate, this is how you identify it in the results |
 | field | string | Yes | none | The field to aggregate the values from |
-| type | [enum](https://github.com/sajari/sajari-sdk-js-10#aggregates) | Yes | none | The metric to measure |
+| type | [enum](https://github.com/sajari/sajari-sdk-js#aggregates) | Yes | none | The metric to measure |
 
 ```jsx
 <MetricAggregate name='averagePrice' field='price' type={METRIC_TYPE_AVG} />
