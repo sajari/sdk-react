@@ -13,10 +13,10 @@ export {
 export {
   DistanceFieldBoost,
   ElementFieldBoost,
-  GeoMetaBoost,
   IntervalFieldBoost,
   TextFieldBoost,
   FilterFieldBoost,
+  FieldBoost,
 } from './MetaBoost'
 export Page from './Page'
 export RegisterNamespace from './RegisterNamespace'
