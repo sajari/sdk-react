@@ -23,7 +23,7 @@ Run.propTypes = {
     React.PropTypes.string,
     React.PropTypes.arrayOf(React.PropTypes.string),
   ]),
-  runOnUnmount: React.PropTypes.boolean,
+  runOnUnmount: React.PropTypes.bool,
 };
 
 Run.defaultProps = {
