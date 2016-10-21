@@ -23,12 +23,16 @@ class BodyInput extends Component {
     this.setState({ text })
   }
 
+  componentDidMount() {
+    this.refs['sj-search-input'].focus()
+  }
+
   render() {
     // Take out text to prevent it going into others
     const { text: _, minLength, prefixBoosts, containsBoosts, namespace, ...others } = this.props
     return (
       <div>
-        <input type="text" onChange={this.onChange} {...others} />
+        <input type="text" ref='sj-search-input' onChange={this.onChange} {...others} />
         <Body
           text={this.state.text}
           minLength={minLength}
