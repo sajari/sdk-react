@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { fieldFilter, FILTER_OP_HAS_PREFIX, FILTER_OP_CONTAINS } from 'sajari'
+import { fieldFilter, FILTER_OP_PREFIX, FILTER_OP_CONTAINS } from 'sajari'
 
 import { default as BaseBody } from '../api-components/Body'
 import { FilterFieldBoost } from '../api-components'
@@ -30,7 +30,7 @@ class Body extends Component {
       prefixBoostComponents.push(
         <FilterFieldBoost
           key={field}
-          filter={fieldFilter(field, text, FILTER_OP_HAS_PREFIX)}
+          filter={fieldFilter(field, text, FILTER_OP_PREFIX)}
           value={prefixBoosts[field]}
           namespace={namespace}
         />
