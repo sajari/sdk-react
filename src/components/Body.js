@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 
-import { fieldFilter, FILTER_OP_PREFIX, FILTER_OP_CONTAINS } from 'sajari'
+import { fieldFilter, FILTER_OP_PREFIX, FILTER_OP_CONTAINS, additiveFieldBoost, filterFieldBoost } from 'sajari'
 
 import { default as BaseBody } from '../api-components/Body'
-import { FilterFieldBoost } from '../api-components'
+import { FilterFieldBoost, FieldBoost } from '../api-components'
 import { ALL } from '../constants/RunModes'
 
 class Body extends Component {
@@ -28,10 +28,17 @@ class Body extends Component {
     const prefixBoostComponents = []
     for (let field in prefixBoosts) {
       prefixBoostComponents.push(
-        <FilterFieldBoost
+        <FieldBoost
           key={field}
-          filter={fieldFilter(field, text, FILTER_OP_PREFIX)}
-          value={prefixBoosts[field]}
+          data={
+            additiveFieldBoost(
+              filterFieldBoost(
+                fieldFilter(field, text, FILTER_OP_PREFIX),
+                1,
+              ),
+              prefixBoosts[field]
+            )
+          }
           namespace={namespace}
         />
       )
@@ -40,10 +47,17 @@ class Body extends Component {
     const containsBoostComponents = []
     for (let field in containsBoosts) {
       containsBoostComponents.push(
-        <FilterFieldBoost
+        <FieldBoost
           key={field}
-          filter={fieldFilter(field, text, FILTER_OP_CONTAINS)}
-          value={containsBoosts[field]}
+          data={
+            additiveFieldBoost(
+              filterFieldBoost(
+                fieldFilter(field, text, FILTER_OP_CONTAINS),
+                1,
+              ),
+              containsBoosts[field]
+            )
+          }
           namespace={namespace}
         />
       )
