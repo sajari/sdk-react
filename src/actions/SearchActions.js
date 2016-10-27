@@ -1,4 +1,4 @@
-import { Query, COMB_FILTER_OP_ALL, combinatorFilter } from 'sajari';
+import { Query, allFilters } from 'sajari';
 
 import AppDispatcher from '../dispatcher/AppDispatcher.js';
 import SearchConstants from '../constants/SearchConstants.js';
@@ -46,7 +46,7 @@ function buildRequest(namespace) {
   if (ir.filters.length === 1) {
     request.filter(ir.filters[0]);
   } else if (ir.filters.length > 1) {
-    request.filter(combinatorFilter(ir.filters, COMB_FILTER_OP_ALL));
+    request.filter(allFilters(ir.filters));
   } else {
     request.filter()
   }

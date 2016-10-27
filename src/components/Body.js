@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { fieldFilter, FILTER_OP_PREFIX, FILTER_OP_CONTAINS, additiveFieldBoost, filterFieldBoost } from 'sajari'
+import { fieldFilter, additiveFieldBoost, filterFieldBoost } from 'sajari'
 
 import { default as BaseBody } from '../api-components/Body'
 import { FilterFieldBoost, FieldBoost } from '../api-components'
@@ -33,7 +33,7 @@ class Body extends Component {
           data={
             additiveFieldBoost(
               filterFieldBoost(
-                fieldFilter(field, text, FILTER_OP_PREFIX),
+                fieldFilter(field, '^', text),
                 1,
               ),
               prefixBoosts[field]
@@ -52,7 +52,7 @@ class Body extends Component {
           data={
             additiveFieldBoost(
               filterFieldBoost(
-                fieldFilter(field, text, FILTER_OP_CONTAINS),
+                fieldFilter(field, '~', text),
                 1,
               ),
               containsBoosts[field]
