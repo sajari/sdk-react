@@ -4,7 +4,7 @@ import { fieldFilter, additiveFieldBoost, filterFieldBoost } from 'sajari'
 
 import { default as BaseBody } from '../api-components/Body'
 import { FilterFieldBoost, FieldBoost } from '../api-components'
-import { ALL } from '../constants/RunModes'
+import { MOUNT_UPDATE } from '../constants/RunModes'
 
 class Body extends Component {
   constructor(props) {
@@ -67,7 +67,7 @@ class Body extends Component {
       <div>
         {prefixBoostComponents}
         {containsBoostComponents}
-        <BaseBody body={text} run={ALL} weight={1} namespace={namespace} />
+        <BaseBody body={text} run={MOUNT_UPDATE} weight={1} namespace={namespace} />
       </div>
     )
   }
