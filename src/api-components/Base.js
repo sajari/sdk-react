@@ -5,7 +5,7 @@ import equal from 'deep-equal'
 import SearchActions from '../actions/SearchActions.js'
 import Components from '../constants/QueryComponentConstants.js'
 
-import { ALL, UPDATE, MOUNT, NONE } from '../constants/RunModes'
+import { ALL, UPDATE, MOUNT, NONE, MOUNT_UPDATE } from '../constants/RunModes'
 
 class Base extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class Base extends React.Component {
     const { uuid } = this.state
     SearchActions.update(namespace, uuid, componentName, data)
 
-    if (this.props.run === MOUNT || this.props.run === ALL) {
+    if (this.props.run === MOUNT || this.props.run === ALL || this.props.run === MOUNT_UPDATE) {
       SearchActions.nsearch(this.props.namespace)
     }
   }
@@ -31,7 +31,7 @@ class Base extends React.Component {
     const { uuid } = this.state
     SearchActions.update(namespace, uuid, componentName, data)
 
-    if (this.props.run === UPDATE || this.props.run === ALL) {
+    if (this.props.run === UPDATE || this.props.run === ALL || this.props.run === MOUNT_UPDATE) {
       SearchActions.nsearch(this.props.namespace)
     }
   }
@@ -50,7 +50,7 @@ class Base extends React.Component {
 }
 
 Base.propTypes = {
-  run: React.PropTypes.oneOf([ALL, UPDATE, MOUNT, NONE]),
+  run: React.PropTypes.oneOf([ALL, UPDATE, MOUNT, NONE, MOUNT_UPDATE]),
   namespace: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.arrayOf(React.PropTypes.string),
