@@ -12,7 +12,7 @@ function cursorStyle(enabled) {
 export default class Pagination extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {page: 1};
+    this.state = {page: 0};
   }
 
   setPage(p) {
