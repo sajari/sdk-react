@@ -55,9 +55,9 @@ function buildRequest(namespace) {
 
   // TODO(tbillington): This will not remove tracking from the query if the user has unmounted the tracking component
   if (ir.token_type === 'CLICK') {
-    request.click(ir.token_key_field)
+    request.clickTracking(ir.token_key_field)
   } else if (ir.token_type === 'POS_NEG') {
-    request.posNeg(ir.token_key_field)
+    request.posNegTracking(ir.token_key_field)
   }
   request.transforms(ir.transforms)
 
