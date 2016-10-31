@@ -27,10 +27,6 @@ We also provide a vanilla Sajari JS library [here](https://github.com/sajari/saj
   * [RegisterNamespace](#registernamespace)
   * [ResultInjector](#resultinjector)
   * [Filter](#filter)
-  * [Aggregates](#aggregates)
-    * [BucketAggregate](#bucketaggregate)
-    * [CountAggregate](#countaggregate)
-    * [MetricAggregate](#metricaggregate)
   * [Index Boosts](#index-boosts)
     * [FieldInstanceBoost](#fieldinstanceboost)
     * [ScoreInstanceBoost](#scoreinstanceboost)
@@ -41,6 +37,10 @@ We also provide a vanilla Sajari JS library [here](https://github.com/sajari/saj
     * [ElementFieldBoost](#elementfieldboost)
     * [TextFieldBoost](#textfieldboost)
   * [Sort](#sort)
+  * [Aggregates](#aggregates)
+    * [BucketAggregate](#bucketaggregate)
+    * [CountAggregate](#countaggregate)
+    * [MetricAggregate](#metricaggregate)
 * [UI Components](#ui-components)
   * [BodyInput](#bodyinput)
 * [License](#license)
@@ -249,52 +249,6 @@ The Filter component adds a [filter](https://github.com/sajari/sajari-sdk-js#fil
 <Filter data={fieldFilter('price', '<=', 100)} />
 ```
 
-### Aggregates
-
-Aggregates operate on query results, providing statistics and other information.
-
-#### BucketAggregate
-
-BucketAggregate aggregates the documents of a query result into buckets using filters.
-
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| name | string | Yes | none | The name to give the aggregate, this is how you identify it in the results |
-| buckets | [bucket array](https://github.com/sajari/sajari-sdk-js#bucket-example) | Yes | none | The buckets of data to aggregate
-
-```jsx
-<BucketAggregate name='priceGroups' data={[
-  bucket('under100', fieldFilter('price', '<=', 100))
-]} />
-```
-
-#### CountAggregate
-
-CountAggregate counts unique field values for documents in a set of query results.
-
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| name | string | Yes | none | The name to give the aggregate, this is how you identify it in the results |
-| field | string | Yes | none | The field to aggregate the values from |
-
-```jsx
-<CountAggregate name='count' field='name' />
-```
-
-#### MetricAggregate
-
-MetricAggregate performs metrics over the data in a field. The options are available [here](https://github.com/sajari/sajari-sdk-js#aggregates).
-
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| name | string | Yes | none | The name to give the aggregate, this is how you identify it in the results |
-| field | string | Yes | none | The field to aggregate the values from |
-| type | [enum](https://github.com/sajari/sajari-sdk-js#aggregates) | Yes | none | The metric to measure |
-
-```jsx
-<MetricAggregate name='averagePrice' field='price' type={METRIC_TYPE_AVG} />
-```
-
 ### Index Boosts
 
 Index boosts apply to indexed fields.
@@ -412,6 +366,52 @@ Sort defines the ordering of result documents.  Specifying a sort overrides the 
 ```jsx
 // Sort by price descending
 <Sort field='-price' />
+```
+
+### Aggregates
+
+Aggregates operate on query results, providing statistics and other information.
+
+#### BucketAggregate
+
+BucketAggregate aggregates the documents of a query result into buckets using filters.
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| name | string | Yes | none | The name to give the aggregate, this is how you identify it in the results |
+| buckets | [bucket array](https://github.com/sajari/sajari-sdk-js#bucket-example) | Yes | none | The buckets of data to aggregate
+
+```jsx
+<BucketAggregate name='priceGroups' data={[
+  bucket('under100', fieldFilter('price', '<=', 100))
+]} />
+```
+
+#### CountAggregate
+
+CountAggregate counts unique field values for documents in a set of query results.
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| name | string | Yes | none | The name to give the aggregate, this is how you identify it in the results |
+| field | string | Yes | none | The field to aggregate the values from |
+
+```jsx
+<CountAggregate name='count' field='name' />
+```
+
+#### MetricAggregate
+
+MetricAggregate performs metrics over the data in a field. The options are available [here](https://github.com/sajari/sajari-sdk-js#aggregates).
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| name | string | Yes | none | The name to give the aggregate, this is how you identify it in the results |
+| field | string | Yes | none | The field to aggregate the values from |
+| type | [enum](https://github.com/sajari/sajari-sdk-js#aggregates) | Yes | none | The metric to measure |
+
+```jsx
+<MetricAggregate name='averagePrice' field='price' type={METRIC_TYPE_AVG} />
 ```
 
 ## UI Components
