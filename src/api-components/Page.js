@@ -20,7 +20,7 @@ Page.propTypes = {
 };
 
 Page.defaultProps = {
-  page: 1,
+  page: 0,
 };
 
 export default Page;
