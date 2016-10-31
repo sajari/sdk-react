@@ -11,14 +11,13 @@ const Sort = props => {
       {...others}
       runDefault='update'
       componentName={Components.SORT}
-      data={sort(field, order)}
+      data={sort(field)}
     />
   );
 };
 
 Sort.propTypes = {
   field: React.PropTypes.string.isRequired,
-  order: React.PropTypes.string.isRequired,
 };
 
 export default Sort;
