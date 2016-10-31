@@ -10,7 +10,7 @@ const ClickTokens = props => {
       {...others}
       runDefault='all'
       componentName={Components.CLICK_TOKENS}
-      data={field || '_id'}
+      data={field}
     />
   )
 }
@@ -22,7 +22,7 @@ const PosNegTokens = props => {
       {...others}
       runDefault='all'
       componentName={Components.POS_NEG_TOKENS}
-      data={field || '_id'}
+      data={field}
     />
   )
 }
