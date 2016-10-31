@@ -34,13 +34,12 @@ We also provide a vanilla Sajari JS library [here](https://github.com/sajari/saj
   * [Index Boosts](#index-boosts)
     * [FieldInstanceBoost](#fieldinstanceboost)
     * [ScoreInstanceBoost](#scoreinstanceboost)
-  * [Meta Boosts](#meta-boosts)
+  * [Field Boosts](#field-boosts)
     * [FilterFieldBoost](#filterfieldboost)
-    * [TextFieldBoost](#textfieldboost)
-    * [IntervalFieldBoost](#intervalfieldboost)
-    * [GeoMetaBoost](#geometaboost)
-    * [ElementFieldBoost](#elementfieldboost)
     * [DistanceFieldBoost](#distancefieldboost)
+    * [IntervalFieldBoost](#intervalfieldboost)
+    * [ElementFieldBoost](#elementfieldboost)
+    * [TextFieldBoost](#textfieldboost)
   * [Sort](#sort)
 * [UI Components](#ui-components)
   * [BodyInput](#bodyinput)
@@ -114,7 +113,6 @@ Registers a project and collection with a namespace.
 ```jsx
 <RegisterNamespace project='myproject' collection='mycollection' />
 ```
-
 
 ## Components
 
@@ -248,16 +246,16 @@ The Filter component adds a [filter](https://github.com/sajari/sajari-sdk-js#fil
 | data | [filter](https://github.com/sajari/sajari-sdk-js#filter) | Yes | none | The filter to be applied |
 
 ```jsx
-<Filter data={fieldFilter('price', 100, FILTER_OP_LT)} />
+<Filter data={fieldFilter('price', '<=', 100)} />
 ```
 
 ### Aggregates
 
-Aggregates return data about your query.
+Aggregates operate on query results, providing statistics and other information.
 
 #### BucketAggregate
 
-BucketAggregate aggregates into buckets whose values are determined by a filter.
+BucketAggregate aggregates the documents of a query result into buckets using filters.
 
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
@@ -266,13 +264,13 @@ BucketAggregate aggregates into buckets whose values are determined by a filter.
 
 ```jsx
 <BucketAggregate name='priceGroups' data={[
-  bucket('under100', fieldFilter('price', 100, FILTER_OP_LT))
+  bucket('under100', fieldFilter('price', '<=', 100))
 ]} />
 ```
 
 #### CountAggregate
 
-CountAggregate counts all of the unique values for a particular field in a set of query results.
+CountAggregate counts unique field values for documents in a set of query results.
 
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
@@ -327,7 +325,7 @@ ScoreInstanceBoost  boosts term instances based on their individual scoring valu
 <ScoreInstanceBoost threshold={1.5} />
 ```
 
-### Meta Boosts
+### Field Boosts
 
 #### FilterFieldBoost
 
@@ -340,76 +338,6 @@ FilterFieldBoost boosts results if they match a specified filter. Filters are de
 
 ```jsx
 <FilterFieldBoost filter={fieldFilter('price', 100, FILTER_OP_LT)} value={1.5} />
-```
-
-#### TextFieldBoost
-
-TextFieldBoost represents a text-based boosting for search result meta data which compares the text word-by-word and applies a boost based on the number of common words.
-
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| field | string | Yes | none | The field to operate on |
-| text | string | Yes | none | The text to compare against |
-| value | number | Yes | none | The value of the boost |
-
-```jsx
-<TextFieldBoost field='description' test='sale' value={1.2} />
-```
-
-#### IntervalFieldBoost
-
-IntervalFieldBoost represents distance based boosting that blends between the two points containing the value in the meta field. This uses the [`pointValue`](https://github.com/sajari/sajari-sdk-js/tree/v2#interval-meta-boost-example) function found in [sajari-sdk-js](https://github.com/sajari/sajari-sdk-js/tree/v2).
-
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| field | string | Yes | none | The field to operate on |
-| points | [point](https://github.com/sajari/sajari-sdk-js/tree/v2#interval-meta-boost-example) array | Yes | none | The points use as the basis for the boost |
-
-```jsx
-<IntervalFieldBoost field='performance' points={[
-  pointValue(0, 0.5),
-  pointValue(80, 1),
-  pointValue(100, 1.5),
-]} />
-```
-
-#### GeoMetaBoost
-
-GeoMetaBoost boosts results based off of distance from lat-lng coordinates. Lat and lng are interpreted as degrees.
-
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| fieldLat | string | Yes | none | The field containing the latitude value |
-| fieldLng | string | Yes | none | The field containing the longitude value |
-| lat | number | Yes | none | The latitude value to compare against |
-| lng | number | Yes | none | The longitude value to compare against |
-| radius | number | Yes | none | The radius around the lat-lng to boost (km) |
-| region | [enum](https://github.com/sajari/sajari-sdk-js/blob/v2/README.md#geo-meta-boost-example) | Yes | none | The region to apply the boost to |
-| value | number | Yes | none | The value of the boost |
-
-```jsx
-<GeoMetaBoost
-  fieldLat='lat'
-  fieldLng='lng'
-  lat={-33.8688}
-  lng={151.2093}
-  radius={50}
-  region={GEO_META_BOOST_REGION_INSIDE}
-  value={1.5}
-/>
-```
-
-#### ElementFieldBoost
-
-ElementFieldBoost applies a boost based on the number of elements in the meta field that match the supplied elements.
-
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| field | string | Yes | none | The field to operate on |
-| values | string array | Yes | none | The values to compare against |
-
-```jsx
-<ElementFieldBoost field='keywords' value={['sale', 'discount']} />
 ```
 
 #### DistanceFieldBoost
@@ -429,18 +357,61 @@ DistanceFieldBoost boosts based off of distance from a particular numeric point
 <DistanceFieldBoost field='price' min={0} max={20} ref={50} value={1.5} />
 ```
 
+#### IntervalFieldBoost
+
+IntervalFieldBoost represents distance based boosting that blends between the two points containing the value in the meta field. This uses the [`pointValue`](https://github.com/sajari/sajari-sdk-js/tree/v2#interval-meta-boost-example) function found in [sajari-sdk-js](https://github.com/sajari/sajari-sdk-js/tree/v2).
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| field | string | Yes | none | The field to operate on |
+| points | [point](https://github.com/sajari/sajari-sdk-js/tree/v2#interval-meta-boost-example) array | Yes | none | The points use as the basis for the boost |
+
+```jsx
+<IntervalFieldBoost field='performance' points={[
+  pointValue(0, 0.5),
+  pointValue(80, 1),
+  pointValue(100, 1.5),
+]} />
+```
+
+#### ElementFieldBoost
+
+ElementFieldBoost applies a boost based on the number of elements in the meta field that match the supplied elements.
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| field | string | Yes | none | The field to operate on |
+| values | string array | Yes | none | The values to compare against |
+
+```jsx
+<ElementFieldBoost field='keywords' value={['sale', 'discount']} />
+```
+
+#### TextFieldBoost
+
+TextFieldBoost represents a text-based boosting for search result meta data which compares the text word-by-word and applies a boost based on the number of common words.
+
+| Prop | Type | Required | Default | Description |
+| :-- | :-: | :-: | :-:  | :-- |
+| field | string | Yes | none | The field to operate on |
+| text | string | Yes | none | The text to compare against |
+| value | number | Yes | none | The value of the boost |
+
+```jsx
+<TextFieldBoost field='description' test='sale' value={1.2} />
+```
+
 ### Sort
 
 Sort defines the ordering of result documents.  Specifying a sort overrides the default behvaiour which orders documents by score.
 
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
-| field | number | Yes | none | The minimum distance from ref to apply the boost |
-| ord | [enum](https://github.com/sajari/sajari-sdk-js/blob/v2/README.md#sorting) | Yes | none | The ordering of the sort |
-
+| field | number | Yes | none | The field to sort by.  Prefix by '-' to make the sort descending. |
 
 ```jsx
-<Sort field='price' ord={SORT_ASCENDING} />
+// Sort by price descending
+<Sort field='-price' />
 ```
 
 ## UI Components
