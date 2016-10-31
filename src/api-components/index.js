@@ -17,7 +17,7 @@ export {
   TextFieldBoost,
   FilterFieldBoost,
   FieldBoost,
-} from './MetaBoost'
+} from './FieldBoost'
 export Page from './Page'
 export RegisterNamespace from './RegisterNamespace'
 export ResultInjector from './ResultInjector'
