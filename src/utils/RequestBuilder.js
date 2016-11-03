@@ -32,7 +32,7 @@ const builders = {
     r => r.update('index_boosts', indexBoosts => indexBoosts.push(indexBoost))
   ),
   [FEATURE_BOOST]: featureBoost => (
-    r => r.update('feature_boosts', featureBoosts => featureBoost.push(featureBoost))
+    r => r.update('feature_boosts', featureBoosts => featureBoosts.push(featureBoost))
   ),
   [TRANSFORM]: transform => (
     r => r.update('transforms', transforms => transforms.push(transform))
