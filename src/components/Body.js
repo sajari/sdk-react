@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import { fieldFilter, additiveFieldBoost, filterFieldBoost } from 'sajari'
+import { fieldFilter, featureFieldBoost, filterFieldBoost } from 'sajari'
 
 import { default as BaseBody } from '../api-components/Body'
 import { FilterFieldBoost, FieldBoost } from '../api-components'
@@ -31,7 +31,7 @@ class Body extends Component {
         <FieldBoost
           key={field}
           data={
-            additiveFieldBoost(
+            featureFieldBoost(
               filterFieldBoost(
                 fieldFilter(field, '^', text),
                 1,
@@ -50,7 +50,7 @@ class Body extends Component {
         <FieldBoost
           key={field}
           data={
-            additiveFieldBoost(
+            featureFieldBoost(
               filterFieldBoost(
                 fieldFilter(field, '~', text),
                 1,
