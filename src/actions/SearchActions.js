@@ -44,7 +44,7 @@ function buildRequest(namespace) {
   request.indexQuery(iq)
 
   const fq = new FeatureQuery()
-  fq.fieldBoostss(ir.feature_boosts)
+  fq.fieldBoosts(ir.feature_boosts)
   request.featureQuery(fq)
 
   request.offset(ir.offset);
