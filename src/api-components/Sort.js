@@ -5,19 +5,19 @@ import Base from './Base.js';
 import Components from '../constants/QueryComponentConstants.js';
 
 const Sort = props => {
-  const { field, order, ...others } = props;
+  const { fields, order, ...others } = props;
   return (
     <Base
       {...others}
       runDefault='update'
       componentName={Components.SORT}
-      data={sort(field)}
+      data={fields.map(sort)}
     />
   );
 };
 
 Sort.propTypes = {
-  field: React.PropTypes.string.isRequired,
+  field: React.PropTypes.arrayOf(React.PropTypes.string),
 };
 
 export default Sort;

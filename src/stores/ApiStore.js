@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
-import { Api } from 'sajari';
+import { Client } from 'sajari'
 
 import { ChangeEmitter } from '../utils/ChangeEmitter.js';
 import NamespaceStore from './NamespaceStore.js';
@@ -16,7 +16,7 @@ const apiStore = new ApiStore();
 
 function newApi(project, collection) {
   return {
-    api: new Api(project, collection),
+    api: new Client(project, collection),
     project,
     collection,
   };

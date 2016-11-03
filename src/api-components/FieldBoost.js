@@ -113,7 +113,20 @@ TextFieldBoost.propTypes = {
   namespace: React.PropTypes.string,
 };
 
+const FeatureFieldBoost = props => {
+  const { boost, namespace, ...others } = props
+  return (
+    <Base
+      {...others}
+      runDefault='all'
+      componentName={Components.FEATURE_BOOST}
+      data={data}
+      namespace={namespace}
+    />
+  )
+}
+
 export {
   IntervalFieldBoost, TextFieldBoost, ElementFieldBoost, DistanceFieldBoost,
-  FilterFieldBoost, FieldBoost,
+  FilterFieldBoost, FieldBoost, FeatureFieldBoost,
 };

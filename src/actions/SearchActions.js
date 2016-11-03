@@ -1,4 +1,4 @@
-import { Query, allFilters } from 'sajari';
+import { Query, allFilters, IndexQuery, FeatureQuery } from 'sajari'
 
 import AppDispatcher from '../dispatcher/AppDispatcher.js';
 import SearchConstants from '../constants/SearchConstants.js';
@@ -37,11 +37,18 @@ function buildRequest(namespace) {
   const ir = RequestStore.getRequest(namespace);
   const request = queryDataStore.get(namespace) || new Query();
 
-  request.page(ir.page);
-  request.resultsPerPage(ir.max_results);
-  request.body(ir.body);
-  request.fieldBoosts(ir.meta_boosts);
-  request.instanceBoosts(ir.index_boosts);
+  const iq = new IndexQuery()
+  iq.body(ir.body)
+  iq.instanceBoosts(ir.index_boosts)
+  iq.fieldBoosts(ir.meta_boosts)
+  request.indexQuery(iq)
+
+  const fq = new FeatureQuery()
+  fq.fieldBoostss(ir.feature_boosts)
+  request.featureQuery(fq)
+
+  request.offset(ir.offset);
+  request.limit(ir.limit);
   request.aggregates(ir.aggregates);
   if (ir.filters.length === 1) {
     request.filter(ir.filters[0]);

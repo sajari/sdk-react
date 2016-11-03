@@ -1,7 +1,7 @@
 import Components from '../constants/QueryComponentConstants.js';
 
 const {
-  AGGREGATE, BODY, CLICK_TOKENS, FIELDS, FILTER, INDEX_BOOST, MAXRESULTS, META_BOOST, PAGE, POS_NEG_TOKENS, SORT, TRANSFORM,
+  AGGREGATE, BODY, CLICK_TOKENS, FIELDS, FILTER, INDEX_BOOST, LIMIT, META_BOOST, OFFSET, POS_NEG_TOKENS, SORT, TRANSFORM, FEATURE_BOOST,
 } = Components;
 
 // The builders take data for a particular query component
@@ -10,11 +10,11 @@ const builders = {
   [BODY]: body => (
     r => r.update('body', b => b.push(body))
   ),
-  [PAGE]: page => (
-    r => r.set('page', page)
+  [OFFSET]: offset => (
+    r => r.set('offset', offset)
   ),
-  [MAXRESULTS]: maxResults => (
-    r => r.set('max_results', maxResults)
+  [LIMIT]: limit => (
+    r => r.set('limit', limit)
   ),
   [FILTER]: filter => (
     r => r.update('filters', filters => filters.push(filter))
@@ -22,14 +22,17 @@ const builders = {
   [FIELDS]: fields => (
     r => r.update('fields', fieldList => fieldList.push(...fields))
   ),
-  [SORT]: sort => (
-    r => r.update('sorts', sorts => sorts.push(sort))
+  [SORT]: sorts => (
+    r => r.set('sorts', sorts)
   ),
   [META_BOOST]: metaBoost => (
     r => r.update('meta_boosts', metaBoosts => metaBoosts.push(metaBoost))
   ),
   [INDEX_BOOST]: indexBoost => (
     r => r.update('index_boosts', indexBoosts => indexBoosts.push(indexBoost))
+  ),
+  [FEATURE_BOOST]: featureBoost => (
+    r => r.update('feature_boosts', featureBoosts => featureBoost.push(featureBoost))
   ),
   [TRANSFORM]: transform => (
     r => r.update('transforms', transforms => transforms.push(transform))

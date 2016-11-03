@@ -17,11 +17,12 @@ export {
   TextFieldBoost,
   FilterFieldBoost,
   FieldBoost,
+  FeatureFieldBoost,
 } from './FieldBoost'
-export Page from './Page'
+export Offset from './Offset'
 export RegisterNamespace from './RegisterNamespace'
 export ResultInjector from './ResultInjector'
-export ResultsPerPage from './ResultsPerPage'
+export Limit from './Limit'
 export Run from './Run'
 export Sort from './Sort'
 export Transform from './Transform'
