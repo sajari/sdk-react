@@ -114,7 +114,7 @@ TextFieldBoost.propTypes = {
 };
 
 const FeatureFieldBoost = props => {
-  const { boost, namespace, ...others } = props
+  const { data, namespace, ...others } = props
   return (
     <Base
       {...others}
