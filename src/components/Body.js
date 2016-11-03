@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { fieldFilter, featureFieldBoost, filterFieldBoost } from 'sajari'
 
 import { default as BaseBody } from '../api-components/Body'
-import { FilterFieldBoost, FieldBoost } from '../api-components'
+import { FeatureFieldBoost } from '../api-components'
 import { MOUNT_UPDATE } from '../constants/RunModes'
 
 class Body extends Component {
@@ -28,7 +28,7 @@ class Body extends Component {
     const prefixBoostComponents = []
     for (let field in prefixBoosts) {
       prefixBoostComponents.push(
-        <FieldBoost
+        <FeatureFieldBoost
           key={field}
           data={
             featureFieldBoost(
@@ -47,7 +47,7 @@ class Body extends Component {
     const containsBoostComponents = []
     for (let field in containsBoosts) {
       containsBoostComponents.push(
-        <FieldBoost
+        <FeatureFieldBoost
           key={field}
           data={
             featureFieldBoost(
