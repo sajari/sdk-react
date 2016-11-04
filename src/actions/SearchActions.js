@@ -51,11 +51,12 @@ function buildRequest(namespace) {
   const page = PageStore.get(namespace)
   if (page) {
     request.offset((page - 1) * ir.limit)
+    request.limit(page * ir.limit)
   } else {
     request.offset(ir.offset)
+    request.limit(ir.limit)
   }
 
-  request.limit(ir.limit);
   request.aggregates(ir.aggregates);
   if (ir.filters.length === 1) {
     request.filter(ir.filters[0]);
