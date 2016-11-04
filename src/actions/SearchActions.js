@@ -7,6 +7,7 @@ import NamespaceStore from '../stores/NamespaceStore.js';
 import { queryDataStore } from '../stores/QueryDataStore'
 import '../stores/QueryStore.js';
 import ApiStore from '../stores/ApiStore.js';
+import PageStore from '../stores/PageStore.js'
 
 import Builders from '../utils/RequestBuilder.js';
 
@@ -47,7 +48,13 @@ function buildRequest(namespace) {
   fq.fieldBoosts(ir.feature_boosts)
   request.featureQuery(fq)
 
-  request.offset(ir.offset);
+  const page = PageStore.get(namespace)
+  if (page) {
+    request.offset((page - 1) * ir.limit)
+  } else {
+    request.offset(ir.offset)
+  }
+
   request.limit(ir.limit);
   request.aggregates(ir.aggregates);
   if (ir.filters.length === 1) {
