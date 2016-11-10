@@ -150,7 +150,7 @@ const SearchActions = {
       actionType: SearchConstants.TRACKING_RESET,
       namespace,
     })
-  }
+  },
 
   clearResults(namespace) {
     AppDispatcher.handleViewAction({
