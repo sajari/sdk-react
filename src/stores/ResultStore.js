@@ -102,7 +102,7 @@ function getFuzzy(namespace) {
 }
 
 function setRequest(namespace, r) {
-  return data.setIn([namespace, 'response', 'searchRequest'], r || {})
+  data = data.setIn([namespace, 'response', 'searchRequest'], r || {})
 }
 
 function updateResponse(namespace, result) {
@@ -209,7 +209,7 @@ resultStore.dispatchToken = AppDispatcher.register(payload => {
 
   if (source === 'VIEW_ACTION') {
     if (action.actionType === SearchConstants.CLEAR_RESULTS) {
-      setResults(action.namespace, [])
+      setResults(action.namespace, null)
       resultStore.emitChange()
     }
   }
