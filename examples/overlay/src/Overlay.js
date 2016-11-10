@@ -234,10 +234,18 @@ const tabsStateToProps = (state, props) => ({
 
 const Tabs = connect(tabsStateToProps)(tabs)
 
+const resultAStyle = {
+  textDecoration: 'none',
+}
+
+const resultPStyle = {
+  color: '#666',
+}
+
 const Result = ({ title, description, url, above700 }) => (
   <div className='sj-overlay-result' style={sjOverlaySearchResultStyle(above700)}>
-    <h2><a href={url}>{title}</a></h2>
-    <p>{description}</p>
+    <h2><a href={url} style={resultAStyle}>{title}</a></h2>
+    <p style={resultPStyle}>{description}</p>
   </div>
 )
 
