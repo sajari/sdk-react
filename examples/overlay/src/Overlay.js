@@ -184,7 +184,7 @@ class searchInput extends Component {
             onChange={this.updateText}
             onKeyDown={e => {
               /* If Tab or Right Arrow keys pressed apply completion */
-              if (e.keyCode !== 9 && e.keyCode !== 39 || e.keyCode === 39 && e.target.selectionStart < text.length) {
+              if ((e.keyCode !== 9) && (e.keyCode !== 39) || (e.keyCode === 39 && e.target.selectionStart < text.length)) {
                 return
               }
               e.preventDefault()
