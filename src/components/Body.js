@@ -18,7 +18,7 @@ class Body extends Component {
   }
 
   render() {
-    const { text, minLength, prefixBoosts, containsBoosts, namespace } = this.props
+    const { text, minLength, prefixBoosts, containsBoosts, namespace, run } = this.props
 
     // Stop rendering happening on initial render if the text doesn't satisfy the minimum length
     if (text < minLength) {
@@ -67,7 +67,7 @@ class Body extends Component {
       <div>
         {prefixBoostComponents}
         {containsBoostComponents}
-        <BaseBody body={text} run={MOUNT_UPDATE} weight={1} namespace={namespace} />
+        <BaseBody body={text} run={run} weight={1} namespace={namespace} />
       </div>
     )
   }
@@ -79,6 +79,7 @@ Body.propTypes = {
   prefixBoosts: React.PropTypes.object,
   containsBoosts: React.PropTypes.object,
   namespace: React.PropTypes.string,
+  run: React.PropTypes.string,
 }
 
 Body.defaultProps = {
@@ -87,6 +88,7 @@ Body.defaultProps = {
   prefixBoosts: {},
   containsBoosts: {},
   namespace: 'default',
+  run: MOUNT_UPDATE,
 }
 
 export default Body
