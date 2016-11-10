@@ -21,6 +21,7 @@ let data = fromJS({
       statusCode: 0,
       queryID: '',
       error: '',
+      searchRequest: {},
     },
     facets: {},
     fuzzy: '',
@@ -100,11 +101,16 @@ function getFuzzy(namespace) {
   return data.getIn([namespace, 'response', 'fuzzy']);
 }
 
+function setRequest(namespace, r) {
+  return data.setIn([namespace, 'response', 'searchRequest'], r || {})
+}
+
 function updateResponse(namespace, result) {
   setTotalMatches(namespace, Number(result.totalResults));
   setMsecs(namespace, result.time);
   setReads(namespace, Number(result.reads));
   setAggregates(namespace, result.aggregates);
+  setRequest(namespace, result.searchRequest)
 }
 
 function getResponse(namespace, ) {
@@ -153,7 +159,9 @@ class ResultStore extends ChangeEmitter {
 
 function setSearchResults(namespace, results) {
   setResults(namespace, list(results.searchResponse.results));
-  updateResponse(namespace, results.searchResponse);
+  const response = results.searchResponse || {}
+  response.searchRequest = results.searchRequest
+  updateResponse(namespace, response);
   setError(namespace, null)
 }
 
