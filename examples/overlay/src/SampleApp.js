@@ -7,7 +7,6 @@ import Sajari from './Sajari'
  */
 const SampleApp = ({ enableOverlay }) => (
   <div>
-    {enableOverlay() ? null : null}
     <h1>Sajari Overlay</h1>
     <p>This provides a clean and familiar interface focused on the search experience.</p>
     <button onClick={enableOverlay}>Activate Overlay</button>
