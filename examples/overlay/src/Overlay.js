@@ -174,7 +174,7 @@ class searchInput extends Component {
           <input
             type="search"
             style={{ ...sjOverlaySearchBarInputCommon(this.props.above700), ...sjOverlaySearchBarAutocompleteStyle }}
-            value={completion}
+            value={text.length > 0 ? completion : ''}
           />
           <input
             type="search"
