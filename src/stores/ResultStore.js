@@ -206,6 +206,13 @@ resultStore.dispatchToken = AppDispatcher.register(payload => {
         break;
     }
   }
+
+  if (source === 'VIEW_ACTION') {
+    if (action.actionType === SearchConstants.CLEAR_RESULTS) {
+      setResults(action.namespace, [])
+      resultStore.emitChange()
+    }
+  }
 });
 
 export default resultStore;

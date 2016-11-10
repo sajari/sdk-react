@@ -151,6 +151,13 @@ const SearchActions = {
       namespace,
     })
   }
+
+  clearResults(namespace) {
+    AppDispatcher.handleViewAction({
+      actionType: SearchConstants.CLEAR_RESULTS,
+      namespace,
+    })
+  }
 };
 
 export default SearchActions;

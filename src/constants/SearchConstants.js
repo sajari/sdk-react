@@ -7,6 +7,7 @@ module.exports = keyMirror({
   QUERY_DATA: null,
 
   TRACKING_RESET: null,
+  CLEAR_RESULTS: null,
 
   SET_REQUEST_MODIFIER: null,
   REMOVE_REQUEST_MODIFIER: null,

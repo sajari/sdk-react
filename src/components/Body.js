@@ -5,6 +5,7 @@ import { fieldFilter, featureFieldBoost, filterFieldBoost } from 'sajari'
 import { default as BaseBody } from '../api-components/Body'
 import { FeatureFieldBoost } from '../api-components'
 import { MOUNT_UPDATE } from '../constants/RunModes'
+import SearchActions from '../actions/SearchActions'
 
 class Body extends Component {
   constructor(props) {
@@ -14,11 +15,15 @@ class Body extends Component {
 
   shouldComponentUpdate(newProps) {
     // Don't update the component if the text doesn't satisfy the minimum length
-    return newProps.text.length >= newProps.minLength
+    if (newProps.text.length >= newProps.minLength) {
+      return true
+    }
+    SearchActions.clearResults(newProps.namespace)
+    return false
   }
 
   render() {
-    const { text, minLength, prefixBoosts, containsBoosts, namespace, run } = this.props
+    const { text, minLength, prefixBoosts, containsBoosts, namespace, run, clearOnNoBody } = this.props
 
     // Stop rendering happening on initial render if the text doesn't satisfy the minimum length
     if (text < minLength) {
@@ -89,6 +94,7 @@ Body.defaultProps = {
   containsBoosts: {},
   namespace: 'default',
   run: MOUNT_UPDATE,
+  clearOnNoBody: true,
 }
 
 export default Body
