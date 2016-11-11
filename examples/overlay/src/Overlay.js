@@ -6,7 +6,7 @@ import { Body } from 'sajari-react'
 
 import { connect } from 'react-redux'
 
-import { disableOverlay, setCompletion } from './actions'
+import { disableOverlay, setCompletion, setBody } from './actions'
 
 /**
  * Add styling that can't be done in react inline styles (animation)
@@ -160,13 +160,13 @@ class searchInput extends Component {
 
   updateText(e) {
     const text = e.target.value
-    // const completion = text + [...text].reverse().join('')
     this.setState({ text })
+    this.props.setBody(text)
   }
 
   render() {
     const { text } = this.state
-    const { completion } = this.props
+    const { completion, setBody } = this.props
     return (
       <div style={sjOverlaySearchModalInputHolderStyle(this.props.above700)}>
         <div style={sjOverlaySearchModalInputHolderInnerStyle}>
@@ -174,7 +174,7 @@ class searchInput extends Component {
           <input
             type="search"
             style={{ ...sjOverlaySearchBarInputCommon(this.props.above700), ...sjOverlaySearchBarAutocompleteStyle }}
-            value={text.length > 0 ? completion : ''}
+            value={text.length > 0 && completion.indexOf(text) === 0 ? completion : ''}
           />
           <input
             type="search"
@@ -184,11 +184,12 @@ class searchInput extends Component {
             onChange={this.updateText}
             onKeyDown={e => {
               /* If Tab or Right Arrow keys pressed apply completion */
-              if ((e.keyCode !== 9) && (e.keyCode !== 39) || (e.keyCode === 39 && e.target.selectionStart < text.length)) {
+              if ((e.keyCode !== 9 && e.keyCode !== 39) || (e.keyCode === 39 && e.target.selectionStart < text.length) || !completion) {
                 return
               }
               e.preventDefault()
               this.setState({ text: completion })
+              setBody(completion)
             }}
           />
         </div>
@@ -197,7 +198,10 @@ class searchInput extends Component {
   }
 }
 
-const SearchInput = connect(({ completion }) => ({ completion }))(searchInput)
+const SearchInput = connect(
+  ({ completion }) => ({ completion }),
+  dispatch => ({ setBody: body => dispatch(setBody(body))}),
+)(searchInput)
 
 class tabs extends Component {
   constructor(props) {

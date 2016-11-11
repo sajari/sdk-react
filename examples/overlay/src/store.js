@@ -1,8 +1,9 @@
-import { OVERLAY_ACTIVE, COMPLETION } from './actions'
+import { OVERLAY_ACTIVE, COMPLETION, SET_BODY } from './actions'
 
 const initialState = {
   overlayActive: false,
   completion: '',
+  body: '',
 }
 
 function overlay(state = initialState, action) {
@@ -12,6 +13,9 @@ function overlay(state = initialState, action) {
   }
   case COMPLETION: {
     return { ...state, completion: action.data.completion }
+  }
+  case SET_BODY: {
+    return { ...state, body: action.data.body }
   }
   default:
     return state
