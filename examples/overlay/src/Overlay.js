@@ -91,11 +91,11 @@ const sjOverlaySearchBarInputCommon = above700 => ({
   borderRadius: '0',
 })
 
-const sjOverlaySearchResultsStyle = {
+const sjOverlaySearchResultsStyle = above700 => ({
   position: 'relative',
-  width: '100%',
+  width: above700 ? '600px' : '100%',
   overflowX: 'hidden',
-}
+})
 
 const sjOverlayLogoStyle = (above700) => ({
   position: 'absolute',
@@ -239,18 +239,33 @@ const tabsStateToProps = (state, props) => ({
 
 const Tabs = connect(tabsStateToProps)(tabs)
 
-const resultAStyle = {
-  textDecoration: 'none',
+const resultHeadingStyle = {
+  marginBottom: '0px',
 }
 
-const resultPStyle = {
-  color: '#666',
+const resultAStyle = {
+  textDecoration: 'none',
+  fontWeight: '400',
+  fontFamily: 'arial',
+  fontSize: '18px',
+  color: 'rgb(26, 13, 171)',
+  lineHeight: '21.6px',
+  whiteSpace: 'nowrap',
+}
+
+const resultDescriptionStyle = {
+  color: 'rgb(84, 84, 84)',
+  fontSize: '13px',
+  lineHeight: '18.2px',
+  overflowWrap: 'break-word',
+  fontFamily: 'arial',
+  marginTop: '0px',
 }
 
 const Result = ({ title, description, url, above700 }) => (
   <div className='sj-overlay-result' style={sjOverlaySearchResultStyle(above700)}>
-    <h2><a href={url} style={resultAStyle}>{title}</a></h2>
-    <p style={resultPStyle}>{description}</p>
+    <h2 style={resultHeadingStyle}><a href={url} style={resultAStyle}>{title}</a></h2>
+    <p style={resultDescriptionStyle}>{description}</p>
   </div>
 )
 
@@ -266,11 +281,11 @@ class resultList extends Component {
   render() {
     const { results, above700 } = this.props
     if (!results || !results.default) {
-      return <div id='sj-overlay-results' style={sjOverlaySearchResultsStyle}/>
+      return <div id='sj-overlay-results' style={sjOverlaySearchResultsStyle(above700)}/>
     }
 
     return (
-      <div id='sj-overlay-results' style={sjOverlaySearchResultsStyle}>
+      <div id='sj-overlay-results' style={sjOverlaySearchResultsStyle(above700)}>
         {results.default.results.map(r => (
           <Result key={r.values._id} above700={above700} {...r.values}/>
         ))}
