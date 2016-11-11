@@ -65,6 +65,7 @@ render(
   <Provider store={store}>
     <Overlay
       tabs={[All, Blog, Faq]}
+      logoUrl='https://www.sajari.com/img/sajari-100x100-flat.png'
     />
   </Provider>,
   overlayContainer

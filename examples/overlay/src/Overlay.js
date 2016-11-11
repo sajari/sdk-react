@@ -33,7 +33,6 @@ const sjOverlaySearchModalStyle = {
   zoom: '1',
   position: 'relative',
   backgroundColor: 'white',
-  height: '100%',
 }
 
 const sjOverlayCloseStyle = {
@@ -241,16 +240,15 @@ const Tabs = connect(tabsStateToProps)(tabs)
 
 const resultHeadingStyle = {
   marginBottom: '0px',
+  fontSize: '16px',
 }
 
 const resultAStyle = {
   textDecoration: 'none',
   fontWeight: '400',
-  fontFamily: 'arial',
   fontSize: '18px',
   color: 'rgb(26, 13, 171)',
   lineHeight: '21.6px',
-  whiteSpace: 'nowrap',
 }
 
 const resultDescriptionStyle = {
@@ -258,7 +256,6 @@ const resultDescriptionStyle = {
   fontSize: '13px',
   lineHeight: '18.2px',
   overflowWrap: 'break-word',
-  fontFamily: 'arial',
   marginTop: '0px',
 }
 
@@ -322,7 +319,7 @@ class overlay extends Component {
   }
 
   render() {
-    const { active, disableOverlay, tabs } = this.props
+    const { active, disableOverlay, tabs, logoUrl } = this.props
     const { above700 } = this.state
 
     if (!active) {
@@ -334,7 +331,7 @@ class overlay extends Component {
           <div id='sj-overlay-close' style={sjOverlayCloseStyle} onClick={disableOverlay}>x</div>
           <div id='sj-overlay-header' style={sjOverlayHeaderStyle}>
             <div id='sj-overlay-logo' style={sjOverlayLogoStyle(above700)}>
-              <img id='sj-overlay-logo-image' style={sjOverlayLogoImageStyle} src='https://www.sajari.com/img/sajari-100x100-flat.png' alt='logo' onClick={disableOverlay}/>
+              <img id='sj-overlay-logo-image' style={sjOverlayLogoImageStyle} src={logoUrl} alt='logo' onClick={disableOverlay}/>
             </div>
             <SearchInput above700={above700}/>
           </div>
