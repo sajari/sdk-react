@@ -268,12 +268,12 @@ FieldInstanceBoost increases the value of a match in a certain field. This is co
 
 #### ScoreInstanceBoost
 
-ScoreInstanceBoost  boosts term instances based on their individual scoring values.
+ScoreInstanceBoost boosts term instances based on their individual scoring values.
 
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
 | threshold | number | Yes | none | The maximum value to allow, used to scale and cap the computed score |
-| min_count | number | Yes | none | The minimum number of interactions before the score is applied |
+| minCount | number | Yes | none | The minimum number of interactions before the score is applied |
 
 ```jsx
 <ScoreInstanceBoost threshold={1.5} />
