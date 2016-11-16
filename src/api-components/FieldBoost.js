@@ -42,26 +42,6 @@ FilterFieldBoost.propTypes = {
   value: React.PropTypes.any.isRequired,
 };
 
-const DistanceFieldBoost = props => {
-  const { field, value, min, max, ref, namespace, ...others } = props;
-  return (
-    <FieldBoost
-      {...others}
-      data={distanceFieldBoost(min, max, ref, field, value)}
-      namespace={namespace}
-    />
-  );
-};
-
-DistanceFieldBoost.propTypes = {
-  field: React.PropTypes.string.isRequired,
-  value: React.PropTypes.number.isRequired,
-  min: React.PropTypes.number.isRequired,
-  max: React.PropTypes.number.isRequired,
-  ref: React.PropTypes.number.isRequired,
-  namespace: React.PropTypes.string,
-};
-
 const ElementFieldBoost = props => {
   const { field, values, namespace, ...others } = props;
   return (
@@ -127,6 +107,6 @@ const FeatureFieldBoost = props => {
 }
 
 export {
-  IntervalFieldBoost, TextFieldBoost, ElementFieldBoost, DistanceFieldBoost,
+  IntervalFieldBoost, TextFieldBoost, ElementFieldBoost,
   FilterFieldBoost, FieldBoost, FeatureFieldBoost,
 };

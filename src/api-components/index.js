@@ -11,7 +11,6 @@ export {
   ScoreInstanceBoost,
 } from './IndexBoost'
 export {
-  DistanceFieldBoost,
   ElementFieldBoost,
   IntervalFieldBoost,
   TextFieldBoost,
