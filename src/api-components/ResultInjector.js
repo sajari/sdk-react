@@ -17,7 +17,6 @@ class ResultInjector extends React.Component {
   constructor(props) {
     super(props);
     this.resultsUpdated = this.resultsUpdated.bind(this);
-    this.state = { namespace: props.namespace };
   }
 
   componentDidMount() {
@@ -30,17 +29,21 @@ class ResultInjector extends React.Component {
 
   resultsUpdated() {
     const results = {};
-    if (typeof this.state.namespace === 'string') {
-      results[this.state.namespace] = resultsForNamespace(this.state.namespace);
-    } else if (typeof this.state.namespace === 'object') {
-      this.state.namespace.forEach(ns => {
+    if (typeof this.props.namespace === 'string') {
+      results[this.props.namespace] = resultsForNamespace(this.props.namespace);
+    } else if (this.props.namespace instanceof Array) {
+      this.props.namespace.forEach(ns => {
         results[ns] = resultsForNamespace(ns);
       });
     }
-    this.setState({
-      namespace: this.state.namespace,
-      results,
-    });
+    this.setState({ results })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // If the namespace is a string and is different to the last namespace, clear the stored results
+    if (typeof nextProps.namespace === 'string' && nextProps.namespace !== this.props.namespace) {
+      this.setState({ results: null })
+    }
   }
 
   render() {
