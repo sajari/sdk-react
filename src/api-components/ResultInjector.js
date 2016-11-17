@@ -16,6 +16,7 @@ function resultsForNamespace(ns) {
 class ResultInjector extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { results: null }
     this.resultsUpdated = this.resultsUpdated.bind(this);
   }
 
