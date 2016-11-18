@@ -8,7 +8,7 @@ let data = {
 }
 
 function requestBase(namespace) {
-  return map({
+  return {
     body: [],
     terms: [],
     filters: [],
@@ -23,7 +23,7 @@ function requestBase(namespace) {
     transforms: [],
     token_key_field: '',
     token_type: '',
-  });
+  }
 }
 
 class RequestStore extends ChangeEmitter {
@@ -44,7 +44,7 @@ requestStore.dispatchToken = AppDispatcher.register(payload => {
         ...data,
         [action.namespace]: (data[action.namespace] || []).filter(m => m.uuid !== action.uuid).concat({
           uuid: action.uuid,
-          modified: action.modifier,
+          modifier: action.modifier,
         })
       }
       requestStore.emitChange();
