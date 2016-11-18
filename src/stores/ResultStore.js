@@ -19,13 +19,13 @@ function setSearchResults(namespace, results = {}) {
     [namespace]: {
       results: results.searchResponse.results,
       response: {
-        totalResults: results.totalResults,
-        time: results.time,
-        reads: results.reads,
+        totalResults: results.searchResponse.totalResults,
+        time: results.searchResponse.time,
+        reads: results.searchResponse.reads,
         searchRequest: results.searchRequest,
         error: null,
       },
-      aggregates: results.aggregates,
+      aggregates: results.searchResponse.aggregates,
     }
   }
 }
