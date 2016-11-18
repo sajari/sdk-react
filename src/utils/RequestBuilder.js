@@ -28,7 +28,7 @@ const builders = {
   [FIELDS]: fields => (
     r => ({
       ...r,
-      fields: [ ...r.fields, fields ],
+      fields: [ ...r.fields, ...fields ],
     })
   ),
   [SORT]: sorts => (
