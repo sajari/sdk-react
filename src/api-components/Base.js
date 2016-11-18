@@ -29,8 +29,8 @@ class Base extends React.Component {
     const { uuid } = this.state
     SearchActions.update(namespace, uuid, componentName, data)
 
-    if (this.props.runOnUpdate) {
-      SearchActions.nsearch(this.props.namespace)
+    if (newProps.runOnUpdate) {
+      SearchActions.nsearch(namespace)
     }
   }
 
