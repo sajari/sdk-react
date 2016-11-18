@@ -1,23 +1,13 @@
-import { Map as map } from 'immutable';
-
 import { ChangeEmitter } from '../utils/ChangeEmitter.js';
 import AppDispatcher from '../dispatcher/AppDispatcher.js';
 import SearchConstants from '../constants/SearchConstants.js';
 
-let data = map();
-
-function get(namespace) {
-  return data.get(namespace);
-}
+let data = {}
 
 class QueryStore extends ChangeEmitter {
   get(namespace) {
-    return get(namespace);
+    return data[namespace];
   }
-}
-
-function set(namespace, query) {
-  data = data.set(namespace, query);
 }
 
 const queryStore = new QueryStore();
@@ -28,11 +18,14 @@ queryStore.dispatchToken = AppDispatcher.register(payload => {
 
   if (source === 'SEARCH_ACTION') {
     if (action.actionType === SearchConstants.SEARCH_INFLIGHT) {
-      const existingRequest = get(action.namespace);
+      const existingRequest = data[action.namespace]
       if (existingRequest && existingRequest.abort) {
         existingRequest.abort();
       }
-      set(action.namespace, action.actionData);
+      data = {
+        ...data,
+        [action.namespace]: action.data,
+      }
       queryStore.emitChange();
     }
   }
