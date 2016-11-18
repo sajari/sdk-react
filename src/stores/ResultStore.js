@@ -16,8 +16,8 @@ let data = fromJS({
     page: 1,
     response: {
       reads: 0,
-      totalMatches: 0,
-      msecs: 0,
+      totalResults: 0,
+      time: 0,
       statusCode: 0,
       queryID: '',
       error: '',
@@ -61,20 +61,20 @@ function getReads(namespace) {
   return data.getIn([namespace, 'response', 'reads']);
 }
 
-function setTotalMatches(namespace, t) {
-  data = data.setIn([namespace, 'response', 'totalMatches'], t);
+function setTotalResults(namespace, t) {
+  data = data.setIn([namespace, 'response', 'totalResults'], t);
 }
 
-function getTotalMatches(namespace, ) {
-  return data.getIn([namespace, 'response', 'totalMatches']);
+function getTotalResults(namespace, ) {
+  return data.getIn([namespace, 'response', 'totalResults']);
 }
 
-function setMsecs(namespace, m) {
-  data = data.setIn([namespace, 'response', 'msecs'], m);
+function setTime(namespace, m) {
+  data = data.setIn([namespace, 'response', 'time'], m);
 }
 
-function getMsecs(namespace,) {
-  return data.getIn([namespace, 'response', 'msecs']);
+function getTime(namespace,) {
+  return data.getIn([namespace, 'response', 'time']);
 }
 
 function setStatusCode(namespace, c) {
@@ -106,8 +106,8 @@ function setRequest(namespace, r) {
 }
 
 function updateResponse(namespace, result) {
-  setTotalMatches(namespace, Number(result.totalResults));
-  setMsecs(namespace, result.time);
+  setTotalResults(namespace, Number(result.totalResults));
+  setTime(namespace, result.time);
   setReads(namespace, Number(result.reads));
   setAggregates(namespace, result.aggregates);
   setRequest(namespace, result.searchRequest)
@@ -136,12 +136,12 @@ class ResultStore extends ChangeEmitter {
     return getReads();
   }
 
-  getTotalMatches() {
-    return getTotalMatches();
+  getTotalResults() {
+    return getTotalResults();
   }
 
-  getMsecs() {
-    return getMsecs();
+  getTime() {
+    return getTime();
   }
 
   getStatusCode() {
