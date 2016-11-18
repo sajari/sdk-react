@@ -22,14 +22,14 @@ const newApi = (project, collection) => ({
 
 function updateStoreState() {
   const namespaces = NamespaceStore.getAll();
-  namespaces.forEach(({ project, collection }, namespace) => {
+  Object.keys(namespaces).forEach(namespace => {
     const ns = data[namespace]
     // Check if namespace isn't in the API store or it's project or collection have changed
     // If so, remake the API object from the new values
-    if (!ns || project !== ns.project || collection !== ns.collection) {
+    if (!ns || namespaces[namespace].project !== ns.project || namespaces[namespace].collection !== ns.collection) {
       data = {
         ...data,
-        [namespace]: newApi(project, collection)
+        [namespace]: newApi(namespaces[namespace].project, namespaces[namespace].collection)
       }
     }
   });
