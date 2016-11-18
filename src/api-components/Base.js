@@ -5,8 +5,6 @@ import equal from 'deep-equal'
 import SearchActions from '../actions/SearchActions.js'
 import Components from '../constants/QueryComponentConstants.js'
 
-import { ALL, UPDATE, MOUNT, NONE, MOUNT_UPDATE } from '../constants/RunModes'
-
 class Base extends React.Component {
   constructor(props) {
     super(props)
@@ -18,7 +16,7 @@ class Base extends React.Component {
     const { uuid } = this.state
     SearchActions.update(namespace, uuid, componentName, data)
 
-    if (this.props.run === MOUNT || this.props.run === ALL || this.props.run === MOUNT_UPDATE) {
+    if (this.props.runOnMount) {
       SearchActions.nsearch(this.props.namespace)
     }
   }
@@ -31,7 +29,7 @@ class Base extends React.Component {
     const { uuid } = this.state
     SearchActions.update(namespace, uuid, componentName, data)
 
-    if (this.props.run === UPDATE || this.props.run === ALL || this.props.run === MOUNT_UPDATE) {
+    if (this.props.runOnUpdate) {
       SearchActions.nsearch(this.props.namespace)
     }
   }
@@ -41,7 +39,7 @@ class Base extends React.Component {
     const { uuid } = this.state
     SearchActions.remove(namespace, uuid, componentName)
 
-    if (this.props.run === MOUNT || this.props.run === ALL) {
+    if (this.props.runOnUnmount) {
       SearchActions.nsearch(this.props.namespace)
     }
   }
@@ -50,7 +48,9 @@ class Base extends React.Component {
 }
 
 Base.propTypes = {
-  run: React.PropTypes.oneOf([ALL, UPDATE, MOUNT, NONE, MOUNT_UPDATE]),
+  runOnMount: React.PropTypes.bool,
+  runOnUnmount: React.PropTypes.bool,
+  runOnUpdate: React.PropTypes.bool,
   namespace: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.arrayOf(React.PropTypes.string),
@@ -60,7 +60,9 @@ Base.propTypes = {
 }
 
 Base.defaultProps = {
-  run: NONE,
+  runOnMount: false,
+  runOnUnmount: false,
+  runOnUpdate: false,
   namespace: 'default',
 }
 

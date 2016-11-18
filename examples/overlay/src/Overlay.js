@@ -169,7 +169,7 @@ class searchInput extends Component {
     return (
       <div style={sjOverlaySearchModalInputHolderStyle(this.props.above700)}>
         <div style={sjOverlaySearchModalInputHolderInnerStyle}>
-          <Body text={text} run='MOUNT_UPDATE' minLength={2}/>
+          <Body text={text} runOnMount={true} runOnUpdate={true} minLength={2}/>
           <input
             type="search"
             style={{ ...sjOverlaySearchBarInputCommon(this.props.above700), ...sjOverlaySearchBarAutocompleteStyle }}
