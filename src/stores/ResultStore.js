@@ -29,88 +29,12 @@ let data = fromJS({
   },
 });
 
-function setResults(namespace, r) {
-  data = data.setIn([namespace, 'results'], r);
-}
-
-function getResults(namespace) {
-  return data.getIn([namespace, 'results']);
-}
-
-function setError(namespace, msg) {
-  data = data.setIn([namespace, 'response', 'error'], msg)
-}
-
-function getError(namespace) {
-  return data.getIn([namespace, 'response', 'error'])
-}
-
-function setAggregates(namespace, a) {
-  data = data.setIn([namespace, 'aggregates'], a);
-}
-
-function getAggregates(namespace) {
-  return data.getIn([namespace, 'aggregates']);
-}
-
-function setReads(namespace, r) {
-  data = data.setIn([namespace, 'response', 'reads'], r);
-}
-
-function getReads(namespace) {
-  return data.getIn([namespace, 'response', 'reads']);
-}
-
-function setTotalResults(namespace, t) {
-  data = data.setIn([namespace, 'response', 'totalResults'], t);
-}
-
-function getTotalResults(namespace, ) {
-  return data.getIn([namespace, 'response', 'totalResults']);
-}
-
-function setTime(namespace, m) {
-  data = data.setIn([namespace, 'response', 'time'], m);
-}
-
-function getTime(namespace,) {
-  return data.getIn([namespace, 'response', 'time']);
-}
-
-function setStatusCode(namespace, c) {
-  data = data.setIn([namespace, 'response', 'statusCode'], c);
-}
-
-function getStatusCode(namespace) {
-  return data.getIn([namespace, 'response', 'statusCode']);
-}
-
-function setQueryID(namespace, qid) {
-  data = data.setIn([namespace, 'response', 'queryID'], qid);
-}
-
-function getQueryID(namespace) {
-  return data.getIn([namespace, 'response', 'queryID']);
-}
-
-function setFuzzy(namespace, f) {
-  data = data.setIn([namespace, 'response', 'fuzzy'], f || '');
-}
-
-function getFuzzy(namespace) {
-  return data.getIn([namespace, 'response', 'fuzzy']);
-}
-
-function setRequest(namespace, r) {
-  data = data.setIn([namespace, 'response', 'searchRequest'], r || {})
-}
-
 function updateResponse(namespace, result) {
-  setTotalResults(namespace, Number(result.totalResults));
-  setTime(namespace, result.time);
-  setReads(namespace, Number(result.reads));
-  setAggregates(namespace, result.aggregates);
-  setRequest(namespace, result.searchRequest)
+  data = data.setIn([namespace, 'response', 'totalResults'], Number(result.totalResults));
+  data = data.setIn([namespace, 'response', 'time'], result.time);
+  data = data.setIn([namespace, 'response', 'reads'], Number(result.reads));
+  data = data.setIn([namespace, 'aggregates'], result.aggregates);
+  data = data.setIn([namespace, 'response', 'searchRequest'], result.searchRequest || {})
 }
 
 function getResponse(namespace, ) {
@@ -121,52 +45,52 @@ function getResponse(namespace, ) {
 class ResultStore extends ChangeEmitter {
 
   getResults(namespace) {
-    return getResults(namespace);
+    return data.getIn([namespace, 'results'])
   }
 
   getAggregates(namespace) {
-    return getAggregates(namespace);
+    return data.getIn([namespace, 'aggregates'])
   }
 
   getResponse(namespace) {
     return getResponse(namespace);
   }
 
-  getReads() {
-    return getReads();
+  getReads(namespace) {
+    return data.getIn([namespace, 'response', 'reads'])
   }
 
-  getTotalResults() {
-    return getTotalResults();
+  getTotalResults(namespace) {
+    return data.getIn([namespace, 'response', 'totalResults'])
   }
 
-  getTime() {
-    return getTime();
+  getTime(namespace) {
+    return data.getIn([namespace, 'response', 'time'])
   }
 
-  getStatusCode() {
-    return getStatusCode();
+  getStatusCode(namespace) {
+    return data.getIn([namespace, 'response', 'statusCode'])
   }
 
-  getQueryID() {
-    return getQueryID();
+  getQueryID(namespace) {
+    return data.getIn([namespace, 'response', 'queryID'])
   }
 
   getFuzzy(namespace) {
-    return getFuzzy(namespace);
+    return data.getIn([namespace, 'response', 'fuzzy'])
   }
 }
 
 function setSearchResults(namespace, results) {
-  setResults(namespace, list(results.searchResponse.results));
+  data = data.setIn([namespace, 'results'], list(results.searchResponse.results))
   const response = results.searchResponse || {}
   response.searchRequest = results.searchRequest
   updateResponse(namespace, response);
-  setError(namespace, null)
+  data = data.setIn([namespace, 'response', 'error'], null)
 }
 
 function setSearchError(namespace, msg) {
-  setError(namespace, msg)
+  data = data.setIn([namespace, 'response', 'error'], msg)
 }
 
 const resultStore = new ResultStore();
@@ -209,7 +133,7 @@ resultStore.dispatchToken = AppDispatcher.register(payload => {
 
   if (source === 'VIEW_ACTION') {
     if (action.actionType === SearchConstants.CLEAR_RESULTS) {
-      setResults(action.namespace, null)
+      data = data.setIn([action.namespace, 'results'], null)
       resultStore.emitChange()
     }
   }
