@@ -1,42 +1,34 @@
-import { Map as map, List as list } from 'immutable';
-
 import { ChangeEmitter } from '../utils/ChangeEmitter.js';
 import AppDispatcher from '../dispatcher/AppDispatcher.js';
 import SearchConstants from '../constants/SearchConstants.js';
 import PageStore from './PageStore'
 
-let data = map({
-  default: list(),
-});
+let data = {
+  default: [],
+}
 
 function requestBase(namespace) {
   return map({
-    body: list(),
-    terms: list(),
-    filters: list(),
-    meta_boosts: list(),
-    index_boosts: list(),
-    feature_boosts: list(),
+    body: [],
+    terms: [],
+    filters: [],
+    meta_boosts: [],
+    index_boosts: [],
+    feature_boosts: [],
     offset: PageStore.get(namespace) || 0,
     limit: 10,
-    fields: list(),
-    sorts: list(),
-    aggregates: list(),
-    transforms: list(),
+    fields: [],
+    sorts: [],
+    aggregates: [],
+    transforms: [],
     token_key_field: '',
     token_type: '',
   });
 }
 
-function buildRequest(namespace) {
-  return data.get(namespace).reduce((r, t) => (
-    t.modifier(r)
-  ), requestBase(namespace)).toJS();
-}
-
 class RequestStore extends ChangeEmitter {
-  getRequest(namespace) {
-    return buildRequest(namespace || 'default');
+  getRequest(namespace = 'default') {
+    return data[namespace].reduce((r, t) => t.modifier(r), requestBase(namespace))
   }
 }
 
@@ -48,29 +40,19 @@ requestStore.dispatchToken = AppDispatcher.register(payload => {
 
   if (source === 'SEARCH_ACTION') {
     if (action.actionType === SearchConstants.SET_REQUEST_MODIFIER) {
-      if (!data.has(action.namespace)) {
-        data = data.set(action.namespace, list());
-      }
-      data = data.updateIn([action.namespace], modifierList => {
-        const pos = modifierList.findIndex(i => (i.uuid === action.uuid));
-
-        return pos >= 0 ? modifierList.update(pos, () => (
-          {
-            uuid: action.uuid,
-            modifier: action.modifier,
-          }
-        )) : modifierList.push({
+      data = {
+        ...data,
+        [action.namespace]: (data[action.namespace] || []).filter(m => m.uuid !== action.uuid).concat({
           uuid: action.uuid,
-          modifier: action.modifier,
-        });
-      });
+          modified: action.modifier,
+        })
+      }
       requestStore.emitChange();
     } else if (action.actionType === SearchConstants.REMOVE_REQUEST_MODIFIER) {
-      data = data.updateIn([action.namespace], modifierList => (
-        modifierList.filter(i => (
-          i.uuid !== action.uuid
-        ))
-      ));
+      data = {
+        ...data,
+        [action.namespace]: data[action.namespace].filter(({ uuid }) => uuid !== action.uuid)
+      }
       requestStore.emitChange();
     }
   }

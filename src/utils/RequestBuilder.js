@@ -8,43 +8,75 @@ const {
 // and return reducer functions that apply the data to the request
 const builders = {
   [BODY]: body => (
-    r => r.update('body', b => b.push(body))
+    r => {
+      ...r,
+      body: [ ...r.body, body ],
+    }
   ),
   [OFFSET]: offset => (
-    r => r.set('offset', offset)
+    r => { ...r, offset }
   ),
   [LIMIT]: limit => (
-    r => r.set('limit', limit)
+    r => { ...r, limit }
   ),
   [FILTER]: filter => (
-    r => r.update('filters', filters => filters.push(filter))
+    r => {
+      ...r,
+      filters: [ ...r.filters, filter ],
+    }
   ),
   [FIELDS]: fields => (
-    r => r.update('fields', fieldList => fieldList.push(...fields))
+    r => {
+      ...r,
+      fields: [ ...r.fields, fields ],
+    }
   ),
   [SORT]: sorts => (
-    r => r.set('sorts', sorts)
+    r => { ...r, sorts }
   ),
   [META_BOOST]: metaBoost => (
-    r => r.update('meta_boosts', metaBoosts => metaBoosts.push(metaBoost))
+    r => {
+      ...r,
+      meta_boosts: [ ...r.meta_boosts, metaBoost ],
+    }
   ),
   [INDEX_BOOST]: indexBoost => (
-    r => r.update('index_boosts', indexBoosts => indexBoosts.push(indexBoost))
+    r => {
+      ...r,
+      index_boosts: [ ...r.index_boosts, indexBoost ],
+    }
   ),
   [FEATURE_BOOST]: featureBoost => (
-    r => r.update('feature_boosts', featureBoosts => featureBoosts.push(featureBoost))
+    r => {
+      ...r,
+      feature_boosts: [ ...r.feature_boosts, featureBoost ],
+    }
   ),
   [TRANSFORM]: transform => (
-    r => r.update('transforms', transforms => transforms.push(transform))
+    r => {
+      ...r,
+      transforms: [ ...r.transforms, transform ],
+    }
   ),
   [AGGREGATE]: aggregate => (
-    r => r.update('aggregates', aggregates => aggregates.push(aggregate))
+    r => {
+      ...r,
+      aggregates: [ ...r.aggregates, aggregate ],
+    }
   ),
   [CLICK_TOKENS]: field => (
-    r => r.set('token_key_field', field).set('token_type', 'CLICK')
+    r => {
+      ...r,
+      token_key_field: field,
+      token_type: 'CLICK',
+    }
   ),
   [POS_NEG_TOKENS]: field => (
-    r => r.set('token_key_field', field).set('token_type', 'POS_NEG')
+    r => {
+      ...r,
+      token_key_field: field,
+      token_type: 'POS_NEG',
+    }
   ),
 };
 
