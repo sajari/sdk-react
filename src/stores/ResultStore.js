@@ -1,4 +1,3 @@
-import { fromJS, List as list } from 'immutable';
 import equal from 'deep-equal';
 
 import { ChangeEmitter } from '../utils/ChangeEmitter.js';
@@ -6,91 +5,41 @@ import AppDispatcher from '../dispatcher/AppDispatcher';
 import SearchConstants from '../constants/SearchConstants.js';
 import RequestStore from './RequestStore.js';
 
-const nameDefault = 'default';
+let data = {}
 
-// let protectFacets = false; // switch to keep facets from original search around for rendering
-
-let data = fromJS({
-  default: {
-    results: [],
-    page: 1,
-    response: {
-      reads: 0,
-      totalResults: 0,
-      time: 0,
-      statusCode: 0,
-      queryID: '',
-      error: '',
-      searchRequest: {},
-    },
-    facets: {},
-    fuzzy: '',
-    aggregates: {},
-  },
-});
-
-function updateResponse(namespace, result) {
-  data = data.setIn([namespace, 'response', 'totalResults'], Number(result.totalResults));
-  data = data.setIn([namespace, 'response', 'time'], result.time);
-  data = data.setIn([namespace, 'response', 'reads'], Number(result.reads));
-  data = data.setIn([namespace, 'aggregates'], result.aggregates);
-  data = data.setIn([namespace, 'response', 'searchRequest'], result.searchRequest || {})
-}
-
-function getResponse(namespace, ) {
-  return data.getIn([namespace, 'response']);
-}
-
-// Store for holding search results
 class ResultStore extends ChangeEmitter {
-
-  getResults(namespace) {
-    return data.getIn([namespace, 'results'])
-  }
-
-  getAggregates(namespace) {
-    return data.getIn([namespace, 'aggregates'])
-  }
-
-  getResponse(namespace) {
-    return getResponse(namespace);
-  }
-
-  getReads(namespace) {
-    return data.getIn([namespace, 'response', 'reads'])
-  }
-
-  getTotalResults(namespace) {
-    return data.getIn([namespace, 'response', 'totalResults'])
-  }
-
-  getTime(namespace) {
-    return data.getIn([namespace, 'response', 'time'])
-  }
-
-  getStatusCode(namespace) {
-    return data.getIn([namespace, 'response', 'statusCode'])
-  }
-
-  getQueryID(namespace) {
-    return data.getIn([namespace, 'response', 'queryID'])
-  }
-
-  getFuzzy(namespace) {
-    return data.getIn([namespace, 'response', 'fuzzy'])
+  get(namespace) {
+    return data[namespace]
   }
 }
 
-function setSearchResults(namespace, results) {
-  data = data.setIn([namespace, 'results'], list(results.searchResponse.results))
-  const response = results.searchResponse || {}
-  response.searchRequest = results.searchRequest
-  updateResponse(namespace, response);
-  data = data.setIn([namespace, 'response', 'error'], null)
+function setSearchResults(namespace, results = {}) {
+  data = {
+    ...data,
+    [namespace]: {
+      results: results.searchResponse.results,
+      response: {
+        totalResults: results.totalResults,
+        time: results.time,
+        reads: results.reads,
+        searchRequest: results.searchRequest,
+        error: null,
+      }
+      aggregates: results.aggregates,
+    }
+  }
 }
 
 function setSearchError(namespace, msg) {
-  data = data.setIn([namespace, 'response', 'error'], msg)
+  data = {
+    ...data,
+    [namespace]: {
+      ...data[namespace],
+      response: {
+        error: msg,
+      }
+    }
+  }
 }
 
 const resultStore = new ResultStore();
@@ -133,7 +82,13 @@ resultStore.dispatchToken = AppDispatcher.register(payload => {
 
   if (source === 'VIEW_ACTION') {
     if (action.actionType === SearchConstants.CLEAR_RESULTS) {
-      data = data.setIn([action.namespace, 'results'], null)
+      data = {
+        ...data,
+        [action.namespace]: {
+          ...data[action.namespace]
+          results: null,
+        }
+      }
       resultStore.emitChange()
     }
   }

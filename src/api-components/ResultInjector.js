@@ -2,17 +2,6 @@ import React from 'react';
 
 import ResultStore from '../stores/ResultStore.js';
 
-function resultsForNamespace(ns) {
-  const results = ResultStore.getResults(ns);
-  const response = ResultStore.getResponse(ns);
-  return {
-    results: results ? results.toJS() : [],
-    response: response ? response.toJS() : {},
-    fuzzy: ResultStore.getFuzzy(ns),
-    aggregates: ResultStore.getAggregates(ns),
-  };
-}
-
 class ResultInjector extends React.Component {
   constructor(props) {
     super(props);
@@ -29,14 +18,10 @@ class ResultInjector extends React.Component {
   }
 
   resultsUpdated() {
-    const results = {};
-    if (typeof this.props.namespace === 'string') {
-      results[this.props.namespace] = resultsForNamespace(this.props.namespace);
-    } else if (this.props.namespace instanceof Array) {
-      this.props.namespace.forEach(ns => {
-        results[ns] = resultsForNamespace(ns);
-      });
-    }
+    const results = {}
+    [].concat(this.props.namespace).forEach(ns => {
+      results[ns] = ResultStore.get(ns)
+    })
     this.setState({ results })
   }
 
