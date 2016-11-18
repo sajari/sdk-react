@@ -18,7 +18,7 @@ class ResultInjector extends React.Component {
   }
 
   resultsUpdated() {
-    const results = {}
+    const results = {};
     [].concat(this.props.namespace).forEach(ns => {
       results[ns] = ResultStore.get(ns)
     })

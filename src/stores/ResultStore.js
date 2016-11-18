@@ -24,7 +24,7 @@ function setSearchResults(namespace, results = {}) {
         reads: results.reads,
         searchRequest: results.searchRequest,
         error: null,
-      }
+      },
       aggregates: results.aggregates,
     }
   }
@@ -85,7 +85,7 @@ resultStore.dispatchToken = AppDispatcher.register(payload => {
       data = {
         ...data,
         [action.namespace]: {
-          ...data[action.namespace]
+          ...data[action.namespace],
           results: null,
         }
       }
