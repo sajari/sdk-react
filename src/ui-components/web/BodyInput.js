@@ -1,64 +1,91 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { findDOMNode } from 'react-dom'
+import { connect } from 'react-redux'
 
-import SearchActions from '../../actions/SearchActions'
-import Body from '../../components/Body'
-import PageActions from '../../actions/PageActions'
-import PageStore from '../../stores/PageStore'
+import { Body } from 'sajari-react'
 
-class BodyInput extends Component {
+import { setBody, setCompletion } from './actions'
+
+const RIGHT_ARROW_KEYCODE = 39
+const TAB_KEYCODE = 9
+
+class bodyInput extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { text: props.text }
-    this.onChange = this.onChange.bind(this)
-  }
 
-  onChange(evt) {
-    const text = evt.target.value
-    if (text.length === 0 || !this.state.text.startsWith(text.slice(0, 3))) {
-      SearchActions.resetTracking()
-    }
-    if (text !== this.state.text && PageStore.get(this.props.namespace) !== 1) {
-      PageActions.set(this.props.namespace, 1)
-    }
-    this.setState({ text })
+    this.state = { text: '' }
+
+    this.setText = this.setText.bind(this)
   }
 
   componentDidMount() {
-    this.refs['sj-search-input'].focus()
+    findDOMNode(this.refs.searchInput).focus()
+  }
+  
+  setText(text) {
+    this.setState({ text })
+    this.props.setBody(text)
   }
 
   render() {
-    // Take out text to prevent it going into others
-    const { text: _, minLength, prefixBoosts, containsBoosts, namespace, ...others } = this.props
+    const { text } = this.state
+    const { completion, ...others } = this.props
+
     return (
-      <div>
-        <input type="text" ref='sj-search-input' onChange={this.onChange} {...others} />
-        <Body
-          text={this.state.text}
-          minLength={minLength}
-          prefixBoosts={prefixBoosts}
-          containsBoosts={containsBoosts}
-          namespace={namespace}
-        />
+      <div id='sj-overlay-search-modal-input-holder-outer'>
+        <div id='sj-overlay-search-modal-input-holder-inner'>
+          <Body text={text} runOnUpdate minLength={2} {...others} />
+          <input
+            type="text"
+            id='sj-overlay-search-bar-completion'
+            className='sj-overlay-search-bar-input-common'
+            value={text.length > 0 && completion.indexOf(text) === 0 ? completion : ''}
+            readOnly
+          />
+          <input
+            type="text"
+            ref='searchInput'
+            id='sj-overlay-search-bar-input'
+            className='sj-overlay-search-bar-input-common'
+            value={text}
+            onChange={e => this.setText(e.target.value)}
+            onKeyDown={e => {
+              if (!completion) { return }
+              if (e.keyCode === TAB_KEYCODE || (e.keyCode === RIGHT_ARROW_KEYCODE && e.target.selectionStart === text.length)) {
+                e.preventDefault()
+                this.setText(completion)
+              }
+            }}
+          />
+          <div className="sj-search-icon" />
+        </div>
       </div>
     )
   }
 }
 
-BodyInput.propTypes = {
-  text: React.PropTypes.string.isRequired,
-  minLength: React.PropTypes.number,
-  prefixBoosts: React.PropTypes.object,
-  containsBoosts: React.PropTypes.object,
-  namespace: React.PropTypes.string,
+const BodyInput = connect(
+  ({ overlay }) => ({ completion: overlay.completion }),
+  dispatch => ({ setBody: body => dispatch(setBody(body)) }),
+)(bodyInput)
+
+class captureCompletion extends React.Component {
+  componentWillReceiveProps(nextProps) {
+    const { namespace } = this.props
+    try {
+      const namespaceResults = nextProps.results[namespace]
+      nextProps.setCompletion(namespaceResults.response.searchRequest.indexQuery.body[0].text)
+    } catch (e) {
+      nextProps.setCompletion('')
+    }
+  }
+
+  render() { return null }
 }
 
-BodyInput.defaultProps = {
-  text: '',
-  minLength: 3,
-  prefixBoosts: {},
-  containsBoosts: {},
-  namespace: 'default',
-}
+const CaptureCompletion = connect(
+  null,
+  dispatch => ({ setCompletion: completion => dispatch(setCompletion(completion)) })
+)(captureCompletion)
 
-export default BodyInput;
+export { BodyInput, CaptureCompletion }
