@@ -1,7 +1,7 @@
 {
   "name": "sajari-react",
   "description": "React SDK for the Sajari search API",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "author": [
     {
       "name": "Trent Billington",
@@ -69,7 +69,7 @@
   },
   "scripts": {
     "build": "npm run build:babel && npm run build:copy-files",
-    "build:babel": "babel ./src/ --out-dir ./build",
+    "build:babel": "babel ./src/ --out-dir ./build --copy-files",
     "build:copy-files": "babel-node ./scripts/copy-files.js",
     "clean:build": "rimraf build",
     "hotdev": "webpack-dev-server --hot --inline",
