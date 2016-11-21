@@ -3,6 +3,17 @@
   border-radius: 2px;
 }
 
+@keyframes sj-overlay-rolldown {
+  0% {
+    opacity: 0;
+    height: 20%;
+  }
+  100%{
+    opacity: 1;
+    height: 100%;
+  }
+}
+
 #sj-overlay {
   font-family: -mac-system, BlinkMacSystemFont;
   background-color: white;
@@ -15,7 +26,7 @@
   width: 100%;
   height: 100%;
   z-index: 1000000;
-  animation-name: rolldown;
+  animation-name: sj-overlay-rolldown;
   animation-duration: 0.4s;
 }
 
