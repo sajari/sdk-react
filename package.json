@@ -1,7 +1,7 @@
 {
   "name": "sajari-react",
   "description": "React SDK for the Sajari search API",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "author": [
     {
       "name": "Trent Billington",
@@ -59,7 +59,7 @@
   "peerDependencies": {
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
-    "sajari": "0.13.2"
+    "sajari": "0.13.3"
   },
   "repository": {
     "type": "git",
