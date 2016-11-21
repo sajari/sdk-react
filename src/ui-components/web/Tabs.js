@@ -4,7 +4,7 @@ import { Run } from 'sajari-react/api-components'
 
 import { connect } from 'react-redux'
 
-import { setTab } from './actions'
+import { setTab } from './actions/Tabs'
 
 class tabs extends React.Component {
   constructor(props) {
@@ -37,7 +37,7 @@ class tabs extends React.Component {
 }
 
 const Tabs = connect(
-  ({ overlay }) => ({ tab: overlay.tab }),
+  ({ tabs }) => ({ tab: tabs.tab }),
   dispatch => ({ setTab: name => dispatch(setTab(name)) }),
 )(tabs)
 

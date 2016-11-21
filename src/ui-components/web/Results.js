@@ -84,6 +84,10 @@ class results extends React.Component {
   }
 }
 
+results.defaultProps = {
+  namespace: 'default'
+}
+
 const Results = connect(
   ({ overlay }) => ({body: overlay.body, completion: overlay.completion}),
 )(results)

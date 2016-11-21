@@ -2,7 +2,7 @@ import React from 'react'
 
 import { connect } from 'react-redux'
 
-import { disableOverlay } from './actions'
+import { disableOverlay } from './actions/Overlay'
 
 import { BodyInput, CaptureCompletion } from './BodyInput'
 import { BoostRules } from './Boosts'

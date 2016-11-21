@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import { Body } from 'sajari-react'
 
-import { setBody, setCompletion } from './actions'
+import { setBody, setCompletion } from './actions/Search'
 
 const RIGHT_ARROW_KEYCODE = 39
 const TAB_KEYCODE = 9
@@ -65,7 +65,7 @@ class bodyInput extends React.Component {
 }
 
 const BodyInput = connect(
-  ({ overlay }) => ({ completion: overlay.completion }),
+  ({ search }) => ({ completion: search.completion }),
   dispatch => ({ setBody: body => dispatch(setBody(body)) }),
 )(bodyInput)
 
