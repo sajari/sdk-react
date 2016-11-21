@@ -82,9 +82,9 @@ const App = () => (
 
 The library is split into 3 main parts:
 
-- `ui-components`: A selection of pre-defined React components for common search use cases.  We also provide some simple event handling to reduce the amount of code you need to write.  This is a great starting point for someone getting to grips with the search system - you should only need to use a few components to get up and running.
+- `ui-components`: A selection of pre-defined React components for common search use cases.  We also provide some simple event handling to reduce the amount of code you need to write.  This is a great starting for getting to grips with the search system - you should only need to use a few components to get up and running.
 
-- `components`: A high-level set of React components for building search interface, with some event-handling to avoid boilerplate.  Most `components` combine a few `api-components` and do basic event handling for common search use cases. Ideal for customisation of search parameters using `api-components`, whilst also using taking care of basic search session life-cycles.
+- `components`: A high-level set of React components for building search interfaces.  Most `components` combine a few `api-components` and do basic event handling for common search use cases. Ideal for customisation of search parameters using `api-components` whilst also using taking care of basic search session life-cycles.
 
 - `api-components`: A set of React components which correspond directly to query parameters and result handling.  They do not render any HTML directly; including an api-component in a render attaches its corresponding query parameter to the current query.
 
@@ -96,7 +96,7 @@ The library is split into 3 main parts:
 
 ## Namespaces
 
-All components are namespaced, and each namespace corresponds to a query object (i.e. the query object that is built from components in its namespace).  By default all components are given the `default` namespace.
+All components are namespaced and each namespace corresponds to a query object (i.e. the query object that is built from components in its namespace).  By default all components are given the `default` namespace.
 
 Every application must render the `<RegisterNamespace>` component to set the `project` and `collection` for that namespace.
 
@@ -118,7 +118,7 @@ Registers a project and collection with a namespace.
 
 ***Component** refers to a Sajari Component unless specified otherwise.*
 
-Components are the easiest way to get functionality from the SDK. We recommend using them over the lower level API-Components unless you need the granularity. If you have a use case that isn't covered by a Component you can make an [issue](https://github.com/sajari/sajari-react/issues).
+Components are the easiest way to get functionality from the SDK. We recommend using them over the lower level `api-components` unless you need the granularity. If you have a use case that isn't covered by a Component then make an [issue](https://github.com/sajari/sajari-react/issues).
 
 ### Body
 
@@ -128,7 +128,7 @@ The Body component is for declaring text you'd like to search for, which is spec
 <Body text='pumpkin' />
 ```
 
-We normally recommend adding some boosts for text searches, particularly if the content you're searching includes articles/products/events with important text fields that you want to prioritise if matched i.e. titles, descriptions, keywords etc.  Common boosts applied are `prefix`-based (i.e. does a field begin with the search phrase), and `contains` (i.e. does the field contain the exact search phrase).  The `Body` component has props to set both of these:
+We normally recommend adding some boosts for text searches, particularly if the content you're searching includes articles/products/events with important text fields that you want to prioritise if matched i.e. titles, descriptions, keywords etc.  Common boosts applied are `prefix`-based (i.e. does a field begin with the search text), and `contains` (i.e. does the field contain the exact search text).  The `Body` component has props to set both of these:
 
 ```javascript
 const prefixBoosts = { 'title': 1.2 }
@@ -187,33 +187,34 @@ The Body component adds a text body to a search query. It can also take a weight
 <Body body="red computer parts" weight={1} />
 ```
 
-### Page
+### Offset
 
-The Page components sets which page of the search results to fetch.
+The Offset component sets the offset to use when fetching results.
 
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
-| page | number | Yes | `1` | The page of results to fetch |
+| offset | number | Yes | `0` | The offset to use when fetching results |
 
 ```jsx
-<Page page={5} />
+// Start the results at the 11th (i.e. the second page of 10)
+<Offset offset={10} />
 ```
 
-### ResultsPerPage
+### Limit
 
-The number of results to return per page.
+The number of results to return.
 
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
-| results | number | Yes | `10` | The number of results to return per page |
+| limit | number | Yes | `10` | The number of results to return |
 
 ```jsx
-<ResultsPerPage results={20} />
+<Limit limit={20} />
 ```
 
 ### Fields
 
-The fields of the document to fetch. Restricting this to only the fields you are using will speed up query and transmission time.
+The fields of result documents to fetch. Restricting this to only the fields you are using will speed up query and transmission time.  If no Fields component is rendered then all document fields are returned.
 
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
@@ -239,7 +240,7 @@ The result injector listens for results from queries and passes them as props to
 
 ### Filter
 
-The Filter component adds a [filter](https://github.com/sajari/sajari-sdk-js#filter) to the query. Filters operate on fields and the values within them, and can be combined to produce complex logic.
+The Filter component adds a [filter](https://github.com/sajari/sajari-sdk-js#filter) to the query.
 
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
@@ -249,17 +250,17 @@ The Filter component adds a [filter](https://github.com/sajari/sajari-sdk-js#fil
 <Filter data={fieldFilter('price', '<=', 100)} />
 ```
 
-### Index Boosts
+### Instance Boosts
 
-Index boosts apply to indexed fields.
+Instance boosts act on term instances in indexed fields.
 
 #### FieldInstanceBoost
 
-FieldInstanceBoost increases the value of a match in a certain field. This is commonly used make things like a title have more weight than a description.
+FieldInstanceBoost increases the value of a term match in a certain field.
 
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
-| field | string | Yes | none | The field boost |
+| field | string | Yes | none | The field name |
 | value | number | Yes | none | The value of the boost |
 
 ```jsx
