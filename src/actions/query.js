@@ -138,27 +138,14 @@ function getDataOfType(components, type) {
   return Object.keys(components).map(k => components[k]).filter(d => d.type === type).map(d => d.data)
 }
 
-type QueryTrackingSet = {|
-  type: string,
-  namespace: string,
-  data: Object,
-  id: string,
-  sequence: number,
-|}
-export const setQueryTracking = (namespace: string, data: Object, id: string, sequence: number): QueryTrackingSet => ({
+export const setQueryTracking = (namespace, data, id, sequence) => ({
   type: QUERY_TRACKING_SET,
   namespace,
   data,
   id,
   sequence,
 })
-type QueryTrackingFlush = {|
-  type: string,
-  namespace: string,
-|}
-export const flushQueryTracking = (namespace: string): QueryTrackingFlush => ({
+export const flushQueryTracking = (namespace) => ({
   type: QUERY_TRACKING_FLUSH,
   namespace,
 })
-
-export type { QueryTrackingSet, QueryTrackingFlush }
