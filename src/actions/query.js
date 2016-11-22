@@ -76,7 +76,7 @@ export const makeSearchRequest = (namespace: string, request) => (
     if (bodies.length > 0) {
       indexQuery.body(bodies.map(({ text, weight }) => Sajari.body(text, weight)))
     }
-    const instanceBoosts = getDataOfType(components, SearchComponents.INDEX_BOOST)
+    const instanceBoosts = getDataOfType(components, SearchComponents.INSTANCE_BOOSTS)
     if (instanceBoosts.length > 0) {
       indexQuery.instanceBoosts(instanceBoosts)
     }
