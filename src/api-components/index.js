@@ -21,6 +21,7 @@ export {
 export { default as Offset } from './Offset'
 export { default as RegisterNamespace } from './RegisterNamespace'
 export { default as ResultInjector } from './ResultInjector'
+export { default as Response } from './Response'
 export { default as Limit } from './Limit'
 export { default as Run } from './Run'
 export { default as Sort } from './Sort'
