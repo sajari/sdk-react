@@ -1,10 +1,13 @@
 // @flow
 import { combineReducers } from 'redux'
 
+import type { QueryTrackingSet, QueryTrackingFlush } from '../actions/query'
+
 import {
   NAMESPACE_ADD, NAMESPACE_REMOVE,
   QUERY_COMPONENT_ADD, QUERY_COMPONENT_MODIFY, QUERY_COMPONENT_REMOVE,
   SEARCH_REQUEST, SEARCH_REQUEST_SUCCESS, SEARCH_REQUEST_FAILURE,
+  QUERY_TRACKING_SET, QUERY_TRACKING_FLUSH,
 } from '../actions/query'
 
 function namespaces(state: Object = {}, action: Object): Object {
@@ -91,6 +94,26 @@ function queryStatus(state: Object = {}, action: Object): Object {
   }
 }
 
-const query = combineReducers({ namespaces, queryComponent, queryStatus })
+type QueryTrackingAction = QueryTrackingSet | QueryTrackingFlush
+function queryTracking(state: Object = {}, action: QueryTrackingAction) {
+  switch (action.type) {
+    case QUERY_TRACKING_SET: {
+      const { namespace, type, ...rest } = action
+      return {
+        ...state,
+        [namespace]: rest,
+      }
+    }
+    case QUERY_TRACKING_FLUSH: {
+      const { [action.namespace]: _, ...rest } = state
+      return rest
+    }
+    default: {
+      return state
+    }
+  }
+}
+
+const query = combineReducers({ namespaces, queryComponent, queryStatus, queryTracking })
 
 export default query

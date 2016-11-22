@@ -13,6 +13,9 @@ export const SEARCH_REQUEST = 'SEARCH_REQUEST'
 export const SEARCH_REQUEST_SUCCESS = 'SEARCH_REQUEST_SUCCESS'
 export const SEARCH_REQUEST_FAILURE = 'SEARCH_REQUEST_FAILURE'
 
+export const QUERY_TRACKING_SET = 'QUERY_TRACKING_SET'
+export const QUERY_TRACKING_FLUSH = 'QUERY_TRACKING_FLUSH'
+
 export const addNamespace = (namespace: string, project: string, collection: string) => ({
   type: NAMESPACE_ADD,
   namespace,
@@ -68,6 +71,13 @@ export const makeSearchRequest = (namespace: string) => (
     const client = new Sajari.Client(project, collection)
     const query = new Sajari.Query()
 
+    const trackingFromState = state.query.queryTracking[namespace]
+    if (trackingFromState) {
+      query.data = trackingFromState.data
+      query.i = trackingFromState.id,
+      query.s = trackingFromState.sequence
+    }
+
     const components = state.query.queryComponent[namespace]
 
     const indexQuery = new Sajari.IndexQuery()
@@ -110,16 +120,45 @@ export const makeSearchRequest = (namespace: string) => (
 
     query.aggregates(getDataOfType(components, SearchComponents.AGGREGATE))
 
-    return client.search(query, (err, res) => {
+    const searchPromise = client.search(query, (err, res) => {
       if (err) {
         dispatch(searchRequestFailure(namespace, err))
       } else {
         dispatch(searchRequestSuccess(namespace, res))
       }
     })
+
+    dispatch(setQueryTracking(namespace, query.data, query.i, query.s))
+
+    return searchPromise
   }
 )
 
 function getDataOfType(components, type) {
   return Object.keys(components).map(k => components[k]).filter(d => d.type === type).map(d => d.data)
 }
+
+type QueryTrackingSet = {|
+  type: string,
+  namespace: string,
+  data: Object,
+  id: string,
+  sequence: number,
+|}
+export const setQueryTracking = (namespace: string, data: Object, id: string, sequence: number): QueryTrackingSet => ({
+  type: QUERY_TRACKING_SET,
+  namespace,
+  data,
+  id,
+  sequence,
+})
+type QueryTrackingFlush = {|
+  type: string,
+  namespace: string,
+|}
+export const flushQueryTracking = (namespace: string): QueryTrackingFlush => ({
+  type: QUERY_TRACKING_FLUSH,
+  namespace,
+})
+
+export type { QueryTrackingSet, QueryTrackingFlush }
