@@ -1,5 +1,6 @@
 // @flow
-import { Client, Query } from 'sajari'
+import * as Sajari from 'sajari'
+import SearchComponents from '../constants/QueryComponentConstants'
 
 export const NAMESPACE_ADD = 'NAMESPACE_ADD'
 export const NAMESPACE_REMOVE = 'NAMESPACE_REMOVE'
@@ -64,9 +65,32 @@ export const makeSearchRequest = (namespace: string, request) => (
     const state = getState()
 
     const { project, collection } = state.query.namespaces[namespace]
+    const client = new Sajari.Client(project, collection)
+    const query = new Sajari.Query()
 
-    const client = new Client(project, collection)
-    const query = new Query()
+    const components = state.query.queryComponent[namespace]
+
+    const indexQuery = new Sajari.IndexQuery()
+
+    const bodies = getDataOfType(components, SearchComponents.BODY)
+    if (bodies.length > 0) {
+      indexQuery.body(bodies.map(({ text, weight }) => Sajari.body(text, weight)))
+    }
+    const instanceBoosts = getDataOfType(components, SearchComponents.INDEX_BOOST)
+    if (instanceBoosts.length > 0) {
+      indexQuery.instanceBoosts(instanceBoosts)
+    }
+
+    const fields = getDataOfType(components, SearchComponents.FIELDS)
+    if (fields.length > 0) {
+      query.fields(fields.reduce((a, b) => a.concat(b)))
+    }
+
+    query.indexQuery(indexQuery)
+
+    console.log(query.q)
+
+
     return client.search(query, (err, res) => {
       if (err) {
         dispatch(searchRequestFailure(namespace, err))
@@ -76,3 +100,7 @@ export const makeSearchRequest = (namespace: string, request) => (
     })
   }
 )
+
+function getDataOfType(components, type) {
+  return Object.keys(components).map(k => components[k]).filter(d => d.type === type).map(d => d.data)
+}
