@@ -1,7 +1,5 @@
 import React from 'react'
 
-import Config from '../../src/ui-components/web/Config'
-
 /**
  * Sample that has a function to enable the overlay.
  */
@@ -15,7 +13,6 @@ const App = ({ enableOverlay }) => (
       value='Search'
       readOnly
     />
-    <Config project='sajariptyltd' collection='sajari-com' />
   </div>
 )
 
