@@ -19,13 +19,13 @@ class base extends React.Component {
     const { namespace, componentName, data } = this.props
     const { uuid } = this.state
     SearchActions.update(namespace, uuid, componentName, data)
+    this.props.addQueryComponent(uuid, namespace, data, componentName)
 
     if (this.props.runOnMount) {
       // SearchActions.nsearch(this.props.namespace)
       this.props.makeSearchRequest()
     }
 
-    this.props.addQueryComponent(uuid, namespace, data, componentName)
   }
 
   componentWillReceiveProps(newProps) {
@@ -35,26 +35,26 @@ class base extends React.Component {
     const { namespace, componentName, data } = newProps
     const { uuid } = this.state
     SearchActions.update(namespace, uuid, componentName, data)
+    this.props.modifyQueryComponent(uuid, namespace, data, componentName)
 
     if (newProps.runOnUpdate) {
       // SearchActions.nsearch(namespace)
       this.props.makeSearchRequest()
     }
 
-    this.props.modifyQueryComponent(uuid, namespace, data, componentName)
   }
 
   componentWillUnmount() {
     const { namespace, componentName } = this.props
     const { uuid } = this.state
     SearchActions.remove(namespace, uuid, componentName)
+    this.props.removeQueryComponent(uuid, namespace)
 
     if (this.props.runOnUnmount) {
       // SearchActions.nsearch(this.props.namespace)
       this.props.makeSearchRequest()
     }
 
-    this.props.removeQueryComponent(uuid, namespace)
   }
 
   render() { return null }
