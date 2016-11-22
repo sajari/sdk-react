@@ -1,3 +1,4 @@
+// @flow
 import React from 'react'
 import uuid from 'uuid'
 import equal from 'deep-equal'
@@ -5,7 +6,10 @@ import equal from 'deep-equal'
 import SearchActions from '../actions/SearchActions.js'
 import Components from '../constants/QueryComponentConstants.js'
 
-class Base extends React.Component {
+import { connect } from 'react-redux'
+import { addQueryComponent, modifyQueryComponent, removeQueryComponent, makeSearchRequest } from '../actions/query'
+
+class base extends React.Component {
   constructor(props) {
     super(props)
     this.state = { uuid: uuid.v4() }
@@ -17,8 +21,11 @@ class Base extends React.Component {
     SearchActions.update(namespace, uuid, componentName, data)
 
     if (this.props.runOnMount) {
-      SearchActions.nsearch(this.props.namespace)
+      // SearchActions.nsearch(this.props.namespace)
+      this.props.makeSearchRequest()
     }
+
+    this.props.addQueryComponent(uuid, namespace, data, componentName)
   }
 
   componentWillReceiveProps(newProps) {
@@ -30,8 +37,11 @@ class Base extends React.Component {
     SearchActions.update(namespace, uuid, componentName, data)
 
     if (newProps.runOnUpdate) {
-      SearchActions.nsearch(namespace)
+      // SearchActions.nsearch(namespace)
+      this.props.makeSearchRequest()
     }
+
+    this.props.modifyQueryComponent(uuid, namespace, data, componentName)
   }
 
   componentWillUnmount() {
@@ -40,14 +50,17 @@ class Base extends React.Component {
     SearchActions.remove(namespace, uuid, componentName)
 
     if (this.props.runOnUnmount) {
-      SearchActions.nsearch(this.props.namespace)
+      // SearchActions.nsearch(this.props.namespace)
+      this.props.makeSearchRequest()
     }
+
+    this.props.removeQueryComponent(uuid, namespace)
   }
 
   render() { return null }
 }
 
-Base.propTypes = {
+base.propTypes = {
   runOnMount: React.PropTypes.bool,
   runOnUnmount: React.PropTypes.bool,
   runOnUpdate: React.PropTypes.bool,
@@ -59,11 +72,21 @@ Base.propTypes = {
   data: React.PropTypes.any.isRequired,
 }
 
-Base.defaultProps = {
+base.defaultProps = {
   runOnMount: false,
   runOnUnmount: false,
   runOnUpdate: false,
   namespace: 'default',
 }
+
+const Base = connect(
+  null,
+  (dispatch, props) => ({
+    addQueryComponent: (uuid, namespace, data, queryDataType) => dispatch(addQueryComponent(uuid, namespace, data, queryDataType)),
+    modifyQueryComponent: (uuid, namespace, data, queryDataType) => dispatch(modifyQueryComponent(uuid, namespace, data, queryDataType)),
+    removeQueryComponent: (uuid, namespace) => dispatch(removeQueryComponent(uuid, namespace)),
+    makeSearchRequest: () => dispatch(makeSearchRequest(props.namespace)),
+  }),
+)(base)
 
 export default Base
