@@ -100,6 +100,16 @@ export const makeSearchRequest = (namespace: string) => (
       query.filter(Sajari.allFilters(filters))
     }
 
+    const clickTokens = getDataOfType(components, SearchComponents.CLICK_TOKENS)
+    const posNegTokens = getDataOfType(components, SearchComponents.POS_NEG_TOKENS)
+    if (clickTokens.length > 0) {
+      query.clickTracking(clickTokens[0])
+    } else if (posNegTokens.length > 0) {
+      query.posNegTracking(posNegTokens[0])
+    }
+
+    query.aggregates(getDataOfType(components, SearchComponents.AGGREGATE))
+
     return client.search(query, (err, res) => {
       if (err) {
         dispatch(searchRequestFailure(namespace, err))
