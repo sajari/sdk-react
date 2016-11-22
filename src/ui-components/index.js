@@ -1,1 +1,1 @@
-export BodyInput from './web/BodyInput.js'
+export { default as BodyInput } from './web/BodyInput.js'

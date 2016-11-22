@@ -1,2 +1,2 @@
-export Body from './Body'
-export Pagination from './Pagination'
+export { default as Body } from './Body'
+export { default as Pagination } from './Pagination'

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { RegisterNamespace, Fields, ClickTokens } from 'sajari-react/api-components'
+import { RegisterNamespace, Fields, ClickTokens } from '../../api-components'
 
 /*
  * Config is a wrapper for basic web-based config components.

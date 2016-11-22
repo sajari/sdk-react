@@ -9,7 +9,7 @@ import { BoostRules } from './Boosts'
 import { Results } from './Results'
 import Tabs from './Tabs'
 
-import { ResultInjector } from 'sajari-react/api-components'
+import { ResultInjector } from '../../api-components'
 
 const close = ({ disableOverlay }) => (
   <div id='sj-overlay-close' onClick={disableOverlay}>

@@ -3,9 +3,9 @@ export {
   CountAggregate,
   MetricAggregate,
 } from './Aggregate'
-export Body from './Body'
-export Fields from './Fields'
-export Filter from './Filter'
+export { default as Body } from './Body'
+export { default as Fields } from './Fields'
+export { default as Filter } from './Filter'
 export {
   FieldInstanceBoost,
   ScoreInstanceBoost,
@@ -18,12 +18,12 @@ export {
   FieldBoost,
   FeatureFieldBoost,
 } from './FieldBoost'
-export Offset from './Offset'
-export RegisterNamespace from './RegisterNamespace'
-export ResultInjector from './ResultInjector'
-export Limit from './Limit'
-export Run from './Run'
-export Sort from './Sort'
-export Transform from './Transform'
+export { default as Offset } from './Offset'
+export { default as RegisterNamespace } from './RegisterNamespace'
+export { default as ResultInjector } from './ResultInjector'
+export { default as Limit } from './Limit'
+export { default as Run } from './Run'
+export { default as Sort } from './Sort'
+export { default as Transform } from './Transform'
 export { ClickTokens, PosNegTokens } from './Tokens'
-export TrackingReset from './TrackingReset'
+export { default as TrackingReset } from './TrackingReset'

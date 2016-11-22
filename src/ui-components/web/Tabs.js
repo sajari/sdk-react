@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Run } from 'sajari-react/api-components'
+import { Run } from '../../api-components'
 
 import { connect } from 'react-redux'
 

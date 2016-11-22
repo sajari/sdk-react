@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { IntervalFieldBoost } from 'sajari-react/api-components'
+import { IntervalFieldBoost } from '../../api-components'
 import { pointValue } from 'sajari'
 
-/* 
+/*
  * BoostRules applies boosting to web collections based on boosting values set
  * by the crawler when indexing pages.
  */

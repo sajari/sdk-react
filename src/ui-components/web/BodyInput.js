@@ -2,7 +2,7 @@ import React from 'react'
 import { findDOMNode } from 'react-dom'
 import { connect } from 'react-redux'
 
-import { Body } from 'sajari-react'
+import { Body } from '../../'
 
 import { setBody, setCompletion } from './actions/Search'
 
@@ -21,7 +21,7 @@ class bodyInput extends React.Component {
   componentDidMount() {
     findDOMNode(this.refs.searchInput).focus()
   }
-  
+
   setText(text) {
     this.setState({ text })
     this.props.setBody(text)
