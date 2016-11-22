@@ -71,25 +71,25 @@ export const makeSearchRequest = (namespace: string, request) => (
     const components = state.query.queryComponent[namespace]
 
     const indexQuery = new Sajari.IndexQuery()
+    indexQuery.body(getDataOfType(components, SearchComponents.BODY))
+    indexQuery.instanceBoosts(getDataOfType(components, SearchComponents.INSTANCE_BOOSTS))
+    indexQuery.fieldBoosts(getDataOfType(components, SearchComponents.FIELD_BOOSTS))
 
-    const bodies = getDataOfType(components, SearchComponents.BODY)
-    if (bodies.length > 0) {
-      indexQuery.body(bodies.map(({ text, weight }) => Sajari.body(text, weight)))
-    }
-    const instanceBoosts = getDataOfType(components, SearchComponents.INSTANCE_BOOSTS)
-    if (instanceBoosts.length > 0) {
-      indexQuery.instanceBoosts(instanceBoosts)
-    }
+    const featureQuery = new Sajari.FeatureQuery()
+    featureQuery.fieldBoosts(getDataOfType(components, SearchComponents.FEATURE_BOOST))
 
-    const fields = getDataOfType(components, SearchComponents.FIELDS)
-    if (fields.length > 0) {
-      query.fields(fields.reduce((a, b) => a.concat(b)))
+    query.fields(getDataOfType(components, SearchComponents.FIELDS).reduce((a, b) => a.concat(b)))
+    const limit = getDataOfType(components, SearchComponents.LIMIT)
+    if (limit.length > 0) {
+      query.limit(limit[0])
+    }
+    const offset = getDataOfType(components, SearchComponents.OFFSET)
+    if (offset.length > 0) {
+      query.offset(offset[0])
     }
 
     query.indexQuery(indexQuery)
-
-    console.log(query.q)
-
+    query.featureQuery(featureQuery)
 
     return client.search(query, (err, res) => {
       if (err) {
