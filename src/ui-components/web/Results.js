@@ -65,6 +65,16 @@ class results extends React.Component {
     }
 
     const nsResults = results[namespace]
+
+    // TODO(tbillington): Remove asap
+    if (!nsResults.results) {
+      nsResults.results = []
+    }
+    if (!nsResults.response) {
+      nsResults.response = {}
+    }
+
+
     const summaryProps = {
       body,
       completion,
