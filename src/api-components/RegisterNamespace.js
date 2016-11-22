@@ -6,15 +6,10 @@ import PageActions from '../actions/PageActions'
 
 import NamespaceStore from "../stores/NamespaceStore.js";
 
-export default class RegisterNamespace extends React.Component {
-  static propTypes = {
-    project: React.PropTypes.string.isRequired,
-    collection: React.PropTypes.string.isRequired,
-    namespace: React.PropTypes.string,
-    searchOnMount: React.PropTypes.bool,
-    engine: React.PropTypes.string,
-  }
+import { addNamespace, removeNamespace } from '../actions/query'
+import { connect } from 'react-redux'
 
+class registerNamespace extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,6 +25,7 @@ export default class RegisterNamespace extends React.Component {
       NamespaceStore.addChangeListener(this.searchOnMount);
     }
     NamespaceActions.set(this.props.project, this.props.collection, this.state.namespace, this.state.engine);
+    this.props.addNamespace(this.props.namespace, this.props.project, this.props.collection)
   }
 
   searchOnMount() {
@@ -54,9 +50,24 @@ export default class RegisterNamespace extends React.Component {
 
   componentWillUnmount() {
     NamespaceActions.remove(this.state.namespace);
+    this.props.removeNamespace(this.props.namespace)
   }
 
   render() {
     return null;
   }
 }
+
+registerNamespace.defaultProps = {
+  namespace: 'default',
+}
+
+const RegisterNamespace = connect(
+  null,
+  dispatch => ({
+    addNamespace: (namespace, project, collection) => dispatch(addNamespace(namespace, project, collection)),
+    removeNamespace: (namespace) => dispatch(removeNamespace(namespace)),
+  })
+)(registerNamespace)
+
+export default RegisterNamespace
