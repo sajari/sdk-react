@@ -58,7 +58,7 @@ export const searchRequestFailure = (namespace: string, message: string) => ({
   namespace,
   message,
 })
-export const makeSearchRequest = (namespace: string, request) => (
+export const makeSearchRequest = (namespace: string) => (
   (dispatch, getState) => {
     dispatch(searchRequest(namespace))
 
@@ -90,6 +90,15 @@ export const makeSearchRequest = (namespace: string, request) => (
 
     query.indexQuery(indexQuery)
     query.featureQuery(featureQuery)
+    query.transforms(getDataOfType(components, SearchComponents.TRANSFORM))
+    query.sort(getDataOfType(components, SearchComponents.SORT))
+
+    const filters = getDataOfType(components, SearchComponents.FILTER)
+    if (filters.length === 1) {
+      query.filter(filters[0])
+    } else if (filters.length > 1) {
+      query.filter(Sajari.allFilters(filters))
+    }
 
     return client.search(query, (err, res) => {
       if (err) {
