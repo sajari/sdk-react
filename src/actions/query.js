@@ -1,4 +1,3 @@
-// @flow
 import * as Sajari from 'sajari'
 import SearchComponents from '../constants/QueryComponentConstants'
 
@@ -16,42 +15,42 @@ export const SEARCH_REQUEST_FAILURE = 'SEARCH_REQUEST_FAILURE'
 export const QUERY_TRACKING_SET = 'QUERY_TRACKING_SET'
 export const QUERY_TRACKING_FLUSH = 'QUERY_TRACKING_FLUSH'
 
-export const addNamespace = (namespace: string, project: string, collection: string) => ({
+export const addNamespace = (namespace, project, collection) => ({
   type: NAMESPACE_ADD,
   namespace,
   project,
   collection,
 })
-export const removeNamespace = (namespace: string) => ({
+export const removeNamespace = (namespace) => ({
   type: NAMESPACE_REMOVE,
   namespace,
 })
 
-export const addQueryComponent = (uuid: string, namespace: string, data: Object, queryDataType: string) => ({
+export const addQueryComponent = (uuid, namespace, data, queryDataType) => ({
   type: QUERY_COMPONENT_ADD,
   uuid,
   namespace,
   data,
   queryDataType,
 })
-export const modifyQueryComponent = (uuid: string, namespace: string, data: Object, queryDataType: string) => ({
+export const modifyQueryComponent = (uuid, namespace, data, queryDataType) => ({
   type: QUERY_COMPONENT_MODIFY,
   uuid,
   namespace,
   data,
   queryDataType,
 })
-export const removeQueryComponent = (uuid: string, namespace: string) => ({
+export const removeQueryComponent = (uuid, namespace) => ({
   type: QUERY_COMPONENT_MODIFY,
   uuid,
   namespace,
 })
 
-export const searchRequest = (namespace: string) => ({
+export const searchRequest = (namespace) => ({
   type: SEARCH_REQUEST,
   namespace,
 })
-export const searchRequestSuccess = (namespace: string, data: Object) => ({
+export const searchRequestSuccess = (namespace, data) => ({
   type: SEARCH_REQUEST_SUCCESS,
   namespace,
   data,
@@ -61,7 +60,7 @@ export const searchRequestFailure = (namespace, error) => ({
   namespace,
   error,
 })
-export const makeSearchRequest = (namespace: string) => (
+export const makeSearchRequest = (namespace) => (
   (dispatch, getState) => {
     dispatch(searchRequest(namespace))
 
