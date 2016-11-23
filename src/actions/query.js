@@ -87,56 +87,85 @@ export const makeSearchRequest = (namespace) => (
 
     const state = getState()
 
+    const components = (components => (
+      Object.keys(components).reduce((acc, cur) => ({
+        ...acc,
+        [components[cur].type]: [ ...(acc[components[cur].type] || []), components[cur].data ],
+      }), {})
+    ))(state.query.queryComponent[namespace])
+
     const query = new Sajari.Query()
 
-    const components = state.query.queryComponent[namespace]
-
-    // TODO(tbillington): pull out all the data and build a dict so that you don't have
-    // to keep running through all the components for each query property you set.
-
     const indexQuery = new Sajari.IndexQuery()
-    indexQuery.body(getDataOfType(components, SearchComponents.BODY))
-    indexQuery.instanceBoosts(getDataOfType(components, SearchComponents.INSTANCE_BOOSTS))
-    indexQuery.fieldBoosts(getDataOfType(components, SearchComponents.FIELD_BOOSTS))
+    if (components[SearchComponents.BODY]) {
+      indexQuery.body(components[SearchComponents.BODY])
+    }
+    if (components[SearchComponents.INSTANCE_BOOSTS]) {
+      indexQuery.instanceBoosts(components[SearchComponents.INSTANCE_BOOSTS])
+    }
+    if (components[SearchComponents.FIELD_BOOSTS]) {
+      indexQuery.fieldBoosts(components[SearchComponents.FIELD_BOOSTS])
+    }
     query.indexQuery(indexQuery)
-    
+
     const featureQuery = new Sajari.FeatureQuery()
-    featureQuery.fieldBoosts(getDataOfType(components, SearchComponents.FEATURE_BOOST))
+    if (components[SearchComponents.FEATURE_BOOST]) {
+      featureQuery.fieldBoosts(components[SearchComponents.FEATURE_BOOST])
+    }
     query.featureQuery(featureQuery)
 
-    query.fields(getDataOfType(components, SearchComponents.FIELDS).reduce((a, b) => a.concat(b)))
-    const limit = getDataOfType(components, SearchComponents.LIMIT)
-    // TODO(tbillington): throw an error if more than one is set.
-    if (limit.length > 0) {
+    if (components[SearchComponents.FIELDS]) {
+      query.fields(components[SearchComponents.FIELDS].reduce((a, b) => a.concat(b)))
+    }
+    const limit = components[SearchComponents.LIMIT]
+    if (limit) {
       query.limit(limit[0])
+      if (limit.length > 1) {
+        console.warn(`got ${limit.length} limits defined, there should only be 1`)
+      }
     }
-    // TODO(tbillington): throw an error if more than one is set.
-    const offset = getDataOfType(components, SearchComponents.OFFSET)
-    if (offset.length > 0) {
+
+    const offset = components[SearchComponents.OFFSET]
+    if (offset) {
       query.offset(offset[0])
+      if (offset.length > 1) {
+        console.warn(`got ${offset.length} offsets defined, there should only be 1`)
+      }
     }
 
-    query.transforms(getDataOfType(components, SearchComponents.TRANSFORM))
-    query.sort(getDataOfType(components, SearchComponents.SORT))
-
-    const filters = getDataOfType(components, SearchComponents.FILTER)
-    // TODO(tbillington): tempted to say through an error here too... (when more than one is specified).
-    if (filters.length === 1) {
-      query.filter(filters[0])
-    } else if (filters.length > 1) {
-      query.filter(Sajari.allFilters(filters))
+    if (components[SearchComponents.TRANSFORM]) {
+      query.transforms(components[SearchComponents.TRANSFORM])
+    }
+    if (components[SearchComponents.SORT]) {
+      query.sort(components[SearchComponents.SORT])
     }
 
-    // TODO(tbillington): throw an error here if more than one is set.
-    const clickTokens = getDataOfType(components, SearchComponents.CLICK_TOKENS)
-    const posNegTokens = getDataOfType(components, SearchComponents.POS_NEG_TOKENS)
-    if (clickTokens.length > 0) {
-      query.clickTracking(clickTokens[0])
-    } else if (posNegTokens.length > 0) {
+    const filters = components[SearchComponents.FILTER]
+    if (filters) {
+      query.filter(
+        filters.length === 1 ? (
+          filters[0]
+        ) : (
+          Sajari.allFilters(filters)
+        )
+      )
+    }
+
+    const clickTokens = components[SearchComponents.CLICK_TOKENS]
+    const posNegTokens = components[SearchComponents.POS_NEG_TOKENS]
+    if (clickTokens) {
+      if (posNegTokens) {
+        console.warn(`got PosNeg Tokens and Click tokens, use one or the other`)
+      } else {
+        query.clickTracking(clickTokens[0])
+      }
+    } else if (posNegTokens) {
       query.posNegTracking(posNegTokens[0])
     }
 
-    query.aggregates(getDataOfType(components, SearchComponents.AGGREGATE))
+    if (components[SearchComponents.AGGREGATE]) {
+      query.aggregates(components[SearchComponents.AGGREGATE])
+    }
 
     const trackingFromState = state.query.queryTracking[namespace]
     if (trackingFromState) {
@@ -161,7 +190,3 @@ export const makeSearchRequest = (namespace) => (
     return searchPromise
   }
 )
-
-function getDataOfType(components, type) {
-  return Object.keys(components).map(k => components[k]).filter(d => d.type === type).map(d => d.data)
-}
