@@ -1,4 +1,3 @@
-// @flow
 import { combineReducers } from 'redux'
 
 import {
@@ -10,7 +9,7 @@ import {
 
 import { REQUEST_IN_PROGRESS, REQUEST_SUCCEEDED, REQUEST_FAILED } from '../constants/RequestState'
 
-function namespaces(state: Object = {}, action: Object): Object {
+function namespaces(state = {}, action) {
   switch (action.type) {
     case NAMESPACE_ADD: {
       return {
@@ -32,7 +31,7 @@ function namespaces(state: Object = {}, action: Object): Object {
   }
 }
 
-function queryComponent(state: Object = {}, action: Object): Object {
+function queryComponent(state = {}, action) {
   switch (action.type) {
     case QUERY_COMPONENT_ADD:
     case QUERY_COMPONENT_MODIFY: {
@@ -60,7 +59,7 @@ function queryComponent(state: Object = {}, action: Object): Object {
   }
 }
 
-function queryStatus(state: Object = {}, action: Object): Object {
+function queryStatus(state = {}, action) {
   switch (action.type) {
     case SEARCH_REQUEST: {
       return {
