@@ -17,21 +17,21 @@ class run extends Component {
   render() { return null }
 }
 
-run.propTypes = {
-  namespace: React.PropTypes.string,
-  runOnUnmount: React.PropTypes.bool,
-}
-
-run.defaultProps = {
-  namespace: 'default',
-  runOnUnmount: false,
-}
-
 const Run = connect(
   null,
   (dispatch, props) => ({
     makeSearchRequest: () => dispatch(makeSearchRequest(props.namespace)),
   }),
 )(run)
+
+run.propTypes = {
+  namespace: React.PropTypes.string,
+  runOnUnmount: React.PropTypes.bool,
+}
+
+Run.defaultProps = {
+  namespace: 'default',
+  runOnUnmount: false,
+}
 
 export default Run
