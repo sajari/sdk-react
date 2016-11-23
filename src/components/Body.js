@@ -4,8 +4,6 @@ import { fieldFilter, featureFieldBoost, filterFieldBoost } from 'sajari'
 
 import { default as BaseBody } from '../api-components/Body'
 import { FeatureFieldBoost } from '../api-components'
-import { MOUNT_UPDATE } from '../constants/RunModes'
-import SearchActions from '../actions/SearchActions'
 
 class Body extends Component {
   constructor(props) {
@@ -18,7 +16,6 @@ class Body extends Component {
     if (newProps.text.length >= newProps.minLength) {
       return true
     }
-    SearchActions.clearResults(newProps.namespace)
     return false
   }
 

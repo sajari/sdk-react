@@ -1,13 +1,7 @@
 import React from "react";
-
-import NamespaceActions from "../actions/NamespaceActions.js";
-import SearchActions from "../actions/SearchActions.js";
-import PageActions from '../actions/PageActions'
-
-import NamespaceStore from "../stores/NamespaceStore.js";
+import { connect } from 'react-redux'
 
 import { addNamespace, removeNamespace } from '../actions/query'
-import { connect } from 'react-redux'
 
 class registerNamespace extends React.Component {
   constructor(props) {
