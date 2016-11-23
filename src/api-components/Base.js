@@ -29,7 +29,7 @@ class base extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (!newProps.runIfSame && equal(newProps, this.props)) {
+    if (!newProps.runIfSame && equal(newProps.data, this.props.data)) {
       return
     }
     const { namespace, componentName, data } = newProps
