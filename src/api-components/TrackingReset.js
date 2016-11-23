@@ -1,20 +1,21 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-import Base from './Base'
-import Components from '../constants/QueryComponentConstants'
+import { flushQueryTracking } from '../actions/query'
 
-import SearchActions from '../actions/SearchActions'
-
-export default class TrackingReset extends Component {
+class trackingReset extends Component {
   componentDidMount() {
-    SearchActions.trackingReset(this.props.namespace || 'default')
+    this.props.flushQueryTracking()
   }
 
-  componentWillReceiveProps(nextProps) {
-    SearchActions.trackingReset(nextProps.namespace || 'default')
-  }
-
-  render() {
-    return null
-  }
+  render() { return null }
 }
+
+const TrackingReset = connect(
+  null,
+  (dispatch, props) => ({
+    flushQueryTracking: () => dispatch(flushQueryTracking(props.namespace)),
+  }),
+)(trackingReset)
+
+export default TrackingReset

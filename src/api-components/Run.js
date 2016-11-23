@@ -1,34 +1,37 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 
-import SearchActions from '../actions/SearchActions.js';
+import { makeSearchRequest } from '../actions/query'
 
-class Run extends Component {
+class run extends Component {
   componentDidMount() {
-    SearchActions.nsearch(this.props.namespace);
+    this.props.makeSearchRequest()
   }
 
   componentWillUnmount() {
     if (this.props.runOnUnmount) {
-      SearchActions.nsearch(this.props.namespace);
+      this.props.makeSearchRequest()
     }
   }
 
-  render() {
-    return null;
-  }
+  render() { return null }
 }
 
-Run.propTypes = {
-  namespace: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.arrayOf(React.PropTypes.string),
-  ]),
+run.propTypes = {
+  namespace: React.PropTypes.string,
   runOnUnmount: React.PropTypes.bool,
-};
-
-Run.defaultProps = {
-  namespace: 'default',
-  runOnUnmount: true,
 }
 
-export default Run;
+run.defaultProps = {
+  namespace: 'default',
+  runOnUnmount: false,
+}
+
+const Run = connect(
+  null,
+  (dispatch, props) => ({
+    makeSearchRequest: () => dispatch(makeSearchRequest(props.namespace)),
+  }),
+)(run)
+
+export default Run

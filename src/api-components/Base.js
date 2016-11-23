@@ -1,9 +1,7 @@
-// @flow
 import React from 'react'
 import uuid from 'uuid'
 import equal from 'deep-equal'
 
-import SearchActions from '../actions/SearchActions.js'
 import Components from '../constants/QueryComponentConstants.js'
 
 import { connect } from 'react-redux'
@@ -18,14 +16,11 @@ class base extends React.Component {
   componentDidMount() {
     const { namespace, componentName, data } = this.props
     const { uuid } = this.state
-    SearchActions.update(namespace, uuid, componentName, data)
     this.props.addQueryComponent(uuid, namespace, data, componentName)
 
     if (this.props.runOnMount) {
-      // SearchActions.nsearch(this.props.namespace)
       this.props.makeSearchRequest()
     }
-
   }
 
   componentWillReceiveProps(newProps) {
@@ -34,11 +29,9 @@ class base extends React.Component {
     }
     const { namespace, componentName, data } = newProps
     const { uuid } = this.state
-    SearchActions.update(namespace, uuid, componentName, data)
     this.props.modifyQueryComponent(uuid, namespace, data, componentName)
 
     if (newProps.runOnUpdate) {
-      // SearchActions.nsearch(namespace)
       this.props.makeSearchRequest()
     }
 
@@ -47,11 +40,9 @@ class base extends React.Component {
   componentWillUnmount() {
     const { namespace, componentName } = this.props
     const { uuid } = this.state
-    SearchActions.remove(namespace, uuid, componentName)
     this.props.removeQueryComponent(uuid, namespace)
 
     if (this.props.runOnUnmount) {
-      // SearchActions.nsearch(this.props.namespace)
       this.props.makeSearchRequest()
     }
 
