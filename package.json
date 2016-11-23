@@ -24,12 +24,9 @@
   ],
   "dependencies": {
     "deep-equal": "1.0.1",
-    "flux": "2.0.1",
     "keymirror": "0.1.0",
-    "object-assign": "2.0.0",
     "react-redux": "^4.4.6",
     "redux": "^3.6.0",
-    "redux-thunk": "^2.1.0",
     "uuid": "2.0.2"
   },
   "devDependencies": {
@@ -40,15 +37,13 @@
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.5.0",
+    "babel-preset-stage-2": "^6.18.0",
     "eslint-loader": "^1.4.1",
+    "file-loader": "^0.9.0",
     "fs-extra": "^0.30.0",
     "mocha": "^2.2.5",
-    "nwb": "0.12.x",
-    "react": "^15.4.0",
-    "react-dom": "^15.4.0",
     "react-hot-loader": "1.3.0",
     "rimraf": "^2.5.3",
-    "sajari": "0.13.3",
     "webpack": "^1.9.10",
     "webpack-dev-server": "^1.8.2"
   },
@@ -62,15 +57,7 @@
     "search api"
   ],
   "license": "MIT",
-  "main": "lib/index.js",
-  "jsnext:main": "es/index.js",
-  "module": "es/index.js",
-  "files": [
-    "css",
-    "es",
-    "lib",
-    "umd"
-  ],
+  "main": "./src/index.js",
   "peerDependencies": {
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
@@ -81,8 +68,11 @@
     "url": "https://github.com/sajari/sajari-sdk-react"
   },
   "scripts": {
-    "build": "nwb build-react-component",
-    "start": "nwb serve-react-demo",
-    "clean": "nwb clean-module && npm clean-demo"
+    "build": "npm run build:babel && npm run build:copy-files",
+    "build:babel": "babel ./src/ --out-dir ./build --copy-files",
+    "build:copy-files": "babel-node ./scripts/copy-files.js",
+    "clean:build": "rimraf build",
+    "hotdev": "webpack-dev-server --hot --inline",
+    "prebuild": "npm run clean:build"
   }
 }
