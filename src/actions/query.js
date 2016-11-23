@@ -56,10 +56,10 @@ export const searchRequestSuccess = (namespace: string, data: Object) => ({
   namespace,
   data,
 })
-export const searchRequestFailure = (namespace: string, message: string) => ({
+export const searchRequestFailure = (namespace, error) => ({
   type: SEARCH_REQUEST_FAILURE,
   namespace,
-  message,
+  error,
 })
 export const makeSearchRequest = (namespace: string) => (
   (dispatch, getState) => {

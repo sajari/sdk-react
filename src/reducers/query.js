@@ -82,7 +82,7 @@ function queryStatus(state: Object = {}, action: Object): Object {
         ...state,
         [action.namespace]: {
           status: 'failed',
-          message: action.message,
+          error: action.error,
         }
       }
     }
@@ -92,7 +92,7 @@ function queryStatus(state: Object = {}, action: Object): Object {
   }
 }
 
-function queryTracking(state, action) {
+function queryTracking(state = {}, action) {
   switch (action.type) {
     case QUERY_TRACKING_SET: {
       const { namespace, type, ...rest } = action
