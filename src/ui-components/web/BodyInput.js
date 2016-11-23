@@ -6,6 +6,8 @@ import { Body } from '../../'
 
 import { setBody, setCompletion } from './actions/Search'
 
+import { REQUEST_SUCCEEDED } from '../../constants/RequestState'
+
 const RIGHT_ARROW_KEYCODE = 39
 const TAB_KEYCODE = 9
 
@@ -71,10 +73,15 @@ const BodyInput = connect(
 
 class captureCompletion extends React.Component {
   componentWillReceiveProps(nextProps) {
-    const { namespace } = this.props
+    const { status, data, completion } = this.props
+    if (status !== REQUEST_SUCCEEDED) {
+      return
+    }
     try {
-      const namespaceResults = nextProps.results[namespace]
-      nextProps.setCompletion(namespaceResults.response.searchRequest.indexQuery.body[0].text)
+      const rewrittenBody = data.searchRequest.indexQuery.body[0].text
+      if (rewrittenBody !== completion) {
+        nextProps.setCompletion(rewrittenBody)
+      }
     } catch (e) {
       nextProps.setCompletion('')
     }
@@ -84,7 +91,7 @@ class captureCompletion extends React.Component {
 }
 
 const CaptureCompletion = connect(
-  null,
+  ({ search }) => ({ completion: search.completion }),
   dispatch => ({ setCompletion: completion => dispatch(setCompletion(completion)) })
 )(captureCompletion)
 

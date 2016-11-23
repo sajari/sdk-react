@@ -9,7 +9,7 @@ import { BoostRules } from './Boosts'
 import { Results } from './Results'
 import Tabs from './Tabs'
 
-import { ResultInjector } from '../../api-components'
+import { Response } from '../../api-components'
 
 const close = ({ disableOverlay }) => (
   <div id='sj-overlay-close' onClick={disableOverlay}>
@@ -63,10 +63,10 @@ const DefaultOverlay = ({ tabs, tabsOnChange, defaultTab, logoUrl }) => (
     <div id='sj-overlay-filters'>
       <Tabs defaultTab={defaultTab} tabs={tabs} onChange={tabsOnChange} />
     </div>
-    <ResultInjector>
+    <Response>
       <CaptureCompletion />
       <Results />
-    </ResultInjector>
+    </Response>
   </Overlay>
 )
 

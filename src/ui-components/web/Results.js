@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import { REQUEST_SUCCEEDED } from '../../constants/RequestState'
+
 const tokenUrl = 'https://www.sajari.com/token/'
 
 /**
@@ -58,35 +60,29 @@ const ResultSummary = ({ body, completion, count, total, queryTime }) => {
 }
 
 class results extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    return nextProps.status === REQUEST_SUCCEEDED
+  }
+
   render() {
-    const { results, body, completion, namespace } = this.props
-    if (!results || body === '') {
-      return <div id='sj-overlay-results' />
-    }
+    const { results, body, completion, namespace, status, data } = this.props
 
-    const nsResults = results[namespace]
-
-    // TODO(tbillington): Remove asap
-    if (!nsResults.results) {
-      nsResults.results = []
+    if (status !== REQUEST_SUCCEEDED) {
+      return <p>{status}</p>
     }
-    if (!nsResults.response) {
-      nsResults.response = {}
-    }
-
 
     const summaryProps = {
       body,
       completion,
-      count: nsResults.results.length,
-      queryTime: nsResults.response.time,
-      total: nsResults.response.totalResults
+      count: data.searchResponse.results.length,
+      queryTime: data.searchResponse.time,
+      total: data.searchResponse.totalResults
     }
 
     return (
       <div id='sj-overlay-results'>
         <ResultSummary {...summaryProps} />
-        {nsResults.results.map(r => (
+        {data.searchResponse.results.map(r => (
           <Result key={r.values._id} {...r.values} {...r.tokens.click} />
         ))}
       </div>
@@ -99,7 +95,7 @@ results.defaultProps = {
 }
 
 const Results = connect(
-  ({ overlay }) => ({body: overlay.body, completion: overlay.completion}),
+  ({ search }) => ({ body: search.body, completion: search.completion }),
 )(results)
 
 export { Results, Result, ResultSummary, Title, Description, Url, TokenLink }
