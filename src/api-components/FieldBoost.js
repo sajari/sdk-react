@@ -15,7 +15,7 @@ const FieldBoost = props => {
     <Base
       {...others}
       runDefault='all'
-      componentName={Components.META_BOOST}
+      componentName={Components.FIELD_BOOSTS}
       data={data}
       namespace={namespace}
     />
