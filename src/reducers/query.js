@@ -8,6 +8,8 @@ import {
   QUERY_TRACKING_SET, QUERY_TRACKING_FLUSH,
 } from '../actions/query'
 
+import { REQUEST_IN_PROGRESS, REQUEST_SUCCEEDED, REQUEST_FAILED } from '../constants/RequestState'
+
 function namespaces(state: Object = {}, action: Object): Object {
   switch (action.type) {
     case NAMESPACE_ADD: {
@@ -64,7 +66,7 @@ function queryStatus(state: Object = {}, action: Object): Object {
       return {
         ...state,
         [action.namespace]: {
-          status: 'in-progress',
+          status: REQUEST_IN_PROGRESS,
         },
       }
     }
@@ -72,7 +74,7 @@ function queryStatus(state: Object = {}, action: Object): Object {
       return {
         ...state,
         [action.namespace]: {
-          status: 'success',
+          status: REQUEST_SUCCEEDED,
           data: action.data
         },
       }
@@ -81,7 +83,7 @@ function queryStatus(state: Object = {}, action: Object): Object {
       return {
         ...state,
         [action.namespace]: {
-          status: 'failed',
+          status: REQUEST_FAILED,
           error: action.error,
         }
       }
