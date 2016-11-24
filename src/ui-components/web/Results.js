@@ -3,26 +3,41 @@ import { connect } from 'react-redux'
 
 import { REQUEST_SUCCEEDED } from '../../constants/RequestState'
 
+import { resultClicked } from './actions/Analytics'
+
 const tokenUrl = 'https://www.sajari.com/token/'
 
 /**
  * TokenLink renders an 'a' element that switches to using a token when clicked
  */
-class TokenLink extends React.Component {
+class tokenLink extends React.Component {
   constructor(props) {
     super(props)
     this.state = { clicked: false }
+    this.click = this.click.bind(this)
+  }
+
+  click() {
+    this.setState({ clicked: true })
+    this.props.resultClicked(this.props.url)
   }
 
   render() {
     const url = this.state.clicked ? (tokenUrl + this.props.token) : this.props.url
     return (
-      <a href={url} onMouseDown={() => this.setState({ clicked: true })}>
+      <a href={url} onMouseDown={this.click}>
         {this.props.text}
       </a>
     )
   }
 }
+
+const TokenLink = connect(
+  null,
+  dispatch => ({
+    resultClicked: url => dispatch(resultClicked(url)),
+  })
+)(tokenLink)
 
 TokenLink.propTypes = {
   text: React.PropTypes.string.isRequired,
