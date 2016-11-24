@@ -87,7 +87,7 @@
 
 #sj-overlay-filters-tabs {
   padding-left: 126px;
-  overflow: scroll;
+  overflow: auto;
   white-space: nowrap;
 }
 
