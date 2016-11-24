@@ -178,11 +178,27 @@ export const makeSearchRequest = (namespace) => (
     const client = new Sajari.Client(project, collection)
 
     const searchPromise = client.search(query, (err, res) => {
-      if (err) {
-        dispatch(searchRequestFailure(namespace, err))
-      } else {
-        dispatch(searchRequestSuccess(namespace, res))
+      const state = getState()
+
+      if (
+        // There has been a previous query for this namespace
+        (state.query.queryTracking[namespace]) &&
+        // We're talking about the same query that's been used for this namespace
+        (state.query.queryTracking[namespace].id == query.i) &&
+        // The sequence in the store is more recent than the current query
+        (state.query.queryTracking[namespace].sequence > query.s)
+      ) {
+        // Ignore the results of this query
+        return
       }
+
+      dispatch(
+        err ? (
+          searchRequestFailure(namespace, err)
+        ) : (
+          searchRequestSuccess(namespace, res)
+        )
+      )
     })
 
     dispatch(setQueryTracking(namespace, query.data, query.i, query.s))
