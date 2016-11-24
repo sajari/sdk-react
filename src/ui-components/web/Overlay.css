@@ -176,7 +176,6 @@
 #sj-overlay-results {
   position: relative;
   width: auto;
-  max-width: 700px;
   overflow-x: hidden;
   margin-left:126px;
 }
@@ -188,6 +187,7 @@
 }
 
 .sj-overlay-result {
+  max-width: 700px;
   padding: 1em 0;
 }
 
