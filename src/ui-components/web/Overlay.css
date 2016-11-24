@@ -15,7 +15,7 @@
 }
 
 #sj-overlay {
-  font-family: -mac-system, BlinkMacSystemFont;
+  font-family: -mac-system, BlinkMacSystemFont, arial, sans-serif;
   background-color: white;
   position: fixed;
   top: 0;
