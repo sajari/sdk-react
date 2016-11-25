@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { flushQueryTracking } from '../actions/query'
+import { resetQueryTracking } from '../actions/query'
 
 class trackingReset extends Component {
   componentDidMount() {
-    this.props.flushQueryTracking()
+    this.props.resetQueryTracking()
   }
 
   render() { return null }
@@ -14,7 +14,7 @@ class trackingReset extends Component {
 const TrackingReset = connect(
   null,
   (dispatch, props) => ({
-    flushQueryTracking: () => dispatch(flushQueryTracking(props.namespace)),
+    resetQueryTracking: () => dispatch(resetQueryTracking(props.namespace)),
   }),
 )(trackingReset)
 

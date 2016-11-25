@@ -66,7 +66,7 @@ export const searchRequestFailure = (namespace, error) => ({
 
 
 export const QUERY_TRACKING_SET = 'QUERY_TRACKING_SET'
-export const QUERY_TRACKING_FLUSH = 'QUERY_TRACKING_FLUSH'
+export const QUERY_TRACKING_RESET = 'QUERY_TRACKING_RESET'
 
 export const setQueryTracking = (namespace, data, id, sequence) => ({
   type: QUERY_TRACKING_SET,
@@ -75,8 +75,8 @@ export const setQueryTracking = (namespace, data, id, sequence) => ({
   id,
   sequence,
 })
-export const flushQueryTracking = (namespace) => ({
-  type: QUERY_TRACKING_FLUSH,
+export const resetQueryTracking = (namespace) => ({
+  type: QUERY_TRACKING_RESET,
   namespace,
 })
 
