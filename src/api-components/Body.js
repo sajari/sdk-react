@@ -9,7 +9,6 @@ const Body = props => {
   return (
     <Base
       {...others}
-      runDefault='all'
       componentName={Components.BODY}
       data={bodyBuilder(body, weight)}
     />

@@ -36,7 +36,7 @@ class bodyInput extends React.Component {
     return (
       <div id='sj-overlay-search-modal-input-holder-outer'>
         <div id='sj-overlay-search-modal-input-holder-inner'>
-          <Body text={text} runOnUpdate minLength={2} {...others} />
+          <Body text={text} runOnUpdate minLength={2} runOnUpdate={false} {...others} />
           <input
             type="text"
             id='sj-overlay-search-bar-completion'

@@ -66,10 +66,16 @@ const Result = ({ title, description, url, token}) => (
   </div>
 )
 
-const ResultSummary = ({ body, completion, count, total, queryTime }) => {
+const ResultSummary = ({ body, completion, count, total, queryTime, page }) => {
+  let pageNumber = ""
+  if (page && page > 1) {
+    pageNumber = `Page ${page} of `
+  }
+
   const resultsFor = completion || body
+
   if (resultsFor) {
-    return <div id='sj-overlay-result-summary'>{`${total} results for `}&quot;<strong>{resultsFor}</strong>&quot;{` (${queryTime})`}</div>
+    return <div id='sj-overlay-result-summary'>{`${pageNumber}${total} results for `}&quot;<strong>{resultsFor}</strong>&quot;{` (${queryTime})`}</div>
   }
   return <div id='sj-overlay-result-summary' />
 }

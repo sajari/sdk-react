@@ -39,7 +39,7 @@ export const modifyQueryComponent = (uuid, namespace, data, queryDataType) => ({
 })
 
 export const removeQueryComponent = (uuid, namespace) => ({
-  type: QUERY_COMPONENT_MODIFY,
+  type: QUERY_COMPONENT_REMOVE,
   uuid,
   namespace,
 })
@@ -48,6 +48,7 @@ export const removeQueryComponent = (uuid, namespace) => ({
 export const SEARCH_REQUEST = 'SEARCH_REQUEST'
 export const SEARCH_REQUEST_SUCCESS = 'SEARCH_REQUEST_SUCCESS'
 export const SEARCH_REQUEST_FAILURE = 'SEARCH_REQUEST_FAILURE'
+export const SEARCH_REQUEST_RESET = 'SEARCH_REQUEST_RESET'
 
 export const searchRequest = (namespace) => ({
   type: SEARCH_REQUEST,
@@ -62,6 +63,10 @@ export const searchRequestFailure = (namespace, error) => ({
   type: SEARCH_REQUEST_FAILURE,
   namespace,
   error,
+})
+export const searchRequestReset = (namespace) => ({
+  type: SEARCH_REQUEST_RESET,
+  namespace
 })
 
 
@@ -206,3 +211,5 @@ export const makeSearchRequest = (namespace) => (
     return searchPromise
   }
 )
+
+

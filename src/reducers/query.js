@@ -4,7 +4,8 @@ import {
   NAMESPACE_ADD, NAMESPACE_REMOVE,
   QUERY_COMPONENT_ADD, QUERY_COMPONENT_MODIFY, QUERY_COMPONENT_REMOVE,
   SEARCH_REQUEST, SEARCH_REQUEST_SUCCESS, SEARCH_REQUEST_FAILURE,
-  QUERY_TRACKING_SET, QUERY_TRACKING_FLUSH,
+  SEARCH_REQUEST_RESET,
+  QUERY_TRACKING_SET, QUERY_TRACKING_RESET,
 } from '../actions/query'
 
 import { REQUEST_IN_PROGRESS, REQUEST_SUCCEEDED, REQUEST_FAILED } from '../constants/RequestState'
@@ -87,6 +88,10 @@ function queryStatus(state = {}, action) {
         }
       }
     }
+    case SEARCH_REQUEST_RESET: {
+      const { [action.namespace]: _, ...rest } = state
+      return rest
+    }
     default: {
       return state
     }
@@ -102,7 +107,7 @@ function queryTracking(state = {}, action) {
         [namespace]: rest,
       }
     }
-    case QUERY_TRACKING_FLUSH: {
+    case QUERY_TRACKING_RESET: {
       const { [action.namespace]: _, ...rest } = state
       return rest
     }

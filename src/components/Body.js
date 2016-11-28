@@ -5,65 +5,51 @@ import { fieldFilter, featureFieldBoost, filterFieldBoost } from 'sajari'
 import { default as BaseBody } from '../api-components/Body'
 import { FeatureFieldBoost } from '../api-components'
 
-class Body extends Component {
+import { makeSearchRequest } from '../actions/query'
+
+import { connect } from 'react-redux'
+
+
+const BodyFieldBoost = ({ namespace, field, op, text, value }) => (
+  <FeatureFieldBoost
+    key={field}
+    data={featureFieldBoost(filterFieldBoost(fieldFilter(field, op, text), 1), value)}
+    namespace={namespace}
+  />
+)
+
+class body extends Component {
   constructor(props) {
     super(props)
     this.state = {}
+
+    this.triggerSearch = this.triggerSearch.bind(this)
   }
 
-  shouldComponentUpdate(newProps) {
-    // Don't update the component if the text doesn't satisfy the minimum length
-    if (newProps.text.length >= newProps.minLength) {
-      return true
+  triggerSearch() {
+    if (this.props.text.length >= this.props.minLength) {
+      this.props.makeSearchRequest()
     }
-    return false
+  }
+
+  componentDidMount() {
+    this.triggerSearch()
+  }
+
+  componentDidUpdate() {
+    this.triggerSearch()
   }
 
   render() {
-    const { text, minLength, prefixBoosts, containsBoosts, namespace, clearOnNoBody, ...others } = this.props
+    const { text, prefixBoosts, containsBoosts, namespace, ...others } = this.props
 
-    // Stop rendering happening on initial render if the text doesn't satisfy the minimum length
-    if (text < minLength) {
-      return null
-    }
+    const prefixBoostComponents = Object.keys(prefixBoosts).map(field => (
+      <BodyFieldBoost namespace={namespace} field={field} op='^' text={text} value={prefixBoosts[field]} />
+    ))
 
-    const prefixBoostComponents = []
-    for (let field in prefixBoosts) {
-      prefixBoostComponents.push(
-        <FeatureFieldBoost
-          key={field}
-          data={
-            featureFieldBoost(
-              filterFieldBoost(
-                fieldFilter(field, '^', text),
-                1,
-              ),
-              prefixBoosts[field]
-            )
-          }
-          namespace={namespace}
-        />
-      )
-    }
-
-    const containsBoostComponents = []
-    for (let field in containsBoosts) {
-      containsBoostComponents.push(
-        <FeatureFieldBoost
-          key={field}
-          data={
-            featureFieldBoost(
-              filterFieldBoost(
-                fieldFilter(field, '~', text),
-                1,
-              ),
-              containsBoosts[field]
-            )
-          }
-          namespace={namespace}
-        />
-      )
-    }
+    const containsBoostComponents = Object.keys(containsBoosts).map(field => (
+      <BodyFieldBoost namespace={namespace} field={field} op='~' text={text} value={containsBoosts[field]} />
+    ))
 
     return (
       <div>
@@ -75,15 +61,19 @@ class Body extends Component {
   }
 }
 
+const Body = connect(
+  null,
+  (dispatch, props) => ({
+    makeSearchRequest: () => dispatch(makeSearchRequest(props.namespace)),
+  }),
+)(body)
+
 Body.propTypes = {
   text: React.PropTypes.string.isRequired,
   minLength: React.PropTypes.number,
   prefixBoosts: React.PropTypes.object,
   containsBoosts: React.PropTypes.object,
   namespace: React.PropTypes.string,
-  runOnMount: React.PropTypes.bool,
-  runOnUpdate: React.PropTypes.bool,
-  runOnUnmount: React.PropTypes.bool
 }
 
 Body.defaultProps = {
@@ -92,10 +82,6 @@ Body.defaultProps = {
   prefixBoosts: {},
   containsBoosts: {},
   namespace: 'default',
-  runOnMount: true,
-  runOnUpdate: true,
-  runOnUnmount: true,
-  clearOnNoBody: true
 }
 
 export default Body
