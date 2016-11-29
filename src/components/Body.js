@@ -18,47 +18,24 @@ const BodyFieldBoost = ({ namespace, field, op, text, value }) => (
   />
 )
 
-class body extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {}
+const body = props => {
+  const { text, prefixBoosts, containsBoosts, namespace, ...others } = props
 
-    this.triggerSearch = this.triggerSearch.bind(this)
-  }
+  const prefixBoostComponents = Object.keys(prefixBoosts).map(field => (
+    <BodyFieldBoost key={'prefixBoost' + field} namespace={namespace} field={field} op='^' text={text} value={prefixBoosts[field]} />
+  ))
 
-  triggerSearch() {
-    if (this.props.text.length >= this.props.minLength) {
-      this.props.makeSearchRequest()
-    }
-  }
+  const containsBoostComponents = Object.keys(containsBoosts).map(field => (
+    <BodyFieldBoost key={'containsBoost' + field} namespace={namespace} field={field} op='~' text={text} value={containsBoosts[field]} />
+  ))
 
-  componentDidMount() {
-    this.triggerSearch()
-  }
-
-  componentDidUpdate() {
-    this.triggerSearch()
-  }
-
-  render() {
-    const { text, prefixBoosts, containsBoosts, namespace, ...others } = this.props
-
-    const prefixBoostComponents = Object.keys(prefixBoosts).map(field => (
-      <BodyFieldBoost namespace={namespace} field={field} op='^' text={text} value={prefixBoosts[field]} />
-    ))
-
-    const containsBoostComponents = Object.keys(containsBoosts).map(field => (
-      <BodyFieldBoost namespace={namespace} field={field} op='~' text={text} value={containsBoosts[field]} />
-    ))
-
-    return (
-      <div>
-        {prefixBoostComponents}
-        {containsBoostComponents}
-        <BaseBody body={text} weight={1} namespace={namespace} {...others} />
-      </div>
-    )
-  }
+  return (
+    <div>
+      {prefixBoostComponents}
+      {containsBoostComponents}
+      <BaseBody body={text} weight={1} namespace={namespace} {...others} />
+    </div>
+  )
 }
 
 const Body = connect(

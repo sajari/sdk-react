@@ -36,7 +36,7 @@ class bodyInput extends React.Component {
     return (
       <div id='sj-overlay-search-modal-input-holder-outer'>
         <div id='sj-overlay-search-modal-input-holder-inner'>
-          <Body text={text} runOnUpdate minLength={2} runOnUpdate={false} {...others} />
+          <Body text={text} minLength={2} runOnUpdate={false} {...others} />
           <input
             type="text"
             id='sj-overlay-search-bar-completion'
@@ -68,8 +68,12 @@ class bodyInput extends React.Component {
 
 const BodyInput = connect(
   ({ search }) => ({ completion: search.completion }),
-  dispatch => ({ setBody: body => dispatch(setBody(body)) }),
+  (dispatch, props) => ({ setBody: body => dispatch(setBody(body, props.namespace)) }),
 )(bodyInput)
+
+BodyInput.defaultProps = {
+  namespace: 'default',
+}
 
 class captureCompletion extends React.Component {
   componentWillReceiveProps(nextProps) {
