@@ -1,11 +1,10 @@
 import React from 'react'
 import uuid from 'uuid'
-import equal from 'deep-equal'
 
 import Components from '../constants/QueryComponentConstants.js'
 
 import { connect } from 'react-redux'
-import { addQueryComponent, modifyQueryComponent, removeQueryComponent, makeSearchRequest } from '../actions/query'
+import { addQueryComponent, modifyQueryComponent, removeQueryComponent, changeQueryComponentNamespace, makeSearchRequest } from '../actions/query'
 
 class base extends React.Component {
   constructor(props) {
@@ -24,17 +23,20 @@ class base extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (!newProps.runIfSame && equal(newProps.data, this.props.data)) {
-      return
-    }
-    const { namespace, componentName, data } = newProps
+    const { newNamespace, componentName, data } = newProps
     const { uuid } = this.state
-    this.props.modifyQueryComponent(uuid, namespace, data, componentName)
+
+    if (newNamespace === this.props.namespace) {
+      // The namespace has not changed so we can modify the query component data in place
+      this.props.modifyQueryComponent(uuid, newNamespace, data, componentName)
+    } else {
+      // The namespace has changed so we must remove the component from the old namespace and add it to the new
+      this.props.changeQueryComponentNamespace(uuid, this.props.namespace, newNamespace)
+    }
 
     if (newProps.runOnUpdate) {
       this.props.makeSearchRequest()
     }
-
   }
 
   componentWillUnmount() {
@@ -75,6 +77,7 @@ const Base = connect(
   (dispatch, props) => ({
     addQueryComponent: (uuid, namespace, data, queryDataType) => dispatch(addQueryComponent(uuid, namespace, data, queryDataType)),
     modifyQueryComponent: (uuid, namespace, data, queryDataType) => dispatch(modifyQueryComponent(uuid, namespace, data, queryDataType)),
+    changeQueryComponentNamespace: (uuid, oldNamespace, newNamespace) => dispatch(changeQueryComponentNamespace(uuid, oldNamespace, newNamespace)),
     removeQueryComponent: (uuid, namespace) => dispatch(removeQueryComponent(uuid, namespace)),
     makeSearchRequest: () => dispatch(makeSearchRequest(props.namespace)),
   }),

@@ -21,6 +21,7 @@ export const removeNamespace = (namespace) => ({
 export const QUERY_COMPONENT_ADD = 'QUERY_COMPONENT_ADD'
 export const QUERY_COMPONENT_MODIFY = 'QUERY_COMPONENT_MODIFY'
 export const QUERY_COMPONENT_REMOVE = 'QUERY_COMPONENT_REMOVE'
+export const QUERY_COMPONENT_NAMESPACE_CHANGE = 'QUERY_COMPONENT_NAMESPACE_CHANGE'
 
 export const addQueryComponent = (uuid, namespace, data, queryDataType) => ({
   type: QUERY_COMPONENT_ADD,
@@ -42,6 +43,13 @@ export const removeQueryComponent = (uuid, namespace) => ({
   type: QUERY_COMPONENT_REMOVE,
   uuid,
   namespace,
+})
+
+export const changeQueryComponentNamespace = (uuid, oldNamespace, newNamespace) = ({
+  type: QUERY_COMPONENT_NAMESPACE_CHANGE,
+  uuid,
+  newNamespace,
+  oldNamespace,
 })
 
 
@@ -211,5 +219,3 @@ export const makeSearchRequest = (namespace) => (
     return searchPromise
   }
 )
-
-

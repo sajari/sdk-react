@@ -2,9 +2,8 @@ import { combineReducers } from 'redux'
 
 import {
   NAMESPACE_ADD, NAMESPACE_REMOVE,
-  QUERY_COMPONENT_ADD, QUERY_COMPONENT_MODIFY, QUERY_COMPONENT_REMOVE,
-  SEARCH_REQUEST, SEARCH_REQUEST_SUCCESS, SEARCH_REQUEST_FAILURE,
-  SEARCH_REQUEST_RESET,
+  QUERY_COMPONENT_ADD, QUERY_COMPONENT_MODIFY, QUERY_COMPONENT_REMOVE, QUERY_COMPONENT_NAMESPACE_CHANGE,
+  SEARCH_REQUEST, SEARCH_REQUEST_SUCCESS, SEARCH_REQUEST_FAILURE, SEARCH_REQUEST_RESET,
   QUERY_TRACKING_SET, QUERY_TRACKING_RESET,
 } from '../actions/query'
 
@@ -52,6 +51,17 @@ function queryComponent(state = {}, action) {
       return {
         ...state,
         [action.namespace]: rest
+      }
+    }
+    case QUERY_COMPONENT_NAMESPACE_CHANGE: {
+      const { [action.uuid]: component, ...rest } = state[action.oldNamespace]
+      return {
+        ...state,
+        [action.oldNamespace]: rest,
+        [action.newNamespace]: {
+          ...state[action.newNamespace],
+          [action.uuid]: component,
+        }
       }
     }
     default: {
