@@ -2,7 +2,7 @@ import React from 'react'
 
 import { pointValue } from 'sajari'
 
-import { IntervalFieldBoost } from '../../api'
+import { IntervalFieldBoost } from '../api'
 
 
 /*

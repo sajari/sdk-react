@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { REQUEST_SUCCEEDED } from '../../api/constants/RequestState'
+import { REQUEST_SUCCEEDED } from '../api/constants/RequestState'
 import { resultClicked } from './actions/Analytics'
 
 

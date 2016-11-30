@@ -2,9 +2,9 @@ import React from 'react'
 import { findDOMNode } from 'react-dom'
 import { connect } from 'react-redux'
 
-import { Body } from '../../'
+import { Body } from '../'
 import { setBody, setCompletion } from './actions/Search'
-import { REQUEST_SUCCEEDED } from '../../constants/RequestState'
+import { REQUEST_SUCCEEDED } from '../api/constants/RequestState'
 
 
 const RIGHT_ARROW_KEYCODE = 39

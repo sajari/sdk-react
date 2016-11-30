@@ -1,8 +1,8 @@
 import {
   searchRequestReset, resetQueryTracking, makeSearchRequest,
   QUERY_COMPONENT_ADD, QUERY_COMPONENT_MODIFY, QUERY_COMPONENT_REMOVE
-} from '../../../api/actions/query'
-import QueryConstants  from 'sajari-react/api/constants/QueryComponentConstants'
+} from '../../api/actions/query'
+import QueryConstants  from '../../api/constants/QueryComponentConstants'
 import { TRIGGER_SEARCH } from '../actions/Search'
 import { SET_ACTIVE } from '../actions/Overlay'
 

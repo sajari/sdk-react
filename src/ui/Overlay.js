@@ -1,12 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import { Response } from '../api'
 import { disableOverlay } from './actions/Overlay'
 import { BodyInput, CaptureCompletion } from './BodyInput'
 import { BoostRules } from './Boosts'
 import { Results } from './Results'
 import Tabs from './Tabs'
-import { Response } from '../../api'
 
 
 const close = ({ disableOverlay }) => (

@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { Run } from '../../api'
+import { Run } from '../api'
 import { setTab } from './actions/Tabs'
 
 

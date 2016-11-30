@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { RegisterNamespace, Fields, ClickTokens } from '../../api'
+import { RegisterNamespace, Fields, ClickTokens } from '../api'
 
 /*
  * Config is a wrapper for basic web-based config components.
