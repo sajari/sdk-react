@@ -1,7 +1,7 @@
 export const SET_COMPLETION = 'SEARCH_SET_COMPLETION'
 export const SET_BODY = 'SEARCH_SET_BODY'
 export const SET_PAGE = 'SEARCH_SET_PAGE'
-export const TRIGGER_SEARCH = 'TRIGGER_SEARCH'
+export const TRIGGER_SEARCH = 'SEARCH_TRIGGER'
 
 export const setCompletion = (completion, namespace) => (
   { type: SET_COMPLETION, completion, namespace }
