@@ -9,7 +9,7 @@ import { SET_ACTIVE } from '../actions/Overlay'
 const namespaceMiddleware = (namespaces) => (store) => (next) => (action) => {
   // Reset status of all namespaces if the overlay is closed
   if (action.type === SET_ACTIVE && action.active === false) {
-    namespaces.forEach(n => {
+    [].concat(namespaces).forEach(n => {
       store.dispatch(searchRequestReset(n))
       store.dispatch(resetQueryTracking(n))
     })
