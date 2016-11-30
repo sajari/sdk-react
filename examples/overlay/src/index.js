@@ -4,7 +4,7 @@ import { render } from 'react-dom'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 
-import { Filter, Run } from 'sajari-react/api-components'
+import { Filter, Run } from 'sajari-react/api'
 import { fieldFilter } from 'sajari'
 
 import overlay from './store'

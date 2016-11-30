@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.css'
 
-import { RegisterNamespace, ResultInjector } from 'sajari-react/api-components'
+import { RegisterNamespace, ResultInjector } from 'sajari-react/api'
 import { BodyInput } from 'sajari-react/ui-components'
 
 import ResultRenderer from './ResultRenderer'

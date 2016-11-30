@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { RegisterNamespace } from '../../src/api-components'
+import { RegisterNamespace } from '../../src/api'
 
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
-import { Filter } from '../../src/api-components'
+import { Filter } from '../../src/api'
 import { fieldFilter } from 'sajari'
 
 import Config from '../../src/ui-components/web/Config'

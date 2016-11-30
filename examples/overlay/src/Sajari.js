@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { RegisterNamespace, Fields } from 'sajari-react/api-components'
+import { RegisterNamespace, Fields } from 'sajari-react/api'
 
 const Sajari = () => (
   <div>

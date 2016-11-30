@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { findDOMNode } from 'react-dom'
 
-import { ResultInjector, Run } from 'sajari-react/api-components'
+import { ResultInjector, Run } from 'sajari-react/api'
 import { Body } from 'sajari-react'
 
 import { connect } from 'react-redux'

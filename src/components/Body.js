@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import { fieldFilter, featureFieldBoost, filterFieldBoost } from 'sajari'
 
-import { default as BaseBody } from '../api-components/Body'
-import { FeatureFieldBoost } from '../api-components'
-
-import { makeSearchRequest } from '../actions/query'
-
-import { connect } from 'react-redux'
+import { FeatureFieldBoost, Body as BaseBody } from '../api'
+import { makeSearchRequest } from '../api/actions/query'
 
 
 const BodyFieldBoost = ({ namespace, field, op, text, value }) => (
