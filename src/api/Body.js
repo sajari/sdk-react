@@ -3,7 +3,7 @@ import React from 'react';
 import { body as bodyBuilder } from 'sajari';
 
 import Base from './Base.js';
-import Components from '../constants/QueryComponentConstants.js';
+import Components from '../api/constants/QueryComponentConstants.js';
 
 const Body = props => {
   const { body, weight, ...others } = props;
