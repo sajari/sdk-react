@@ -25,7 +25,7 @@ class base extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    const { newNamespace, componentName, data } = newProps
+    const { namespace: newNamespace, componentName, data } = newProps
     const { uuid } = this.state
 
     if (newNamespace === this.props.namespace) {
