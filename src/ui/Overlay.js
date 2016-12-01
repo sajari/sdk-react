@@ -7,7 +7,7 @@ import { BodyInput, CaptureCompletion } from './BodyInput'
 import { BoostRules } from './Boosts'
 import { Results } from './Results'
 import Tabs from './Tabs'
-
+import { triggerSearch } from './actions/Search'
 
 const close = ({ closeOverlay }) => (
   <div id='sj-overlay-close' onClick={closeOverlay}>
@@ -49,6 +49,31 @@ const overlay = ({ active, children }) => {
 const Overlay = connect(
   ({ overlay }) => ({ active: overlay.active })
 )(overlay)
+
+class wrappedBodyInput extends React.Component {
+  componentDidUpdate() {
+    this.props.triggerSearch()
+  }
+
+  render() {
+    return (
+      <BodyInput
+        namespace='default'
+        prefixBoosts={{
+          'title': 0.03
+        }}
+        containsBoosts={{
+          'title': 0.05
+        }}
+      />
+    )
+  }
+}
+
+const WrappedBodyInput = connect(
+  ({ search }) => ({ body: search.body }),
+  (dispatch) => ({ triggerSearch: () => dispatch(triggerSearch('default')) })
+)(wrappedBodyInput)
 
 const DefaultOverlay = ({ tabs, tabsOnChange, defaultTab, logoUrl }) => (
   <Overlay>
