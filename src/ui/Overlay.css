@@ -53,6 +53,7 @@
 #sj-overlay-logo-image {
   max-height: 50px;
   max-width: 126px;
+  cursor: pointer;
 }
 
 #sj-overlay-close {
