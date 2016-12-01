@@ -58,7 +58,6 @@ class wrappedBodyInput extends React.Component {
   render() {
     return (
       <BodyInput
-        namespace='default'
         prefixBoosts={this.props.prefixBoosts}
         containsBoosts={this.props.containsBoosts}
       />
