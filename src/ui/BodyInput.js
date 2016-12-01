@@ -33,21 +33,21 @@ class bodyInput extends React.Component {
     const { completion, ...others } = this.props
 
     return (
-      <div id='sj-overlay-search-modal-input-holder-outer'>
-        <div id='sj-overlay-search-modal-input-holder-inner'>
+      <div id='sj-search-modal-input-holder-outer'>
+        <div id='sj-search-modal-input-holder-inner'>
           <Body key={this.props.namespace} text={text} minLength={2} runOnUpdate={false} {...others} />
           <input
             type="text"
-            id='sj-overlay-search-bar-completion'
-            className='sj-overlay-search-bar-input-common'
+            id='sj-search-bar-completion'
+            className='sj-search-bar-input-common'
             value={text.length > 0 && completion.indexOf(text) === 0 ? completion : ''}
             readOnly
           />
           <input
             type="text"
             ref='searchInput'
-            id='sj-overlay-search-bar-input'
-            className='sj-overlay-search-bar-input-common'
+            id='sj-search-bar-input'
+            className='sj-search-bar-input-common'
             value={text}
             onChange={e => this.setText(e.target.value)}
             onKeyDown={e => {

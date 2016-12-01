@@ -83,9 +83,7 @@ const DefaultOverlay = ({ tabs, tabsOnChange, defaultTab, logoUrl }) => (
       <BodyInput />
       <BoostRules />
     </div>
-    <div id='sj-overlay-filters'>
-      <Tabs defaultTab={defaultTab} tabs={tabs} onChange={tabsOnChange} />
-    </div>
+    <Tabs defaultTab={defaultTab} tabs={tabs} onChange={tabsOnChange} />
     <Response>
       <CaptureCompletion />
       <Results />

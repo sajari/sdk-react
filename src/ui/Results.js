@@ -45,21 +45,21 @@ TokenLink.propTypes = {
 }
 
 const Title = ({ title, url, token }) => (
-  <h2 className='sj-overlay-result-title'>
+  <h2 className='sj-result-title'>
     <TokenLink token={token} url={url} text={title} />
   </h2>
 )
 
 const Description = ({ description }) => (
-  <p className='sj-overlay-result-description'>{description}</p>
+  <p className='sj-result-description'>{description}</p>
 )
 
 const Url = ({ url, token }) => (
-  <p className='sj-overlay-result-url'><TokenLink token={token} url={url} text={url} /></p>
+  <p className='sj-result-url'><TokenLink token={token} url={url} text={url} /></p>
 )
 
 const Result = ({ title, description, url, token}) => (
-  <div className='sj-overlay-result'>
+  <div className='sj-result'>
     <Title title={title} url={url} token={token} />
     <Description description={description} />
     <Url url={url} token={token} />
@@ -75,9 +75,9 @@ const ResultSummary = ({ body, completion, count, total, queryTime, page }) => {
   const resultsFor = completion || body
 
   if (resultsFor) {
-    return <div id='sj-overlay-result-summary'>{`${pageNumber}${total} results for `}&quot;<strong>{resultsFor}</strong>&quot;{` (${queryTime})`}</div>
+    return <div id='sj-result-summary'>{`${pageNumber}${total} results for `}&quot;<strong>{resultsFor}</strong>&quot;{` (${queryTime})`}</div>
   }
-  return <div id='sj-overlay-result-summary' />
+  return <div id='sj-result-summary' />
 }
 
 class results extends React.Component {
@@ -101,7 +101,7 @@ class results extends React.Component {
     }
 
     return (
-      <div id='sj-overlay-results'>
+      <div id='sj-results'>
         <ResultSummary {...summaryProps} />
         {data.searchResponse.results.map(r => (
           <Result key={r.values._id} {...r.values} {...r.tokens.click} />

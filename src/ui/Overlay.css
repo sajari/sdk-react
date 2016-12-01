@@ -1,14 +1,9 @@
-#sj-overlay input {
-  -webkit-appearance: none;
-  border-radius: 2px;
-}
-
 @keyframes sj-overlay-rolldown {
   0% {
     opacity: 0;
     height: 20%;
   }
-  100%{
+  100% {
     opacity: 1;
     height: 100%;
   }
@@ -30,8 +25,12 @@
   animation-duration: 0.4s;
 }
 
+#sj-overlay input {
+  -webkit-appearance: none;
+  border-radius: 2px;
+}
+
 #sj-overlay-search-modal {
-  zoom: 1;
   position: relative;
   background-color: white;
 }
@@ -78,161 +77,6 @@
   font-size: 12px;
 }
 
-#sj-overlay-filters {
-  background-color: #fff;
-  border-top: 1px solid #ebebeb;
-  border-bottom: 1px solid #ebebeb;
-  color: #777;
-  width: 100%;
-}
-
-#sj-overlay-filters-tabs {
-  padding-left: 126px;
-  overflow: auto;
-  white-space: nowrap;
-}
-
-.sj-overlay-filter-tab {
-  display: inline-block;
-  font-size: 13px;
-  cursor: pointer;
-  margin: 0;
-  padding: 1em;
-  user-select: none;
-}
-
-.sj-overlay-filter-tab-active {
-  color: #333;
-  border-bottom: 3px solid #333;
-}
-
-/*
-  --------------- Header Search Input ----------------
-*/
-
-#sj-overlay-search-modal-input-holder-outer {
-  padding: 0.9em 0px;
-  margin-left: 126px;
-  width: 100%;
-  height: 100%;
-}
-
-#sj-overlay-search-modal-input-holder-inner {
-  position: relative;
-  left: 0px;
-  height: 100%;
-}
-
-.sj-overlay-search-bar-input-common {
-  width: 500px;
-  font-size: 20px;
-  padding: 0.4em;
-  outline: none;
-  letter-spacing: 0.6px;
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-left: auto;
-  line-height: 24px;
-  text-rendering: optimizeLegibility;
-  border-radius: 0;
-}
-
-#sj-overlay-search-bar-completion {
-  border: 1px solid #d9d9d9;
-  color: #bebebe;
-}
-
-#sj-overlay-search-bar-input {
-  border: 1px solid transparent;
-  position: absolute;
-  background: transparent;
-  color: #666;
-  top: 0px;
-  left: 0px;
-}
-
-.sj-search-icon {
-  width: 32px;
-  height: 40px;
-  position: absolute;
-  transform: scale(0.6, 0.6);
-  top: 0px;
-  left: 460px;
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAiCAYAAAA+stv/AAACiElEQVRYhe2XS0gVYRTHf5IkZA+KggiRwEsba2OERAnTvXfORy2KIGgTUasWtSgoaNFCSKhdRRIRSi2CQCJbtYhKgxKEgoxuGOPM+SCwTa9FJPReqCXjzJ1H19p44Fv+z/93vsc5M5AQz7eyPHDZGQinVLhgDd2B0BW47PPLNCfpc4cK7Sr0q/DFGn7GLTUMqbAXqKuJ8egWlqhwrZpp5BIee0Va/srcc2hS4WVm8+ndED5qGSeX+SuHldYwltd8xk58tiU2Z/WvU+FuTFUTKly2Ljv8Euv8Ms1BiQ4rnFbDmxiQca+DVand1eVATKJ7nkNTnG5EaFTD+Rjw3lTmfbBADRqRoH/AoT5NjkA4EQHxLdWltML2iKelI0Jjqgr+5LkZUcSZRKEKl8LCwLA/izmAV6TFCj9CuV4kkxuehi9d1up/5xIehYtJzGWFd+GGksccQF3OhgHGhPXVRcJE6Pxv5wYwHA0DeEXaqoqs4X3oCB7mBQiErjCAX2ZDdWrhWegIPnkFGvIAWOH+rB1oZ2mSqGfWKxD2ZDUfdVljha+hYrxkapfdEU2kUmllYRYAFXoj+sC5RKFXoCGypws9pJzxajgY1Y4Tz386AsORmH5+wy+zLE434FCvwklr+B6h70tlPiPRcMx4fatCp1ekreKw2CvQMGYoBC6HraESA/6h2hCLDHVYaw3jMVMx01LDaLWdiw1vG63W8LomEMJwLgh1WK3Cnf8KAaBldqlhKNFI8FU4psJgzSFgcsyqyyHrctEa+lS4ZYUrgXDcL7GJqaf6ZCOLVHgwJxBpYx5iHiIrROKonmuIqYE39xELkeZ7ocYQgyGA6/8MACZ//a2h2xoqarhaMaz4BV0ucH/zEHZQAAAAAElFTkSuQmCC) 50% 50% transparent no-repeat;
-}
-
-/*
-  --------------- Tabs ----------------
-*/
-
-.sj-overlay-filter-tab-spacer {
-  border-left: 1px solid #ebebeb;
-  margin: 17px 4px 8px 6px;
-}
-
-/*
-  --------------- Result ----------------
-*/
-
-#sj-overlay-results {
-  position: relative;
-  width: auto;
-  overflow-x: hidden;
-  margin-left:126px;
-}
-
-#sj-overlay-result-summary {
-  padding-top: 1em;
-  font-size: 14px;
-  color: #aaa;
-}
-
-.sj-overlay-result {
-  max-width: 700px;
-  padding: 1em 0;
-}
-
-.sj-overlay-result-title {
-  margin-bottom: 0px;
-  margin-top: 0;
-  font-size: 16px;
-  line-height: 24px;
-}
-
-.sj-overlay-result-title a {
-  text-decoration: none;
-  font-weight: 400;
-  font-size: 20px;
-  color: #333;
-  line-height: 21.6px;
-}
-
-.sj-overlay-result-title a:hover {
-  text-decoration: underline;
-}
-
-.sj-overlay-result-description {
-  color: rgb(84, 84, 84);
-  font-size: 15px;
-  line-height: 22px;
-  overflow-wrap: break-word;
-  margin-top: 2px;
-  margin-bottom: 4px;
-}
-
-.sj-overlay-result-url {
-  color: rgb(150, 150, 150);
-  font-size: 13px;
-  line-height: 18.2px;
-  margin: 0;
-  color: #a2a2a2;
-}
-
-.sj-overlay-result-url a {
-  text-decoration: none;
-  color: #a2a2a2;
-}
-
 @media (max-width: 845px) {
   #sj-overlay-header {
     padding-left: 0;
@@ -241,33 +85,5 @@
   #sj-overlay-logo {
     padding-left: 0px;
     width: 100%;
-  }
-
-  #sj-overlay-search-modal-input-holder-outer {
-    margin-left: auto;
-    padding-top: 4em;
-  }
-
-  .sj-overlay-search-bar-input-common {
-    width: 94%;
-    margin-left: 3%;
-  }
-
-  #sj-overlay-filters-tabs {
-    padding-left: 3%;
-  }
-
-  #sj-overlay-results {
-    width: 94%;
-    margin-left: 3%;
-  }
-
-  .sj-overlay-result {
-    padding-left: 0;
-  }
-
-  .sj-search-icon {
-    left: initial;
-    right: 4%;
   }
 }
