@@ -13,8 +13,8 @@ const namespaceMiddleware = (namespaces) => (store) => (next) => (action) => {
       store.dispatch(searchRequestReset(n))
       store.dispatch(resetQueryTracking(n))
     })
-    return next(action)
   }
+  return next(action)
 }
 
 const searchMiddleware = (store) => (next) => (action) => {
