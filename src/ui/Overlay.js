@@ -2,15 +2,15 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { Response } from '../api'
-import { disableOverlay } from './actions/Overlay'
+import { setActive } from './actions/Overlay'
 import { BodyInput, CaptureCompletion } from './BodyInput'
 import { BoostRules } from './Boosts'
 import { Results } from './Results'
 import Tabs from './Tabs'
 
 
-const close = ({ disableOverlay }) => (
-  <div id='sj-overlay-close' onClick={disableOverlay}>
+const close = ({ closeOverlay }) => (
+  <div id='sj-overlay-close' onClick={closeOverlay}>
     <div className='sj-close'>&times;</div>
     <div className='sj-esc'>ESC</div>
   </div>
@@ -18,18 +18,18 @@ const close = ({ disableOverlay }) => (
 
 const Close = connect(
   null,
-  dispatch => ({ disableOverlay: () => dispatch(disableOverlay()) })
+  dispatch => ({ closeOverlay: () => dispatch(setActive(false)) })
 )(close)
 
-const logo = ({ disableOverlay, src, alt, className }) => (
+const logo = ({ closeOverlay, src, alt, className }) => (
   <div id='sj-overlay-logo'>
-    <img id='sj-overlay-logo-image' onClick={disableOverlay} src={src} alt={alt} className={className} />
+    <img id='sj-overlay-logo-image' onClick={closeOverlay} src={src} alt={alt} className={className} />
   </div>
 )
 
 const Logo = connect(
   null,
-  dispatch => ({ disableOverlay: () => dispatch(disableOverlay()) })
+  dispatch => ({ closeOverlay: () => dispatch(setActive(false)) })
 )(logo)
 
 const overlay = ({ active, children }) => {
