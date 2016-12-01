@@ -59,12 +59,8 @@ class wrappedBodyInput extends React.Component {
     return (
       <BodyInput
         namespace='default'
-        prefixBoosts={{
-          'title': 0.03
-        }}
-        containsBoosts={{
-          'title': 0.05
-        }}
+        prefixBoosts={this.props.prefixBoosts}
+        containsBoosts={this.props.containsBoosts}
       />
     )
   }
@@ -75,12 +71,12 @@ const WrappedBodyInput = connect(
   (dispatch) => ({ triggerSearch: () => dispatch(triggerSearch('default')) })
 )(wrappedBodyInput)
 
-const DefaultOverlay = ({ tabs, tabsOnChange, defaultTab, logoUrl }) => (
+const DefaultOverlay = ({ tabs, tabsOnChange, defaultTab, logoUrl, prefixBoosts, containsBoosts }) => (
   <Overlay>
     <Close />
     <div id='sj-overlay-header'>
       <Logo src={logoUrl} alt='Logo' />
-      <BodyInput />
+      <WrappedBodyInput prefixBoosts={prefixBoosts} containsBoosts={containsBoosts} />
       <BoostRules />
     </div>
     <Tabs defaultTab={defaultTab} tabs={tabs} onChange={tabsOnChange} />
