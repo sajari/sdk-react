@@ -6,7 +6,7 @@ import QueryConstants  from '../../api/constants/QueryComponentConstants'
 import { TRIGGER_SEARCH } from '../actions/Search'
 import { SET_ACTIVE } from '../actions/Overlay'
 
-const namespaceMiddleware = (namespaces) => (store) => (next) => (action) => {
+const resetOverlayMiddleware = (namespaces) => (store) => (next) => (action) => {
   // Reset status of all namespaces if the overlay is closed
   if (action.type === SET_ACTIVE && action.active === false) {
     [].concat(namespaces).forEach(n => {
@@ -32,4 +32,4 @@ const searchMiddleware = (store) => (next) => (action) => {
   store.dispatch(makeSearchRequest(action.namespace))
 }
 
-export { namespaceMiddleware, searchMiddleware }
+export { resetOverlayMiddleware, searchMiddleware }
