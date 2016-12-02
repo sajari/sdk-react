@@ -1,0 +1,18 @@
+{
+  "rules": {
+    "semi": ["error", "never"],
+    "quotes": ["error", "single"],
+    "no-unreachable": "error",
+    "eqeqeq": "error",
+    "no-unused-vars": "error",
+    "no-use-before-define": "error",
+    "no-const-assign": "error",
+    "no-duplicate-imports": "error",
+    "no-var": "error"
+  },
+  "parser": "babel-eslint",
+  "plugins": [
+    "import"
+  ],
+  "extends": "plugin:import/errors"
+}
