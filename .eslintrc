@@ -8,7 +8,8 @@
     "no-use-before-define": "error",
     "no-const-assign": "error",
     "no-duplicate-imports": "error",
-    "no-var": "error"
+    "no-var": "error",
+    "prefer-const": "error"
   },
   "parser": "babel-eslint",
   "plugins": [
