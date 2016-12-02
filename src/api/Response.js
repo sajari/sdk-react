@@ -1,9 +1,9 @@
 import React, { Children, cloneElement } from 'react'
 import { connect } from 'react-redux'
 
-const response = ({ namespace, children, response }) => (
+const response = ({ children, response }) => (
   <div>
-    {Children.map(children, c => cloneElement(c, response ))}
+    {Children.map(children, c => cloneElement(c, response))}
   </div>
 )
 

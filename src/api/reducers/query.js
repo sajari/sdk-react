@@ -110,7 +110,7 @@ function queryStatus(state = {}, action) {
 function queryTracking(state = {}, action) {
   switch (action.type) {
     case QUERY_TRACKING_SET: {
-      const { namespace, type, ...rest } = action
+      const { namespace, ...rest } = action
       return {
         ...state,
         [namespace]: rest,

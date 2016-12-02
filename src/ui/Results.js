@@ -67,8 +67,8 @@ const Result = ({ title, description, url, token}) => (
   </div>
 )
 
-const ResultSummary = ({ body, completion, count, total, queryTime, page }) => {
-  let pageNumber = ""
+const ResultSummary = ({ body, completion, total, queryTime, page }) => {
+  let pageNumber = ''
   if (page && page > 1) {
     pageNumber = `Page ${page} of `
   }
@@ -87,7 +87,7 @@ class results extends React.Component {
   }
 
   render() {
-    const { results, body, completion, namespace, status, data } = this.props
+    const { body, completion, status, data } = this.props
 
     if (status !== REQUEST_SUCCEEDED) {
       return <p>{status}</p>

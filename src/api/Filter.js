@@ -1,10 +1,10 @@
-import React from 'react';
+import React from 'react'
 
-import Base from './Base.js';
-import Components from './constants/QueryComponentConstants.js';
+import Base from './Base.js'
+import Components from './constants/QueryComponentConstants.js'
 
 const Filter = props => {
-  const { data, ...others } = props;
+  const { data, ...others } = props
   return (
     <Base
       {...others}
@@ -12,11 +12,11 @@ const Filter = props => {
       componentName={Components.FILTER}
       data={data}
     />
-  );
-};
+  )
+}
 
 Filter.propTypes = {
   data: React.PropTypes.object.isRequired,
-};
+}
 
-export default Filter;
+export default Filter

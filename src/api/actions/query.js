@@ -169,7 +169,7 @@ export const makeSearchRequest = (namespace) => (
     const posNegTokens = components[SearchComponents.POS_NEG_TOKENS]
     if (clickTokens) {
       if (posNegTokens) {
-        console.warn(`got PosNeg Tokens and Click tokens, use one or the other`)
+        console.warn('got PosNeg Tokens and Click tokens, use one or the other')
       } else {
         query.clickTracking(clickTokens[0])
       }
@@ -198,7 +198,7 @@ export const makeSearchRequest = (namespace) => (
         // There has been a previous query for this namespace
         (state.query.queryTracking[namespace]) &&
         // We're talking about the same query that's been used for this namespace
-        (state.query.queryTracking[namespace].id == query.i) &&
+        (state.query.queryTracking[namespace].id === query.i) &&
         // The sequence in the store is more recent than the current query
         (state.query.queryTracking[namespace].sequence > query.s)
       ) {

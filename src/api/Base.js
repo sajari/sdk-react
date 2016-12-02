@@ -42,7 +42,7 @@ class base extends React.Component {
   }
 
   componentWillUnmount() {
-    const { namespace, componentName } = this.props
+    const { namespace } = this.props
     const { uuid } = this.state
     this.props.removeQueryComponent(uuid, namespace)
 

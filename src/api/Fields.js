@@ -1,10 +1,10 @@
-import React from 'react';
+import React from 'react'
 
-import Base from './Base.js';
-import Components from './constants/QueryComponentConstants.js';
+import Base from './Base.js'
+import Components from './constants/QueryComponentConstants.js'
 
 const Fields = props => {
-  const { fields, ...others } = props;
+  const { fields, ...others } = props
   return (
     <Base
       {...others}
@@ -12,11 +12,11 @@ const Fields = props => {
       componentName={Components.FIELDS}
       data={fields}
     />
-  );
-};
+  )
+}
 
 Fields.propTypes = {
   fields: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
-};
+}
 
-export default Fields;
+export default Fields
