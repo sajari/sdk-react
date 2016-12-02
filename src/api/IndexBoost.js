@@ -10,7 +10,7 @@ const IndexBoost = props => {
     <Base
       {...others}
       runDefault='all'
-      componentName={Components.INDEX_BOOST}
+      componentName={Components.INSTANCE_BOOSTS}
       data={data}
       namespace={namespace}
     />
