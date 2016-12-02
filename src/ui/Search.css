@@ -148,6 +148,29 @@
   color: #a2a2a2;
 }
 
+.sj-paginator {
+  margin: 1em 0;
+  text-align: center;
+  max-width: 700px;
+}
+
+.sj-paginator > div {
+  display: inline;
+  padding: 10px;
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+}
+
+.sj-paginator > div.current {
+  color: #333;
+}
+
+.sj-paginator > div.disabled {
+  color: #999;
+}
+
 @media (max-width: 845px) {
   #sj-search-modal-input-holder-outer {
     margin-left: auto;

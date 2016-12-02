@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { REQUEST_SUCCEEDED } from '../api/constants/RequestState'
 import { resultClicked } from './actions/Analytics'
 
+import { WrappedPaginator as Paginator } from './Paginator'
 
 const tokenUrl = 'https://www.sajari.com/token/'
 
@@ -106,6 +107,7 @@ class results extends React.Component {
         {data.searchResponse.results.map(r => (
           <Result key={r.values._id} {...r.values} {...r.tokens.click} />
         ))}
+        <Paginator />
       </div>
     )
   }
@@ -118,5 +120,6 @@ results.defaultProps = {
 const Results = connect(
   ({ search }) => ({ body: search.body, completion: search.completion }),
 )(results)
+
 
 export { Results, Result, ResultSummary, Title, Description, Url, TokenLink }
