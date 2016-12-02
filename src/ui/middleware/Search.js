@@ -3,16 +3,21 @@ import {
   QUERY_COMPONENT_ADD, QUERY_COMPONENT_MODIFY, QUERY_COMPONENT_REMOVE
 } from '../../api/actions/query'
 import QueryConstants  from '../../api/constants/QueryComponentConstants'
-import { TRIGGER_SEARCH } from '../actions/Search'
-import { SET_ACTIVE } from '../actions/Overlay'
+import { TRIGGER_SEARCH, setPage } from '../actions/Search'
 
-const resetOverlayMiddleware = (namespaces = 'default') => (store) => (next) => (action) => {
-  // Reset status of all namespaces if the overlay is closed
-  if (action.type === SET_ACTIVE && action.active === false) {
-    [].concat(namespaces).forEach(n => {
-      store.dispatch(searchRequestReset(n))
-      store.dispatch(resetQueryTracking(n))
-    })
+
+const resetPageMiddleware = (store) => (next) => (action) => {
+  switch (action.type) {
+    case QUERY_COMPONENT_ADD:
+    case QUERY_COMPONENT_MODIFY:
+    case QUERY_COMPONENT_REMOVE:
+      if (action.queryDataType !== QueryConstants.OFFSET && action.queryDataType !== QueryConstants.LIMIT) {
+        /* Reset page to 1 for any query changes */
+        store.dispatch(setPage(1))
+      }
+      break
+    default:
+      break
   }
   return next(action)
 }
@@ -32,4 +37,4 @@ const searchMiddleware = (store) => (next) => (action) => {
   store.dispatch(makeSearchRequest(action.namespace))
 }
 
-export { resetOverlayMiddleware, searchMiddleware }
+export { resetPageMiddleware, searchMiddleware }
