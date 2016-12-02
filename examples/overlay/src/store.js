@@ -1,25 +1,19 @@
-import { OVERLAY_ACTIVE, COMPLETION, SET_BODY } from './actions'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
 
-const initialState = {
-  overlayActive: false,
-  completion: '',
-  body: '',
+import overlay from 'sajari-react/ui/reducers/Overlay'
+import query from 'sajari-react/api/reducers/query'
+import search from 'sajari-react/ui/reducers/Search'
+import tabs from 'sajari-react/ui/reducers/Tabs'
+
+import { searchMiddleware, resetOverlayMiddleware } from 'sajari-react/ui/middleware/middleware'
+
+function makeDefaultStore(extraReducers = {}, extraMiddleware = []) {
+  return createStore(
+    combineReducers({ overlay, query, search, tabs, ...extraReducers }),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    applyMiddleware(thunkMiddleware, resetOverlayMiddleware('default'), searchMiddleware, ...extraMiddleware)
+  )
 }
 
-function overlay(state = initialState, action) {
-  switch (action.type) {
-  case OVERLAY_ACTIVE: {
-    return { ...state, overlayActive: action.data.overlayActive }
-  }
-  case COMPLETION: {
-    return { ...state, completion: action.data.completion }
-  }
-  case SET_BODY: {
-    return { ...state, body: action.data.body }
-  }
-  default:
-    return state
-  }
-}
-
-export default overlay
+export default makeDefaultStore

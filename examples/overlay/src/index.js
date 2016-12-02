@@ -1,72 +1,46 @@
 import React from 'react'
-import { render } from 'react-dom'
+import ReactDOM from 'react-dom'
 
-import { createStore } from 'redux'
+import 'sajari-react/ui/Overlay.css'
+import 'sajari-react/ui/Search.css'
+// import './index.css'
+
 import { Provider } from 'react-redux'
 
-import { Filter, Run } from 'sajari-react/api'
-import { fieldFilter } from 'sajari'
+import { DefaultOverlay } from 'sajari-react/ui/Overlay'
+import { setActive } from 'sajari-react/ui/actions/Overlay'
+import Config from 'sajari-react/ui/Config'
 
-import overlay from './store'
-import { enableOverlay } from './actions'
+import makeDefaultStore from './store'
 
-import SampleApp from './SampleApp'
-import Overlay from './Overlay'
 
-const store = createStore(overlay)
+const store = makeDefaultStore()
 
-/**
- * SampleApp takes a function which enables the overlay when called.
- */
-render(
-  <SampleApp enableOverlay={() => store.dispatch(enableOverlay())}/>,
-  document.getElementById('sample-app')
-)
+store.dispatch(setActive(true))
 
-/**
- * A div is appended to the body of the page to be used as the container for the overlay.
- */
-const overlayContainer = document.createElement('div')
-overlayContainer.id = 'sj-overlay-holder'
-document.body.appendChild(overlayContainer)
-
-/**
- * Tab renderers.
- * They will get 'active' as a boolean prop indicating if they are currently selected.
- */
-const All = ({ active }) => <div>All</div>
-const Blog = ({ active }) => (
+const App = () => (
   <div>
-    Blog
-    {active ? (
-      <div>
-        <Filter data={fieldFilter('dir1', '=', 'blog')}/>
-        <Run runOnUnmount={false}/>
-      </div>
-    ) : null}
-  </div>
-)
-const Faq = ({ active }) => (
-  <div>
-    Faq
-    {active ? (
-      <div>
-        <Filter data={fieldFilter('dir1', '=', 'faq')}/>
-        <Run runOnUnmount={false}/>
-      </div>
-    ) : null}
-  </div>
-)
-
-/**
- * Render the overlay into the new container div.
- */
-render(
-  <Provider store={store}>
-    <Overlay
-      tabs={[All, Blog, Faq]}
-      logoUrl='https://www.sajari.com/img/sajari-100x100-flat.png'
+    <Config
+      namespace='default'
+      project='sajariptyltd'
+      collection='sajari-com'
     />
+    <DefaultOverlay
+      tabs={[]}
+      logoUrl='https://www.sajari.com/img/sajari-100x100-flat.png'
+      prefixBoosts={{
+        'title': 0.05
+      }}
+      containsBoosts={{
+        'title': 0.03
+      }}
+    />
+  </div>
+)
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
   </Provider>,
-  overlayContainer
+  document.getElementById('root')
 )
