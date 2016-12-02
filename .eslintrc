@@ -1,6 +1,6 @@
 {
   "rules": {
-    "semi": ["error", "never"],
+
     "quotes": ["error", "single"],
     "no-unreachable": "error",
     "eqeqeq": "error",
@@ -9,10 +9,16 @@
     "no-const-assign": "error",
     "no-duplicate-imports": "error",
     "no-var": "error",
-    "prefer-const": "error"
+    "prefer-const": "error",
+
+    "react/jsx-uses-vars": "error",
+    "import/no-unresolved": ["error", {
+      "ignore": ["react", "sajari"]
+    }]
   },
   "parser": "babel-eslint",
   "plugins": [
+    "react",
     "import"
   ],
   "extends": "plugin:import/errors"

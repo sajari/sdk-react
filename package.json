@@ -69,9 +69,10 @@
     "url": "https://github.com/sajari/sajari-sdk-react"
   },
   "scripts": {
-    "build": "npm run build:babel && npm run build:copy-files",
+    "build": "npm run build:babel && npm run build:copy-files && npm run lint",
     "build:babel": "babel ./src/ --out-dir ./build --copy-files",
     "build:copy-files": "babel-node ./scripts/copy-files.js",
+    "lint": "eslint src/*",
     "clean:build": "rimraf build",
     "hotdev": "webpack-dev-server --hot --inline",
     "prebuild": "npm run clean:build"
