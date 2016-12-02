@@ -1,25 +1,23 @@
-import keyMirror from 'keymirror';
-
-const components = keyMirror({
-  BODY: null,
-  OFFSET: null,
-  LIMIT: null,
-  FILTER: null,
-  FIELDS: null,
-  SORT: null,
-  FIELD_BOOSTS: null,
-  INSTANCE_BOOSTS: null,
-  TRANSFORM: null,
-  AGGREGATE: null,
-  CLICK_TOKENS: null,
-  POS_NEG_TOKENS: null,
-  TRACKING_RESET: null,
-  FEATURE_BOOST: null,
-});
+const components = {
+  BODY: 'BODY',
+  OFFSET: 'OFFSET',
+  LIMIT: 'LIMIT',
+  FILTER: 'FILTER',
+  FIELDS: 'FIELDS',
+  SORT: 'SORT',
+  FIELD_BOOSTS: 'FIELD_BOOSTS',
+  INSTANCE_BOOSTS: 'INSTANCE_BOOSTS',
+  TRANSFORM: 'TRANSFORM',
+  AGGREGATE: 'AGGREGATE',
+  CLICK_TOKENS: 'CLICK_TOKENS',
+  POS_NEG_TOKENS: 'POS_NEG_TOKENS',
+  TRACKING_RESET: 'TRACKING_RESET',
+  FEATURE_BOOST: 'FEATURE_BOOST',
+}
 
 // List of the keys to use as react proptypes check
-const componentKeys = Object.keys(components);
+const componentKeys = Object.keys(components)
 
-components.list = componentKeys;
+components.list = componentKeys
 
-export default components;
+export default components

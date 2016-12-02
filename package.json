@@ -24,7 +24,6 @@
   ],
   "dependencies": {
     "deep-equal": "1.0.1",
-    "keymirror": "0.1.0",
     "react-redux": "^4.4.6",
     "redux": "^3.6.0",
     "uuid": "2.0.2"
