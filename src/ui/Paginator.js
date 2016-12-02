@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 
 import { connect } from 'react-redux'
 
+import { setPage } from './actions/Search'
+
 
 const pageNumbers = (page, totalPages) => {
   const pages = []

@@ -157,7 +157,7 @@
 .sj-paginator > div {
   display: inline;
   padding: 10px;
-  color: #333;
+  color: #777;
   font-weight: bold;
   cursor: pointer;
   user-select: none;
@@ -168,7 +168,7 @@
 }
 
 .sj-paginator > div.disabled {
-  color: #999;
+  color: #aaa;
 }
 
 @media (max-width: 845px) {
