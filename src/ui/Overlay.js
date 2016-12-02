@@ -8,6 +8,7 @@ import { BoostRules } from './Boosts'
 import { Results } from './Results'
 import Tabs from './Tabs'
 import { triggerSearch } from './actions/Search'
+import { FieldInstanceBoost } from '../api/IndexBoost'
 
 const close = ({ closeOverlay }) => (
   <div id='sj-overlay-close' onClick={closeOverlay}>
@@ -70,12 +71,21 @@ const WrappedBodyInput = connect(
   (dispatch) => ({ triggerSearch: () => dispatch(triggerSearch('default')) })
 )(wrappedBodyInput)
 
-const DefaultOverlay = ({ tabs, tabsOnChange, defaultTab, logoUrl, prefixBoosts, containsBoosts }) => (
+const InstanceFieldBoosts = ({ instanceBoosts = {} }) => (
+  <div>
+    {Object.keys(instanceBoosts).map(i => (
+      <FieldInstanceBoost key={i} field={i} value={instanceBoosts[i]} namespace='default'/>
+    ))}
+  </div>
+)
+
+const DefaultOverlay = ({ tabs, tabsOnChange, defaultTab, logoUrl, prefixBoosts, containsBoosts, instanceBoosts }) => (
   <Overlay>
     <Close />
     <div id='sj-overlay-header'>
       <Logo src={logoUrl} alt='Logo' />
       <WrappedBodyInput prefixBoosts={prefixBoosts} containsBoosts={containsBoosts} />
+      <InstanceFieldBoosts instanceBoosts={instanceBoosts}/>
       <BoostRules />
     </div>
     <Tabs defaultTab={defaultTab} tabs={tabs} onChange={tabsOnChange} />
