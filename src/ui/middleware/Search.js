@@ -8,16 +8,17 @@ import { TRIGGER_SEARCH, setPage } from '../actions/Search'
 
 const resetPageMiddleware = (store) => (next) => (action) => {
   switch (action.type) {
-    case QUERY_COMPONENT_ADD:
-    case QUERY_COMPONENT_MODIFY:
-    case QUERY_COMPONENT_REMOVE:
-      if (action.queryDataType !== QueryConstants.OFFSET && action.queryDataType !== QueryConstants.LIMIT) {
-        /* Reset page to 1 for any query changes */
-        store.dispatch(setPage(1))
-      }
-      break
-    default:
-      break
+  case QUERY_COMPONENT_ADD:
+  case QUERY_COMPONENT_MODIFY:
+  case QUERY_COMPONENT_REMOVE:
+    if (action.queryDataType !== QueryConstants.OFFSET && action.queryDataType !== QueryConstants.LIMIT) {
+      /* Reset page to 1 for any query changes */
+      store.dispatch(setPage(1))
+    }
+    break
+
+  default:
+    break
   }
   return next(action)
 }

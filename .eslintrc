@@ -14,6 +14,8 @@
     "no-var": "error",
     "prefer-const": "error",
 
+    "indent": ["error", 2],
+
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
     "import/no-unresolved": ["error", {

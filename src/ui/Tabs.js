@@ -21,12 +21,10 @@ class tabs extends React.Component {
               key={Tab.name}
               className={`sj-tab${Tab.name === tab ? ' sj-tab-active' : ''}`}
               onClick={() => {
-                  this.setState({ count: this.state.count + 1 })
-                  setTab(Tab.name)
-                  if (onChange) { onChange(Tab.name) }
-                }
-              }
-            >
+                this.setState({ count: this.state.count + 1 })
+                setTab(Tab.name)
+                if (onChange) { onChange(Tab.name) }
+              }}>
               <Tab.tab active={Tab.name === tab} />
               {Tab.name === tab && this.state.count > 0 ? <Run key={Tab.name} runOnMount runOnUnmount={false} {...others} /> : null}
             </div>
