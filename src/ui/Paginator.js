@@ -50,7 +50,7 @@ const Paginator = ({ resultsPerPage, page, totalResults, setPage }) => {
     }
     setPage(page-1)
   }
-  
+
   const nextPage = () => {
     if (page === totalPages) {
       return

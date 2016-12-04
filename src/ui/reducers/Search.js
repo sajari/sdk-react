@@ -9,7 +9,7 @@ const initialState = {
 
 function search(state = initialState, action) {
   switch (action.type) {
-  case SET_COMPLETION: 
+  case SET_COMPLETION:
     return { ...state, completion: action.completion }
 
   case SET_BODY:
