@@ -2,6 +2,8 @@ import React from 'react'
 
 import { connect } from 'react-redux'
 
+import { Limit, Offset } from '../api'
+
 import { setPage } from './actions/Search'
 
 
