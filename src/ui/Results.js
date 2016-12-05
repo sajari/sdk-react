@@ -97,7 +97,7 @@ class results extends React.Component {
   }
 
   render() {
-    const { body, completion, status, data, showImage } = this.props
+    const { body, completion, status, data, page, showImage } = this.props
 
     if (status !== REQUEST_SUCCEEDED) {
       return <p>{status}</p>
@@ -106,6 +106,7 @@ class results extends React.Component {
     const summaryProps = {
       body,
       completion,
+      page,
       count: data.searchResponse.results.length,
       queryTime: data.searchResponse.time,
       total: data.searchResponse.totalResults
@@ -128,7 +129,7 @@ results.defaultProps = {
 }
 
 const Results = connect(
-  ({ search }) => ({ body: search.body, completion: search.completion }),
+  ({ search }) => ({ body: search.body, completion: search.completion, page: search.page }),
 )(results)
 
 
