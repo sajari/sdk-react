@@ -1,14 +1,34 @@
 {
-  "extends": "airbnb",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "ecmaVersion": 7,
-      "jsx": true,
-      "experimentalObjectRestSpread": true
-    }
+  "ecmaFeatures": {
+    "jsx": true
   },
   "rules": {
-    "react/jsx-filename-extension": 0,
-    "jsx-quotes": 0
-  }
+    "semi": ["error", "never"],
+    "quotes": ["error", "single"],
+    "no-unreachable": "error",
+    "eqeqeq": "error",
+    "no-unused-vars": ["error", { "varsIgnorePattern": "_|(React)" }],
+    "no-use-before-define": "error",
+    "no-const-assign": "error",
+    "no-duplicate-imports": "error",
+    "no-var": "error",
+    "prefer-const": "error",
+
+    "indent": ["error", 2],
+    "no-multiple-empty-lines": ["error", {max: 2}],
+    "no-trailing-spaces": "error",
+    "no-mixed-spaces-and-tabs": "error",
+
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "import/no-unresolved": ["error", {
+      "ignore": ["react", "sajari"]
+    }]
+  },
+  "parser": "babel-eslint",
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "extends": "plugin:import/errors"
 }

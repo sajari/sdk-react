@@ -1,2 +1,1 @@
-export Body from './components/Body'
-export Pagination from './components/Pagination'
+export { default as Body } from './components/Body'

@@ -2,9 +2,9 @@
 
 ![npm version](https://img.shields.io/npm/v/sajari-react.svg?style=flat-square) ![license](http://img.shields.io/badge/license-MIT-green.svg?style=flat-square)
 
-**sajari-react** is a library of React Components for the [Sajari](https://www.sajari.com) search platform that helps you build fast and powerful search interfaces.
+**sajari-react** is a library of React Components for the [Sajari](https://www.sajari.com) search platform to help build fast and powerful search interfaces.
 
-React provides a simple and elegant way to structure user interfaces. The Sajari React SDK provides a way to seemlessly integrate the Sajari platform into any React app through the use of easily composable Components.
+React provides a simple and elegant way to structure user interfaces. The Sajari React SDK provides a way to seamlessly integrate the Sajari platform into any React app through the use of easily composable Components.
 
 We also provide a vanilla Sajari JS library [here](https://github.com/sajari/sajari-sdk-js/).
 
@@ -16,11 +16,13 @@ We also provide a vanilla Sajari JS library [here](https://github.com/sajari/saj
 * [Getting started](#getting-started)
 * [Examples](#examples)
   * [Basic Search](#basic-search)
+* [UI](#ui)
+  * [BodyInput](#bodyinput)
 * [Components](#components)
   * [Body](#body)
   * [Pagination](#pagination)
-* [API Components](#api-components)
-  * [Body](#api-body)
+* [API](#api)
+  * [Body](#body-api)
   * [Page](#page)
   * [ResultsPerPage](#resultsperpage)
   * [Fields](#fields)
@@ -41,8 +43,6 @@ We also provide a vanilla Sajari JS library [here](https://github.com/sajari/saj
     * [BucketAggregate](#bucketaggregate)
     * [CountAggregate](#countaggregate)
     * [MetricAggregate](#metricaggregate)
-* [UI Components](#ui-components)
-  * [BodyInput](#bodyinput)
 * [License](#license)
 * [Browser Support](#browser-support)
 
@@ -82,35 +82,39 @@ const App = () => (
 
 The library is split into 3 main parts:
 
-- `ui-components`: A selection of pre-defined React components for common search use cases.  We also provide some simple event handling to reduce the amount of code you need to write.  This is a great starting for getting to grips with the search system - you should only need to use a few components to get up and running.
+- `ui`: A selection of pre-defined React components for common search use cases.  We also provide some simple event handling to reduce the amount of code you need to write.  This is a great starting for getting to grips with the search system - you should only need to use a few components to get up and running.
 
-- `components`: A high-level set of React components for building search interfaces.  Most `components` combine a few `api-components` and do basic event handling for common search use cases. Ideal for customisation of search parameters using `api-components` whilst also using taking care of basic search session life-cycles.
+- `components`: A high-level set of React components for building search interfaces.  Most `components` combine a few `api` components and do basic event handling for common search use cases. Ideal for customisation of search parameters using `api` components whilst also using taking care of basic search session life-cycles.
 
-- `api-components`: A set of React components which correspond directly to query parameters and result handling.  They do not render any HTML directly; including an api-component in a render attaches its corresponding query parameter to the current query.
+- `api`: A set of React components which correspond directly to query parameters and result handling.  They do not render any HTML directly; including an api-component in a render attaches its corresponding query parameter to the current query.
 
 ## Examples
 
 ### [Basic search](./examples/basic-search/)
 
-[This example](./examples/basic-search/) showcases a simple web app with instant search. It's the best place to see how easy it is to integrate Sajari.
+[This example](./examples/basic-search/) showcases a simple web app with instant search.
+
+### [Overlay](./examples/overlay/)
+
+The [Overlay](./examples/overlay/) showcases an overlay interface to search made for inclusion in web pages to get search up and running in the quickest time possible.
 
 ## Namespaces
 
 All components are namespaced and each namespace corresponds to a query object (i.e. the query object that is built from components in its namespace).  By default all components are given the `default` namespace.
 
-Every application must render the `<RegisterNamespace>` component to set the `project` and `collection` for that namespace.
+If you're not using any of the `Default` set-ups you'll need to have a `RegisterNamespace` in your application.
 
 ### RegisterNamespace
 
 Registers a project and collection with a namespace.
 
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| project | string | Yes | none | The name of your project |
-| collection | string | Yes | none | The name of your collection |
-| namespace | string | No | `'default'` | The name to assign to the project-collection pair |
+| Prop       | Type   | Required | Default     | Description                                       |
+| :--        | :-:    | :-:      | :-:         | :--                                               |
+| project    | string | Yes      | none        | The name of your project                          |
+| collection | string | Yes      | none        | The name of your collection                       |
+| namespace  | string | No       | `'default'` | The name to assign to the project-collection pair |
 
-```jsx
+```javascript
 <RegisterNamespace project='myproject' collection='mycollection' />
 ```
 
@@ -125,30 +129,28 @@ Components are the easiest way to get functionality from the SDK. We recommend u
 The Body component is for declaring text you'd like to search for, which is specified via the `text` prop. By default the component won't trigger a search until at least 3 characters of text has been given.
 
 ```javascript
-<Body text='pumpkin' />
+<Body text='pumpkin soup' />
 ```
 
 We normally recommend adding some boosts for text searches, particularly if the content you're searching includes articles/products/events with important text fields that you want to prioritise if matched i.e. titles, descriptions, keywords etc.  Common boosts applied are `prefix`-based (i.e. does a field begin with the search text), and `contains` (i.e. does the field contain the exact search text).  The `Body` component has props to set both of these:
 
 ```javascript
-const prefixBoosts = { 'title': 1.2 }
-const containsBoosts = { 'title': 1.1 }
 <Body
   text='pumpkin soup'
-  prefixBoosts={prefixBoosts}
-  containsBoosts={containsBoosts}
+  prefixBoosts={{ 'title': 0.05 }}
+  containsBoosts={{ 'title': 0.03 }}
 />
 ```
 
-Other props for `Body` are:
+#### Definitions
 
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| text | string | Yes | `''` | The text to search for. Non case sensitive |
-| minLength | number | No | `3` | The minimum length of `text` before a search is performed |
-| prefixBoosts | object | No | `{}` | The dictionary of `field`: `value` to use as `prefix` boosts |
-| containsBoosts | object | No | `{}` | The dictionary of `field`: `value` to use as `contains` boosts |
-| namespace | string \| string array | No | `default` | The namespace to operate on |
+| Prop           | Type   | Required | Default   | Description                                                    |
+| :--            | :-:    | :-:      | :-:       | :--                                                            |
+| text           | string | Yes      | `''`      | The text to search for. Case in-sensitive                      |
+| minLength      | number | No       | `3`       | The minimum length of `text` before a search is performed      |
+| prefixBoosts   | object | No       | `{}`      | The dictionary of `field`: `value` to use as `prefix` boosts   |
+| containsBoosts | object | No       | `{}`      | The dictionary of `field`: `value` to use as `contains` boosts |
+| namespace      | string | No       | `default` | The namespace to operate on                                    |
 
 ### Pagination
 
@@ -160,42 +162,42 @@ The Pagination component makes it easy to add pagination to your project. It pro
 
 Props provided to children.
 
-| Prop | Type | Description |
-| :-- | :-: | :-- |
-| page | number | The current page |
-| next | fn () -> () | A function that will increment the page and perform a search when called |
-| prev | fn () -> () | A function that will decrement the page and perform a search when called |
-| set | fn (number) -> () | A function that allows you to set the current page |
-| ... | any | Any props that are passed to `Pagination` will be passed to it's children |
+| Prop | Type              | Description                                                               |
+| :--  | :-:               | :--                                                                       |
+| page | number            | The current page                                                          |
+| next | fn () -> ()       | A function that will increment the page and perform a search when called  |
+| prev | fn () -> ()       | A function that will decrement the page and perform a search when called  |
+| set  | fn (number) -> () | A function that allows you to set the current page                        |
+| ...  | any               | Any props that are passed to `Pagination` will be passed to it's children |
 
 ## API Components
 
 API Components are easily composable React Components which allow you to configure your search query in a declaritive fashion. They do not render any HTML directly; including an api-component in a render attaches its corresponding query parameter to the current query.  For instance, rendering a `Filter` component (see below) will add a filter to the query.
 
-If no namespace is specified, all API components will use the `default` namespace.
+API components will use the `default` namespace if one is not specified.
 
-### API Body
+### Body (API)
 
 The Body component adds a text body to a search query. It can also take a weighting.
 
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| body | string | Yes | `''` | The text to search for |
-| weight | number | No | `1` | The weighting to give the body in the query |
+| Prop   | Type   | Required | Default | Description                                                                |
+| :--    | :-:    | :-:      | :-:     | :--                                                                        |
+| body   | string | Yes      | `''`    | Text (free text)                                                           |
+| weight | number | No       | `1`     | Weight (importance) to apply to this text, restricted to 0 <= weight <= 1. |
 
-```jsx
-<Body body="red computer parts" weight={1} />
+```javascript
+<Body body="pumpkin soup" weight={1} />
 ```
 
 ### Offset
 
 The Offset component sets the offset to use when fetching results.
 
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| offset | number | Yes | `0` | The offset to use when fetching results |
+| Prop   | Type   | Required | Default | Description                   |
+| :--    | :-:    | :-:      | :-:     | :--                           |
+| offset | number | Yes      | `0`     | Offset to return results from |
 
-```jsx
+```javascript
 // Start the results at the 11th (i.e. the second page of 10)
 <Offset offset={10} />
 ```
@@ -204,11 +206,11 @@ The Offset component sets the offset to use when fetching results.
 
 The number of results to return.
 
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| limit | number | Yes | `10` | The number of results to return |
+| Prop  | Type   | Required | Default | Description                     |
+| :--   | :-:    | :-:      | :-:     | :--                             |
+| limit | number | Yes      | `10`    | The number of results to return |
 
-```jsx
+```javascript
 <Limit limit={20} />
 ```
 
@@ -216,67 +218,68 @@ The number of results to return.
 
 The fields of result documents to fetch. Restricting this to only the fields you are using will speed up query and transmission time.  If no Fields component is rendered then all document fields are returned.
 
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| fields | string array | Yes | none | The fields to return for each result |
+| Prop   | Type         | Required | Default | Description                          |
+| :--    | :-:          | :-:      | :-:     | :--                                  |
+| fields | string array | Yes      | none    | The fields to return for each result |
 
-```jsx
+```javascript
 <Fields fields={['_id', 'url', 'description']} />
 ```
 
-### ResultInjector
+### Response
 
-The result injector listens for results from queries and passes them as props to it's children. Use this component to get the results of queries to your components. It will automaticaly update it's childrens props when new results come in.
+The Response listens for results from queries and passes them as props to it's children. Use this component to get the results of queries to your components.
 
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| namespace | string \| string array | No | `'default'` | The namespace(s) to use as the source of the results |
+| Prop      | Type   | Required | Default     | Description                                          |
+| :--       | :-:    | :-:      | :-:         | :--                                                  |
+| namespace | string | No       | `'default'` | The namespace(s) to use as the source of the results |
 
-```jsx
-<ResultInjector>
+```javascript
+<Response>
   <MyResultsRenderer />
-</ResultInjector>
+</Response>
 ```
 
 ### Filter
 
-The Filter component adds a [filter](https://github.com/sajari/sajari-sdk-js#filter) to the query.
+The Filter component adds a [filter](https://doc.esdoc.org/github.com/sajari/sajari-sdk-js/function/index.html#static-function-fieldFilter) to the query.
 
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| data | [filter](https://github.com/sajari/sajari-sdk-js#filter) | Yes | none | The filter to be applied |
+| Prop | Type                                                                                                            | Required | Default | Description              |
+| :--  | :-:                                                                                                             | :-:      | :-:     | :--                      |
+| data | [filter](https://doc.esdoc.org/github.com/sajari/sajari-sdk-js/function/index.html#static-function-fieldFilter) | Yes      | none    | The filter to be applied |
 
-```jsx
-<Filter data={fieldFilter('price', '<=', 100)} />
+```javascript
+<Filter data={fieldFilter('price', '<', 100)} />
 ```
 
 ### Instance Boosts
 
-Instance boosts act on term instances in indexed fields.
+InstanceBoost represents a boosting which is a applied to instances of terms in the reverse index. This type of boost effectively dynamically ranks documents for a given term.
 
 #### FieldInstanceBoost
 
-FieldInstanceBoost increases the value of a term match in a certain field.
+Field is an instance boost which is applied to term instances which originate from the given meta field.
 
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| field | string | Yes | none | The field name |
-| value | number | Yes | none | The value of the boost |
+| Prop  | Type   | Required | Default | Description        |
+| :--   | :-:    | :-:      | :-:     | :--                |
+| field | string | Yes      | none    | Field name         |
+| value | number | Yes      | none    | Value of the boost |
 
-```jsx
+```javascript
+// title field is worth 1.5x
 <FieldInstanceBoost field='title' value={1.5} />
 ```
 
 #### ScoreInstanceBoost
 
-ScoreInstanceBoost boosts term instances based on their individual scoring values.
+Score is an instance boost that boosts term instances based on their individual scores based on individual interactions.
 
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| threshold | number | Yes | none | The maximum value to allow, used to scale and cap the computed score |
-| minCount | number | Yes | none | The minimum number of interactions before the score is applied |
+| Prop      | Type   | Required | Default | Description                                                          |
+| :--       | :-:    | :-:      | :-:     | :--                                                                  |
+| threshold | number | Yes      | none    | The maximum value to allow, used to scale and cap the computed score |
+| minCount  | number | Yes      | none    | The minimum number of interactions before the score is applied       |
 
-```jsx
+```javascript
 <ScoreInstanceBoost threshold={1.5} />
 ```
 
@@ -284,44 +287,27 @@ ScoreInstanceBoost boosts term instances based on their individual scoring value
 
 #### FilterFieldBoost
 
-FilterFieldBoost boosts results if they match a specified filter. Filters are defined [here](https://github.com/sajari/sajari-sdk-js/tree/v2#filter).
+FilterFieldBoost boosts results if they match a specified filter. Filters are defined [here](https://doc.esdoc.org/github.com/sajari/sajari-sdk-js/function/index.html#static-function-fieldFilter).
 
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
-| filter | [filter](https://github.com/sajari/sajari-sdk-js/tree/v2#filter) | Yes | none | The filter to use as the condition for the boost |
+| filter | [filter](https://doc.esdoc.org/github.com/sajari/sajari-sdk-js/function/index.html#static-function-fieldFilter) | Yes | none | The filter to use as the condition for the boost |
 | value | number | Yes | none | The value of the boost |
 
-```jsx
+```javascript
 <FilterFieldBoost filter={fieldFilter('price', 100, FILTER_OP_LT)} value={1.5} />
-```
-
-#### DistanceFieldBoost
-
-DistanceFieldBoost boosts based off of distance from a particular numeric point
-
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| field | string | Yes | none | The field to operate on |
-| min | number | Yes | none | The minimum distance from ref to apply the boost |
-| max | number | Yes | none | The maximum distance from ref to apply the boost |
-| ref | number | Yes | none | The reference point of the boost |
-| value | number | Yes | none | The value of the boost |
-
-```jsx
-// Boost values that are within 20 of 50 (30..70)
-<DistanceFieldBoost field='price' min={0} max={20} ref={50} value={1.5} />
 ```
 
 #### IntervalFieldBoost
 
-IntervalFieldBoost represents distance based boosting that blends between the two points containing the value in the meta field. This uses the [`pointValue`](https://github.com/sajari/sajari-sdk-js/tree/v2#interval-meta-boost-example) function found in [sajari-sdk-js](https://github.com/sajari/sajari-sdk-js/tree/v2).
+Interval is a distance-based boosting for numeric fields. It is comprised of a series of points to represent any linear distribution across a numerical range.
 
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
 | field | string | Yes | none | The field to operate on |
-| points | [point](https://github.com/sajari/sajari-sdk-js/tree/v2#interval-meta-boost-example) array | Yes | none | The points use as the basis for the boost |
+| points | [point](https://doc.esdoc.org/github.com/sajari/sajari-sdk-js/function/index.html#static-function-pointValue) array | Yes | none | The points use as the basis for the boost |
 
-```jsx
+```javascript
 <IntervalFieldBoost field='performance' points={[
   pointValue(0, 0.5),
   pointValue(80, 1),
@@ -331,28 +317,27 @@ IntervalFieldBoost represents distance based boosting that blends between the tw
 
 #### ElementFieldBoost
 
-ElementFieldBoost applies a boost based on the number of elements in the meta field that match the supplied elements.
+Element is an element-based boost for repeated fields. The boost is evaluated as a portion of a list of values which appear in the document field. Boost effect: between 0 and 1.
 
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| field | string | Yes | none | The field to operate on |
-| values | string array | Yes | none | The values to compare against |
+| Prop   | Type         | Required | Default | Description                                          |
+| :--    | :-:          | :-:      | :-:     | :--                                                  |
+| field  | string       | Yes      | none    | Field containing string array                        |
+| values | string array | Yes      | none    | List of elements to compare against the field values |
 
-```jsx
+```javascript
 <ElementFieldBoost field='keywords' value={['sale', 'discount']} />
 ```
 
 #### TextFieldBoost
 
-TextFieldBoost represents a text-based boosting for search result meta data which compares the text word-by-word and applies a boost based on the number of common words.
+Text represents a text-based boosting for string fields. Compares text (using a bag of words model) and applies a boost based on the number of intesecting words. Boost effect: between 0 and 1.
 
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| field | string | Yes | none | The field to operate on |
-| text | string | Yes | none | The text to compare against |
-| value | number | Yes | none | The value of the boost |
+| Prop  | Type   | Required | Default | Description                              |
+| :--   | :-:    | :-:      | :-:     | :--                                      |
+| field | string | Yes      | none    | Field containing the string data         |
+| text  | string | Yes      | none    | Text to compare against the field values |
 
-```jsx
+```javascript
 <TextFieldBoost field='description' test='sale' value={1.2} />
 ```
 
@@ -360,18 +345,18 @@ TextFieldBoost represents a text-based boosting for search result meta data whic
 
 Sort defines the ordering of result documents.  Specifying a sort overrides the default behvaiour which orders documents by score.
 
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| field | number | Yes | none | The field to sort by.  Prefix by '-' to make the sort descending. |
+| Prop  | Type   | Required | Default | Description                                                       |
+| :--   | :-:    | :-:      | :-:     | :--                                                               |
+| field | number | Yes      | none    | Field to sort by.  Prefix by '-' to make the sort descending. |
 
-```jsx
+```javascript
 // Sort by price descending
 <Sort field='-price' />
 ```
 
 ### Aggregates
 
-Aggregates operate on query results, providing statistics and other information.
+Aggregate is a statistical query run on the result set of a search.
 
 #### BucketAggregate
 
@@ -380,9 +365,9 @@ BucketAggregate aggregates the documents of a query result into buckets using fi
 | Prop | Type | Required | Default | Description |
 | :-- | :-: | :-: | :-:  | :-- |
 | name | string | Yes | none | The name to give the aggregate, this is how you identify it in the results |
-| buckets | [bucket array](https://github.com/sajari/sajari-sdk-js#bucket-example) | Yes | none | The buckets of data to aggregate
+| buckets | [bucket array](https://doc.esdoc.org/github.com/sajari/sajari-sdk-js/function/index.html#static-function-bucket)                                                       | Yes | none | The buckets of data to aggregate |
 
-```jsx
+```javascript
 <BucketAggregate name='priceGroups' data={[
   bucket('under100', fieldFilter('price', '<=', 100))
 ]} />
@@ -392,10 +377,10 @@ BucketAggregate aggregates the documents of a query result into buckets using fi
 
 CountAggregate counts unique field values for documents in a set of query results.
 
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| name | string | Yes | none | The name to give the aggregate, this is how you identify it in the results |
-| field | string | Yes | none | The field to aggregate the values from |
+| Prop  | Type   | Required | Default | Description                                                                |
+| :--   | :-:    | :-:      | :-:     | :--                                                                        |
+| name  | string | Yes      | none    | The name to give the aggregate, this is how you identify it in the results |
+| field | string | Yes      | none    | The field to aggregate the values from                                     |
 
 ```jsx
 <CountAggregate name='count' field='name' />
@@ -405,11 +390,11 @@ CountAggregate counts unique field values for documents in a set of query result
 
 MetricAggregate performs metrics over the data in a field. The options are available [here](https://github.com/sajari/sajari-sdk-js#aggregates).
 
-| Prop | Type | Required | Default | Description |
-| :-- | :-: | :-: | :-:  | :-- |
-| name | string | Yes | none | The name to give the aggregate, this is how you identify it in the results |
-| field | string | Yes | none | The field to aggregate the values from |
-| type | [enum](https://github.com/sajari/sajari-sdk-js#aggregates) | Yes | none | The metric to measure |
+| Prop  | Type                                                       | Required | Default | Description                                                                |
+| :--   | :-:                                                        | :-:      | :-:     | :--                                                                        |
+| name  | string                                                     | Yes      | none    | The name to give the aggregate, this is how you identify it in the results |
+| field | string                                                     | Yes      | none    | The field to aggregate the values from                                     |
+| type  | [enum](https://doc.esdoc.org/github.com/sajari/sajari-sdk-js/variable/index.html#static-variable-METRIC_TYPE_AVG)                                                   | Yes      | none    | The metric to measure                                                      |
 
 ```jsx
 <MetricAggregate name='averagePrice' field='price' type={METRIC_TYPE_AVG} />
