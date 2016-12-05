@@ -106,7 +106,7 @@ const ResultSummary = ({ body, completion, total, queryTime, page }) => {
 
 class results extends React.Component {
   shouldComponentUpdate(nextProps) {
-    return nextProps.status === REQUEST_SUCCEEDED
+    return nextProps.status === REQUEST_SUCCEEDED || nextProps.status === undefined
   }
 
   render() {
