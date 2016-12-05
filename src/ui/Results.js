@@ -59,15 +59,28 @@ const Url = ({ url, token }) => (
   <p className='sj-result-url'><TokenLink token={token} url={url} text={url} /></p>
 )
 
-const Image = ({ url }) => (
-  <img className='sj-result-image' src={url} alt='title'></img>
-)
+class Image extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {show: true}
+  }
+
+  render() {
+    const onError = () => this.setState({ show: false })
+    return <img className='sj-result-image' style={this.state.show ? undefined : { display: 'none' }} onError={onError} src={this.props.url} alt={this.props.title} />
+  }
+}
+
+Image.propTypes = {
+  title: React.PropTypes.string.isRequired,
+  url: React.PropTypes.string.isRequired
+}
 
 const Result = ({ title, description, url, token, showImage, image }) => (
   <div className='sj-result'>
     {showImage ? (
       <TokenLink token={token} url={url}>
-        <Image url={image}/>
+        <Image url={image} title={title} />
       </TokenLink>
     ) : null}
     <Title title={title} url={url} token={token} />
