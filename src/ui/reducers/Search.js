@@ -1,4 +1,5 @@
 import { SET_COMPLETION, SET_BODY, SET_PAGE, SET_RESULTS_PER_PAGE } from '../actions/Search'
+import { SEARCH_REQUEST_RESET } from '../../api/actions/query'
 
 const initialState = {
   completion: '',
@@ -20,6 +21,9 @@ function search(state = initialState, action) {
 
   case SET_RESULTS_PER_PAGE:
     return { ...state, resultsPerPage: action.resultsPerPage }
+
+  case SEARCH_REQUEST_RESET:
+    return { ...initialState }
 
   default:
     return state
