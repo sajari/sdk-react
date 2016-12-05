@@ -95,7 +95,7 @@ export const resetQueryTracking = (namespace) => ({
 })
 
 
-export const makeSearchRequest = (namespace) => (
+export const makeSearchRequest = (namespace = 'default') => (
   (dispatch, getState) => {
     dispatch(searchRequest(namespace))
 
