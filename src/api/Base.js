@@ -31,13 +31,12 @@ class base extends React.Component {
     if (newNamespace === this.props.namespace) {
       // The namespace has not changed so we can modify the query component data in place
       this.props.modifyQueryComponent(uuid, newNamespace, data, componentName)
+      if (newProps.runOnUpdate) {
+        this.props.makeSearchRequest()
+      }
     } else {
       // The namespace has changed so we must remove the component from the old namespace and add it to the new
       this.props.changeQueryComponentNamespace(uuid, this.props.namespace, newNamespace)
-    }
-
-    if (newProps.runOnUpdate) {
-      this.props.makeSearchRequest()
     }
   }
 

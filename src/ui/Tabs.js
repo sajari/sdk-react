@@ -1,18 +1,23 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { Run } from '../api'
 import { setTab } from './actions/Tabs'
+import { makeSearchRequest } from '../api/actions/query'
 
 
 class tabs extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { count: 0 }
+  }
+
+  componentDidUpdate() {
+    if (this.props.runOnUpdate) {
+      this.props.makeSearchRequest()
+    }
   }
 
   render() {
-    const { tab, tabs, setTab, onChange, ...others } = this.props
+    const { tab, tabs, setTab, onChange } = this.props
     return (
       <div id='sj-tabs-container'>
         <div id='sj-tabs'>
@@ -21,12 +26,10 @@ class tabs extends React.Component {
               key={Tab.name}
               className={`sj-tab${Tab.name === tab ? ' sj-tab-active' : ''}`}
               onClick={() => {
-                this.setState({ count: this.state.count + 1 })
                 setTab(Tab.name)
                 if (onChange) { onChange(Tab.name) }
               }}>
               <Tab.tab active={Tab.name === tab} />
-              {Tab.name === tab && this.state.count > 0 ? <Run key={Tab.name} runOnMount runOnUnmount={false} {...others} /> : null}
             </div>
           ))}
         </div>
@@ -37,7 +40,14 @@ class tabs extends React.Component {
 
 const Tabs = connect(
   ({ tabs }) => ({ tab: tabs.tab }),
-  dispatch => ({ setTab: name => dispatch(setTab(name)) }),
+  (dispatch, props) => ({
+    setTab: name => dispatch(setTab(name)),
+    makeSearchRequest: () => dispatch(makeSearchRequest(props.namespace)),
+  }),
 )(tabs)
+
+tabs.defaultProps = {
+  namespace: 'default',
+}
 
 export default Tabs
