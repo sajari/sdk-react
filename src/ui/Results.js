@@ -42,7 +42,6 @@ const TokenLink = connect(
 )(tokenLink)
 
 TokenLink.propTypes = {
-  text: React.PropTypes.string.isRequired,
   url: React.PropTypes.string.isRequired,
 }
 
