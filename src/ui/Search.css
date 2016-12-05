@@ -148,6 +148,11 @@
   color: #a2a2a2;
 }
 
+.sj-result-image {
+  float: right;
+  width: 150px;
+}
+
 .sj-paginator {
   margin: 1em 0;
   text-align: center;
@@ -178,7 +183,7 @@
   }
 
   .sj-search-bar-input-common {
-    width: 94%;
+    width: 88%;
     margin-left: 3%;
   }
 
@@ -198,5 +203,10 @@
   .sj-search-icon {
     left: initial;
     right: 4%;
+  }
+
+  .sj-result-image {
+    float: none;
+    width: 100%;
   }
 }

@@ -59,11 +59,17 @@ const Url = ({ url, token }) => (
   <p className='sj-result-url'><TokenLink token={token} url={url} text={url} /></p>
 )
 
-const Result = ({ title, description, url, token}) => (
+const Image = ({ url }) => (
+  <img className='sj-result-image' src={url} alt='result image'></img>
+)
+
+const Result = ({ title, description, url, token, imageField, [imageField]: imageUrl }) => (
   <div className='sj-result'>
+    {imageField ? <Image url={imageUrl}/> : null}
     <Title title={title} url={url} token={token} />
     <Description description={description} />
     <Url url={url} token={token} />
+    {imageField ? <div style={{ clear: 'both' }}/> : null}
   </div>
 )
 
@@ -87,7 +93,7 @@ class results extends React.Component {
   }
 
   render() {
-    const { body, completion, status, data } = this.props
+    const { body, completion, status, data, imageField } = this.props
 
     if (status !== REQUEST_SUCCEEDED) {
       return <p>{status}</p>
@@ -105,7 +111,7 @@ class results extends React.Component {
       <div id='sj-results'>
         <ResultSummary {...summaryProps} />
         {data.searchResponse.results.map(r => (
-          <Result key={r.values._id} {...r.values} {...r.tokens.click} />
+          <Result key={r.values._id} {...r.values} {...r.tokens.click} imageField={imageField}/>
         ))}
         <Paginator />
       </div>
