@@ -86,7 +86,7 @@ const WrappedPaginator = connect(
       totalResults
     }
   },
-  (dispatch, props) => ({ setPage: (page) => dispatch(setPage(props.namespace, page)) })
+  (dispatch) => ({ setPage: (page) => dispatch(setPage(page)) })
 )(Paginator)
 
 WrappedPaginator.defaultProps = {
@@ -117,7 +117,6 @@ const PageLimitOffset = connect(
 )(pageLimitOffset)
 
 const page = ({ currentPage, page, setPage, children }) => (
-  // setPage(page)
   <div className={currentPage === page ? 'current' : null} onClick={() => setPage(page)}>{ children }</div>
 )
 
