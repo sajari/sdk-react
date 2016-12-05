@@ -70,7 +70,9 @@
 }
 
 #sj-overlay-close .sj-close {
-  font-size:40px;
+  font-size: 40px;
+  line-height: 30px;
+  padding-top: 10px;
 }
 
 #sj-overlay-close .sj-esc {
