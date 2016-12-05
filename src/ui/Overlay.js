@@ -79,7 +79,7 @@ const InstanceFieldBoosts = ({ instanceBoosts = {} }) => (
   </div>
 )
 
-const DefaultOverlay = ({ tabs, tabsOnChange, defaultTab, logoUrl, prefixBoosts, containsBoosts, instanceBoosts, imageField }) => (
+const DefaultOverlay = ({ tabs, tabsOnChange, defaultTab, logoUrl, prefixBoosts, containsBoosts, instanceBoosts, showImage }) => (
   <Overlay>
     <Close />
     <div id='sj-overlay-header'>
@@ -91,7 +91,7 @@ const DefaultOverlay = ({ tabs, tabsOnChange, defaultTab, logoUrl, prefixBoosts,
     <Tabs defaultTab={defaultTab} tabs={tabs} onChange={tabsOnChange} />
     <Response>
       <CaptureCompletion />
-      <Results imageField={imageField} />
+      <Results showImage={showImage} />
     </Response>
   </Overlay>
 )

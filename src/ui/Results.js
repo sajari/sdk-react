@@ -28,6 +28,7 @@ class tokenLink extends React.Component {
     return (
       <a href={url} onMouseDown={this.click}>
         {this.props.text}
+        {this.props.children}
       </a>
     )
   }
@@ -60,16 +61,20 @@ const Url = ({ url, token }) => (
 )
 
 const Image = ({ url }) => (
-  <img className='sj-result-image' src={url} alt='result image'></img>
+  <img className='sj-result-image' src={url} alt='title'></img>
 )
 
-const Result = ({ title, description, url, token, imageField, [imageField]: imageUrl }) => (
+const Result = ({ title, description, url, token, showImage, image }) => (
   <div className='sj-result'>
-    {imageField ? <Image url={imageUrl}/> : null}
+    {showImage ? (
+      <TokenLink token={token} url={url}>
+        <Image url={image}/>
+      </TokenLink>
+    ) : null}
     <Title title={title} url={url} token={token} />
     <Description description={description} />
     <Url url={url} token={token} />
-    {imageField ? <div style={{ clear: 'both' }}/> : null}
+    {showImage ? <div className='sj-result-close'/> : null}
   </div>
 )
 
@@ -93,7 +98,7 @@ class results extends React.Component {
   }
 
   render() {
-    const { body, completion, status, data, imageField } = this.props
+    const { body, completion, status, data, showImage } = this.props
 
     if (status !== REQUEST_SUCCEEDED) {
       return <p>{status}</p>
@@ -111,7 +116,7 @@ class results extends React.Component {
       <div id='sj-results'>
         <ResultSummary {...summaryProps} />
         {data.searchResponse.results.map(r => (
-          <Result key={r.values._id} {...r.values} {...r.tokens.click} imageField={imageField}/>
+          <Result key={r.values._id} {...r.values} {...r.tokens.click} showImage={showImage}/>
         ))}
         <Paginator />
       </div>
@@ -128,4 +133,4 @@ const Results = connect(
 )(results)
 
 
-export { Results, Result, ResultSummary, Title, Description, Url, TokenLink }
+export { Results, Result, ResultSummary, Title, Description, Url, TokenLink, Image }

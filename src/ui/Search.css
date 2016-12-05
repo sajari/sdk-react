@@ -154,6 +154,10 @@
   padding-left: 10px;
 }
 
+.sj-result-close {
+  clear: both;
+}
+
 .sj-paginator {
   margin: 1em 0;
   text-align: center;
