@@ -9,6 +9,7 @@ import { Results } from './Results'
 import Tabs from './Tabs'
 import { triggerSearch } from './actions/Search'
 import { FieldInstanceBoost } from '../api/IndexBoost'
+import { PageLimitOffset } from './Paginator'
 
 const close = ({ closeOverlay }) => (
   <div id='sj-overlay-close' onClick={closeOverlay}>
@@ -87,6 +88,7 @@ const DefaultOverlay = ({ tabs, tabsOnChange, defaultTab, logoUrl, prefixBoosts,
       <WrappedBodyInput prefixBoosts={prefixBoosts} containsBoosts={containsBoosts} />
       <InstanceFieldBoosts instanceBoosts={instanceBoosts}/>
       <BoostRules />
+      <PageLimitOffset />
     </div>
     <Tabs defaultTab={defaultTab} tabs={tabs} onChange={tabsOnChange} />
     <Response>
