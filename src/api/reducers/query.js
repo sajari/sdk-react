@@ -43,15 +43,14 @@ function queryComponent(state = {}, action) {
         },
       }
     }
-
-  case QUERY_COMPONENT_REMOVE:
+  case QUERY_COMPONENT_REMOVE: {
     const { [action.uuid]: _, ...rest } = state[action.namespace]
     return {
       ...state,
       [action.namespace]: rest
     }
-
-  case QUERY_COMPONENT_NAMESPACE_CHANGE:
+  }
+  case QUERY_COMPONENT_NAMESPACE_CHANGE: {
     const { [action.uuid]: component, ...rest } = state[action.oldNamespace]
     return {
       ...state,
@@ -61,7 +60,7 @@ function queryComponent(state = {}, action) {
         [action.uuid]: component,
       }
     }
-
+  }
   default:
     return state
   }
@@ -106,17 +105,17 @@ function queryStatus(state = {}, action) {
 
 function queryTracking(state = {}, action) {
   switch (action.type) {
-  case QUERY_TRACKING_SET:
+  case QUERY_TRACKING_SET: {
     const { namespace, ...rest } = action
     return {
       ...state,
       [namespace]: rest,
     }
-
-  case QUERY_TRACKING_RESET:
+  }
+  case QUERY_TRACKING_RESET: {
     const { [action.namespace]: _, ...rest } = state
     return rest
-
+  }
   default:
     return state
   }
