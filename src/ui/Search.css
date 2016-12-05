@@ -151,6 +151,7 @@
 .sj-result-image {
   float: right;
   width: 150px;
+  padding-left: 10px;
 }
 
 .sj-paginator {
@@ -208,5 +209,6 @@
   .sj-result-image {
     float: none;
     width: 100%;
+    padding-left: 0px;
   }
 }
