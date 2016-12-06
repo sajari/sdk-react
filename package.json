@@ -1,7 +1,7 @@
 {
   "name": "sajari-react",
   "description": "React SDK for the Sajari search API",
-  "version": "0.7.8",
+  "version": "0.7.9",
   "author": [
     {
       "name": "Trent Billington",
