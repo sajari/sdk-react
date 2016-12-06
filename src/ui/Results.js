@@ -90,7 +90,7 @@ const Result = ({ title, description, url, token, showImage, image }) => (
   </div>
 )
 
-const ResultSummary = ({ body, completion, total, queryTime, page }) => {
+const resultSummary = ({ body, completion, total, queryTime, page }) => {
   let pageNumber = ''
   if (page && page > 1) {
     pageNumber = `Page ${page} of `
@@ -103,6 +103,16 @@ const ResultSummary = ({ body, completion, total, queryTime, page }) => {
   }
   return <div id='sj-result-summary' />
 }
+
+const ResultSummary = connect(
+  ({ query }, { namespace }) => {
+    let completion = ''
+    try {
+      completion = query.queryStatus[namespace].data.searchRequest.indexQuery.body[0].text
+    } catch (e) {}
+    return { completion }
+  },
+)(resultSummary)
 
 class results extends React.Component {
   shouldComponentUpdate(nextProps) {
