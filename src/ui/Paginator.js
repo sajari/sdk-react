@@ -86,7 +86,10 @@ const WrappedPaginator = connect(
       totalResults
     }
   },
-  (dispatch) => ({ setPage: (page) => dispatch(setPage(page)) })
+  (dispatch) => ({ setPage: (page) => {
+    dispatch(setPage(page))
+    document.getElementById('sj-overlay').scrollTop = 0
+  } })
 )(Paginator)
 
 WrappedPaginator.defaultProps = {
@@ -123,7 +126,10 @@ const page = ({ currentPage, page, setPage, children }) => (
 /* Page is a component which renders a component which can set the page */
 const Page = connect(
   ({ search }) => ({ currentPage: search.page }),
-  dispatch => ({ setPage: (page) => dispatch(setPage(page)) })
+  dispatch => ({ setPage: (page) => {
+    dispatch(setPage(page))
+    document.getElementById('sj-overlay').scrollTop = 0
+  } })
 )(page)
 
 export { PageLimitOffset, WrappedPaginator, Paginator }
