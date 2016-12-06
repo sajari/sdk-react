@@ -40,7 +40,7 @@ class bodyInput extends React.Component {
             type="text"
             id='sj-search-bar-completion'
             className='sj-search-bar-input-common'
-            value={text.length > 0 && completion.indexOf(text) === 0 ? completion : ''}
+            value={completion}
             readOnly
           />
           <input
@@ -66,7 +66,13 @@ class bodyInput extends React.Component {
 }
 
 const BodyInput = connect(
-  ({ search }) => ({ completion: search.completion }),
+  ({ search, query }, { namespace }) => {
+    let completion = ''
+    try {
+      completion = query.queryStatus[namespace].data.searchRequest.indexQuery.body[0].text
+    } catch (e) {}
+    return { completion }
+  },
   (dispatch, props) => ({ setBody: body => dispatch(setBody(body, props.namespace)) }),
 )(bodyInput)
 
