@@ -139,7 +139,7 @@ class results extends React.Component {
       <div id='sj-results'>
         <ResultSummary {...summaryProps} />
         {data.searchResponse.results.map(r => (
-          <Result key={resultKey} {...r.values} {...r.tokens.click} showImage={showImage}/>
+          <Result key={r.values[resultKey]} {...r.values} {...r.tokens.click} showImage={showImage}/>
         ))}
         <Paginator />
       </div>
