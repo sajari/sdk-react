@@ -120,7 +120,7 @@ class results extends React.Component {
   }
 
   render() {
-    const { body, completion, status, data, page, showImage } = this.props
+    const { body, completion, status, data, page, showImage, resultKey } = this.props
 
     if (status !== REQUEST_SUCCEEDED) {
       return <p>{status}</p>
@@ -139,7 +139,7 @@ class results extends React.Component {
       <div id='sj-results'>
         <ResultSummary {...summaryProps} />
         {data.searchResponse.results.map(r => (
-          <Result key={r.values._id} {...r.values} {...r.tokens.click} showImage={showImage}/>
+          <Result key={resultKey} {...r.values} {...r.tokens.click} showImage={showImage}/>
         ))}
         <Paginator />
       </div>
@@ -148,7 +148,8 @@ class results extends React.Component {
 }
 
 results.defaultProps = {
-  namespace: 'default'
+  namespace: 'default',
+  resultKey: 'url',
 }
 
 const Results = connect(
