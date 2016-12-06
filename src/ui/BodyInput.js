@@ -40,7 +40,7 @@ class bodyInput extends React.Component {
             type="text"
             id='sj-search-bar-completion'
             className='sj-search-bar-input-common'
-            value={completion}
+            value={completion.indexOf(text) === 0 ? completion : ''}
             readOnly
           />
           <input
