@@ -26,7 +26,7 @@ const pageNumbers = (page, totalPages) => {
 
   i = 3
   while (pages.length < 5 && page - i > 0) {
-    pages.shift(page-i)
+    pages.unshift(page-i)
     i++
   }
   return pages
