@@ -59,6 +59,8 @@
   line-height: 24px;
   text-rendering: optimizeLegibility;
   border-radius: 0;
+  display: block;
+  box-sizing: initial;
 }
 
 #sj-search-bar-completion {
