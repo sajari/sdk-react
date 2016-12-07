@@ -58,7 +58,7 @@
 #sj-overlay-close {
   position: absolute;
   top: 0;
-  right: 20px;
+  right: 3%;
   z-index: 1;
   color:#CCC;
   text-align: center;

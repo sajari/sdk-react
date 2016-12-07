@@ -188,7 +188,8 @@
   }
 
   .sj-search-bar-input-common {
-    width: 88%;
+    width: 92%;
+    width: calc(94% - 0.9em);
     margin-left: 3%;
   }
 
