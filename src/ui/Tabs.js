@@ -48,6 +48,7 @@ const Tabs = connect(
 
 tabs.defaultProps = {
   namespace: 'default',
+  runOnUpdate: true,
 }
 
 export default Tabs
