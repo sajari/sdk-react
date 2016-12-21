@@ -8,6 +8,9 @@ React provides a simple and elegant way to structure user interfaces. The Sajari
 
 We also provide a vanilla Sajari JS library [here](https://github.com/sajari/sajari-sdk-js/).
 
+## Awesome Overlay!
+
+<img src="https://dl.dropboxusercontent.com/content_link/xRXAcqrAvZCYps4Pm0MVpLVACxx6h4yQyNnxg4Rt1hoE0Hbm0rqe4Pdx6GxRTxqG/file" width="600" alt="overlay">
 
 ## Table of Contents
 
