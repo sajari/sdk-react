@@ -10,7 +10,7 @@ We also provide a vanilla Sajari JS library [here](https://github.com/sajari/saj
 
 ## Awesome Overlay!
 
-<img src="https://www.dropbox.com/s/ybbj5pghjqi1kak/ReactSearchOverlay.png?raw=1" width="600" alt="overlay">
+<img src="https://www.dropbox.com/s/ybbj5pghjqi1kak/ReactSearchOverlay.png?raw=1" width="849" alt="overlay" style="-webkit-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.4);-moz-box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.4);box-shadow: 0px 0px 10px 1px rgba(0,0,0,0.4);">
 
 ## Table of Contents
 
