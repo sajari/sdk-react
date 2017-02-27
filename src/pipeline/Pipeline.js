@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { addPipeline, removePipeline } from './actions/pipeline'
+import { addPipeline, removePipeline } from '../api/actions/pipeline'
 
 class pipeline extends React.Component {
   componentDidMount() {
@@ -15,10 +15,6 @@ class pipeline extends React.Component {
   render() { return null }
 }
 
-pipeline.defaultProps = {
-  namespace: 'default',
-}
-
 const Pipeline = connect(
   null,
   dispatch => ({
@@ -26,5 +22,9 @@ const Pipeline = connect(
     removePipeline: (namespace, name) => dispatch(removePipeline(namespace, name)),
   })
 )(pipeline)
+
+Pipeline.defaultProps = {
+  namespace: 'default',
+}
 
 export default Pipeline
