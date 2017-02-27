@@ -73,7 +73,7 @@
     "build:babel": "babel ./src/ --out-dir ./build --copy-files",
     "build:copy-files": "babel-node ./scripts/copy-files.js",
     "lint": "eslint src/*",
-    "clean:build": "rimraf build",
+    "clean:build": "rimraf build/*",
     "hotdev": "webpack-dev-server --hot --inline",
     "prebuild": "npm run clean:build"
   }
