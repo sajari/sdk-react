@@ -1,0 +1,162 @@
+# Website Search Integration - Query from URL
+
+This integration helps getting sajari search on your site ASAP.
+
+## Instructions
+
+1. Create an account at [Sajari](htttps://www.sajari.com) and add the indexing code globally to your site.
+2. Copy and paste this snippet into your website search result page.
+3. Replace `<PROJECT>` and `<COLLECTION>` in the snippet with your project and collection names.
+4. Visit your page with `?q=test` in the url to see your search in action.
+
+```html
+<!-- The div below is where the results appear. Make sure this div comes before the script -->
+<div id="search-results"></div>
+
+<!-- The script below runs the search and renders the results into the target div -->
+<script>var getUrlParam=function(e){var t=new RegExp("[?&]"+e.replace(/[\[\]]/g,"\\$&")+"(=([^&#]*)|&|#|$)"),a=t.exec(window.location.href);return a&&a[2]?decodeURIComponent(a[2].replace(/\+/g," ")):""};window._sjsi={
+  values: {
+    q: getUrlParam("q"),
+    resultsPerPage: "10"
+  },
+  attachTarget: document.getElementById("search-results"),
+  pipeline: "website",
+  project: "<PROJECT>",
+  collection: "<COLLECTION>",
+  searchBox: true
+},function(){var e=document.createElement("script");e.type="text/javascript",e.async=!0,e.src="http://localhost:8000/static/js/main.fa027f0a.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script>
+
+<!-- The style element adds some basic styling. Remove or ammend as required -->
+<style>.sj-result-summary{padding-bottom:1.5em;font-size:16px;color:#aaa;}.sj-result-title{margin-bottom:0;margin-top:0;font-size:16px;line-height:24px}.sj-result-title a{text-decoration:none;font-weight:400;font-size:20px;color:#333;line-height:21.6px}.sj-result-title a:hover{text-decoration:underline}.sj-result-description{color:#545454;font-size:15px;line-height:22px;overflow-wrap:break-word;margin-top:2px;margin-bottom:4px}.sj-result-url{color:#969696;font-size:13px;line-height:18.2px;margin:0;color:#a2a2a2}.sj-result-url a{text-decoration:none;color:#a2a2a2}.sj-result-list>*{margin-top:1em}.sj-result-list>:first-child{margin-top:0}</style>
+```
+
+## How does it know what to search?
+
+Many CMS and website generators use the `q` query parameter in the URL to indicate a search. This is the ubiquitous way to indicate search on websites. For example, searching for `orange` would produce a URL like `example.com/search?q=orange`.
+
+It's possible to use another parameter if your site is configured differently. Just replace the `q` in `getUrlParam("q")` with your desired parameter, eg `getUrlParam("search")`.
+
+## How does it work?
+
+The snippet is divided into 3 sections.
+
+- [Attachment Point](#attachment-point)
+- [Javascript](#javascript)
+- [Styling](#styling)
+
+Each section will talk about how it contributes to the interface.
+
+### Attachment point
+
+This is the place at which the results will display. You can place this anywhere in your html, just make sure this appears before the [Javascript](#javascript) is loaded.
+
+You can also skip this part and have the javascript attach to something that already exists on the page. More info in the [Javascript](#javascript) section.
+
+```html
+<div id="search-results"></div>
+```
+
+### Javascript
+
+This section is responsible for performing the integration and searching.
+
+It performs 2 tasks.
+
+1. Set up the values for the search.
+2. Pull in the search code that will perform the work of searching and displaying results.
+
+#### Configuring
+
+To direct the search into your data replace `<PROJECT>` and `<COLLECTION>` with your project and collection.
+
+To enable a search box above the results for instance search, set `searchBox` to `true`. Set to `false` to remove it.
+
+To attach to different element (Not the element supplied in [Attachment point](#attachment-point)), replace the value of `attachTarget` with the your element.
+
+```html
+<script>
+  var getUrlParam = function(e) { var t = new RegExp("[?&]" + e.replace(/[\[\]]/g, "\\$&") + "(=([^&#]*)|&|#|$)"), a = t.exec(window.location.href); return a && a[2] ? decodeURIComponent(a[2].replace(/\+/g, " ")) : "" };
+  window._sjsi = {
+    values: {
+      q: getUrlParam("q"),
+      resultsPerPage: "10"
+    },
+    attachTarget: document.getElementById("search-results"),
+    pipeline: "website",
+    project: "<PROJECT>",
+    collection: "<COLLECTION>",
+    searchBox: true,
+  },
+  function() {
+    var e = document.createElement("script");
+    e.type = "text/javascript", e.async = !0, e.src = "//sajari.com/js/dist/basicSiteIntegration.123.js";
+    var t = document.getElementsByTagName("script")[0];
+    t.parentNode.insertBefore(e, t)
+  }()
+</script>
+```
+
+### Styling
+
+The style element includes some basic styling for the results. Often you'll want to change or remove these completely as they can conflict with existing styles on your site.
+
+If you wish to remove these styles and do the styling yourself there are classes on the html elements generated by the interface.
+
+```html
+<style>
+  .sj-result-summary {
+    padding-bottom: 1.5em;
+    font-size: 16px;
+    color: #aaa;
+  }
+
+  .sj-result-title {
+    margin-bottom: 0;
+    margin-top: 0;
+    font-size: 16px;
+    line-height: 24px
+  }
+
+  .sj-result-title a {
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 20px;
+    color: #333;
+    line-height: 21.6px
+  }
+
+  .sj-result-title a:hover {
+    text-decoration: underline
+  }
+
+  .sj-result-description {
+    color: #545454;
+    font-size: 15px;
+    line-height: 22px;
+    overflow-wrap: break-word;
+    margin-top: 2px;
+    margin-bottom: 4px
+  }
+
+  .sj-result-url {
+    color: #969696;
+    font-size: 13px;
+    line-height: 18.2px;
+    margin: 0;
+    color: #a2a2a2
+  }
+
+  .sj-result-url a {
+    text-decoration: none;
+    color: #a2a2a2
+  }
+
+  .sj-result-list>* {
+    margin-top: 1em
+  }
+
+  .sj-result-list>:first-child {
+    margin-top: 0
+  }
+</style>
+```
