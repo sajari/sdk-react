@@ -24,7 +24,7 @@ This integration helps getting sajari search on your site ASAP.
   project: "<PROJECT>",
   collection: "<COLLECTION>",
   searchBox: true
-},function(){var e=document.createElement("script");e.type="text/javascript",e.async=!0,e.src="http://localhost:8000/static/js/main.fa027f0a.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script>
+},function(){var e=document.createElement("script");e.type="text/javascript",e.async=!0,e.src="https://cdn.sajari.com/js/integrations/site-search-basic.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script>
 
 <!-- The style element adds some basic styling. Remove or ammend as required -->
 <style>.sj-result-summary{padding-bottom:1.5em;font-size:16px;color:#aaa;}.sj-result-title{margin-bottom:0;margin-top:0;font-size:16px;line-height:24px}.sj-result-title a{text-decoration:none;font-weight:400;font-size:20px;color:#333;line-height:21.6px}.sj-result-title a:hover{text-decoration:underline}.sj-result-description{color:#545454;font-size:15px;line-height:22px;overflow-wrap:break-word;margin-top:2px;margin-bottom:4px}.sj-result-url{color:#969696;font-size:13px;line-height:18.2px;margin:0;color:#a2a2a2}.sj-result-url a{text-decoration:none;color:#a2a2a2}.sj-result-list>*{margin-top:1em}.sj-result-list>:first-child{margin-top:0}</style>
@@ -89,7 +89,7 @@ To attach to different element (Not the element supplied in [Attachment point](#
   },
   function() {
     var e = document.createElement("script");
-    e.type = "text/javascript", e.async = !0, e.src = "//sajari.com/js/dist/basicSiteIntegration.123.js";
+    e.type = "text/javascript", e.async = !0, e.src = "https://cdn.sajari.com/js/integrations/site-search-basic.js";
     var t = document.getElementsByTagName("script")[0];
     t.parentNode.insertBefore(e, t)
   }()
