@@ -107,16 +107,17 @@ export const makePipelineSearchRequest = (namespace, pipeline) => (
     const state = getState()
 
     const trackingFromState = state.pipelines.pipelineTracking[`${namespace}|${pipeline}`]
-    if (trackingFromState) {
-      query.data = trackingFromState.data
-      query.i = trackingFromState.id,
-      query.s = trackingFromState.sequence
-    }
-
     const tracking = new Sajari.Tracking()
     if (pipeline === 'website') {
       tracking.clickTokens('url')
     }
+
+    if (trackingFromState) {
+      tracking.data = trackingFromState.data
+      tracking.i = trackingFromState.id,
+      tracking.s = trackingFromState.sequence
+    }
+
 
     const { project, collection } = state.pipelines.namespaces[namespace]
     const client = new Sajari.Client(project, collection)
