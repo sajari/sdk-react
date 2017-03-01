@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { REQUEST_SUCCEEDED } from '../api/constants/RequestState'
+import { REQUEST_SUCCEEDED, REQUEST_IN_PROGRESS } from '../api/constants/RequestState'
 import { resultClicked } from './actions/Analytics'
 
-import { WrappedPaginator as Paginator } from './Paginator'
+// import { WrappedPaginator as Paginator } from './Paginator'
 
 const tokenUrl = 'https://www.sajari.com/token/'
 
@@ -114,47 +114,91 @@ const ResultSummary = connect(
   },
 )(resultSummary)
 
-class results extends React.Component {
+class Results extends React.Component {
   shouldComponentUpdate(nextProps) {
-    return nextProps.status === REQUEST_SUCCEEDED || nextProps.status === undefined
+    return nextProps.status !== REQUEST_IN_PROGRESS
   }
 
   render() {
-    const { body, completion, status, data, page, showImage, resultKey } = this.props
+    const { data } = this.props
 
+    if (!data || !data.searchResponse) {
+      return <div className='sj-result-list' />
+    }
+
+    const results = data.searchResponse.results.map(r => (
+      <Result
+        key={r.values._id}
+        title={r.values.title}
+        description={r.values.description}
+        url={r.values.url}
+        token={r.tokens.click.token}
+      />
+    ))
+    return <div className='sj-result-list'>{results}</div>
+  }
+}
+
+function queryTimeToSeconds(t) {
+  const parseAndFormat = x => (parseFloat(t) / x).toFixed(5) + 's'
+  if (t.indexOf('ms') >= 0) {
+    return parseAndFormat(1000)
+  }
+  if (t.indexOf('µs') >= 0) {
+    return parseAndFormat(1000000)
+  }
+  return t
+}
+
+class summary extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    return nextProps.status !== REQUEST_IN_PROGRESS
+  }
+
+  render() {
+    const { searchText, searchTextRewritten, totalResults, time, page, status } = this.props
+
+    // Don't render anything if there isn't a successful request
     if (status !== REQUEST_SUCCEEDED) {
-      return <p>{status}</p>
+      return <div className='sj-result-summary'/>
     }
 
-    const summaryProps = {
-      body,
-      completion,
-      page,
-      count: data.searchResponse.results.length,
-      queryTime: data.searchResponse.time,
-      total: data.searchResponse.totalResults
-    }
+    const pageNumber = page && page > 1 ? `Page ${page} of ` : ''
 
     return (
-      <div id='sj-results'>
-        <ResultSummary {...summaryProps} />
-        {data.searchResponse.results.map(r => (
-          <Result key={r.values[resultKey]} {...r.values} {...r.tokens.click} showImage={showImage}/>
-        ))}
-        <Paginator />
+      <div className='sj-result-summary'>
+        {`${pageNumber}${totalResults} results for `}
+        &quot;<strong>{searchTextRewritten || searchText}</strong>&quot;
+        {` (${queryTimeToSeconds(time)})`}
       </div>
     )
   }
 }
 
-results.defaultProps = {
-  namespace: 'default',
-  resultKey: 'url',
-}
+const PipelineSummary = connect(
+  ({ pipelines }, { pipeline, namespace = 'default', data }) => {
+    const props = {
+      searchText: '',
+      searchTextRewritten: '',
+      totalResults: '',
+      page: '',
+      time: ''
+    }
+    try {
+      props.searchText = pipelines.pipelineValue[`${namespace}|${pipeline}`].q
+      props.page = pipelines.pipelineValue[`${namespace}|${pipeline}`].page
+    } catch (e) {}
+    if (data) {
+      if (data.values) {
+        props.searchTextRewritten = data.values.q
+      }
+      if (data.searchResponse) {
+        props.time = data.searchResponse.time
+        props.totalResults = data.searchResponse.totalResults
+      }
+    }
+    return props
+  }
+)(summary)
 
-const Results = connect(
-  ({ search }) => ({ body: search.body, completion: search.completion, page: search.page }),
-)(results)
-
-
-export { Results, Result, ResultSummary, Title, Description, Url, TokenLink, Image }
+export { Results, Result, ResultSummary, Title, Description, Url, TokenLink, Image, PipelineSummary }
