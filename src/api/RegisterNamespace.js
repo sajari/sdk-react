@@ -15,10 +15,6 @@ class registerNamespace extends React.Component {
   render() { return null }
 }
 
-registerNamespace.defaultProps = {
-  namespace: 'default',
-}
-
 const RegisterNamespace = connect(
   null,
   dispatch => ({
@@ -26,5 +22,9 @@ const RegisterNamespace = connect(
     removeNamespace: (namespace) => dispatch(removeNamespace(namespace)),
   })
 )(registerNamespace)
+
+RegisterNamespace.defaultProps = {
+  namespace: 'default',
+}
 
 export default RegisterNamespace

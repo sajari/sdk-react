@@ -1,7 +1,7 @@
 {
   "name": "sajari-react",
   "description": "React SDK for the Sajari search API",
-  "version": "0.7.16",
+  "version": "0.8.0",
   "author": [
     {
       "name": "Trent Billington",
@@ -62,7 +62,7 @@
   "peerDependencies": {
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
-    "sajari": "0.13.3"
+    "sajari": "^0.14.1"
   },
   "repository": {
     "type": "git",
@@ -73,7 +73,7 @@
     "build:babel": "babel ./src/ --out-dir ./build --copy-files",
     "build:copy-files": "babel-node ./scripts/copy-files.js",
     "lint": "eslint src/*",
-    "clean:build": "rimraf build",
+    "clean:build": "rimraf build/*",
     "hotdev": "webpack-dev-server --hot --inline",
     "prebuild": "npm run clean:build"
   }
