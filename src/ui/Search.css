@@ -90,14 +90,14 @@
   --------------- Result ----------------
 */
 
-#sj-results {
+#sj-overlay .sj-result-summary, #sj-overlay .sj-result-list {
   position: relative;
   width: auto;
   overflow-x: hidden;
   margin-left:126px;
 }
 
-#sj-result-summary {
+.sj-result-summary {
   padding-top: 1em;
   font-size: 14px;
   color: #aaa;
@@ -198,7 +198,7 @@
     padding-left: 3%;
   }
 
-  #sj-results {
+  .sj-results {
     width: 94%;
     margin-left: 3%;
   }
