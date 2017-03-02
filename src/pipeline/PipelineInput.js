@@ -11,7 +11,7 @@ const TAB_KEYCODE = 9
 class pipelineInput extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { text: props.initialValue || '', completion: props.completion }
+    this.state = { text: props.initialValue || '', completion: props.completion || '' }
     this.setText = this.setText.bind(this)
   }
 
@@ -38,7 +38,7 @@ class pipelineInput extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.status === REQUEST_SUCCEEDED) {
-      this.setState({ completion: nextProps.completion })
+      this.setState({ completion: nextProps.completion || '' })
     }
   }
 
