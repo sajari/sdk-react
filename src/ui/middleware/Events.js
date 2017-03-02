@@ -19,7 +19,7 @@ const events = (analytics) => {
       data = {
         ...data,
         analyticsEnabled: true,
-        body: getState().search.body,
+        body: (getState().search || {}).body,
       }
     }
 
