@@ -1,15 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { Response } from '../api'
+import Response from '../pipeline/Response'
 import { setActive } from './actions/Overlay'
-import { BodyInput, CaptureCompletion } from './BodyInput'
-import { BoostRules } from './Boosts'
-import { Results } from './Results'
+import { Results, PipelineSummary } from './Results'
 import Tabs from './Tabs'
-import { triggerSearch } from './actions/Search'
-import { FieldInstanceBoost } from '../api/IndexBoost'
-import { PageLimitOffset } from './Paginator'
+import PipelineInput from '../pipeline/PipelineInput'
 
 const close = ({ closeOverlay }) => (
   <div id='sj-overlay-close' onClick={closeOverlay}>
@@ -52,48 +48,17 @@ const Overlay = connect(
   ({ overlay }) => ({ active: overlay.active })
 )(overlay)
 
-class wrappedBodyInput extends React.Component {
-  componentDidUpdate() {
-    this.props.triggerSearch()
-  }
-
-  render() {
-    return (
-      <BodyInput
-        prefixBoosts={this.props.prefixBoosts}
-        containsBoosts={this.props.containsBoosts}
-      />
-    )
-  }
-}
-
-const WrappedBodyInput = connect(
-  ({ search }) => ({ body: search.body }),
-  (dispatch) => ({ triggerSearch: () => dispatch(triggerSearch('default')) })
-)(wrappedBodyInput)
-
-const InstanceFieldBoosts = ({ instanceBoosts = {} }) => (
-  <div>
-    {Object.keys(instanceBoosts).map(i => (
-      <FieldInstanceBoost key={i} field={i} value={instanceBoosts[i]} namespace='default'/>
-    ))}
-  </div>
-)
-
-const DefaultOverlay = ({ tabs, tabsOnChange, defaultTab, logoUrl, prefixBoosts, containsBoosts, instanceBoosts, showImage }) => (
+const DefaultOverlay = ({ tabs, tabsOnChange, defaultTab, logoUrl, pipeline }) => (
   <Overlay>
     <Close />
     <div id='sj-overlay-header'>
       <Logo src={logoUrl} alt='Logo' />
-      <WrappedBodyInput prefixBoosts={prefixBoosts} containsBoosts={containsBoosts} />
-      <InstanceFieldBoosts instanceBoosts={instanceBoosts}/>
-      <BoostRules />
-      <PageLimitOffset />
+      <PipelineInput pipeline={pipeline} />
     </div>
     <Tabs defaultTab={defaultTab} tabs={tabs} onChange={tabsOnChange} />
-    <Response>
-      <CaptureCompletion />
-      <Results showImage={showImage} />
+    <Response pipeline={pipeline}>
+      <PipelineSummary pipeline={pipeline} />
+      <Results />
     </Response>
   </Overlay>
 )
