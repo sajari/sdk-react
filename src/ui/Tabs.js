@@ -46,9 +46,8 @@ const Tabs = connect(
   }),
 )(tabs)
 
-tabs.defaultProps = {
+Tabs.defaultProps = {
   namespace: 'default',
-  runOnUpdate: true,
 }
 
 export default Tabs
