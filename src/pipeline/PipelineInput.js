@@ -62,7 +62,7 @@ class pipelineInput extends React.Component {
             ref='searchInput'
             id='sj-search-bar-input'
             className='sj-search-bar-input-common'
-            placeHolder={placeHolder}
+            placeholder={placeHolder}
             value={text}
             onChange={e => this.setText(e.target.value)}
             onKeyDown={e => {
