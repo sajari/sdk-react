@@ -198,7 +198,11 @@
     padding-left: 3%;
   }
 
-  .sj-results {
+  #sj-overlay .sj-result-summary, #sj-overlay .sj-result-list {
+    margin-left: 3%;
+  }
+
+  .sj-result-list {
     width: 94%;
     margin-left: 3%;
   }
