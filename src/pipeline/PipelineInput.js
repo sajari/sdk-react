@@ -44,6 +44,7 @@ class pipelineInput extends React.Component {
 
   render() {
     const { text, completion } = this.state
+    const { placeHolder } = this.props
 
     return (
       <div id='sj-search-modal-input-holder-outer'>
@@ -60,6 +61,7 @@ class pipelineInput extends React.Component {
             ref='searchInput'
             id='sj-search-bar-input'
             className='sj-search-bar-input-common'
+            placeHolder={placeHolder}
             value={text}
             onChange={e => this.setText(e.target.value)}
             onKeyDown={e => {
