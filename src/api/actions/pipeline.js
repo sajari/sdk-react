@@ -100,7 +100,7 @@ export const resetQueryTracking = (namespace, pipeline) => ({
 })
 
 
-export const makePipelineSearchRequest = (namespace, pipeline) => (
+export const makePipelineSearchRequest = (namespace, pipeline, overrides = {}) => (
   (dispatch, getState) => {
     dispatch(searchRequest(namespace, pipeline))
 
@@ -122,7 +122,10 @@ export const makePipelineSearchRequest = (namespace, pipeline) => (
     const { project, collection } = state.pipelines.namespaces[namespace]
     const client = new Sajari.Client(project, collection)
 
-    const values = state.pipelines.pipelineValue[`${namespace}|${pipeline}`]
+    const values = {
+      ...state.pipelines.pipelineValue[`${namespace}|${pipeline}`],
+      ...overrides
+    }
 
     const searchPromise = client.searchPipeline(pipeline, values, tracking, (err, res) => {
       const state = getState()

@@ -7,6 +7,7 @@ import { REQUEST_SUCCEEDED } from '../api/constants/RequestState'
 
 const RIGHT_ARROW_KEYCODE = 39
 const TAB_KEYCODE = 9
+const RETURN_KEYCODE = 13
 
 class pipelineInput extends React.Component {
   constructor(props) {
@@ -22,12 +23,12 @@ class pipelineInput extends React.Component {
     }
   }
 
-  setText(text) {
+  setText(text, override = false) {
     if (text) {
       if (!text.startsWith(this.state.text.substr(0, 3))) {
         this.props.resetTracking()
       }
-      this.props.setQ(text)
+      this.props.setQ(text, override)
     } else {
       this.props.reset()
       this.props.resetTracking()
@@ -65,6 +66,10 @@ class pipelineInput extends React.Component {
             value={text}
             onChange={e => this.setText(e.target.value)}
             onKeyDown={e => {
+              if (e.keyCode === RETURN_KEYCODE) {
+                e.preventDefault()
+                this.setText(text, true)
+              }
               if (!completion) { return }
               if (e.keyCode === TAB_KEYCODE || (e.keyCode === RIGHT_ARROW_KEYCODE && e.target.selectionStart === text.length)) {
                 e.preventDefault()
@@ -92,9 +97,9 @@ const PipelineInput = connect(
     return { completion, status }
   },
   (dispatch, { namespace, pipeline }) => ({
-    setQ: q => {
+    setQ: (q, override = false) => {
       dispatch(modifyPipelineValue(namespace, pipeline, 'q', q))
-      dispatch(makePipelineSearchRequest(namespace, pipeline))
+      dispatch(makePipelineSearchRequest(namespace, pipeline, override ? { 'q.override': 'true' } : {} ))
     },
     reset: () => dispatch(searchRequestReset(namespace, pipeline)),
     resetTracking: () => dispatch(resetQueryTracking(namespace, pipeline))
