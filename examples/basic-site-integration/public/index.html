@@ -2,26 +2,37 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <title>Sajari Site Search Integration</title>
+    <title>Sajari: Website Search Example UI</title>
   </head>
   <body>
-    <div id="search-results"></div>
+    <h1>Sajari: Website Search Example UI</h1>
+    <h4>Project: <code>{{.Project}}</code> Collection: <code>{{.Collection}}</code></h4>
+    <p>This example injects a search interface into a page.</p>
+    <p>It includes a minimal set of styles, code and config to get you up and running:</p>
+    <ul>
+      <li>Use query param <code>?q=set+search+using+query+param</code> to set the default search. <a href="?q=set+search+using+query+param">Give it a try!</a></li>
+      <li>Search UI is injected into <code>&lt;div id="search-interface"&gt;&lt;/div&gt;</code></li>
+    </ul>
+    <p>Take a look at the <a href="?showSrc">page source</a> to start your own integration.</p>
+
+    <div class="dotted">
+      <!-- This element will contain the search interface (see config in the script below) -->
+      <div id="search-interface"></div>
+    </div>
+    <!-- This script sets up the config for the search interface -->
     <script>
         var getUrlParam = function(e){var t = new RegExp("[?&]" + e.replace(/[\[\]]/g, "\\$&") + "(=([^&#]*)|&|#|$)"),a = t.exec(window.location.href);return a && a[2] ? decodeURIComponent(a[2].replace(/\+/g, " ")) : ""};
         window._sjsi = {
+          project: "{{.Project}}",       // Set this to your project.
+          collection: "{{.Collection}}", // Set this to your collection.
           values: {
-              q: getUrlParam("q"),
-              resultsPerPage: "10"
+              q: getUrlParam("q"), // Take the default search text from the query params (if set).
+              resultsPerPage: "10" // Return 10 results per page.
           },
-          attachTarget: document.getElementById("search-results"),
-          pipeline: "website",
-          project: "%REACT_APP_PROJECT%", // set environment variable REACT_APP_PROJECT="<your project>"
-          collection: "%REACT_APP_COLLECTION%", // set environment variable REACT_APP_COLLECTION="<your collection>"
-          searchBox: true
+          attachTarget: document.getElementById("search-interface"), // The DOM element to attach to.
+          pipeline: "website",           // Run the website pipeline.
+          searchBox: true                // Show the search box by default.
         };
     </script>
-    <style>.sj-result-summary{padding-bottom:1.5em;font-size:16px;color:#aaa;}.sj-result-title{margin-bottom:0;margin-top:0;font-size:16px;line-height:24px}.sj-result-title a{text-decoration:none;font-weight:400;font-size:20px;color:#333;line-height:21.6px}.sj-result-title a:hover{text-decoration:underline}.sj-result-description{color:#545454;font-size:15px;line-height:22px;overflow-wrap:break-word;margin-top:2px;margin-bottom:4px}.sj-result-url{color:#969696;font-size:13px;line-height:18.2px;margin:0;color:#a2a2a2}.sj-result-url a{text-decoration:none;color:#a2a2a2}.sj-result-list>*{margin-top:1em}.sj-result-list>:first-child{margin-top:0}</style>
   </body>
 </html>

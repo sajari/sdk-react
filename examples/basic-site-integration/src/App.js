@@ -9,7 +9,7 @@ import { PipelineSummary, Results } from 'sajari-react/ui/Results'
 import { makePipelineSearchRequest } from 'sajari-react/api/actions/pipeline'
 import PipelineInput from 'sajari-react/pipeline/PipelineInput'
 
-import './searchBox.css'
+import './styles.css'
 
 class app extends React.Component {
   componentDidMount() {
@@ -21,7 +21,7 @@ class app extends React.Component {
   }
 
   render() {
-    const { project, collection, pipeline, values, searchBox } = this.props.config
+    const { project, collection, pipeline, values, searchBox, searchBoxPlaceHolder } = this.props.config
 
     // Don't render Value of q if the search box is active. It will handle the q value.
     const isNotQ = v => searchBox ? v !== 'q' : v
@@ -35,7 +35,7 @@ class app extends React.Component {
       <div>
         <RegisterNamespace project={project} collection={collection}/>
         <Pipeline name={pipeline}/>
-        {searchBox ? <PipelineInput pipeline={pipeline} initialValue={values.q} /> : null}
+        {searchBox ? <PipelineInput pipeline={pipeline} initialValue={values.q} placeHolder={searchBoxPlaceHolder} /> : null}
         {renderedValues}
         <Response pipeline={pipeline}>
           <PipelineSummary pipeline={pipeline} />
