@@ -46,9 +46,9 @@ TokenLink.propTypes = {
 }
 
 const Title = ({ title, url, token }) => (
-  <h2 className='sj-result-title'>
+  <h3 className='sj-result-title'>
     <TokenLink token={token} url={url} text={title} />
-  </h2>
+  </h3>
 )
 
 const Description = ({ description }) => (
