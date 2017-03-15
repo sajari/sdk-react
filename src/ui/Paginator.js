@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 
 import { Limit, Offset } from '../api'
 
+import Value from '../pipeline/Value'
+
 import { setPage } from './actions/Search'
 
 
@@ -96,6 +98,18 @@ WrappedPaginator.defaultProps = {
   namespace: 'default'
 }
 
+const pageResultsPerPage = ({ pipeline, page, resultsPerPage }) => (
+  <div>
+    <Value pipeline={pipeline} name="resultsPerPage" value={resultsPerPage} />
+    <Value pipeline={pipeline} name="page" value={page} />
+  </div>
+)
+
+/* PageResultsPerPage renders pipeline values for page and resultsPerPage */
+const PageResultsPerPage = connect(
+  ({ search }) => ({ page: search.page, resultsPerPage: search.resultsPerPage }),
+)(pageResultsPerPage)
+
 const pageLimitOffset = ({ page, resultsPerPage, ...others }) => (
   <div>
     <Limit limit={resultsPerPage} { ...others } />
@@ -132,4 +146,4 @@ const Page = connect(
   } })
 )(page)
 
-export { PageLimitOffset, WrappedPaginator, Paginator }
+export { PageLimitOffset, WrappedPaginator, Paginator, PageResultsPerPage }
