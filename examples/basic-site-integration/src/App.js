@@ -8,6 +8,7 @@ import { RegisterNamespace } from 'sajari-react/api'
 import { PipelineSummary, Results } from 'sajari-react/ui/Results'
 import { makePipelineSearchRequest } from 'sajari-react/api/actions/pipeline'
 import PipelineInput from 'sajari-react/pipeline/PipelineInput'
+import { PipelinePaginator as Paginator } from 'sajari-react/ui/Paginator'
 
 import './styles.css'
 
@@ -40,6 +41,7 @@ class app extends React.Component {
         <Response pipeline={pipeline}>
           <PipelineSummary pipeline={pipeline} />
           <Results/>
+          <Paginator pipeline={pipeline} />
         </Response>
       </div>
     )
