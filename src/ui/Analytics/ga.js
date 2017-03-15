@@ -63,29 +63,34 @@ const url = {
   }
 }
 
-function sendGAPageView(body) {
-  if (window.ga && process.env.NODE_ENV.environment !== 'development') {
-    // Merge the body in with the existing query params in the url
-    const pageAddress = url.augmentUri(
-      // Take only the portion of the url following the domain
-      location.href.substring(location.origin.length),
-      { q: body }
-    )
-    window.ga('send', 'pageview', pageAddress)
-  }
-}
-
 class GoogleAnalytics {
+  constructor(id, param = 'q') {
+    this.id = id ? id : window.ga ? 'ga' : window._ua ? '_ua' : ''
+    this.param = param
+  }
+
+  sendGAPageView(body) {
+    if (window[this.id] && process.env.NODE_ENV.environment !== 'development') {
+      // Merge the body in with the existing query params in the url
+      const pageAddress = url.augmentUri(
+        // Take only the portion of the url following the domain
+        location.href.substring(location.origin.length),
+        { [this.param]: body }
+      )
+      window[this.id]('send', 'pageview', pageAddress)
+    }
+  }
+
   onBodyReset(previousBody) {
-    sendGAPageView(previousBody)
+    this.sendGAPageView(previousBody)
   }
 
   onResultClicked(body) {
-    sendGAPageView(body)
+    this.sendGAPageView(body)
   }
 
   onPageClose(body) {
-    sendGAPageView(body)
+    this.sendGAPageView(body)
   }
 }
 
