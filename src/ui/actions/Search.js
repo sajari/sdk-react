@@ -20,6 +20,6 @@ export const setResultsPerPage = (resultsPerPage, namespace = 'default') => (
   { type: SET_RESULTS_PER_PAGE, resultsPerPage, namespace }
 )
 
-export const triggerSearch = (namespace = 'default') => (
-  { type: TRIGGER_SEARCH, namespace }
+export const triggerSearch = (namespace = 'default', pipeline) => (
+  { type: TRIGGER_SEARCH, namespace , pipeline }
 )
