@@ -6,7 +6,7 @@ import { Limit, Offset } from '../api'
 
 import Value from '../pipeline/Value'
 
-import { setPage } from './actions/Search'
+import { setPage, triggerSearch } from './actions/Search'
 
 
 const pageNumbers = (page, totalPages) => {
@@ -44,7 +44,9 @@ const Paginator = ({ resultsPerPage, page, totalResults, setPage }) => {
     return null
   }
 
-  const pages = pageNumbers(page, totalPages).map(p => (<Page key={p} page={p}>{p}</Page>))
+  const pages = pageNumbers(page, totalPages).map(p => (
+    <Page key={p} page={p} setPage={setPage}>{p}</Page>
+  ))
 
   const prevPage = () => {
     if (page === 1) {
@@ -90,6 +92,7 @@ const WrappedPaginator = connect(
   },
   (dispatch) => ({ setPage: (page) => {
     dispatch(setPage(page))
+    // todo: Remove this...
     document.getElementById('sj-overlay').scrollTop = 0
   } })
 )(Paginator)
@@ -109,6 +112,29 @@ const pageResultsPerPage = ({ pipeline, page, resultsPerPage }) => (
 const PageResultsPerPage = connect(
   ({ search }) => ({ page: search.page, resultsPerPage: search.resultsPerPage }),
 )(pageResultsPerPage)
+
+const PipelinePaginator = connect(
+  (state, props) => {
+    const pipelineStatus = state.pipelines.pipelineStatus[`${props.namespace}|${props.pipeline}`]
+    let totalResults = 0
+    if (pipelineStatus && pipelineStatus.data) {
+      totalResults = parseInt(pipelineStatus.data.searchResponse.totalResults, 10)
+    }
+    return {
+      page: state.search.page,
+      resultsPerPage: state.search.resultsPerPage,
+      totalResults
+    }
+  },
+  (dispatch, { namespace, pipeline }) => ({ setPage: p => {
+    dispatch(setPage(p))
+    dispatch(triggerSearch(namespace, pipeline))
+  } })
+)(Paginator)
+
+PipelinePaginator.defaultProps = {
+  namespace: 'default'
+}
 
 const pageLimitOffset = ({ page, resultsPerPage, ...others }) => (
   <div>
@@ -140,10 +166,9 @@ const page = ({ currentPage, page, setPage, children }) => (
 /* Page is a component which renders a component which can set the page */
 const Page = connect(
   ({ search }) => ({ currentPage: search.page }),
-  dispatch => ({ setPage: (page) => {
-    dispatch(setPage(page))
-    document.getElementById('sj-overlay').scrollTop = 0
-  } })
+  // dispatch => ({ setPage: (page) => {
+  //   dispatch(setPage(page))
+  // } })
 )(page)
 
-export { PageLimitOffset, WrappedPaginator, Paginator, PageResultsPerPage }
+export { PageLimitOffset, WrappedPaginator, Paginator, PageResultsPerPage, PipelinePaginator }
