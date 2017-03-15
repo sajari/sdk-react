@@ -122,6 +122,10 @@ export const makePipelineSearchRequest = (namespace, pipeline, overrides = {}) =
     const { project, collection } = state.pipelines.namespaces[namespace]
     const client = new Sajari.Client(project, collection)
 
+    if (state.search && state.search.page > 1) {
+      overrides['page'] = state.search.page
+    }
+
     const values = {
       ...state.pipelines.pipelineValue[`${namespace}|${pipeline}`],
       ...overrides
