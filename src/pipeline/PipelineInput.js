@@ -2,8 +2,9 @@ import React from 'react'
 import { findDOMNode } from 'react-dom'
 import { connect } from 'react-redux'
 
-import { modifyPipelineValue, makePipelineSearchRequest, searchRequestReset, resetQueryTracking } from '../api/actions/pipeline'
+import { modifyPipelineValue, /*makePipelineSearchRequest,*/ searchRequestReset, resetQueryTracking, removePipelineValue } from '../api/actions/pipeline'
 import { REQUEST_SUCCEEDED } from '../api/constants/RequestState'
+import { triggerSearch, setBody } from '../ui/actions/Search'
 
 const RIGHT_ARROW_KEYCODE = 39
 const TAB_KEYCODE = 9
@@ -99,7 +100,13 @@ const PipelineInput = connect(
   (dispatch, { namespace, pipeline }) => ({
     setQ: (q, override = false) => {
       dispatch(modifyPipelineValue(namespace, pipeline, 'q', q))
-      dispatch(makePipelineSearchRequest(namespace, pipeline, override ? { 'q.override': 'true' } : {} ))
+      dispatch(setBody(q, namespace))
+      if (override) {
+        dispatch(modifyPipelineValue(namespace, pipeline, 'q.override', override))
+      } else {
+        dispatch(removePipelineValue(namespace, pipeline, 'q.override'))
+      }
+      dispatch(triggerSearch(namespace, pipeline))
     },
     reset: () => dispatch(searchRequestReset(namespace, pipeline)),
     resetTracking: () => dispatch(resetQueryTracking(namespace, pipeline))
