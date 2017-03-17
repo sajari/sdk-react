@@ -199,6 +199,7 @@ class Paginator extends React.Component {
 
     const _state = State.ns(this.props.namespace);
     const setPage = (page) => {
+      window.scrollTo(0, 0);
       _state.setValues({page: ""+page}, true);
     }
     const values = _state.getValues();
