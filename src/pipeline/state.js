@@ -110,6 +110,12 @@ class NamespaceState {
       if (!currQ.startsWith(prevQ.substr(0, 3))) {
         this.tracking.resetID();
       }
+
+      // Reset the page, but only if we're not already trying
+      // to set it.
+      if (values["page"] === undefined) {
+        this.values["page"] = "1";
+      }
     }
 
     for (let k in values) {
