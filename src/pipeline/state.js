@@ -108,9 +108,6 @@ class NamespaceState {
       let currQ = values["q"];
 
       if (!currQ.startsWith(prevQ.substr(0, 3))) {
-        console.log("prevQ", prevQ);
-        console.log("currQ", currQ);
-        console.log("reset ID")
         this.tracking.resetID();
       }
     }
