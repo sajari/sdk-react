@@ -11,7 +11,7 @@ const tokenUrl = 'https://www.sajari.com/token/'
 /**
  * TokenLink renders an 'a' element that switches to using a token when clicked
  */
-class tokenLink extends React.Component {
+class TokenLink extends React.Component {
   constructor(props) {
     super(props)
     this.state = { clicked: false }
@@ -20,7 +20,9 @@ class tokenLink extends React.Component {
 
   click() {
     this.setState({ clicked: true })
-    this.props.resultClicked(this.props.url)
+    if (this.props.resultClicked) {
+      this.props.resultClicked(this.props.url)
+    }
   }
 
   render() {
@@ -33,13 +35,6 @@ class tokenLink extends React.Component {
     )
   }
 }
-
-const TokenLink = connect(
-  null,
-  dispatch => ({
-    resultClicked: url => dispatch(resultClicked(url)),
-  })
-)(tokenLink)
 
 TokenLink.propTypes = {
   url: React.PropTypes.string.isRequired,
@@ -55,8 +50,8 @@ const Description = ({ description }) => (
   <p className='sj-result-description'>{description}</p>
 )
 
-const Url = ({ url, token }) => (
-  <p className='sj-result-url'><TokenLink token={token} url={url} text={url} /></p>
+const Url = ({ url, token, resultClicked }) => (
+  <p className='sj-result-url'><TokenLink token={token} url={url} text={url} resultClicked={resultClicked} /></p>
 )
 
 class Image extends React.Component {
@@ -76,7 +71,7 @@ Image.propTypes = {
   url: React.PropTypes.string.isRequired
 }
 
-const Result = ({ title, description, url, token, showImage, image }) => (
+const Result = ({ title, description, url, token, showImage, image, resultClicked }) => (
   <div className='sj-result'>
     {showImage ? (
       <TokenLink token={token} url={url}>
@@ -85,7 +80,7 @@ const Result = ({ title, description, url, token, showImage, image }) => (
     ) : null}
     <Title title={title} url={url} token={token} />
     <Description description={description} />
-    <Url url={url} token={token} />
+    <Url url={url} token={token} resultClicked={resultClicked} />
     {showImage ? <div className='sj-result-close'/> : null}
   </div>
 )
@@ -120,9 +115,9 @@ class Results extends React.Component {
   }
 
   render() {
-    const { data } = this.props
+    const { data, resultClicked } = this.props
 
-    if (!data || !data.searchResponse) {
+    if (!data || !data.searchResponse || !data.searchResponse.results) {
       return <div className='sj-result-list' />
     }
 
@@ -133,11 +128,19 @@ class Results extends React.Component {
         description={r.values.description}
         url={r.values.url}
         token={r.tokens.click.token}
+        resultClicked={resultClicked}
       />
     ))
     return <div className='sj-result-list'>{results}</div>
   }
 }
+
+const WrappedResults = connect(
+  null,
+  dispatch => ({
+    resultClicked: url => dispatch(resultClicked(url)),
+  })
+)(Results)
 
 function queryTimeToSeconds(t) {
   const parseAndFormat = x => (parseFloat(t) / x).toFixed(5) + 's'
@@ -175,30 +178,4 @@ class summary extends React.Component {
   }
 }
 
-const PipelineSummary = connect(
-  ({ pipelines }, { pipeline, namespace = 'default', data }) => {
-    const props = {
-      searchText: '',
-      searchTextRewritten: '',
-      totalResults: '',
-      page: '',
-      time: ''
-    }
-    try {
-      props.searchText = pipelines.pipelineValue[`${namespace}|${pipeline}`].q
-      props.page = pipelines.pipelineValue[`${namespace}|${pipeline}`].page
-    } catch (e) {}
-    if (data) {
-      if (data.values) {
-        props.searchTextRewritten = data.values.q
-      }
-      if (data.searchResponse) {
-        props.time = data.searchResponse.time
-        props.totalResults = data.searchResponse.totalResults
-      }
-    }
-    return props
-  }
-)(summary)
-
-export { Results, Result, ResultSummary, Title, Description, Url, TokenLink, Image, PipelineSummary }
+export { Results, Result, ResultSummary, Title, Description, Url, TokenLink, Image, WrappedResults }

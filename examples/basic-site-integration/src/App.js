@@ -1,58 +1,74 @@
 import React from 'react'
-import { connect } from 'react-redux'
 
-import Pipeline from 'sajari-react/pipeline/Pipeline'
-import Value from 'sajari-react/pipeline/Value'
-import Response from 'sajari-react/pipeline/Response'
-import { RegisterNamespace } from 'sajari-react/api'
-import { PipelineSummary, Results } from 'sajari-react/ui/Results'
-import { makePipelineSearchRequest } from 'sajari-react/api/actions/pipeline'
-import PipelineInput from 'sajari-react/pipeline/PipelineInput'
-import { PipelinePaginator as Paginator } from 'sajari-react/ui/Paginator'
+import AutocompleteInput from 'sajari-react/pipeline/AutocompleteInput'
+import { Response,  Summary, Results, Paginator } from 'sajari-react/pipeline/Response'
+import Analytics from 'sajari-react/pipeline/analytics'
+
+import State from 'sajari-react/pipeline/state'
 
 import './styles.css'
 
-class app extends React.Component {
+const _state = State.default();
+
+class SingleApp extends React.Component {
   componentDidMount() {
-    if (!this.props.config.searchBox) {
-      // If the search box isn't active, perform a search once the component has mounted
-      // This is for when there is a query param in the url and we just want to show the results
-      this.props.search()
+    _state.setProject(this.props.config.project);
+    _state.setCollection(this.props.config.collection);
+    _state.setPipeline(this.props.config.pipeline);
+
+    if (this.props.config.values) {
+      _state.setValues(this.props.config.values, !!this.props.config.values.q);
+    }
+
+    if (!this.props.config.disableGA) {
+      new Analytics(_state);
     }
   }
 
   render() {
-    const { project, collection, pipeline, values, searchBox, searchBoxPlaceHolder } = this.props.config
-
-    // Don't render Value of q if the search box is active. It will handle the q value.
-    const isNotQ = v => searchBox ? v !== 'q' : v
-
-    // Render the list of values
-    const renderedValues = Object.keys(values).filter(isNotQ).map(k => (
-      <Value key={k} pipeline={pipeline} name={k} value={values[k]}/>
-    ))
+    const { searchBox, searchBoxPlaceHolder } = this.props.config
 
     return (
       <div>
-        <RegisterNamespace project={project} collection={collection}/>
-        <Pipeline name={pipeline}/>
-        {searchBox ? <PipelineInput pipeline={pipeline} initialValue={values.q} placeHolder={searchBoxPlaceHolder} /> : null}
-        {renderedValues}
-        <Response pipeline={pipeline}>
-          <PipelineSummary pipeline={pipeline} />
-          <Results/>
-          <Paginator pipeline={pipeline} />
+        {searchBox ? <AutocompleteInput placeHolder={searchBoxPlaceHolder} /> : null}
+        <Response>
+          <Summary />
+          <Results />
+          <Paginator />
         </Response>
       </div>
     )
   }
 }
 
-const App = connect(
-  null,
-  (dispatch, props) => ({
-    search: () => dispatch(makePipelineSearchRequest('default', props.config.pipeline))
-  })
-)(app)
+class SplitAppSearch extends React.Component {
+  componentDidMount() {
+    _state.setProject(this.props.config.project);
+    _state.setCollection(this.props.config.collection);
+    _state.setPipeline(this.props.config.pipeline);
 
-export default App
+    if (this.props.config.values) {
+      _state.setValues(this.props.config.values, !!this.props.config.values.q);
+    }
+
+    if (!this.props.config.disableGA) {
+      new Analytics(_state);
+    }
+  }
+
+  render() {
+    const { searchBoxPlaceHolder } = this.props.config
+    
+    return <AutocompleteInput placeHolder={searchBoxPlaceHolder} />
+  }
+}
+
+const SplitAppResponse = () => (
+  <Response>
+    <Summary />
+    <Results />
+    <Paginator />
+  </Response>
+)
+
+export { SingleApp, SplitAppSearch, SplitAppResponse }

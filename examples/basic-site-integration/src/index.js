@@ -1,35 +1,34 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { createStore, combineReducers, applyMiddleware } from 'redux'
-import { Provider } from 'react-redux'
-import thunkMiddleware from 'redux-thunk'
-import pipelines from 'sajari-react/api/reducers/pipeline'
-import search from 'sajari-react/ui/reducers/Search'
-import { resetPipelinePageMiddleware, searchPipelineMiddleware } from 'sajari-react/ui/middleware/Search'
-import GoogleAnalytics from 'sajari-react/ui/Analytics/ga'
-import AnalyticsEvents from 'sajari-react/ui/middleware/Events'
-
-import App from './App'
+import { SingleApp, SplitAppSearch, SplitAppResponse } from './App'
 
 function sjsi(config) {
   if (!config) {
-    console.error('global value "_sjsi" not found, it is needed for Sajari Search Interface')
+    console.error('global value "_sjsi" not found, please check the code snippet for your Sajari search interface')
     return
   }
 
-  const store = createStore(
-    combineReducers({ pipelines, search }),
-    process.env.NODE_ENV === 'development' && window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-    applyMiddleware(thunkMiddleware, resetPipelinePageMiddleware, searchPipelineMiddleware, AnalyticsEvents(new GoogleAnalytics()))
-  )
+  if (config.attachTarget) {
+    ReactDOM.render(
+      <SingleApp config={config}/>,
+      config.attachTarget
+    );
+    return;
+  }
 
-  ReactDOM.render(
-    <Provider store={store}>
-      <App config={config}/>
-    </Provider>,
-    config.attachTarget
-  )
+  if (config.attachSplitSearchBox && config.attachSplitResponse) {
+    ReactDOM.render(
+      <SplitAppSearch config={config}/>,
+      config.attachSplitSearchBox
+    );
+
+    ReactDOM.render(
+      <SplitAppResponse config={config}/>,
+      config.attachSplitResponse
+    );
+    return
+  }
 }
 
 sjsi(window._sjsi)

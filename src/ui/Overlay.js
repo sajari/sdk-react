@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import Response from '../pipeline/Response'
 import { setActive } from './actions/Overlay'
-import { Results, PipelineSummary } from './Results'
+import { WrappedResults, PipelineSummary } from './Results'
 import Tabs from './Tabs'
 import Pipeline from '../pipeline/Pipeline'
 import Value from '../pipeline/Value'
@@ -62,7 +62,7 @@ const DefaultOverlay = ({ tabs, tabsOnChange, defaultTab, logoUrl, pipeline, res
     <Tabs defaultTab={defaultTab} tabs={tabs} onChange={tabsOnChange} />
     <Response pipeline={pipeline}>
       <PipelineSummary pipeline={pipeline} />
-      <Results />
+      <WrappedResults />
     </Response>
   </Overlay>
 )

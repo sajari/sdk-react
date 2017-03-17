@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 
 import { Limit, Offset } from '../api'
 
-import Value from '../pipeline/Value'
-
 import { setPage, triggerSearch } from './actions/Search'
 
 
@@ -101,41 +99,6 @@ WrappedPaginator.defaultProps = {
   namespace: 'default'
 }
 
-const pageResultsPerPage = ({ pipeline, page, resultsPerPage }) => (
-  <div>
-    <Value pipeline={pipeline} name="resultsPerPage" value={resultsPerPage} />
-    <Value pipeline={pipeline} name="page" value={page} />
-  </div>
-)
-
-/* PageResultsPerPage renders pipeline values for page and resultsPerPage */
-const PageResultsPerPage = connect(
-  ({ search }) => ({ page: search.page, resultsPerPage: search.resultsPerPage }),
-)(pageResultsPerPage)
-
-const PipelinePaginator = connect(
-  (state, props) => {
-    const pipelineStatus = state.pipelines.pipelineStatus[`${props.namespace}|${props.pipeline}`]
-    let totalResults = 0
-    if (pipelineStatus && pipelineStatus.data) {
-      totalResults = parseInt(pipelineStatus.data.searchResponse.totalResults, 10)
-    }
-    return {
-      page: state.search.page,
-      resultsPerPage: state.search.resultsPerPage,
-      totalResults
-    }
-  },
-  (dispatch, { namespace, pipeline }) => ({ setPage: p => {
-    dispatch(setPage(p))
-    dispatch(triggerSearch(namespace, pipeline))
-  } })
-)(Paginator)
-
-PipelinePaginator.defaultProps = {
-  namespace: 'default'
-}
-
 const pageLimitOffset = ({ page, resultsPerPage, ...others }) => (
   <div>
     <Limit limit={resultsPerPage} { ...others } />
@@ -171,4 +134,4 @@ const Page = connect(
   // } })
 )(page)
 
-export { PageLimitOffset, WrappedPaginator, Paginator, PageResultsPerPage, PipelinePaginator }
+export { PageLimitOffset, WrappedPaginator, Paginator }
