@@ -39,6 +39,8 @@ class NamespaceState {
     // If q == "" then clear the results immediately and don't run a search.
     if (this.values["q"] === "") {
       this.results = undefined;
+      this.resetTracking();
+      return;
     }
 
     const client = new Sajari.Client(this.project, this.collection);
@@ -57,13 +59,12 @@ class NamespaceState {
     }
 
     // Record the QID and the sequence
-    if (this.tracking.qid && this.tracking.seq) {
+    if (this.tracking.qid && this.tracking.seq >= 0) {
       tracking.i = this.tracking.qid;
-      tracking.s = this.tracking.seq
-    } else {
-      this.tracking.qid = tracking.i;
-      this.tracking.seq = tracking.s;
+      tracking.s = this.tracking.seq+1;
     }
+    this.tracking.qid = tracking.i;
+    this.tracking.seq = tracking.s;
 
     client.searchPipeline(this.pipeline, this.values, tracking, (err, res) => {
       // Discard this result if another (more recent query) has been sent.
