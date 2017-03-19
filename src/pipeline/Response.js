@@ -36,9 +36,25 @@ class Response extends React.Component {
   render() {
     const { children } = this.props;
 
+    const time = this.state.searchResponse.time;
+    if (!time) {
+      return null;
+    }
+
+    let values = this._state().getValues();
+    const text = values["q.used"] || values["q"]
+    if (!text) {
+      return null;
+    }
+
     return (
       <div>
-        {React.Children.map(children, c => React.cloneElement(c, this.state.searchResponse))}
+        {React.Children.map(children, c => {
+          if (c === null) {
+            return c
+          }
+          return React.cloneElement(c, this.state.searchResponse);
+        })}
       </div>
     );
   }
@@ -92,12 +108,7 @@ class Summary extends React.Component {
   render() {
     let values = this._state().getValues();
     const { time, totalResults } = this.props;
-
     const text = values["q.used"] || values["q"]
-
-    if (!totalResults || !text) {
-      return null;
-    }
 
     const page = parseInt(values.page, 10)
     const pageNumber = page && page > 1 ? `Page ${page} of ` : ''
@@ -105,7 +116,7 @@ class Summary extends React.Component {
     return (
       <div className='sj-result-summary'>
         {`${pageNumber}${totalResults} results for `}
-        &quot;<strong>{values["q.used"] || values["q"]}</strong>&quot;
+        &quot;<strong>{text}</strong>&quot;
         {` (${queryTimeToSeconds(time)})`}
       </div>
     )
@@ -192,11 +203,6 @@ const Page = ({ currentPage, page, setPage, children }) => (
 
 class Paginator extends React.Component {
   render() {
-    const { totalResults } = this.props;
-    if (!totalResults) {
-      return null;
-    }
-
     const _state = State.ns(this.props.namespace);
     const setPage = (page) => {
       window.scrollTo(0, 0);
@@ -206,7 +212,7 @@ class Paginator extends React.Component {
 
     const page = values.page ? parseInt(values.page, 10) : 1;
     const resultsPerPage = parseInt(values.resultsPerPage, 10)
-    const totalResultsInt = parseInt(totalResults, 10)
+    const totalResultsInt = parseInt(this.props.totalResults, 10)
 
     return <RawPaginator setPage={setPage} page={page} resultsPerPage={resultsPerPage} totalResults={totalResultsInt} />
   }
