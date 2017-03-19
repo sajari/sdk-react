@@ -5,12 +5,7 @@ class NamespaceState {
     this.namespace = namespace;
     this.values = {};
 
-    this.trackingData = {};
-    
-    this.tracking = null;
-    
-    this.trackingSeq = 0;
-    this.trackingQid = "";
+    this.tracking = {};
 
     this.listeners = [];
   }
@@ -32,7 +27,12 @@ class NamespaceState {
   }
 
   setTrackingData(data) {
-    this.trackingData = data;
+    this.tracking.data = data;
+  }
+
+  resetTracking() {
+    this.tracking.seq = null;
+    this.tracking.qid = null;
   }
 
   _runSearch() {
@@ -42,23 +42,44 @@ class NamespaceState {
     }
 
     const client = new Sajari.Client(this.project, this.collection);
-    if (!this.tracking) {
-      this.tracking = new Sajari.Tracking();
-    }
+    const tracking = new Sajari.Tracking()
 
     if (this.pipeline === 'website') {
-      this.tracking.clickTokens('url') // NOTE: this will not be cleared if the pipeline is changed
+      tracking.clickTokens('url') // NOTE: this will not be cleared if the pipeline is changed
     }
 
-    // trackingData is merged into the tracking.data (to avoid clearing existing values unless
+    // tracking.data is merged into tracking.data (to avoid clearing existing values unless
     // another explicitly replaces it).
-    if (this.trackingData) {
-      for (let k in this.trackingData) {
-        this.tracking.data[k] = this.trackingData[k];
+    if (this.tracking.data) {
+      for (let k in this.tracking.data) {
+        tracking.data[k] = this.tracking.data[k];
       }
     }
 
-    client.searchPipeline(this.pipeline, this.values, this.tracking, (err, res) => {
+    // Record the QID and the sequence
+    if (this.tracking.qid && this.tracking.seq) {
+      tracking.i = this.tracking.qid;
+      tracking.s = this.tracking.seq
+    } else {
+      this.tracking.qid = tracking.i;
+      this.tracking.seq = tracking.s;
+    }
+
+    client.searchPipeline(this.pipeline, this.values, tracking, (err, res) => {
+      // Discard this result if another (more recent query) has been sent.
+      if (this.tracking.qid === tracking.i && this.tracking.seq > tracking.s) {
+        return;
+      }
+
+      if (!res) {
+        if (err) {
+          this.error = err;
+          return;
+        }
+        this.error = "No response.";
+        return
+      }
+
       if (res.values) {
         // TODO: Move this out into a method.
         // This stuff is specific to autocomplete only.
@@ -93,6 +114,10 @@ class NamespaceState {
     return this.status;
   }
 
+  getError() {
+    return this.error;
+  }
+
   getResults() {
     return this.results;
   }
@@ -100,27 +125,50 @@ class NamespaceState {
   getValues() {
     return this.values;
   }
-  
-  setValues(values, runSearch = false) {
+
+  beforeMergingValues(values) {
     // Only if values["q"] is set do we check if the value has changed.
     if (values["q"] !== undefined) {
       let prevQ = this.values["q"] || "";
       let currQ = values["q"];
 
-      if (!currQ.startsWith(prevQ.substr(0, 3))) {
-        this.tracking.resetID();
+      // Reset the tracking if the new query differs in prefix to the old.
+      if (!currQ.startsWith(prevQ.substr(0, Math.min(currQ.length, 3)))) {
+        this.resetTracking();
       }
 
+      // If the query has changed then reset the page, but only if
+      // we're not already trying to set it.
+      if (currQ !== prevQ && values["page"] === undefined) {
+        this.values["page"] = "1";
+      }
+
+      // Clear q.used when setting q to be "", but only if we're
+      // not also setting q.used.
+      if (currQ === "" && values["q.used"] === undefined) {
+        delete this.values["q.used"];
+      }
+    }
+
+    // Only if values["filter"] is set do we check if the value has changed.
+    if (values["filter"] !== undefined) {
+      let prevFilter = this.values["filter"] || "";
       // Reset the page, but only if we're not already trying
       // to set it.
-      if (values["page"] === undefined) {
+      if (prevFilter !== values["filter"] && values["page"] === undefined) {
         this.values["page"] = "1";
       }
     }
+  }
 
+  setValues(values, runSearch = false) {
+    this.beforeMergingValues(values);
+
+    // Merge values into this.values.
     for (let k in values) {
       this.values[k] = values[k]
     }
+
     if (runSearch) {
       this._runSearch();
     }
@@ -131,14 +179,14 @@ class NamespaceState {
 class State {
   constructor() {
     this._ns = {}
-    
+
     this.ns = this.ns.bind(this);
   }
-  
+
   default() {
     return this.ns("default");
   }
-  
+
   ns(namespace) {
     let n = this._ns[namespace]
     if (!n) {
