@@ -121,9 +121,9 @@ class Results extends React.Component {
       return <div className='sj-result-list' />
     }
 
-    const results = data.searchResponse.results.map(r => (
+    const results = data.searchResponse.results.map((r, index) => (
       <Result
-        key={r.values._id}
+        key={r.values._id || ""+index+r.values.url}
         title={r.values.title}
         description={r.values.description}
         url={r.values.url}
