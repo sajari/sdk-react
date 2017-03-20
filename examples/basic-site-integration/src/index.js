@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { SingleApp, SplitAppSearch, SplitAppResponse } from './App'
+import { SearchInterface, SearchBox, SearchResponse } from './App'
 
 function sjsi(config) {
   if (!config) {
@@ -11,21 +11,24 @@ function sjsi(config) {
 
   if (config.attachTarget) {
     ReactDOM.render(
-      <SingleApp config={config}/>,
+      <SearchInterface config={config}/>,
       config.attachTarget
     );
     return;
   }
 
-  if (config.attachSplitSearchBox && config.attachSplitResponse) {
+  const attachSearchBox = config.attachSearchBox || config.attachSplitSearchBox;
+  const attachSearchResponse = config.attachSearchResponse || config.attachSplitResponse;
+
+  if (attachSearchBox && attachSearchResponse) {
     ReactDOM.render(
-      <SplitAppSearch config={config}/>,
-      config.attachSplitSearchBox
+      <SearchBox config={config}/>,
+      attachSearchBox
     );
 
     ReactDOM.render(
-      <SplitAppResponse config={config}/>,
-      config.attachSplitResponse
+      <SearchResponse config={config}/>,
+      attachSearchResponse
     );
     return
   }
