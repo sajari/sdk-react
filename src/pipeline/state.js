@@ -1,5 +1,7 @@
 import * as Sajari from 'sajari'
 
+import './polyfill' // for .startsWith
+
 class NamespaceState {
   constructor(namespace) {
     this.namespace = namespace;

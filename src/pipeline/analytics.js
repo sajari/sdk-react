@@ -1,5 +1,7 @@
 import GA from "sajari-react/ui/Analytics/ga";
 
+import './polyfill' // for .startsWith
+
 class Analytics {
   constructor(state, ga = new GA()) {
     window.addEventListener("beforeunload", this.beforeunload);
