@@ -71,6 +71,12 @@ class NamespaceState {
     this.tracking.seq = tracking.s;
 
     client.searchPipeline(this.pipeline, this.values, tracking, (err, res) => {
+      // Discard this result if another (more recent query) has been sent through
+      // with a different qid.
+      if (this.tracking.qid !== tracking.i) {
+        return;
+      }
+
       // Discard this result if another (more recent query) has been sent.
       if (this.tracking.qid === tracking.i && this.tracking.seq > tracking.s) {
         return;
