@@ -41,6 +41,8 @@ class NamespaceState {
     // If q == "" then clear the results immediately and don't run a search.
     if (this.values["q"] === "") {
       this.results = undefined;
+      delete this.values["filter"];
+      delete this.values["page"];
       this.resetTracking();
       return;
     }
