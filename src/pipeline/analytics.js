@@ -4,7 +4,6 @@ import './polyfill' // for .startsWith
 
 class Analytics {
   constructor(state, ga = new GA()) {
-    window.addEventListener("beforeunload", this.beforeunload);
     this.state = state;
     this.ga = ga;
 
@@ -12,6 +11,10 @@ class Analytics {
     this.body = "";
 
     this.onChange = this.onChange.bind(this);
+    this.beforeunload = this.beforeunload.bind(this);
+    this.resultClicked = this.resultClicked.bind(this);
+
+    window.addEventListener("beforeunload", this.beforeunload);
 
     state.registerChangeListener(this.onChange);
   }
