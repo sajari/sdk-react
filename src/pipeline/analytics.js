@@ -22,6 +22,7 @@ class Analytics {
   beforeunload() {
     if (this.enabled && this.body) {
       this.ga.onPageClose(this.body);
+      this.enabled = false;
     }
   }
 
@@ -50,6 +51,7 @@ class Analytics {
   resultClicked() {
     if (this.enabled && this.body) {
       this.ga.onResultClicked(this.body);
+      this.enabled = false;
     }
   }
 }
