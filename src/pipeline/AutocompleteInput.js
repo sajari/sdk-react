@@ -31,11 +31,11 @@ class AutocompleteInput extends React.Component {
   componentDidMount() {
     findDOMNode(this.refs.searchInput).focus()
 
-    this._state().registerChangeListener(this.onValuesChange)
+    this._state().registerResultsListener(this.onValuesChange)
   }
-  
+
   componentWillUnmount() {
-    this._state().unregisterChangeListener(this.onValuesChange)
+    this._state().unregisterResultsListener(this.onValuesChange)
   }
 
   onValuesChange() {
