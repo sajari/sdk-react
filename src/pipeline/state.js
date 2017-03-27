@@ -9,8 +9,11 @@ class NamespaceState {
 
     this.tracking = {};
 
-    this.listeners = [];
+    this.resultsListeners = [];
     this.resetTrackingListeners = [];
+    this.resultClickedListeners = [];
+
+    this.resultClicked = this.resultClicked.bind(this)
   }
 
   getPipeline() {
@@ -106,17 +109,17 @@ class NamespaceState {
         this.setValues(res.values, false);
       }
       this.results = res.searchResponse;
-      this.notify();
+      this.resultsNotify();
     })
   }
 
   // Changes to values and also changes to results.
-  registerChangeListener(listener) {
-    this.listeners.push(listener)
+  registerResultsListener(listener) {
+    this.resultsListeners.push(listener)
   }
 
-  unregisterChangeListener(listener) {
-    this.listeners = this.listeners.filter(l => l !== listener)
+  unregisterResultsListener(listener) {
+    this.resultsListeners = this.resultsListeners.filter(l => l !== listener)
   }
 
   registerResetListener(listener) {
@@ -127,8 +130,20 @@ class NamespaceState {
     this.resetTrackingListeners = this.resetTrackingListeners.filter(l => l !== listener);
   }
 
-  notify() {
-    this.listeners.forEach(l => l())
+  registerResultClickedListener(listener) {
+    this.resultClickedListeners.push(listener)
+  }
+
+  unregisterResultClickedListener(listener) {
+    this.resultClickedListeners = this.resultClickedListeners.filter(l => l !== listener)
+  }
+
+  resultsNotify() {
+    this.resultsListeners.forEach(l => l())
+  }
+
+  resultClicked() {
+    this.resultClickedListeners.forEach(l => l());
   }
 
   getStatus() {
@@ -193,7 +208,7 @@ class NamespaceState {
     if (runSearch) {
       this._runSearch();
     }
-    this.notify();
+    this.resultsNotify();
   }
 }
 
