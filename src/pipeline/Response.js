@@ -22,11 +22,11 @@ class Response extends React.Component {
   }
 
   componentDidMount() {
-    this._state().registerChangeListener(this.onValuesChange);
+    this._state().registerResultsListener(this.onValuesChange);
   }
 
   componentWillUnmount() {
-    this._state().unregisterChangeListener(this.onValuesChange);
+    this._state().unregisterResultsListener(this.onValuesChange);
   }
 
   onValuesChange() {
@@ -94,11 +94,11 @@ class Summary extends React.Component {
   }
 
   componentDidMount() {
-    this._state().registerChangeListener(this.onValuesChange);
+    this._state().registerResultsListener(this.onValuesChange);
   }
 
   componentWillUnmount() {
-    this._state().unregisterChangeListener(this.onValuesChange);
+    this._state().unregisterResultsListener(this.onValuesChange);
   }
 
   onValuesChange() {
