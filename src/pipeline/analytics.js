@@ -17,7 +17,9 @@ class Analytics {
 
     window.addEventListener("beforeunload", this.beforeunload);
 
-    state.registerChangeListener(this.onChange);
+    state.registerResultsListener(this.onChange);
+    state.registerResetListener(this.resetBody);
+    state.registerResultClickedListener(this.resultClicked);
   }
 
   beforeunload() {
