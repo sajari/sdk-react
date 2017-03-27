@@ -60,9 +60,9 @@ class Response extends React.Component {
   }
 }
 
-const Results = (searchResponse, resultClicked) => {
-  if (searchResponse.results) {
-    return <RawResults data={{searchResponse: searchResponse}} resultClicked={resultClicked} />;
+const Results = (props) => {
+  if (props.results) {
+    return <RawResults data={{searchResponse: props}} resultClicked={props.resultClicked} />;
   }
   return null;
 }
