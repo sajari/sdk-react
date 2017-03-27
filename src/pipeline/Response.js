@@ -60,11 +60,17 @@ class Response extends React.Component {
   }
 }
 
-const Results = (props) => {
-  if (props.results) {
-    return <RawResults data={{searchResponse: props}} resultClicked={props.resultClicked} />;
+class Results extends React.Component {
+  render()  {
+    if (this.props.results) {
+      return <RawResults data={{searchResponse: this.props}} resultClicked={State.ns(this.props.namespace).resultClicked} />;
+    }
+    return null;
   }
-  return null;
+}
+
+Results.defaultProps = {
+  namespace: 'default'
 }
 
 Response.defaultProps = {
