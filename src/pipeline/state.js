@@ -10,6 +10,7 @@ class NamespaceState {
     this.tracking = {};
 
     this.listeners = [];
+    this.resetTrackingListeners = [];
   }
 
   getPipeline() {
@@ -35,6 +36,7 @@ class NamespaceState {
   resetTracking() {
     this.tracking.seq = null;
     this.tracking.qid = null;
+    this.resetTrackingListeners.forEach(l => l())
   }
 
   _runSearch() {
@@ -115,6 +117,14 @@ class NamespaceState {
 
   unregisterChangeListener(listener) {
     this.listeners = this.listeners.filter(l => l !== listener)
+  }
+
+  registerResetListener(listener) {
+    this.resetTrackingListeners.push(listener);
+  }
+
+  unregisterResetTrackingListener(listener) {
+    this.resetTrackingListeners = this.resetTrackingListeners.filter(l => l !== listener);
   }
 
   notify() {
