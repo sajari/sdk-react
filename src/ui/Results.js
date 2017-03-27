@@ -40,9 +40,9 @@ TokenLink.propTypes = {
   url: React.PropTypes.string.isRequired,
 }
 
-const Title = ({ title, url, token }) => (
+const Title = ({ title, url, token, resultClicked }) => (
   <h3 className='sj-result-title'>
-    <TokenLink token={token} url={url} text={title} />
+    <TokenLink token={token} url={url} text={title} resultClicked={resultClicked} />
   </h3>
 )
 
@@ -78,7 +78,7 @@ const Result = ({ title, description, url, token, showImage, image, resultClicke
         <Image url={image} title={title} />
       </TokenLink>
     ) : null}
-    <Title title={title} url={url} token={token} />
+    <Title title={title} url={url} token={token} resultClicked={resultClicked} />
     <Description description={description} />
     <Url url={url} token={token} resultClicked={resultClicked} />
     {showImage ? <div className='sj-result-close'/> : null}
