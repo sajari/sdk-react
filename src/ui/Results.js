@@ -117,6 +117,15 @@ class Results extends React.Component {
   render() {
     const { data, resultClicked } = this.props
 
+    const error = data && data.searchResponse && data.searchResponse.error
+    if (error) {
+      return (
+        <div className='sj-result-error'>
+          An error occured while searching.
+        </div>
+      )
+    }
+
     if (!data || !data.searchResponse || !data.searchResponse.results) {
       return <div className='sj-result-list' />
     }

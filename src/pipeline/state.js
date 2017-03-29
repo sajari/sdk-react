@@ -88,13 +88,14 @@ class NamespaceState {
       }
 
       if (!res) {
-        if (err) {
-          this.error = err;
-          return;
+        this.error = err || "No response.";
+        if (console && console.error) {
+          console.error("got error during search", this.error);
         }
-        this.error = "No response.";
-        return
+        this.resultsNotify();
+        return;
       }
+      this.error = null;
 
       if (res.values) {
         // TODO: Move this out into a method.

@@ -36,14 +36,13 @@ class Response extends React.Component {
   render() {
     const { children } = this.props;
 
+    const error = this._state().getError();
+
     const time = this.state.searchResponse.time;
-    if (!time) {
-      return null;
-    }
 
     let values = this._state().getValues();
     const text = values["q.used"] || values["q"]
-    if (!text) {
+    if (!text || !time && !error) {
       return null;
     }
 
@@ -53,7 +52,10 @@ class Response extends React.Component {
           if (c === null) {
             return c
           }
-          return React.cloneElement(c, this.state.searchResponse);
+          return React.cloneElement(c, {
+            ...this.state.searchResponse,
+            error
+          });
         })}
       </div>
     );
@@ -61,9 +63,14 @@ class Response extends React.Component {
 }
 
 class Results extends React.Component {
-  render()  {
-    if (this.props.results) {
-      return <RawResults data={{searchResponse: this.props}} resultClicked={State.ns(this.props.namespace).resultClicked} />;
+  render() {
+    if (this.props.results || this.props.error) {
+      return (
+        <RawResults
+          data={{ searchResponse: this.props }}
+          resultClicked={State.ns(this.props.namespace).resultClicked}
+        />
+      );
     }
     return null;
   }
@@ -113,11 +120,15 @@ class Summary extends React.Component {
 
   render() {
     let values = this._state().getValues();
-    const { time, totalResults } = this.props;
+    const { time, totalResults, error } = this.props;
     const text = values["q.used"] || values["q"]
 
-    const page = parseInt(values.page, 10)
-    const pageNumber = page && page > 1 ? `Page ${page} of ` : ''
+    if (error) {
+      return null;
+    }
+
+    const page = parseInt(values.page, 10);
+    const pageNumber = page && page > 1 ? `Page ${page} of ` : "";
 
     return (
       <div className='sj-result-summary'>
@@ -209,6 +220,9 @@ const Page = ({ currentPage, page, setPage, children }) => (
 
 class Paginator extends React.Component {
   render() {
+    if (this.props.error) {
+      return null;
+    }
     const _state = State.ns(this.props.namespace);
     const setPage = (page) => {
       window.scrollTo(0, 0);
