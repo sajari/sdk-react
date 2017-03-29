@@ -38,7 +38,7 @@ class Response extends React.Component {
 
     const error = this._state().getError();
 
-    const time = this.state.searchResponse.time;
+    const time = this.state.time;
 
     let values = this._state().getValues();
     const text = values["q.used"] || values["q"]
@@ -53,7 +53,7 @@ class Response extends React.Component {
             return c
           }
           return React.cloneElement(c, {
-            ...this.state.searchResponse,
+            ...this.state,
             error
           });
         })}
