@@ -30,7 +30,7 @@ class Response extends React.Component {
   }
 
   onValuesChange() {
-    this.setState(getState(this.props.namespace));
+    this.setState(this._state().getResults() || {});
   }
 
   render() {
