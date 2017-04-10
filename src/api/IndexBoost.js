@@ -52,7 +52,7 @@ const ScoreInstanceBoost = props => {
 
 ScoreInstanceBoost.propTypes = {
   threshold: React.PropTypes.number.isRequired,
-  min_count: React.PropTypes.number.isRequired,
+  minCount: React.PropTypes.number.isRequired,
   namespace: React.PropTypes.string,
 }
 
