@@ -167,3 +167,13 @@ ul > li {
   color: #333;
   border-bottom: 3px solid #333;
 }
+
+.sj-summary-override {
+  display: block;
+  padding-top: 2px;
+  font-size: 1.2em;
+}
+
+.sj-summary-override > a {
+  color: #1a0dab;
+}
