@@ -129,13 +129,14 @@ class Summary extends React.Component {
 
     const page = parseInt(values.page, 10);
     const pageNumber = page && page > 1 ? `Page ${page} of ` : "";
-    const runOverride = () => {
+    const runOverride = e => {
+      e.preventDefault();
       this._state().setValues({ q: values["q"], "q.override": "true" }, true);
     };
     const override = values["q.used"] && values["q.used"] !== values["q"]
       ? <span className="sj-summary-override">
           {`search instead for `}
-          <a onClick={runOverride} href="#"> {values["q"]} </a>
+          <a onClick={runOverride} href=""> {values["q"]} </a>
         </span>
       : null;
 
