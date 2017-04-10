@@ -129,12 +129,25 @@ class Summary extends React.Component {
 
     const page = parseInt(values.page, 10);
     const pageNumber = page && page > 1 ? `Page ${page} of ` : "";
+    const runOverride = () => {
+      this._state().setValues({ q: values["q"], "q.override": "true" }, true);
+    };
+    const override = values["q.used"] && values["q.used"] !== values["q"]
+      ? <span className="sj-summary-override">
+          {`search instead for `}
+          <a onClick={runOverride} href="#"> {values["q"]} </a>
+        </span>
+      : null;
 
     return (
-      <div className='sj-result-summary'>
-        {`${pageNumber}${totalResults} results for `}
-        &quot;<strong>{text}</strong>&quot;
-        {` (${queryTimeToSeconds(time)})`}
+      <div className="sj-result-summary">
+        <span className="sj-summary-results">
+          {`${pageNumber}${totalResults} results for `}
+          "<strong>{text}</strong>"
+          {" "}
+        </span>
+        <span className="sj-query-time">{`(${time}) `}</span>
+        {override}
       </div>
     )
   }
