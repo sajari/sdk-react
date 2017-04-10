@@ -280,7 +280,7 @@ Score is an instance boost that boosts term instances based on their individual 
 | minCount  | number | Yes      | none    | The minimum number of interactions before the score is applied       |
 
 ```javascript
-<ScoreInstanceBoost threshold={1.5} />
+<ScoreInstanceBoost threshold={0.95} minCount={5} />
 ```
 
 ### Field Boosts
