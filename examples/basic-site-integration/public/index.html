@@ -26,8 +26,8 @@
     <script>
         var getUrlParam = function(e){var t = new RegExp("[?&]" + e.replace(/[\[\]]/g, "\\$&") + "(=([^&#]*)|&|#|$)"),a = t.exec(window.location.href);return a && a[2] ? decodeURIComponent(a[2].replace(/\+/g, " ")) : ""};
         window._sjsi = {
-          project: "{{.Project}}",       // Set this to your project.
-          collection: "{{.Collection}}", // Set this to your collection.
+          project: "sajariptyltd",       // Set this to your project.
+          collection: "sajari-com", // Set this to your collection.
           values: {
               q: getUrlParam("q"), // Take the default search text from the query params (if set).
               resultsPerPage: "10" // Return 10 results per page.
@@ -40,7 +40,7 @@
           tabFilters: { // Tabs configuration.
             defaultTab: 'All', // Title of the default tab (NB: must have empty filter).
             tabs: [{title: 'All', filter: ''}, { title: 'Blog', filter: "dir1='blog'" }, { title: 'Not Blog', filter: "dir1!='blog'"}], // Ordered list of tabs to show.
-          },
+          }
         };
     </script>
   </body>

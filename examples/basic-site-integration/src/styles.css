@@ -219,3 +219,38 @@ ul > li {
   color: #333;
   border-bottom: 3px solid #333;
 }
+
+.sj-summary-override {
+  display: block;
+  padding-top: 16px;
+  font-size: 1.2em;
+}
+
+.sj-summary-override > a {
+  color: #1a0dab;
+}
+
+.sj-result-image {
+  width: 20%;
+  margin-right: 1em;
+}
+
+.sj-result-image-container {
+  padding-bottom: 56.25%;
+  position: relative;
+  overflow: hidden;
+}
+
+.sj-result-image-container > img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  margin: auto;
+  padding-left: 10px;
+}
