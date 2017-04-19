@@ -50,7 +50,7 @@ const SearchResponse = ({ config }) => {
     <Response>
       {tabs}
       <Summary />
-      <Results />
+      <Results showImages={config.showImages} />
       <Paginator />
     </Response>
   );

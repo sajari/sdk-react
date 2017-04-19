@@ -69,6 +69,7 @@ class Results extends React.Component {
         <RawResults
           data={{ searchResponse: this.props }}
           resultClicked={State.ns(this.props.namespace).resultClicked}
+          showImages={this.props.showImages}
         />
       );
     }

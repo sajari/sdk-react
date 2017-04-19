@@ -62,7 +62,15 @@ class Image extends React.Component {
 
   render() {
     const onError = () => this.setState({ show: false })
-    return <img className='sj-result-image' style={this.state.show ? undefined : { display: 'none' }} onError={onError} src={this.props.url} alt={this.props.title} />
+    return (
+      <img
+        className='sj-result-image'
+        style={this.state.show ? undefined : { display: 'none' }}
+        onError={onError}
+        src={this.props.url}
+        alt={this.props.title}
+      />
+    )
   }
 }
 
@@ -73,15 +81,20 @@ Image.propTypes = {
 
 const Result = ({ title, description, url, token, showImage, image, resultClicked }) => (
   <div className='sj-result'>
+    <div className="sj-result-text">
+      <Title title={title} url={url} token={token} resultClicked={resultClicked} />
+      <Description description={description} />
+      <Url url={url} token={token} resultClicked={resultClicked} />
+    </div>
     {showImage ? (
-      <TokenLink token={token} url={url}>
-        <Image url={image} title={title} />
-      </TokenLink>
+      <div className="sj-result-image">
+        <div className="sj-result-image-container">
+          <TokenLink token={token} url={url}>
+            <Image url={image} title={title} />
+          </TokenLink>
+        </div>
+      </div>
     ) : null}
-    <Title title={title} url={url} token={token} resultClicked={resultClicked} />
-    <Description description={description} />
-    <Url url={url} token={token} resultClicked={resultClicked} />
-    {showImage ? <div className='sj-result-close'/> : null}
   </div>
 )
 
@@ -115,7 +128,7 @@ class Results extends React.Component {
   }
 
   render() {
-    const { data, resultClicked } = this.props
+    const { data, resultClicked, showImages } = this.props
 
     const error = data && data.searchResponse && data.searchResponse.error
     if (error) {
@@ -136,6 +149,8 @@ class Results extends React.Component {
         title={r.values.title}
         description={r.values.description}
         url={r.values.url}
+        image={r.values.image}
+        showImage={showImages}
         token={r.tokens.click.token}
         resultClicked={resultClicked}
       />
