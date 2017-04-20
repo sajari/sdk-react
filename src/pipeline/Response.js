@@ -134,7 +134,7 @@ class Summary extends React.Component {
       this._state().setValues({ q: values["q"], "q.override": "true" }, true);
     };
     const override = values["q.used"] && values["q.used"] !== values["q"]
-      ? <span className="sj-summary-override">
+      ? <span className="sj-summary-autocomplete-override">
           {`search instead for `}
           <a onClick={runOverride} href=""> {values["q"]} </a>
         </span>
