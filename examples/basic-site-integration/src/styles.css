@@ -168,12 +168,12 @@ ul > li {
   border-bottom: 3px solid #333;
 }
 
-.sj-summary-override {
+.sj-summary-autocomplete-override {
   display: block;
   padding-top: 16px;
   font-size: 1.2em;
 }
 
-.sj-summary-override > a {
+.sj-summary-autocomplete-override > a {
   color: #1a0dab;
 }
