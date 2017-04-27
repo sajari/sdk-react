@@ -1,6 +1,6 @@
 import React from 'react'
 
-import State from './state'
+import { State, RESULTS_CHANGED, RESULT_CLICKED } from './state'
 
 import { Results as RawResults } from 'sajari-react/ui/Results'
 
@@ -14,7 +14,7 @@ class Response extends React.Component {
   constructor(props) {
     super(props)
     this.state = getState(this.props.namespace)
-    this.onValuesChange = this.onValuesChange.bind(this)
+    this.onResultsChange = this.onResultsChange.bind(this)
   }
 
   _state() {
@@ -22,14 +22,14 @@ class Response extends React.Component {
   }
 
   componentDidMount() {
-    this._state().registerResultsListener(this.onValuesChange);
+    this._state().registerListener(RESULTS_CHANGED, this.onResultsChange);
   }
 
   componentWillUnmount() {
-    this._state().unregisterResultsListener(this.onValuesChange);
+    this._state().unregisterListener(RESULTS_CHANGED, this.onResultsChange);
   }
 
-  onValuesChange() {
+  onResultsChange() {
     this.setState(this._state().getResults() || {});
   }
 
@@ -65,10 +65,11 @@ class Response extends React.Component {
 class Results extends React.Component {
   render() {
     if (this.props.results || this.props.error) {
+      const resultClicked = url => State.ns(this.props.namespace).notify(RESULT_CLICKED, url);
       return (
         <RawResults
           data={{ searchResponse: this.props }}
-          resultClicked={State.ns(this.props.namespace).resultClicked}
+          resultClicked={resultClicked}
           showImages={this.props.showImages}
         />
       );
@@ -85,17 +86,6 @@ Response.defaultProps = {
   namespace: 'default',
 }
 
-function queryTimeToSeconds(t="") {
-  const parseAndFormat = x => (parseFloat(t) / x).toFixed(5) + 's'
-  if (t.indexOf('ms') >= 0) {
-    return parseAndFormat(1000)
-  }
-  if (t.indexOf('µs') >= 0) {
-    return parseAndFormat(1000000)
-  }
-  return t
-}
-
 class Summary extends React.Component {
   constructor(props) {
     super(props)
@@ -108,11 +98,11 @@ class Summary extends React.Component {
   }
 
   componentDidMount() {
-    this._state().registerResultsListener(this.onValuesChange);
+    this._state().registerListener(RESULTS_CHANGED, this.onValuesChange);
   }
 
   componentWillUnmount() {
-    this._state().unregisterResultsListener(this.onValuesChange);
+    this._state().unregisterListener(RESULTS_CHANGED, this.onValuesChange);
   }
 
   onValuesChange() {
