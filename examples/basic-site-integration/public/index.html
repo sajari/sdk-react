@@ -36,7 +36,11 @@
           attachSearchResponse: document.getElementById("search-response"),
           pipeline: "website",           // Run the website pipeline.
           searchBoxPlaceHolder: "Type to search",
-          showImages: true
+          showImages: true,
+          tabFilters: {
+            defaultTab: 'All',
+            tabs: [{title: 'All', filter: ''}, { title: 'Blog', filter: "dir1='blog'" }, { title: 'Not Blog', filter: "dir1!='blog'"}],
+          },
         };
     </script>
   </body>
