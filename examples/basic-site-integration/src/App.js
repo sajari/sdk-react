@@ -6,7 +6,7 @@ import Tabs from 'sajari-react/pipeline/Tabs'
 import Analytics from 'sajari-react/pipeline/analytics'
 
 
-import State from 'sajari-react/pipeline/state'
+import { State } from 'sajari-react/pipeline/state'
 
 import './styles.css'
 
@@ -30,7 +30,7 @@ class SearchBox extends React.Component {
     }
 
     if (!this.props.config.disableGA) {
-      new Analytics(_state);
+      new Analytics("default");
     }
   }
 
@@ -50,7 +50,7 @@ const SearchResponse = ({ config }) => {
     <Response>
       {tabs}
       <Summary />
-      <Results />
+      <Results showImages={config.showImages} />
       <Paginator />
     </Response>
   );

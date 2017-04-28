@@ -2,22 +2,26 @@ import * as Sajari from 'sajari'
 
 import './polyfill' // for .startsWith
 
-class NamespaceState {
+const TRACKING_RESET = 'TRACKING_RESET';
+const RESULT_CLICKED = 'RESULT_CLICKED';
+const RESULTS_CHANGED = 'RESULTS_CHANGED';
+const VALUES_CHANGED = 'VALUES_CHANGED';
+
+class state {
   constructor(namespace) {
     this.namespace = namespace;
     this.values = {};
-
     this.tracking = {};
 
-    this.resultsListeners = [];
-    this.resetTrackingListeners = [];
-    this.resultClickedListeners = [];
-
-    this.resultClicked = this.resultClicked.bind(this)
+    this.listeners = [];
   }
 
   getPipeline() {
     return this.pipeline;
+  }
+
+  getNamespace() {
+    return this.namespace;
   }
 
   setPipeline(pipeline) {
@@ -39,17 +43,31 @@ class NamespaceState {
   resetTracking() {
     this.tracking.seq = null;
     this.tracking.qid = null;
-    this.resetTrackingListeners.forEach(l => l())
+    this.notify(TRACKING_RESET);
+  }
+
+  reset() {
+    this.results = undefined;
+    this.notify(RESULTS_CHANGED);
+    this.resetTracking();
+  }
+
+  // beforeSearch is run before a search is started (i.e. sent to the server).
+  // If it returns false, then we bail.
+  beforeSearch() {
+    // If q == "" then clear the results immediately and don't run a search.
+    if (this.values["q"] === "") {
+      this.reset()
+      delete this.values["filter"];
+      delete this.values["page"];
+      return false;
+    }
+    return true
   }
 
   _runSearch() {
-    // If q == "" then clear the results immediately and don't run a search.
-    if (this.values["q"] === "") {
-      this.results = undefined;
-      delete this.values["filter"];
-      delete this.values["page"];
-      this.resetTracking();
-      return;
+    if (!this.beforeSearch()) {
+      return
     }
 
     const client = new Sajari.Client(this.project, this.collection);
@@ -92,7 +110,7 @@ class NamespaceState {
         if (console && console.error) {
           console.error("got error during search", this.error);
         }
-        this.resultsNotify();
+        this.notify(RESULTS_CHANGED);
         return;
       }
       this.error = null;
@@ -100,8 +118,8 @@ class NamespaceState {
       if (res.values) {
         // TODO: Move this out into a method.
         // This stuff is specific to autocomplete only.
-        let state = this.getValues();
-        if (res.values["q"] && res.values["q"] !== state["q"]) {
+        let values = this.getValues();
+        if (res.values["q"] && res.values["q"] !== values["q"]) {
           res.values["q.used"] = res.values["q"];
           delete res.values["q"];
         } else {
@@ -110,41 +128,29 @@ class NamespaceState {
         this.setValues(res.values, false);
       }
       this.results = res.searchResponse;
-      this.resultsNotify();
+      this.notify(RESULTS_CHANGED);
     })
   }
 
-  // Changes to values and also changes to results.
-  registerResultsListener(listener) {
-    this.resultsListeners.push(listener)
+  registerListener(type, listener) {
+    this.listeners.push({ type, listener })
   }
 
-  unregisterResultsListener(listener) {
-    this.resultsListeners = this.resultsListeners.filter(l => l !== listener)
+  unregisterListener(type, listener) {
+    this.listeners = this.listeners.filter(l => {
+      if (l.type === type && l.listener === listener) {
+        return false;
+      }
+      return true;
+    });
   }
 
-  registerResetListener(listener) {
-    this.resetTrackingListeners.push(listener);
-  }
-
-  unregisterResetTrackingListener(listener) {
-    this.resetTrackingListeners = this.resetTrackingListeners.filter(l => l !== listener);
-  }
-
-  registerResultClickedListener(listener) {
-    this.resultClickedListeners.push(listener)
-  }
-
-  unregisterResultClickedListener(listener) {
-    this.resultClickedListeners = this.resultClickedListeners.filter(l => l !== listener)
-  }
-
-  resultsNotify() {
-    this.resultsListeners.forEach(l => l())
-  }
-
-  resultClicked() {
-    this.resultClickedListeners.forEach(l => l());
+  notify(type, ...x) {
+    this.listeners.forEach(l => {
+      if (l.type === type) {
+        l.listener(...x);
+      }
+    })
   }
 
   getStatus() {
@@ -209,7 +215,7 @@ class NamespaceState {
     if (runSearch) {
       this._runSearch();
     }
-    this.resultsNotify();
+    this.notify(VALUES_CHANGED);
   }
 }
 
@@ -227,7 +233,7 @@ class State {
   ns(namespace) {
     let n = this._ns[namespace]
     if (!n) {
-      n = new NamespaceState();
+      n = new state(namespace);
       this._ns[namespace] = n
     }
     return n;
@@ -236,4 +242,4 @@ class State {
 
 const _state = new State();
 
-export default _state
+export { _state as State, TRACKING_RESET, RESULT_CLICKED, RESULTS_CHANGED, VALUES_CHANGED }

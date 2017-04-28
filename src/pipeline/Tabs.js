@@ -1,6 +1,6 @@
 import React from 'react'
 
-import State from 'sajari-react/pipeline/state'
+import { State, VALUES_CHANGED } from 'sajari-react/pipeline/state'
 
 const _state = State.default();
 
@@ -8,7 +8,7 @@ const _state = State.default();
 class Tabs extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {selected: this.props.defaultTab};
     this.onValuesChange = this.onValuesChange.bind(this);
   }
@@ -18,11 +18,11 @@ class Tabs extends React.Component {
   }
 
   componentDidMount() {
-    this._state().registerChangeListener(this.onValuesChange);
+    this._state().registerListener(VALUES_CHANGED, this.onValuesChange);
   }
 
   componentWillUnmount() {
-    this._state().unregisterChangeListener(this.onValuesChange);
+    this._state().unregisterListener(VALUES_CHANGED, this.onValuesChange);
   }
 
   onValuesChange() {
@@ -31,7 +31,7 @@ class Tabs extends React.Component {
       this.setState({ selected: this.props.defaultTab });
     }
   }
-  
+
   onClickTab(title, filter) {
     this.setState({
       selected: title,
