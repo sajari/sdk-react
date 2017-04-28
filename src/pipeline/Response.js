@@ -125,7 +125,7 @@ class Summary extends React.Component {
       this._state().setValues({ q: values["q"], "q.override": "true" }, true);
     };
     const override = values["q.used"] && values["q.used"] !== values["q"]
-      ? <span className="sj-summary-autocomplete-override">
+      ? <span className="sj-result-summary-autocomplete-override">
           {`search instead for `}
           <a onClick={runOverride} href=""> {values["q"]} </a>
         </span>
@@ -133,12 +133,12 @@ class Summary extends React.Component {
 
     return (
       <div className="sj-result-summary">
-        <span className="sj-summary-results">
+        <span className="sj-result-summary-text">
           {`${pageNumber}${totalResults} results for `}
           "<strong>{text}</strong>"
           {" "}
         </span>
-        <span className="sj-query-time">{`(${time}) `}</span>
+        <span className="sj-result-summary-query-time">{`(${time}) `}</span>
         {override}
       </div>
     )
