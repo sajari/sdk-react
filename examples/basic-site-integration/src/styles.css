@@ -2,32 +2,32 @@
  * General setup
  */
 html {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-    background-color: #f7f7f7;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  background-color: #f7f7f7;
 }
 
 body {
-    margin: 20px;
+  margin: 20px;
 }
 
 code {
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-    background-color: #eee;
-    border: 1px solid #999;
-    padding: 2px;
-    border-radius: 4px;
-    font-size: 14px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  background-color: #eee;
+  border: 1px solid #999;
+  padding: 2px;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
 div.dotted {
-    border: 2px dashed #ddd;
-    padding: 20px;
-    border-radius: 4px;
-    background-color: white;
+  border: 2px dashed #ddd;
+  padding: 20px;
+  border-radius: 4px;
+  background-color: white;
 }
 
 ul > li {
-    margin: 10px;
+  margin: 10px;
 }
 
 /**
@@ -92,9 +92,9 @@ ul > li {
  * Results
  */
 .sj-result-summary {
-    padding-bottom: 1.5em;
-    font-size: 16px;
-    color: #aaa;
+  padding-bottom: 1.5em;
+  font-size: 16px;
+  color: #aaa;
 }
 
 .sj-result {
@@ -102,57 +102,57 @@ ul > li {
 }
 
 .sj-result-list > * {
-    margin-top: 1.5em;
+  margin-top: 1.5em;
 }
 
 .sj-result-list > :first-child {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 .sj-result-title {
-    margin-bottom: 0;
-    margin-top: 0;
-    font-size: 16px;
-    line-height: 24px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  margin-bottom: 0;
+  margin-top: 0;
+  font-size: 16px;
+  line-height: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .sj-result-title a {
-    text-decoration: none;
-    font-weight: 400;
-    font-size: 20px;
-    color: #333;
-    line-height: 21.6px;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 20px;
+  color: #333;
+  line-height: 21.6px;
 }
 
 .sj-result-title a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .sj-result-description {
-    color: #545454;
-    font-size: 15px;
-    line-height: 22px;
-    overflow-wrap: break-word;
-    margin-top: 2px;
-    margin-bottom: 4px;
+  color: #545454;
+  font-size: 15px;
+  line-height: 22px;
+  overflow-wrap: break-word;
+  margin-top: 2px;
+  margin-bottom: 4px;
 }
 
 .sj-result-url {
-    font-size: 13px;
-    line-height: 18.2px;
-    margin: 0;
-    color: #a2a2a2;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-size: 13px;
+  line-height: 18.2px;
+  margin: 0;
+  color: #a2a2a2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .sj-result-url a {
-    text-decoration: none;
-    color: #a2a2a2;
+  text-decoration: none;
+  color: #a2a2a2;
 }
 
 .sj-result-image-container {
