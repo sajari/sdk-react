@@ -1,14 +1,52 @@
-# Website Search Integration
+# Website Search Interfaces
 
-This integration is a great starting point for getting Sajari website search running on your site.
+This example is used in the [Console](https://www.sajari.com/console/collections/install) to auto-generate search interfaces for website integrations.
+
+Our auto-generated search interfaces are a great starting point for getting Sajari website search running on your site.
 
 ## Instructions
 
-We're assuming that you've already setup an account and have a website collection already indexing.  If not then head over to [https://www.sajari.com/console/sign-up](https://www.sajari.com/console/sign-up) to sign up and create a website collection to get started.
+We're assuming you've already setup an account and have a website collection already indexing.  If not then head over to [https://www.sajari.com/console/sign-up](https://www.sajari.com/console/sign-up) to sign up and create a website collection to get started.
 
-In the [Install tab](https://www.sajari.com/console/collections/install) of the Sajari Console, you can create an initial search interface template:
+From the [Install tab](https://www.sajari.com/console/collections/install) you can generate a search interface which can be easily cut+pasted into your site.  You can also quickly add further customisations using CSS or by changing the JSON config.  For instance, you can add tabs to limit searches to specific areas of your website:
+
+![Search interface with tabs](https://cloud.githubusercontent.com/assets/2822/25603841/e50022d4-2f42-11e7-9ac0-3968714b9e1d.png)
+
+The configuration required for this example is given below.  For more details, see [Configuration](#configuration).
+
+```javascript
+{
+   "project": "sajariptyltd",
+   "collection": "sajari-com",
+   "searchBoxPlaceHolder": "Search",
+   "attachTarget": document.getElementById("search-interface"), // Attach to DIV with id search-interface
+   "pipeline": "website",
+   "tabFilters": {
+      "defaultTab": "All",
+      "tabs": [
+         {"title": "All", "filter": ""},
+         {"title": "Blog", "filter": "dir1='blog'"}
+      ]
+   },
+   "showImages": false,
+   "values": {
+      "resultsPerPage": "10",
+      "q": getUrlParam("q"),
+   },
+}
+```
 
 ## Configuration
+
+The generated search interfaces are configured using a simple JSON object, which contains attributes to control:
+
+* [Project/Collection](#projectcollection)
+* [Pipeline](#pipeline)
+* [Attaching to the DOM](#attaching-to-the-dom)
+* [Show images](#show-images)
+* [Search box place holder text](#search-box-placeholder-text)
+* [Algorithm parameters](#algorithm-parameters)
+* [Tab filters](#tab-filters)
 
 ### Project/Collection
 
@@ -29,7 +67,7 @@ pipeline: "website",
 
 ### Attaching to the DOM
 
-Two attributes control which DOM elements the search and results components will be rendered in.
+Two attributes control which DOM elements the search box and results components will be rendered in.
 
 ```javascript
 attachSearchBox: document.getElementById("search-box"),
@@ -58,23 +96,23 @@ The standard website pipeline defines several algorithm parameters.
 
 ```javascript
 values: {
-	q: getUrlParam("q"),  // Takes the initial query from the query param q.
-	resultsPerPage: "10", // Show 10 results per page.
+   q: getUrlParam("q"),  // Takes the initial query from the query param q.
+   resultsPerPage: "10", // Shgow 10 results per pae.
 },
 ```
 
 ### Tab filters
 
-Create tabs to filter search results.  Tabs are rendered in UI component when search results are shown.  If a tab is clicked then the algorithm parameter `filter` is set to the tab;s `filter` attribute.
+Create tabs to filter search results.  Tabs are rendered in a UI component when search results are shown.  If a tab is clicked then the algorithm parameter `filter` is set to the tab's `filter` attribute.
 
 ```javascript
 tabFilters: {
-	defaultTab: "All", // The title of the default tab.
-	tabs: [
-		{title: "All", filter: ""}, // The default tab must have an empty filter.
-		{title: "Blog", filter: "dir1='blog'"}, // First directory in URL is 'blog'.
-		{title: "Not Blog", filter: "dir1!='blog'"} // First directory in URL is not 'blog'.
-	],
+   defaultTab: "All", // The title of the default tab.
+   tabs: [
+      {title: "All", filter: ""}, // The default tab must have an empty filter.
+      {title: "Blog", filter: "dir1='blog'"}, // First directory in URL is 'blog'.
+      {title: "Not Blog", filter: "dir1!='blog'"} // First directory in URL is not 'blog'.
+   ],
 }
 ```
 
