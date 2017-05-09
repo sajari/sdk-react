@@ -2,7 +2,7 @@
  Tabs
 */
 
-#sj-tabs-container {
+.sj-tabs-container {
   background-color: #fff;
   border-top: 1px solid #ebebeb;
   border-bottom: 1px solid #ebebeb;
@@ -10,7 +10,7 @@
   width: 100%;
 }
 
-#sj-tabs {
+.sj-tabs {
   padding-left: 126px;
   overflow: auto;
   white-space: nowrap;
@@ -184,7 +184,7 @@
 
 @media (max-width: 845px) {
   #sj-search-modal-input-holder-outer {
-    margin-left: auto;
+    margin-left: 3%;
     padding-top: 4em;
   }
 
@@ -194,7 +194,7 @@
     margin-left: 3%;
   }
 
-  #sj-tabs {
+  .sj-tabs {
     padding-left: 3%;
   }
 

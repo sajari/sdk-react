@@ -4,10 +4,10 @@ import { connect } from 'react-redux'
 import Response from '../pipeline/Response'
 import { setActive } from './actions/Overlay'
 import { WrappedResults, PipelineSummary } from './Results'
-import Tabs from './Tabs'
-import Pipeline from '../pipeline/Pipeline'
-import Value from '../pipeline/Value'
-import PipelineInput from '../pipeline/PipelineInput'
+// import Tabs from './Tabs'
+//import Pipeline from '../pipeline/Pipeline'
+// import Value from '../pipeline/Value'
+// import PipelineInput from '../pipeline/PipelineInput'
 
 const close = ({ closeOverlay }) => (
   <div id='sj-overlay-close' onClick={closeOverlay}>
@@ -50,21 +50,21 @@ const Overlay = connect(
   ({ overlay }) => ({ active: overlay.active })
 )(overlay)
 
-const DefaultOverlay = ({ tabs, tabsOnChange, defaultTab, logoUrl, pipeline, resultsPerPage = 10 }) => (
-  <Overlay>
-    <Close />
-    <Pipeline name={pipeline}/>
-    <div id='sj-overlay-header'>
-      <Logo src={logoUrl} alt='Logo' />
-      <PipelineInput pipeline={pipeline} />
-    </div>
-    <Value pipeline={pipeline} name={'resultsPerPage'} value={''+resultsPerPage} />
-    <Tabs defaultTab={defaultTab} tabs={tabs} onChange={tabsOnChange} />
-    <Response pipeline={pipeline}>
-      <PipelineSummary pipeline={pipeline} />
-      <WrappedResults />
-    </Response>
-  </Overlay>
-)
+// const DefaultOverlay = ({ tabs, tabsOnChange, defaultTab, logoUrl, pipeline, resultsPerPage = 10 }) => (
+//   <Overlay>
+//     <Close />
+//     <Pipeline name={pipeline}/>
+//     <div id='sj-overlay-header'>
+//       <Logo src={logoUrl} alt='Logo' />
+//       <PipelineInput pipeline={pipeline} />
+//     </div>
+//     <Value pipeline={pipeline} name={'resultsPerPage'} value={''+resultsPerPage} />
+//     <Tabs defaultTab={defaultTab} tabs={tabs} onChange={tabsOnChange} />
+//     <Response pipeline={pipeline}>
+//       <PipelineSummary pipeline={pipeline} />
+//       <WrappedResults />
+//     </Response>
+//   </Overlay>
+// )
 
-export { DefaultOverlay, Overlay, Close, Logo }
+export { Overlay, Logo, Close }
