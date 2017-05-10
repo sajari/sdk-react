@@ -200,9 +200,6 @@ ul > li {
   max-width: 90px;
 }
 
-.sj-logo {
-  float: left;
-  display: none;
 /* Overlay */
 @keyframes sj-overlay-rolldown {
   0% {
@@ -256,9 +253,6 @@ ul > li {
   padding-top: 10px;
 }
 
-/* SAMPLE */
-/*
-div.sj-logo {
 #sj-overlay-close .sj-esc {
   font-size: 12px;
 }
@@ -273,13 +267,32 @@ div.sj-logo {
   }
 }
 
+/* SAMPLE user config */
+
+/*div.sj-logo {
   background-image: url("https://d2lmq7f6c50l28.cloudfront.net/images/logo2fb.png");
   background-repeat: no-repeat;
-  width: 86px;
+  width: 60px;
   height: 50px;
   margin: 0;
   padding: 0px;
   background-size: 54px 52px;
-  margin-left: 40px;
   margin-top: 9px;
+  float: left;
+}
+
+div#sj-search-modal-input-holder-outer {
+  clear: none;
+  float: left;
+}
+
+.sj-search-response {
+  margin-top: 50px;
+  clear: both;
+}
+
+@media (max-width: 845px) {
+  .sj-search-bar-input-common {
+    width: calc(100vw - 140px);
+  }
 }*/
