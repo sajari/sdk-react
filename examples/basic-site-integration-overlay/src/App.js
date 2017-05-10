@@ -20,15 +20,6 @@ import "./styles.css";
 
 const _state = State.default();
 
-const SearchInterface = ({ config }) => (
-  <div>
-    <div className="sj-logo"/>
-    <SearchBox config={config} />
-    <Close />
-    <SearchResponse config={config} />
-  </div>
-);
-
 class SearchBox extends React.Component {
   componentDidMount() {
     _state.setProject(this.props.config.project);
@@ -82,9 +73,13 @@ class overlay extends React.Component {
   }
 
   render() {
+    const { config, closeOverlay } = this.props;
     return (
       <OverlayFrame>
-        <SearchInterface config={this.props.config} />
+        <div className="sj-logo" onClick={closeOverlay} />
+        <SearchBox config={config} />
+        <Close />
+        <SearchResponse config={config} />
       </OverlayFrame>
     );
   }
