@@ -34,7 +34,7 @@ class Response extends React.Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, className } = this.props;
 
     const error = this._state().getError();
 
@@ -46,7 +46,7 @@ class Response extends React.Component {
     }
 
     return (
-      <div>
+      <div className={className}>
         {React.Children.map(children, c => {
           if (c === null) {
             return c
