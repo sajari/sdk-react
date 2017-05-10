@@ -22,6 +22,10 @@ function sjsi(config) {
   // Store to hold overlay state
   const store = createStore(combineReducers({ overlay }));
 
+  const overlaySetActive = (active = true) => {
+    store.dispatch(setActive(active));
+  }
+
   // Set a global function which client code can call to launch the overlay
   window.launchSajariSearchInterface = () => {
     store.dispatch(setActive(true));
@@ -29,7 +33,7 @@ function sjsi(config) {
 
   // If there is a query param supplied, launch the interface
   if (config.values.q) {
-    store.dispatch(setActive(true));
+    overlaySetActive(true);
   }
 
   // Create a container to render the overlay into
@@ -39,7 +43,7 @@ function sjsi(config) {
 
   ReactDOM.render(
     <Provider store={store}>
-      <App config={config} />
+      <App config={config} closeOverlay={() => overlaySetActive(false)} />
     </Provider>,
     overlayContainer
   );
