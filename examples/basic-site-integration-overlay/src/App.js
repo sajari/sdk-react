@@ -16,9 +16,6 @@ import Analytics from "sajari-react/pipeline/analytics";
 
 import { State } from "sajari-react/pipeline/state";
 
-import "sajari-react/ui/Overlay.css";
-// import "sajari-react/ui/Search.css";
-
 import "./styles.css";
 
 const _state = State.default();

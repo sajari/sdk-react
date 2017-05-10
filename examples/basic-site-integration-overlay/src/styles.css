@@ -30,11 +30,14 @@ ul > li {
  * Search Box
  */
 #sj-search-modal-input-holder-outer {
+  position: relative;
+  clear: both;
   padding: 0.9em 0px;
+  height: 30px;
 }
 
 #sj-search-modal-input-holder-inner {
-  position: relative;
+  position: absolute;
   left: 0px;
 }
 
@@ -201,11 +204,76 @@ ul > li {
 .sj-logo {
   float: left;
   display: none;
+/* Overlay */
+@keyframes sj-overlay-rolldown {
+  0% {
+    opacity: 0;
+    height: 20%;
+  }
+  100% {
+    opacity: 1;
+    height: 100%;
+  }
+}
+
+#sj-overlay {
+  font-family: -mac-system, BlinkMacSystemFont, arial, sans-serif;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  z-index: 1000000;
+  animation-name: sj-overlay-rolldown;
+  animation-duration: 0.4s;
+}
+
+#sj-overlay-search-modal {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#sj-overlay-close {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  z-index: 1;
+  color:#aaa;
+  text-align: center;
+  cursor: pointer;
+}
+
+#sj-overlay-close:hover {
+  color: #000;
+}
+
+#sj-overlay-close .sj-close {
+  font-size: 40px;
+  line-height: 30px;
+  padding-top: 10px;
 }
 
 /* SAMPLE */
 /*
 div.sj-logo {
+#sj-overlay-close .sj-esc {
+  font-size: 12px;
+}
+
+@media (max-width: 845px) {
+  #sj-overlay-close {
+    right: 3%;
+  }
+
+  .sj-search-bar-input-common {
+    width: 70vw;
+  }
+}
+
   background-image: url("https://d2lmq7f6c50l28.cloudfront.net/images/logo2fb.png");
   background-repeat: no-repeat;
   width: 86px;
