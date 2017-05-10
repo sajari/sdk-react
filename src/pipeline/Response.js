@@ -41,8 +41,7 @@ class Response extends React.Component {
     const time = this.state.time;
 
     let values = this._state().getValues();
-    const text = values["q.used"] || values["q"]
-    if (!text || !time && !error) {
+    if (!time && !error) {
       return null;
     }
 
