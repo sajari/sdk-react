@@ -53,7 +53,7 @@ const SearchResponse = ({ config }) => {
   }
 
   return (
-    <Response>
+    <Response className="sj-search-response">
       {tabs}
       <Summary />
       <Results showImages={config.showImages} />
