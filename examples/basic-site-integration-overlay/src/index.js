@@ -27,9 +27,7 @@ function sjsi(config) {
   }
 
   // Set a global function which client code can call to launch the overlay
-  window.launchSajariSearchInterface = () => {
-    store.dispatch(setActive(true));
-  };
+  window._sjOverlaySetActive = overlaySetActive;
 
   // If there is a query param supplied, launch the interface
   if (config.values.q) {
