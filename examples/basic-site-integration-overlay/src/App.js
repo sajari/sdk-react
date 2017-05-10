@@ -1,9 +1,6 @@
 import React from "react";
 
-import { connect } from "react-redux";
-
 import { Overlay as OverlayFrame, Close } from "sajari-react/ui/Overlay";
-import { setActive } from "sajari-react/ui/actions/Overlay";
 import AutocompleteInput from "sajari-react/pipeline/AutocompleteInput";
 import {
   Response,
@@ -62,7 +59,7 @@ const SearchResponse = ({ config }) => {
   );
 };
 
-class overlay extends React.Component {
+class Overlay extends React.Component {
   componentDidMount() {
     document.addEventListener("keydown", e => {
       // Check for escape key
@@ -84,9 +81,5 @@ class overlay extends React.Component {
     );
   }
 }
-
-const Overlay = connect(null, dispatch => ({
-  closeOverlay: () => dispatch(setActive(false))
-}))(overlay);
 
 export default Overlay;
