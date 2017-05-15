@@ -126,12 +126,12 @@ Here is a list of the most commonly used fields.
 * `description` The page description.
 * `image` The URL of an image which corresponds to the page.
 
-Fields that are based on the URL of the page (ideal for filtering on subsections of a site) are given below.  Examples here assume that the page URL is `https://www.sajari.com/blog`:
+Fields that are based on the URL of the page (ideal for filtering on subsections of a site) are given below.  Examples here assume that the page URL is `https://www.sajari.com/blog/year-in-review`:
 
-* `url` The full page URL, i.e. `https://www.sajari.com/blog`
-* `dir1` The first directory of the page URL, i.e. blog if the URL is `https://www.sajari.com/blog/year-in-review`
-* `dir2` The second directory of the page URL, i.e. year-in-review if the URL is `https://www.sajari.com/blog/year-in-review`
-* `domain` The domain of the page URL, i.e. `www.sajari.com`
+* `url` The full page URL: `https://www.sajari.com/blog/year-in-review`
+* `dir1` The first directory of the page URL: `blog`
+* `dir2` The second directory of the page URL: `year-in-review`
+* `domain` The domain of the page URL: `www.sajari.com`
 
 
 #### Using Operators
