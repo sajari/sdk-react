@@ -97,7 +97,7 @@ The standard website pipeline defines several algorithm parameters.
 ```javascript
 values: {
    q: getUrlParam("q"),  // Takes the initial query from the query param q.
-   resultsPerPage: "10", // Shgow 10 results per pae.
+   resultsPerPage: "10", // Show 10 results per page.
 },
 ```
 
