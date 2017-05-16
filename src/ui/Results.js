@@ -26,11 +26,13 @@ class TokenLink extends React.Component {
   }
 
   render() {
-    const url = this.state.clicked ? (tokenUrl + this.props.token) : this.props.url
+    const { token, url, text, children } = this.props;
+    const { clicked } = this.state;
+    const urlWithToken = clicked && token ? (tokenUrl + token) : url;
     return (
-      <a href={url} onMouseDown={this.click}>
-        {this.props.text}
-        {this.props.children}
+      <a href={urlWithToken} onMouseDown={this.click}>
+        {text}
+        {children}
       </a>
     )
   }
@@ -141,18 +143,22 @@ class Results extends React.Component {
       return <div className='sj-result-list' />
     }
 
-    const results = data.searchResponse.results.map((r, index) => (
-      <Result
-        key={r.values._id || ""+index+r.values.url}
-        title={r.values.title}
-        description={r.values.description}
-        url={r.values.url}
-        image={r.values.image}
-        showImage={showImages}
-        token={r.tokens.click.token}
-        resultClicked={resultClicked}
-      />
-    ))
+    const results = data.searchResponse.results.map((r, index) => {
+      const token = r.tokens && r.tokens.click && r.tokens.click.token;
+
+      return (
+        <Result
+          key={r.values._id || ""+index+r.values.url}
+          title={r.values.title}
+          description={r.values.description}
+          url={r.values.url}
+          image={r.values.image}
+          showImage={showImages}
+          token={token}
+          resultClicked={resultClicked}
+        />
+      );
+    });
     return <div className='sj-result-list'>{results}</div>
   }
 }
