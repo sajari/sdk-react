@@ -9,12 +9,15 @@ import { WrappedResults, PipelineSummary } from './Results'
 // import Value from '../pipeline/Value'
 // import PipelineInput from '../pipeline/PipelineInput'
 
-const close = ({ closeOverlay }) => (
-  <div id='sj-overlay-close' onClick={closeOverlay}>
-    <div className='sj-close'>&times;</div>
-    <div className='sj-esc'>ESC</div>
+const close = ({ onClick, closeOverlay }) => (
+  <div
+    id="sj-overlay-close"
+    onClick={onClick ? e => onClick(e, closeOverlay) : closeOverlay}
+  >
+    <div className="sj-close">×</div>
+    <div className="sj-esc">ESC</div>
   </div>
-)
+);
 
 const Close = connect(
   null,
