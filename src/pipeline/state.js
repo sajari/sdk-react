@@ -7,6 +7,45 @@ const RESULT_CLICKED = 'RESULT_CLICKED';
 const RESULTS_CHANGED = 'RESULTS_CHANGED';
 const VALUES_CHANGED = 'VALUES_CHANGED';
 
+// beforeSearch is run before a search is started (i.e. sent to the server).
+// If it returns false, then we bail.
+const websiteBeforeSearch = state => {
+  // If q == "" then clear the results immediately and don't run a search.
+  if (state.getValues()["q"] === "") {
+    state.reset()
+    delete state.getValues()["filter"];
+    delete state.getValues()["page"];
+    return false;
+  }
+  return true
+};
+
+const websiteConstructTracking = state => {
+  const tracking = new Sajari.Tracking()
+
+  if (state.pipeline === 'website') {
+    tracking.clickTokens('url') // NOTE: this will not be cleared if the pipeline is changed
+  }
+
+  // tracking.data is merged into tracking.data (to avoid clearing existing values unless
+  // another explicitly replaces it).
+  if (state.tracking.data) {
+    for (let k in state.tracking.data) {
+      tracking.data[k] = state.tracking.data[k];
+    }
+  }
+
+  // Record the QID and the sequence
+  if (state.tracking.qid && state.tracking.seq >= 0) {
+    tracking.i = state.tracking.qid;
+    tracking.s = state.tracking.seq+1;
+  }
+  state.tracking.qid = tracking.i;
+  state.tracking.seq = tracking.s;
+
+  return tracking;
+}
+
 class state {
   constructor(namespace) {
     this.namespace = namespace;
@@ -14,6 +53,8 @@ class state {
     this.tracking = {};
 
     this.listeners = [];
+    this.beforeSearch = websiteBeforeSearch;
+    this.constructTracking = websiteConstructTracking;
   }
 
   getPipeline() {
@@ -40,6 +81,14 @@ class state {
     this.tracking.data = data;
   }
 
+  setBeforeSearch(f) {
+    this.beforeSearch = f;
+  }
+
+  setConstructTracking(f) {
+    this.constructTracking = f;
+  }
+
   resetTracking() {
     this.tracking.seq = null;
     this.tracking.qid = null;
@@ -52,46 +101,13 @@ class state {
     this.resetTracking();
   }
 
-  // beforeSearch is run before a search is started (i.e. sent to the server).
-  // If it returns false, then we bail.
-  beforeSearch() {
-    // If q == "" then clear the results immediately and don't run a search.
-    if (this.values["q"] === "") {
-      this.reset()
-      delete this.values["filter"];
-      delete this.values["page"];
-      return false;
-    }
-    return true
-  }
-
   _runSearch() {
-    if (!this.beforeSearch()) {
+    if (!this.beforeSearch(this)) {
       return
     }
 
     const client = new Sajari.Client(this.project, this.collection);
-    const tracking = new Sajari.Tracking()
-
-    if (this.pipeline === 'website') {
-      tracking.clickTokens('url') // NOTE: this will not be cleared if the pipeline is changed
-    }
-
-    // tracking.data is merged into tracking.data (to avoid clearing existing values unless
-    // another explicitly replaces it).
-    if (this.tracking.data) {
-      for (let k in this.tracking.data) {
-        tracking.data[k] = this.tracking.data[k];
-      }
-    }
-
-    // Record the QID and the sequence
-    if (this.tracking.qid && this.tracking.seq >= 0) {
-      tracking.i = this.tracking.qid;
-      tracking.s = this.tracking.seq+1;
-    }
-    this.tracking.qid = tracking.i;
-    this.tracking.seq = tracking.s;
+    const tracking = this.constructTracking(this);
 
     client.searchPipeline(this.pipeline, this.values, tracking, (err, res) => {
       // Discard this result if another (more recent query) has been sent through
