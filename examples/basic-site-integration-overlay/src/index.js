@@ -24,7 +24,13 @@ function sjsi(config) {
 
   const overlaySetActive = (active = true) => {
     store.dispatch(setActive(active));
-  }
+
+    // This removes the scrollbar on most platforms.
+    // For iOS the implementation is based upon how your content is rendered.
+    document.getElementsByTagName("body")[0].style.overflow = active
+      ? "hidden"
+      : "";
+  };
 
   // Set a global function which client code can call to launch the overlay
   window._sjOverlaySetActive = overlaySetActive;
