@@ -17,6 +17,8 @@ import "./styles.css";
 
 const _state = State.default();
 
+let performedInitialSearch = false;
+
 class SearchBox extends React.Component {
   componentDidMount() {
     _state.setProject(this.props.config.project);
@@ -24,7 +26,22 @@ class SearchBox extends React.Component {
     _state.setPipeline(this.props.config.pipeline);
 
     if (this.props.config.values) {
-      _state.setValues(this.props.config.values, !!this.props.config.values.q);
+      if (this.props.config.values.q && !performedInitialSearch) {
+        // If there is a query and we haven't performed the page load search
+        // - perform it now.
+        _state.setValues(this.props.config.values, true);
+        performedInitialSearch = true;
+      } else {
+        // If we've already performed the page load search
+        // - Don't prefil the query text and don't search on open.
+        _state.setValues(
+          {
+            ...this.props.config.values,
+            q: undefined
+          },
+          false
+        );
+      }
     }
 
     if (!this.props.config.disableGA) {
