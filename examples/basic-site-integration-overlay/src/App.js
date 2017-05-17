@@ -75,7 +75,7 @@ class Overlay extends React.Component {
       <OverlayFrame>
         <div className="sj-logo" onClick={closeOverlay} />
         <SearchBox config={config} />
-        <Close />
+        <Close onClick={closeOverlay} />
         <SearchResponse config={config} />
       </OverlayFrame>
     );
