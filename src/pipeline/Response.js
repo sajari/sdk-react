@@ -211,13 +211,6 @@ const RawPaginator = ({ resultsPerPage, page, totalResults, setPage, pageFn }) =
   )
 }
 
-RawPaginator.propTypes = {
-  resultsPerPage: React.PropTypes.number.isRequired,
-  page: React.PropTypes.number.isRequired,
-  totalResults: React.PropTypes.number.isRequired
-}
-
-
 const Page = ({ currentPage, page, setPage, children }) => (
   <div className={currentPage === page ? 'current' : null} onClick={() => setPage(page)}>{ children }</div>
 )
