@@ -5,10 +5,16 @@ import loaded from "./loaded";
 
 import App from "./App";
 
-function sjsi(config) {
+const error = message => {
+  if (console && console.error) {
+    console.error(message);
+  }
+};
+
+function startInterface(config) {
   if (!config) {
-    console.error(
-      'global value "_sjsi" not found, please check the code snippet for your Sajari search interface'
+    error(
+      'global value "sj" not found, please check the code snippet for your Sajari search interface'
     );
     return;
   }
