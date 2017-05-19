@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 
 import { REQUEST_SUCCEEDED, REQUEST_IN_PROGRESS } from '../api/constants/RequestState'
 import { resultClicked } from './actions/Analytics'
@@ -38,10 +37,6 @@ class TokenLink extends React.Component {
   }
 }
 
-TokenLink.propTypes = {
-  url: React.PropTypes.string.isRequired,
-}
-
 const Title = ({ title, url, token, resultClicked }) => (
   <h3 className='sj-result-title'>
     <TokenLink token={token} url={url} text={title} resultClicked={resultClicked} />
@@ -76,11 +71,6 @@ class Image extends React.Component {
   }
 }
 
-Image.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  url: React.PropTypes.string.isRequired
-}
-
 const Result = ({ title, description, url, token, showImage, image, resultClicked }) => (
   <div className='sj-result'>
     {showImage && image ? (
@@ -97,30 +87,6 @@ const Result = ({ title, description, url, token, showImage, image, resultClicke
     </div>
   </div>
 )
-
-const resultSummary = ({ body, completion, total, queryTime, page }) => {
-  let pageNumber = ''
-  if (page && page > 1) {
-    pageNumber = `Page ${page} of `
-  }
-
-  const resultsFor = completion || body
-
-  if (resultsFor) {
-    return <div id='sj-result-summary'>{`${pageNumber}${total} results for `}&quot;<strong>{resultsFor}</strong>&quot;{` (${queryTime})`}</div>
-  }
-  return <div id='sj-result-summary' />
-}
-
-const ResultSummary = connect(
-  ({ query }, { namespace }) => {
-    let completion = ''
-    try {
-      completion = query.queryStatus[namespace].data.searchRequest.indexQuery.body[0].text
-    } catch (e) {}
-    return { completion }
-  },
-)(resultSummary)
 
 class Results extends React.Component {
   shouldComponentUpdate(nextProps) {
@@ -163,47 +129,4 @@ class Results extends React.Component {
   }
 }
 
-const WrappedResults = connect(
-  null,
-  dispatch => ({
-    resultClicked: url => dispatch(resultClicked(url)),
-  })
-)(Results)
-
-function queryTimeToSeconds(t) {
-  const parseAndFormat = x => (parseFloat(t) / x).toFixed(5) + 's'
-  if (t.indexOf('ms') >= 0) {
-    return parseAndFormat(1000)
-  }
-  if (t.indexOf('µs') >= 0) {
-    return parseAndFormat(1000000)
-  }
-  return t
-}
-
-class summary extends React.Component {
-  shouldComponentUpdate(nextProps) {
-    return nextProps.status !== REQUEST_IN_PROGRESS
-  }
-
-  render() {
-    const { searchText, searchTextRewritten, totalResults, time, page, status } = this.props
-
-    // Don't render anything if there isn't a successful request
-    if (status !== REQUEST_SUCCEEDED) {
-      return <div className='sj-result-summary'/>
-    }
-
-    const pageNumber = page && page > 1 ? `Page ${page} of ` : ''
-
-    return (
-      <div className='sj-result-summary'>
-        {`${pageNumber}${totalResults} results for `}
-        &quot;<strong>{searchTextRewritten || searchText}</strong>&quot;
-        {` (${queryTimeToSeconds(time)})`}
-      </div>
-    )
-  }
-}
-
-export { Results, Result, ResultSummary, Title, Description, Url, TokenLink, Image, WrappedResults }
+export { Results, Result, Title, Description, Url, TokenLink, Image }
