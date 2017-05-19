@@ -16,45 +16,9 @@ import { State } from "sajari-react/pipeline/state";
 
 import "./styles.css";
 
+const ESCAPE_KEY_CODE = 27;
+
 const _state = State.default();
-
-let performedInitialSearch = false;
-
-class SearchBox extends React.Component {
-  componentDidMount() {
-    _state.setProject(this.props.config.project);
-    _state.setCollection(this.props.config.collection);
-    _state.setPipeline(this.props.config.pipeline);
-
-    if (this.props.config.values) {
-      if (this.props.config.values.q && !performedInitialSearch) {
-        // If there is a query and we haven't performed the page load search
-        // - perform it now.
-        _state.setValues(this.props.config.values, true);
-        performedInitialSearch = true;
-      } else {
-        // If we've already performed the page load search
-        // - Don't prefil the query text and don't search on open.
-        _state.setValues(
-          {
-            ...this.props.config.values,
-            q: undefined
-          },
-          false
-        );
-      }
-    }
-
-    if (!this.props.config.disableGA) {
-      new Analytics("default");
-    }
-  }
-
-  render() {
-    const { searchBoxPlaceHolder } = this.props.config;
-    return <AutocompleteInput placeHolder={searchBoxPlaceHolder} />;
-  }
-}
 
 const SearchResponse = ({ config }) => {
   let tabs = null;
@@ -68,7 +32,7 @@ const SearchResponse = ({ config }) => {
   }
 
   return (
-    <Response className="sj-search-response">
+    <Response>
       {tabs}
       <Summary />
       <Results showImages={config.showImages} />
@@ -144,15 +108,24 @@ class App extends React.Component {
   }
 
   render() {
-    const { config, closeOverlay } = this.props;
-    return (
-      <OverlayFrame>
-        <div className="sj-logo" onClick={closeOverlay} />
-        <SearchBox config={config} />
-        <Close onClick={closeOverlay} />
-        <SearchResponse config={config} />
-      </OverlayFrame>
-    );
+    const config = this.props.config;
+    const active = this.state.active;
+    const close = () => this.setOverlayActive(false);
+
+    const isOverlay = config.overlay;
+
+    if (isOverlay) {
+      return (
+        <OverlayFrame active={active}>
+          <div className="sj-logo" onClick={close} />
+          <AutocompleteInput placeHolder={config.searchBoxPlaceHolder} />
+          <Close onClick={close} />
+          <SearchResponse config={config} />
+        </OverlayFrame>
+      );
+    }
+
+    return <AutocompleteInput placeHolder={config.searchBoxPlaceHolder} />;
   }
 }
 
