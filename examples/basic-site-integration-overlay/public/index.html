@@ -6,7 +6,7 @@
   </head>
   <body>
     <h1>Sajari: Website Search Example UI</h1>
-    <h4>Project: <code>gopetition</code> Collection: <code>gopetition-com</code></h4>
+    <h4>Project: <code>{{.project}}</code> Collection: <code>{{.collection}}</code></h4>
     <p>This example injects a search interface into a page.</p>
     <p>It includes a minimal set of styles, code and config to get you up and running:</p>
     <ul>
@@ -16,22 +16,38 @@
     <p>Take a look at the <a href="?showSrc">page source</a> to start your own integration.</p>
 
     <div class="dotted">
+      <p>Here are two example points of integration.</p>
+      <p>1. From a user filled text box</p>
+      <!-- This input box will launch the interface when the user presses enter -->
+      <input id="input-box" placeholder="Enter search query">
+      <p>2. From a user focusing a text box or clicking a button</p>
       <!-- This input box will launch the interface when the user clicks it -->
-      <input onfocus="_sjOverlaySetActive()" placeholder="Enter search query">
-      or
+      <input onfocus="window.sj.interface.show()" placeholder="Focus me to launch">
       <!-- This button will launch the interface when the user clicks it -->
-      <button onclick="_sjOverlaySetActive()">Launch Interface</button>
+      <button onclick="window.sj.interface.show()">Launch Interface</button>
+
+      <div id="search-box"></div>
+      <div id="search-response"></div>
     </div>
     <!-- This script sets up the config for the search interface -->
     <script>
+        document.getElementById("input-box").addEventListener("keydown", function(e) {
+          if (e.keyCode === 13 /* Enter key */) {
+            window.sj.state.setValues({ q: e.target.value, "q.override": true }, true);
+            window.sj.interface.show();
+          }
+        });
         var getUrlParam = function(e){var t = new RegExp("[?&]" + e.replace(/[\[\]]/g, "\\$&") + "(=([^&#]*)|&|#|$)"),a = t.exec(window.location.href);return a && a[2] ? decodeURIComponent(a[2].replace(/\+/g, " ")) : ""};
-        window._sjsi = {
+        if (!window.sj) window.sj = {};
+        if (!window.sj.interface) window.sj.interface = {};
+        window.sj.interface.config = {
           project: "gopetition",       // Set this to your project.
           collection: "gopetition-com", // Set this to your collection.
           values: {
               q: getUrlParam("q"), // Take the default search text from the query params (if set).
               resultsPerPage: "10" // Return 10 results per page.
           },
+          overlay: true,
           attachSearchBox: document.getElementById("search-box"), // DOM elt to render Search box
           attachSearchResponse: document.getElementById("search-response"), // DOM elt to render results
           pipeline: "website", // Run the website pipeline.
