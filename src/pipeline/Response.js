@@ -34,7 +34,7 @@ class Response extends React.Component {
   }
 
   render() {
-    const { children, className } = this.props;
+    const { children, Placeholder } = this.props;
 
     const error = this._state().getError();
 
@@ -42,7 +42,7 @@ class Response extends React.Component {
 
     let values = this._state().getValues();
     if (!time && !error) {
-      return null;
+      return Placeholder ? <Placeholder /> : null;
     }
 
     return (
