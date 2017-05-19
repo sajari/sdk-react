@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { State, RESULTS_CHANGED, RESULT_CLICKED } from './state'
+import { State, RESULTS_CHANGED, RESULT_CLICKED, VALUES_CHANGED } from './state'
 
 import { Results as RawResults } from 'sajari-react/ui/Results'
 
@@ -17,14 +17,20 @@ class Response extends React.Component {
 
   componentDidMount() {
     this._state().registerListener(RESULTS_CHANGED, this.onResultsChange);
+    this._state().registerListener(VALUES_CHANGED, this.onResultsChange);
   }
 
   componentWillUnmount() {
     this._state().unregisterListener(RESULTS_CHANGED, this.onResultsChange);
+    this._state().unregisterListener(VALUES_CHANGED, this.onResultsChange);
   }
 
   onResultsChange() {
-    this.setState(this._state().getResults() || {});
+    this.setState(
+      this._state().getValues().q
+        ? this._state().getResults() || {}
+        : { time: null }
+    );
   }
 
   render() {
