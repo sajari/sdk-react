@@ -4,16 +4,10 @@ import { State, RESULTS_CHANGED, RESULT_CLICKED } from './state'
 
 import { Results as RawResults } from 'sajari-react/ui/Results'
 
-const getState = (namespace) => {
-  return {
-    searchResponse: State.ns(namespace).getResults() || {}
-  }
-};
-
 class Response extends React.Component {
   constructor(props) {
     super(props)
-    this.state = getState(this.props.namespace)
+    this.state = this._state().getResults() || {};
     this.onResultsChange = this.onResultsChange.bind(this)
   }
 
@@ -105,7 +99,7 @@ class Summary extends React.Component {
   }
 
   onValuesChange() {
-    this.setState(getState(this.props.namespace));
+    this.setState(this._state().getResults() || {});
   }
 
   render() {
