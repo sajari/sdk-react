@@ -46,7 +46,7 @@ class Response extends React.Component {
     }
 
     return (
-      <div className={className}>
+      <div className="sj-pipeline-response">
         {React.Children.map(children, c => {
           if (c === null) {
             return c
