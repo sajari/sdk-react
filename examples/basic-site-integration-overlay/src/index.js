@@ -39,4 +39,4 @@ function startInterface(config) {
   ReactDOM.render(<App config={config} />, renderTarget);
 }
 
-loaded(window, () => sjsi(window._sjsi));
+loaded(window, () => startInterface(window.sj.interface.config));
