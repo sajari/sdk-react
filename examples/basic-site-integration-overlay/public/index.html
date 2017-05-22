@@ -33,7 +33,7 @@
     <script>
         document.getElementById("input-box").addEventListener("keydown", function(e) {
           if (e.keyCode === 13 /* Enter key */) {
-            window.sj.state.setValues({ q: e.target.value, "q.override": true }, true);
+            window.sj.state.setValues({ q: e.target.value }, true);
             window.sj.interface.show();
           }
         });
