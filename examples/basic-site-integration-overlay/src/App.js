@@ -1,45 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { Overlay as OverlayFrame, Close } from "sajari-react/ui/Overlay";
 import AutocompleteInput from "sajari-react/pipeline/AutocompleteInput";
-import {
-  Response,
-  Summary,
-  Results,
-  Paginator
-} from "sajari-react/pipeline/Response";
-import Tabs from "sajari-react/pipeline/Tabs";
 import Analytics from "sajari-react/pipeline/analytics";
 
 import { State } from "sajari-react/pipeline/state";
+
+import Overlay from "./Overlay";
+import SearchResponse from "./SearchResponse";
 
 import "./styles.css";
 
 const ESCAPE_KEY_CODE = 27;
 
 const _state = State.default();
-
-const SearchResponse = ({ config }) => {
-  let tabs = null;
-  if (config.tabFilters) {
-    tabs = (
-      <Tabs
-        defaultTab={config.tabFilters.defaultTab}
-        tabs={config.tabFilters.tabs}
-      />
-    );
-  }
-
-  return (
-    <Response>
-      {tabs}
-      <Summary />
-      <Results showImages={config.showImages} />
-      <Paginator />
-    </Response>
-  );
-};
 
 class App extends React.Component {
   constructor(props) {
@@ -114,18 +88,9 @@ class App extends React.Component {
 
     const isOverlay = config.overlay;
 
-    if (isOverlay) {
-      return (
-        <OverlayFrame active={active}>
-          <div className="sj-logo" onClick={close} />
-          <AutocompleteInput placeHolder={config.searchBoxPlaceHolder} />
-          <Close onClick={close} />
-          <SearchResponse config={config} />
-        </OverlayFrame>
-      );
-    }
-
-    return <AutocompleteInput placeHolder={config.searchBoxPlaceHolder} />;
+    return isOverlay
+      ? <Overlay active={active} close={close} config={config} />
+      : <AutocompleteInput placeHolder={config.searchBoxPlaceHolder} />;
   }
 }
 
