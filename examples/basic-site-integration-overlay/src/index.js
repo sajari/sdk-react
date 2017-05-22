@@ -18,6 +18,15 @@ function startInterface(config) {
     );
     return;
   }
+  if (!config.project) {
+    error("project value in config not set, must be set");
+  }
+  if (!config.collection) {
+    error("collection value in config not set, must be set");
+  }
+  if (!config.pipeline) {
+    error("pipeline value in config not set, must be set");
+  }
 
   let renderTarget = null;
   if (config.overlay) {
@@ -27,11 +36,11 @@ function startInterface(config) {
     document.body.appendChild(overlayContainer);
 
     renderTarget = overlayContainer;
-  } else if (config.attachSearchBox) {
+  } else if (config.attachSearchBox && config.attachSearchResponse) {
     renderTarget = config.attachSearchBox;
   } else {
     error(
-      "no render mode found, need to specify either overlay or attachSearchBox in config"
+      "no render mode found, need to specify either overlay or attachSearchBox and attachSearchResponse in config"
     );
     return;
   }
@@ -39,4 +48,4 @@ function startInterface(config) {
   ReactDOM.render(<App config={config} />, renderTarget);
 }
 
-loaded(window, () => startInterface(window.sj.interface.config));
+loaded(window, () => startInterface(window._sjui.config));
