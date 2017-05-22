@@ -1,162 +1,194 @@
-# Website Search Integration - Query from URL
+# Website Search Interfaces
 
-This integration helps getting sajari search on your site ASAP.
+This example is used in the [Console](https://www.sajari.com/console/collections/install) to auto-generate search interfaces for website integrations.
+
+Our auto-generated search interfaces are a great starting point for getting Sajari website search running on your site.
+
+You can also build this interface from source.
+
+1. Clone this repo.
+2. Run `npm install` then `npm run build`.
+3. Follow the install instructions here for the config.
+4. Include the built javascript & css files in your page.
 
 ## Instructions
 
-1. Create an account at [Sajari](htttps://www.sajari.com) and add the indexing code globally to your site.
-2. Copy and paste this snippet into your website search result page.
-3. Replace `<PROJECT>` and `<COLLECTION>` in the snippet with your project and collection names.
-4. Visit your page with `?q=test` in the url to see your search in action.
+We're assuming you've already setup an account and have a website collection already indexing.  If not then head over to [https://www.sajari.com/console/sign-up](https://www.sajari.com/console/sign-up) to sign up and create a website collection to get started.
 
-```html
-<!-- The div below is where the results appear. Make sure this div comes before the script -->
-<div id="search-results"></div>
+From the [Install tab](https://www.sajari.com/console/collections/install) you can generate a search interface which can be easily cut+pasted into your site.  You can also quickly add further customisations using CSS or by changing the JSON config.  For instance, you can add tabs to limit searches to specific areas of your website:
 
-<!-- The script below runs the search and renders the results into the target div -->
-<script>var getUrlParam=function(e){var t=new RegExp("[?&]"+e.replace(/[\[\]]/g,"\\$&")+"(=([^&#]*)|&|#|$)"),a=t.exec(window.location.href);return a&&a[2]?decodeURIComponent(a[2].replace(/\+/g," ")):""};window._sjsi={
-  values: {
-    q: getUrlParam("q"),
-    resultsPerPage: "10"
-  },
-  attachTarget: document.getElementById("search-results"),
-  pipeline: "website",
-  project: "<PROJECT>",
-  collection: "<COLLECTION>",
-  searchBox: true
-},function(){var e=document.createElement("script");e.type="text/javascript",e.async=!0,e.src="https://cdn.sajari.com/js/integrations/site-search-basic.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script>
+![Search interface with tabs](https://cloud.githubusercontent.com/assets/2822/25603841/e50022d4-2f42-11e7-9ac0-3968714b9e1d.png)
 
-<!-- The style element adds some basic styling. Remove or ammend as required -->
-<style>.sj-result-summary{padding-bottom:1.5em;font-size:16px;color:#aaa;}.sj-result-title{margin-bottom:0;margin-top:0;font-size:16px;line-height:24px}.sj-result-title a{text-decoration:none;font-weight:400;font-size:20px;color:#333;line-height:21.6px}.sj-result-title a:hover{text-decoration:underline}.sj-result-description{color:#545454;font-size:15px;line-height:22px;overflow-wrap:break-word;margin-top:2px;margin-bottom:4px}.sj-result-url{color:#969696;font-size:13px;line-height:18.2px;margin:0;color:#a2a2a2}.sj-result-url a{text-decoration:none;color:#a2a2a2}.sj-result-list>*{margin-top:1em}.sj-result-list>:first-child{margin-top:0}</style>
+The configuration required for this example is given below.  For more details, see [Configuration](#configuration).
+
+```javascript
+{
+   "project": "your-project",
+   "collection": "your-collection",
+   "searchBoxPlaceHolder": "Search",
+   "attachSearchBox": document.getElementById("search-box"),
+   "attachSearchResponse": document.getElementById("search-response"),
+   "pipeline": "website",
+   "tabFilters": {
+      "defaultTab": "All",
+      "tabs": [
+         {"title": "All", "filter": ""},
+         {"title": "Blog", "filter": "dir1='blog'"}
+      ]
+   },
+   "showImages": false,
+   "values": {
+      "resultsPerPage": "10",
+      "q": getUrlParam("q"),
+   },
+}
 ```
 
-## How does it know what to search?
+## Configuration
 
-Many CMS and website generators use the `q` query parameter in the URL to indicate a search. This is the ubiquitous way to indicate search on websites. For example, searching for `orange` would produce a URL like `example.com/search?q=orange`.
+The generated search interfaces are configured using a simple JSON object, which contains attributes to control:
 
-It's possible to use another parameter if your site is configured differently. Just replace the `q` in `getUrlParam("q")` with your desired parameter, eg `getUrlParam("search")`.
+* [Project/Collection](#projectcollection)
+* [Pipeline](#pipeline)
+* [Attaching to the DOM](#attaching-to-the-dom)
+* [Show images](#show-images)
+* [Search box place holder text](#search-box-placeholder-text)
+* [Algorithm parameters](#algorithm-parameters)
+* [Tab filters](#tab-filters)
+* [Styling your interface](#styling-your-interface)
 
-## How does it work?
+If you're building this interface from source, you'll need to put your config in `window.sj.interface.config`.
 
-The snippet is divided into 3 sections.
-
-- [Attachment Point](#attachment-point)
-- [Javascript](#javascript)
-- [Styling](#styling)
-
-Each section will talk about how it contributes to the interface.
-
-### Attachment point
-
-This is the place at which the results will display. You can place this anywhere in your html, just make sure this appears before the [Javascript](#javascript) is loaded.
-
-You can also skip this part and have the javascript attach to something that already exists on the page. More info in the [Javascript](#javascript) section.
-
-```html
-<div id="search-results"></div>
+```javascript
+window.sj.interface.config = { project: "your-project", ... };
 ```
 
-### Javascript
+### Project/Collection
 
-This section is responsible for performing the integration and searching.
+The `project` and `collection` attributes set which project/collection combo to query.  These can be found in the Console.
 
-It performs 2 tasks.
-
-1. Set up the values for the search.
-2. Pull in the search code that will perform the work of searching and displaying results.
-
-#### Configuring
-
-To direct the search into your data replace `<PROJECT>` and `<COLLECTION>` with your project and collection.
-
-To enable a search box above the results for instance search, set `searchBox` to `true`. Set to `false` to remove it.
-
-To attach to different element (Not the element supplied in [Attachment point](#attachment-point)), replace the value of `attachTarget` with the your element.
-
-```html
-<script>
-  var getUrlParam = function(e) { var t = new RegExp("[?&]" + e.replace(/[\[\]]/g, "\\$&") + "(=([^&#]*)|&|#|$)"), a = t.exec(window.location.href); return a && a[2] ? decodeURIComponent(a[2].replace(/\+/g, " ")) : "" };
-  window._sjsi = {
-    values: {
-      q: getUrlParam("q"),
-      resultsPerPage: "10"
-    },
-    attachTarget: document.getElementById("search-results"),
-    pipeline: "website",
-    project: "<PROJECT>",
-    collection: "<COLLECTION>",
-    searchBox: true,
-  },
-  function() {
-    var e = document.createElement("script");
-    e.type = "text/javascript", e.async = !0, e.src = "https://cdn.sajari.com/js/integrations/site-search-basic.js";
-    var t = document.getElementsByTagName("script")[0];
-    t.parentNode.insertBefore(e, t)
-  }()
-</script>
+```javascript
+project: "your-project",
+collection: "your-collection",
 ```
 
-### Styling
+### Pipeline
 
-The style element includes some basic styling for the results. Often you'll want to change or remove these completely as they can conflict with existing styles on your site.
+Pipeline sets the query pipeline to use for the search interface.  The default pipeline for website search is `website`.
 
-If you wish to remove these styles and do the styling yourself there are classes on the html elements generated by the interface.
+```javascript
+pipeline: "website",
+```
+
+### Attaching to the DOM
+
+The interface can be displayed in two ways, in page or as an overlay.
+
+To display in page, set the `attachSearchBox` and `attachSearchResponse` values.
+These two attributes control which DOM elements the search box and results components will be rendered in.
+
+```javascript
+attachSearchBox: document.getElementById("search-box"),
+attachSearchResponse: document.getElementById("search-response"),
+```
+
+To display as an overlay, set the `overlay` value.
+
+```javascript
+overlay: true
+```
+
+To open the overlay, call the show method from javascript.
+
+```javascript
+window.sj.interface.show();
+```
+
+For example, launching the overlay when a button is clicked
 
 ```html
-<style>
-  .sj-result-summary {
-    padding-bottom: 1.5em;
-    font-size: 16px;
-    color: #aaa;
-  }
-
-  .sj-result-title {
-    margin-bottom: 0;
-    margin-top: 0;
-    font-size: 16px;
-    line-height: 24px
-  }
-
-  .sj-result-title a {
-    text-decoration: none;
-    font-weight: 400;
-    font-size: 20px;
-    color: #333;
-    line-height: 21.6px
-  }
-
-  .sj-result-title a:hover {
-    text-decoration: underline
-  }
-
-  .sj-result-description {
-    color: #545454;
-    font-size: 15px;
-    line-height: 22px;
-    overflow-wrap: break-word;
-    margin-top: 2px;
-    margin-bottom: 4px
-  }
-
-  .sj-result-url {
-    color: #969696;
-    font-size: 13px;
-    line-height: 18.2px;
-    margin: 0;
-    color: #a2a2a2
-  }
-
-  .sj-result-url a {
-    text-decoration: none;
-    color: #a2a2a2
-  }
-
-  .sj-result-list>* {
-    margin-top: 1em
-  }
-
-  .sj-result-list>:first-child {
-    margin-top: 0
-  }
-</style>
+<button onclick="window.sj.interface.show()">Search</button>
 ```
+
+### Show Images
+
+Show images next to search results.
+
+```javascript
+showImages: true|false,
+```
+
+### Search box placeholder text
+
+Set the placeholder text in the search box.
+
+```javascript
+searchBoxPlaceHolder: "Search",
+```
+
+### Algorithm Parameters
+
+The standard website pipeline defines several algorithm parameters.
+
+```javascript
+values: {
+   q: getUrlParam("q"),  // Takes the initial query from the query param q.
+   resultsPerPage: "10", // Show 10 results per page.
+},
+```
+
+### Tab filters
+
+Create tabs to filter search results.  Tabs are rendered in a UI component when search results are shown.  If a tab is clicked then the algorithm parameter `filter` is set to the tab's `filter` attribute.
+
+```javascript
+tabFilters: {
+   defaultTab: "All", // The title of the default tab.
+   tabs: [
+      {title: "All", filter: ""}, // The default tab must have an empty filter.
+      {title: "Blog", filter: "dir1='blog'"}, // First directory in URL is 'blog'.
+      {title: "Not Blog", filter: "dir1!='blog'"} // First directory in URL is not 'blog'.
+   ],
+}
+```
+
+#### Constructing Filters
+
+Our crawler extracts common fields when it parses web pages (such as the first and second directories of URLs), which make filtering much easier.  It's well worth taking a look at all the extracted fields before you start building filters, as most use cases are quick and easy to get running.
+
+Here is a list of the most commonly used fields.
+
+* `title` The page title.
+* `description` The page description.
+* `image` The URL of an image which corresponds to the page.
+
+Fields that are based on the URL of the page (ideal for filtering on subsections of a site) are given below.  Examples here assume that the page URL is `https://www.sajari.com/blog/year-in-review`:
+
+* `url` The full page URL: `https://www.sajari.com/blog/year-in-review`
+* `dir1` The first directory of the page URL: `blog`
+* `dir2` The second directory of the page URL: `year-in-review`
+* `domain` The domain of the page URL: `www.sajari.com`
+
+
+#### Using Operators
+
+When querying a field, there are a few operators that can be used. Note, all values must be enclosed in single quotation marks, i.e. "field *boost* must be greater than 10" is written as `boost>'10'`.
+
+| Operator | Description | Example |
+| --- | --- | --- |
+| Equal To (`=`) | Field is equal to a value (*numeric* or *string*) | `dir1='blog'` |
+| Not Equal To (`!=`) | Field is not equal to a value (*numeric* or *string*) | `dir1!='blog'` |
+| Greater Than (`>`) | Field is greater than a *numeric* value | `boost>'10'` |
+| Greater Than Or Equal To (`>=`) | Field is greater than or equal to a *numeric* value | `boost>='10'` |
+| Less Than (`<`) | Field is less than a given *numeric* value | `boost<'50'` |
+| Less Than Or Equal To (`<=`) | Field is less than or equal to a given *numeric* value | `boost<'50'` |
+| Begins With (`^`) | Field begins with a *string* | `dir1^'bl'` |
+| Ends With (`$`) | Field begins with a *string* | `dir1$'bl'` |
+| Contains (`~`) | Field contains a *string* | `dir1~'blog'` |
+| Does Not Contain (`!~`) | Field does not contain a *string* | `dir1!~'blog'` |
+
+## Styling your interface
+
+When generating an interface from the console, a small snippet of css is included. You can add to it or remove from it as you see fit.
+
+The elements rendered by the interface have ids and classes on them, making them easy to style.
