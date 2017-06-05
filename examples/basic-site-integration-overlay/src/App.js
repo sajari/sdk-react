@@ -7,6 +7,8 @@ import { State } from "sajari-react/pipeline/state";
 import Overlay from "./Overlay";
 import InPage from "./InPage";
 
+import stateProxy from "./stateProxy";
+
 import "./styles.css";
 
 const _state = State.default();
@@ -21,6 +23,8 @@ const getUrlParam = e => {
 
 class App extends React.Component {
   componentDidMount() {
+    window._sjui.state = stateProxy;
+
     const config = this.props.config;
 
     _state.setProject(config.project);
