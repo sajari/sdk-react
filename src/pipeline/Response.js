@@ -2,12 +2,12 @@ import React from 'react'
 
 import { State, RESULTS_CHANGED, RESULT_CLICKED, VALUES_CHANGED } from './state'
 
-import { Results as RawResults } from 'sajari-react/ui/Results'
+import { Results as RawResults } from '../ui/Results';
 
 class Response extends React.Component {
   constructor(props) {
     super(props)
-    this.state = this._state().getResults() || {};
+    this.state = { results: this._state().getResults() || {} };
     this.onResultsChange = this.onResultsChange.bind(this)
   }
 
@@ -26,38 +26,28 @@ class Response extends React.Component {
   }
 
   onResultsChange() {
-    this.setState(
-      this._state().getValues().q
-        ? this._state().getResults() || {}
-        : { time: null }
-    );
+    this.setState({ results: this._state().getResults() || {} });
   }
 
   render() {
     const { children, Placeholder } = this.props;
-
+    const results = this.state.results;
+    const time = results.time;
     const error = this._state().getError();
 
-    const time = this.state.time;
-
-    let values = this._state().getValues();
     if (!time && !error) {
       return Placeholder ? <Placeholder /> : null;
     }
 
-    return (
-      <div className="sj-pipeline-response">
-        {React.Children.map(children, c => {
-          if (c === null) {
-            return c
-          }
-          return React.cloneElement(c, {
-            ...this.state,
-            error
-          });
-        })}
-      </div>
-    );
+    const propsForChildren = { ...results, error };
+    const childrenWithResults = React.Children.map(children, c => {
+      if (React.isValidElement(c)) {
+        return React.cloneElement(c, propsForChildren);
+      }
+      return null;
+    });
+
+    return <div className="sj-pipeline-response">{childrenWithResults}</div>;
   }
 }
 
