@@ -4,12 +4,25 @@ This example is used in the [Console](https://www.sajari.com/console/collections
 
 Our auto-generated search interfaces are a great starting point for getting Sajari website search running on your site.
 
-You can also build this interface from source.
+## Styling
 
-1. Clone this repo.
-2. Run `npm install` then `npm run build`.
-3. Follow the install instructions here for the config.
-4. Include the built javascript & css files in your page.
+The generated interface can be easily styled.
+
+Just put a little extra css on the page to get yourself going. We've labelled elements in the interface with classes and ids to make it easy to hook into. For example `sj-logo` can be given a background image and size to add your logo, or different sections inside the `sj-result-summary` can be hidden or moved around to achieve a different look.
+
+The interface is designed to be responsive by default. You can also add your own styling to better fit the look and feel of your website.
+
+[Dark interface style](./sample-styles/dark.css)
+
+![Dark interface](./sample-styles/dark.png)
+
+[Light interface style](./sample-styles/light.css)
+
+![Light interface](./sample-styles/light.png)
+
+[Sajari interface](https://www.sajari.com)
+
+![Sajari interface](./sample-styles/sajari.png)
 
 ## Instructions
 
@@ -57,12 +70,6 @@ The generated search interfaces are configured using a simple JSON object, which
 * [Tab filters](#tab-filters)
 * [Styling your interface](#styling-your-interface)
 
-If you're building this interface from source, you'll need to put your config in `window.sj.interface.config`.
-
-```javascript
-window.sj.interface.config = { project: "your-project", ... };
-```
-
 ### Project/Collection
 
 The `project` and `collection` attributes set which project/collection combo to query.  These can be found in the Console.
@@ -101,13 +108,13 @@ overlay: true
 To open the overlay, call the show method from javascript.
 
 ```javascript
-window.sj.interface.show();
+window._sjui.overlay.show();
 ```
 
 For example, launching the overlay when a button is clicked
 
 ```html
-<button onclick="window.sj.interface.show()">Search</button>
+<button onclick="window._sjui.overlay.show()">Search</button>
 ```
 
 ### Show Images
@@ -187,8 +194,13 @@ When querying a field, there are a few operators that can be used. Note, all val
 | Contains (`~`) | Field contains a *string* | `dir1~'blog'` |
 | Does Not Contain (`!~`) | Field does not contain a *string* | `dir1!~'blog'` |
 
-## Styling your interface
 
-When generating an interface from the console, a small snippet of css is included. You can add to it or remove from it as you see fit.
+## Building from source
 
-The elements rendered by the interface have ids and classes on them, making them easy to style.
+Clone and run `npm install` then `npm run build`.
+
+Put your config in `window._sjui.config`.
+
+```javascript
+window._sjui.config = { project: "your-project", ... };
+```
