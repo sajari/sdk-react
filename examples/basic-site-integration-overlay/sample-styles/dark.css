@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+
+#sj-overlay {
+  background-color: #222222;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+#sj-overlay-search-modal {
+  background-color: #222222;
+}
+
+#sj-search-modal-input-holder-outer {
+  height: 40px;
+}
+
+#sj-search-bar-completion {
+  background-color: #1b1b1b;
+}
+
+#sj-search-bar-input {
+  color: #eeeeee;
+  border-color: #181818;
+}
+
+.sj-tabs-container {
+  border-bottom-color: rgba(0,0,0,0.15);
+}
+
+.sj-tab {
+  color: #d5d5d5;
+}
+
+.sj-tab-active {
+  color: #eeeeee;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.sj-pipeline-response {
+  max-width: 700px;
+}
+
+.sj-result-title > a {
+  font-size: 18.8px;
+  color: #66c363;
+}
+
+.sj-result-description {
+  font-size: 13.2px;
+  color: #cccccc;
+}
+
+.sj-result-url > a {
+  color: #a1ac25;
+}
+
+.sj-paginator > div.current {
+  color: #eeeeee;
+}
+
+.sj-paginator > div.disabled {
+  color: rgba(0,0,0,0);
+}
