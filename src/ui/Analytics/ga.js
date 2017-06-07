@@ -63,14 +63,28 @@ const url = {
   }
 }
 
+const isFunction = x => typeof x === "function";
+
 class GoogleAnalytics {
   constructor(id, param = 'q') {
-    this.id = id ? id : window.ga ? 'ga' : window._ua ? '_ua' : ''
-    this.param = param
+    if (id !== undefined) {
+      this.id = id;
+    } else if (isFunction(window.ga)) {
+      this.id = "ga";
+    } else if (isFunction(window._ua)) {
+      this.id = "_ua";
+    } else {
+      this.id = null;
+    }
+    this.param = param;
   }
 
   sendGAPageView(body) {
-    if (window[this.id] && process.env.NODE_ENV.environment !== 'development') {
+    if (
+      this.id &&
+      typeof window[this.id] === "function" &&
+      process.env.NODE_ENV.environment !== 'development'
+    ) {
       // Merge the body in with the existing query params in the url
       const pageAddress = url.augmentUri(
         // Take only the portion of the url following the domain
