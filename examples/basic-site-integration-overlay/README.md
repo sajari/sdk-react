@@ -14,17 +14,17 @@ The interface is also designed to be responsive by default. However we realise e
 
 Below are 3 examples of styling the interface.
 
-[Dark interface style](./sample-styles/dark.css)
+[Orange](./sample-styles/orange.css)
 
-![Dark interface](./sample-styles/dark.png)
+![Orange](./sample-styles/orange.png)
 
-[Light interface style](./sample-styles/light.css)
+[Purple](./sample-styles/light.css)
 
-![Light interface](./sample-styles/light.png)
+![Purple](./sample-styles/light.png)
 
-[Sajari interface](https://www.sajari.com)
+[Sajari](https://www.sajari.com)
 
-![Sajari interface](./sample-styles/sajari.png)
+![Sajari](./sample-styles/sajari.png)
 
 ## Instructions
 
