@@ -6,11 +6,13 @@ Our auto-generated search interfaces are a great starting point for getting Saja
 
 ## Styling
 
-The generated interface can be easily styled.
+The generated interface can be easily styled to fit your website's look and feel.
 
-Just put a little extra css on the page to get yourself going. We've labelled elements in the interface with classes and ids to make it easy to hook into. For example `sj-logo` can be given a background image and size to add your logo, or different sections inside the `sj-result-summary` can be hidden or moved around to achieve a different look.
+We've labelled elements in the interface with classes and ids to make it easy to hook into. For example `sj-logo` can be given a background image and size to add your logo, or different sections inside the `sj-result-summary` can be hidden or moved around to achieve a different look.
 
-The interface is designed to be responsive by default. You can also add your own styling to better fit the look and feel of your website.
+The interface is also designed to be responsive by default. However we realise everybody has their own approach so by default there aren't any large changes at smaller resolutions.
+
+Below are 3 examples of styling the interface.
 
 [Dark interface style](./sample-styles/dark.css)
 
@@ -36,24 +38,27 @@ The configuration required for this example is given below.  For more details, s
 
 ```javascript
 {
-   "project": "your-project",
-   "collection": "your-collection",
-   "searchBoxPlaceHolder": "Search",
-   "attachSearchBox": document.getElementById("search-box"),
-   "attachSearchResponse": document.getElementById("search-response"),
-   "pipeline": "website",
-   "tabFilters": {
-      "defaultTab": "All",
-      "tabs": [
-         {"title": "All", "filter": ""},
-         {"title": "Blog", "filter": "dir1='blog'"}
-      ]
-   },
-   "showImages": false,
-   "values": {
-      "resultsPerPage": "10",
-      "q": getUrlParam("q"),
-   },
+  "project": "your-project",
+  "collection": "your-collection",
+  "searchBoxPlaceHolder": "Search",
+  "attachSearchBox": document.getElementById("search-box"),
+  "attachSearchResponse": document.getElementById("search-response"),
+  "pipeline": "website",
+  "tabFilters": {
+    "defaultTab": "All",
+    "tabs": [
+      {"title": "All", "filter": ""},
+      {"title": "Blog", "filter": "dir1='blog'"}
+    ]
+  },
+  "showImages": false,
+  "values": {
+    "resultsPerPage": "10"
+  },
+  "setValuesFromParams": {
+    "q": "q"
+  },
+  "overlay": false
 }
 ```
 
@@ -67,6 +72,7 @@ The generated search interfaces are configured using a simple JSON object, which
 * [Show images](#show-images)
 * [Search box place holder text](#search-box-placeholder-text)
 * [Algorithm parameters](#algorithm-parameters)
+* [Values from url parameters](#values-from-url-parameters)
 * [Tab filters](#tab-filters)
 * [Styling your interface](#styling-your-interface)
 
@@ -139,9 +145,19 @@ The standard website pipeline defines several algorithm parameters.
 
 ```javascript
 values: {
-   q: getUrlParam("q"),  // Takes the initial query from the query param q.
+   q: "house", // The initial search query will be "house".
    resultsPerPage: "10", // Show 10 results per page.
 },
+```
+
+### Values from url parameters
+
+These values described in this section are taken from the url and added to the value map.
+
+```javascript
+setValuesFromParams: {
+  q: "q" // The initial search query will be the value of the query param "q".
+}
 ```
 
 ### Tab filters
