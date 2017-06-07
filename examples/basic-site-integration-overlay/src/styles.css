@@ -44,6 +44,7 @@
 .sj-search-icon {
   display: none;
 }
+
 /**
  * Autocomplete override
  */
@@ -57,6 +58,7 @@
 .sj-result-summary-autocomplete-override>a {
   color: #1a0dab;
 }
+
 /**
  * Results
  */
@@ -134,6 +136,7 @@
   max-height: 90px;
   max-width: 90px;
 }
+
 /**
  * Paginator
  */
@@ -159,6 +162,7 @@
 .sj-paginator>div.disabled {
   color: #aaa;
 }
+
 /**
  * Tabs
  */
@@ -188,6 +192,7 @@
   color: #333;
   border-bottom: 3px solid #333;
 }
+
 /* Overlay */
 
 @keyframes sj-overlay-rolldown {
