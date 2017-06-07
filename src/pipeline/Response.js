@@ -51,29 +51,26 @@ class Response extends React.Component {
   }
 }
 
-class Results extends React.Component {
-  render() {
-    if (this.props.results || this.props.error) {
-      const resultClicked = url => State.ns(this.props.namespace).notify(RESULT_CLICKED, url);
-      return (
-        <RawResults
-          data={{ searchResponse: this.props }}
-          resultClicked={resultClicked}
-          showImages={this.props.showImages}
-        />
-      );
-    }
-    return null;
-  }
-}
-
-Results.defaultProps = {
-  namespace: 'default'
-}
-
 Response.defaultProps = {
   namespace: 'default',
 }
+
+const Results = props => {
+  const { results, error, namespace = "default", showImages } = props;
+  
+  if (results || error) {
+    const resultClicked = url =>
+      State.ns(namespace).notify(RESULT_CLICKED, url);
+    return (
+      <RawResults
+        data={{ searchResponse: props }}
+        resultClicked={resultClicked}
+        showImages={showImages}
+      />
+    );
+  }
+  return null;
+};
 
 class Summary extends React.Component {
   constructor(props) {
