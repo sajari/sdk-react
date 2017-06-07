@@ -6,7 +6,7 @@
   </head>
   <body>
     <h1>Sajari: Website Search Example UI</h1>
-    <h4>Project: <code>{{.project}}</code> Collection: <code>{{.collection}}</code></h4>
+    <h4>Project: <code>your-project</code> Collection: <code>your-collection</code></h4>
     <p>This example injects a search interface into a page.</p>
     <p>It includes a minimal set of styles, code and config to get you up and running:</p>
     <ul>
@@ -20,42 +20,44 @@
       <p>1. From a user filled text box</p>
       <!-- This input box will launch the interface when the user presses enter -->
       <input id="input-box" placeholder="Enter search query">
+      <script>
+        document.getElementById("input-box").addEventListener("keydown", function(e) {
+          if (e.keyCode === 13 /* Enter key */) {
+            window._sjui.state.setValues({ q: e.target.value }, true);
+            window._sjui.overlay.show();
+          }
+        });
+      </script>
       <p>2. From a user focusing a text box or clicking a button</p>
       <!-- This input box will launch the interface when the user clicks it -->
-      <input onfocus="window.sj.interface.show()" placeholder="Focus me to launch">
+      <input onfocus="window._sjui.overlay.show()" placeholder="Focus me to launch">
       <!-- This button will launch the interface when the user clicks it -->
-      <button onclick="window.sj.interface.show()">Launch Interface</button>
+      <button onclick="window._sjui.overlay.show()">Launch Interface</button>
 
       <!-- <div id="search-box"></div> -->
       <!-- <div id="search-response"></div> -->
     </div>
     <!-- This script sets up the config for the search interface -->
     <script>
-        document.getElementById("input-box").addEventListener("keydown", function(e) {
-          if (e.keyCode === 13 /* Enter key */) {
-            window.sj.state.setValues({ q: e.target.value }, true);
-            window.sj.interface.show();
-          }
-        });
         var getUrlParam = function(e){var t = new RegExp("[?&]" + e.replace(/[\[\]]/g, "\\$&") + "(=([^&#]*)|&|#|$)"),a = t.exec(window.location.href);return a && a[2] ? decodeURIComponent(a[2].replace(/\+/g, " ")) : ""};
-        if (!window.sj) window.sj = {};
-        if (!window.sj.interface) window.sj.interface = {};
-        window.sj.interface.config = {
+        if (!window._sjui) window._sjui = {};
+        if (!window._sjui.overlay) window._sjui.overlay = {};
+        window._sjui.config = {
           project: "gopetition",       // Set this to your project.
           collection: "gopetition-com", // Set this to your collection.
           values: {
-              q: getUrlParam("q"), // Take the default search text from the query params (if set).
               resultsPerPage: "10" // Return 10 results per page.
           },
+          setValuesFromParams: {
+            "q": "q"
+          },
           overlay: true,
-          attachSearchBox: document.getElementById("search-box"), // DOM elt to render Search box
-          attachSearchResponse: document.getElementById("search-response"), // DOM elt to render results
           pipeline: "website", // Run the website pipeline.
           searchBoxPlaceHolder: "Type to search", // Placeholder text in search box.
           showImages: false, // Show images in results.
           tabFilters: { // Tabs configuration.
             defaultTab: 'All', // Title of the default tab (NB: must have empty filter).
-            tabs: [{title: 'All', filter: ''}, { title: 'Petitions', filter: "dir1~'petition'" }, { title: 'Other', filter: "dir1!~'petition'"}], // Ordered list of tabs to show.
+            tabs: [{title: 'All', filter: ''}, { title: 'Blog', filter: "dir1='blog'" }, { title: 'Other', filter: "dir1!='blog'"}], // Ordered list of tabs to show.
           },
         };
     </script>
