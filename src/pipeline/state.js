@@ -166,11 +166,7 @@ class state {
       if (l.type === type) {
         l.listener(...x);
       }
-    })
-  }
-
-  getStatus() {
-    return this.status;
+    });
   }
 
   getError() {
