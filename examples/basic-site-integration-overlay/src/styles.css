@@ -255,7 +255,7 @@
     right: 3%;
   }
 
-  .sj-search-bar-input-common {
+  #sj-overlay .sj-search-bar-input-common {
     width: 70vw;
   }
 }
