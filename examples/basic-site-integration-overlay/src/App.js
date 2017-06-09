@@ -46,7 +46,21 @@ class App extends React.Component {
 
     const userValues = config.values;
 
-    const combinedValues = { ...userValues, ...valuesFromParams };
+    const tabValues = {};
+    // Set the initial tab filter
+    if (config.tabFilters && config.tabFilters.defaultTab) {
+      config.tabFilters.tabs.forEach(t => {
+        if (t.title === config.tabFilters.defaultTab) {
+          tabValues.filter = t.filter;
+        }
+      });
+    }
+
+    const combinedValues = {
+      ...tabValues,
+      ...userValues,
+      ...valuesFromParams
+    };
 
     // Perform a search on load if there is a query param supplied
     const performSearch = Boolean(combinedValues.q);
