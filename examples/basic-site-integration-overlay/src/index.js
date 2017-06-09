@@ -14,7 +14,7 @@ const error = message => {
 function startInterface(config) {
   if (!config) {
     error(
-      'global value "sj" not found, please check the code snippet for your Sajari search interface'
+      'global value "_sjui" not found, please check the code snippet for your Sajari search interface'
     );
     return;
   }
