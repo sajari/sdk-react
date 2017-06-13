@@ -97,6 +97,8 @@ class state {
 
   reset() {
     this.results = undefined;
+    this.error = undefined;
+    this.values = {};
     this.notify(RESULTS_CHANGED);
     this.resetTracking();
   }
