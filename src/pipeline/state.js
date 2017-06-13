@@ -117,7 +117,7 @@ class state {
       }
 
       // Discard this result if another (more recent query) has been sent.
-      if (this.tracking.seq > tracking.s) {
+      if (this.tracking.seq >= tracking.s) {
         return;
       }
 
