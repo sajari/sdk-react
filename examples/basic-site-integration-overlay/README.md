@@ -168,7 +168,7 @@ Create tabs to filter search results.  Tabs are rendered in a UI component when 
 tabFilters: {
    defaultTab: "All", // The title of the default tab.
    tabs: [
-      {title: "All", filter: ""}, // The default tab must have an empty filter.
+      {title: "All", filter: ""},
       {title: "Blog", filter: "dir1='blog'"}, // First directory in URL is 'blog'.
       {title: "Not Blog", filter: "dir1!='blog'"} // First directory in URL is not 'blog'.
    ],
