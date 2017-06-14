@@ -25,9 +25,21 @@ class SearchBox extends React.Component {
     _state.setCollection(this.props.config.collection);
     _state.setPipeline(this.props.config.pipeline);
 
-    if (this.props.config.values) {
-      _state.setValues(this.props.config.values, !!this.props.config.values.q);
+    const tabValues = {};
+    if (this.props.config.tabFilters) {
+      this.props.config.tabFilters.tabs.forEach(t => {
+        if (t.title === this.props.config.tabFilters.defaultTab) {
+          tabValues.filter = t.filter;
+        }
+      });
     }
+
+    const stateValues = {
+      ...this.props.config.values,
+      ...tabValues
+    };
+
+    _state.setValues(stateValues, Boolean(stateValues.q));
 
     if (!this.props.config.disableGA) {
       new Analytics("default");
