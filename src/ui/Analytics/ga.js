@@ -82,7 +82,7 @@ class GoogleAnalytics {
   sendGAPageView(body) {
     if (
       this.id &&
-      typeof window[this.id] === "function" &&
+      isFunction(window[this.id]) &&
       process.env.NODE_ENV.environment !== 'development'
     ) {
       // Merge the body in with the existing query params in the url
