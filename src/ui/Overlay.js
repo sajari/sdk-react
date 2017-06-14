@@ -3,10 +3,6 @@ import React from 'react'
 import Response from '../pipeline/Response'
 import { setActive } from './actions/Overlay'
 import { Results } from './Results'
-// import Tabs from './Tabs'
-//import Pipeline from '../pipeline/Pipeline'
-// import Value from '../pipeline/Value'
-// import PipelineInput from '../pipeline/PipelineInput'
 
 const Close = ({ onClick, closeOverlay }) => (
   <div
