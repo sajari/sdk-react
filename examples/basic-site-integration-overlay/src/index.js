@@ -11,7 +11,8 @@ const error = message => {
   }
 };
 
-function startInterface(config) {
+function startInterface() {
+  const config = window._sjui.config;
   if (!config) {
     error(
       'global value "_sjui" not found, please check the code snippet for your Sajari search interface'
@@ -48,4 +49,4 @@ function startInterface(config) {
   ReactDOM.render(<App config={config} />, renderTarget);
 }
 
-loaded(window, () => startInterface(window._sjui.config));
+loaded(window, startInterface);
