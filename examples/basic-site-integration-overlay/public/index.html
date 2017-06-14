@@ -19,14 +19,14 @@
       <h3>Here are two example points of integration.</h3>
       <p>1. From a user filled text box</p>
       <!-- This input box will launch the interface when the user presses enter -->
-      <input id="input-box" placeholder="Enter search query">
+      <input id="input-box" placeholder="Enter search query" onkeydown="inputKeyDown(event)">
       <script>
-        document.getElementById("input-box").addEventListener("keydown", function(e) {
+        function inputKeyDown(e) {
           if (e.keyCode === 13 /* Enter key */) {
             window._sjui.state.setValues({ q: e.target.value }, true);
             window._sjui.overlay.show();
           }
-        });
+        }
       </script>
       <p>2. From a user focusing a text box or clicking a button</p>
       <!-- This input box will launch the interface when the user clicks it -->
