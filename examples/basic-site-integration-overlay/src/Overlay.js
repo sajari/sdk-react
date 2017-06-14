@@ -13,16 +13,26 @@ const _state = State.default();
 class Overlay extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { active: false };
+    let active = false;
+    if (
+      (props.config.values && props.config.values.q) ||
+      (props.config.initialValues && props.config.initialValues.q)
+    ) {
+      active = true;
+    }
+    this.state = { active };
     this.setOverlayActive = this.setOverlayActive.bind(this);
   }
 
   setOverlayActive(active) {
-    this.setState({ active });
-    if (!active) {
-      _state.setValues({ q: undefined });
+    if (active) {
+      if (this.state.active === false) {
+        this.props.initialiseValues();
+      }
+    } else {
       _state.reset();
     }
+    this.setState({ active });
     document.getElementsByTagName("body")[0].style.overflow = active
       ? "hidden"
       : "";
