@@ -22,9 +22,22 @@ const getUrlParam = e => {
 };
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.initialiseValues = this.initialiseValues.bind(this);
+  }
+
   componentDidMount() {
     window._sjui.state = stateProxy;
 
+    this.initialiseValues(true);
+
+    if (!this.props.config.disableGA) {
+      new Analytics("default");
+    }
+  }
+
+  initialiseValues(firstTime) {
     const config = this.props.config;
 
     _state.setProject(config.project);
@@ -35,16 +48,6 @@ class App extends React.Component {
     if (config.showImages) {
       fields += ",image";
     }
-    _state.setValues({ fields });
-
-    let valuesFromParams = {};
-    if (config.setValuesFromParams) {
-      Object.keys(config.setValuesFromParams).forEach(k => {
-        valuesFromParams[k] = getUrlParam(config.setValuesFromParams[k]);
-      });
-    }
-
-    const userValues = config.values;
 
     const tabValues = {};
     // Set the initial tab filter
@@ -56,26 +59,32 @@ class App extends React.Component {
       });
     }
 
+    const userValues = config.values;
+
+    // Only include initial values the first time App is initialise0d
+    const initialValues = config.initialValues && firstTime
+      ? config.initialValues
+      : {};
+
     const combinedValues = {
+      fields,
       ...tabValues,
       ...userValues,
-      ...valuesFromParams
+      ...initialValues
     };
 
     // Perform a search on load if there is a query param supplied
     const performSearch = Boolean(combinedValues.q);
     _state.setValues(combinedValues, performSearch);
-
-    if (!config.disableGA) {
-      new Analytics("default");
-    }
   }
 
   render() {
     const config = this.props.config;
     const isOverlay = config.overlay;
 
-    return isOverlay ? <Overlay config={config} /> : <InPage config={config} />;
+    return isOverlay
+      ? <Overlay config={config} initialiseValues={this.initialiseValues} />
+      : <InPage config={config} />;
   }
 }
 
