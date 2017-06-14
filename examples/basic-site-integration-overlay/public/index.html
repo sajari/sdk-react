@@ -48,8 +48,8 @@
           values: {
               resultsPerPage: "10" // Return 10 results per page.
           },
-          setValuesFromParams: {
-            "q": "q"
+          initialValues: {
+            "q": getUrlParam("q")
           },
           overlay: true,
           pipeline: "website", // Run the website pipeline.

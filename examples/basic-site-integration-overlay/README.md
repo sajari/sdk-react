@@ -55,7 +55,7 @@ The configuration required for this example is given below.  For more details, s
   "values": {
     "resultsPerPage": "10"
   },
-  "setValuesFromParams": {
+  "initialValues": {
     "q": "q"
   },
   "overlay": false
@@ -155,8 +155,8 @@ values: {
 These values described in this section are taken from the url and added to the value map.
 
 ```javascript
-setValuesFromParams: {
-  q: "q" // The initial search query will be the value of the query param "q".
+initialValues: {
+  q: getUrlParam("q") // The initial search query will be the value of the query param "q".
 }
 ```
 
