@@ -4,31 +4,9 @@ This example is used in the [Console](https://www.sajari.com/console/collections
 
 Our auto-generated search interfaces are a great starting point for getting Sajari website search running on your site.
 
-## Styling
-
-The generated interface can be easily styled to fit your website's look and feel.
-
-We've labelled elements in the interface with classes and ids to make it easy to hook into. For example `sj-logo` can be given a background image and size to add your logo, or different sections inside the `sj-result-summary` can be hidden or moved around to achieve a different look.
-
-The interface is also designed to be responsive by default. However we realise everybody has their own approach so by default there aren't any large changes at smaller resolutions.
-
-Below are 3 examples of styling the interface.
-
-[Orange](./sample-styles/orange.css)
-
-![Orange](./sample-styles/orange.png)
-
-[Purple](./sample-styles/light.css)
-
-![Purple](./sample-styles/light.png)
-
-[Sajari](https://www.sajari.com)
-
-![Sajari](./sample-styles/sajari.png)
-
 ## Instructions
 
-We're assuming you've already setup an account and have a website collection already indexing.  If not then head over to [https://www.sajari.com/console/sign-up](https://www.sajari.com/console/sign-up) to sign up and create a website collection to get started.
+We're assuming you've already setup an account and have a website collection already indexing. If not then head over to [https://www.sajari.com/console/sign-up](https://www.sajari.com/console/sign-up) to sign up and create a website collection to get started.
 
 From the [Install tab](https://www.sajari.com/console/collections/install) you can generate a search interface which can be easily cut+pasted into your site.  You can also quickly add further customisations using CSS or by changing the JSON config.  For instance, you can add tabs to limit searches to specific areas of your website:
 
@@ -62,6 +40,31 @@ The configuration required for this example is given below.  For more details, s
 }
 ```
 
+## Styling
+
+The generated interface can be easily styled to fit your website's look and feel, it's also designed to be responsive by default.
+
+Here are a few examples of common css changes.
+
+
+### Brand colors
+
+Set the color of links and tabs and set a font. Source: [orange.css](./sample-styles/orange.css)
+
+![Orange](./sample-styles/orange.png)
+
+### Brand image and colors, hiding elements
+
+Set a brand image and color and fonts. Hide links. Source: [light.css](./sample-styles/light.css)
+
+![Light](./sample-styles/light.png)
+
+### Responsive layout with brand image.
+
+Set up a layout to work better on smaller screens. Source: [sajari.css](./sample-styles/sajari.css)
+
+![Sajari](./sample-styles/sajari.png)
+
 ## Configuration
 
 The generated search interfaces are configured using a simple JSON object, which contains attributes to control:
@@ -74,7 +77,6 @@ The generated search interfaces are configured using a simple JSON object, which
 * [Algorithm parameters](#algorithm-parameters)
 * [Values from url parameters](#values-from-url-parameters)
 * [Tab filters](#tab-filters)
-* [Styling your interface](#styling-your-interface)
 
 ### Project/Collection
 
@@ -141,11 +143,10 @@ searchBoxPlaceHolder: "Search",
 
 ### Algorithm Parameters
 
-The standard website pipeline defines several algorithm parameters.
+The standard website pipeline defines several algorithm parameters. For example, `resultsPerPage`.
 
 ```javascript
 values: {
-   q: "house", // The initial search query will be "house".
    resultsPerPage: "10", // Show 10 results per page.
 },
 ```
@@ -206,17 +207,6 @@ When querying a field, there are a few operators that can be used. Note, all val
 | Less Than (`<`) | Field is less than a given *numeric* value | `boost<'50'` |
 | Less Than Or Equal To (`<=`) | Field is less than or equal to a given *numeric* value | `boost<'50'` |
 | Begins With (`^`) | Field begins with a *string* | `dir1^'bl'` |
-| Ends With (`$`) | Field begins with a *string* | `dir1$'bl'` |
+| Ends With (`$`) | Field ends with a *string* | `dir1$'og'` |
 | Contains (`~`) | Field contains a *string* | `dir1~'blog'` |
 | Does Not Contain (`!~`) | Field does not contain a *string* | `dir1!~'blog'` |
-
-
-## Building from source
-
-Clone and run `npm install` then `npm run build`.
-
-Put your config in `window._sjui.config`.
-
-```javascript
-window._sjui.config = { project: "your-project", ... };
-```
