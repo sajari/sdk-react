@@ -40,17 +40,11 @@
     <!-- This script sets up the config for the search interface -->
     <script>
         var getUrlParam = function(e){var t = new RegExp("[?&]" + e.replace(/[\[\]]/g, "\\$&") + "(=([^&#]*)|&|#|$)"),a = t.exec(window.location.href);return a && a[2] ? decodeURIComponent(a[2].replace(/\+/g, " ")) : ""};
-        if (!window._sjui) window._sjui = {};
-        if (!window._sjui.overlay) window._sjui.overlay = {};
-        window._sjui.config = {
-          project: "gopetition",       // Set this to your project.
-          collection: "gopetition-com", // Set this to your collection.
-          values: {
-              resultsPerPage: "10" // Return 10 results per page.
-          },
-          initialValues: {
-            "q": getUrlParam("q")
-          },
+        window._sjui = { config: {
+          project: "your-project",       // Set this to your project.
+          collection: "your-collection", // Set this to your collection.
+          values: { resultsPerPage: "10" },
+          initialValues: { "q": getUrlParam("q") },
           overlay: true,
           pipeline: "website", // Run the website pipeline.
           searchBoxPlaceHolder: "Type to search", // Placeholder text in search box.
@@ -59,7 +53,7 @@
             defaultTab: 'All', // Title of the default tab.
             tabs: [{title: 'All', filter: ''}, { title: 'Blog', filter: "dir1='blog'" }, { title: 'Other', filter: "dir1!='blog'"}], // Ordered list of tabs to show.
           },
-        };
+        }};
     </script>
 
     <style>
@@ -94,7 +88,7 @@
         background-color: #fff;
         margin: 10px;
       }
-      ul>li {
+      ul li {
         padding: 10px
       }
     </style>
