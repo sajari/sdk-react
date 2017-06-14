@@ -1,7 +1,5 @@
 import React from 'react'
 
-
-const _state = State.default();
 import { State, TRACKING_RESET } from 'sajari-react/pipeline/state'
 
 
@@ -9,7 +7,7 @@ class Tabs extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {selected: this.props.defaultTab};
+    this.state = { selected: this.props.defaultTab };
     this.onTrackingReset = this.onTrackingReset.bind(this);
   }
 
@@ -44,13 +42,8 @@ class Tabs extends React.Component {
   }
 
   onClickTab(title, filter) {
-    this.setState({
-      selected: title,
-    })
-
-    this._state().setValues({
-      filter: filter,
-    }, true);
+    this.setState({ selected: title });
+    this._state().setValues({ filter }, true);
   }
 
   render() {
