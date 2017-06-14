@@ -56,7 +56,7 @@ The configuration required for this example is given below.  For more details, s
     "resultsPerPage": "10"
   },
   "initialValues": {
-    "q": "q"
+    "q": getUrlParam("q")
   },
   "overlay": false
 }
