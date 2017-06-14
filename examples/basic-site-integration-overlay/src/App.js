@@ -13,14 +13,6 @@ import "./styles.css";
 
 const _state = State.default();
 
-const getUrlParam = e => {
-  const t = new RegExp(
-    "[?&]" + e.replace(/[[\]]/g, "\\$&") + "(=([^&#]*)|&|#|$)"
-  );
-  const a = t.exec(window.location.href);
-  return a && a[2] ? decodeURIComponent(a[2].replace(/\+/g, " ")) : "";
-};
-
 class App extends React.Component {
   constructor(props) {
     super(props);
