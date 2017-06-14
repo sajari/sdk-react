@@ -21,12 +21,15 @@ function startInterface() {
   }
   if (!config.project) {
     error("project value in config not set, must be set");
+    return;
   }
   if (!config.collection) {
     error("collection value in config not set, must be set");
+    return;
   }
   if (!config.pipeline) {
     error("pipeline value in config not set, must be set");
+    return;
   }
 
   let renderTarget = null;
