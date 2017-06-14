@@ -71,12 +71,22 @@ class App extends React.Component {
   }
 
   render() {
-    const config = this.props.config;
-    const isOverlay = config.overlay;
+    if (this.props.config.overlay) {
+      return (
+        <Overlay
+          config={this.props.config}
+          initialiseValues={this.initialiseValues}
+          setOverlayControls={this.props.setOverlayControls}
+        />
+      );
+    }
 
-    return isOverlay
-      ? <Overlay config={config} initialiseValues={this.initialiseValues} />
-      : <InPage config={config} />;
+    return (
+      <InPage
+        config={this.props.config}
+        setupInPageResults={this.props.setupInPageResults}
+      />
+    );
   }
 }
 
