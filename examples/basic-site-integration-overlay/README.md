@@ -75,7 +75,7 @@ The generated search interfaces are configured using a simple JSON object, which
 * [Show images](#show-images)
 * [Search box place holder text](#search-box-placeholder-text)
 * [Algorithm parameters](#algorithm-parameters)
-* [Values from url parameters](#values-from-url-parameters)
+* [Initial Values](#initial-values)
 * [Tab filters](#tab-filters)
 
 ### Project/Collection
@@ -151,9 +151,10 @@ values: {
 },
 ```
 
-### Values from url parameters
+### Initial Values
 
-These values described in this section are taken from the url and added to the value map.
+These values described in this section are only added to the value map when the app starts.
+If the overlay is closed or the query is cleared, these values will be removed.
 
 ```javascript
 initialValues: {
