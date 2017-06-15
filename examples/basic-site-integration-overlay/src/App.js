@@ -60,9 +60,9 @@ class App extends React.Component {
 
     const combinedValues = {
       fields,
+      ...initialValues,
       ...tabValues,
-      ...userValues,
-      ...initialValues
+      ...userValues
     };
 
     // Perform a search on load if there is a query param supplied
