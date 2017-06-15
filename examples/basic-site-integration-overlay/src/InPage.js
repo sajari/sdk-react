@@ -1,6 +1,6 @@
 import React from "react";
 
-import Input from "./Input";
+import AutocompleteInput from "sajari-react/pipeline/AutocompleteInput";
 
 class InPage extends React.Component {
   componentDidMount() {
@@ -9,7 +9,7 @@ class InPage extends React.Component {
 
   render() {
     const config = this.props.config;
-    return <Input placeHolder={config.searchBoxPlaceHolder} />;
+    return <AutocompleteInput placeHolder={config.searchBoxPlaceHolder} />;
   }
 }
 
