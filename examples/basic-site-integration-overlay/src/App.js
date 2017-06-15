@@ -65,9 +65,8 @@ class App extends React.Component {
       ...userValues
     };
 
-    // Perform a search on load if there is a query param supplied
-    const performSearch = Boolean(combinedValues.q);
-    _state.setValues(combinedValues, performSearch);
+    const querySet = Boolean(combinedValues.q);
+    _state.setValues(combinedValues, querySet);
   }
 
   render() {
