@@ -193,7 +193,9 @@
   border-bottom: 3px solid #333;
 }
 
-/* Overlay */
+/*
+ * Overlay
+ */
 
 @keyframes sj-overlay-rolldown {
   0% {
