@@ -57,19 +57,19 @@ Response.defaultProps = {
 
 const Results = props => {
   const { results, error, namespace = "default", showImages } = props;
-  
-  if (results || error) {
-    const resultClicked = url =>
-      State.ns(namespace).notify(RESULT_CLICKED, url);
-    return (
-      <RawResults
-        data={{ searchResponse: props }}
-        resultClicked={resultClicked}
-        showImages={showImages}
-      />
-    );
+
+  if (!results && !error) {
+    return null;
   }
-  return null;
+  const resultClicked = url =>
+    State.ns(namespace).notify(RESULT_CLICKED, url);
+  return (
+    <RawResults
+      data={{ searchResponse: props }}
+      resultClicked={resultClicked}
+      showImages={showImages}
+    />
+  );
 };
 
 class Summary extends React.Component {
