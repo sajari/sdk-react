@@ -4,6 +4,9 @@ import ReactDOM from "react-dom";
 import loaded from "./loaded";
 
 import App from "./App";
+import SearchResponse from "./SearchResponse";
+
+const ESCAPE_KEY_CODE = 27;
 
 const error = message => {
   if (console && console.error) {
@@ -39,6 +42,13 @@ function startInterface() {
     window._sjui.overlay.hide = controls.hide;
   };
 
+  const setupInPageResults = () => {
+    ReactDOM.render(
+      <SearchResponse config={config} />,
+      config.attachSearchResponse
+    );
+  };
+
   let renderTarget = null;
   if (config.overlay) {
     // Create a container to render the overlay into
@@ -67,6 +77,7 @@ function startInterface() {
     <App
       config={config}
       setOverlayControls={setOverlayControls}
+      setupInPageResults={setupInPageResults}
     />,
     renderTarget
   );

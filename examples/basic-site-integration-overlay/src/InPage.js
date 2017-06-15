@@ -1,17 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
 
 import Input from "./Input";
-import SearchResponse from "./SearchResponse";
 
 class InPage extends React.Component {
   componentDidMount() {
-    const config = this.props.config;
-
-    ReactDOM.render(
-      <SearchResponse config={config} />,
-      config.attachSearchResponse
-    );
+    this.props.setupInPageResults();
   }
 
   render() {
