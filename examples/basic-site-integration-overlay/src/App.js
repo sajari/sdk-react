@@ -17,12 +17,11 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.initialiseValues = this.initialiseValues.bind(this);
+    this.initialiseValues(true);
   }
 
   componentDidMount() {
     window._sjui.state = stateProxy;
-
-    this.initialiseValues(true);
 
     if (!this.props.config.disableGA) {
       new Analytics("default");
@@ -74,6 +73,7 @@ class App extends React.Component {
       return (
         <Overlay
           config={this.props.config}
+          startActive={_state.getValues().q}
           initialiseValues={this.initialiseValues}
           setOverlayControls={this.props.setOverlayControls}
         />

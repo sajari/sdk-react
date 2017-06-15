@@ -11,14 +11,7 @@ const _state = State.default();
 class Overlay extends React.Component {
   constructor(props) {
     super(props);
-    let active = false;
-    if (
-      (props.config.values && props.config.values.q) ||
-      (props.config.initialValues && props.config.initialValues.q)
-    ) {
-      active = true;
-    }
-    this.state = { active };
+    this.state = { active: props.startActive };
     this.setOverlayActive = this.setOverlayActive.bind(this);
   }
 
