@@ -47,7 +47,7 @@ class Overlay extends React.Component {
     return (
       <OverlayFrame active={this.state.active}>
         <div className="sj-logo" onClick={close} />
-        <AutocompleteInput placeHolder={this.props.config.searchPlaceholder} />
+        <AutocompleteInput placeHolder={this.props.config.searchBoxPlaceHolder} />
         <Close onClick={close} />
         <SearchResponse config={this.props.config} />
       </OverlayFrame>
