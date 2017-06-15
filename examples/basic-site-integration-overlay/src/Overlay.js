@@ -49,16 +49,14 @@ class Overlay extends React.Component {
   }
 
   render() {
-    const config = this.props.config;
     const close = () => this.setOverlayActive(false);
-    const active = this.state.active;
 
     return (
-      <OverlayFrame active={active}>
+      <OverlayFrame active={this.state.active}>
         <div className="sj-logo" onClick={close} />
-        <Input placeHolder={config.searchPlaceholder} />
+        <Input placeHolder={this.props.config.searchPlaceholder} />
         <Close onClick={close} />
-        <SearchResponse config={config} />
+        <SearchResponse config={this.props.config} />
       </OverlayFrame>
     );
   }
