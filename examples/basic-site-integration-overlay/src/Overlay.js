@@ -1,52 +1,30 @@
 import React from "react";
 
 import { Overlay as OverlayFrame, Close } from "sajari-react/ui/Overlay";
-import { State } from "sajari-react/pipeline/state";
 import AutocompleteInput from "sajari-react/pipeline/AutocompleteInput";
 
 import SearchResponse from "./SearchResponse";
 
-const _state = State.default();
-
 class Overlay extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { active: props.startActive };
-    this.setOverlayActive = this.setOverlayActive.bind(this);
-  }
-
-  setOverlayActive(active) {
-    if (active) {
-      this.props.initialiseValues();
-    } else {
-      _state.reset();
-    }
-    this.setState({ active });
-    document.getElementsByTagName("body")[0].style.overflow = active
-      ? "hidden"
-      : "";
-  }
-
-  componentDidMount() {
-    this.props.setOverlayControls({
-      show: () => this.setOverlayActive(true),
-      hide: () => this.setOverlayActive(false)
-    });
-
-    // If there is a query param supplied, launch the interface
-    if (this.props.config.values.q) {
-      this.setOverlayActive(true);
-    }
+    this.state = {
+      active: props.active,
+      ...props.setOverlayControls({
+        show: () => this.setState({ active: true }),
+        hide: () => this.setState({ active: false })
+      })
+    };
   }
 
   render() {
-    const close = () => this.setOverlayActive(false);
-
     return (
       <OverlayFrame active={this.state.active}>
-        <div className="sj-logo" onClick={close} />
-        <AutocompleteInput placeHolder={this.props.config.searchBoxPlaceHolder} />
-        <Close onClick={close} />
+        <div className="sj-logo" onClick={this.state.hide} />
+        <AutocompleteInput
+          placeHolder={this.props.config.searchBoxPlaceHolder}
+        />
+        <Close onClick={this.state.hide} />
         <SearchResponse config={this.props.config} />
       </OverlayFrame>
     );

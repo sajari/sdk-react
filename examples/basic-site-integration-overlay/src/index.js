@@ -1,12 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import loaded from "./loaded";
+import Analytics from "sajari-react/pipeline/analytics";
+import { State } from "sajari-react/pipeline/state";
 
-import App from "./App";
+import loaded from "./loaded";
+import Overlay from "./Overlay";
+import InPage from "./InPage";
 import SearchResponse from "./SearchResponse";
+import stateProxy from "./stateProxy";
+
+import "./styles.css";
 
 const ESCAPE_KEY_CODE = 27;
+
+const _state = State.default();
 
 const error = message => {
   if (console && console.error) {
@@ -14,39 +22,73 @@ const error = message => {
   }
 };
 
-function startInterface() {
+const checkConfig = () => {
   const config = window._sjui.config;
   if (!config) {
-    error(
-      'global value "_sjui" not found, please check the code snippet for your Sajari search interface'
-    );
-    return;
+    error('global value "window._sjui.config" not found');
+    return false;
   }
   if (!config.project) {
-    error("project value in config not set, must be set");
-    return;
+    error("'project' not set in config");
+    return false;
   }
   if (!config.collection) {
-    error("collection value in config not set, must be set");
-    return;
+    error("'collection' not set in config");
+    return false;
   }
   if (!config.pipeline) {
-    error("pipeline value in config not set, must be set");
-    return;
+    error("'pipeline' not set in config");
+    return false;
+  }
+  return true;
+};
+
+const initialiseStateValues = (config, firstTime) => {
+  let initialValues = {};
+  // Only include initial values the first time App is initialise0d
+  if (config.initialValues && firstTime) {
+    initialValues = config.initialValues;
   }
 
-  const noOverlay = () => error("function failed, no overlay exists");
-  window._sjui.overlay = { show: noOverlay, hide: noOverlay };
-  const setOverlayControls = controls => {
-    window._sjui.overlay.show = controls.show;
-    window._sjui.overlay.hide = controls.hide;
+  const tabValues = {};
+  // Set the initial tab filter
+  if (config.tabFilters && config.tabFilters.defaultTab) {
+    config.tabFilters.tabs.forEach(t => {
+      if (t.title === config.tabFilters.defaultTab) {
+        tabValues.filter = t.filter;
+      }
+    });
+  }
+
+  const userValues = config.values;
+
+  const combinedValues = {
+    ...initialValues,
+    ...tabValues,
+    ...userValues
   };
 
-  const setupInPageResults = () => {
-    ReactDOM.render(
-      <SearchResponse config={config} />,
-      config.attachSearchResponse
-    );
+  const isQueryValueSet = Boolean(combinedValues.q);
+  _state.setValues(combinedValues, isQueryValueSet);
+};
+
+const initOverlay = config => {
+  initialiseStateValues(config, true);
+
+  const setOverlayControls = controls => {
+    const show = () => {
+      document.getElementsByTagName("body")[0].style.overflow = "hidden";
+      initialiseStateValues(config, false);
+      controls.show();
+    };
+    const hide = () => {
+      document.getElementsByTagName("body")[0].style.overflow = "";
+      _state.reset();
+      controls.hide();
+    };
+    window._sjui.overlay.show = show;
+    window._sjui.overlay.hide = hide;
+    return { show, hide };
   };
 
   let renderTarget = null;
