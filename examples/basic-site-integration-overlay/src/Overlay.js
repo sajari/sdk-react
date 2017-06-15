@@ -28,15 +28,13 @@ class Overlay extends React.Component {
   }
 
   componentDidMount() {
-    const config = this.props.config;
-
     this.props.setOverlayControls({
       show: () => this.setOverlayActive(true),
       hide: () => this.setOverlayActive(false)
     });
 
     // If there is a query param supplied, launch the interface
-    if (config.values.q) {
+    if (this.props.config.values.q) {
       this.setOverlayActive(true);
     }
   }
