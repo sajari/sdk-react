@@ -6,8 +6,6 @@ import { State } from "sajari-react/pipeline/state";
 import SearchResponse from "./SearchResponse";
 import Input from "./Input";
 
-const ESCAPE_KEY_CODE = 27;
-
 const _state = State.default();
 
 class Overlay extends React.Component {
@@ -41,15 +39,9 @@ class Overlay extends React.Component {
   componentDidMount() {
     const config = this.props.config;
 
-    window._sjui.overlay = {
+    this.props.setOverlayControls({
       show: () => this.setOverlayActive(true),
       hide: () => this.setOverlayActive(false)
-    };
-
-    document.addEventListener("keydown", e => {
-      if (e.keyCode === ESCAPE_KEY_CODE) {
-        this.setOverlayActive(false);
-      }
     });
 
     // If there is a query param supplied, launch the interface

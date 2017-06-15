@@ -32,12 +32,26 @@ function startInterface() {
     return;
   }
 
+  const noOverlay = () => error("function failed, no overlay exists");
+  window._sjui.overlay = { show: noOverlay, hide: noOverlay };
+  const setOverlayControls = controls => {
+    window._sjui.overlay.show = controls.show;
+    window._sjui.overlay.hide = controls.hide;
+  };
+
   let renderTarget = null;
   if (config.overlay) {
     // Create a container to render the overlay into
     const overlayContainer = document.createElement("div");
     overlayContainer.id = "sj-overlay-holder";
     document.body.appendChild(overlayContainer);
+
+    // Set up global overlay values
+    document.addEventListener("keydown", e => {
+      if (e.keyCode === ESCAPE_KEY_CODE) {
+        window._sjui.overlay.hide();
+      }
+    });
 
     renderTarget = overlayContainer;
   } else if (config.attachSearchBox && config.attachSearchResponse) {
@@ -49,7 +63,13 @@ function startInterface() {
     return;
   }
 
-  ReactDOM.render(<App config={config} />, renderTarget);
+  ReactDOM.render(
+    <App
+      config={config}
+      setOverlayControls={setOverlayControls}
+    />,
+    renderTarget
+  );
 }
 
 loaded(window, startInterface);
