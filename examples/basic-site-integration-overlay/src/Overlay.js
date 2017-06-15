@@ -24,9 +24,7 @@ class Overlay extends React.Component {
 
   setOverlayActive(active) {
     if (active) {
-      if (this.state.active === false) {
-        this.props.initialiseValues();
-      }
+      this.props.initialiseValues();
     } else {
       _state.reset();
     }
