@@ -43,7 +43,7 @@ const checkConfig = () => {
   return true;
 };
 
-const initialiseStateValues = (config, firstTime) => {
+const combinedValues = (config, firstTime) => {
   let initialValues = {};
   // Only include initial values the first time App is initialise0d
   if (config.initialValues && firstTime) {
@@ -60,26 +60,19 @@ const initialiseStateValues = (config, firstTime) => {
     });
   }
 
-  const userValues = config.values;
-
   const combinedValues = {
     ...initialValues,
     ...tabValues,
-    ...userValues
+    ...config.values
   };
-
-  const isQueryValueSet = Boolean(combinedValues.q);
-  _state.setValues(combinedValues, isQueryValueSet);
-  return isQueryValueSet;
+  return combinedValues;
 };
 
 const initOverlay = config => {
-  const active = initialiseStateValues(config, true);
-
   const setOverlayControls = controls => {
-    const show = () => {
+    const show = (values = {}) => {
       document.getElementsByTagName("body")[0].style.overflow = "hidden";
-      initialiseStateValues(config, false);
+      _state.setValues(combinedValues({ ...config, ...values }, false));
       controls.show();
     };
     const hide = () => {
@@ -105,22 +98,29 @@ const initOverlay = config => {
   });
 
   ReactDOM.render(
-    <Overlay
-      config={config}
-      active={active}
-      setOverlayControls={setOverlayControls}
-    />,
+    <Overlay config={config} setOverlayControls={setOverlayControls} />,
     overlayContainer
   );
+
+  const values = combinedValues(config, true);
+  const query = Boolean(values.q);
+  if (query) {
+    _state.setValues(values, true);
+    window._sjui.overlay.show();
+  } else {
+    _state.setValues(values);
+  }
 };
 
 const initInPage = config => {
-  initialiseStateValues(config, true);
   ReactDOM.render(<InPage config={config} />, config.attachSearchBox);
   ReactDOM.render(
     <SearchResponse config={config} />,
     config.attachSearchResponse
   );
+
+  const values = combinedValues(config, true);
+  _state.setValues(values, values.q);
 };
 
 const initInterface = () => {
