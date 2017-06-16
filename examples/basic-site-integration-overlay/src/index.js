@@ -70,6 +70,7 @@ const initialiseStateValues = (config, firstTime) => {
 
   const isQueryValueSet = Boolean(combinedValues.q);
   _state.setValues(combinedValues, isQueryValueSet);
+  return isQueryValueSet;
 };
 
 const initOverlay = config => {
