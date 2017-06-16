@@ -8,23 +8,23 @@ import SearchResponse from "./SearchResponse";
 class Overlay extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      active: props.active,
-      ...props.setOverlayControls({
-        show: () => this.setState({ active: true }),
-        hide: () => this.setState({ active: false })
-      })
-    };
+    this.state = { active: props.active, };
+
+    const controls = props.setOverlayControls({
+      show: () => this.setState({ active: true }),
+      hide: () => this.setState({ active: false })
+    });
+    this.hide = controls.hide;
   }
 
   render() {
     return (
       <OverlayFrame active={this.state.active}>
-        <div className="sj-logo" onClick={this.state.hide} />
+        <div className="sj-logo" onClick={this.hide} />
         <AutocompleteInput
           placeHolder={this.props.config.searchBoxPlaceHolder}
         />
-        <Close onClick={this.state.hide} />
+        <Close onClick={this.hide} />
         <SearchResponse config={this.props.config} />
       </OverlayFrame>
     );
