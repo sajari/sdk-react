@@ -8,6 +8,13 @@ import {
 } from "sajari-react/pipeline/Response";
 import Tabs from "sajari-react/pipeline/Tabs";
 
+const Placeholder = ({ renderPlaceholder }) => {
+  if (renderPlaceholder) {
+    return <div id="sj-results-placeholder">{renderPlaceholder(React)}</div>;
+  }
+  return <div id="sj-results-placeholder" />;
+};
+
 const SearchResponse = ({ config }) => {
   let tabs = null;
   if (config.tabFilters) {
@@ -19,13 +26,16 @@ const SearchResponse = ({ config }) => {
     );
   }
 
-  const showImages = config.results ? config.results.showImages : false;
+  const results = config.results || {};
+
+  const placeholder = () =>
+    <Placeholder renderPlaceholder={results.renderPlaceholder} />;
 
   return (
-    <Response>
+    <Response Placeholder={placeholder}>
       {tabs}
       <Summary />
-      <Results showImages={showImages} />
+      <Results showImages={results.showImages} />
       <Paginator />
     </Response>
   );
