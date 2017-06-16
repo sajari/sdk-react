@@ -1,6 +1,6 @@
 # Website Search Interfaces
 
-This example is used in the [Console](https://www.sajari.com/console/collections/install) to auto-generate search interfaces for website integrations.
+This repository is used in the [Console](https://www.sajari.com/console/collections/install) to auto-generate search interfaces for website integrations.
 
 Our auto-generated search interfaces are a great starting point for getting Sajari website search running on your site.
 
@@ -8,7 +8,7 @@ Our auto-generated search interfaces are a great starting point for getting Saja
 
 We're assuming you've already setup an account and have a website collection already indexing. If not then head over to [https://www.sajari.com/console/sign-up](https://www.sajari.com/console/sign-up) to sign up and create a website collection to get started.
 
-From the [Install tab](https://www.sajari.com/console/collections/install) you can generate a search interface which can be easily cut+pasted into your site.  You can also quickly add further customisations using CSS or by changing the JSON config.  For instance, you can add tabs to limit searches to specific areas of your website:
+From the [Install tab](https://www.sajari.com/console/collections/install) you can generate a search interface which can be easily copy+pasted into your site.  It's easy to add further customisations using CSS (see [Styling](#styling)), or by changing the JSON config (see [Configuration](#configuration)).
 
 ![Search interface with tabs](https://cloud.githubusercontent.com/assets/2822/25603841/e50022d4-2f42-11e7-9ac0-3968714b9e1d.png)
 
@@ -79,6 +79,8 @@ The generated search interfaces are configured using a simple JSON object, which
 * [Algorithm parameters](#algorithm-parameters)
 * [Initial Values](#initial-values)
 * [Tab filters](#tab-filters)
+
+You'll find the configuration object in the snippet generated from the [install page](https://www.sajari.com/console/collections/install).
 
 ### Project/Collection
 
