@@ -19,11 +19,13 @@ const SearchResponse = ({ config }) => {
     );
   }
 
+  const showImages = config.results ? config.results.showImages : false;
+
   return (
     <Response>
       {tabs}
       <Summary />
-      <Results showImages={config.showImages} />
+      <Results showImages={showImages} />
       <Paginator />
     </Response>
   );

@@ -29,7 +29,9 @@ The configuration required for this example is given below.  For more details, s
       {"title": "Blog", "filter": "dir1='blog'"}
     ]
   },
-  "showImages": false,
+  "results": {
+    "showImages": false
+  },
   "values": {
     "resultsPerPage": "10"
   },
@@ -72,7 +74,7 @@ The generated search interfaces are configured using a simple JSON object, which
 * [Project/Collection](#projectcollection)
 * [Pipeline](#pipeline)
 * [Attaching to the DOM](#attaching-to-the-dom)
-* [Show images](#show-images)
+* [Result Config](#result-config)
 * [Search box place holder text](#search-box-placeholder-text)
 * [Algorithm parameters](#algorithm-parameters)
 * [Initial Values](#initial-values)
@@ -125,12 +127,16 @@ For example, launching the overlay when a button is clicked
 <button onclick="window._sjui.overlay.show()">Search</button>
 ```
 
-### Show Images
+### Result Config
+
+Result config allows you to modify the result rendering.
 
 Show images next to search results.
 
 ```javascript
-showImages: true|false,
+results: {
+  showImages: false
+},
 ```
 
 ### Search box placeholder text
