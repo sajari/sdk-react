@@ -74,7 +74,7 @@ const initialiseStateValues = (config, firstTime) => {
 };
 
 const initOverlay = config => {
-  initialiseStateValues(config, true);
+  const active = initialiseStateValues(config, true);
 
   const setOverlayControls = controls => {
     const show = () => {
@@ -107,7 +107,7 @@ const initOverlay = config => {
   ReactDOM.render(
     <Overlay
       config={config}
-      active={_state.getValues().q}
+      active={active}
       setOverlayControls={setOverlayControls}
     />,
     overlayContainer
