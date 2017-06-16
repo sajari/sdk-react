@@ -218,7 +218,11 @@ class state {
 
     // Merge values into this.values.
     for (let k in values) {
-      this.values[k] = values[k]
+      if (values[k] === undefined || values[k] === null) {
+        delete this.values[k];
+      } else {
+        this.values[k] = values[k];
+      }
     }
 
     if (runSearch) {
