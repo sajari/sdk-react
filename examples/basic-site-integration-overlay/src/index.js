@@ -91,38 +91,68 @@ const initOverlay = config => {
     return { show, hide };
   };
 
-  let renderTarget = null;
-  if (config.overlay) {
-    // Create a container to render the overlay into
-    const overlayContainer = document.createElement("div");
-    overlayContainer.id = "sj-overlay-holder";
-    document.body.appendChild(overlayContainer);
+  // Create a container to render the overlay into
+  const overlayContainer = document.createElement("div");
+  overlayContainer.id = "sj-overlay-holder";
+  document.body.appendChild(overlayContainer);
 
-    // Set up global overlay values
-    document.addEventListener("keydown", e => {
-      if (e.keyCode === ESCAPE_KEY_CODE) {
-        window._sjui.overlay.hide();
-      }
-    });
+  // Set up global overlay values
+  document.addEventListener("keydown", e => {
+    if (e.keyCode === ESCAPE_KEY_CODE) {
+      window._sjui.overlay.hide();
+    }
+  });
 
-    renderTarget = overlayContainer;
-  } else if (config.attachSearchBox && config.attachSearchResponse) {
-    renderTarget = config.attachSearchBox;
-  } else {
-    error(
-      "no render mode found, need to specify either overlay or attachSearchBox and attachSearchResponse in config"
-    );
+  ReactDOM.render(
+    <Overlay
+      config={config}
+      active={_state.getValues().q}
+      setOverlayControls={setOverlayControls}
+    />,
+    overlayContainer
+  );
+};
+
+const initInPage = config => {
+  initialiseStateValues(config, true);
+  ReactDOM.render(<InPage config={config} />, config.attachSearchBox);
+  ReactDOM.render(
+    <SearchResponse config={config} />,
+    config.attachSearchResponse
+  );
+};
+
+const initInterface = () => {
+  if (!checkConfig()) {
     return;
   }
 
-  ReactDOM.render(
-    <App
-      config={config}
-      setOverlayControls={setOverlayControls}
-      setupInPageResults={setupInPageResults}
-    />,
-    renderTarget
-  );
-}
+  const config = window._sjui.config;
 
-loaded(window, startInterface);
+  const noOverlay = () => error("no overlay exists");
+  window._sjui.overlay = { show: noOverlay, hide: noOverlay };
+
+  window._sjui.state = stateProxy;
+
+  _state.setProject(config.project);
+  _state.setCollection(config.collection);
+  _state.setPipeline(config.pipeline);
+
+  if (!config.disableGA) {
+    new Analytics("default");
+  }
+
+  if (config.overlay) {
+    initOverlay(config);
+    return;
+  }
+  if (config.attachSearchBox && config.attachSearchResponse) {
+    initInPage(config);
+    return;
+  }
+  error(
+    "no render mode found, need to specify either overlay or attachSearchBox and attachSearchResponse in config"
+  );
+};
+
+loaded(window, initInterface);
