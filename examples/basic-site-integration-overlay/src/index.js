@@ -70,9 +70,9 @@ const combinedValues = (config, firstTime) => {
 
 const initOverlay = config => {
   const setOverlayControls = controls => {
-    const show = (values = {}) => {
+    const show = () => {
       document.getElementsByTagName("body")[0].style.overflow = "hidden";
-      _state.setValues(combinedValues({ ...config, ...values }, false));
+      _state.setValues(combinedValues(config, false));
       controls.show();
     };
     const hide = () => {
