@@ -1,6 +1,6 @@
 {
-  "name": "basic-site-integration-overlay",
-  "version": "0.1.0",
+  "name": "website-search",
+  "version": "1.0.0",
   "private": true,
   "devDependencies": {
     "react-scripts": "1.0.7"
