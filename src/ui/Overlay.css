@@ -60,13 +60,13 @@
   top: 0;
   right: 20px;
   z-index: 1;
-  color:#CCC;
+  color:#aaa;
   text-align: center;
   cursor: pointer;
 }
 
 #sj-overlay-close:hover {
-  color: #fff;
+  color: #000;
 }
 
 #sj-overlay-close .sj-close {

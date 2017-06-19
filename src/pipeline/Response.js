@@ -1,19 +1,13 @@
 import React from 'react'
 
-import { State, RESULTS_CHANGED, RESULT_CLICKED } from './state'
+import { State, RESULTS_CHANGED, RESULT_CLICKED, VALUES_CHANGED } from './state'
 
-import { Results as RawResults } from 'sajari-react/ui/Results'
-
-const getState = (namespace) => {
-  return {
-    searchResponse: State.ns(namespace).getResults() || {}
-  }
-};
+import { Results as RawResults } from '../ui/Results';
 
 class Response extends React.Component {
   constructor(props) {
     super(props)
-    this.state = getState(this.props.namespace)
+    this.state = { results: this._state().getResults() || {} };
     this.onResultsChange = this.onResultsChange.bind(this)
   }
 
@@ -23,68 +17,60 @@ class Response extends React.Component {
 
   componentDidMount() {
     this._state().registerListener(RESULTS_CHANGED, this.onResultsChange);
+    this._state().registerListener(VALUES_CHANGED, this.onResultsChange);
   }
 
   componentWillUnmount() {
     this._state().unregisterListener(RESULTS_CHANGED, this.onResultsChange);
+    this._state().unregisterListener(VALUES_CHANGED, this.onResultsChange);
   }
 
   onResultsChange() {
-    this.setState(this._state().getResults() || {});
+    this.setState({ results: this._state().getResults() || {} });
   }
 
   render() {
-    const { children } = this.props;
-
+    const { children, Placeholder } = this.props;
+    const results = this.state.results;
+    const time = results.time;
     const error = this._state().getError();
 
-    const time = this.state.time;
+    if (!time && !error) {
+      return Placeholder ? <Placeholder /> : null;
+    }
 
-    let values = this._state().getValues();
-    const text = values["q.used"] || values["q"]
-    if (!text || !time && !error) {
+    const propsForChildren = { ...results, error };
+    const childrenWithResults = React.Children.map(children, c => {
+      if (React.isValidElement(c)) {
+        return React.cloneElement(c, propsForChildren);
+      }
       return null;
-    }
+    });
 
-    return (
-      <div>
-        {React.Children.map(children, c => {
-          if (c === null) {
-            return c
-          }
-          return React.cloneElement(c, {
-            ...this.state,
-            error
-          });
-        })}
-      </div>
-    );
+    return <div className="sj-pipeline-response">{childrenWithResults}</div>;
   }
-}
-
-class Results extends React.Component {
-  render() {
-    if (this.props.results || this.props.error) {
-      const resultClicked = url => State.ns(this.props.namespace).notify(RESULT_CLICKED, url);
-      return (
-        <RawResults
-          data={{ searchResponse: this.props }}
-          resultClicked={resultClicked}
-          showImages={this.props.showImages}
-        />
-      );
-    }
-    return null;
-  }
-}
-
-Results.defaultProps = {
-  namespace: 'default'
 }
 
 Response.defaultProps = {
   namespace: 'default',
 }
+
+const Results = props => {
+  const { results, error, namespace = "default", showImages } = props;
+
+  if (!results && !error) {
+    return null;
+  }
+  const resultClicked = url =>
+    State.ns(namespace).notify(RESULT_CLICKED, url);
+  return (
+    <RawResults
+      data={{ searchResponse: props }}
+      resultClicked={resultClicked}
+      showImages={showImages}
+    />
+  );
+};
 
 class Summary extends React.Component {
   constructor(props) {
@@ -106,7 +92,7 @@ class Summary extends React.Component {
   }
 
   onValuesChange() {
-    this.setState(getState(this.props.namespace));
+    this.setState(this._state().getResults() || {});
   }
 
   render() {
@@ -211,13 +197,6 @@ const RawPaginator = ({ resultsPerPage, page, totalResults, setPage, pageFn }) =
     </div>
   )
 }
-
-RawPaginator.propTypes = {
-  resultsPerPage: React.PropTypes.number.isRequired,
-  page: React.PropTypes.number.isRequired,
-  totalResults: React.PropTypes.number.isRequired
-}
-
 
 const Page = ({ currentPage, page, setPage, children }) => (
   <div className={currentPage === page ? 'current' : null} onClick={() => setPage(page)}>{ children }</div>

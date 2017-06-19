@@ -50,6 +50,7 @@ class state {
   constructor(namespace) {
     this.namespace = namespace;
     this.values = {};
+    this.responseValues = {};
     this.tracking = {};
 
     this.listeners = [];
@@ -97,6 +98,9 @@ class state {
 
   reset() {
     this.results = undefined;
+    this.error = undefined;
+    this.values = {};
+    this.responseValues = {};
     this.notify(RESULTS_CHANGED);
     this.resetTracking();
   }
@@ -117,7 +121,7 @@ class state {
       }
 
       // Discard this result if another (more recent query) has been sent.
-      if (this.tracking.seq > tracking.s) {
+      if (this.tracking.seq >= tracking.s) {
         return;
       }
 
@@ -131,18 +135,7 @@ class state {
       }
       this.error = null;
 
-      if (res.values) {
-        // TODO: Move this out into a method.
-        // This stuff is specific to autocomplete only.
-        let values = this.getValues();
-        if (res.values["q"] && res.values["q"] !== values["q"]) {
-          res.values["q.used"] = res.values["q"];
-          delete res.values["q"];
-        } else {
-          res.values["q.used"] = null;
-        }
-        this.setValues(res.values, false);
-      }
+      this.responseValues = res.values;
       this.results = res.searchResponse;
       this.notify(RESULTS_CHANGED);
     })
@@ -166,11 +159,7 @@ class state {
       if (l.type === type) {
         l.listener(...x);
       }
-    })
-  }
-
-  getStatus() {
-    return this.status;
+    });
   }
 
   getError() {
@@ -183,6 +172,10 @@ class state {
 
   getValues() {
     return this.values;
+  }
+
+  getResponseValues() {
+    return this.responseValues;
   }
 
   beforeMergingValues(values) {
@@ -205,7 +198,7 @@ class state {
       // Clear q.used when setting q to be "", but only if we're
       // not also setting q.used.
       if (currQ === "" && values["q.used"] === undefined) {
-        delete this.values["q.used"];
+        delete this.responseValues["q.used"];
       }
     }
 
@@ -225,7 +218,11 @@ class state {
 
     // Merge values into this.values.
     for (let k in values) {
-      this.values[k] = values[k]
+      if (values[k] === undefined || values[k] === null) {
+        delete this.values[k];
+      } else {
+        this.values[k] = values[k];
+      }
     }
 
     if (runSearch) {

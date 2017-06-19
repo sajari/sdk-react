@@ -9,10 +9,10 @@ const RETURN_KEYCODE = 13
 
 
 const getState = (namespace) => {
-  let s = State.ns(namespace).getValues()
+  const s = State.ns(namespace);
   return {
-    text: s["q"] || "",
-    completion: s["q.used"] || "",
+    text: s.getValues()["q"] || "",
+    completion: s.getResponseValues()["q"] || "",
   }
 }
 

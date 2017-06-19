@@ -1,16 +1,14 @@
 import React from 'react'
 
-import { State, VALUES_CHANGED } from 'sajari-react/pipeline/state'
-
-const _state = State.default();
+import { State, TRACKING_RESET } from 'sajari-react/pipeline/state'
 
 
 class Tabs extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {selected: this.props.defaultTab};
-    this.onValuesChange = this.onValuesChange.bind(this);
+    this.state = { selected: this.props.defaultTab };
+    this.onTrackingReset = this.onTrackingReset.bind(this);
   }
 
   _state() {
@@ -18,28 +16,34 @@ class Tabs extends React.Component {
   }
 
   componentDidMount() {
-    this._state().registerListener(VALUES_CHANGED, this.onValuesChange);
+    this._state().registerListener(TRACKING_RESET, this.onTrackingReset);
   }
 
   componentWillUnmount() {
-    this._state().unregisterListener(VALUES_CHANGED, this.onValuesChange);
+    this._state().unregisterListener(TRACKING_RESET, this.onTrackingReset);
   }
 
-  onValuesChange() {
-    let values = this._state().getValues();
-    if (values["filter"] === "") {
-      this.setState({ selected: this.props.defaultTab });
+  onTrackingReset() {
+    const values = this._state().getValues();
+    const { defaultTab, tabs } = this.props;
+
+    let defaultTabFilter = undefined;
+    tabs.forEach(t => {
+      if (t.title === defaultTab) {
+        defaultTabFilter = t.filter;
+      }
+    });
+
+    // If there is no filter but the default tab filter is non-empty
+    if (!values.filter && defaultTabFilter) {
+      // Set the default tabs filter
+      this._state().setValues({ filter: defaultTabFilter });
     }
   }
 
   onClickTab(title, filter) {
-    this.setState({
-      selected: title,
-    })
-
-    this._state().setValues({
-      filter: filter,
-    }, true);
+    this.setState({ selected: title });
+    this._state().setValues({ filter }, true);
   }
 
   render() {
