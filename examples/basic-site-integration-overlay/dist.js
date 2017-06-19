@@ -17,5 +17,5 @@ exec("rm build/*.ico");
 exec("rm build/service-worker.js");
 
 // Put version in file name
-exec("mv build/js build/website-search`." + version + ".js");
+exec("mv build/js build/website-search." + version + ".js");
 exec("mv build/css build/website-search." + version + ".css");
