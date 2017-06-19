@@ -1,7 +1,7 @@
 import React from 'react'
 import { findDOMNode } from 'react-dom'
 
-import { State, VALUES_CHANGED } from './state'
+import { State, VALUES_CHANGED, RESULTS_CHANGED } from './state'
 
 const RIGHT_ARROW_KEYCODE = 39
 const TAB_KEYCODE = 9
@@ -32,10 +32,12 @@ class AutocompleteInput extends React.Component {
     findDOMNode(this.refs.searchInput).focus()
 
     this._state().registerListener(VALUES_CHANGED, this.onValuesChange)
+    this._state().registerListener(RESULTS_CHANGED, this.onValuesChange)
   }
 
   componentWillUnmount() {
     this._state().unregisterListener(VALUES_CHANGED, this.onValuesChange)
+    this._state().unregisterListener(RESULTS_CHANGED, this.onValuesChange)
   }
 
   onValuesChange() {
