@@ -96,9 +96,10 @@ class Summary extends React.Component {
   }
 
   render() {
-    let values = this._state().getValues();
+    const values = this._state().getValues();
+    const responseValues = this._state().getResponseValues();
     const { time, totalResults, error } = this.props;
-    const text = values["q.used"] || values["q"]
+    const text = responseValues["q"] || values["q"];
 
     if (error) {
       return null;
@@ -110,7 +111,8 @@ class Summary extends React.Component {
       e.preventDefault();
       this._state().setValues({ q: values["q"], "q.override": "true" }, true);
     };
-    const override = values["q.used"] && values["q.used"] !== values["q"]
+    const override = responseValues["q"] &&
+      responseValues["q"].toLowerCase() !== values["q"].toLowerCase()
       ? <span className="sj-result-summary-autocomplete-override">
           {`search instead for `}
           <a onClick={runOverride} href=""> {values["q"]} </a>
