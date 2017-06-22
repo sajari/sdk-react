@@ -134,19 +134,23 @@ Fields that are based on the URL of the page (ideal for filtering on subsections
 * `domain` The domain of the page URL: `www.sajari.com`
 
 
-#### Using Operators
+#### Using Value Operators
 
-When querying a field, there are a few operators that can be used. Note, all values must be enclosed in single quotation marks, i.e. "field *boost* must be greater than 10" is written as `boost>'10'`.
+When querying a field, there are a few operators that can be used. All string values must be enclosed in single or double quotation marks, i.e. "field *colour* is *dark blue*" would be `colour='dark blue'` or `color="dark blue"`.  Numeric values do not need to be quoted: "field *boost* must be greater than 10" can be written as `boost>10`.
 
 | Operator | Description | Example |
 | --- | --- | --- |
 | Equal To (`=`) | Field is equal to a value (*numeric* or *string*) | `dir1='blog'` |
 | Not Equal To (`!=`) | Field is not equal to a value (*numeric* or *string*) | `dir1!='blog'` |
-| Greater Than (`>`) | Field is greater than a *numeric* value | `boost>'10'` |
-| Greater Than Or Equal To (`>=`) | Field is greater than or equal to a *numeric* value | `boost>='10'` |
-| Less Than (`<`) | Field is less than a given *numeric* value | `boost<'50'` |
-| Less Than Or Equal To (`<=`) | Field is less than or equal to a given *numeric* value | `boost<'50'` |
+| Greater Than (`>`) | Field is greater than a *numeric* value | `boost>10` |
+| Greater Than Or Equal To (`>=`) | Field is greater than or equal to a *numeric* value | `boost>=10` |
+| Less Than (`<`) | Field is less than a given *numeric* value | `boost<50` |
+| Less Than Or Equal To (`<=`) | Field is less than or equal to a given *numeric* value | `boost<50` |
 | Begins With (`^`) | Field begins with a *string* | `dir1^'bl'` |
-| Ends With (`$`) | Field begins with a *string* | `dir1$'bl'` |
+| Ends With (`$`) | Field ends with a *string* | `dir1$'bl'` |
 | Contains (`~`) | Field contains a *string* | `dir1~'blog'` |
 | Does Not Contain (`!~`) | Field does not contain a *string* | `dir1!~'blog'` |
+
+#### Logical Operators
+
+It's possible to create more complex filtering expressions by combining simple field-value filters with `AND` and `OR`.  For example: `dir1='blog' OR domain='blog.sajari.com'` would match pages which match either `dir1='blog'` or `domain='blog.sajari.com'`.
