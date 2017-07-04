@@ -8,7 +8,7 @@
   "dependencies": {
     "react": "15.5.4",
     "react-dom": "15.5.4",
-    "sajari": "^0.15.4",
+    "sajari": "0.15.4",
     "sajari-react": "0.9.0"
   },
   "scripts": {
