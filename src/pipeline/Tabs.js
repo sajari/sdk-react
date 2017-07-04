@@ -28,8 +28,6 @@ class Tabs extends React.Component {
   }
 
   onTrackingReset() {
-    let values = this._state().getValues();
-
     const { defaultTab, tabs } = this.props;
 
     let defaultTabFilter = undefined;
