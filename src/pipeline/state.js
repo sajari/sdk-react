@@ -13,7 +13,6 @@ const websiteBeforeSearch = state => {
   // If q == "" then clear the results immediately and don't run a search.
   if (state.getValues()["q"] === "") {
     state.reset()
-    delete state.getValues()["filter"];
     delete state.getValues()["page"];
     return false;
   }
