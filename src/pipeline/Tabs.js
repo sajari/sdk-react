@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { State, VALUES_CHANGED } from 'sajari-react/pipeline/state'
+import { State, TRACKING_RESET } from 'sajari-react/pipeline/state'
 
 const _state = State.default();
 
@@ -10,7 +10,7 @@ class Tabs extends React.Component {
     super(props);
 
     this.state = {selected: this.props.defaultTab};
-    this.onValuesChange = this.onValuesChange.bind(this);
+    this.onTrackingReset = this.onTrackingReset.bind(this);
   }
 
   _state() {
@@ -18,14 +18,16 @@ class Tabs extends React.Component {
   }
 
   componentDidMount() {
-    this._state().registerListener(VALUES_CHANGED, this.onValuesChange);
+    this._state().registerListener(TRACKING_RESET, this.onTrackingReset);
   }
 
   componentWillUnmount() {
-    this._state().unregisterListener(VALUES_CHANGED, this.onValuesChange);
+    // Tabs component is unmounted before reset is called, this catches that scenario
+    this.onTrackingReset();
+    this._state().unregisterListener(TRACKING_RESET, this.onTrackingReset);
   }
 
-  onValuesChange() {
+  onTrackingReset() {
     let values = this._state().getValues();
 
     const { defaultTab, tabs } = this.props;
@@ -37,9 +39,12 @@ class Tabs extends React.Component {
       }
     });
 
-    if (!values["filter"] && defaultTabFilter) {
+    if (defaultTabFilter) {
       this.setState({ selected: this.props.defaultTab });
       this._state().setValues({ filter: defaultTabFilter });
+    } else {
+      this.setState({ selected: null });
+      this._state().setValues({ filter: "" });
     }
   }
 
