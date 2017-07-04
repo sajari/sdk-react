@@ -217,7 +217,7 @@ class Paginator extends React.Component {
     const values = _state.getValues();
 
     const page = values.page ? parseInt(values.page, 10) : 1;
-    const resultsPerPage = parseInt(values.resultsPerPage, 10)
+    const resultsPerPage = values.resultsPerPage ? parseInt(values.resultsPerPage, 10) : 10;
     const totalResultsInt = parseInt(this.props.totalResults, 10)
 
     return <RawPaginator setPage={setPage} page={page} resultsPerPage={resultsPerPage} totalResults={totalResultsInt} />
