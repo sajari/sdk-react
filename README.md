@@ -2,7 +2,7 @@
 
 ![npm version](https://img.shields.io/npm/v/sajari-react.svg?style=flat-square) ![license](http://img.shields.io/badge/license-MIT-green.svg?style=flat-square)
 
-**sajari-react** is a library of React Components for the [Sajari](https://www.sajari.com) search platform to help build fast and powerful search interfaces.
+**sajari-react** is a client side javascript library of React Components for the [Sajari](https://www.sajari.com) search platform to help build fast and powerful search interfaces.
 
 React provides a simple and elegant way to structure user interfaces. The Sajari React SDK provides a way to seamlessly integrate the Sajari platform into any React app through the use of easily composable Components.
 
@@ -49,6 +49,8 @@ We also provide a vanilla Sajari JS library [here](https://github.com/sajari/saj
 ## Setup
 
 ### NPM
+
+We currently distribute the `sajari-react` library through npm. Npm is only required for downloading the library. The SDK is made to be used from the browser.
 
 ```
 npm install --save sajari sajari-react
