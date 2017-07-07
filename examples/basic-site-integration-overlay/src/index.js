@@ -8,7 +8,6 @@ import loaded from "./loaded";
 import Overlay from "./Overlay";
 import InPage from "./InPage";
 import SearchResponse from "./SearchResponse";
-import stateProxy from "./stateProxy";
 
 import "./styles.css";
 
@@ -133,7 +132,7 @@ const initInterface = () => {
   const noOverlay = () => error("no overlay exists");
   window._sjui.overlay = { show: noOverlay, hide: noOverlay };
 
-  window._sjui.state = stateProxy;
+  window._sjui.state = _state.getProxy();
 
   _state.setProject(config.project);
   _state.setCollection(config.collection);
