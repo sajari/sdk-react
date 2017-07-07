@@ -109,6 +109,9 @@ const initOverlay = config => {
   } else {
     _state.setValues(values);
   }
+  if (config.onReady) {
+    config.onReady();
+  }
 };
 
 const initInPage = config => {
@@ -120,6 +123,9 @@ const initInPage = config => {
 
   const values = combinedValues(config, true);
   _state.setValues(values, values.q);
+  if (config.onReady) {
+    config.onReady();
+  }
 };
 
 const initInterface = () => {
