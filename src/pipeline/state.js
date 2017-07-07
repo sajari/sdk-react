@@ -62,6 +62,8 @@ class state {
       listeners: [],
       getValues: this.getValues.bind(this),
       getResponseValues: this.getResponseValues.bind(this),
+      getResults: this.getResults.bind(this),
+      getError: this.getError.bind(this),
     };
   }
 
