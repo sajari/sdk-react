@@ -56,6 +56,17 @@ class state {
     this.listeners = [];
     this.beforeSearch = websiteBeforeSearch;
     this.constructTracking = websiteConstructTracking;
+
+    this.proxy = {
+      setValues: this.setValues.bind(this),
+      listeners: [],
+      getValues: this.getValues.bind(this),
+      getResponseValues: this.getResponseValues.bind(this),
+    };
+  }
+
+  getProxy() {
+    return this.proxy;
   }
 
   getPipeline() {
@@ -158,6 +169,15 @@ class state {
     this.listeners.forEach(l => {
       if (l.type === type) {
         l.listener(...x);
+      }
+    });
+    this.proxy.listeners.forEach(l => {
+      try {
+        l(type, ...x);
+      } catch (e) {
+        if (console && console.error) {
+          console.error('error in proxy listener', e);
+        }
       }
     });
   }
