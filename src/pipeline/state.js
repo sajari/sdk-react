@@ -173,7 +173,7 @@ class state {
     });
     this.proxy.listeners.forEach(l => {
       try {
-        l(type, ...x);
+        l(type, x);
       } catch (e) {
         if (console && console.error) {
           console.error('error in proxy listener', e);
