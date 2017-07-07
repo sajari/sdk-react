@@ -165,15 +165,15 @@ class state {
     });
   }
 
-  notify(type, ...x) {
+  notify(type, ...data) {
     this.listeners.forEach(l => {
       if (l.type === type) {
-        l.listener(...x);
+        l.listener(...data);
       }
     });
     this.proxy.listeners.forEach(l => {
       try {
-        l(type, x);
+        l(type, data);
       } catch (e) {
         if (console && console.error) {
           console.error('error in proxy listener', e);
