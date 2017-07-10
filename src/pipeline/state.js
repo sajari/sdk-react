@@ -57,9 +57,20 @@ class state {
     this.beforeSearch = websiteBeforeSearch;
     this.constructTracking = websiteConstructTracking;
 
+    let proxyListeners = [];
+    const unregisterProxyListener = listener => {
+      proxyListeners = proxyListeners.filter(l => l !== listener);
+    }
+    const registerProxyListener = (type, listener) => {
+      proxyListeners.push({ type, listener });
+      return () => unregisterProxyListener(listener);
+    }
+
     this.proxy = {
       setValues: this.setValues.bind(this),
-      listeners: [],
+      listeners: proxyListeners,
+      registerListener: registerProxyListener,
+      unregisterListener: unregisterProxyListener,
       getValues: this.getValues.bind(this),
       getResponseValues: this.getResponseValues.bind(this),
       getResults: this.getResults.bind(this),
@@ -168,17 +179,14 @@ class state {
   }
 
   notify(type, ...data) {
-    this.listeners.forEach(l => {
+    this.listeners.concat(this.proxy.listeners).forEach(l => {
       if (l.type === type) {
-        l.listener(...data);
-      }
-    });
-    this.proxy.listeners.forEach(l => {
-      try {
-        l(type, data);
-      } catch (e) {
-        if (console && console.error) {
-          console.error('error in proxy listener', e);
+        try {
+          l.listener(...data);
+        } catch (e) {
+          if (console && console.error) {
+            console.error('error in proxy listener', e);
+          }
         }
       }
     });
