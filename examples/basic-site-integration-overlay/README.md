@@ -219,3 +219,67 @@ When querying a field, there are a few operators that can be used. Note, all val
 | Ends With (`$`) | Field ends with a *string* | `dir1$'og'` |
 | Contains (`~`) | Field contains a *string* | `dir1~'blog'` |
 | Does Not Contain (`!~`) | Field does not contain a *string* | `dir1!~'blog'` |
+
+### OnReady
+
+Often you'll want to perform actions once the search interface has been initialised. For this, the `onReady` value in the config map can be used. The function you provide will be called once the search interface initialisation stage is complete.
+
+```javascript
+onReady: function onReady() { console.log("Done!"); }
+```
+
+### State
+
+The state of the interface is exposed through the `window._sjui.state` object. It is available once the search interface has been initialised. Use the [OnReady](#onready) method to be nofitied when the state object is available.
+
+#### Listeners
+
+To hook into events happening in the interface, push your callback onto the `listeners` array. When an event happens your callback will be called with the type of the event and the event data if there is any.
+
+```javascript
+var onEvent = function onEvent(event, data) {
+  console.log("Received event", event, "with data", data);
+}
+state.listeners.push(onEvent);
+```
+
+#### SetValues
+
+To set values in the state, use the `setValues` method. It takes a object containing values to set and a boolean of whether to perform a search.
+
+```javascript
+state.setValues({ q: "faq" }, true);
+```
+
+#### GetValues
+
+To get values in state such as the `q` parameter, call the `getValues` method.
+
+```javascript
+var values = state.getValues();
+```
+
+#### GetResults
+
+To get results from the search, call the `getResults` method.
+
+```javascript
+var results = state.getResults();
+```
+
+#### GetError
+
+To get the error from the search, call the `getError` method.
+
+```javascript
+var error = state.getError();
+```
+
+#### GetResponseValues
+
+To get values in the response such as autocomplete values, call the `getResponseValues` method.
+
+```javascript
+var responseValues = state.getResponseValues();
+```
+

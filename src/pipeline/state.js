@@ -56,6 +56,30 @@ class state {
     this.listeners = [];
     this.beforeSearch = websiteBeforeSearch;
     this.constructTracking = websiteConstructTracking;
+
+    let proxyListeners = [];
+    const unregisterProxyListener = listener => {
+      proxyListeners = proxyListeners.filter(l => l !== listener);
+    }
+    const registerProxyListener = (type, listener) => {
+      proxyListeners.push({ type, listener });
+      return () => unregisterProxyListener(listener);
+    }
+
+    this.proxy = {
+      setValues: this.setValues.bind(this),
+      listeners: proxyListeners,
+      registerListener: registerProxyListener,
+      unregisterListener: unregisterProxyListener,
+      getValues: this.getValues.bind(this),
+      getResponseValues: this.getResponseValues.bind(this),
+      getResults: this.getResults.bind(this),
+      getError: this.getError.bind(this),
+    };
+  }
+
+  getProxy() {
+    return this.proxy;
   }
 
   getPipeline() {
@@ -154,10 +178,16 @@ class state {
     });
   }
 
-  notify(type, ...x) {
-    this.listeners.forEach(l => {
+  notify(type, ...data) {
+    this.listeners.concat(this.proxy.listeners).forEach(l => {
       if (l.type === type) {
-        l.listener(...x);
+        try {
+          l.listener(...data);
+        } catch (e) {
+          if (console && console.error) {
+            console.error('error in proxy listener', e);
+          }
+        }
       }
     });
   }
