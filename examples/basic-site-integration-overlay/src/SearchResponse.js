@@ -1,12 +1,14 @@
 import React from "react";
 
 import {
-  Response,
+  // Response,
   Summary,
   Results,
   Paginator
 } from "sajari-react/pipeline/Response";
 import Tabs from "sajari-react/pipeline/Tabs";
+
+import { Response } from "./Response";
 
 const Placeholder = ({ renderPlaceholder }) => {
   if (renderPlaceholder) {

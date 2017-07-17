@@ -1,9 +1,13 @@
 import React from "react";
 
 import { Overlay as OverlayFrame, Close } from "sajari-react/ui/Overlay";
-import AutocompleteInput from "sajari-react/pipeline/AutocompleteInput";
+// import AutocompleteInput from "sajari-react/pipeline/AutocompleteInput";
 
 import SearchResponse from "./SearchResponse";
+
+import values from "./state";
+
+import AutocompleteInput from "./AutocompleteInput";
 
 class Overlay extends React.Component {
   constructor(props) {
@@ -22,6 +26,7 @@ class Overlay extends React.Component {
       <OverlayFrame active={this.state.active}>
         <div className="sj-logo" onClick={this.hide} />
         <AutocompleteInput
+          values={values}
           placeHolder={this.props.config.searchBoxPlaceHolder}
         />
         <Close onClick={this.hide} />
