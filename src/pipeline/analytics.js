@@ -1,20 +1,16 @@
 import GA from "sajari-react/ui/Analytics/ga";
 
-import {
-  State,
-  RESULTS_CHANGED,
-  TRACKING_RESET,
-  RESULT_CLICKED
-} from "./state";
+import { resultsEvent, trackingResetEvent, resultClickedEvent } from "../state/pipeline";
 
 class Analytics {
-  constructor(namespace, ga = new GA()) {
+  constructor(pipeline, values, ga = new GA()) {
     this.ga = ga;
-
-    this.namespace = namespace;
 
     this.enabled = false;
     this.body = "";
+
+    this.pipeline = pipeline;
+    this.values = values;
 
     // longest values are for sending the users last intended query on reset
     this.longestNonAutocompletedBody = "";
@@ -31,9 +27,9 @@ class Analytics {
 
     window.addEventListener("beforeunload", this.beforeunload);
 
-    State.ns(namespace).registerListener(RESULTS_CHANGED, this.onChange);
-    State.ns(namespace).registerListener(TRACKING_RESET, this.resetBody);
-    State.ns(namespace).registerListener(RESULT_CLICKED, this.resultClicked);
+    this.pipeline.listen(resultsEvent, this.onChange);
+    this.pipeline.listen(trackingResetEvent, this.resetBody);
+    this.pipeline.listen(resultClickedEvent, this.resultClicked);
   }
 
   beforeunload() {
@@ -57,13 +53,13 @@ class Analytics {
   }
 
   onChange() {
-    const searchResponse = State.ns(this.namespace).getResults();
+    const searchResponse = this.pipeline.getResults();
     // Enable analytics once a successful search has been performed
     if (searchResponse && searchResponse.results) {
       this.enabled = true;
     }
 
-    const values = State.ns(this.namespace).getValues();
+    const values = this.values.get();
     const originalBody = values[this.bodyLabel] || "";
     const newBody = values[this.bodyAutocompletedLabel] || originalBody;
 

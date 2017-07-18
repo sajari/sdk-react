@@ -157,7 +157,6 @@ const initInterface = () => {
   initialiseResources(config.project, config.collection, config.pipeline)
 
   if (!config.disableGA) {
-    window.ga = console.log;
     new Analytics(pipeline, values);
   }
 

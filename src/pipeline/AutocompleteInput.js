@@ -1,53 +1,57 @@
 import React from 'react'
 import { findDOMNode } from 'react-dom'
 
-import { State, VALUES_CHANGED, RESULTS_CHANGED } from './state'
+import { changeEvent } from "../state/values";
+import { resultsEvent } from "../state/pipeline";
 
 const RIGHT_ARROW_KEYCODE = 39
 const TAB_KEYCODE = 9
 const RETURN_KEYCODE = 13
 
-
-const getState = (namespace) => {
-  const s = State.ns(namespace);
-  return {
-    text: s.getValues()["q"] || "",
-    completion: s.getResponseValues()["q"] || "",
-  }
-}
-
 class AutocompleteInput extends React.Component {
   constructor(props) {
     super(props)
-    this.state = getState(this.props.namespace)
-    this.setText = this.setText.bind(this)
-    this.onValuesChange = this.onValuesChange.bind(this)
+    this.setText = this.setText.bind(this);
+    this.valuesUpdated = this.valuesUpdated.bind(this);
+    this.getState = this.getState.bind(this);
+    this.state = this.getState();
   }
 
-  _state() {
-    return State.ns(this.props.namespace);
+  getState() {
+    const text = this.props.values.get().q || "";
+    const responseValues = this.props.pipeline.getResponseValues();
+    const completion = responseValues ? (responseValues.q || "") : "";
+    return { text, completion };
   }
 
   componentDidMount() {
-    findDOMNode(this.refs.searchInput).focus()
+    if (this.props.focus) {
+      findDOMNode(this.refs.searchInput).focus()
+    }
 
-    this._state().registerListener(VALUES_CHANGED, this.onValuesChange)
-    this._state().registerListener(RESULTS_CHANGED, this.onValuesChange)
+    this.removeValuesListener = this.props.values.listen(changeEvent, this.valuesUpdated);
+    this.removeResultsListener = this.props.pipeline.listen(resultsEvent, this.valuesUpdated);
   }
 
   componentWillUnmount() {
-    this._state().unregisterListener(VALUES_CHANGED, this.onValuesChange)
-    this._state().unregisterListener(RESULTS_CHANGED, this.onValuesChange)
+    this.removeValuesListener();
+    this.removeResultsListener();
   }
 
-  onValuesChange() {
-    this.setState(getState(this.props.namespace))
+  valuesUpdated() {
+    this.setState(this.getState())
   }
 
   setText(text, override = false) {
-    let x = {"q": text}
-    x["q.override"] = override ? "true" : undefined;
-    this._state().setValues(x, true);
+    const textValues = {"q": text}
+    textValues["q.override"] = override ? "true" : undefined;
+    this.props.values.set(textValues);
+    if (textValues.q) {
+      this.props.pipeline.search();
+    } else {
+      this.props.pipeline.clearResults();
+      this.props.pipeline.emitTrackingReset();
+    }
   }
 
   render() {
@@ -90,8 +94,4 @@ class AutocompleteInput extends React.Component {
   }
 }
 
-AutocompleteInput.defaultProps = {
-  namespace: 'default',
-}
-
-export default AutocompleteInput
+export default AutocompleteInput;

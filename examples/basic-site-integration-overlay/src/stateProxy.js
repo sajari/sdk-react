@@ -1,10 +1,11 @@
-import { State } from "sajari-react/pipeline/state";
-
-const _state = State.default();
+import { values, pipeline } from "./resources";
 
 class StateProxy {
-  setValues(values, search = false) {
-    _state.setValues(values, search);
+  setValues(newValues, search = false) {
+    values.set(newValues);
+    if (search) {
+      pipeline.search();
+    }
   }
 }
 

@@ -1,45 +1,41 @@
 import React from 'react'
 
-import { State, RESULTS_CHANGED, RESULT_CLICKED, VALUES_CHANGED } from './state'
-
-import { Results as RawResults } from '../ui/Results';
+import { Results as RawResults } from "../ui/Results";
+import { resultsEvent, errorEvent } from "../state/pipeline";
 
 class Response extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { results: this._state().getResults() || {} };
+    this.state = { results: props.pipeline.getResults() || {} };
     this.onResultsChange = this.onResultsChange.bind(this)
   }
 
-  _state() {
-    return State.ns(this.props.namespace);
-  }
-
   componentDidMount() {
-    this._state().registerListener(RESULTS_CHANGED, this.onResultsChange);
-    this._state().registerListener(VALUES_CHANGED, this.onResultsChange);
+    this.removeErrorListener = this.props.pipeline.listen(errorEvent, this.onResultsChange);
+    this.removeResultsListener = this.props.pipeline.listen(resultsEvent, this.onResultsChange);
   }
 
   componentWillUnmount() {
-    this._state().unregisterListener(RESULTS_CHANGED, this.onResultsChange);
-    this._state().unregisterListener(VALUES_CHANGED, this.onResultsChange);
+    this.removeErrorListener();
+    this.removeResultsListener();
   }
 
   onResultsChange() {
-    this.setState({ results: this._state().getResults() || {} });
+    const response = this.props.pipeline.getResults() || {};
+    this.setState({ results: response });
   }
 
   render() {
-    const { children, Placeholder } = this.props;
+    const { children, Placeholder, pipeline } = this.props;
     const results = this.state.results;
     const time = results.time;
-    const error = this._state().getError();
+    const error = pipeline.getError();
 
     if (!time && !error) {
       return Placeholder ? <Placeholder /> : null;
     }
 
-    const propsForChildren = { ...results, error };
+    const propsForChildren = { ...results, error, pipeline };
     const childrenWithResults = React.Children.map(children, c => {
       if (React.isValidElement(c)) {
         return React.cloneElement(c, propsForChildren);
@@ -56,13 +52,14 @@ Response.defaultProps = {
 }
 
 const Results = props => {
-  const { results, error, namespace = "default", showImages } = props;
+  const { results, error, showImages, pipeline } = props;
 
   if (!results && !error) {
     return null;
   }
-  const resultClicked = url =>
-    State.ns(namespace).notify(RESULT_CLICKED, url);
+  const resultClicked = url => {
+    pipeline.emitResultClicked(url);
+  };
   return (
     <RawResults
       data={{ searchResponse: props }}
@@ -75,47 +72,43 @@ const Results = props => {
 class Summary extends React.Component {
   constructor(props) {
     super(props)
-    this.onValuesChange = this.onValuesChange.bind(this)
-    this._state = this._state.bind(this)
-  }
-
-  _state() {
-    return State.ns(this.props.namespace);
+    this.onResultsChange = this.onResultsChange.bind(this)
   }
 
   componentDidMount() {
-    this._state().registerListener(RESULTS_CHANGED, this.onValuesChange);
+    this.removeResultsListener = this.props.pipeline.listen(resultsEvent, this.onResultsChange);
   }
 
   componentWillUnmount() {
-    this._state().unregisterListener(RESULTS_CHANGED, this.onValuesChange);
+    this.removeResultsListener();
   }
 
-  onValuesChange() {
-    this.setState(this._state().getResults() || {});
+  onResultsChange() {
+    this.setState(this.props.pipeline.getResults() || {});
   }
 
   render() {
-    const values = this._state().getValues();
-    const responseValues = this._state().getResponseValues();
-    const { time, totalResults, error } = this.props;
-    const text = responseValues["q"] || values["q"];
+    const { time, totalResults, error, values, pipeline } = this.props;
+    const queryValues = values.get() || {};
+    const responseValues = pipeline.getResponseValues() || {};
+    const text = responseValues["q"] || queryValues["q"];
 
     if (error) {
       return null;
     }
 
-    const page = parseInt(values.page, 10);
+    const page = parseInt(queryValues.page, 10);
     const pageNumber = page && page > 1 ? `Page ${page} of ` : "";
     const runOverride = e => {
       e.preventDefault();
-      this._state().setValues({ q: values["q"], "q.override": "true" }, true);
+      values.set({ q: queryValues["q"], "q.override": "true" });
+      pipeline.search();
     };
     const override = responseValues["q"] &&
-      responseValues["q"].toLowerCase() !== values["q"].toLowerCase()
+      responseValues["q"].toLowerCase() !== queryValues["q"].toLowerCase()
       ? <span className="sj-result-summary-autocomplete-override">
           {`search instead for `}
-          <a onClick={runOverride} href=""> {values["q"]} </a>
+          <a onClick={runOverride} href=""> {queryValues["q"]} </a>
         </span>
       : null;
 
@@ -133,9 +126,9 @@ class Summary extends React.Component {
   }
 }
 
-Summary.defaultProps = {
-  namespace: 'default'
-}
+// Summary.defaultProps = {
+//   namespace: 'default'
+// }
 
 
 const pageNumbers = (page, totalPages) => {
@@ -209,23 +202,20 @@ class Paginator extends React.Component {
     if (this.props.error) {
       return null;
     }
-    const _state = State.ns(this.props.namespace);
+
     const setPage = (page) => {
       window.scrollTo(0, 0);
-      _state.setValues({page: ""+page}, true);
+      this.props.values.set({ page: String(page) });
+      this.props.pipeline.search();
     }
-    const values = _state.getValues();
+    const queryValues = this.props.values.get();
 
-    const page = values.page ? parseInt(values.page, 10) : 1;
-    const resultsPerPage = values.resultsPerPage ? parseInt(values.resultsPerPage, 10) : 10;
+    const page = queryValues.page ? parseInt(queryValues.page, 10) : 1;
+    const resultsPerPage = queryValues.resultsPerPage ? parseInt(queryValues.resultsPerPage, 10) : 10;
     const totalResultsInt = parseInt(this.props.totalResults, 10)
 
     return <RawPaginator setPage={setPage} page={page} resultsPerPage={resultsPerPage} totalResults={totalResultsInt} />
   }
 }
 
-Paginator.defaultProps = {
-  namespace: 'default'
-}
-
-export { Response, Summary, Results, Paginator };
+export { Response, Results, Summary, Paginator };

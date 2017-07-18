@@ -1,15 +1,14 @@
 import React from "react";
 
 import {
-  // Response,
-  // Summary,
-  // Results,
-  // Paginator
+  Response,
+  Summary,
+  Results,
+  Paginator
 } from "sajari-react/pipeline/Response";
-// import Tabs from "sajari-react/pipeline/Tabs";
+import Tabs from "sajari-react/pipeline/Tabs";
 
-import { Response, Results, Summary, Paginator } from "./Response";
-import Tabs from "./Tabs";
+import { values, pipeline, filter } from "./resources";
 
 const Placeholder = ({ renderPlaceholder }) => {
   if (renderPlaceholder) {
@@ -25,6 +24,9 @@ const SearchResponse = ({ config }) => {
       <Tabs
         defaultTab={config.tabFilters.defaultTab}
         tabs={config.tabFilters.tabs}
+        values={values}
+        pipeline={pipeline}
+        filter={filter}
       />
     );
   }
@@ -35,11 +37,11 @@ const SearchResponse = ({ config }) => {
     <Placeholder renderPlaceholder={results.renderPlaceholder} />;
 
   return (
-    <Response Placeholder={placeholder}>
+    <Response Placeholder={placeholder} pipeline={pipeline}>
       {tabs}
-      <Summary />
-      <Results showImages={results.showImages} />
-      <Paginator />
+      <Summary values={values} pipeline={pipeline} />
+      <Results showImages={results.showImages} values={values} pipeline={pipeline} />
+      <Paginator values={values} pipeline={pipeline} />
     </Response>
   );
 };

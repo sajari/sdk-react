@@ -1,49 +1,26 @@
 import React from 'react'
 
-import { State, TRACKING_RESET } from 'sajari-react/pipeline/state'
-
-
 class Tabs extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = { selected: this.props.defaultTab };
-    this.onTrackingReset = this.onTrackingReset.bind(this);
-  }
 
-  _state() {
-    return State.ns(this.props.namespace);
-  }
-
-  componentDidMount() {
-    this._state().registerListener(TRACKING_RESET, this.onTrackingReset);
-  }
-
-  componentWillUnmount() {
-    this._state().unregisterListener(TRACKING_RESET, this.onTrackingReset);
-  }
-
-  onTrackingReset() {
-    const values = this._state().getValues();
-    const { defaultTab, tabs } = this.props;
-
-    let defaultTabFilter = undefined;
-    tabs.forEach(t => {
-      if (t.title === defaultTab) {
-        defaultTabFilter = t.filter;
-      }
-    });
-
-    // If there is no filter but the default tab filter is non-empty
-    if (!values.filter && defaultTabFilter) {
-      // Set the default tabs filter
-      this._state().setValues({ filter: defaultTabFilter });
+    const existingFilter = props.filter.getFilter("tab");
+    if (existingFilter) {
+      props.tabs.forEach(t => {
+        if (existingFilter === t.filter) {
+          this.state = { selected: t.title };
+        }
+      });
     }
+    this.onClickTab = this.onClickTab.bind(this);
   }
 
-  onClickTab(title, filter) {
+  onClickTab(title, filterValue) {
     this.setState({ selected: title });
-    this._state().setValues({ filter }, true);
+    this.props.filter.setFilter("tab", filterValue);
+    this.props.values.emitChange({});
+    this.props.pipeline.search();
   }
 
   render() {
@@ -54,7 +31,8 @@ class Tabs extends React.Component {
             <div
               key={t.title}
               className={`sj-tab${t.title === this.state.selected ? ' sj-tab-active' : ''}`}
-              onClick={() => {this.onClickTab(t.title, t.filter)
+              onClick={() => {
+                this.onClickTab(t.title, t.filter)
               }}>
               {t.title}
             </div>
@@ -65,8 +43,4 @@ class Tabs extends React.Component {
   }
 }
 
-Tabs.defaultProps = {
-  namespace: 'default',
-}
-
-export default Tabs
+export default Tabs;
