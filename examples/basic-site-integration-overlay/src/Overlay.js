@@ -1,11 +1,10 @@
 import React from "react";
 
 import { Overlay as OverlayFrame, Close } from "sajari-react/ui/Overlay";
-// import AutocompleteInput from "sajari-react/pipeline/AutocompleteInput";
 
 import SearchResponse from "./SearchResponse";
 
-import values from "./state";
+import { values } from "./resources";
 
 import AutocompleteInput from "./AutocompleteInput";
 

@@ -1,13 +1,10 @@
 import React from 'react'
 import { findDOMNode } from 'react-dom'
 
-// import { State, VALUES_CHANGED, RESULTS_CHANGED } from './state'
-
 import { changeEvent } from "sajari-react/state/values";
 import { resultsEvent } from "sajari-react/state/pipeline";
 
-import values from "./state";
-import pipeline from "./pipeline";
+import { values, pipeline } from "./resources";
 
 const RIGHT_ARROW_KEYCODE = 39
 const TAB_KEYCODE = 9
@@ -16,7 +13,7 @@ const RETURN_KEYCODE = 13
 const getState = () => {
   const text = values.get().q || "";
   const responseValues = pipeline.getResponseValues();
-  const completion = responseValues ? responseValues.completion : "";
+  const completion = responseValues ? (responseValues.q || "") : "";
   return { text, completion };
 }
 

@@ -61,8 +61,8 @@ class Pipeline {
         return;
       }
       this.error = undefined;
-      this.results = results;
-      this.responseValues = responseValues;
+      this.results = results.searchResponse;
+      this.responseValues = results.values;
       this._emitResults();
     });
     this.lastQuery = query;

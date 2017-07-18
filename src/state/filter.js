@@ -2,8 +2,6 @@ const andFilter = "AND";
 const orFilter = "OR";
 const singleFilter = "single";
 
-const notUndefined = x => x !== undefined;
-
 class Filter {
   constructor(type) {
     this.filters = {};
@@ -14,6 +12,10 @@ class Filter {
     this.filters[name] = filter;
   }
 
+  getFilter(name) {
+    return this.filters[name];
+  }
+
   removeFilter(name) {
     delete this.filters[name];
   }
@@ -22,7 +24,7 @@ class Filter {
     let filters = Object
       .keys(this.filters)
       .map(k => this.filters[k])
-      .filter(notUndefined);
+      .filter(Boolean);
     if (this.type === singleFilter) {
       if (filters.length === 1) {
         return "(" + filters[0] + ")";
@@ -35,11 +37,13 @@ class Filter {
       .map(f => {
         if (typeof f === "string") {
           return f;
-        } else {
+        } else if (f instanceof Filter) {
           return f.evaluate();
+        } else {
+          throw new Error("filter value must be either string or instance of Filter, got " + (typeof f));
         }
       })
-      .filter(notUndefined);
+      .filter(Boolean);
     if (filters.length > 0) {
       return "(" + filters.join(") " + this.type + " (") + ")";
     }

@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import Analytics from "sajari-react/pipeline/analytics";
-import { State } from "sajari-react/pipeline/state";
+// import { State } from "sajari-react/pipeline/state";
 
 import loaded from "./loaded";
 import Overlay from "./Overlay";
@@ -10,11 +10,15 @@ import InPage from "./InPage";
 import SearchResponse from "./SearchResponse";
 import stateProxy from "./stateProxy";
 
+import { changeEvent } from "sajari-react/state/values";
+
+import { initialiseResources, pipeline, values, filter } from "./resources";
+
 import "./styles.css";
 
 const ESCAPE_KEY_CODE = 27;
 
-const _state = State.default();
+// const _state = State.default();
 
 const error = message => {
   if (console && console.error) {
@@ -45,24 +49,23 @@ const checkConfig = () => {
 
 const combinedValues = (config, firstTime) => {
   let initialValues = {};
-  // Only include initial values the first time App is initialise0d
+  // Only include initial values the first time App is initialised
   if (config.initialValues && firstTime) {
     initialValues = config.initialValues;
   }
 
-  const tabValues = {};
+  // const tabValues = {};
   // Set the initial tab filter
   if (config.tabFilters && config.tabFilters.defaultTab) {
     config.tabFilters.tabs.forEach(t => {
       if (t.title === config.tabFilters.defaultTab) {
-        tabValues.filter = t.filter;
+        filter.setFilter("tab", t.filter);
       }
     });
   }
 
   const combinedValues = {
     ...initialValues,
-    ...tabValues,
     ...config.values
   };
   return combinedValues;
@@ -72,12 +75,15 @@ const initOverlay = config => {
   const setOverlayControls = controls => {
     const show = () => {
       document.getElementsByTagName("body")[0].style.overflow = "hidden";
-      _state.setValues(combinedValues(config, false));
+
+      // _state.setValues(combinedValues(config, false));
       controls.show();
     };
     const hide = () => {
       document.getElementsByTagName("body")[0].style.overflow = "";
-      _state.reset();
+      // _state.reset();
+      values.set({ q: undefined, "q.override": undefined });
+      pipeline.clearResults();
       controls.hide();
     };
     window._sjui.overlay.show = show;
@@ -102,13 +108,17 @@ const initOverlay = config => {
     overlayContainer
   );
 
-  const values = combinedValues(config, true);
-  const query = Boolean(values.q);
+  const queryValues = combinedValues(config, true);
+  if (queryValues.filter) {
+    filter.setFilter("dictionary", queryValues.filter);
+    delete queryValues.filter;
+  }
+  values.set(queryValues);
+
+  const query = Boolean(queryValues.q);
   if (query) {
-    _state.setValues(values, true);
+    pipeline.search();
     window._sjui.overlay.show();
-  } else {
-    _state.setValues(values);
   }
 };
 
@@ -119,8 +129,17 @@ const initInPage = config => {
     config.attachSearchResponse
   );
 
-  const values = combinedValues(config, true);
-  _state.setValues(values, values.q);
+  const queryValues = combinedValues(config, true);
+  if (queryValues.filter) {
+    filter.setFilter("dictionary", queryValues.filter);
+    delete queryValues.filter;
+  }
+  values.set(queryValues);
+
+  const query = Boolean(queryValues.q);
+  if (query) {
+    pipeline.search();
+  }
 };
 
 const initInterface = () => {
@@ -135,12 +154,24 @@ const initInterface = () => {
 
   window._sjui.state = stateProxy;
 
-  _state.setProject(config.project);
-  _state.setCollection(config.collection);
-  _state.setPipeline(config.pipeline);
+  initialiseResources(config.project, config.collection, config.pipeline)
 
   if (!config.disableGA) {
     new Analytics("default");
+  }
+
+  if (config.tabFilters && config.tabFilters.defaultTab) {
+    let defaultTabFilter = "";
+    config.tabFilters.tabs.forEach(t => {
+      if (t.title === config.tabFilters.defaultTab) {
+        defaultTabFilter = t.filter;
+      }
+    })
+    values.listen(changeEvent, (changes, set) => {
+      if (!values.get().q && filter.getFilter("tab") !== defaultTabFilter) {
+        filter.setFilter("tab", defaultTabFilter);
+      }
+    });
   }
 
   if (config.overlay) {
