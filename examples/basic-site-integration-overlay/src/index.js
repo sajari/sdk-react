@@ -157,7 +157,8 @@ const initInterface = () => {
   initialiseResources(config.project, config.collection, config.pipeline)
 
   if (!config.disableGA) {
-    new Analytics("default");
+    window.ga = console.log;
+    new Analytics(pipeline, values);
   }
 
   if (config.tabFilters && config.tabFilters.defaultTab) {

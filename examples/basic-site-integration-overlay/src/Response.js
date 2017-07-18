@@ -59,9 +59,9 @@ const Results = props => {
   if (!results && !error) {
     return null;
   }
-  const resultClicked = url => console.log("do something about tracking events", url);
-  // const resultClicked = url =>
-  //   State.ns(namespace).notify(RESULT_CLICKED, url);
+  const resultClicked = url => {
+    pipeline.emitResultClicked(url);
+  };
   return (
     <RawResults
       data={{ searchResponse: props }}

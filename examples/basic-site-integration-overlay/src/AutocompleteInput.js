@@ -50,6 +50,7 @@ class AutocompleteInput extends React.Component {
       pipeline.search();
     } else {
       pipeline.clearResults();
+      pipeline.emitTrackingReset();
     }
   }
 

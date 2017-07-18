@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { filter, pipeline } from "./resources";
+import { filter, pipeline, values } from "./resources";
 
 class Tabs extends React.Component {
   constructor(props) {
@@ -21,6 +21,7 @@ class Tabs extends React.Component {
   onClickTab(title, filterValue) {
     this.setState({ selected: title });
     filter.setFilter("tab", filterValue);
+    values.emitChange({});
     pipeline.search();
   }
 

@@ -5,10 +5,20 @@ import { postChangeEvent } from "./values";
 export const searchEvent = "search";
 export const errorEvent = "error";
 export const resultsEvent = "results";
+export const resultClickedEvent = "result-clicked";
+export const trackingResetEvent = "tracking-reset";
+
+const events = [
+  searchEvent,
+  errorEvent,
+  resultsEvent,
+  resultClickedEvent,
+  trackingResetEvent,
+];
 
 class Pipeline {
   constructor(client, name, values, tracking) {
-    this.client = client; //.Pipeline(name);
+    this.client = client;
     this.name = name;
     this.values = values;
     this.tracking = tracking;
@@ -17,6 +27,8 @@ class Pipeline {
       [searchEvent]: new Listener(),
       [errorEvent]: new Listener(),
       [resultsEvent]: new Listener(),
+      [resultClickedEvent]: new Listener(),
+      [trackingResetEvent]: new Listener(),
     }
 
     this.query = undefined;
@@ -26,7 +38,7 @@ class Pipeline {
   }
 
   listen(event, callback) {
-    if (event !== searchEvent && event !== errorEvent && event !== resultsEvent) {
+    if (events.indexOf(event) === -1) {
       throw new Error(`unknown event type "${event}"`);
     }
     return this.listeners[event].listen(callback);
@@ -47,6 +59,18 @@ class Pipeline {
   _emitResults() {
     this.listeners[resultsEvent].notify(listener => {
       listener(this.results, this.responseValues);
+    });
+  }
+
+  emitResultClicked(value) {
+    this.listeners[resultClickedEvent].notify(listener => {
+      listener(value);
+    });
+  }
+
+  emitTrackingReset() {
+    this.listeners[trackingResetEvent].notify(listener => {
+      listener();
     });
   }
 
