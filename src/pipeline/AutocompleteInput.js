@@ -14,13 +14,17 @@ class AutocompleteInput extends React.Component {
     this.setText = this.setText.bind(this);
     this.valuesUpdated = this.valuesUpdated.bind(this);
     this.getState = this.getState.bind(this);
-    this.state = this.getState();
+    this.state = {
+      ...this.getState(),
+      qParam: props.qParam || "q",
+      qOverrideParam: props.qOverrideParam || "q.override",
+    };
   }
 
   getState() {
-    const text = this.props.values.get().q || "";
+    const text = this.props.values.get()[this.state.qParam] || "";
     const responseValues = this.props.pipeline.getResponseValues();
-    const completion = responseValues ? (responseValues.q || "") : "";
+    const completion = responseValues ? (responseValues[this.state.qParam] || "") : "";
     return { text, completion };
   }
 
@@ -43,10 +47,12 @@ class AutocompleteInput extends React.Component {
   }
 
   setText(text, override = false) {
-    const textValues = {"q": text}
-    textValues["q.override"] = override ? "true" : undefined;
+    const textValues = {
+      [this.state.qParam] : text,
+      [this.state.qOverrideParam]: override ? "true" : undefined,
+    };
     this.props.values.set(textValues);
-    if (textValues.q) {
+    if (textValues[this.state.qParam]) {
       this.props.pipeline.search();
     } else {
       this.props.pipeline.clearResults();
