@@ -14,12 +14,10 @@ class AutocompleteInput extends React.Component {
     this.setText = this.setText.bind(this);
     this.valuesUpdated = this.valuesUpdated.bind(this);
     this.getState = this.getState.bind(this);
-    const qParam = props.qParam || "q";
-    const qOverrideParam = props.qOverrideParam || "q.override";
     this.state = {
-      ...this.getState(props.values, props.pipeline, qParam),
-      qParam,
-      qOverrideParam,
+      ...this.getState(props.values, props.pipeline, props.qParam),
+      qParam: props.qParam,
+      qOverrideParam: props.qOverrideParam,
     };
   }
 
@@ -101,5 +99,10 @@ class AutocompleteInput extends React.Component {
     )
   }
 }
+
+AutocompleteInput.defaultProps = {
+  qParam: "q",
+  qOverrideParam: "q.override",
+};
 
 export default AutocompleteInput;
