@@ -74,9 +74,10 @@ class Pipeline {
     });
   }
 
-  search() {
-    const query = this.values.get();
-    this.client.searchPipeline(this.name, query, this.tracking, (error, results, responseValues) => {
+  search(values = undefined, tracking = undefined) {
+    const queryValues = (values || this.values).get();
+    const queryTracking = tracking || this.tracking;
+    this.client.searchPipeline(this.name, queryValues, queryTracking, (error, results, responseValues) => {
       if (error) {
         this.error = error;
         this.results = undefined;
