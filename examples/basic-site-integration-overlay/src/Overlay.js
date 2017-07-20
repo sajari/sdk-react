@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Overlay as OverlayFrame, Close } from "sajari-react/ui/Overlay";
+import { Overlay as OverlayFrame, Close } from "sajari-react/ui/overlay";
 
 import SearchResponse from "./SearchResponse";
 

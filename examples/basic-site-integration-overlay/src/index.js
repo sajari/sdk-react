@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import Analytics from "sajari-react/pipeline/analytics";
-// import { State } from "sajari-react/pipeline/state";
 
 import loaded from "./loaded";
 import Overlay from "./Overlay";
@@ -10,7 +9,7 @@ import InPage from "./InPage";
 import SearchResponse from "./SearchResponse";
 import stateProxy from "./stateProxy";
 
-import { changeEvent } from "sajari-react/state/values";
+import { changeEvent } from "sajari-react/controllers/values";
 
 import { initialiseResources, pipeline, values, filter } from "./resources";
 

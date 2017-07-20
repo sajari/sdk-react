@@ -1,6 +1,6 @@
-import Pipeline from "sajari-react/state/pipeline";
-import Values, { changeEvent } from "sajari-react/state/values";
-import { Filter, andFilter } from "sajari-react/state/filter";
+import Pipeline from "sajari-react/controllers/pipeline";
+import Values, { changeEvent } from "sajari-react/controllers/values";
+import { Filter, andFilter } from "sajari-react/controllers/filter";
 
 import { Client, Tracking } from "sajari";
 
