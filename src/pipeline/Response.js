@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { Results as RawResults } from "../ui/Results";
-import { resultsEvent, errorEvent } from "../state/pipeline";
+import { Results as RawResults } from "../ui/results";
+import { resultsEvent, errorEvent } from "../controllers/pipeline";
 
 class Response extends React.Component {
   constructor(props) {

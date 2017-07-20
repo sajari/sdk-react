@@ -8,8 +8,6 @@ const Results = ({
   showImages,
   ResultRenderer = Result
 }) => {
-  const {} = this.props;
-
   const error = data && data.searchResponse && data.searchResponse.error;
   if (error) {
     return (

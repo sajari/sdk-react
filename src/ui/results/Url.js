@@ -1,5 +1,7 @@
 import React from "react";
 
+import TokenLink from "./TokenLink";
+
 const Url = ({ url, token, resultClicked }) =>
   <p className="sj-result-url">
     <TokenLink

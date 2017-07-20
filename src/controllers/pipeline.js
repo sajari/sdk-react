@@ -90,7 +90,7 @@ class Pipeline {
       this.responseValues = results.values;
       this._emitResults();
     });
-    this.lastQuery = query;
+    this.lastQuery = queryValues;
     this._emitSearch();
   }
 

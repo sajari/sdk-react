@@ -19,7 +19,7 @@ class Values {
     return this.listeners[event].listen(callback);
   }
 
-  emitChange(values) {
+  emitChange(values = {}) {
     this.listeners[changeEvent].notify(listener => {
       listener(values, this._set.bind(this));
     });

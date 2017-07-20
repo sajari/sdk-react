@@ -1,5 +1,7 @@
 import React from "react";
 
+import TokenLink from "./TokenLink";
+
 const Title = ({ title, url, token, resultClicked }) =>
   <h3 className="sj-result-title">
     <TokenLink

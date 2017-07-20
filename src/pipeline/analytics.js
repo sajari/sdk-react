@@ -1,6 +1,6 @@
-import GA from "sajari-react/ui/Analytics/ga";
+import GA from "../analytics/ga";
 
-import { resultsEvent, trackingResetEvent, resultClickedEvent } from "../state/pipeline";
+import { resultsEvent, trackingResetEvent, resultClickedEvent } from "../controllers/pipeline";
 
 class Analytics {
   constructor(pipeline, values, ga = new GA()) {
