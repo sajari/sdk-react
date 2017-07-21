@@ -55,16 +55,16 @@ const App = () =>
   <div className="searchApp">
     <AutocompleteInput values={values} pipeline={pipeline} />
     <div>
-      <label>Last 7 Days</label>
       <Input.RadioFacet fb={recencyFacet} name="last7" />
+      <label>Last 7 Days</label>
     </div>
     <div>
-      <label>Last 30 Days</label>
       <Input.RadioFacet fb={recencyFacet} name="last30" />
+      <label>Last 30 Days</label>
     </div>
     <div>
-      <label>All</label>
       <Input.RadioFacet fb={recencyFacet} name="all" />
+      <label>All</label>
     </div>
     <Response pipeline={pipeline}>
       <TabsFacet

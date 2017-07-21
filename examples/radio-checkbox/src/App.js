@@ -63,32 +63,32 @@ const App = () =>
     <div>
       <h3>Recency</h3>
       <div>
-        <label>Last 7 Days</label>
         <Input.RadioFacet fb={recencyFacet} name="last7" />
+        <label>Last 7 Days</label>
       </div>
       <div>
-        <label>Last 30 Days</label>
         <Input.RadioFacet fb={recencyFacet} name="last30" />
+        <label>Last 30 Days</label>
       </div>
       <div>
-        <label>All</label>
         <Input.RadioFacet fb={recencyFacet} name="all" />
+        <label>All</label>
       </div>
       <Debug.DebugFacet fb={recencyFacet} />
     </div>
     <div>
       <h3>Category</h3>
       <div>
-        <label>Articles</label>
         <Input.CheckboxFacet fb={categoryFacet} name="articles" />
+        <label>Articles</label>
       </div>
       <div>
-        <label>Blog</label>
         <Input.CheckboxFacet fb={categoryFacet} name="blog" />
+        <label>Blog</label>
       </div>
       <div>
-        <label>Faq</label>
         <Input.CheckboxFacet fb={categoryFacet} name="faq" />
+        <label>Faq</label>
       </div>
       <Debug.DebugFacet fb={categoryFacet} />
     </div>
