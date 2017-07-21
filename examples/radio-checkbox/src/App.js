@@ -20,7 +20,6 @@ const values = new Values();
 const client = new Client(project, collection);
 
 const tracking = new Tracking();
-tracking.clickTokens("url");
 const pipeline = new Pipeline(client, pipelineName, values, tracking);
 
 const filter = Filter.ANDFilter();
@@ -61,6 +60,15 @@ categoryFacet.register(() => {
 const App = () =>
   <div className="App">
     <div>
+      <Input.SelectFacet
+        fb={recencyFacet}
+        name="foo"
+        options={{
+          All: "all",
+          "Last 7 Days": "last7",
+          "Last 30 Days": "last30"
+        }}
+      />
       <h3>Recency</h3>
       <div>
         <Input.RadioFacet fb={recencyFacet} name="last7" />
