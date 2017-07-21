@@ -64,9 +64,9 @@ const App = () =>
         fb={recencyFacet}
         name="foo"
         options={{
-          All: "all",
-          "Last 7 Days": "last7",
-          "Last 30 Days": "last30"
+          all: "All",
+          last7: "Last 7 Days",
+          last30: "Last 30 Days"
         }}
       />
       <h3>Recency</h3>

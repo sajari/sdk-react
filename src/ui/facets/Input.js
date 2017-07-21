@@ -38,8 +38,8 @@ class SelectFacet extends React.Component {
     };
     const optionsRendered = Object.keys(options).map(o => {
       return (
-        <option value={options[o]}>
-          {o}
+        <option value={o} key={o}>
+          {options[o]}
         </option>
       );
     });
