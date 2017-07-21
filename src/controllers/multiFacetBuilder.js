@@ -13,9 +13,7 @@ class MultiFacetBuilder {
 
   notify() {
     this.listener.notify(l => {
-      const active = this.active;
-      const activeFilter = active ? this.options[active] : undefined;
-      l(active, activeFilter);
+      l(this);
     });
   }
 
@@ -30,6 +28,10 @@ class MultiFacetBuilder {
 
   isSet(name) {
     return this.active.indexOf(name) !== -1;
+  }
+
+  getActive() {
+    return this.active;
   }
 }
 
