@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import Analytics from "sajari-react/pipeline/analytics";
+import Analytics from "sajari-react/analytics/analytics";
 
 import loaded from "./loaded";
 import Overlay from "./Overlay";

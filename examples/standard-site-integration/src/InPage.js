@@ -1,6 +1,6 @@
 import React from "react";
 
-import AutocompleteInput from "sajari-react/pipeline/AutocompleteInput";
+import AutocompleteInput from "sajari-react/ui/searchInput/AutocompleteInput";
 
 import { values, pipeline } from "./resources";
 

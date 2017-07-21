@@ -6,7 +6,7 @@ import SearchResponse from "./SearchResponse";
 
 import { values, pipeline } from "./resources";
 
-import AutocompleteInput from "sajari-react/pipeline/AutocompleteInput";
+import AutocompleteInput from "sajari-react/ui/searchInput/AutocompleteInput";
 
 class Overlay extends React.Component {
   constructor(props) {
