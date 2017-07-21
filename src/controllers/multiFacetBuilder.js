@@ -1,9 +1,10 @@
 import Listener from "./listener";
 
 class MultiFacetBuilder {
-  constructor(options, start = []) {
-    this.active = start;
+  constructor(options, start = [], joinOperator = "OR") {
+    this.current = start;
     this.options = options;
+    this.joinOperator = joinOperator;
     this.listener = new Listener();
   }
 
@@ -17,21 +18,25 @@ class MultiFacetBuilder {
     });
   }
 
-  set(name, active) {
-    if (active) {
-      this.active = this.active.concat(name);
+  set(name, on) {
+    if (on) {
+      this.current = this.current.concat(name);
     } else {
-      this.active = this.active.filter(n => n !== active);;
+      this.current = this.current.filter(n => n !== current);;
     }
     this.notify();
   }
 
   isSet(name) {
-    return this.active.indexOf(name) !== -1;
+    return this.current.indexOf(name) !== -1;
   }
 
-  getActive() {
-    return this.active;
+  get() {
+    return this.current;
+  }
+
+  filter() {
+    return "";
   }
 }
 

@@ -2,7 +2,7 @@ import Listener from "./listener";
 
 class SingleFacetBuilder {
   constructor(options, start = undefined) {
-    this.active = start;
+    this.current = start;
     this.options = options;
     this.listener = new Listener();
   }
@@ -19,19 +19,26 @@ class SingleFacetBuilder {
 
   set(name) {
     if (name) {
-      this.active = name;
+      this.current = name;
     } else {
-      this.active = undefined;
+      this.current = undefined;
     }
     this.notify();
   }
 
   isSet(name) {
-    return this.active === name;
+    return this.current === name;
   }
 
-  getActive() {
-    return this.active;
+  get() {
+    return this.current;
+  }
+
+  filter() {
+    if (this.current) {
+      return this.options[this.current];
+    }
+    return "";
   }
 }
 
