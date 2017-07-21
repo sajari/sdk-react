@@ -1,4 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
+
+import Pipeline from "../../controllers/pipeline";
 
 import Result from "./Result";
 
@@ -18,6 +21,11 @@ const Results = props => {
       showImages={showImages}
     />
   );
+};
+
+Results.propTypes = {
+  pipeline: PropTypes.instanceOf(Pipeline).isRequired,
+  showImages: PropTypes.bool
 };
 
 const ResultsRenderer = ({

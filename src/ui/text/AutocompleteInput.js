@@ -1,8 +1,9 @@
 import React from 'react'
 import { findDOMNode } from 'react-dom'
+import PropTypes from "prop-types";
 
-import { changeEvent } from "../../controllers/values";
-import { resultsEvent } from "../../controllers/pipeline";
+import Values, { changeEvent } from "../../controllers/values";
+import Pipeline, { resultsEvent } from "../../controllers/pipeline";
 
 const RIGHT_ARROW_KEYCODE = 39
 const TAB_KEYCODE = 9
@@ -98,6 +99,11 @@ class AutocompleteInput extends React.Component {
       </div>
     )
   }
+}
+
+AutocompleteInput.propTypes = {
+  values: PropTypes.instanceOf(Values).isRequired,
+  pipeline: PropTypes.instanceOf(Pipeline).isRequired
 }
 
 AutocompleteInput.defaultProps = {

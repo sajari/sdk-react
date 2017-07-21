@@ -5,7 +5,7 @@ const singleFilter = "single";
 export const ANDFilter = () => new Filter(andFilter);
 export const ORFilter = () => new Filter(orFilter);
 
-class Filter {
+export class Filter {
   constructor(type) {
     this.filters = {};
     this.type = type;

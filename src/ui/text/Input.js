@@ -1,8 +1,9 @@
 import React from "react";
 import { findDOMNode } from "react-dom";
+import PropTypes from "prop-types";
 
-import { changeEvent } from "../../controllers/values";
-import { resultsEvent } from "../../controllers/pipeline";
+import Values, { changeEvent } from "../../controllers/values";
+import Pipeline, { resultsEvent } from "../../controllers/pipeline";
 
 const RETURN_KEYCODE = 13;
 
@@ -13,13 +14,13 @@ class Input extends React.Component {
     this.valuesUpdated = this.valuesUpdated.bind(this);
     this.getState = this.getState.bind(this);
     this.state = {
-      ...this.getState(props.values, props.pipeline, props.qParam),
+      ...this.getState(props.values, props.qParam),
       qParam: props.qParam,
       qOverrideParam: props.qOverrideParam
     };
   }
 
-  getState(values, pipeline, qParam) {
+  getState(values, qParam) {
     const text = values.get()[qParam] || "";
     return { text };
   }
@@ -40,9 +41,7 @@ class Input extends React.Component {
   }
 
   valuesUpdated() {
-    this.setState(
-      this.getState(this.props.values, this.props.pipeline, this.state.qParam)
-    );
+    this.setState(this.getState(this.props.values, this.state.qParam));
   }
 
   setText(text) {
@@ -82,6 +81,11 @@ class Input extends React.Component {
     );
   }
 }
+
+Input.propTypes = {
+  values: PropTypes.instanceOf(Values).isRequired,
+  pipeline: PropTypes.instanceOf(Pipeline).isRequired
+};
 
 Input.defaultProps = {
   qParam: "q",

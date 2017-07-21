@@ -1,6 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-import { resultsEvent } from "../../controllers/pipeline";
+import Pipeline, { resultsEvent } from "../../controllers/pipeline";
 
 class Summary extends React.Component {
   constructor(props) {
@@ -62,6 +63,10 @@ class Summary extends React.Component {
       </div>
     );
   }
+}
+
+Summary.propTypes = {
+  pipeline: PropTypes.instanceOf(Pipeline).isRequired
 }
 
 export default Summary;

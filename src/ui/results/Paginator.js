@@ -1,4 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
+
+import Values from "../../controllers/values";
+import Pipeline from "../../controllers/pipeline";
 
 const pageNumbers = (page, totalPages) => {
   const pages = []
@@ -85,6 +89,11 @@ class Paginator extends React.Component {
 
     return <RawPaginator setPage={setPage} page={page} resultsPerPage={resultsPerPage} totalResults={totalResultsInt} />
   }
+}
+
+Paginator.propTypes = {
+  values: PropTypes.instanceOf(Values).isRequired,
+  pipeline: PropTypes.instanceOf(Pipeline).isRequired
 }
 
 export default Paginator;

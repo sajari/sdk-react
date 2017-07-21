@@ -1,4 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
+
+import SingleFacet from "../../controllers/singleFacet";
+import MultiFacet from "../../controllers/multiFacet";
 
 class CheckboxFacet extends React.Component {
   render() {
@@ -6,11 +10,27 @@ class CheckboxFacet extends React.Component {
   }
 }
 
+CheckboxFacet.propTypes = {
+  fb: PropTypes.oneOf([
+    PropTypes.instanceOf(SingleFacet),
+    PropTypes.instanceOf(MultiFacet)
+  ]).isRequired,
+  name: PropTypes.string.isRequired
+};
+
 class RadioFacet extends React.Component {
   render() {
     return <InputFacet type="radio" {...this.props} />;
   }
 }
+
+RadioFacet.propTypes = {
+  fb: PropTypes.oneOf([
+    PropTypes.instanceOf(SingleFacet),
+    PropTypes.instanceOf(MultiFacet)
+  ]).isRequired,
+  name: PropTypes.string.isRequired
+};
 
 class SelectFacet extends React.Component {
   constructor(props) {
@@ -48,9 +68,17 @@ class SelectFacet extends React.Component {
         {optionsRendered}
       </select>
     );
-    // return <input onClick={onClick} checked={this.state.active} {...other} />;
   }
 }
+
+SelectFacet.propTypes = {
+  fb: PropTypes.oneOf([
+    PropTypes.instanceOf(SingleFacet),
+    PropTypes.instanceOf(MultiFacet)
+  ]).isRequired,
+  name: PropTypes.string.isRequired,
+  options: PropTypes.object.isRequired
+};
 
 class InputFacet extends React.Component {
   constructor(props) {

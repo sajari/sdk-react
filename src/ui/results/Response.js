@@ -1,6 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-import { resultsEvent, errorEvent } from "../../controllers/pipeline";
+import Pipeline, { resultsEvent, errorEvent } from "../../controllers/pipeline";
 
 class Response extends React.Component {
   constructor(props) {
@@ -54,6 +55,11 @@ class Response extends React.Component {
       </div>
     );
   }
+}
+
+Response.propTypes = {
+  pipeline: PropTypes.instanceOf(Pipeline).isRequired,
+  Placeholder: PropTypes.instanceOf(React.Component)
 }
 
 export default Response;

@@ -1,4 +1,9 @@
 import React from 'react'
+import PropTypes from "prop-types";
+
+import Values from "../../controllers/values";
+import Pipeline from "../../controllers/pipeline";
+import Filter from "../../controllers/filter";
 
 class TabsFacet extends React.Component {
   constructor(props) {
@@ -41,6 +46,14 @@ class TabsFacet extends React.Component {
       </div>
     )
   }
+}
+
+TabsFacet.propTypes = {
+  values: PropTypes.instanceOf(Values).isRequired,
+  pipeline: PropTypes.instanceOf(Pipeline).isRequired,
+  filter: PropTypes.instanceOf(Filter).isRequired,
+  tabs: PropTypes.object.isRequired,
+  defaultTab: PropTypes.string
 }
 
 export default TabsFacet;
