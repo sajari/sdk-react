@@ -22,7 +22,7 @@ class MultiFacetBuilder {
     if (on) {
       this.current = this.current.concat(name);
     } else {
-      this.current = this.current.filter(n => n !== current);;
+      this.current = this.current.filter(n => n !== name);
     }
     this.notify();
   }
@@ -36,7 +36,9 @@ class MultiFacetBuilder {
   }
 
   filter() {
-    return "";
+    return this.current
+      .map(c => "(" + this.options[c] + ")")
+      .join(" " + this.joinOperator + " ");
   }
 }
 
