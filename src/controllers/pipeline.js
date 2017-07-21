@@ -30,6 +30,7 @@ class Pipeline {
       [resultClickedEvent]: new Listener(),
       [trackingResetEvent]: new Listener(),
     }
+    this.searchCount = 0;
 
     this.query = undefined;
     this.error = undefined;
@@ -77,7 +78,13 @@ class Pipeline {
   search(values = undefined, tracking = undefined) {
     const queryValues = (values || this.values).get();
     const queryTracking = tracking || this.tracking;
-    this.client.searchPipeline(this.name, queryValues, queryTracking, (error, results, responseValues) => {
+    this.searchCount++;
+    const currentSearch = this.searchCount;
+    this.client.searchPipeline(this.name, queryValues, queryTracking, (error, results = {}, responseValues = {}) => {
+      if (currentSearch < this.searchCount) {
+        return;
+      }
+
       if (error) {
         this.error = error;
         this.results = undefined;
