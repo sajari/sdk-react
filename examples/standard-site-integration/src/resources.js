@@ -1,6 +1,6 @@
 import Pipeline from "sajari-react/controllers/pipeline";
 import Values, { changeEvent } from "sajari-react/controllers/values";
-import { Filter, andFilter } from "sajari-react/controllers/filter";
+import { ANDFilter } from "sajari-react/controllers/filter";
 
 import { Client, Tracking } from "sajari";
 
@@ -15,7 +15,7 @@ const initialiseResources = (project, collection, pipelineName) => {
   const tracking = new Tracking();
   tracking.clickTokens("url");
   pipeline = new Pipeline(client, pipelineName, values, tracking);
-  filter = new Filter(andFilter);
+  filter = new ANDFilter();
 
   values.set({ filter: () => filter.evaluate() });
   values.listen(changeEvent, (changes, set) => {

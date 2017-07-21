@@ -5,7 +5,7 @@ import {
   Summary,
   Results,
   Paginator
-} from "sajari-react/pipeline/Response";
+} from "sajari-react/ui/results";
 import Tabs from "sajari-react/ui/facets/TabsFacet";
 
 import { values, pipeline, filter } from "./resources";
