@@ -7,7 +7,7 @@ class SingleFacetBuilder {
     this.listener = new Listener();
   }
 
-  register(name, listener) {
+  register(listener) {
     return this.listener.listen(listener);
   }
 
@@ -15,7 +15,7 @@ class SingleFacetBuilder {
     this.listener.notify(l => {
       const active = this.active;
       const activeFilter = active ? this.options[active] : undefined;
-      l.listener(active, activeFilter);
+      l(active, activeFilter);
     });
   }
 
@@ -25,15 +25,11 @@ class SingleFacetBuilder {
     } else {
       this.active = undefined;
     }
-    this._afterModification(name);
-  }
-
-  get() {
-    return this.active;
-  }
-
-  _afterModification(name) {
     this.notify();
+  }
+
+  isSet(name) {
+    return this.active === name;
   }
 }
 
