@@ -42,6 +42,7 @@
     "eslint-plugin-react": "^6.7.1",
     "file-loader": "^0.9.0",
     "fs-extra": "^0.30.0",
+    "jest": "^20.0.4",
     "mocha": "^2.2.5",
     "react-hot-loader": "1.3.0",
     "rimraf": "^2.5.3",
@@ -74,7 +75,8 @@
     "build:copy-files": "babel-node ./scripts/copy-files.js",
     "lint": "eslint src/*",
     "clean:build": "rimraf build/*",
-    "hotdev": "webpack-dev-server --hot --inline",
-    "prebuild": "npm run clean:build"
+    "build:watch": "npm run clean:build && babel ./src/ --out-dir ./build --copy-files --watch",
+    "prebuild": "npm run clean:build",
+    "test": "jest"
   }
 }
