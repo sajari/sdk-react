@@ -1,6 +1,6 @@
 import React from 'react'
 
-class Tabs extends React.Component {
+class TabsFacet extends React.Component {
   constructor(props) {
     super(props);
     this.state = { selected: this.props.defaultTab };
@@ -43,4 +43,4 @@ class Tabs extends React.Component {
   }
 }
 
-export default Tabs;
+export default TabsFacet;
