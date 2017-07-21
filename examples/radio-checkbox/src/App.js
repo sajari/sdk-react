@@ -1,52 +1,93 @@
-import React, { Component } from "react";
+import React from "react";
 
-import singleFacetBuilder from "sajari-react/controllers/singleFacetBuilder";
-import multiFacetBuilder from "sajari-react/controllers/multiFacetBuilder";
+import { Client, Tracking } from "sajari";
 
-import { CheckboxFacet, RadioFacet } from "sajari-react/ui/facets/Input";
-import { DebugFacet } from "sajari-react/ui/facets/Debug";
+import {
+  Filter,
+  multiFacet,
+  singleFacet,
+  Pipeline
+} from "sajari-react/controllers";
+import { Debug, Input } from "sajari-react/ui/facets";
+import Values from "sajari-react/controllers/values";
+import { Response, Results, Summary, Paginator } from "sajari-react/ui/results";
 
-const recency = {
-  last7: "firstseen<='RECENT_TIMESTAMP'",
-  all: ""
-};
-const SFB = new singleFacetBuilder(recency);
+const project = "sajariptyltd";
+const collection = "sajari-com";
+const pipelineName = "website";
 
-const categories = {
-  articles: "dir1='article'",
-  blog: "dir1='blog'",
-  faq: "dir1='faq'"
-};
-const MFB = new multiFacetBuilder(categories, ["articles", "faq"]);
+const values = new Values();
+const client = new Client(project, collection);
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div>
-          <h3>Recency</h3>
-          <label>Last 7 Days</label>
-          <RadioFacet fb={SFB} name="last7" />
-          <br />
-          <label>All</label>
-          <RadioFacet fb={SFB} name="all" />
-          <DebugFacet fb={SFB} />
-        </div>
-        <div>
-          <h3>Category</h3>
-          <label>Articles</label>
-          <CheckboxFacet fb={MFB} name="articles" />
-          <br />
-          <label>Blog</label>
-          <CheckboxFacet fb={MFB} name="blog" />
-          <br />
-          <label>Faq</label>
-          <CheckboxFacet fb={MFB} name="faq" />
-          <DebugFacet fb={MFB} />
-        </div>
+const tracking = new Tracking();
+tracking.clickTokens("url");
+const pipeline = new Pipeline(client, pipelineName, values, tracking);
+
+const filter = Filter.ANDFilter();
+values.set({ filter: () => filter.evaluate() });
+
+const recencyFacet = new singleFacet(
+  {
+    last7: "firstseen<='RECENT_TIMESTAMP'",
+    all: ""
+  },
+  "all"
+);
+filter.setFilter("recency", recencyFacet.filter());
+recencyFacet.register(() => {
+  filter.setFilter("recency", recencyFacet.filter());
+  pipeline.search();
+});
+
+const categoryFacet = new multiFacet(
+  {
+    articles: "dir1='article'",
+    blog: "dir1='blog'",
+    faq: "dir1='faq'"
+  },
+  ["articles", "faq"]
+);
+filter.setFilter("category", categoryFacet.filter());
+categoryFacet.register(() => {
+  filter.setFilter("category", categoryFacet.filter());
+  pipeline.search();
+});
+
+const App = () =>
+  <div className="App">
+    <div>
+      <h3>Recency</h3>
+      <div>
+        <label>Last 7 Days</label>
+        <Input.RadioFacet fb={recencyFacet} name="last7" />
       </div>
-    );
-  }
-}
+      <div>
+        <label>All</label>
+        <Input.RadioFacet fb={recencyFacet} name="all" />
+      </div>
+      <Debug.DebugFacet fb={recencyFacet} />
+    </div>
+    <div>
+      <h3>Category</h3>
+      <div>
+        <label>Articles</label>
+        <Input.CheckboxFacet fb={categoryFacet} name="articles" />
+      </div>
+      <div>
+        <label>Blog</label>
+        <Input.CheckboxFacet fb={categoryFacet} name="blog" />
+      </div>
+      <div>
+        <label>Faq</label>
+        <Input.CheckboxFacet fb={categoryFacet} name="faq" />
+      </div>
+      <Debug.DebugFacet fb={categoryFacet} />
+    </div>
+    <Response pipeline={pipeline}>
+      <Summary values={values} />
+      <Results />
+      <Paginator values={values} pipeline={pipeline} />
+    </Response>
+  </div>;
 
 export default App;
