@@ -26,9 +26,14 @@ const pipeline = new Pipeline(client, pipelineName, values, tracking);
 const filter = Filter.ANDFilter();
 values.set({ filter: () => filter.evaluate() });
 
+const currentUnix = parseInt(String(new Date().getTime() / 1000), 10);
+const lastWeek = currentUnix - 7 * 24 * 60 * 60;
+const lastMonth = currentUnix - 30 * 24 * 60 * 60;
+
 const recencyFacet = new singleFacet(
   {
-    last7: "firstseen<='RECENT_TIMESTAMP'",
+    last7: `firstseen>'${lastWeek}'`,
+    last30: `firstseen>'${lastMonth}'`,
     all: ""
   },
   "all"
@@ -60,6 +65,10 @@ const App = () =>
       <div>
         <label>Last 7 Days</label>
         <Input.RadioFacet fb={recencyFacet} name="last7" />
+      </div>
+      <div>
+        <label>Last 30 Days</label>
+        <Input.RadioFacet fb={recencyFacet} name="last30" />
       </div>
       <div>
         <label>All</label>
