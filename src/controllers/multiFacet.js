@@ -1,6 +1,6 @@
 import Listener from "./listener";
 
-class MultiFacetBuilder {
+class MultiFacet {
   constructor(options, start = [], joinOperator = "OR") {
     this.current = start;
     this.options = options;
@@ -42,4 +42,4 @@ class MultiFacetBuilder {
   }
 }
 
-export default MultiFacetBuilder;
+export default MultiFacet;

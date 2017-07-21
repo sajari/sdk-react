@@ -1,6 +1,6 @@
 import Listener from "./listener";
 
-class SingleFacetBuilder {
+class SingleFacet {
   constructor(options, start = undefined) {
     this.current = start;
     this.options = options;
@@ -17,7 +17,11 @@ class SingleFacetBuilder {
     });
   }
 
-  set(name) {
+  set(name, on) {
+    if (on === false) {
+      return;
+    }
+
     if (name) {
       this.current = name;
     } else {
@@ -42,4 +46,4 @@ class SingleFacetBuilder {
   }
 }
 
-export default SingleFacetBuilder;
+export default SingleFacet;

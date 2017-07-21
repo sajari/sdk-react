@@ -1,8 +1,8 @@
 import React from 'react'
 import { findDOMNode } from 'react-dom'
 
-import { changeEvent } from "../controllers/values";
-import { resultsEvent } from "../controllers/pipeline";
+import { changeEvent } from "../../controllers/values";
+import { resultsEvent } from "../../controllers/pipeline";
 
 const RIGHT_ARROW_KEYCODE = 39
 const TAB_KEYCODE = 9

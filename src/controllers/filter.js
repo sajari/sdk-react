@@ -2,6 +2,9 @@ const andFilter = "AND";
 const orFilter = "OR";
 const singleFilter = "single";
 
+export const ANDFilter = () => new Filter(andFilter);
+export const ORFilter = () => new Filter(orFilter);
+
 class Filter {
   constructor(type) {
     this.filters = {};
@@ -21,8 +24,7 @@ class Filter {
   }
 
   evaluate() {
-    let filters = Object
-      .keys(this.filters)
+    let filters = Object.keys(this.filters)
       .map(k => this.filters[k])
       .filter(Boolean);
     if (this.type === singleFilter) {
@@ -40,7 +42,10 @@ class Filter {
         } else if (f instanceof Filter) {
           return f.evaluate();
         } else {
-          throw new Error("filter value must be either string or instance of Filter, got " + (typeof f));
+          throw new Error(
+            "filter value must be either string or instance of Filter, got " +
+              typeof f
+          );
         }
       })
       .filter(Boolean);
@@ -50,5 +55,3 @@ class Filter {
     return undefined;
   }
 }
-
-export { Filter, andFilter, orFilter, singleFilter };

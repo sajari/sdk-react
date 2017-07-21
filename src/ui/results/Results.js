@@ -2,7 +2,25 @@ import React from "react";
 
 import Result from "./Result";
 
-const Results = ({
+const Results = props => {
+  const { results, error, showImages, pipeline } = props;
+
+  if (!results && !error) {
+    return null;
+  }
+  const resultClicked = url => {
+    pipeline.emitResultClicked(url);
+  };
+  return (
+    <ResultsRenderer
+      data={{ searchResponse: props }}
+      resultClicked={resultClicked}
+      showImages={showImages}
+    />
+  );
+};
+
+const ResultsRenderer = ({
   data,
   resultClicked,
   showImages,
