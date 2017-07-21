@@ -11,15 +11,15 @@ export class Filter {
     this.type = type;
   }
 
-  setFilter(name, filter) {
+  set(name, filter) {
     this.filters[name] = filter;
   }
 
-  getFilter(name) {
+  get(name) {
     return this.filters[name];
   }
 
-  removeFilter(name) {
+  remove(name) {
     delete this.filters[name];
   }
 

@@ -28,6 +28,15 @@ values.listen(changeEvent, (changes, set) => {
 const filter = Filter.ANDFilter();
 values.set({ filter: () => filter.evaluate() });
 
+const setupFacetFilter = (name, facet, pipeline) => {
+   filter.set(name, facet.filter());
+    facet.register(() => {
+      filter.set(name, facet.filter());
+      pipeline.search();
+    }); 
+  }  
+}
+
 const currentUnix = parseInt(String(new Date().getTime() / 1000), 10);
 const lastWeek = currentUnix - 7 * 24 * 60 * 60;
 const lastMonth = currentUnix - 30 * 24 * 60 * 60;
@@ -40,7 +49,7 @@ const recencyFacet = new singleFacet(
   },
   "all"
 );
-filter.setFilter("recency", recencyFacet.filter());
+filter.set("recency", recencyFacet.filter());
 recencyFacet.register(() => {
   filter.setFilter("recency", recencyFacet.filter());
   pipeline.search(values, tracking);
