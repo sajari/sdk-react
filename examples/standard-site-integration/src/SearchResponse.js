@@ -8,7 +8,7 @@ import {
 } from "sajari-react/ui/results";
 import Tabs from "sajari-react/ui/facets/TabsFacet";
 
-import { values, pipeline, filter } from "./resources";
+import { values, pipeline, tracking } from "./resources";
 
 const Placeholder = ({ renderPlaceholder }) => {
   if (renderPlaceholder) {
@@ -17,7 +17,7 @@ const Placeholder = ({ renderPlaceholder }) => {
   return <div id="sj-results-placeholder" />;
 };
 
-const SearchResponse = ({ config }) => {
+const SearchResponse = ({ config, tabsFacet }) => {
   let tabs = null;
   if (config.tabFilters) {
     tabs = (
@@ -26,7 +26,8 @@ const SearchResponse = ({ config }) => {
         tabs={config.tabFilters.tabs}
         values={values}
         pipeline={pipeline}
-        filter={filter}
+        tracking={tracking}
+        fb={tabsFacet}
       />
     );
   }
@@ -39,9 +40,9 @@ const SearchResponse = ({ config }) => {
   return (
     <Response Placeholder={placeholder} pipeline={pipeline}>
       {tabs}
-      <Summary values={values} pipeline={pipeline} />
+      <Summary values={values} pipeline={pipeline} tracking={tracking} />
       <Results showImages={results.showImages} values={values} pipeline={pipeline} />
-      <Paginator values={values} pipeline={pipeline} />
+      <Paginator values={values} pipeline={pipeline} tracking={tracking} />
     </Response>
   );
 };

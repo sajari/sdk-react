@@ -1,12 +1,11 @@
 import React from "react";
 
 import { Overlay as OverlayFrame, Close } from "sajari-react/ui/overlay";
+import { AutocompleteInput } from "sajari-react/ui/text";
 
 import SearchResponse from "./SearchResponse";
+import { values, pipeline, tracking } from "./resources";
 
-import { values, pipeline } from "./resources";
-
-import AutocompleteInput from "sajari-react/ui/searchInput/AutocompleteInput";
 
 class Overlay extends React.Component {
   constructor(props) {
@@ -28,10 +27,11 @@ class Overlay extends React.Component {
           focus
           pipeline={pipeline}
           values={values}
+          tracking={tracking}
           placeHolder={this.props.config.searchBoxPlaceHolder}
         />
         <Close onClick={this.hide} />
-        <SearchResponse config={this.props.config} />
+        <SearchResponse config={this.props.config} tabsFacet={this.props.tabsFacet} />
       </OverlayFrame>
     );
   }

@@ -1,12 +1,12 @@
 import React from "react";
 
-import AutocompleteInput from "sajari-react/ui/searchInput/AutocompleteInput";
+import { AutocompleteInput } from "sajari-react/ui/text";
 
-import { values, pipeline } from "./resources";
+import { values, pipeline, tracking } from "./resources";
 
 class InPage extends React.Component {
   render() {
-    return <AutocompleteInput values={values} pipeline={pipeline} />;
+    return <AutocompleteInput values={values} pipeline={pipeline} tracking={tracking} />;
   }
 }
 
