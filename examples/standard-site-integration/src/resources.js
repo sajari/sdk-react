@@ -8,11 +8,12 @@ let client;
 let pipeline;
 let values;
 let filter;
+let tracking
 
 const initialiseResources = (project, collection, pipelineName) => {
   values = new Values();
   client = new Client(project, collection);
-  const tracking = new Tracking();
+  tracking = new Tracking();
   tracking.clickTokens("url");
   pipeline = new Pipeline(client, pipelineName, values, tracking);
   filter = new ANDFilter();
@@ -25,4 +26,4 @@ const initialiseResources = (project, collection, pipelineName) => {
   })
 };
 
-export { initialiseResources, client, pipeline, values, filter };
+export { initialiseResources, client, pipeline, values, filter, tracking };
