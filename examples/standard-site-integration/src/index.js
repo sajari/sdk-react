@@ -110,7 +110,7 @@ const initOverlay = (config, tabsFacet) => {
 
   const queryValues = combinedValues(config, true);
   if (queryValues.filter) {
-    filter.setFilter("dictionary", queryValues.filter);
+    filter.setFilter("initialValues", queryValues.filter);
     delete queryValues.filter;
   }
   values.set(queryValues);
@@ -131,7 +131,7 @@ const initInPage = (config, tabsFacet) => {
 
   const queryValues = combinedValues(config, true);
   if (queryValues.filter) {
-    filter.setFilter("dictionary", queryValues.filter);
+    filter.setFilter("initialValues", queryValues.filter);
     delete queryValues.filter;
   }
   values.set(queryValues);
