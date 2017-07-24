@@ -77,6 +77,11 @@ const initOverlay = (config, tabsFacet) => {
       document.getElementsByTagName("body")[0].style.overflow = "";
       values.set({ q: undefined, "q.override": undefined });
       pipeline.clearResults();
+      if (config.tabFilters.defaultTab) {
+        disableTabFacetSearch = true;
+        tabsFacet.set(config.tabFilters.defaultTab);
+        disableTabFacetSearch = false;
+      }
       controls.hide();
     };
     window._sjui.overlay.show = show;
