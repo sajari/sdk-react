@@ -1,16 +1,15 @@
-import GA from "../analytics/ga";
+import GA from "./ga";
 
 import { resultsEvent, trackingResetEvent, resultClickedEvent } from "../controllers/pipeline";
 
 class Analytics {
-  constructor(pipeline, values, ga = new GA()) {
+  constructor(pipeline, ga = new GA()) {
     this.ga = ga;
 
     this.enabled = false;
     this.body = "";
 
     this.pipeline = pipeline;
-    this.values = values;
 
     // longest values are for sending the users last intended query on reset
     this.longestNonAutocompletedBody = "";
@@ -53,13 +52,13 @@ class Analytics {
   }
 
   onChange() {
-    const searchResponse = this.pipeline.getResults();
+    const searchResponse = this.pipeline.getResults() || {};
     // Enable analytics once a successful search has been performed
-    if (searchResponse && searchResponse.results) {
+    if (searchResponse.results) {
       this.enabled = true;
     }
 
-    const values = this.values.get();
+    const values = this.pipeline.getQueryValues() || {};
     const originalBody = values[this.bodyLabel] || "";
     const newBody = values[this.bodyAutocompletedLabel] || originalBody;
 
