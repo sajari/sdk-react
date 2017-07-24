@@ -15,6 +15,8 @@ import "./styles.css";
 
 const ESCAPE_KEY_CODE = 27;
 
+let disableTabFacetSearch = false;
+
 const error = message => {
   if (console && console.error) {
     console.error(message);
@@ -161,6 +163,9 @@ const initInterface = () => {
     tabsFacet = new SingleFacet(facetOptions, config.tabFilters.defaultTab);
     tabsFacet.register(() => {
       filter.setFilter("tab", tabsFacet.filter());
+      if (!disableTabFacetSearch) {
+        pipeline.search(values, tracking);
+      }
     });
   }
 
