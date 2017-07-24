@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import Analytics from "sajari-react/analytics/analytics";
+import SingleFacet from "sajari-react/controllers/singleFacet";
 
 import loaded from "./loaded";
 import Overlay from "./Overlay";
@@ -70,7 +71,7 @@ const combinedValues = (config, firstTime) => {
   return combinedValues;
 };
 
-const initOverlay = config => {
+const initOverlay = (config, tabsFacet) => {
   const setOverlayControls = controls => {
     const show = () => {
       document.getElementsByTagName("body")[0].style.overflow = "hidden";
@@ -103,7 +104,7 @@ const initOverlay = config => {
   });
 
   ReactDOM.render(
-    <Overlay config={config} setOverlayControls={setOverlayControls} />,
+    <Overlay config={config} setOverlayControls={setOverlayControls} tabsFacet={tabsFacet} />,
     overlayContainer
   );
 
@@ -121,10 +122,10 @@ const initOverlay = config => {
   }
 };
 
-const initInPage = config => {
+const initInPage = (config, tabsFacet) => {
   ReactDOM.render(<InPage config={config} />, config.attachSearchBox);
   ReactDOM.render(
-    <SearchResponse config={config} />,
+    <SearchResponse config={config} tabsFacet={tabsFacet} />,
     config.attachSearchResponse
   );
 
@@ -159,26 +160,25 @@ const initInterface = () => {
     new Analytics(pipeline, values);
   }
 
+
+  let tabsFacet;
   if (config.tabFilters && config.tabFilters.defaultTab) {
-    let defaultTabFilter = "";
+    const facetOptions = {};
     config.tabFilters.tabs.forEach(t => {
-      if (t.title === config.tabFilters.defaultTab) {
-        defaultTabFilter = t.filter;
-      }
-    })
-    values.listen(changeEvent, (changes, set) => {
-      if (!values.get().q && filter.getFilter("tab") !== defaultTabFilter) {
-        filter.setFilter("tab", defaultTabFilter);
-      }
+      facetOptions[t.title] = t.filter;
+    });
+    tabsFacet = new SingleFacet(facetOptions, config.tabFilters.defaultTab);
+    tabsFacet.register(() => {
+      filter.setFilter("tab", tabsFacet.filter());
     });
   }
 
   if (config.overlay) {
-    initOverlay(config);
+    initOverlay(config, tabsFacet);
     return;
   }
   if (config.attachSearchBox && config.attachSearchResponse) {
-    initInPage(config);
+    initInPage(config, tabsFacet);
     return;
   }
   error(
