@@ -31,7 +31,7 @@ export class Filter {
       if (filters.length === 1) {
         return "(" + filters[0] + ")";
       } else {
-        return undefined;
+        return "";
       }
     }
 
@@ -52,6 +52,6 @@ export class Filter {
     if (filters.length > 0) {
       return "(" + filters.join(") " + this.type + " (") + ")";
     }
-    return undefined;
+    return "";
   }
 }
