@@ -15,7 +15,7 @@ const values = new Values();
 const client = new Client(project, collection);
 
 const tracking = new Tracking();
-const pipeline = new Pipeline(client, pipelineName, values, tracking);
+const pipeline = new Pipeline(client, pipelineName);
 
 const filter = Filter.ANDFilter();
 values.set({ filter: () => filter.evaluate() });
@@ -35,7 +35,7 @@ const recencyFacet = new singleFacet(
 filter.setFilter("recency", recencyFacet.filter());
 recencyFacet.register(() => {
   filter.setFilter("recency", recencyFacet.filter());
-  pipeline.search();
+  pipeline.search(values, tracking);
 });
 
 const categoryFacet = new multiFacet(
@@ -96,8 +96,8 @@ const App = () =>
       <DebugFacet fb={categoryFacet} />
     </div>
     <Response pipeline={pipeline}>
-      <Summary values={values} />
-      <Results />
+      <Summary values={values} pipeline={pipeline} />
+      <Results pipeline={pipeline} />
       <Paginator values={values} pipeline={pipeline} />
     </Response>
   </div>;
