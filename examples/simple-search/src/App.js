@@ -4,6 +4,7 @@ import Pipeline from "sajari-react/controllers/pipeline";
 import Values, { changeEvent } from "sajari-react/controllers/values";
 import { AutocompleteInput } from "sajari-react/ui/text";
 import { Response, Results, Summary, Paginator } from "sajari-react/ui/results";
+import "sajari-react/ui/Search.css";
 
 import { Client, Tracking } from "sajari";
 
