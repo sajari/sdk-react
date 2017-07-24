@@ -58,8 +58,11 @@ class Response extends React.Component {
 }
 
 Response.propTypes = {
-  pipeline: PropTypes.instanceOf(Pipeline).isRequired,
-  Placeholder: PropTypes.instanceOf(React.Component)
+  pipeline: PropTypes.instanceOf(Pipeline),
+  Placeholder: PropTypes.oneOfType([
+    PropTypes.instanceOf(Function),
+    PropTypes.instanceOf(React.Component)]
+  ).isRequired
 }
 
 export default Response;
