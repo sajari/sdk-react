@@ -2,9 +2,9 @@ import React from "react";
 
 import { Filter, Pipeline, singleFacet } from "sajari-react/controllers";
 import Values, { changeEvent } from "sajari-react/controllers/values";
-import AutocompleteInput from "sajari-react/ui/text/AutocompleteInput";
+import { AutocompleteInput } from "sajari-react/ui/text";
 import { Response, Results, Summary, Paginator } from "sajari-react/ui/results";
-import { TabsFacet, Input } from "sajari-react/ui/facets";
+import { TabsFacet, RadioFacet } from "sajari-react/ui/facets";
 
 import { Client, Tracking } from "sajari";
 
@@ -14,9 +14,8 @@ const pipelineName = "website";
 
 const values = new Values();
 const client = new Client(project, collection);
-
 const tracking = new Tracking();
-const pipeline = new Pipeline(client, pipelineName, values, tracking);
+const pipeline = new Pipeline(client, pipelineName);
 
 values.listen(changeEvent, (changes, set) => {
   if (!changes.page) {
@@ -42,7 +41,7 @@ const recencyFacet = new singleFacet(
 filter.setFilter("recency", recencyFacet.filter());
 recencyFacet.register(() => {
   filter.setFilter("recency", recencyFacet.filter());
-  pipeline.search();
+  pipeline.search(values, tracking);
 });
 
 const tabs = [
@@ -53,17 +52,17 @@ const tabs = [
 
 const App = () =>
   <div className="searchApp">
-    <AutocompleteInput values={values} pipeline={pipeline} />
+    <AutocompleteInput values={values} pipeline={pipeline} tracking={tracking} />
     <div>
-      <Input.RadioFacet fb={recencyFacet} name="last7" />
+      <RadioFacet fb={recencyFacet} name="last7" />
       <label>Last 7 Days</label>
     </div>
     <div>
-      <Input.RadioFacet fb={recencyFacet} name="last30" />
+      <RadioFacet fb={recencyFacet} name="last30" />
       <label>Last 30 Days</label>
     </div>
     <div>
-      <Input.RadioFacet fb={recencyFacet} name="all" />
+      <RadioFacet fb={recencyFacet} name="all" />
       <label>All</label>
     </div>
     <Response pipeline={pipeline}>
@@ -73,9 +72,9 @@ const App = () =>
         pipeline={pipeline}
         filter={filter}
       />
-      <Summary values={values} />
-      <Results />
-      <Paginator values={values} pipeline={pipeline} />
+      <Summary values={values} pipeline={pipeline} tracking={tracking} />
+      <Results pipeline={pipeline} />
+      <Paginator values={values} pipeline={pipeline} tracking={tracking} />
     </Response>
   </div>;
 
