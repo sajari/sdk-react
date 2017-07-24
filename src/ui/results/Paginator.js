@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { Tracking } from "sajari";
+
 import Values from "../../controllers/values";
 import Pipeline from "../../controllers/pipeline";
 
@@ -79,7 +81,7 @@ class Paginator extends React.Component {
     const setPage = (page) => {
       window.scrollTo(0, 0);
       this.props.values.set({ page: String(page) });
-      this.props.pipeline.search();
+      this.props.pipeline.search(this.props.values, this.props.tracking);
     }
     const queryValues = this.props.values.get();
 
@@ -93,7 +95,8 @@ class Paginator extends React.Component {
 
 Paginator.propTypes = {
   values: PropTypes.instanceOf(Values).isRequired,
-  pipeline: PropTypes.instanceOf(Pipeline).isRequired
+  pipeline: PropTypes.instanceOf(Pipeline).isRequired,
+  tracking: PropTypes.instanceOf(Tracking).isRequired
 }
 
 export default Paginator;

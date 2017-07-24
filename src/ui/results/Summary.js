@@ -1,7 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { Tracking } from "sajari";
+
 import Pipeline, { resultsEvent } from "../../controllers/pipeline";
+import Values from "../../controllers/values";
 
 class Summary extends React.Component {
   constructor(props) {
@@ -25,7 +28,7 @@ class Summary extends React.Component {
   }
 
   render() {
-    const { time, totalResults, error, values, pipeline } = this.props;
+    const { time, totalResults, error, values, pipeline, tracking } = this.props;
     const queryValues = values.get() || {};
     const responseValues = pipeline.getResponseValues() || {};
     const text = responseValues["q"] || queryValues["q"];
@@ -39,7 +42,7 @@ class Summary extends React.Component {
     const runOverride = e => {
       e.preventDefault();
       values.set({ q: queryValues["q"], "q.override": "true" });
-      pipeline.search();
+      pipeline.search(values, tracking);
     };
     const override =
       responseValues["q"] &&
@@ -66,7 +69,9 @@ class Summary extends React.Component {
 }
 
 Summary.propTypes = {
-  pipeline: PropTypes.instanceOf(Pipeline).isRequired
+  pipeline: PropTypes.instanceOf(Pipeline).isRequired,
+  values: PropTypes.instanceOf(Values).isRequired,
+  tracking: PropTypes.instanceOf(Tracking).isRequired
 }
 
 export default Summary;

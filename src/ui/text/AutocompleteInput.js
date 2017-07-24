@@ -2,6 +2,8 @@ import React from 'react'
 import { findDOMNode } from 'react-dom'
 import PropTypes from "prop-types";
 
+import { Tracking } from "sajari";
+
 import Values, { changeEvent } from "../../controllers/values";
 import Pipeline, { resultsEvent } from "../../controllers/pipeline";
 
@@ -54,7 +56,7 @@ class AutocompleteInput extends React.Component {
     };
     this.props.values.set(textValues);
     if (textValues[this.state.qParam]) {
-      this.props.pipeline.search();
+      this.props.pipeline.search(this.props.values, this.props.tracking);
     } else {
       this.props.pipeline.clearResults();
       this.props.pipeline.emitTrackingReset();
@@ -103,7 +105,8 @@ class AutocompleteInput extends React.Component {
 
 AutocompleteInput.propTypes = {
   values: PropTypes.instanceOf(Values).isRequired,
-  pipeline: PropTypes.instanceOf(Pipeline).isRequired
+  pipeline: PropTypes.instanceOf(Pipeline).isRequired,
+  tracking: PropTypes.instanceOf(Tracking).isRequired
 }
 
 AutocompleteInput.defaultProps = {

@@ -17,11 +17,9 @@ const events = [
 ];
 
 class Pipeline {
-  constructor(client, name, values, tracking) {
+  constructor(client, name) {
     this.client = client;
     this.name = name;
-    this.values = values;
-    this.tracking = tracking;
     this.afterValuesChanged = this.values.listen(postChangeEvent, this.afterValuesChanged.bind(this));
     this.listeners = {
       [searchEvent]: new Listener(),
@@ -75,12 +73,11 @@ class Pipeline {
     });
   }
 
-  search(values = undefined, tracking = undefined) {
-    const queryValues = (values || this.values).get();
-    const queryTracking = tracking || this.tracking;
+  search(values, tracking) {
+    this.queryValues = values.get();
     this.searchCount++;
     const currentSearch = this.searchCount;
-    this.client.searchPipeline(this.name, queryValues, queryTracking, (error, results = {}, responseValues = {}) => {
+    this.client.searchPipeline(this.name, this.queryValues, tracking, (error, results = {}, responseValues = {}) => {
       if (currentSearch < this.searchCount) {
         return;
       }
