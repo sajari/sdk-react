@@ -35,7 +35,11 @@ class Values {
    */
   _set(values) {
     Object.keys(values).forEach(k => {
-      this.values[k] = values[k];
+      if (values[k] === undefined) {
+        delete this.values[k];
+      } else {
+        this.values[k] = values[k];
+      }
     });
   }
 
