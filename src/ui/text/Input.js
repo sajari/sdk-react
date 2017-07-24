@@ -57,14 +57,12 @@ class Input extends React.Component {
 
   render() {
     const { text } = this.state;
-    const { placeHolder, className, instant } = this.props;
+    const { instant, ...other } = this.props;
 
     return (
       <input
         type="text"
         ref="searchInput"
-        className={className}
-        placeholder={placeHolder}
         value={text}
         onChange={e => {
           if (instant) {
@@ -77,6 +75,7 @@ class Input extends React.Component {
             this.setText(text);
           }
         }}
+        {...other}
       />
     );
   }
