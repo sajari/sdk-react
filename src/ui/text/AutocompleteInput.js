@@ -27,7 +27,7 @@ class AutocompleteInput extends React.Component {
   getState(values, pipeline, qParam) {
     const text = values.get()[qParam] || "";
     const responseValues = pipeline.getResponseValues();
-    const completion = responseValues ? (responseValues[qParam] || "") : "";
+    const completion = (text && responseValues) ? (responseValues[qParam] || "") : "";
     return { text, completion };
   }
 
