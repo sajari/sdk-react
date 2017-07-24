@@ -6,6 +6,8 @@ import { AutocompleteInput } from "sajari-react/ui/text";
 
 import { Client, Tracking } from "sajari";
 
+import "sajari-react/ui/Search.css";
+
 const project = "sajariptyltd";
 const collection = "sajari-com";
 const pipelineName = "autocomplete";
