@@ -8,17 +8,12 @@ import loaded from "./loaded";
 import Overlay from "./Overlay";
 import InPage from "./InPage";
 import SearchResponse from "./SearchResponse";
-import stateProxy from "./stateProxy";
-
-import { changeEvent } from "sajari-react/controllers/values";
 
 import { initialiseResources, pipeline, values, filter, tracking, client } from "./resources";
 
 import "./styles.css";
 
 const ESCAPE_KEY_CODE = 27;
-
-// const _state = State.default();
 
 const error = message => {
   if (console && console.error) {
@@ -54,7 +49,6 @@ const combinedValues = (config, firstTime) => {
     initialValues = config.initialValues;
   }
 
-  // const tabValues = {};
   // Set the initial tab filter
   if (config.tabFilters && config.tabFilters.defaultTab) {
     config.tabFilters.tabs.forEach(t => {
@@ -75,13 +69,10 @@ const initOverlay = (config, tabsFacet) => {
   const setOverlayControls = controls => {
     const show = () => {
       document.getElementsByTagName("body")[0].style.overflow = "hidden";
-
-      // _state.setValues(combinedValues(config, false));
       controls.show();
     };
     const hide = () => {
       document.getElementsByTagName("body")[0].style.overflow = "";
-      // _state.reset();
       values.set({ q: undefined, "q.override": undefined });
       pipeline.clearResults();
       controls.hide();
