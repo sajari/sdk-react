@@ -2,7 +2,7 @@ import React from "react";
 
 import Pipeline from "sajari-react/controllers/pipeline";
 import Values from "sajari-react/controllers/values";
-import AutocompleteInput from "sajari-react/ui/text/AutocompleteInput";
+import { AutocompleteInput } from "sajari-react/ui/text";
 
 import { Client, Tracking } from "sajari";
 
