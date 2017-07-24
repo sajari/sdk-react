@@ -11,7 +11,7 @@ class CheckboxFacet extends React.Component {
 }
 
 CheckboxFacet.propTypes = {
-  fb: PropTypes.oneOf([
+  fb: PropTypes.oneOfType([
     PropTypes.instanceOf(SingleFacet),
     PropTypes.instanceOf(MultiFacet)
   ]).isRequired,
@@ -25,7 +25,7 @@ class RadioFacet extends React.Component {
 }
 
 RadioFacet.propTypes = {
-  fb: PropTypes.oneOf([
+  fb: PropTypes.oneOfType([
     PropTypes.instanceOf(SingleFacet),
     PropTypes.instanceOf(MultiFacet)
   ]).isRequired,
@@ -72,7 +72,7 @@ class SelectFacet extends React.Component {
 }
 
 SelectFacet.propTypes = {
-  fb: PropTypes.oneOf([
+  fb: PropTypes.oneOfType([
     PropTypes.instanceOf(SingleFacet),
     PropTypes.instanceOf(MultiFacet)
   ]).isRequired,
@@ -101,10 +101,10 @@ class InputFacet extends React.Component {
 
   render() {
     const { fb, name, children, ...other } = this.props;
-    const onClick = () => {
+    const toggle = () => {
       fb.set(name, !this.state.active);
     };
-    return <input onClick={onClick} checked={this.state.active} {...other} />;
+    return <input onChange={toggle} checked={this.state.active} {...other} />;
   }
 }
 
