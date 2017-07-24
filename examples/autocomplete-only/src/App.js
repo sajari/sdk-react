@@ -14,12 +14,12 @@ const pipelineName = "autocomplete";
 
 const values = new Values();
 const client = new Client(project, collection);
-
-const pipeline = new Pipeline(client, pipelineName, values, new Tracking());
+const tracking = new Tracking();
+const pipeline = new Pipeline(client, pipelineName);
 
 const App = () => (
   <div className="searchApp">
-    <AutocompleteInput values={values} pipeline={pipeline} />
+    <AutocompleteInput values={values} pipeline={pipeline} tracking={tracking} />
   </div>
 );
 
