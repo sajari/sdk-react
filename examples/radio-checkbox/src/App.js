@@ -2,13 +2,8 @@ import React from "react";
 
 import { Client, Tracking } from "sajari";
 
-import {
-  Filter,
-  multiFacet,
-  singleFacet,
-  Pipeline
-} from "sajari-react/controllers";
-import { Debug, Input } from "sajari-react/ui/facets";
+import { Filter, multiFacet, singleFacet, Pipeline } from "sajari-react/controllers";
+import { DebugFacet, SelectFacet, RadioFacet, CheckboxFacet } from "sajari-react/ui/facets";
 import Values from "sajari-react/controllers/values";
 import { Response, Results, Summary, Paginator } from "sajari-react/ui/results";
 
@@ -54,13 +49,13 @@ const categoryFacet = new multiFacet(
 filter.setFilter("category", categoryFacet.filter());
 categoryFacet.register(() => {
   filter.setFilter("category", categoryFacet.filter());
-  pipeline.search();
+  pipeline.search(values, tracking);
 });
 
 const App = () =>
   <div className="App">
     <div>
-      <Input.SelectFacet
+      <SelectFacet
         fb={recencyFacet}
         name="foo"
         options={{
@@ -71,34 +66,34 @@ const App = () =>
       />
       <h3>Recency</h3>
       <div>
-        <Input.RadioFacet fb={recencyFacet} name="last7" />
+        <RadioFacet fb={recencyFacet} name="last7" />
         <label>Last 7 Days</label>
       </div>
       <div>
-        <Input.RadioFacet fb={recencyFacet} name="last30" />
+        <RadioFacet fb={recencyFacet} name="last30" />
         <label>Last 30 Days</label>
       </div>
       <div>
-        <Input.RadioFacet fb={recencyFacet} name="all" />
+        <RadioFacet fb={recencyFacet} name="all" />
         <label>All</label>
       </div>
-      <Debug.DebugFacet fb={recencyFacet} />
+      <DebugFacet fb={recencyFacet} />
     </div>
     <div>
       <h3>Category</h3>
       <div>
-        <Input.CheckboxFacet fb={categoryFacet} name="articles" />
+        <CheckboxFacet fb={categoryFacet} name="articles" />
         <label>Articles</label>
       </div>
       <div>
-        <Input.CheckboxFacet fb={categoryFacet} name="blog" />
+        <CheckboxFacet fb={categoryFacet} name="blog" />
         <label>Blog</label>
       </div>
       <div>
-        <Input.CheckboxFacet fb={categoryFacet} name="faq" />
+        <CheckboxFacet fb={categoryFacet} name="faq" />
         <label>Faq</label>
       </div>
-      <Debug.DebugFacet fb={categoryFacet} />
+      <DebugFacet fb={categoryFacet} />
     </div>
     <Response pipeline={pipeline}>
       <Summary values={values} />
