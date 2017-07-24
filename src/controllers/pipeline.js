@@ -20,7 +20,6 @@ class Pipeline {
   constructor(client, name) {
     this.client = client;
     this.name = name;
-    this.afterValuesChanged = this.values.listen(postChangeEvent, this.afterValuesChanged.bind(this));
     this.listeners = {
       [searchEvent]: new Listener(),
       [errorEvent]: new Listener(),
@@ -30,7 +29,7 @@ class Pipeline {
     }
     this.searchCount = 0;
 
-    this.query = undefined;
+    this.queryValues = undefined;
     this.error = undefined;
     this.results = undefined;
     this.responseValues = undefined;
@@ -51,7 +50,7 @@ class Pipeline {
 
   _emitSearch() {
     this.listeners[searchEvent].notify(listener => {
-      listener(this.query);
+      listener(this.queryValues);
     });
   }
 
@@ -94,11 +93,8 @@ class Pipeline {
       this.responseValues = results.values;
       this._emitResults();
     });
-    this.lastQuery = queryValues;
     this._emitSearch();
   }
-
-  afterValuesChanged() {}
 
   getError() {
     return this.error;
@@ -110,6 +106,10 @@ class Pipeline {
 
   getResponseValues() {
     return this.responseValues;
+  }
+
+  getQueryValues() {
+    return this.queryValues;
   }
 
   clearResults() {
