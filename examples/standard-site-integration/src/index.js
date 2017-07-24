@@ -152,8 +152,6 @@ const initInterface = () => {
   const noOverlay = () => error("no overlay exists");
   window._sjui.overlay = { show: noOverlay, hide: noOverlay };
 
-  window._sjui.state = stateProxy;
-
   initialiseResources(config.project, config.collection, config.pipeline)
 
   let analytics;
@@ -161,6 +159,7 @@ const initInterface = () => {
     analytics = new Analytics(pipeline);
   }
 
+  window._sjui.state = { analytics, client, values, pipeline, tracking, filter };
 
   let tabsFacet;
   if (config.tabFilters && config.tabFilters.defaultTab) {
