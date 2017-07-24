@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 
 import Analytics from "sajari-react/analytics/analytics";
 import SingleFacet from "sajari-react/controllers/singleFacet";
+import { changeEvent } from "sajari-react/controllers/values";
 
 import loaded from "./loaded";
 import Overlay from "./Overlay";
@@ -170,6 +171,14 @@ const initInterface = () => {
       filter.setFilter("tab", tabsFacet.filter());
       if (!disableTabFacetSearch) {
         pipeline.search(values, tracking);
+      }
+    });
+
+    values.listen(changeEvent, changes => {
+      if (!changes.q) {
+        disableTabFacetSearch = true;
+        tabsFacet.set(config.tabFilters.defaultTab);
+        disableTabFacetSearch = false;
       }
     });
   }
