@@ -20,7 +20,9 @@ class MultiFacet {
 
   set(name, on) {
     if (on) {
-      this.current = this.current.concat(name);
+      if (this.current.indexOf(name) === -1) {
+        this.current = this.current.concat(name);
+      }
     } else {
       this.current = this.current.filter(n => n !== name);
     }
