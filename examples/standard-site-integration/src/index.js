@@ -12,7 +12,7 @@ import stateProxy from "./stateProxy";
 
 import { changeEvent } from "sajari-react/controllers/values";
 
-import { initialiseResources, pipeline, values, filter } from "./resources";
+import { initialiseResources, pipeline, values, filter, tracking, client } from "./resources";
 
 import "./styles.css";
 
@@ -117,7 +117,7 @@ const initOverlay = (config, tabsFacet) => {
 
   const query = Boolean(queryValues.q);
   if (query) {
-    pipeline.search();
+    pipeline.search(values, tracking);
     window._sjui.overlay.show();
   }
 };
@@ -138,7 +138,7 @@ const initInPage = (config, tabsFacet) => {
 
   const query = Boolean(queryValues.q);
   if (query) {
-    pipeline.search();
+    pipeline.search(values, tracking);
   }
 };
 
@@ -156,8 +156,9 @@ const initInterface = () => {
 
   initialiseResources(config.project, config.collection, config.pipeline)
 
+  let analytics;
   if (!config.disableGA) {
-    new Analytics(pipeline, values);
+    analytics = new Analytics(pipeline);
   }
 
 
