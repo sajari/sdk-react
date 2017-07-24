@@ -2,7 +2,7 @@ import React from "react";
 
 import Pipeline from "sajari-react/controllers/pipeline";
 import Values, { changeEvent } from "sajari-react/controllers/values";
-import AutocompleteInput from "sajari-react/ui/text/AutocompleteInput";
+import { AutocompleteInput } from "sajari-react/ui/text";
 import { Response, Results, Summary, Paginator } from "sajari-react/ui/results";
 
 import { Client, Tracking } from "sajari";
@@ -16,7 +16,7 @@ const client = new Client(project, collection);
 
 const tracking = new Tracking();
 tracking.clickTokens("url");
-const pipeline = new Pipeline(client, pipelineName, values, tracking);
+const pipeline = new Pipeline(client, pipelineName);
 
 values.listen(changeEvent, (changes, set) => {
   if (!changes.page) {
@@ -26,11 +26,11 @@ values.listen(changeEvent, (changes, set) => {
 
 const App = () => (
   <div className="searchApp">
-    <AutocompleteInput values={values} pipeline={pipeline} />
+    <AutocompleteInput values={values} pipeline={pipeline} tracking={tracking} />
     <Response pipeline={pipeline}>
-      <Summary values={values} />
-      <Results />
-      <Paginator values={values} pipeline={pipeline} />
+      <Summary values={values} pipeline={pipeline} tracking={tracking} />
+      <Results pipeline={pipeline} />
+      <Paginator values={values} pipeline={pipeline} tracking={tracking} />
     </Response>
   </div>
 );
