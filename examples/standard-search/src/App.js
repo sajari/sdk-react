@@ -8,6 +8,8 @@ import { TabsFacet, RadioFacet } from "sajari-react/ui/facets";
 
 import { Client, Tracking } from "sajari";
 
+import "sajari-react/ui/Search.css";
+
 const project = "sajariptyltd";
 const collection = "sajari-com";
 const pipelineName = "website";
