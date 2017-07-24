@@ -1,14 +1,14 @@
 import Pipeline from "sajari-react/controllers/pipeline";
 import Values, { changeEvent } from "sajari-react/controllers/values";
-import { ANDFilter } from "sajari-react/controllers/filter";
+import MultiFacet from "sajari-react/controllers/multiFacet";
 
 import { Client, Tracking } from "sajari";
 
 let client;
 let pipeline;
 let values;
-let filter;
-let tracking
+let tracking;
+let multiFacet;
 
 const initialiseResources = (project, collection, pipelineName) => {
   values = new Values();
@@ -16,9 +16,8 @@ const initialiseResources = (project, collection, pipelineName) => {
   tracking = new Tracking();
   tracking.clickTokens("url");
   pipeline = new Pipeline(client, pipelineName, values, tracking);
-  filter = new ANDFilter();
+  multiFacet = new MultiFacet({});
 
-  values.set({ filter: () => filter.evaluate() });
   values.listen(changeEvent, (changes, set) => {
     if (!changes.page) {
       set({ page: "1" });
@@ -26,4 +25,4 @@ const initialiseResources = (project, collection, pipelineName) => {
   })
 };
 
-export { initialiseResources, client, pipeline, values, filter, tracking };
+export { initialiseResources, client, pipeline, values, tracking, multiFacet };

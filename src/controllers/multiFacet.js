@@ -33,14 +33,31 @@ class MultiFacet {
     return this.current.indexOf(name) !== -1;
   }
 
+  setOption(name, value) {
+    this.options[name] = value;
+  }
+
+  removeOption(name) {
+    delete this.options[name];
+  }
+
   get() {
     return this.current;
   }
 
   filter() {
-    return this.current
-      .map(c => "(" + this.options[c] + ")")
-      .join(" " + this.joinOperator + " ");
+    let filters = this.current
+      .filter(Boolean)
+      .map(c => {
+        if (typeof c === "function") {
+          return c();
+        }
+        return "(" + this.options[c] + ")";
+      });
+    if (filters.length > 0) {
+      return filters.join(" " + this.joinOperator + " ");
+    }
+    return "";
   }
 }
 

@@ -10,7 +10,7 @@ import Overlay from "./Overlay";
 import InPage from "./InPage";
 import SearchResponse from "./SearchResponse";
 
-import { initialiseResources, pipeline, values, filter, tracking, client } from "./resources";
+import { initialiseResources, pipeline, values, tracking, client, multiFacet } from "./resources";
 
 import "./styles.css";
 
@@ -56,7 +56,7 @@ const combinedValues = (config, firstTime) => {
   if (config.tabFilters && config.tabFilters.defaultTab) {
     config.tabFilters.tabs.forEach(t => {
       if (t.title === config.tabFilters.defaultTab) {
-        filter.setFilter("tab", t.filter);
+        // tabsFacet.set(config.tabFilters.defaultTab);
       }
     });
   }
@@ -109,7 +109,8 @@ const initOverlay = (config, tabsFacet) => {
 
   const queryValues = combinedValues(config, true);
   if (queryValues.filter) {
-    filter.setFilter("initialValues", queryValues.filter);
+    multiFacet.setOption("initialValues", queryValues.filter);
+    multiFacet.set("initialValues", true);
     delete queryValues.filter;
   }
   values.set(queryValues);
@@ -130,7 +131,8 @@ const initInPage = (config, tabsFacet) => {
 
   const queryValues = combinedValues(config, true);
   if (queryValues.filter) {
-    filter.setFilter("initialValues", queryValues.filter);
+    multiFacet.setFilter("initialValues", queryValues.filter);
+    multiFacet.set("initialValues", true);
     delete queryValues.filter;
   }
   values.set(queryValues);
@@ -158,7 +160,7 @@ const initInterface = () => {
     analytics = new Analytics(pipeline);
   }
 
-  window._sjui.state = { analytics, client, values, pipeline, tracking, filter };
+  window._sjui.state = { analytics, client, values, pipeline, tracking, multiFacet };
 
   let tabsFacet;
   if (config.tabFilters && config.tabFilters.defaultTab) {
@@ -167,15 +169,15 @@ const initInterface = () => {
       facetOptions[t.title] = t.filter;
     });
     tabsFacet = new SingleFacet(facetOptions, config.tabFilters.defaultTab);
+    multiFacet.setOption("tabsFacet", () => tabsFacet.filter());
     tabsFacet.register(() => {
-      filter.setFilter("tab", tabsFacet.filter());
       if (!disableTabFacetSearch) {
         pipeline.search(values, tracking);
       }
     });
 
     values.listen(changeEvent, changes => {
-      if (!changes.q) {
+      if (!values.get().q && tabsFacet.get() !== config.tabFilters.defaultTab) {
         disableTabFacetSearch = true;
         tabsFacet.set(config.tabFilters.defaultTab);
         disableTabFacetSearch = false;
