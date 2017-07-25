@@ -65,15 +65,15 @@ const App = () =>
     <div className="filter">
       <h3>Recency</h3>
       <div>
-        <RadioFacet fb={recency} name="all" id="all" />
+        <RadioFacet filter={recency} name="all" id="all" />
         <label htmlFor="all">All</label>
       </div>
       <div>
-        <RadioFacet fb={recency} name="last7" id="last7" />
+        <RadioFacet filter={recency} name="last7" id="last7" />
         <label htmlFor="last7">Last 7 Days</label>
       </div>
       <div>
-        <RadioFacet fb={recency} name="last30" id="last30" />
+        <RadioFacet filter={recency} name="last30" id="last30" />
         <label htmlFor="last30">Last 30 Days</label>
       </div>
     </div>
@@ -81,7 +81,7 @@ const App = () =>
     <Response pipeline={pipeline}>
       <TabsFacet
         tabs={tabs}
-        fb={tabsFilter}
+        filter={tabsFilter}
       />
       <Summary values={values} pipeline={pipeline} tracking={tracking} />
       <Results pipeline={pipeline} />
