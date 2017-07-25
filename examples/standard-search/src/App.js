@@ -54,24 +54,30 @@ const tabs = [
 const filter = CombineFilters([recency, tabsFilter]);
 values.set({ filter: () => filter.filter() });
 filter.register(() => {
-  pipeline.search(values, tracking);
+  if (values.get()["q"]) {
+    values.emitChange();
+    pipeline.search(values, tracking);
+  }
 });
 
 const App = () =>
   <div className="searchApp">
+    <div className="filter">
+      <h3>Recency</h3>
+      <div>
+        <RadioFacet fb={recency} name="all" id="all" />
+        <label htmlFor="all">All</label>
+      </div>
+      <div>
+        <RadioFacet fb={recency} name="last7" id="last7" />
+        <label htmlFor="last7">Last 7 Days</label>
+      </div>
+      <div>
+        <RadioFacet fb={recency} name="last30" id="last30" />
+        <label htmlFor="last30">Last 30 Days</label>
+      </div>
+    </div>
     <AutocompleteInput values={values} pipeline={pipeline} tracking={tracking} />
-    <div>
-      <RadioFacet fb={recency} name="last7" />
-      <label>Last 7 Days</label>
-    </div>
-    <div>
-      <RadioFacet fb={recency} name="last30" />
-      <label>Last 30 Days</label>
-    </div>
-    <div>
-      <RadioFacet fb={recency} name="all" />
-      <label>All</label>
-    </div>
     <Response pipeline={pipeline}>
       <TabsFacet
         tabs={tabs}
