@@ -18,7 +18,7 @@ class TabsFacet extends React.Component {
       <div className="sj-tabs-container">
         <div className="sj-tabs">
           {this.props.tabs.map(t =>
-            <Tab key={t.title} title={t.title} fb={this.props.fb} />
+            <Tab key={t.title} title={t.title} filter={this.props.filter} />
           )}
         </div>
       </div>
@@ -30,12 +30,12 @@ class Tab extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { selected: this.props.fb.isSet(this.props.title) };
+    this.state = { selected: this.props.filter.isSet(this.props.title) };
     this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
-    this.unregister = this.props.fb.register(this.onChange);
+    this.unregister = this.props.filter.register(this.onChange);
   }
 
   componentWillUnmount() {
@@ -43,7 +43,7 @@ class Tab extends React.Component {
   }
 
   onChange() {
-    this.setState({ selected: this.props.fb.isSet(this.props.title) });
+    this.setState({ selected: this.props.filter.isSet(this.props.title) });
   }
 
   render() {
@@ -52,7 +52,7 @@ class Tab extends React.Component {
         key={this.props.title}
         className={`sj-tab${this.state.selected ? " sj-tab-active" : ""}`}
         onClick={() => {
-          this.props.fb.set(this.props.title, !this.state.selected);
+          this.props.filter.set(this.props.title, !this.state.selected);
         }}
       >
         {this.props.title}
