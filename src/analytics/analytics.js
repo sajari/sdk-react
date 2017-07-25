@@ -6,7 +6,7 @@ class Analytics {
   /**
    * Constructs an analytics object that operates on the specified pipeline.
    * @param {Pipeline} pipeline
-   * @param {GA} ga
+   * @param {GA} [ga=GoogleAnalytics]
    */
   constructor(pipeline, ga = new GA()) {
     this.ga = ga;

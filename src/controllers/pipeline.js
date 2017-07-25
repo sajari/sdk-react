@@ -19,12 +19,15 @@ const events = [
 class Pipeline {
   /**
    * Constructs a Pipeline object.
-   * @param {Client} client Client instance from sajari package.
+   * @param {Sajari.Client} client Client instance from sajari package.
    * @param {string} name Name of the pipeline.
    */
   constructor(client, name) {
+    /** @private */
     this.client = client;
+    /** @private */
     this.name = name;
+    /** @private */
     this.listeners = {
       [searchEvent]: new Listener(),
       [errorEvent]: new Listener(),
@@ -32,18 +35,24 @@ class Pipeline {
       [resultClickedEvent]: new Listener(),
       [trackingResetEvent]: new Listener(),
     }
+    /** @private */
     this.searchCount = 0;
 
+    /** @private */
     this.queryValues = undefined;
+    /** @private */
     this.error = undefined;
+    /** @private */
     this.results = undefined;
+    /** @private */
     this.responseValues = undefined;
   }
 
   /**
    * Register a listener for a specific event.
    * @param {string} event Event to listen for
-   * @param {Function} callback Callback to run when the event happens.
+   * @param {function()} callback Callback to run when the event happens.
+   * @return {function()} The unregister function to remove the callback from the listener.
    */
   listen(event, callback) {
     if (events.indexOf(event) === -1) {
@@ -52,18 +61,30 @@ class Pipeline {
     return this.listeners[event].listen(callback);
   }
 
+  /**
+   * Emits an error event to the error event listener.
+   * @private
+   */
   _emitError() {
     this.listeners[errorEvent].notify(listener => {
       listener(this.error);
     });
   }
 
+  /**
+   * Emits a search event to the search event listener.
+   * @private
+   */
   _emitSearch() {
     this.listeners[searchEvent].notify(listener => {
       listener(this.queryValues);
     });
   }
 
+  /**
+   * Emits a results event to the results event listener.
+   * @private
+   */
   _emitResults() {
     this.listeners[resultsEvent].notify(listener => {
       listener(this.results, this.responseValues);
@@ -72,7 +93,7 @@ class Pipeline {
 
   /**
    * Emits a result clicked event.
-   * @param {Object} values
+   * @param {*} value A value associated with the result click. In the case of a website this will be the URL.
    */
   emitResultClicked(value) {
     this.listeners[resultClickedEvent].notify(listener => {
@@ -82,7 +103,6 @@ class Pipeline {
 
   /**
    * Emits a tracking reset event.
-   * @param {Object} values
    */
   emitTrackingReset() {
     this.listeners[trackingResetEvent].notify(listener => {
@@ -93,7 +113,7 @@ class Pipeline {
   /**
    * Perform a search.
    * @param {Values} values Values object.
-   * @param {Tracking} tracking Tracking object from sajari package.
+   * @param {Sajari.Tracking} tracking Tracking object from sajari package.
    */
   search(values, tracking) {
     this.queryValues = values.get();
@@ -129,7 +149,7 @@ class Pipeline {
 
   /**
    * Returns the results.
-   * @return {Object}
+   * @return {Object|undefined}
    */
   getResults() {
     return this.results;
@@ -137,7 +157,7 @@ class Pipeline {
 
   /**
    * Return the pipeline values returned by the search.
-   * @return {Object}
+   * @return {Object|undefined}
    */
   getResponseValues() {
     return this.responseValues;
@@ -145,7 +165,7 @@ class Pipeline {
 
   /**
    * Return the last values used in a search.
-   * @return {Object}
+   * @return {Object|undefined}
    */
   getQueryValues() {
     return this.queryValues;

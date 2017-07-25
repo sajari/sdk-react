@@ -69,7 +69,7 @@ class GoogleAnalytics {
   /**
    * Constructs a GoogleAnalytics object.
    * @param {string} id The name of the ga global object. Defaults to "ga" or "_ua" if one isn't supplied.
-   * @param {string} param The URL parameter to use to indicate a search. Default to "q".
+   * @param {string} [param="q"] The URL parameter to use to indicate a search. Default to "q".
    */
   constructor(id, param = 'q') {
     if (id !== undefined) {

@@ -5,31 +5,45 @@ import Listener from "./listener";
  */
 class Filter {
   /**
-   * 
-   * @param {*dict} options Dictionary of name -> filter pairs
-   * @param {*string|string[]} initial List of initially selected items
-   * @param {*bool} multi Multiple selections allowed?
-   * @param {*string} joinOperator Join operator used if muli = true ("OR" | "AND")
+   * Constructs an instance of Filter.
+   *
+   * @example
+   * const filter = new Filter({});
+   *
+   * @param {Object} options Dictionary of name -> filter pairs
+   * @param {string|string[]} [initial=[]] List of initially selected items
+   * @param {boolean} [multi=false] Multiple selections allowed?
+   * @param {string} [joinOperator="OR"] Join operator used if muli = true ("OR" | "AND")
    */
   constructor(options, initial = [], multi = false, joinOperator = "OR") {
-    if (typeof initial === 'string') {
+    if (typeof initial === "string") {
       initial = [initial];
     }
+    /** @private */
     this.current = initial;
+    /** @private */
     this.options = options;
+    /** @private */
     this.multi = multi;
+    /** @private */
     this.joinOperator = joinOperator;
+    /** @private */
     this.listener = new Listener();
   }
 
   /**
    * Register a listener to be run when updates are made to the map.
-   * @param {*function} listener Function to run when updates are made.
+   * @param {function(filter: Filter)} listener Function to run when updates are made.
+   * @return {function()} The unregister function.
    */
   register(listener) {
     return this.listener.listen(listener);
   }
 
+  /**
+   * Notifies the listeners that the filter has been updated.
+   * All listeners receive a reference to the instance of the Filter object as the first argument.
+   */
   notify() {
     this.listener.notify(l => {
       l(this);
@@ -38,9 +52,9 @@ class Filter {
 
   /**
    * Set the state of the filter.
-   * 
-   * @param {*string} name Name of the filter to change.
-   * @param {*bool} on Enable/disable the filter.
+   *
+   * @param {string} name Name of the filter to change.
+   * @param {boolean} on Enable/disable the filter.
    */
   set(name, on) {
     if (this.multi === false) {
@@ -67,7 +81,8 @@ class Filter {
 
   /**
    * Is the filter enabled?
-   * @param {*string} name Name of the filter to check
+   * @param {string} name Name of the filter to check
+   * @return {boolean} Whether the filter is set or not.
    */
   isSet(name) {
     return this.current.indexOf(name) !== -1;
@@ -75,8 +90,8 @@ class Filter {
 
   /**
    * Adds a filter to the available options.
-   * @param {*string} name Name of the filter to add
-   * @param {*string} value Filter to run if enabled
+   * @param {string} name Name of the filter to add
+   * @param {string} value Filter to run if enabled
    */
   add(name, value) {
     this.options[name] = value;
@@ -84,7 +99,7 @@ class Filter {
 
   /**
    * Removes a filter from the available options.
-   * @param {*string} name Name of the filter to remove
+   * @param {string} name Name of the filter to remove
    */
   remove(name) {
     delete this.options[name];
@@ -92,11 +107,16 @@ class Filter {
 
   /**
    * Get returns the filters.
+   * @return {string[]}
    */
   get() {
     return this.current;
   }
 
+  /**
+   * Builds up the filter string from the current filter and it's children.
+   * @return {string} The evaluated filter string.
+   */
   filter() {
     let filters = this.current
       .map(c => {
@@ -122,14 +142,15 @@ class Filter {
 }
 
 /**
- * CombinFilters is a helper for combining multiple Filter instances
+ * CombineFilters is a helper for combining multiple Filter instances
  * into one.
- * 
+ *
  * Whenever any of the combined filters are updated, the events are
  * propagated up to the returned "root" filter.
- * 
- * @param {*Filter[]} filters Array of filters to combine.
- * @param {*string} operator Operator to apply between them ("AND" | "OR").
+ *
+ * @param {Filter[]} filters Array of filters to combine.
+ * @param {string} [operator="AND"] Operator to apply between them ("AND" | "OR").
+ * @return {Filter} The resulting Filter.
  */
 const CombineFilters = (filters, operator = "AND") => {
   const opts = {};
@@ -151,6 +172,6 @@ const CombineFilters = (filters, operator = "AND") => {
   });
 
   return combFilter;
-}
+};
 
 export { Filter, CombineFilters };

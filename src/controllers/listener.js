@@ -9,8 +9,8 @@ class Listener {
   /**
    * Adds a callback to the listener.
    * Returns a function that will unregister the callback from the listener when called.
-   * @param {Function} callback
-   * @return {Function}
+   * @param {function()} callback The callback to be registered.
+   * @return {function()} The unregister function to remove the callback from the listener.
    */
   listen(callback) {
     this.listeners.push(callback);
@@ -19,7 +19,7 @@ class Listener {
 
   /**
    * Removes a callback from the listener.
-   * @param {Function} callback
+   * @param {function()} callback
    */
   unlisten(callback) {
     const index = this.listeners.indexOf(callback);
@@ -31,7 +31,7 @@ class Listener {
   /**
    * Notify takes a function and calls it for every listener.
    * The listener is supplied as the first argument to the function.
-   * @param {Function} f Function to call each of the callbacks in the listener with.
+   * @param {function(callback: Function)} f Function to call each of the callbacks in the listener with.
    */
   notify(f) {
     this.listeners.forEach(l => {

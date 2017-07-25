@@ -4,32 +4,56 @@ import PropTypes from "prop-types";
 import { Filter } from "../../controllers/filter";
 
 class CheckboxFacet extends React.Component {
+  /**
+   * propTypes
+   * @property {Filter} filter
+   * @property {string} name
+   */
+  static get propTypes() {
+    return {
+      filter: PropTypes.oneOfType([PropTypes.instanceOf(Filter)]).isRequired,
+      name: PropTypes.string.isRequired
+    };
+  }
+
   render() {
     return <InputFacet type="checkbox" {...this.props} />;
   }
 }
 
-CheckboxFacet.propTypes = {
-  fb: PropTypes.oneOfType([
-    PropTypes.instanceOf(Filter)
-  ]).isRequired,
-  name: PropTypes.string.isRequired
-};
-
 class RadioFacet extends React.Component {
+  /**
+   * propTypes
+   * @property {Filter} filter
+   * @property {string} name
+   */
+  static get propTypes() {
+    return {
+      filter: PropTypes.oneOfType([PropTypes.instanceOf(Filter)]).isRequired,
+      name: PropTypes.string.isRequired
+    };
+  }
+
   render() {
     return <InputFacet type="radio" {...this.props} />;
   }
 }
 
-RadioFacet.propTypes = {
-  fb: PropTypes.oneOfType([
-    PropTypes.instanceOf(Filter)
-  ]).isRequired,
-  name: PropTypes.string.isRequired
-};
-
 class SelectFacet extends React.Component {
+  /**
+   * propTypes
+   * @property {Filter} filter
+   * @property {string} name
+   * @property {Object} options
+   */
+  static get propTypes() {
+    return {
+      filter: PropTypes.oneOfType([PropTypes.instanceOf(Filter)]).isRequired,
+      name: PropTypes.string.isRequired,
+      options: PropTypes.object.isRequired
+    };
+  }
+
   constructor(props) {
     super(props);
     this.state = { active: props.filter.isSet(props.name) };
@@ -67,14 +91,6 @@ class SelectFacet extends React.Component {
     );
   }
 }
-
-SelectFacet.propTypes = {
-  fb: PropTypes.oneOfType([
-    PropTypes.instanceOf(Filter)
-  ]).isRequired,
-  name: PropTypes.string.isRequired,
-  options: PropTypes.object.isRequired
-};
 
 class InputFacet extends React.Component {
   constructor(props) {
