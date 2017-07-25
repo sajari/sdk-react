@@ -51,7 +51,7 @@ const App = () =>
   <div className="App">
     <div>
       <SelectFacet
-        fb={recencyFilter}
+        filter={recencyFilter}
         name="foo"
         options={{
           all: "All",
@@ -61,37 +61,37 @@ const App = () =>
       />
       <h3>Recency</h3>
       <div>
-        <RadioFacet fb={recencyFilter} name="last7" />
+        <RadioFacet filter={recencyFilter} name="last7" />
         <label>Last 7 Days</label>
       </div>
       <div>
-        <RadioFacet fb={recencyFilter} name="last30" />
+        <RadioFacet filter={recencyFilter} name="last30" />
         <label>Last 30 Days</label>
       </div>
       <div>
-        <RadioFacet fb={recencyFilter} name="all" />
+        <RadioFacet filter={recencyFilter} name="all" />
         <label>All</label>
       </div>
-      <DebugFacet fb={recencyFilter} />
+      <DebugFacet filter={recencyFilter} />
     </div>
     <div>
       <h3>Category</h3>
       <div>
-        <CheckboxFacet fb={categoryFilter} name="articles" />
+        <CheckboxFacet filter={categoryFilter} name="articles" />
         <label>Articles</label>
       </div>
       <div>
-        <CheckboxFacet fb={categoryFilter} name="blog" />
+        <CheckboxFacet filter={categoryFilter} name="blog" />
         <label>Blog</label>
       </div>
       <div>
-        <CheckboxFacet fb={categoryFilter} name="faq" />
+        <CheckboxFacet filter={categoryFilter} name="faq" />
         <label>Faq</label>
       </div>
-      <DebugFacet fb={categoryFilter} />
+      <DebugFacet filter={categoryFilter} />
     </div>
     <div>
-      <DebugFacet fb={filter} />
+      <DebugFacet filter={filter} />
     </div>
     <Response pipeline={pipeline}>
       <Summary values={values} pipeline={pipeline} tracking={tracking} />
