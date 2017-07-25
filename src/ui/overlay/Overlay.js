@@ -28,7 +28,7 @@ const Overlay = ({ active, children }) => {
 
 Overlay.PropTypes = {
   active: PropTypes.bool.isRequired,
-  children: PropTypes.children
+  children: PropTypes.node
 };
 
 export default Overlay;

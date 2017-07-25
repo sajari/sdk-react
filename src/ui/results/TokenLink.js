@@ -1,11 +1,11 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const tokenUrl = "https://www.sajari.com/token/";
 
 class TokenLink extends React.Component {
   /**
    * propTypes
-   * @property {Filter} filter Filter object.
    * @property {function()} resultClicked Function to be called when the result is clicked. Typically for analytics
    * @property {string} token Token to use in click tracking.
    * @property {string} url URL of the result.
@@ -14,7 +14,11 @@ class TokenLink extends React.Component {
    */
   static get propTypes() {
     return {
-      filter: PropTypes.instanceOf(Filter).isRequired
+      resultClicked: PropTypes.func,
+      token: PropTypes.string,
+      url: PropTypes.string,
+      text: PropTypes.string,
+      children: PropTypes.node
     };
   }
 

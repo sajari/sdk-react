@@ -17,7 +17,7 @@ class Response extends React.Component {
         PropTypes.instanceOf(Function),
         PropTypes.instanceOf(React.Component)]
       ),
-      children: PropTypes.children
+      children: PropTypes.node
     };
   }
 

@@ -7,7 +7,7 @@ import Result from "./Result";
 
 /**
  * @typedef {Object} ResultsProps
- * @property {Object} [results] Results data.
+ * @property {Object[]} [results] Results data.
  * @property {string} [error] Error from search.
  * @property {boolean} [showImages] Whether to show images.
  * @property {Pipeline} pipeline Pipeline object.
@@ -37,7 +37,7 @@ const Results = props => {
 };
 
 Results.propTypes = {
-  results: PropTypes.object,
+  results: PropTypes.arrayOf(PropTypes.object),
   error: PropTypes.string,
   pipeline: PropTypes.instanceOf(Pipeline).isRequired,
   showImages: PropTypes.bool

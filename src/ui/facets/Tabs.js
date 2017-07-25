@@ -18,7 +18,6 @@ class TabsFacet extends React.Component {
     return {
       filter: PropTypes.oneOfType([PropTypes.instanceOf(Filter)]).isRequired,
       tabs: PropTypes.array.isRequired,
-      defaultTab: PropTypes.string.isRequired
     };
   }
 

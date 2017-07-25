@@ -14,7 +14,6 @@ const RETURN_KEYCODE = 13
 class AutocompleteInput extends React.Component {
   /**
    * propTypes
-   * @property {Filter} filter Filter instance to debug.
    * @property {Values} values Values object.
    * @property {Pipeline} pipeline Pipeline object.
    * @property {Tracking} tracking Tracking object.
@@ -24,7 +23,6 @@ class AutocompleteInput extends React.Component {
    */
   static get propTypes() {
     return {
-      filter: PropTypes.instanceOf(Filter).isRequired,
       values: PropTypes.instanceOf(Values).isRequired,
       pipeline: PropTypes.instanceOf(Pipeline).isRequired,
       tracking: PropTypes.instanceOf(Tracking).isRequired,

@@ -27,7 +27,7 @@ const Url = ({ url, token, resultClicked }) =>
 
 Url.propTypes = {
   url: PropTypes.string,
-  token: PropTypes.token,
+  token: PropTypes.string,
   resultClicked: PropTypes.func
 };
 
