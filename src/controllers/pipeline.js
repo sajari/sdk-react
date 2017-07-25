@@ -17,6 +17,11 @@ const events = [
 ];
 
 class Pipeline {
+  /**
+   * Constructs a Pipeline object.
+   * @param {Client} client Client instance from sajari package.
+   * @param {string} name Name of the pipeline.
+   */
   constructor(client, name) {
     this.client = client;
     this.name = name;
@@ -35,6 +40,11 @@ class Pipeline {
     this.responseValues = undefined;
   }
 
+  /**
+   * Register a listener for a specific event.
+   * @param {string} event Event to listen for
+   * @param {Function} callback Callback to run when the event happens.
+   */
   listen(event, callback) {
     if (events.indexOf(event) === -1) {
       throw new Error(`unknown event type "${event}"`);
@@ -60,18 +70,31 @@ class Pipeline {
     });
   }
 
+  /**
+   * Emits a result clicked event.
+   * @param {Object} values
+   */
   emitResultClicked(value) {
     this.listeners[resultClickedEvent].notify(listener => {
       listener(value);
     });
   }
 
+  /**
+   * Emits a tracking reset event.
+   * @param {Object} values
+   */
   emitTrackingReset() {
     this.listeners[trackingResetEvent].notify(listener => {
       listener();
     });
   }
 
+  /**
+   * Perform a search.
+   * @param {Values} values Values object.
+   * @param {Tracking} tracking Tracking object from sajari package.
+   */
   search(values, tracking) {
     this.queryValues = values.get();
     this.searchCount++;
@@ -96,22 +119,41 @@ class Pipeline {
     this._emitSearch();
   }
 
+  /**
+   * Returns the current error.
+   * @return {string|undefined}
+   */
   getError() {
     return this.error;
   }
 
+  /**
+   * Returns the results.
+   * @return {Object}
+   */
   getResults() {
     return this.results;
   }
 
+  /**
+   * Return the pipeline values returned by the search.
+   * @return {Object}
+   */
   getResponseValues() {
     return this.responseValues;
   }
 
+  /**
+   * Return the last values used in a search.
+   * @return {Object}
+   */
   getQueryValues() {
     return this.queryValues;
   }
 
+  /**
+   * Clears the error, results, and response values from this object.
+   */
   clearResults() {
     this.error = undefined;
     this.results = undefined;

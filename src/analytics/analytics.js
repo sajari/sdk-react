@@ -3,6 +3,11 @@ import GA from "./ga";
 import { resultsEvent, trackingResetEvent, resultClickedEvent } from "../controllers/pipeline";
 
 class Analytics {
+  /**
+   * Constructs an analytics object that operates on the specified pipeline.
+   * @param {Pipeline} pipeline
+   * @param {GA} ga
+   */
   constructor(pipeline, ga = new GA()) {
     this.ga = ga;
 
@@ -31,6 +36,9 @@ class Analytics {
     this.pipeline.listen(resultClickedEvent, this.resultClicked);
   }
 
+  /**
+   * Runs before the page is closed/navigated away from. Can trigger a ga onPageClose call.
+   */
   beforeunload() {
     if (this.enabled && this.body) {
       this.ga.onPageClose(this.body);
@@ -38,6 +46,9 @@ class Analytics {
     }
   }
 
+  /**
+   * Resets the currently held parameters. Can trigger a ga onBodyReset call.
+   */
   resetBody() {
     if (this.enabled) {
       // Send the longest body since the last time the body was cleared.
@@ -51,6 +62,9 @@ class Analytics {
     }
   }
 
+  /**
+   * Runs when the results have changed. Updates the currently held search parameters.
+   */
   onChange() {
     const searchResponse = this.pipeline.getResults() || {};
     // Enable analytics once a successful search has been performed
@@ -75,6 +89,9 @@ class Analytics {
     this.body = newBody;
   }
 
+  /**
+   * Runs when a result has been clicked. Can trigger a ga onResultClicked call.
+   */
   resultClicked() {
     if (this.enabled && this.body) {
       this.ga.onResultClicked(this.body);

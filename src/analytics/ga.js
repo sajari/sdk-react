@@ -66,6 +66,11 @@ const url = {
 const isFunction = x => typeof x === "function";
 
 class GoogleAnalytics {
+  /**
+   * Constructs a GoogleAnalytics object.
+   * @param {string} id The name of the ga global object. Defaults to "ga" or "_ua" if one isn't supplied.
+   * @param {string} param The URL parameter to use to indicate a search. Default to "q".
+   */
   constructor(id, param = 'q') {
     if (id !== undefined) {
       this.id = id;
@@ -79,6 +84,10 @@ class GoogleAnalytics {
     this.param = param;
   }
 
+  /**
+   * Sends a page view event if ga is found on the page and we're not in dev mode.
+   * @param {string} body
+   */
   sendGAPageView(body) {
     if (
       this.id &&
@@ -95,14 +104,26 @@ class GoogleAnalytics {
     }
   }
 
+  /**
+   * Callback for when the body has been reset. Calls sendGAPageView.
+   * @param {string} previousBody
+   */
   onBodyReset(previousBody) {
     this.sendGAPageView(previousBody)
   }
 
+  /**
+   * Callback for when a result has been clicked. Calls sendGAPageView.
+   * @param {string} body
+   */
   onResultClicked(body) {
     this.sendGAPageView(body)
   }
 
+  /**
+   * Callback for when the page has been closed. Calls sendGAPageView.
+   * @param {string} body
+   */
   onPageClose(body) {
     this.sendGAPageView(body)
   }
