@@ -5,6 +5,19 @@ import Pipeline from "../../controllers/pipeline";
 
 import Result from "./Result";
 
+/**
+ * @typedef {Object} ResultsProps
+ * @property {Object} [results] Results data.
+ * @property {string} [error] Error from search.
+ * @property {boolean} [showImages] Whether to show images.
+ * @property {Pipeline} pipeline Pipeline object.
+ */
+
+/**
+ * Renders results.
+ * @param {ResultsProps} props
+ * @returns {React.Component}
+ */
 const Results = props => {
   const { results, error, showImages, pipeline } = props;
 
@@ -24,6 +37,8 @@ const Results = props => {
 };
 
 Results.propTypes = {
+  results: PropTypes.object,
+  error: PropTypes.string,
   pipeline: PropTypes.instanceOf(Pipeline).isRequired,
   showImages: PropTypes.bool
 };

@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 /**
  * Close renders a close button. Indended for use with the Overlay.
  * @param {CloseProps} props
+ * @returns {React.Component}
  */
 const Close = ({ onClick, closeOverlay }) =>
   <div

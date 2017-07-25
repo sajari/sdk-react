@@ -12,6 +12,7 @@ import PropTypes from "prop-types";
 /**
  * Logo renders an img element which closes the overlay when clicked.
  * @param {LogoProps} props
+ * @returns {React.Component}
  */
 const Logo = ({ closeOverlay, src, alt, className }) =>
   <div id="sj-overlay-logo">

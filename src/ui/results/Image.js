@@ -1,6 +1,19 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 class Image extends React.Component {
+  /**
+   * propTypes
+   * @property {string} url URL of the image.
+   * @property {string} title Alt text of the image.
+   */
+  static get propTypes() {
+    return {
+      url: PropTypes.string.isRequired,
+      title: PropTypes.string
+    };
+  }
+
   constructor(props) {
     super(props);
     this.state = { show: true };

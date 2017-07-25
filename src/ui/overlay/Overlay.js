@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 /**
  * Renders an overlay html structure.
  * @param {OverlayProps} props
+ * @returns {React.Component}
  */
 const Overlay = ({ active, children }) => {
   if (!active) {

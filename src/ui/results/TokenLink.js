@@ -3,6 +3,21 @@ import React from "react";
 const tokenUrl = "https://www.sajari.com/token/";
 
 class TokenLink extends React.Component {
+  /**
+   * propTypes
+   * @property {Filter} filter Filter object.
+   * @property {function()} resultClicked Function to be called when the result is clicked. Typically for analytics
+   * @property {string} token Token to use in click tracking.
+   * @property {string} url URL of the result.
+   * @property {string} text Text to render.
+   * @property {Object} [children] Children to render.
+   */
+  static get propTypes() {
+    return {
+      filter: PropTypes.instanceOf(Filter).isRequired
+    };
+  }
+
   constructor(props) {
     super(props);
     this.state = { clicked: false };

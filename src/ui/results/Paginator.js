@@ -73,6 +73,24 @@ const Page = ({ currentPage, page, setPage, children }) => (
 )
 
 class Paginator extends React.Component {
+  /**
+   * propTypes
+   * @property {error} [string] Error from search. Usually supplied by Response.
+   * @property {Values} values Values object.
+   * @property {Pipeline} pipeline Pipeline object.
+   * @property {Sajari.Tracking} tracking Tracking object from the sajari package.
+   * @property {string} totalResults Number of results. Usually supplied by Response.
+   */
+  static get propTypes() {
+    return {
+      error: PropTypes.string,
+      values: PropTypes.instanceOf(Values).isRequired,
+      pipeline: PropTypes.instanceOf(Pipeline).isRequired,
+      tracking: PropTypes.instanceOf(Tracking).isRequired,
+      totalResults: PropTypes.string
+    };
+  }
+
   render() {
     if (this.props.error) {
       return null;
@@ -91,12 +109,6 @@ class Paginator extends React.Component {
 
     return <RawPaginator setPage={setPage} page={page} resultsPerPage={resultsPerPage} totalResults={totalResultsInt} />
   }
-}
-
-Paginator.propTypes = {
-  values: PropTypes.instanceOf(Values).isRequired,
-  pipeline: PropTypes.instanceOf(Pipeline).isRequired,
-  tracking: PropTypes.instanceOf(Tracking).isRequired
 }
 
 export default Paginator;

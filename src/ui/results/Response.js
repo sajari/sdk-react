@@ -4,6 +4,23 @@ import PropTypes from "prop-types";
 import Pipeline, { resultsEvent, errorEvent } from "../../controllers/pipeline";
 
 class Response extends React.Component {
+  /**
+   * propTypes
+   * @property {Pipeline} pipeline Pipeline object.
+   * @property {React.Component} [Placeholder] Placeholder component to render while empty.
+   * @property {Object} [children] Child components to render and inject the response into.
+   */
+  static get propTypes() {
+    return {
+      pipeline: PropTypes.instanceOf(Pipeline),
+      Placeholder: PropTypes.oneOfType([
+        PropTypes.instanceOf(Function),
+        PropTypes.instanceOf(React.Component)]
+      ),
+      children: PropTypes.children
+    };
+  }
+
   constructor(props) {
     super(props);
     this.state = { results: props.pipeline.getResults() || {} };
@@ -55,14 +72,6 @@ class Response extends React.Component {
       </div>
     );
   }
-}
-
-Response.propTypes = {
-  pipeline: PropTypes.instanceOf(Pipeline),
-  Placeholder: PropTypes.oneOfType([
-    PropTypes.instanceOf(Function),
-    PropTypes.instanceOf(React.Component)]
-  )
 }
 
 export default Response;

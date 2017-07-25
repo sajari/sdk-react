@@ -7,6 +7,26 @@ import Pipeline, { resultsEvent } from "../../controllers/pipeline";
 import Values from "../../controllers/values";
 
 class Summary extends React.Component {
+  /**
+   * propTypes
+   * @property {Pipeline} pipeline Pipeline object.
+   * @property {Values} values Values object.
+   * @property {Sajari.Tracking} filter Tracking object from sajari package.
+   * @property {string} [time] Query time. Usually supplied by Response.
+   * @property {string} [totalResults] Number of results. Usually supplied by Response.
+   * @property {string} [error] Error from search. Usually supplied by Response.
+   */
+  static get propTypes() {
+    return {
+      pipeline: PropTypes.instanceOf(Pipeline).isRequired,
+      values: PropTypes.instanceOf(Values).isRequired,
+      tracking: PropTypes.instanceOf(Tracking).isRequired,
+      time: PropTypes.string,
+      totalResults: PropTypes.string,
+      error: PropTypes.string,
+    };
+  }
+
   constructor(props) {
     super(props);
     this.onResultsChange = this.onResultsChange.bind(this);
@@ -66,12 +86,6 @@ class Summary extends React.Component {
       </div>
     );
   }
-}
-
-Summary.propTypes = {
-  pipeline: PropTypes.instanceOf(Pipeline).isRequired,
-  values: PropTypes.instanceOf(Values).isRequired,
-  tracking: PropTypes.instanceOf(Tracking).isRequired
 }
 
 export default Summary;

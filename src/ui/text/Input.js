@@ -2,12 +2,36 @@ import React from "react";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 
+import { Tracking } from "sajari";
+
 import Values, { changeEvent } from "../../controllers/values";
 import Pipeline, { resultsEvent } from "../../controllers/pipeline";
 
 const RETURN_KEYCODE = 13;
 
 class Input extends React.Component {
+  /**
+   * propTypes
+   * @property {Values} values Values object.
+   * @property {Pipeline} pipeline Pipeline object.
+   * @property {Tracking} tracking Tracking object.
+   * @property {string} [qParam="q"] Search parameter.
+   * @property {string} [qOverrideParam="q.override"] Override parameter.
+   * @property {boolean} [focus=false] Whether to focus the input element on mount.
+   * @property {boolean} [instant] Whether to search on key press.
+   */
+  static get propTypes() {
+    return {
+      values: PropTypes.instanceOf(Values).isRequired,
+      pipeline: PropTypes.instanceOf(Pipeline).isRequired,
+      tracking: PropTypes.instanceOf(Tracking).isRequired,
+      qParam: PropTypes.string,
+      qOverrideParam: PropTypes.string,
+      focus: PropTypes.bool,
+      instant: PropTypes.bool
+    };
+  }
+
   constructor(props) {
     super(props);
     this.setText = this.setText.bind(this);
@@ -80,11 +104,6 @@ class Input extends React.Component {
     );
   }
 }
-
-Input.propTypes = {
-  values: PropTypes.instanceOf(Values).isRequired,
-  pipeline: PropTypes.instanceOf(Pipeline).isRequired
-};
 
 Input.defaultProps = {
   qParam: "q",

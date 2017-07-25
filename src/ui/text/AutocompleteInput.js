@@ -12,6 +12,28 @@ const TAB_KEYCODE = 9
 const RETURN_KEYCODE = 13
 
 class AutocompleteInput extends React.Component {
+  /**
+   * propTypes
+   * @property {Filter} filter Filter instance to debug.
+   * @property {Values} values Values object.
+   * @property {Pipeline} pipeline Pipeline object.
+   * @property {Tracking} tracking Tracking object.
+   * @property {string} [qParam="q"] Search parameter.
+   * @property {string} [qOverrideParam="q.override"] Override parameter.
+   * @property {boolean} [focus=false] Whether to focus the input element on mount.
+   */
+  static get propTypes() {
+    return {
+      filter: PropTypes.instanceOf(Filter).isRequired,
+      values: PropTypes.instanceOf(Values).isRequired,
+      pipeline: PropTypes.instanceOf(Pipeline).isRequired,
+      tracking: PropTypes.instanceOf(Tracking).isRequired,
+      qParam: PropTypes.string,
+      qOverrideParam: PropTypes.string,
+      focus: PropTypes.bool
+    };
+  }
+
   constructor(props) {
     super(props)
     this.setText = this.setText.bind(this);
@@ -101,12 +123,6 @@ class AutocompleteInput extends React.Component {
       </div>
     )
   }
-}
-
-AutocompleteInput.propTypes = {
-  values: PropTypes.instanceOf(Values).isRequired,
-  pipeline: PropTypes.instanceOf(Pipeline).isRequired,
-  tracking: PropTypes.instanceOf(Tracking).isRequired
 }
 
 AutocompleteInput.defaultProps = {
