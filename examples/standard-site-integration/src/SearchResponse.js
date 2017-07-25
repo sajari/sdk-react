@@ -22,11 +22,7 @@ const SearchResponse = ({ config, tabsFilter }) => {
   if (config.tabFilters) {
     tabs = (
       <Tabs
-        defaultTab={config.tabFilters.defaultTab}
         tabs={config.tabFilters.tabs}
-        values={values}
-        pipeline={pipeline}
-        tracking={tracking}
         filter={tabsFilter}
       />
     );
