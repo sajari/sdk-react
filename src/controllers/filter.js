@@ -13,7 +13,7 @@ class Filter {
    * @param {Object} options Dictionary of name -> filter pairs
    * @param {string|string[]} [initial=[]] List of initially selected items
    * @param {boolean} [multi=false] Multiple selections allowed?
-   * @param {string} [joinOperator="OR"] Join operator used if muli = true ("OR" | "AND")
+   * @param {string} [joinOperator="OR"] Join operator used if multi = true ("OR" | "AND")
    */
   constructor(options, initial = [], multi = false, joinOperator = "OR") {
     if (typeof initial === "string") {
