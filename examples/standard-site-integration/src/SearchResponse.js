@@ -6,7 +6,7 @@ import {
   Results,
   Paginator
 } from "sajari-react/ui/results";
-import Tabs from "sajari-react/ui/facets/TabsFacet";
+import Tabs from "sajari-react/ui/facets/Tabs";
 
 import { values, pipeline, tracking } from "./resources";
 
@@ -17,7 +17,7 @@ const Placeholder = ({ renderPlaceholder }) => {
   return <div id="sj-results-placeholder" />;
 };
 
-const SearchResponse = ({ config, tabsFacet }) => {
+const SearchResponse = ({ config, tabsFilter }) => {
   let tabs = null;
   if (config.tabFilters) {
     tabs = (
@@ -27,7 +27,7 @@ const SearchResponse = ({ config, tabsFacet }) => {
         values={values}
         pipeline={pipeline}
         tracking={tracking}
-        fb={tabsFacet}
+        filter={tabsFilter}
       />
     );
   }

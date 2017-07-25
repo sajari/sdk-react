@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import Analytics from "sajari-react/analytics/analytics";
-import { Filter } from "sajari-react/controllers/filter";
+import { Filter, CombineFilters } from "sajari-react/controllers/filter";
 import { changeEvent } from "sajari-react/controllers/values";
 
 import loaded from "./loaded";
@@ -10,13 +10,23 @@ import Overlay from "./Overlay";
 import InPage from "./InPage";
 import SearchResponse from "./SearchResponse";
 
-import { initialiseResources, pipeline, values, tracking, client, multiFacet } from "./resources";
+import {
+  initialiseResources,
+  pipeline,
+  values,
+  tracking,
+  client
+} from "./resources";
 
 import "./styles.css";
 
 const ESCAPE_KEY_CODE = 27;
 
 let disableTabFacetSearch = false;
+
+let filter;
+let tabsFilter;
+let initialFilter;
 
 const error = message => {
   if (console && console.error) {
@@ -52,15 +62,6 @@ const combinedValues = (config, firstTime) => {
     initialValues = config.initialValues;
   }
 
-  // Set the initial tab filter
-  if (config.tabFilters && config.tabFilters.defaultTab) {
-    config.tabFilters.tabs.forEach(t => {
-      if (t.title === config.tabFilters.defaultTab) {
-        // tabsFacet.set(config.tabFilters.defaultTab);
-      }
-    });
-  }
-
   const combinedValues = {
     ...initialValues,
     ...config.values
@@ -68,7 +69,7 @@ const combinedValues = (config, firstTime) => {
   return combinedValues;
 };
 
-const initOverlay = (config, tabsFacet) => {
+const initOverlay = config => {
   const setOverlayControls = controls => {
     const show = () => {
       document.getElementsByTagName("body")[0].style.overflow = "hidden";
@@ -80,7 +81,7 @@ const initOverlay = (config, tabsFacet) => {
       pipeline.clearResults();
       if (config.tabFilters.defaultTab) {
         disableTabFacetSearch = true;
-        tabsFacet.set(config.tabFilters.defaultTab);
+        tabsFilter.set(config.tabFilters.defaultTab);
         disableTabFacetSearch = false;
       }
       controls.hide();
@@ -103,44 +104,21 @@ const initOverlay = (config, tabsFacet) => {
   });
 
   ReactDOM.render(
-    <Overlay config={config} setOverlayControls={setOverlayControls} tabsFacet={tabsFacet} />,
+    <Overlay
+      config={config}
+      setOverlayControls={setOverlayControls}
+      tabsFilter={tabsFilter}
+    />,
     overlayContainer
   );
-
-  const queryValues = combinedValues(config, true);
-  if (queryValues.filter) {
-    multiFacet.setOption("initialValues", queryValues.filter);
-    multiFacet.set("initialValues", true);
-    delete queryValues.filter;
-  }
-  values.set(queryValues);
-
-  const query = Boolean(queryValues.q);
-  if (query) {
-    pipeline.search(values, tracking);
-    window._sjui.overlay.show();
-  }
 };
 
-const initInPage = (config, tabsFacet) => {
+const initInPage = (config, tabsFilter) => {
   ReactDOM.render(<InPage config={config} />, config.attachSearchBox);
   ReactDOM.render(
-    <SearchResponse config={config} tabsFacet={tabsFacet} />,
+    <SearchResponse config={config} tabsFilter={tabsFilter} />,
     config.attachSearchResponse
   );
-
-  const queryValues = combinedValues(config, true);
-  if (queryValues.filter) {
-    multiFacet.setFilter("initialValues", queryValues.filter);
-    multiFacet.set("initialValues", true);
-    delete queryValues.filter;
-  }
-  values.set(queryValues);
-
-  const query = Boolean(queryValues.q);
-  if (query) {
-    pipeline.search(values, tracking);
-  }
 };
 
 const initInterface = () => {
@@ -153,44 +131,78 @@ const initInterface = () => {
   const noOverlay = () => error("no overlay exists");
   window._sjui.overlay = { show: noOverlay, hide: noOverlay };
 
-  initialiseResources(config.project, config.collection, config.pipeline)
+  initialiseResources(config.project, config.collection, config.pipeline);
 
   let analytics;
   if (!config.disableGA) {
     analytics = new Analytics(pipeline);
   }
 
-  window._sjui.state = { analytics, client, values, pipeline, tracking, multiFacet };
+  window._sjui.controllers = {
+    analytics,
+    client,
+    values,
+    pipeline,
+    tracking,
+    filter
+  };
 
-  let tabsFacet;
   if (config.tabFilters && config.tabFilters.defaultTab) {
     const opts = {};
     config.tabFilters.tabs.forEach(t => {
       opts[t.title] = t.filter;
     });
-    tabsFacet = new Filter(opts, false, [config.tabFilters.defaultTab]);
-    multiFacet.setOption("tabsFacet", () => tabsFacet.filter());
-    tabsFacet.register(() => {
+    tabsFilter = new Filter(opts, [config.tabFilters.defaultTab]);
+    tabsFilter.register(() => {
+      // Perform a search when the tabs change
       if (!disableTabFacetSearch) {
         pipeline.search(values, tracking);
       }
     });
 
     values.listen(changeEvent, changes => {
-      if (!values.get().q && tabsFacet.get() !== config.tabFilters.defaultTab) {
+      // If the query is empty, reset the tab back to the default if it's not already
+      if (
+        !values.get().q &&
+        tabsFilter.get() !== config.tabFilters.defaultTab
+      ) {
         disableTabFacetSearch = true;
-        tabsFacet.set(config.tabFilters.defaultTab);
+        tabsFilter.set(config.tabFilters.defaultTab);
         disableTabFacetSearch = false;
       }
     });
   }
 
+  const queryValues = combinedValues(config, true);
+  if (queryValues.filter) {
+    initialFilter = new Filter(
+      {
+        initialFilter: queryValues.filter
+      },
+      "initialFilter"
+    );
+    delete queryValues.filter;
+  }
+  values.set(queryValues);
+
+  const query = Boolean(queryValues.q);
+  if (query) {
+    pipeline.search(values, tracking);
+    window._sjui.overlay.show();
+  }
+
+  filter = new CombineFilters([tabsFilter, initialFilter].filter(Boolean));
+  values.set({ filter: () => filter.filter() });
+
+  console.log(filter);
+  console.log(initialFilter);
+
   if (config.overlay) {
-    initOverlay(config, tabsFacet);
+    initOverlay(config);
     return;
   }
   if (config.attachSearchBox && config.attachSearchResponse) {
-    initInPage(config, tabsFacet);
+    initInPage(config);
     return;
   }
   error(

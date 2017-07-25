@@ -30,8 +30,8 @@ class Overlay extends React.Component {
           tracking={tracking}
           placeHolder={this.props.config.searchBoxPlaceHolder}
         />
-        <Close onClick={this.hide} />
-        <SearchResponse config={this.props.config} tabsFacet={this.props.tabsFacet} />
+        <Close onClick={this.hide} closeOverlay={this.hide} />
+        <SearchResponse config={this.props.config} tabsFilter={this.props.tabsFilter} />
       </OverlayFrame>
     );
   }
