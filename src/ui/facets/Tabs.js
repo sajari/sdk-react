@@ -6,9 +6,22 @@ import { Tracking } from "sajari";
 import Values from "../../controllers/values";
 import Pipeline from "../../controllers/pipeline";
 
-import { Filter}  from "../../controllers/filter";
+import { Filter } from "../../controllers/filter";
 
 class TabsFacet extends React.Component {
+  /**
+   * propTypes
+   * @property {Filter} filter
+   * @property {string} name
+   */
+  static get propTypes() {
+    return {
+      filter: PropTypes.oneOfType([PropTypes.instanceOf(Filter)]).isRequired,
+      tabs: PropTypes.array.isRequired,
+      defaultTab: PropTypes.string.isRequired
+    };
+  }
+
   constructor(props) {
     super(props);
   }
@@ -60,16 +73,5 @@ class Tab extends React.Component {
     );
   }
 }
-
-TabsFacet.propTypes = {
-  values: PropTypes.instanceOf(Values).isRequired,
-  pipeline: PropTypes.instanceOf(Pipeline).isRequired,
-  fb: PropTypes.oneOfType([
-    PropTypes.instanceOf(Filter)
-  ]).isRequired,
-  tracking: PropTypes.instanceOf(Tracking).isRequired,
-  tabs: PropTypes.array.isRequired,
-  defaultTab: PropTypes.string.isRequired
-};
 
 export default TabsFacet;
