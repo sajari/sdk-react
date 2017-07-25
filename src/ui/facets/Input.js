@@ -32,26 +32,26 @@ RadioFacet.propTypes = {
 class SelectFacet extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { active: props.fb.isSet(props.name) };
+    this.state = { active: props.filter.isSet(props.name) };
     this.onUpdate = this.onUpdate.bind(this);
   }
 
   componentDidMount() {
-    this.unregister = this.props.fb.register(this.onUpdate);
+    this.unregister = this.props.filter.register(this.onUpdate);
   }
 
   componentWillUnmount() {
     this.unregister();
   }
 
-  onUpdate(fb) {
-    this.setState({ active: fb.get() });
+  onUpdate(filter) {
+    this.setState({ active: filter.get() });
   }
 
   render() {
-    const { fb, name, options, ...other } = this.props;
+    const { filter, name, options, ...other } = this.props;
     const onClick = e => {
-      fb.set(e.target.value, true);
+      filter.set(e.target.value, true);
     };
     const optionsRendered = Object.keys(options).map(o => {
       return (
@@ -79,26 +79,26 @@ SelectFacet.propTypes = {
 class InputFacet extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { active: props.fb.isSet(props.name) };
+    this.state = { active: props.filter.isSet(props.name) };
     this.onUpdate = this.onUpdate.bind(this);
   }
 
   componentDidMount() {
-    this.unregister = this.props.fb.register(this.onUpdate);
+    this.unregister = this.props.filter.register(this.onUpdate);
   }
 
   componentWillUnmount() {
     this.unregister();
   }
 
-  onUpdate(fb) {
-    this.setState({ active: fb.isSet(this.props.name) });
+  onUpdate(filter) {
+    this.setState({ active: filter.isSet(this.props.name) });
   }
 
   render() {
-    const { fb, name, children, ...other } = this.props;
+    const { filter, name, children, ...other } = this.props;
     const toggle = () => {
-      fb.set(name, !this.state.active);
+      filter.set(name, !this.state.active);
     };
     return <input onChange={toggle} checked={this.state.active} {...other} />;
   }
