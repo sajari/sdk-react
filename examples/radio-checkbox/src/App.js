@@ -2,9 +2,8 @@ import React from "react";
 
 import { Client, Tracking } from "sajari";
 
-import { Filter, CombineFilters, Pipeline } from "sajari-react/controllers";
+import { Filter, CombineFilters, Pipeline, Values } from "sajari-react/controllers";
 import { DebugFacet, SelectFacet, RadioFacet, CheckboxFacet } from "sajari-react/ui/facets";
-import Values from "sajari-react/controllers/values";
 import { Response, Results, Summary, Paginator } from "sajari-react/ui/results";
 
 const project = "sajariptyltd";

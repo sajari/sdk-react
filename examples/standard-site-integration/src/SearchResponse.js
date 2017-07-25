@@ -6,7 +6,7 @@ import {
   Results,
   Paginator
 } from "sajari-react/ui/results";
-import Tabs from "sajari-react/ui/facets/Tabs";
+import { Tabs } from "sajari-react/ui/facets";
 
 import { values, pipeline, tracking } from "./resources";
 
