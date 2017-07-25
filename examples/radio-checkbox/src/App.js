@@ -2,7 +2,7 @@ import React from "react";
 
 import { Client, Tracking } from "sajari";
 
-import { Filter, multiFacet, singleFacet, Pipeline } from "sajari-react/controllers";
+import { Filter, CombineFilters, Pipeline } from "sajari-react/controllers";
 import { DebugFacet, SelectFacet, RadioFacet, CheckboxFacet } from "sajari-react/ui/facets";
 import Values from "sajari-react/controllers/values";
 import { Response, Results, Summary, Paginator } from "sajari-react/ui/results";
@@ -17,46 +17,41 @@ const client = new Client(project, collection);
 const tracking = new Tracking();
 const pipeline = new Pipeline(client, pipelineName);
 
-const filter = Filter.ANDFilter();
-values.set({ filter: () => filter.evaluate() });
-
 const currentUnix = parseInt(String(new Date().getTime() / 1000), 10);
-const lastWeek = currentUnix - 7 * 24 * 60 * 60;
-const lastMonth = currentUnix - 30 * 24 * 60 * 60;
+const day = 24 * 60 * 60;
+const lastWeek = currentUnix - 7 * day;
+const lastMonth = currentUnix - 30 * day;
 
-const recencyFacet = new singleFacet(
+const recencyFilter = new Filter(
   {
     last7: `firstseen>'${lastWeek}'`,
     last30: `firstseen>'${lastMonth}'`,
     all: ""
   },
-  "all"
+  "all",
 );
-filter.setFilter("recency", recencyFacet.filter());
-recencyFacet.register(() => {
-  filter.setFilter("recency", recencyFacet.filter());
-  pipeline.search(values, tracking);
-});
 
-const categoryFacet = new multiFacet(
+const categoryFilter = new Filter(
   {
     articles: "dir1='article'",
     blog: "dir1='blog'",
     faq: "dir1='faq'"
   },
-  ["articles", "faq"]
+  ["articles", "faq"],
+  true,
 );
-filter.setFilter("category", categoryFacet.filter());
-categoryFacet.register(() => {
-  filter.setFilter("category", categoryFacet.filter());
+
+const filter = CombineFilters([recencyFilter, categoryFilter])
+values.set({ filter: () => filter.filter() });
+filter.register(() => {
   pipeline.search(values, tracking);
-});
+})
 
 const App = () =>
   <div className="App">
     <div>
       <SelectFacet
-        fb={recencyFacet}
+        fb={recencyFilter}
         name="foo"
         options={{
           all: "All",
@@ -66,39 +61,42 @@ const App = () =>
       />
       <h3>Recency</h3>
       <div>
-        <RadioFacet fb={recencyFacet} name="last7" />
+        <RadioFacet fb={recencyFilter} name="last7" />
         <label>Last 7 Days</label>
       </div>
       <div>
-        <RadioFacet fb={recencyFacet} name="last30" />
+        <RadioFacet fb={recencyFilter} name="last30" />
         <label>Last 30 Days</label>
       </div>
       <div>
-        <RadioFacet fb={recencyFacet} name="all" />
+        <RadioFacet fb={recencyFilter} name="all" />
         <label>All</label>
       </div>
-      <DebugFacet fb={recencyFacet} />
+      <DebugFacet fb={recencyFilter} />
     </div>
     <div>
       <h3>Category</h3>
       <div>
-        <CheckboxFacet fb={categoryFacet} name="articles" />
+        <CheckboxFacet fb={categoryFilter} name="articles" />
         <label>Articles</label>
       </div>
       <div>
-        <CheckboxFacet fb={categoryFacet} name="blog" />
+        <CheckboxFacet fb={categoryFilter} name="blog" />
         <label>Blog</label>
       </div>
       <div>
-        <CheckboxFacet fb={categoryFacet} name="faq" />
+        <CheckboxFacet fb={categoryFilter} name="faq" />
         <label>Faq</label>
       </div>
-      <DebugFacet fb={categoryFacet} />
+      <DebugFacet fb={categoryFilter} />
+    </div>
+    <div>
+      <DebugFacet fb={filter} />
     </div>
     <Response pipeline={pipeline}>
-      <Summary values={values} pipeline={pipeline} />
+      <Summary values={values} pipeline={pipeline} tracking={tracking} />
       <Results pipeline={pipeline} />
-      <Paginator values={values} pipeline={pipeline} />
+      <Paginator values={values} pipeline={pipeline} tracking={tracking} />
     </Response>
   </div>;
 

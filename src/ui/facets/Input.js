@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import SingleFacet from "../../controllers/singleFacet";
-import MultiFacet from "../../controllers/multiFacet";
+import { Filter } from "../../controllers/filter";
 
 class CheckboxFacet extends React.Component {
   render() {
@@ -12,8 +11,7 @@ class CheckboxFacet extends React.Component {
 
 CheckboxFacet.propTypes = {
   fb: PropTypes.oneOfType([
-    PropTypes.instanceOf(SingleFacet),
-    PropTypes.instanceOf(MultiFacet)
+    PropTypes.instanceOf(Filter)
   ]).isRequired,
   name: PropTypes.string.isRequired
 };
@@ -26,8 +24,7 @@ class RadioFacet extends React.Component {
 
 RadioFacet.propTypes = {
   fb: PropTypes.oneOfType([
-    PropTypes.instanceOf(SingleFacet),
-    PropTypes.instanceOf(MultiFacet)
+    PropTypes.instanceOf(Filter)
   ]).isRequired,
   name: PropTypes.string.isRequired
 };
@@ -73,8 +70,7 @@ class SelectFacet extends React.Component {
 
 SelectFacet.propTypes = {
   fb: PropTypes.oneOfType([
-    PropTypes.instanceOf(SingleFacet),
-    PropTypes.instanceOf(MultiFacet)
+    PropTypes.instanceOf(Filter)
   ]).isRequired,
   name: PropTypes.string.isRequired,
   options: PropTypes.object.isRequired

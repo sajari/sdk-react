@@ -62,7 +62,7 @@ Response.propTypes = {
   Placeholder: PropTypes.oneOfType([
     PropTypes.instanceOf(Function),
     PropTypes.instanceOf(React.Component)]
-  ).isRequired
+  )
 }
 
 export default Response;

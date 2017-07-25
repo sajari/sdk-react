@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import Analytics from "sajari-react/analytics/analytics";
-import SingleFacet from "sajari-react/controllers/singleFacet";
+import { Filter } from "sajari-react/controllers/filter";
 import { changeEvent } from "sajari-react/controllers/values";
 
 import loaded from "./loaded";
@@ -164,11 +164,11 @@ const initInterface = () => {
 
   let tabsFacet;
   if (config.tabFilters && config.tabFilters.defaultTab) {
-    const facetOptions = {};
+    const opts = {};
     config.tabFilters.tabs.forEach(t => {
-      facetOptions[t.title] = t.filter;
+      opts[t.title] = t.filter;
     });
-    tabsFacet = new SingleFacet(facetOptions, config.tabFilters.defaultTab);
+    tabsFacet = new Filter(opts, false, [config.tabFilters.defaultTab]);
     multiFacet.setOption("tabsFacet", () => tabsFacet.filter());
     tabsFacet.register(() => {
       if (!disableTabFacetSearch) {

@@ -24,8 +24,7 @@ class DebugFacet extends React.Component {
       current instanceof Array ? current.join(" ") : current;
     return (
       <p>
-        Current filter name: <strong>{currentDisplay || "(none)"}</strong>{" "}
-        filter: <strong>{filter || "(none)"}</strong>
+        <strong>{filter || "(none)"}</strong>
       </p>
     );
   }

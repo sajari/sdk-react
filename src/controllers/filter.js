@@ -1,57 +1,156 @@
-const andFilter = "AND";
-const orFilter = "OR";
-const singleFilter = "single";
+import Listener from "./listener";
 
-export const ANDFilter = () => new Filter(andFilter);
-export const ORFilter = () => new Filter(orFilter);
-
-export class Filter {
-  constructor(type) {
-    this.filters = {};
-    this.type = type;
+/**
+ * Filter is a helper class for building filters from UI components.
+ */
+class Filter {
+  /**
+   * 
+   * @param {*dict} options Dictionary of name -> filter pairs
+   * @param {*string|string[]} initial List of initially selected items
+   * @param {*bool} multi Multiple selections allowed?
+   * @param {*string} joinOperator Join operator used if muli = true ("OR" | "AND")
+   */
+  constructor(options, initial = [], multi = false, joinOperator = "OR") {
+    if (typeof initial === 'string') {
+      initial = [initial];
+    }
+    this.current = initial;
+    this.options = options;
+    this.multi = multi;
+    this.joinOperator = joinOperator;
+    this.listener = new Listener();
   }
 
-  set(name, filter) {
-    this.filters[name] = filter;
+  /**
+   * Register a listener to be run when updates are made to the map.
+   * @param {*function} listener Function to run when updates are made.
+   */
+  register(listener) {
+    return this.listener.listen(listener);
   }
 
-  get(name) {
-    return this.filters[name];
+  notify() {
+    this.listener.notify(l => {
+      l(this);
+    });
   }
 
-  remove(name) {
-    delete this.filters[name];
-  }
+  /**
+   * Set the state of the filter.
+   * 
+   * @param {*string} name Name of the filter to change.
+   * @param {*bool} on Enable/disable the filter.
+   */
+  set(name, on) {
+    if (this.multi === false) {
+      if (on === false) {
+        return;
+      }
 
-  evaluate() {
-    let filters = Object.keys(this.filters)
-      .map(k => this.filters[k])
-      .filter(Boolean);
-    if (this.type === singleFilter) {
-      if (filters.length === 1) {
-        return "(" + filters[0] + ")";
+      if (name) {
+        this.current = [name];
       } else {
-        return "";
+        this.current = [];
+      }
+    } else {
+      if (on) {
+        if (this.current.indexOf(name) === -1) {
+          this.current = this.current.concat(name);
+        }
+      } else {
+        this.current = this.current.filter(n => n !== name);
       }
     }
+    this.notify();
+  }
 
-    filters = filters
-      .map(f => {
-        if (typeof f === "string") {
-          return f;
-        } else if (f instanceof Filter) {
-          return f.evaluate();
-        } else {
-          throw new Error(
-            "filter value must be either string or instance of Filter, got " +
-              typeof f
-          );
+  /**
+   * Is the filter enabled?
+   * @param {*string} name Name of the filter to check
+   */
+  isSet(name) {
+    return this.current.indexOf(name) !== -1;
+  }
+
+  /**
+   * Adds a filter to the available options.
+   * @param {*string} name Name of the filter to add
+   * @param {*string} value Filter to run if enabled
+   */
+  add(name, value) {
+    this.options[name] = value;
+  }
+
+  /**
+   * Removes a filter from the available options.
+   * @param {*string} name Name of the filter to remove
+   */
+  remove(name) {
+    delete this.options[name];
+  }
+
+  /**
+   * Get returns the filters.
+   */
+  get() {
+    return this.current;
+  }
+
+  filter() {
+    let filters = this.current
+      .map(c => {
+        let f = this.options[c];
+        if (typeof f === "function") {
+          f = f();
         }
+        if (f !== "") {
+          f = "(" + f + ")";
+        }
+        return f;
       })
       .filter(Boolean);
-    if (filters.length > 0) {
-      return "(" + filters.join(") " + this.type + " (") + ")";
+    switch (filters.length) {
+      case 0:
+        return "";
+      case 1:
+        return filters[0];
+      default:
+        return filters.join(" " + this.joinOperator + " ");
     }
-    return "";
   }
 }
+
+/**
+ * CombinFilters is a helper for combining multiple Filter instances
+ * into one.
+ * 
+ * Whenever any of the combined filters are updated, the events are
+ * propagated up to the returned "root" filter.
+ * 
+ * @param {*Filter[]} filters Array of filters to combine.
+ * @param {*string} operator Operator to apply between them ("AND" | "OR").
+ */
+const CombineFilters = (filters, operator = "AND") => {
+  const opts = {};
+  let count = 1;
+  let on = [];
+
+  filters.forEach(f => {
+    opts["" + count] = () => f.filter();
+    on = on.concat(["" + count]);
+    count++;
+  });
+
+  const combFilter = new Filter(opts, on, true, operator);
+  count = 1;
+  filters.forEach(f => {
+    f.register(() => {
+      combFilter.notify();
+    });
+  });
+
+  return combFilter;
+}
+
+export { Filter, CombineFilters };

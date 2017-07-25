@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Filter, Pipeline, singleFacet } from "sajari-react/controllers";
+import { Filter, CombineFilters, Pipeline } from "sajari-react/controllers";
 import Values, { changeEvent } from "sajari-react/controllers/values";
 import { AutocompleteInput } from "sajari-react/ui/text";
 import { Response, Results, Summary, Paginator } from "sajari-react/ui/results";
@@ -25,23 +25,12 @@ values.listen(changeEvent, (changes, set) => {
   }
 });
 
-const filter = Filter.ANDFilter();
-values.set({ filter: () => filter.evaluate() });
-
-const setupFacetFilter = (name, facet, pipeline) => {
-   filter.set(name, facet.filter());
-    facet.register(() => {
-      filter.set(name, facet.filter());
-      pipeline.search();
-    }); 
-  }  
-}
-
 const currentUnix = parseInt(String(new Date().getTime() / 1000), 10);
-const lastWeek = currentUnix - 7 * 24 * 60 * 60;
-const lastMonth = currentUnix - 30 * 24 * 60 * 60;
+const day = 24 * 60 * 60;
+const lastWeek = currentUnix - 7 * day;
+const lastMonth = currentUnix - 30 * day;
 
-const recencyFacet = new singleFacet(
+const recency = new Filter(
   {
     last7: `firstseen>'${lastWeek}'`,
     last30: `firstseen>'${lastMonth}'`,
@@ -49,11 +38,12 @@ const recencyFacet = new singleFacet(
   },
   "all"
 );
-filter.set("recency", recencyFacet.filter());
-recencyFacet.register(() => {
-  filter.setFilter("recency", recencyFacet.filter());
-  pipeline.search(values, tracking);
-});
+
+const tabsFilter = new Filter({
+  All: "",
+  Blog: "dir1='blog'",
+  FAQ: "dir1='faq'"
+}, "All");
 
 const tabs = [
   { title: "All", filter: "" },
@@ -61,27 +51,31 @@ const tabs = [
   { title: "FAQ", filter: "dir1='faq'" }
 ];
 
+const filter = CombineFilters([recency, tabsFilter]);
+values.set({ filter: () => filter.filter() });
+filter.register(() => {
+  pipeline.search(values, tracking);
+});
+
 const App = () =>
   <div className="searchApp">
     <AutocompleteInput values={values} pipeline={pipeline} tracking={tracking} />
     <div>
-      <RadioFacet fb={recencyFacet} name="last7" />
+      <RadioFacet fb={recency} name="last7" />
       <label>Last 7 Days</label>
     </div>
     <div>
-      <RadioFacet fb={recencyFacet} name="last30" />
+      <RadioFacet fb={recency} name="last30" />
       <label>Last 30 Days</label>
     </div>
     <div>
-      <RadioFacet fb={recencyFacet} name="all" />
+      <RadioFacet fb={recency} name="all" />
       <label>All</label>
     </div>
     <Response pipeline={pipeline}>
       <TabsFacet
         tabs={tabs}
-        values={values}
-        pipeline={pipeline}
-        filter={filter}
+        fb={tabsFilter}
       />
       <Summary values={values} pipeline={pipeline} tracking={tracking} />
       <Results pipeline={pipeline} />
