@@ -1,50 +1,15 @@
-/*
- Tabs
-*/
-
-.sj-tabs-container {
-  background-color: #fff;
-  border-top: 1px solid #ebebeb;
-  border-bottom: 1px solid #ebebeb;
-  color: #777;
-  width: 100%;
-}
-
-.sj-tabs {
-  padding-left: 126px;
-  overflow: auto;
-  white-space: nowrap;
-}
-
-.sj-tab {
-  display: inline-block;
-  font-size: 13px;
-  cursor: pointer;
-  margin: 0;
-  padding: 1em;
-  user-select: none;
-}
-
-.sj-tab-active {
-  color: #333;
-  border-bottom: 3px solid #333;
-}
-
-/*
-  --------------- Header Search Input ----------------
-*/
+/**
+ * Search box
+ */
 
 #sj-search-modal-input-holder-outer {
   padding: 0.9em 0px;
-  margin-left: 126px;
-  width: 100%;
-  height: 100%;
+  position: relative;
+  height: 28px;
 }
 
 #sj-search-modal-input-holder-inner {
-  position: relative;
-  left: 0px;
-  height: 100%;
+  position: absolute;
 }
 
 .sj-search-bar-input-common {
@@ -77,42 +42,53 @@
 }
 
 .sj-search-icon {
-  width: 32px;
-  height: 40px;
-  position: absolute;
-  transform: scale(0.6, 0.6);
-  top: 0px;
-  left: 460px;
-  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAiCAYAAAA+stv/AAACiElEQVRYhe2XS0gVYRTHf5IkZA+KggiRwEsba2OERAnTvXfORy2KIGgTUasWtSgoaNFCSKhdRRIRSi2CQCJbtYhKgxKEgoxuGOPM+SCwTa9FJPReqCXjzJ1H19p44Fv+z/93vsc5M5AQz7eyPHDZGQinVLhgDd2B0BW47PPLNCfpc4cK7Sr0q/DFGn7GLTUMqbAXqKuJ8egWlqhwrZpp5BIee0Va/srcc2hS4WVm8+ndED5qGSeX+SuHldYwltd8xk58tiU2Z/WvU+FuTFUTKly2Ljv8Euv8Ms1BiQ4rnFbDmxiQca+DVand1eVATKJ7nkNTnG5EaFTD+Rjw3lTmfbBADRqRoH/AoT5NjkA4EQHxLdWltML2iKelI0Jjqgr+5LkZUcSZRKEKl8LCwLA/izmAV6TFCj9CuV4kkxuehi9d1up/5xIehYtJzGWFd+GGksccQF3OhgHGhPXVRcJE6Pxv5wYwHA0DeEXaqoqs4X3oCB7mBQiErjCAX2ZDdWrhWegIPnkFGvIAWOH+rB1oZ2mSqGfWKxD2ZDUfdVljha+hYrxkapfdEU2kUmllYRYAFXoj+sC5RKFXoCGypws9pJzxajgY1Y4Tz386AsORmH5+wy+zLE434FCvwklr+B6h70tlPiPRcMx4fatCp1ekreKw2CvQMGYoBC6HraESA/6h2hCLDHVYaw3jMVMx01LDaLWdiw1vG63W8LomEMJwLgh1WK3Cnf8KAaBldqlhKNFI8FU4psJgzSFgcsyqyyHrctEa+lS4ZYUrgXDcL7GJqaf6ZCOLVHgwJxBpYx5iHiIrROKonmuIqYE39xELkeZ7ocYQgyGA6/8MACZ//a2h2xoqarhaMaz4BV0ucH/zEHZQAAAAAElFTkSuQmCC) 50% 50% transparent no-repeat;
+  display: none;
 }
 
-/*
-  --------------- Result ----------------
-*/
+/**
+ * Autocomplete override
+ */
 
-#sj-overlay .sj-result-summary, #sj-overlay .sj-result-list {
-  position: relative;
-  width: auto;
-  overflow-x: hidden;
-  margin-left:126px;
+.sj-result-summary-autocomplete-override {
+  display: block;
+  padding-top: 16px;
+  font-size: 1.2em;
 }
+
+.sj-result-summary-autocomplete-override>a {
+  color: #1a0dab;
+}
+
+/**
+ * Results
+ */
 
 .sj-result-summary {
-  padding-top: 1em;
-  font-size: 14px;
+  padding-bottom: 1.5em;
+  font-size: 16px;
   color: #aaa;
 }
 
 .sj-result {
-  max-width: 700px;
-  padding: 1em 0;
+  clear: both;
+}
+
+.sj-result-list>* {
+  margin-top: 1.5em;
+}
+
+.sj-result-list> :first-child {
+  margin-top: 0;
 }
 
 .sj-result-title {
-  margin-bottom: 0px;
+  margin-bottom: 0;
   margin-top: 0;
   font-size: 16px;
   line-height: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .sj-result-title a {
@@ -128,7 +104,7 @@
 }
 
 .sj-result-description {
-  color: rgb(84, 84, 84);
+  color: #545454;
   font-size: 15px;
   line-height: 22px;
   overflow-wrap: break-word;
@@ -137,11 +113,13 @@
 }
 
 .sj-result-url {
-  color: rgb(150, 150, 150);
   font-size: 13px;
   line-height: 18.2px;
   margin: 0;
   color: #a2a2a2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .sj-result-url a {
@@ -149,23 +127,26 @@
   color: #a2a2a2;
 }
 
-.sj-result-image {
-  float: right;
-  width: 150px;
-  padding-left: 10px;
+.sj-result-image-container {
+  float: left;
+  width: 100px;
 }
 
-.sj-result-close {
-  clear: both;
+.sj-result-image-container img {
+  max-height: 90px;
+  max-width: 90px;
 }
+
+/**
+ * Paginator
+ */
 
 .sj-paginator {
   margin: 1em 0;
   text-align: center;
-  max-width: 700px;
 }
 
-.sj-paginator > div {
+.sj-paginator>div {
   display: inline;
   padding: 10px;
   color: #777;
@@ -174,52 +155,109 @@
   user-select: none;
 }
 
-.sj-paginator > div.current {
+.sj-paginator>div.current {
   color: #333;
 }
 
-.sj-paginator > div.disabled {
+.sj-paginator>div.disabled {
   color: #aaa;
 }
 
+/**
+ * Tabs
+ */
+
+.sj-tabs-container {
+  border-bottom: 1px solid #ebebeb;
+  color: #777;
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+.sj-tabs {
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.sj-tab {
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 0;
+  padding: .9em;
+  user-select: none;
+}
+
+.sj-tab-active {
+  color: #333;
+  border-bottom: 3px solid #333;
+}
+
+/*
+ * Overlay
+ */
+
+@keyframes sj-overlay-rolldown {
+  0% {
+    opacity: 0;
+    height: 20%;
+  }
+  100% {
+    opacity: 1;
+    height: 100%;
+  }
+}
+
+#sj-overlay {
+  background-color: white;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  z-index: 1000000;
+  animation-name: sj-overlay-rolldown;
+  animation-duration: 0.4s;
+}
+
+#sj-overlay-search-modal {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#sj-overlay-close {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  z-index: 1;
+  color: #aaa;
+  text-align: center;
+  cursor: pointer;
+}
+
+#sj-overlay-close:hover {
+  color: #000;
+}
+
+#sj-overlay-close .sj-close {
+  font-size: 40px;
+  line-height: 30px;
+  padding-top: 10px;
+}
+
+#sj-overlay-close .sj-esc {
+  font-size: 12px;
+}
+
 @media (max-width: 845px) {
-  #sj-search-modal-input-holder-outer {
-    margin-left: 3%;
-    padding-top: 4em;
+  #sj-overlay-close {
+    right: 3%;
   }
 
-  .sj-search-bar-input-common {
-    width: 92%;
-    width: calc(94% - 0.9em);
-    margin-left: 3%;
-  }
-
-  .sj-tabs {
-    padding-left: 3%;
-  }
-
-  #sj-overlay .sj-result-summary, #sj-overlay .sj-result-list {
-    margin-left: 3%;
-  }
-
-  .sj-result-list {
-    width: 94%;
-    margin-left: 3%;
-  }
-
-  .sj-result {
-    padding-left: 0;
-  }
-
-  .sj-search-icon {
-    left: initial;
-    right: 4%;
-  }
-
-  .sj-result-image {
-    float: none;
-    width: 100%;
-    padding-left: 0px;
-    margin-bottom: 2px;
+  #sj-overlay .sj-search-bar-input-common {
+    width: 70vw;
   }
 }
