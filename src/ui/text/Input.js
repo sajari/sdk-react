@@ -17,7 +17,7 @@ class Input extends React.Component {
    * @property {Tracking} tracking Tracking object.
    * @property {string} [qParam="q"] Search parameter.
    * @property {string} [qOverrideParam="q.override"] Override parameter.
-   * @property {boolean} [focus=false] Whether to focus the input element on mount.
+   * @property {boolean} [focus=false] Whether to focus the input element.
    * @property {boolean} [instant] Whether to search on key press.
    */
   static get propTypes() {
@@ -34,9 +34,7 @@ class Input extends React.Component {
 
   constructor(props) {
     super(props);
-    this.setText = this.setText.bind(this);
-    this.valuesUpdated = this.valuesUpdated.bind(this);
-    this.getState = this.getState.bind(this);
+
     this.state = {
       ...this.getState(props.values, props.qParam),
       qParam: props.qParam,
@@ -44,19 +42,10 @@ class Input extends React.Component {
     };
   }
 
-  getState(values, qParam) {
-    const text = values.get()[qParam] || "";
-    return { text };
-  }
-
   componentDidMount() {
-    if (this.props.focus) {
-      findDOMNode(this.refs.searchInput).focus();
-    }
-
     this.removeValuesListener = this.props.values.listen(
       changeEvent,
-      this.valuesUpdated
+      this.valuesChanged
     );
   }
 
@@ -64,11 +53,16 @@ class Input extends React.Component {
     this.removeValuesListener();
   }
 
-  valuesUpdated() {
+  getState = (values, qParam) => {
+    const text = values.get()[qParam] || "";
+    return { text };
+  }
+
+  valuesChanged = () => {
     this.setState(this.getState(this.props.values, this.state.qParam));
   }
 
-  setText(text) {
+  setText = (text) => {
     const textValues = {
       [this.state.qParam]: text,
       [this.state.qOverrideParam]: "true"
@@ -79,26 +73,30 @@ class Input extends React.Component {
     }
   }
 
+  handleChange = (e) => {
+    if (this.props.instant) {
+      this.setText(e.target.value);
+    }
+  }
+
+  handleKeyDown = (e) => {
+    if (e.keyCode === RETURN_KEYCODE) {
+      e.preventDefault();
+      this.setText(text);
+    }
+  }
+
   render() {
     const { text } = this.state;
-    const { instant, ...other } = this.props;
+    const { qParam, qOverrideParam, instant, focus, ...other } = this.props;
 
     return (
       <input
         type="text"
-        ref="searchInput"
         value={text}
-        onChange={e => {
-          if (instant) {
-            this.setText(e.target.value);
-          }
-        }}
-        onKeyDown={e => {
-          if (e.keyCode === RETURN_KEYCODE) {
-            e.preventDefault();
-            this.setText(text);
-          }
-        }}
+        autoFocus={focus}
+        onChange={this.handleChange}
+        onKeyDown={this.handleKeyDown}
         {...other}
       />
     );

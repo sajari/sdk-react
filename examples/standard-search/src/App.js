@@ -77,7 +77,7 @@ const App = () =>
         <label htmlFor="last30">Last 30 Days</label>
       </div>
     </div>
-    <AutocompleteInput values={values} pipeline={pipeline} tracking={tracking} />
+    <AutocompleteInput values={values} pipeline={pipeline} tracking={tracking} focus={true} />
     <Response pipeline={pipeline}>
       <TabsFacet
         tabs={tabs}

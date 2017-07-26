@@ -12,20 +12,20 @@ const pageNumbers = (page, totalPages) => {
   let i = 2
   while (i >= 0) {
     if (page - i > 0) {
-      pages.push(page-i)
+      pages.push(page - i)
     }
     i--
   }
 
   i = 1
   while (pages.length < 5 && page + i <= totalPages) {
-    pages.push(page+i)
+    pages.push(page + i)
     i++
   }
 
   i = 3
   while (pages.length < 5 && page - i > 0) {
-    pages.unshift(page-i)
+    pages.unshift(page - i)
     i++
   }
   return pages
@@ -36,7 +36,7 @@ const RawPaginator = ({ resultsPerPage, page, totalResults, setPage, pageFn }) =
     return null
   }
 
-  const totalPages = Math.ceil(totalResults/resultsPerPage)
+  const totalPages = Math.ceil(totalResults / resultsPerPage)
   if (totalPages === 0) {
     return null
   }
@@ -49,14 +49,14 @@ const RawPaginator = ({ resultsPerPage, page, totalResults, setPage, pageFn }) =
     if (page === 1) {
       return
     }
-    setPage(page-1)
+    setPage(page - 1)
   }
 
   const nextPage = () => {
     if (page === totalPages) {
       return
     }
-    setPage(page+1)
+    setPage(page + 1)
   }
 
   return (
@@ -69,7 +69,7 @@ const RawPaginator = ({ resultsPerPage, page, totalResults, setPage, pageFn }) =
 }
 
 const Page = ({ currentPage, page, setPage, children }) => (
-  <div className={currentPage === page ? 'current' : null} onClick={() => setPage(page)}>{ children }</div>
+  <div className={currentPage === page ? 'current' : null} onClick={() => setPage(page)}>{children}</div>
 )
 
 class Paginator extends React.Component {

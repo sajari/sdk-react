@@ -16,15 +16,15 @@ class DebugFacet extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = { current: props.filter.get(), filter: props.filter.filter() };
-    this.onUpdate = this.onUpdate.bind(this);
   }
 
   componentDidMount() {
-    this.props.filter.register(this.onUpdate);
+    this.props.filter.register(this.filterChanged);
   }
 
-  onUpdate() {
+  filterChanged = () => {
     this.setState({
       current: this.props.filter.get(),
       filter: this.props.filter.filter()

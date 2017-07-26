@@ -56,27 +56,29 @@ class SelectFacet extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.state = { active: props.filter.isSet(props.name) };
-    this.onUpdate = this.onUpdate.bind(this);
   }
 
   componentDidMount() {
-    this.unregister = this.props.filter.register(this.onUpdate);
+    this.unregister = this.props.filter.register(this.filterChanged);
   }
 
   componentWillUnmount() {
     this.unregister();
   }
 
-  onUpdate(filter) {
+  filterChanged = (filter) => {
     this.setState({ active: filter.get() });
+  }
+
+  handleChange = e => {
+    filter.set(e.target.value, true);
   }
 
   render() {
     const { filter, name, options, ...other } = this.props;
-    const onClick = e => {
-      filter.set(e.target.value, true);
-    };
+
     const optionsRendered = Object.keys(options).map(o => {
       return (
         <option value={o} key={o}>
@@ -85,7 +87,7 @@ class SelectFacet extends React.Component {
       );
     });
     return (
-      <select value={this.state.active} onChange={onClick}>
+      <select value={this.state.active} onChange={this.handleChange}>
         {optionsRendered}
       </select>
     );
@@ -95,28 +97,29 @@ class SelectFacet extends React.Component {
 class InputFacet extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = { active: props.filter.isSet(props.name) };
-    this.onUpdate = this.onUpdate.bind(this);
   }
 
   componentDidMount() {
-    this.unregister = this.props.filter.register(this.onUpdate);
+    this.unregister = this.props.filter.register(this.filterChanged);
   }
 
   componentWillUnmount() {
     this.unregister();
   }
 
-  onUpdate(filter) {
+  filterChanged = (filter) => {
     this.setState({ active: filter.isSet(this.props.name) });
   }
 
+  handleChange = () => {
+    this.props.filter.set(this.props.name, !this.state.active);
+  };
+
   render() {
     const { filter, name, children, ...other } = this.props;
-    const toggle = () => {
-      filter.set(name, !this.state.active);
-    };
-    return <input onChange={toggle} checked={this.state.active} {...other} />;
+    return <input onChange={this.handleChange} checked={this.state.active} {...other} />;
   }
 }
 

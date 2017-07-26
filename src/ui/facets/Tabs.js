@@ -21,10 +21,6 @@ class TabsFacet extends React.Component {
     };
   }
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="sj-tabs-container">
@@ -43,19 +39,22 @@ class Tab extends React.Component {
     super(props);
 
     this.state = { selected: this.props.filter.isSet(this.props.title) };
-    this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
-    this.unregister = this.props.filter.register(this.onChange);
+    this.unregister = this.props.filter.register(this.filterChanged);
   }
 
   componentWillUnmount() {
     this.unregister();
   }
 
-  onChange() {
+  filterChanged = () => {
     this.setState({ selected: this.props.filter.isSet(this.props.title) });
+  }
+
+  handleClick = () => {
+    this.props.filter.set(this.props.title, !this.state.selected);
   }
 
   render() {
@@ -63,9 +62,7 @@ class Tab extends React.Component {
       <div
         key={this.props.title}
         className={`sj-tab${this.state.selected ? " sj-tab-active" : ""}`}
-        onClick={() => {
-          this.props.filter.set(this.props.title, !this.state.selected);
-        }}
+        onClick={this.handleClick}
       >
         {this.props.title}
       </div>
