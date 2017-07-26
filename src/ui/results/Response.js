@@ -49,7 +49,7 @@ class Response extends React.Component {
 
   render() {
     const { children, Placeholder, pipeline } = this.props;
-    const results = this.state.results;
+    const { results } = this.state;
     const time = results.time;
     const error = pipeline.getError();
 
