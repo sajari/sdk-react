@@ -5,12 +5,8 @@ import { TokenLink, Image, Title, Description, URL } from "./";
 
 /**
  * @typedef {Object} ResultProps
- * @property {string} title Title to be rendered.
- * @property {string} description Description to be rendered.
- * @property {string} url URL to be rendered.
+ * @property {Object} values Values of record to be rendered.
  * @property {string} token Token to be used in the url.
- * @property {boolean} showImage Whether to render an image or not.
- * @property {string} image URL of the image to render.
  * @property {function()} resultClicked Function to be called when the result is clicked.
  */
 
@@ -19,43 +15,63 @@ import { TokenLink, Image, Title, Description, URL } from "./";
  * @param {ResultProps} props
  * @returns {React.Component}
  */
-const Result = ({
-  title,
-  description,
-  url,
-  token,
-  showImage,
-  image,
-  resultClicked
-}) =>
+const Result = ({ values, token, resultClicked }) =>
   <div className="sj-result">
-    {showImage && image
+    <div className="sj-result-text">
+      <Title
+        title={values.title}
+        url={values.url}
+        token={token}
+        resultClicked={resultClicked}
+      />
+      <Description description={values.description} />
+      <URL url={values.url} token={token} resultClicked={resultClicked} />
+    </div>
+  </div>;
+
+Result.propTypes = {
+  values: PropTypes.object,
+  token: PropTypes.string,
+  resultClicked: PropTypes.func
+};
+
+/**
+ * @typedef {Object} ImageResultProps
+ * @property {Object} values Values of record to be rendered.
+ * @property {string} token Token to be used in the url.
+ * @property {function()} resultClicked Function to be called when the result is clicked.
+ */
+
+/**
+ * Renders an ImageResult component which shows a search result with an image.
+ * @param {ResultProps} props
+ * @returns {React.Component}
+ */
+const ImageResult = ({ values, token, resultClicked }) =>
+  <div className="sj-result">
+    {values.image
       ? <div className="sj-result-image-container">
-          <TokenLink token={token} url={url}>
-            <Image url={image} title={title} />
+          <TokenLink token={token} url={values.url}>
+            <Image url={values.image} title={values.title} />
           </TokenLink>
         </div>
       : null}
     <div className="sj-result-text">
       <Title
-        title={title}
-        url={url}
+        title={values.title}
+        url={values.url}
         token={token}
         resultClicked={resultClicked}
       />
-      <Description description={description} />
-      <URL url={url} token={token} resultClicked={resultClicked} />
+      <Description description={values.description} />
+      <URL url={values.url} token={token} resultClicked={resultClicked} />
     </div>
   </div>;
 
-Result.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
-  url: PropTypes.string,
+ImageResult.propTypes = {
+  values: PropTypes.object,
   token: PropTypes.string,
-  showImage: PropTypes.bool,
-  image: PropTypes.string,
   resultClicked: PropTypes.func
 };
 
-export default Result;
+export { Result, ImageResult };

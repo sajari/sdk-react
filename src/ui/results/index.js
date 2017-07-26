@@ -2,7 +2,7 @@ export { default as Description } from "./Description";
 export { default as Image } from "./Image";
 export { default as Paginator } from "./Paginator";
 export { default as Response } from "./Response";
-export { default as Result } from "./Result";
+export { Result, ImageResult } from "./Result";
 export { default as Results } from "./Results";
 export { default as Summary } from "./Summary";
 export { default as Title } from "./Title";

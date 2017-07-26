@@ -22,22 +22,26 @@ class Results extends React.Component {
       error: PropTypes.string,
       pipeline: PropTypes.instanceOf(Pipeline).isRequired,
       tracking: PropTypes.instanceOf(Tracking).isRequired,
-      showImages: PropTypes.bool
     };
   }
 
   constructor(props) {
     super(props);
+
     this.state = { error: null, results: null, responseValues: null };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { pipeline } = this.props;
     this.setState({
       error: pipeline.getError(),
       results: pipeline.getResults(),
       responseValues: pipeline.getResponseValues()
     });
+  }
+
+  componentDidMount() {
+    const { pipeline } = this.props;
     this.removeErrorListener = pipeline.listen(errorEvent, this.errorChanged);
     this.removeResultsListener = pipeline.listen(
       resultsEvent,
@@ -67,7 +71,7 @@ class Results extends React.Component {
   };
 
   render() {
-    const { showImages, pipeline } = this.props;
+    const { pipeline } = this.props;
     const { error, results } = this.state;
 
     if (!results && !error) {
@@ -78,19 +82,17 @@ class Results extends React.Component {
         error={error}
         results={results}
         resultClicked={this.onResultClicked}
-        showImages={showImages}
+        ResultRenderer={this.props.ResultRenderer}
       />
     );
   }
 }
 
-const ResultsRenderer = ({
-  error,
-  results,
-  resultClicked,
-  showImages,
-  ResultRenderer = Result
-}) => {
+Results.defaultProps = {
+  ResultRenderer: Result
+};
+
+const ResultsRenderer = ({ error, results, resultClicked, ResultRenderer }) => {
   if (error) {
     return (
       <div className="sj-result-error">An error occured while searching.</div>
@@ -107,11 +109,7 @@ const ResultsRenderer = ({
     return (
       <ResultRenderer
         key={r.values._id || "" + index + r.values.url}
-        title={r.values.title}
-        description={r.values.description}
-        url={r.values.url}
-        image={r.values.image}
-        showImage={showImages}
+        values={r.values}
         token={token}
         resultClicked={resultClicked}
       />
