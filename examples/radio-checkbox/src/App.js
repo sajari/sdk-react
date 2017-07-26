@@ -58,10 +58,9 @@ filter.register(() => {
 
 const App = () =>
   <div className="App">
-    <div>
+    <div className="filter">
       <SelectFacet
         filter={recencyFilter}
-        name="foo"
         options={{
           all: "All",
           last7: "Last 7 Days",
@@ -81,9 +80,13 @@ const App = () =>
         <RadioFacet filter={recencyFilter} name="all" />
         <label>All</label>
       </div>
-      <DebugFacet filter={recencyFilter} />
+      <div>
+        <p>
+          <strong>Filter:</strong> <DebugFacet filter={recencyFilter} />
+        </p>
+      </div>
     </div>
-    <div>
+    <div className="filter">
       <h3>Category</h3>
       <div>
         <CheckboxFacet filter={categoryFilter} name="articles" />
@@ -97,10 +100,16 @@ const App = () =>
         <CheckboxFacet filter={categoryFilter} name="faq" />
         <label>Faq</label>
       </div>
-      <DebugFacet filter={categoryFilter} />
+      <div>
+        <p>
+          <strong>Filter:</strong> <DebugFacet filter={categoryFilter} />
+        </p>
+      </div>
     </div>
     <div>
-      <DebugFacet filter={filter} />
+      <p>
+        <strong>Combined Filter:</strong> <DebugFacet filter={filter} />
+      </p>
     </div>
     <Response pipeline={pipeline}>
       <Summary values={values} pipeline={pipeline} tracking={tracking} />
