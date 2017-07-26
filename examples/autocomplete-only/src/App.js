@@ -5,7 +5,7 @@ import { AutocompleteInput } from "sajari-react/ui/text";
 
 import { Client, Tracking } from "sajari";
 
-import "sajari-react/ui/Search.css";
+import "sajari-react/ui/text/AutocompleteInput.css";
 
 const project = "sajariptyltd";
 const collection = "sajari-com";
