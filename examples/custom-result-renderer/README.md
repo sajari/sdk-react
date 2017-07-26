@@ -2,7 +2,7 @@
 
 This directory contains the custom result renderer search UI example.
 
-INSERT PICTURE HERE!
+<img width="729" alt="screen shot 2017-07-26 at 8 20 14 pm" src="https://user-images.githubusercontent.com/2822/28616397-f6c505da-723f-11e7-8f60-69bdf2160270.png">
 
 It has been created using the [Create React App](https://github.com/facebookincubator/create-react-app) tool to make development and deployment quick and easy.
 
