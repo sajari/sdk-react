@@ -3,7 +3,9 @@ import React from "react";
 import { Pipeline, Values, changeEvent } from "sajari-react/controllers";
 import { AutocompleteInput } from "sajari-react/ui/text";
 import { Response, Results, Summary, Paginator } from "sajari-react/ui/results";
-import "sajari-react/ui/Search.css";
+
+import "sajari-react/ui/text/AutocompleteInput.css";
+import "sajari-react/ui/results/Paginator.css";
 
 import { Client, Tracking } from "sajari";
 
@@ -41,7 +43,7 @@ const App = () =>
       pipeline={pipeline}
       tracking={tracking}
     />
-    <Response pipeline={pipeline}>
+    <Response pipeline={pipeline} className="sj-pipeline-response">
       <Summary values={values} pipeline={pipeline} tracking={tracking} />
       <Results pipeline={pipeline} ResultRenderer={CustomResult} />
       <Paginator values={values} pipeline={pipeline} tracking={tracking} />
