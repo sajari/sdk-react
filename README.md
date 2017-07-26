@@ -87,6 +87,8 @@ This library comes with a standard set of components that will be common for mos
 
 ### AutocompleteInput
 
+![autocomplete](https://media.giphy.com/media/26zyVB5UcumOfOInu/giphy.gif)
+
 AutocompleteInput provides a text-box which performs live searches as the user types and renders appropraite autocomplete suggestions back in the input box.
 
 ```javascript
