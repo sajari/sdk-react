@@ -77,7 +77,7 @@ class SelectFacet extends React.Component {
   };
 
   render() {
-    const { filter, name, options, ...other } = this.props;
+    const { filter, name, options, ...rest } = this.props;
 
     const optionsRendered = Object.keys(options).map(o => {
       return (
@@ -118,12 +118,12 @@ class InputFacet extends React.Component {
   };
 
   render() {
-    const { filter, name, children, ...other } = this.props;
+    const { filter, name, children, ...rest } = this.props;
     return (
       <input
         onChange={this.handleChange}
         checked={this.state.active}
-        {...other}
+        {...rest}
       />
     );
   }

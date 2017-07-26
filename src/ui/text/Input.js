@@ -87,7 +87,7 @@ class Input extends React.Component {
 
   render() {
     const { text } = this.state;
-    const { qParam, qOverrideParam, instant, focus, ...other } = this.props;
+    const { qParam, qOverrideParam, instant, focus, ...rest } = this.props;
 
     return (
       <input
@@ -96,7 +96,7 @@ class Input extends React.Component {
         autoFocus={focus}
         onChange={this.handleChange}
         onKeyDown={this.handleKeyDown}
-        {...other}
+        {...rest}
       />
     );
   }
