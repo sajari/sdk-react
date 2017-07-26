@@ -61,7 +61,7 @@ const tabs = [
 
 const filter = CombineFilters([recency, tabsFilter]);
 values.set({ filter: () => filter.filter() });
-filter.register(() => {
+filter.listen(() => {
   if (values.get()["q"]) {
     values.emitChange();
     pipeline.search(values, tracking);

@@ -32,11 +32,11 @@ class Filter {
   }
 
   /**
-   * Register a listener to be run when updates are made to the map.
+   * Listen for updates are made to the filter.
    * @param {function(filter: Filter)} listener Function to run when updates are made.
-   * @return {function()} The unregister function.
+   * @return {function()} The function to unregister the listener.
    */
-  register(listener) {
+  listen(listener) {
     return this.listener.listen(listener);
   }
 
@@ -166,7 +166,7 @@ const CombineFilters = (filters, operator = "AND") => {
   const combFilter = new Filter(opts, on, true, operator);
   count = 1;
   filters.forEach(f => {
-    f.register(() => {
+    f.listen(() => {
       combFilter.notify();
     });
   });

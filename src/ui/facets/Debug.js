@@ -21,7 +21,7 @@ class DebugFacet extends React.Component {
   }
 
   componentDidMount() {
-    this.props.filter.register(this.filterChanged);
+    this.props.filter.listen(this.filterChanged);
   }
 
   filterChanged = () => {

@@ -52,7 +52,7 @@ const categoryFilter = new Filter(
 
 const filter = CombineFilters([recencyFilter, categoryFilter]);
 values.set({ filter: () => filter.filter() });
-filter.register(() => {
+filter.listen(() => {
   pipeline.search(values, tracking);
 });
 

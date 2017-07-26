@@ -179,7 +179,7 @@ The default operator used to combine selected filters is `OR`, but this can be o
 To listen for changes in the filter state (for instance to trigger searches), register listeners:
 
 ```javascript
-const unregister = filter.register(() => {
+const unregister = filter.listen(() => {
   console.log("filter changed:", filter.get());
 });
 
@@ -203,7 +203,7 @@ const filter = CombineFilters([recencyFilter, categoryFilter])
 
 // When either recencyFilter or categoryFilter is updated, they trigger
 // an event on the combined filter.
-const unregister = filter.register(() => {
+const unregister = filter.listen(() => {
   pipeline.search(values, tracking);
 });
 

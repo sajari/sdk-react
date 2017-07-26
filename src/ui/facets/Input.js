@@ -62,7 +62,7 @@ class SelectFacet extends React.Component {
   }
 
   componentDidMount() {
-    this.unregister = this.props.filter.register(this.filterChanged);
+    this.unregister = this.props.filter.listen(this.filterChanged);
   }
 
   componentWillUnmount() {
@@ -106,7 +106,7 @@ class InputFacet extends React.Component {
   }
 
   componentDidMount() {
-    this.unregister = this.props.filter.register(this.filterChanged);
+    this.unregister = this.props.filter.listen(this.filterChanged);
   }
 
   componentWillUnmount() {

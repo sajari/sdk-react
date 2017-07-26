@@ -158,7 +158,7 @@ const initInterface = () => {
       opts[t.title] = t.filter;
     });
     tabsFilter = new Filter(opts, [config.tabFilters.defaultTab]);
-    tabsFilter.register(() => {
+    tabsFilter.listen(() => {
       // Perform a search when the tabs change
       if (!disableTabFacetSearch) {
         pipeline.search(values, tracking);
