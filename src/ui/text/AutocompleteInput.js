@@ -112,19 +112,17 @@ class AutocompleteInput extends React.Component {
     const { placeHolder, focus } = this.props;
 
     return (
-      <div id="sj-search-modal-input-holder-outer">
-        <div id="sj-search-modal-input-holder-inner">
+      <div className="sj-search-input-holder-outer">
+        <div className="sj-search-input-holder-inner">
           <input
             type="text"
-            id="sj-search-bar-completion"
-            className="sj-search-bar-input-common"
+            className="sj-search-bar-completion sj-search-bar-input-common"
             value={completion.indexOf(text) === 0 ? completion : text}
             readOnly
           />
           <input
             type="text"
-            id="sj-search-bar-input"
-            className="sj-search-bar-input-common"
+            className="sj-search-bar-input sj-search-bar-input-common"
             placeholder={placeHolder}
             autoFocus={focus}
             value={text}

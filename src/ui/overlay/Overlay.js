@@ -18,8 +18,8 @@ const Overlay = ({ active, children }) => {
   }
 
   return (
-    <div id="sj-overlay">
-      <div id="sj-overlay-search-modal">
+    <div className="sj-overlay">
+      <div className="sj-overlay-search">
         {children}
       </div>
     </div>

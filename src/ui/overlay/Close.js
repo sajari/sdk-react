@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
  */
 const Close = ({ onClick, closeOverlay }) =>
   <div
-    id="sj-overlay-close"
+    className="sj-overlay-close"
     onClick={onClick ? e => onClick(e, closeOverlay) : closeOverlay}
   >
     <div className="sj-close">×</div>

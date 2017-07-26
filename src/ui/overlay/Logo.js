@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
  * @property {function()} closeOverlay Called when the user clicks the html element.
  * @property {string} src Source URL of the img element.
  * @property {string} alt Alt text for the img element.
- * @property {string} className Class name for the img element.
  */
 
 /**
@@ -14,22 +13,20 @@ import PropTypes from "prop-types";
  * @param {LogoProps} props
  * @returns {React.Component}
  */
-const Logo = ({ closeOverlay, src, alt, className }) =>
-  <div id="sj-overlay-logo">
+const Logo = ({ closeOverlay, src, alt }) =>
+  <div className="sj-overlay-logo">
     <img
-      id="sj-overlay-logo-image"
+      className="sj-overlay-logo-image"
       onClick={closeOverlay}
       src={src}
       alt={alt}
-      className={className}
     />
   </div>;
 
 Logo.propTypes = {
   closeOverlay: PropTypes.func,
   src: PropTypes.string,
-  alt: PropTypes.string,
-  className: PropTypes.string
+  alt: PropTypes.string
 };
 
 export default Logo;
