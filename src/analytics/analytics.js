@@ -76,9 +76,10 @@ class Analytics {
   onChange() {
     const searchResponse = this.pipeline.getResults() || {};
     // Enable analytics once a successful search has been performed
-    if (searchResponse.results) {
-      this.enabled = true;
+    if (!searchResponse.time) {
+      return;
     }
+    this.enabled = true;
 
     const values = this.pipeline.getQueryValues() || {};
     const originalBody = values[this.bodyLabel] || "";
