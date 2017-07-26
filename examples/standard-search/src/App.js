@@ -66,7 +66,7 @@ const App = () =>
     <Response pipeline={pipeline}>
       <TabsFacet tabs={tabs} filter={tabsFilter} />
       <Summary values={values} pipeline={pipeline} tracking={tracking} />
-      <Results pipeline={pipeline} />
+      <Results pipeline={pipeline} tracking={tracking} />
       <Paginator values={values} pipeline={pipeline} tracking={tracking} />
     </Response>
   </div>;
