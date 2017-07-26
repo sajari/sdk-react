@@ -2,18 +2,20 @@ import React from "react";
 
 import {
   Filter,
-  CombineFilters,
   Pipeline,
   Values,
   changeEvent
 } from "sajari-react/controllers";
 import { AutocompleteInput } from "sajari-react/ui/text";
 import { Response, Results, Summary, Paginator } from "sajari-react/ui/results";
-import { TabsFacet, RadioFacet } from "sajari-react/ui/facets";
+import { TabsFacet } from "sajari-react/ui/facets";
 
 import { Client, Tracking } from "sajari";
 
-import "sajari-react/ui/Search.css";
+import "sajari-react/ui/text/AutocompleteInput.css";
+import "sajari-react/ui/results/Results.css";
+import "sajari-react/ui/results/Paginator.css";
+import "sajari-react/ui/facets/Tabs.css";
 
 const project = "sajariptyltd";
 const collection = "sajari-com";
@@ -30,20 +32,6 @@ values.listen(changeEvent, (changes, set) => {
   }
 });
 
-const currentUnix = parseInt(String(new Date().getTime() / 1000), 10);
-const day = 24 * 60 * 60;
-const lastWeek = currentUnix - 7 * day;
-const lastMonth = currentUnix - 30 * day;
-
-const recency = new Filter(
-  {
-    last7: `firstseen>'${lastWeek}'`,
-    last30: `firstseen>'${lastMonth}'`,
-    all: ""
-  },
-  "all"
-);
-
 const tabsFilter = new Filter(
   {
     All: "",
@@ -52,6 +40,7 @@ const tabsFilter = new Filter(
   },
   "All"
 );
+values.set({ filter: () => tabsFilter.filter() });
 
 const tabs = [
   { title: "All", filter: "" },
@@ -59,9 +48,7 @@ const tabs = [
   { title: "FAQ", filter: "dir1='faq'" }
 ];
 
-const filter = CombineFilters([recency, tabsFilter]);
-values.set({ filter: () => filter.filter() });
-filter.listen(() => {
+tabsFilter.listen(() => {
   if (values.get()["q"]) {
     values.emitChange();
     pipeline.search(values, tracking);
@@ -70,21 +57,6 @@ filter.listen(() => {
 
 const App = () =>
   <div className="searchApp">
-    <div className="filter">
-      <h3>Recency</h3>
-      <div>
-        <RadioFacet filter={recency} name="all" id="all" />
-        <label htmlFor="all">All</label>
-      </div>
-      <div>
-        <RadioFacet filter={recency} name="last7" id="last7" />
-        <label htmlFor="last7">Last 7 Days</label>
-      </div>
-      <div>
-        <RadioFacet filter={recency} name="last30" id="last30" />
-        <label htmlFor="last30">Last 30 Days</label>
-      </div>
-    </div>
     <AutocompleteInput
       values={values}
       pipeline={pipeline}
