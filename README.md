@@ -10,17 +10,28 @@ We also provide a vanilla Sajari JS library [here](https://github.com/sajari/saj
 
 <img width="1060" alt="screen shot 2017-07-26 at 8 42 16 pm" src="https://user-images.githubusercontent.com/2822/28617328-4ce241aa-7243-11e7-8d0e-47fdde1867e6.png">
 
-## Table of Contents
+# Table of Contents
 
+* [Examples](#examples)
 * [Setup](#setup)
   * [NPM](#npm)
 * [Getting started](#getting-started)
-* [Examples](#examples)
-  * [Basic Search](#basic-search)
 * [License](#license)
 * [Browser Support](#browser-support)
 
-## Setup
+# Examples
+
+It's easy to get up and running using one of our examples as a starting point.  They're pre-configured with all the correct dependencies, so all you need to do is copy the example directory into your own workspace and you're on your way!
+
+* [Autocomplete](./examples/autocomplete-only/): Search box with autocomplete.
+* [Simple Search](./examples/simple-search/): Instant search with autocomplete.
+* [Standard Search](./examples/standard-search/): Instant search with autocomplete + tab filtering.
+* [Custom Result Renderer](./examples/custom-result-renderer/): Instant search with autocomplete + custom result renderers.
+* [Radio/Checkbox](./examples/radio-checkbox/): Radio/Checkbox filtering.
+
+# Setup
+
+Check out our examples for the best way to get started.  You only need to follow the instructions here if you are wanting to add the SDK to an existing project, or just want to start from scratch.
 
 ### NPM
 
@@ -30,27 +41,13 @@ We currently distribute the `sajari-react` library through npm. Npm is only requ
 npm install --save sajari sajari-react
 ```
 
-## Getting Started
-
-We recommend that users start with one of our examples (see the `examples` directory).
-
-## Examples
-
-### [Basic search](./examples/basic-search/)
-
-[This example](./examples/basic-search/) showcases a simple web app with instant search.
-
-### [Overlay](./examples/overlay/)
-
-The [Overlay](./examples/overlay/) showcases an overlay interface to search made for inclusion in web pages to get search up and running in the quickest time possible.
-
 # Performing Searches
 
-To perform a search on a collection, you'll need to import a few things:
+To perform a search on a collection, you'll need a few key pieces:
 
 * `Client`: used to make underlying API calls.
-* `Pipeline`: handles pipeline requests/response lifecycle.
-* `Values`: key-value pairs used to pass parameters to the search algorithm.
+* `Pipeline`: handles search requests/response lifecycle.
+* `Values`: set of key-value pairs defining parameters to use in `Pipeline` search requests.
 
 For the mostpart, you'll be using the pre-defined `website` pipeline for searching, which provides a great starting point for website search.
 
@@ -63,13 +60,15 @@ const project = "<your-project>";
 const collection = "<your-collection>";
 const pipelineName = "website";
 
-// Create a client.
+// Create a client for making API requests.
 const client = new Client(project, collection);
-
 const tracking = new Tracking();
-const pipeline = new Pipeline(client, "website");
-const values = new Values();
 
+// Create a pipeline for handling the "website" pipeline.
+const pipeline = new Pipeline(client, "website");
+
+// Pipeline parameters are defined in values.
+const values = new Values();
 values.set({
   "q": "awesome articles",
   "filter": "category='articles'",
@@ -79,25 +78,35 @@ values.set({
 pipeline.search(values, tracking);
 ```
 
-# Standard UI Components
+# Quick Reference
 
-This library comes with a standard set of components that will be common for most search interfaces.
+This library includes a standard set of components for building search interfaces.
 
-## Text Input
-
-### AutocompleteInput
+## AutocompleteInput
 
 ![autocomplete](https://media.giphy.com/media/26zyVB5UcumOfOInu/giphy.gif)
 
-AutocompleteInput provides a text-box which performs live searches as the user types and renders appropraite autocomplete suggestions back in the input box.
+`AutocompleteInput` provides a text-box which performs searches as the user types and renders appropraite autocomplete suggestions back in the input box.
 
 ```javascript
+import { AutocompleteInput } from "sajari-react/ui/text";
+
 <AutocompleteInput values={values} pipeline={pipeline} />
+```
+
+## Input
+
+`Input` is a plain search box which does not show autocomplete suggestions.
+
+```javascript
+import { Input } from "sajari-react/ui/text";
+
+<Input values={values} pipeline={pipeline} />
 ```
 
 # Building Facets
 
-Use the `Filter` helper-class from `sajari-react/controllers` to integrate facets into UI.  The library provides a standard set of components under `sajari-react/ui/facets` which automatically control/take state from `Filter`, but you can also implement your own.
+Use the `Filter` helper-class from `sajari-react/controllers` to integrate facets into UI.  The library provides a standard set of components under `sajari-react/ui/facets` which can automatically bind state to `Filter` instances.  For more details, see the [full documentation](./src/controllers/Filter.js).
 
 ## Single-select filters
 
@@ -106,17 +115,17 @@ A single-select filter is used to handle state for components that offer multipl
 ```javascript
 const categories = new Filter(
   {
-    // Name -> Filter to apply
+    // Options: Name -> Filter
     "all":      "",
     "blog":     "dir1='blog'",     // limit to results with dir1='blog'
     "articles": "dir1='articles'"  // limit to results with dir1='articles'
   },
-  // The default value.
-  "all"  // default filter will be "".
+  // The default option.
+  "all"
 );
 ```
 
-Each filter is given a name (in this example: `all`, `blog`, `articles`) which is used to bind them to UI components:
+Each filter is given a name (in this example: `all`, `blog`, `articles`) which can then be used to bind them to UI components:
 
 ```javascript
 import { RadioFacet } from "sajari-react/ui/facets";
@@ -137,11 +146,22 @@ import { SelectFacet } from "sajari-react/ui/facets";
 <SelectFacet
   filter={categories}
   options={{
+    // Options: Name -> Display Name
     all: "All",
     blog: "Blog",
     articles: "Articles"
   }}
 />
+```
+
+To include the filter in a search it needs to be attached to the `Values` instance used by `Pipeline`:
+
+```javascript
+// Add the filter to the values instance.
+values.set({ filter: () => categories.filter() }); 
+
+// Trigger a search every time the filter seletion changes.
+categories.listen(() => pipeline.search(values, tracking));
 ```
 
 ## Multi-select filters
@@ -151,18 +171,18 @@ A multi-select filter is used to represent state for UI components that can have
 ```javascript
 const categories = new Filter(
   {
-    // Name -> Filter to be applied
+    // Options: Name -> Filter
     "blog":     "dir1='blog'",     // limit to dir1='blog'
     "articles": "dir1='articles'", // limit to dir1='articles'
     "other":    "dir1!='blog' AND dir1!='articles'", // everything else
   },
   // The default filters to be enabled
-  ["blog", "articles"], // default filter will be "dir1='blog' OR dir1='articles'".
-  true, // Enable multiple selections.
+  ["blog", "articles"], // default filter will be "dir1='blog' OR dir1='articles'"
+  true, // Allow multiple selections
 );
 ```
 
-So this can be hooked up to a list of check boxes:
+This can be hooked up to a list of checkboxes:
 
 ```javascript
 import { CheckboxFacet } from "sajari-react/ui/facets";
@@ -177,9 +197,19 @@ import { CheckboxFacet } from "sajari-react/ui/facets";
 
 The default operator used to combine selected filters is `OR`, but this can be overriden by the last argument in the `Filter` construtor.  See the full class docs for more details.
 
-## Listening for changes
+To include the filter in a search it needs to be attached to the `Values` instance used by `Pipeline`:
 
-To listen for changes in the filter state (for instance to trigger searches), register listeners:
+```javascript
+// Add the filter to the values instance.
+values.set({ filter: () => categories.filter() }); 
+
+// Trigger a search every time the filter seletion changes.
+categories.listen(() => pipeline.search(values, tracking));
+```
+
+## Tidying up filter listeners
+
+The `listen` method returns a closure that will unrgister itself:
 
 ```javascript
 const unregister = filter.listen(() => {
@@ -212,24 +242,6 @@ const unregister = filter.listen(() => {
 
 // sometime later...
 unregister();
-```
-
-## Including in a Search
-
-To include a filter in a search, it needs to be registered in the `Values` object:
-
-```javascript
-import { Values, Filter } from "sajari-react/controllers";
-
-// Create filter.
-const categories = new Filter(...);
-
-// Create a values object for use in pipeline searches.
-const values = new Values();
-
-// Set the "filter" value to evaluate our `category` filter whenever
-// the Values object is evaluated.
-values.set({ filter: () => categories.filter() });
 ```
 
 ## License
