@@ -24,17 +24,16 @@ class Response extends React.Component {
   constructor(props) {
     super(props);
     this.state = { results: props.pipeline.getResults() || {} };
-    this.onResultsChange = this.onResultsChange.bind(this);
   }
 
   componentDidMount() {
     this.removeErrorListener = this.props.pipeline.listen(
       errorEvent,
-      this.onResultsChange
+      this.resultsChanged
     );
     this.removeResultsListener = this.props.pipeline.listen(
       resultsEvent,
-      this.onResultsChange
+      this.resultsChanged
     );
   }
 
@@ -43,10 +42,10 @@ class Response extends React.Component {
     this.removeResultsListener();
   }
 
-  onResultsChange() {
+  resultsChanged = () => {
     const response = this.props.pipeline.getResults() || {};
     this.setState({ results: response });
-  }
+  };
 
   render() {
     const { children, Placeholder, pipeline } = this.props;
