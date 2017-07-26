@@ -17,7 +17,11 @@ import {
   client
 } from "./resources";
 
-import "./styles.css";
+import "sajari-react/ui/overlay/Overlay.css";
+import "sajari-react/ui/text/AutocompleteInput.css";
+import "sajari-react/ui/facets/Tabs.css";
+import "sajari-react/ui/results/Results.css";
+import "sajari-react/ui/results/Paginator.css";
 
 const ESCAPE_KEY_CODE = 27;
 
