@@ -7,22 +7,18 @@ class Response extends React.Component {
   /**
    * propTypes
    * @property {Pipeline} pipeline Pipeline object.
-   * @property {React.Component} [Placeholder] Placeholder component to render while empty.
-   * @property {Object} [children] Child components to render and inject the response into.
+   * @property {Object} [children] Child components to render when result is received.
    */
   static get propTypes() {
     return {
       pipeline: PropTypes.instanceOf(Pipeline),
-      Placeholder: PropTypes.oneOfType([
-        PropTypes.instanceOf(Function),
-        PropTypes.instanceOf(React.Component)
-      ]),
       children: PropTypes.node
     };
   }
 
   constructor(props) {
     super(props);
+
     this.state = { results: props.pipeline.getResults() || {} };
   }
 
@@ -43,22 +39,19 @@ class Response extends React.Component {
   }
 
   resultsChanged = () => {
-    const response = this.props.pipeline.getResults() || {};
-    this.setState({ results: response });
+    this.setState({ results: this.props.pipeline.getResults() || {} });
   };
 
   render() {
-    const { children, Placeholder, pipeline } = this.props;
+    const { children, pipeline, ...rest } = this.props;
     const { results } = this.state;
-    const time = results.time;
-    const error = pipeline.getError();
 
-    if (!time && !error) {
-      return Placeholder ? <Placeholder /> : null;
+    if (!results.time && !pipeline.getError()) {
+      return null;
     }
 
     return (
-      <div className="sj-pipeline-response">
+      <div {...rest}>
         {children}
       </div>
     );
