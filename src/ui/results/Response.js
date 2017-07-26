@@ -57,17 +57,9 @@ class Response extends React.Component {
       return Placeholder ? <Placeholder /> : null;
     }
 
-    const propsForChildren = { ...results, error, pipeline };
-    const childrenWithResults = React.Children.map(children, c => {
-      if (React.isValidElement(c)) {
-        return React.cloneElement(c, propsForChildren);
-      }
-      return null;
-    });
-
     return (
       <div className="sj-pipeline-response">
-        {childrenWithResults}
+        {children}
       </div>
     );
   }

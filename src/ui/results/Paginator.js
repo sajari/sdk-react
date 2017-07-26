@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import { Tracking } from "sajari";
 
-import { Pipeline, Values } from "../../controllers";
+import { Pipeline, errorEvent, resultsEvent, Values } from "../../controllers";
 
 const pageNumbers = (page, totalPages) => {
   const pages = [];
@@ -109,27 +109,63 @@ class Paginator extends React.Component {
     };
   }
 
+  constructor(props) {
+    super(props);
+    this.state = { error: null, results: null, responseValues: null };
+  }
+
+  componentDidMount() {
+    const { pipeline } = this.props;
+    this.setState({
+      error: pipeline.getError(),
+      results: pipeline.getResults()
+    });
+    this.removeErrorListener = pipeline.listen(errorEvent, this.errorChanged);
+    this.removeResultsListener = pipeline.listen(
+      resultsEvent,
+      this.resultsChanged
+    );
+  }
+
+  componentWillUnmount() {
+    this.removeErrorListener();
+    this.removeResultsListener();
+  }
+
+  errorChanged = error => {
+    this.setState({ error });
+  };
+
+  resultsChanged = results => {
+    this.setState({ results, error: null });
+  };
+
+  setPage = page => {
+    const { values, pipeline, tracking } = this.props;
+    window.scrollTo(0, 0);
+    values.set({ page: String(page) });
+    pipeline.search(values, tracking);
+  };
+
   render() {
-    if (this.props.error) {
+    const { values } = this.props;
+    const { error, results } = this.state;
+
+    if (error || !results) {
       return null;
     }
 
-    const setPage = page => {
-      window.scrollTo(0, 0);
-      this.props.values.set({ page: String(page) });
-      this.props.pipeline.search(this.props.values, this.props.tracking);
-    };
-    const queryValues = this.props.values.get();
+    const queryValues = values.get();
 
     const page = queryValues.page ? parseInt(queryValues.page, 10) : 1;
     const resultsPerPage = queryValues.resultsPerPage
       ? parseInt(queryValues.resultsPerPage, 10)
       : 10;
-    const totalResultsInt = parseInt(this.props.totalResults, 10);
+    const totalResultsInt = parseInt(results.totalResults, 10);
 
     return (
       <RawPaginator
-        setPage={setPage}
+        setPage={this.setPage}
         page={page}
         resultsPerPage={resultsPerPage}
         totalResults={totalResultsInt}
