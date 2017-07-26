@@ -6,10 +6,10 @@
     "react-scripts": "1.0.10"
   },
   "dependencies": {
-    "react": "15.5.4",
-    "react-dom": "15.5.4",
+    "react": "15.6.1",
+    "react-dom": "15.6.1",
     "sajari": "0.17.0",
-    "sajari-react": "0.9.0"
+    "sajari-react": "^1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
