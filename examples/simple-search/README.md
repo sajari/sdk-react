@@ -2,7 +2,7 @@
 
 This directory contains the simple search UI example.
 
-INSERT PICTURE HERE!
+<img width="900" alt="screen shot 2017-07-26 at 7 03 53 pm" src="https://user-images.githubusercontent.com/2822/28613312-69826816-7235-11e7-9c6c-0d5f75cdf160.png">
 
 It has been created using the [Create React App](https://github.com/facebookincubator/create-react-app) tool to make development and deployment quick and easy.
 
