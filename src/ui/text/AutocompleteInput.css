@@ -1,0 +1,60 @@
+/**
+ * Search box
+ */
+
+.sj-search-modal-input-holder-outer {
+  padding: 0.9em 0px;
+  position: relative;
+  height: 28px;
+}
+
+.sj-search-modal-input-holder-inner {
+  position: absolute;
+}
+
+.sj-search-bar-input-common {
+  width: 500px;
+  font-size: 20px;
+  padding: 0.4em;
+  outline: none;
+  letter-spacing: 0.6px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  line-height: 24px;
+  text-rendering: optimizeLegibility;
+  border-radius: 0;
+  box-sizing: initial;
+}
+
+.sj-search-bar-completion {
+  border: 1px solid #d9d9d9;
+  color: #bebebe;
+}
+
+.sj-search-bar-input {
+  border: 1px solid transparent;
+  position: absolute;
+  background: transparent;
+  color: #666;
+  top: 0px;
+  left: 0px;
+}
+
+.sj-search-icon {
+  display: none;
+}
+
+/**
+ * Autocomplete override
+ */
+
+.sj-result-summary-autocomplete-override {
+  display: block;
+  padding-top: 16px;
+  font-size: 1.2em;
+}
+
+.sj-result-summary-autocomplete-override > a {
+  color: #1a0dab;
+}

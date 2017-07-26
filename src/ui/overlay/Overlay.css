@@ -1,3 +1,7 @@
+/*
+ * Overlay
+ */
+
 @keyframes sj-overlay-rolldown {
   0% {
     opacity: 0;
@@ -9,8 +13,7 @@
   }
 }
 
-#sj-overlay {
-  font-family: -mac-system, BlinkMacSystemFont, arial, sans-serif;
+.sj-overlay {
   background-color: white;
   position: fixed;
   top: 0;
@@ -25,71 +28,41 @@
   animation-duration: 0.4s;
 }
 
-#sj-overlay input {
-  -webkit-appearance: none;
-  border-radius: 2px;
+.sj-overlay-search-modal {
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
-#sj-overlay-search-modal {
-  position: relative;
-  background-color: white;
-}
-
-/*
-  --------------- Header ----------------
-*/
-
-#sj-overlay-header {
-  background-color: #ccc;
-}
-
-#sj-overlay-logo {
-  position: absolute;
-  text-align: center;
-  width: 126px;
-}
-
-#sj-overlay-logo-image {
-  max-height: 50px;
-  max-width: 126px;
-  cursor: pointer;
-}
-
-#sj-overlay-close {
+.sj-overlay-close {
   position: absolute;
   top: 0;
   right: 20px;
   z-index: 1;
-  color:#aaa;
+  color: #aaa;
   text-align: center;
   cursor: pointer;
 }
 
-#sj-overlay-close:hover {
+.sj-overlay-close:hover {
   color: #000;
 }
 
-#sj-overlay-close .sj-close {
+.sj-overlay-close .sj-close {
   font-size: 40px;
   line-height: 30px;
   padding-top: 10px;
 }
 
-#sj-overlay-close .sj-esc {
+.sj-overlay-close .sj-esc {
   font-size: 12px;
 }
 
 @media (max-width: 845px) {
-  #sj-overlay-header {
-    padding-left: 0;
-  }
-
-  #sj-overlay-logo {
-    padding-left: 0px;
-    width: 100%;
-  }
-
-  #sj-overlay-close {
+  .sj-overlay-close {
     right: 3%;
+  }
+
+  .sj-overlay .sj-search-bar-input-common {
+    width: 70vw;
   }
 }
