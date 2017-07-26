@@ -69,7 +69,7 @@
   "peerDependencies": {
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
-    "sajari": "0.16.1"
+    "sajari": "0.17.0"
   },
   "repository": {
     "type": "git",
