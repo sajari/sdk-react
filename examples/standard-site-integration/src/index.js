@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { Analytics } from "sajari-react/analytics";
+import { Analytics, initWebsiteTracking } from "sajari-react/analytics";
 import { Filter, CombineFilters, changeEvent } from "sajari-react/controllers";
 
 import loaded from "./loaded";
@@ -134,8 +134,10 @@ const initInterface = () => {
 
   let analytics;
   if (!config.disableGA) {
-    analytics = new Analytics(pipeline);
+    analytics = new Analytics(pipeline, tracking);
   }
+
+  initWebsiteTracking(values, tracking);
 
   window._sjui.controllers = {
     analytics,

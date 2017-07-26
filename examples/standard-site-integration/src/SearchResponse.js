@@ -35,6 +35,7 @@ const SearchResponse = ({ config, tabsFilter }) => {
         showImages={results.showImages}
         values={values}
         pipeline={pipeline}
+        tracking={tracking}
       />
       <Paginator values={values} pipeline={pipeline} tracking={tracking} />
     </Response>
