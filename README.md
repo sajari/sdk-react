@@ -8,6 +8,7 @@ React provides a simple and elegant way to structure user interfaces. The Sajari
 
 We also provide a vanilla Sajari JS library [here](https://github.com/sajari/sajari-sdk-js/).
 
+<img width="1060" alt="screen shot 2017-07-26 at 8 42 16 pm" src="https://user-images.githubusercontent.com/2822/28617328-4ce241aa-7243-11e7-8d0e-47fdde1867e6.png">
 
 ## Table of Contents
 
