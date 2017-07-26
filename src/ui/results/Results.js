@@ -12,7 +12,6 @@ class Results extends React.Component {
    * propTypes
    * @property {Object[]} [results] Results data.
    * @property {string} [error] Error from search.
-   * @property {boolean} [showImages] Whether to show images.
    * @property {Pipeline} pipeline Pipeline object.
    * @property {Sajari.Tracking} tracking Tracking object.
    */
