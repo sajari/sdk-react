@@ -1,6 +1,4 @@
-import Listener from "./listener";
-
-import { postChangeEvent } from "./values";
+import { Listener, postChangeEvent } from "./";
 
 export const searchEvent = "search";
 export const errorEvent = "error";

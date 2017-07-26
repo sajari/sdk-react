@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Pipeline, { resultsEvent, errorEvent } from "../../controllers/pipeline";
+import { Pipeline, resultsEvent, errorEvent } from "../../controllers";
 
 class Response extends React.Component {
   /**

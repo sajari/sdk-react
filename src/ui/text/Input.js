@@ -4,8 +4,7 @@ import PropTypes from "prop-types";
 
 import { Tracking } from "sajari";
 
-import Values, { changeEvent } from "../../controllers/values";
-import Pipeline, { resultsEvent } from "../../controllers/pipeline";
+import { Pipeline, resultsEvent, Values, changeEvent } from "../../controllers";
 
 const RETURN_KEYCODE = 13;
 

@@ -1,7 +1,12 @@
 import React from "react";
 
-import { Filter, CombineFilters, Pipeline } from "sajari-react/controllers";
-import Values, { changeEvent } from "sajari-react/controllers/values";
+import {
+  Filter,
+  CombineFilters,
+  Pipeline,
+  Values,
+  changeEvent
+} from "sajari-react/controllers";
 import { AutocompleteInput } from "sajari-react/ui/text";
 import { Response, Results, Summary, Paginator } from "sajari-react/ui/results";
 import { TabsFacet, RadioFacet } from "sajari-react/ui/facets";

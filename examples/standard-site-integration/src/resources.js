@@ -1,7 +1,6 @@
 import { Client, Tracking } from "sajari";
 
-import { Values, changeEvent, Pipeline } from "sajari-react/controllers/pipeline";
-
+import { Values, changeEvent, Pipeline } from "sajari-react/controllers";
 
 let client;
 let pipeline;

@@ -1,4 +1,4 @@
-import Listener from "./listener";
+import { Listener } from "./";
 
 /**
  * Filter is a helper class for building filters from UI components.

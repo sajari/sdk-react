@@ -1,4 +1,4 @@
-import Listener from "./listener";
+import { Listener } from "./";
 
 export const changeEvent = "change";
 export const postChangeEvent = "post-change";

@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Pipeline from "../../controllers/pipeline";
+import { Pipeline } from "../../controllers";
 
-import Result from "./Result";
+import { Result } from "./";
 
 /**
  * @typedef {Object} ResultsProps

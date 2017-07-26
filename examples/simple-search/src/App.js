@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Pipeline, Values, changeEvent } from "sajari-react/controllers/pipeline";
+import { Pipeline, Values, changeEvent } from "sajari-react/controllers";
 import { AutocompleteInput } from "sajari-react/ui/text";
 import { Response, Results, Summary, Paginator } from "sajari-react/ui/results";
 import "sajari-react/ui/Search.css";

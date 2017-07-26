@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 
 import { Tracking } from "sajari";
 
-import Pipeline, { resultsEvent } from "../../controllers/pipeline";
-import Values from "../../controllers/values";
+import { Pipeline, resultsEvent, Values } from "../../controllers";
 
 class Summary extends React.Component {
   /**

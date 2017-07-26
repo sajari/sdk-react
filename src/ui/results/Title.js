@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import TokenLink from "./TokenLink";
+import { TokenLink } from "./";
 
 /**
  * @typedef {Object} TitleProps

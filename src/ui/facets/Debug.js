@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Filter } from "../../controllers/filter";
+import { Filter } from "../../controllers";
 
 class DebugFacet extends React.Component {
   /**

@@ -3,10 +3,7 @@ import PropTypes from "prop-types";
 
 import { Tracking } from "sajari";
 
-import Values from "../../controllers/values";
-import Pipeline from "../../controllers/pipeline";
-
-import { Filter } from "../../controllers/filter";
+import { Values, Pipeline, Filter } from "../../controllers";
 
 class TabsFacet extends React.Component {
   /**

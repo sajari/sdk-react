@@ -1,6 +1,10 @@
 import GA from "./ga";
 
-import { resultsEvent, trackingResetEvent, resultClickedEvent } from "../controllers/pipeline";
+import {
+  resultsEvent,
+  trackingResetEvent,
+  resultClickedEvent
+} from "../controllers";
 
 class Analytics {
   /**
