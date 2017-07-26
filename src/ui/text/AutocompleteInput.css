@@ -2,13 +2,13 @@
  * Search box
  */
 
-.sj-search-modal-input-holder-outer {
+.sj-search-input-holder-outer {
   padding: 0.9em 0px;
   position: relative;
   height: 28px;
 }
 
-.sj-search-modal-input-holder-inner {
+.sj-search-input-holder-inner {
   position: absolute;
 }
 
