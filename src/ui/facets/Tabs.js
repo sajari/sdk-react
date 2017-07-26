@@ -14,7 +14,7 @@ class TabsFacet extends React.Component {
   static get propTypes() {
     return {
       filter: PropTypes.oneOfType([PropTypes.instanceOf(Filter)]).isRequired,
-      tabs: PropTypes.array.isRequired,
+      tabs: PropTypes.array.isRequired
     };
   }
 
@@ -48,11 +48,11 @@ class Tab extends React.Component {
 
   filterChanged = () => {
     this.setState({ selected: this.props.filter.isSet(this.props.title) });
-  }
+  };
 
   handleClick = () => {
     this.props.filter.set(this.props.title, !this.state.selected);
-  }
+  };
 
   render() {
     return (

@@ -1,67 +1,79 @@
 const url = {
-
   /**
    * Convert a query string in to an object
    */
-  decodeUriArgs : function(queryStr) {
-    const args = {}
-    const a = queryStr.split('&')
+  decodeUriArgs: function(queryStr) {
+    const args = {};
+    const a = queryStr.split("&");
     for (const i in a) {
       if (a.hasOwnProperty(i)) {
-        const b = a[i].split('=')
-        args[decodeURIComponent(b[0])] = decodeURIComponent(b[1])
+        const b = a[i].split("=");
+        args[decodeURIComponent(b[0])] = decodeURIComponent(b[1]);
       }
     }
-    return args
+    return args;
   },
 
   /**
    * Convert an arguments object in to a query string
    */
-  encodeUriArgs : function(args) {
-    const queryParts = []
+  encodeUriArgs: function(args) {
+    const queryParts = [];
     for (const i in args) {
-      queryParts.push(encodeURIComponent(i)+'='+encodeURIComponent(args[i]))
+      queryParts.push(
+        encodeURIComponent(i) + "=" + encodeURIComponent(args[i])
+      );
     }
-    return queryParts.join('&')
+    return queryParts.join("&");
   },
 
   /**
    * Merges query strings or objects into a single query string. Accepts a variable number of query string/objects
    * to merge. The latter overrides the former.
    */
-  mergeQueryStr : function(queryStr1) {
-    const args = (typeof queryStr1 === 'string' ? this.decodeUriArgs(queryStr1) : queryStr1)
+  mergeQueryStr: function(queryStr1) {
+    const args =
+      typeof queryStr1 === "string" ? this.decodeUriArgs(queryStr1) : queryStr1;
     for (let i = 1; i < arguments.length; i++) {
       if (arguments[i] !== undefined) {
-        const nextArgs = (typeof arguments[i] === 'string' ? this.decodeUriArgs(arguments[i]) : arguments[i])
+        const nextArgs =
+          typeof arguments[i] === "string"
+            ? this.decodeUriArgs(arguments[i])
+            : arguments[i];
         for (const a in nextArgs) {
-          args[a] = nextArgs[a]
+          args[a] = nextArgs[a];
         }
       }
     }
-    return this.encodeUriArgs(args)
+    return this.encodeUriArgs(args);
   },
 
   /**
    * Takes an existing URL and merges additional data into the query string
    */
-  augmentUri : function(uri, args) {
-    const m = /^([^\?]+)\?(.+)+$/.exec(uri)
+  augmentUri: function(uri, args) {
+    const m = /^([^\?]+)\?(.+)+$/.exec(uri);
     if (m) {
-      return m[1]+'?'+this.mergeQueryStr(m[2], args)
+      return m[1] + "?" + this.mergeQueryStr(m[2], args);
     } else {
-      return uri+'?'+this.encodeUriArgs(args)
+      return uri + "?" + this.encodeUriArgs(args);
     }
   },
 
   /**
    * Get a parameter from the URL
    */
-  getURLParameter : function(name) {
-    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,''])[1].replace(/\+/g, '%20'))||null
+  getURLParameter: function(name) {
+    return (
+      decodeURIComponent(
+        (new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(
+          location.search
+        ) || [, ""])[1]
+          .replace(/\+/g, "%20")
+      ) || null
+    );
   }
-}
+};
 
 const isFunction = x => typeof x === "function";
 
@@ -71,7 +83,7 @@ class GoogleAnalytics {
    * @param {string} id The name of the ga global object. Defaults to "ga" or "_ua" if one isn't supplied.
    * @param {string} [param="q"] The URL parameter to use to indicate a search. Default to "q".
    */
-  constructor(id, param = 'q') {
+  constructor(id, param = "q") {
     if (id !== undefined) {
       this.id = id;
     } else if (isFunction(window.ga)) {
@@ -92,15 +104,15 @@ class GoogleAnalytics {
     if (
       this.id &&
       isFunction(window[this.id]) &&
-      process.env.NODE_ENV.environment !== 'development'
+      process.env.NODE_ENV.environment !== "development"
     ) {
       // Merge the body in with the existing query params in the url
       const pageAddress = url.augmentUri(
         // Take only the portion of the url following the domain
         location.href.substring(location.origin.length),
         { [this.param]: body }
-      )
-      window[this.id]('send', 'pageview', pageAddress)
+      );
+      window[this.id]("send", "pageview", pageAddress);
     }
   }
 
@@ -109,7 +121,7 @@ class GoogleAnalytics {
    * @param {string} previousBody
    */
   onBodyReset(previousBody) {
-    this.sendGAPageView(previousBody)
+    this.sendGAPageView(previousBody);
   }
 
   /**
@@ -117,7 +129,7 @@ class GoogleAnalytics {
    * @param {string} body
    */
   onResultClicked(body) {
-    this.sendGAPageView(body)
+    this.sendGAPageView(body);
   }
 
   /**
@@ -125,8 +137,8 @@ class GoogleAnalytics {
    * @param {string} body
    */
   onPageClose(body) {
-    this.sendGAPageView(body)
+    this.sendGAPageView(body);
   }
 }
 
-export default GoogleAnalytics
+export default GoogleAnalytics;

@@ -55,13 +55,13 @@ class Input extends React.Component {
   getState = (values, qParam) => {
     const text = values.get()[qParam] || "";
     return { text };
-  }
+  };
 
   valuesChanged = () => {
     this.setState(this.getState(this.props.values, this.state.qParam));
-  }
+  };
 
-  setText = (text) => {
+  setText = text => {
     const textValues = {
       [this.state.qParam]: text,
       [this.state.qOverrideParam]: "true"
@@ -70,20 +70,20 @@ class Input extends React.Component {
     if (textValues[this.state.qParam]) {
       this.props.pipeline.search(this.props.values, this.props.tracking);
     }
-  }
+  };
 
-  handleChange = (e) => {
+  handleChange = e => {
     if (this.props.instant) {
       this.setText(e.target.value);
     }
-  }
+  };
 
-  handleKeyDown = (e) => {
+  handleKeyDown = e => {
     if (e.keyCode === RETURN_KEYCODE) {
       e.preventDefault();
       this.setText(text);
     }
-  }
+  };
 
   render() {
     const { text } = this.state;

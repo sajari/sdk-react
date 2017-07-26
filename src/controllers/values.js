@@ -10,7 +10,7 @@ class Values {
   constructor() {
     this.listeners = {
       [changeEvent]: new Listener(),
-      [postChangeEvent]: new Listener(),
+      [postChangeEvent]: new Listener()
     };
     this.values = {};
   }

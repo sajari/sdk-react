@@ -24,15 +24,18 @@ values.listen(changeEvent, (changes, set) => {
   }
 });
 
-const App = () => (
+const App = () =>
   <div className="searchApp">
-    <AutocompleteInput values={values} pipeline={pipeline} tracking={tracking} />
+    <AutocompleteInput
+      values={values}
+      pipeline={pipeline}
+      tracking={tracking}
+    />
     <Response pipeline={pipeline}>
       <Summary values={values} pipeline={pipeline} tracking={tracking} />
       <Results pipeline={pipeline} />
       <Paginator values={values} pipeline={pipeline} tracking={tracking} />
     </Response>
-  </div>
-);
+  </div>;
 
 export default App;

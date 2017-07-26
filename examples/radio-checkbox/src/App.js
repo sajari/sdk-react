@@ -2,8 +2,18 @@ import React from "react";
 
 import { Client, Tracking } from "sajari";
 
-import { Filter, CombineFilters, Pipeline, Values } from "sajari-react/controllers";
-import { DebugFacet, SelectFacet, RadioFacet, CheckboxFacet } from "sajari-react/ui/facets";
+import {
+  Filter,
+  CombineFilters,
+  Pipeline,
+  Values
+} from "sajari-react/controllers";
+import {
+  DebugFacet,
+  SelectFacet,
+  RadioFacet,
+  CheckboxFacet
+} from "sajari-react/ui/facets";
 import { Response, Results, Summary, Paginator } from "sajari-react/ui/results";
 
 const project = "sajariptyltd";
@@ -27,7 +37,7 @@ const recencyFilter = new Filter(
     last30: `firstseen>'${lastMonth}'`,
     all: ""
   },
-  "all",
+  "all"
 );
 
 const categoryFilter = new Filter(
@@ -37,14 +47,14 @@ const categoryFilter = new Filter(
     faq: "dir1='faq'"
   },
   ["articles", "faq"],
-  true,
+  true
 );
 
-const filter = CombineFilters([recencyFilter, categoryFilter])
+const filter = CombineFilters([recencyFilter, categoryFilter]);
 values.set({ filter: () => filter.filter() });
 filter.register(() => {
   pipeline.search(values, tracking);
-})
+});
 
 const App = () =>
   <div className="App">

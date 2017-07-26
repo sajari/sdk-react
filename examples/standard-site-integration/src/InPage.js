@@ -6,7 +6,13 @@ import { values, pipeline, tracking } from "./resources";
 
 class InPage extends React.Component {
   render() {
-    return <AutocompleteInput values={values} pipeline={pipeline} tracking={tracking} />;
+    return (
+      <AutocompleteInput
+        values={values}
+        pipeline={pipeline}
+        tracking={tracking}
+      />
+    );
   }
 }
 

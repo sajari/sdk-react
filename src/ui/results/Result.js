@@ -49,13 +49,13 @@ const Result = ({
   </div>;
 
 Result.PropTypes = {
- title: PropTypes.string,
- description: PropTypes.string,
- url: PropTypes.string,
- token: PropTypes.string,
- showImage: PropTypes.bool,
- image: PropTypes.string,
- resultClicked: PropTypes.func
-}
+  title: PropTypes.string,
+  description: PropTypes.string,
+  url: PropTypes.string,
+  token: PropTypes.string,
+  showImage: PropTypes.bool,
+  image: PropTypes.string,
+  resultClicked: PropTypes.func
+};
 
 export default Result;

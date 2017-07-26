@@ -11,7 +11,7 @@ const events = [
   errorEvent,
   resultsEvent,
   resultClickedEvent,
-  trackingResetEvent,
+  trackingResetEvent
 ];
 
 class Pipeline {
@@ -31,8 +31,8 @@ class Pipeline {
       [errorEvent]: new Listener(),
       [resultsEvent]: new Listener(),
       [resultClickedEvent]: new Listener(),
-      [trackingResetEvent]: new Listener(),
-    }
+      [trackingResetEvent]: new Listener()
+    };
     /** @private */
     this.searchCount = 0;
 
@@ -117,23 +117,28 @@ class Pipeline {
     this.queryValues = values.get();
     this.searchCount++;
     const currentSearch = this.searchCount;
-    this.client.searchPipeline(this.name, this.queryValues, tracking, (error, results = {}, responseValues = {}) => {
-      if (currentSearch < this.searchCount) {
-        return;
-      }
+    this.client.searchPipeline(
+      this.name,
+      this.queryValues,
+      tracking,
+      (error, results = {}, responseValues = {}) => {
+        if (currentSearch < this.searchCount) {
+          return;
+        }
 
-      if (error) {
-        this.error = error;
-        this.results = undefined;
-        this.responseValues = undefined;
-        this._emitError();
-        return;
+        if (error) {
+          this.error = error;
+          this.results = undefined;
+          this.responseValues = undefined;
+          this._emitError();
+          return;
+        }
+        this.error = undefined;
+        this.results = results.searchResponse;
+        this.responseValues = results.values;
+        this._emitResults();
       }
-      this.error = undefined;
-      this.results = results.searchResponse;
-      this.responseValues = results.values;
-      this._emitResults();
-    });
+    );
     this._emitSearch();
   }
 

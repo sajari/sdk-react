@@ -68,13 +68,13 @@ class SelectFacet extends React.Component {
     this.unregister();
   }
 
-  filterChanged = (filter) => {
+  filterChanged = filter => {
     this.setState({ active: filter.get() });
-  }
+  };
 
   handleChange = e => {
     filter.set(e.target.value, true);
-  }
+  };
 
   render() {
     const { filter, name, options, ...other } = this.props;
@@ -109,9 +109,9 @@ class InputFacet extends React.Component {
     this.unregister();
   }
 
-  filterChanged = (filter) => {
+  filterChanged = filter => {
     this.setState({ active: filter.isSet(this.props.name) });
-  }
+  };
 
   handleChange = () => {
     this.props.filter.set(this.props.name, !this.state.active);
@@ -119,7 +119,13 @@ class InputFacet extends React.Component {
 
   render() {
     const { filter, name, children, ...other } = this.props;
-    return <input onChange={this.handleChange} checked={this.state.active} {...other} />;
+    return (
+      <input
+        onChange={this.handleChange}
+        checked={this.state.active}
+        {...other}
+      />
+    );
   }
 }
 

@@ -29,14 +29,16 @@ class DebugFacet extends React.Component {
       current: this.props.filter.get(),
       filter: this.props.filter.filter()
     });
-  }
+  };
 
   render() {
     const { current, filter } = this.state;
     const currentDisplay =
       current instanceof Array ? current.join(" ") : current;
     return (
-      <span>{filter || "<empty>"}</span>
+      <span>
+        {filter || "<empty>"}
+      </span>
     );
   }
 }

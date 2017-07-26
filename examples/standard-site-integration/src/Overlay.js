@@ -6,11 +6,10 @@ import { AutocompleteInput } from "sajari-react/ui/text";
 import SearchResponse from "./SearchResponse";
 import { values, pipeline, tracking } from "./resources";
 
-
 class Overlay extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { active: props.active, };
+    this.state = { active: props.active };
 
     const controls = props.setOverlayControls({
       show: () => this.setState({ active: true }),
@@ -31,7 +30,10 @@ class Overlay extends React.Component {
           placeHolder={this.props.config.searchBoxPlaceHolder}
         />
         <Close onClick={this.hide} closeOverlay={this.hide} />
-        <SearchResponse config={this.props.config} tabsFilter={this.props.tabsFilter} />
+        <SearchResponse
+          config={this.props.config}
+          tabsFilter={this.props.tabsFilter}
+        />
       </OverlayFrame>
     );
   }

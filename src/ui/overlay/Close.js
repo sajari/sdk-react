@@ -23,7 +23,7 @@ const Close = ({ onClick, closeOverlay }) =>
 
 Close.propTypes = {
   onClick: PropTypes.func,
-  closeOverlay: PropTypes.func.isRequired,
+  closeOverlay: PropTypes.func.isRequired
 };
 
 export default Close;

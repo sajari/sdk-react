@@ -18,7 +18,7 @@ const initialiseResources = (project, collection, pipelineName) => {
     if (!changes.page) {
       set({ page: "1" });
     }
-  })
+  });
 };
 
 export { initialiseResources, client, pipeline, values, tracking };

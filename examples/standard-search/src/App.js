@@ -44,11 +44,14 @@ const recency = new Filter(
   "all"
 );
 
-const tabsFilter = new Filter({
-  All: "",
-  Blog: "dir1='blog'",
-  FAQ: "dir1='faq'"
-}, "All");
+const tabsFilter = new Filter(
+  {
+    All: "",
+    Blog: "dir1='blog'",
+    FAQ: "dir1='faq'"
+  },
+  "All"
+);
 
 const tabs = [
   { title: "All", filter: "" },
@@ -82,12 +85,14 @@ const App = () =>
         <label htmlFor="last30">Last 30 Days</label>
       </div>
     </div>
-    <AutocompleteInput values={values} pipeline={pipeline} tracking={tracking} focus={true} />
+    <AutocompleteInput
+      values={values}
+      pipeline={pipeline}
+      tracking={tracking}
+      focus={true}
+    />
     <Response pipeline={pipeline}>
-      <TabsFacet
-        tabs={tabs}
-        filter={tabsFilter}
-      />
+      <TabsFacet tabs={tabs} filter={tabsFilter} />
       <Summary values={values} pipeline={pipeline} tracking={tracking} />
       <Results pipeline={pipeline} />
       <Paginator values={values} pipeline={pipeline} tracking={tracking} />

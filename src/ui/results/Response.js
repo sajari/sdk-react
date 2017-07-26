@@ -15,8 +15,8 @@ class Response extends React.Component {
       pipeline: PropTypes.instanceOf(Pipeline),
       Placeholder: PropTypes.oneOfType([
         PropTypes.instanceOf(Function),
-        PropTypes.instanceOf(React.Component)]
-      ),
+        PropTypes.instanceOf(React.Component)
+      ]),
       children: PropTypes.node
     };
   }

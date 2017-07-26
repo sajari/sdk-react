@@ -22,7 +22,7 @@ class Summary extends React.Component {
       tracking: PropTypes.instanceOf(Tracking).isRequired,
       time: PropTypes.string,
       totalResults: PropTypes.string,
-      error: PropTypes.string,
+      error: PropTypes.string
     };
   }
 
@@ -47,7 +47,14 @@ class Summary extends React.Component {
   }
 
   render() {
-    const { time, totalResults, error, values, pipeline, tracking } = this.props;
+    const {
+      time,
+      totalResults,
+      error,
+      values,
+      pipeline,
+      tracking
+    } = this.props;
     const queryValues = values.get() || {};
     const responseValues = pipeline.getResponseValues() || {};
     const text = responseValues["q"] || queryValues["q"];
