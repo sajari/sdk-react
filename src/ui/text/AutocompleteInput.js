@@ -81,7 +81,6 @@ class AutocompleteInput extends React.Component {
       this.props.pipeline.search(this.props.values, this.props.tracking);
     } else {
       this.props.pipeline.clearResults();
-      this.props.pipeline.emitTrackingReset();
     }
   };
 

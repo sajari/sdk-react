@@ -3,16 +3,8 @@ import { Listener, postChangeEvent } from "./";
 export const searchEvent = "search";
 export const errorEvent = "error";
 export const resultsEvent = "results";
-export const resultClickedEvent = "result-clicked";
-export const trackingResetEvent = "tracking-reset";
 
-const events = [
-  searchEvent,
-  errorEvent,
-  resultsEvent,
-  resultClickedEvent,
-  trackingResetEvent
-];
+const events = [searchEvent, errorEvent, resultsEvent];
 
 class Pipeline {
   /**
@@ -29,9 +21,7 @@ class Pipeline {
     this.listeners = {
       [searchEvent]: new Listener(),
       [errorEvent]: new Listener(),
-      [resultsEvent]: new Listener(),
-      [resultClickedEvent]: new Listener(),
-      [trackingResetEvent]: new Listener()
+      [resultsEvent]: new Listener()
     };
     /** @private */
     this.searchCount = 0;
@@ -86,25 +76,6 @@ class Pipeline {
   _emitResults() {
     this.listeners[resultsEvent].notify(listener => {
       listener(this.results, this.responseValues);
-    });
-  }
-
-  /**
-   * Emits a result clicked event.
-   * @param {*} value A value associated with the result click. In the case of a website this will be the URL.
-   */
-  emitResultClicked(value) {
-    this.listeners[resultClickedEvent].notify(listener => {
-      listener(value);
-    });
-  }
-
-  /**
-   * Emits a tracking reset event.
-   */
-  emitTrackingReset() {
-    this.listeners[trackingResetEvent].notify(listener => {
-      listener();
     });
   }
 

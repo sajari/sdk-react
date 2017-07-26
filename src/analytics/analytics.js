@@ -10,15 +10,17 @@ class Analytics {
   /**
    * Constructs an analytics object that operates on the specified pipeline.
    * @param {Pipeline} pipeline
+   * @param {Sajari.Tracking} tracking
    * @param {GA} [ga=GoogleAnalytics]
    */
-  constructor(pipeline, ga = new GA()) {
+  constructor(pipeline, tracking, ga = new GA()) {
     this.ga = ga;
 
     this.enabled = false;
     this.body = "";
 
     this.pipeline = pipeline;
+    this.tracking = tracking;
 
     // longest values are for sending the users last intended query on reset
     this.longestNonAutocompletedBody = "";
@@ -36,8 +38,8 @@ class Analytics {
     window.addEventListener("beforeunload", this.beforeunload);
 
     this.pipeline.listen(resultsEvent, this.onChange);
-    this.pipeline.listen(trackingResetEvent, this.resetBody);
-    this.pipeline.listen(resultClickedEvent, this.resultClicked);
+    this.tracking.listenForTrackingReset(this.resetBody);
+    this.tracking.listenForResultClicked(this.resultClicked);
   }
 
   /**
