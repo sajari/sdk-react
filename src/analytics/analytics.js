@@ -1,3 +1,5 @@
+import { eventResultClicked, eventTrackingReset } from "sajari";
+
 import GA from "./ga";
 
 import {
@@ -38,8 +40,8 @@ class Analytics {
     window.addEventListener("beforeunload", this.beforeunload);
 
     this.pipeline.listen(resultsEvent, this.onChange);
-    this.tracking.listenForTrackingReset(this.resetBody);
-    this.tracking.listenForResultClicked(this.resultClicked);
+    this.tracking.listen(eventTrackingReset, this.resetBody);
+    this.tracking.listen(eventResultClicked, this.resultClicked);
   }
 
   /**
