@@ -1,20 +1,16 @@
 import React from "react";
 
-import { Response, Summary, Results, Paginator } from "sajari-react/ui/results";
+import {
+  Response,
+  Summary,
+  Results,
+  Paginator,
+  ImageResult,
+  Result
+} from "sajari-react/ui/results";
 import { TabsFacet } from "sajari-react/ui/facets";
 
 import { values, pipeline, tracking } from "./resources";
-
-const Placeholder = ({ renderPlaceholder }) => {
-  if (renderPlaceholder) {
-    return (
-      <div id="sj-results-placeholder">
-        {renderPlaceholder(React)}
-      </div>
-    );
-  }
-  return <div id="sj-results-placeholder" />;
-};
 
 const SearchResponse = ({ config, tabsFilter }) => {
   let tabs = null;
@@ -23,16 +19,13 @@ const SearchResponse = ({ config, tabsFilter }) => {
   }
 
   const results = config.results || {};
-
-  const placeholder = () =>
-    <Placeholder renderPlaceholder={results.renderPlaceholder} />;
-
+  const resultRenderer = results.showImages ? ImageResult : Result;
   return (
-    <Response Placeholder={placeholder} pipeline={pipeline}>
+    <Response pipeline={pipeline}>
       {tabs}
       <Summary values={values} pipeline={pipeline} tracking={tracking} />
       <Results
-        showImages={results.showImages}
+        ResultRenderer={resultRenderer}
         values={values}
         pipeline={pipeline}
         tracking={tracking}
