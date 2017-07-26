@@ -1,6 +1,6 @@
-# Example: Standard Search
+# Example: Redio/Checkbox Search
 
-This directory contains the standard search UI example.
+This directory contains the radio/checkbox search UI example.
 
 INSERT PICTURE HERE!
 

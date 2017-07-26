@@ -1,6 +1,6 @@
-# Example: Standard Search
+# Example: Autocomplete Only
 
-This directory contains the standard search UI example.
+This directory contains the autocomplete (only) UI example.
 
 INSERT PICTURE HERE!
 

@@ -1,6 +1,6 @@
-# Example: Standard Search
+# Example: Simple Search
 
-This directory contains the standard search UI example.
+This directory contains the simple search UI example.
 
 INSERT PICTURE HERE!
 

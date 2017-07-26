@@ -1,6 +1,6 @@
-# Example: Standard Search
+# Example: Custom Result Renderer
 
-This directory contains the standard search UI example.
+This directory contains the custom result renderer search UI example.
 
 INSERT PICTURE HERE!
 
