@@ -1,4 +1,4 @@
-# Example: Redio/Checkbox Search
+# Example: Radio/Checkbox Search
 
 This directory contains the radio/checkbox search UI example.
 
