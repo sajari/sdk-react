@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { TokenLink, Image, Title, Description, Url } from "./";
+import { TokenLink, Image, Title, Description, URL } from "./";
 
 /**
  * @typedef {Object} ResultProps
@@ -44,7 +44,7 @@ const Result = ({
         resultClicked={resultClicked}
       />
       <Description description={description} />
-      <Url url={url} token={token} resultClicked={resultClicked} />
+      <URL url={url} token={token} resultClicked={resultClicked} />
     </div>
   </div>;
 

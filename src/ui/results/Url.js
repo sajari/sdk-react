@@ -15,7 +15,7 @@ import { TokenLink } from "./";
  * @param {UrlProps} props
  * @returns {React.Component}
  */
-const Url = ({ url, token, resultClicked }) =>
+const URL = ({ url, token, resultClicked }) =>
   <p className="sj-result-url">
     <TokenLink
       token={token}
@@ -25,10 +25,10 @@ const Url = ({ url, token, resultClicked }) =>
     />
   </p>;
 
-Url.propTypes = {
+URL.propTypes = {
   url: PropTypes.string,
   token: PropTypes.string,
   resultClicked: PropTypes.func
 };
 
-export default Url;
+export default URL;

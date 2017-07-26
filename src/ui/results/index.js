@@ -7,4 +7,4 @@ export { default as Results } from "./Results";
 export { default as Summary } from "./Summary";
 export { default as Title } from "./Title";
 export { default as TokenLink } from "./TokenLink";
-export { default as Url } from "./Url";
+export { default as URL } from "./URL";
