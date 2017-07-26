@@ -11,7 +11,7 @@ class CheckboxFacet extends React.Component {
    */
   static get propTypes() {
     return {
-      filter: PropTypes.oneOfType([PropTypes.instanceOf(Filter)]).isRequired,
+      filter: PropTypes.instanceOf(Filter).isRequired,
       name: PropTypes.string.isRequired
     };
   }
@@ -29,7 +29,7 @@ class RadioFacet extends React.Component {
    */
   static get propTypes() {
     return {
-      filter: PropTypes.oneOfType([PropTypes.instanceOf(Filter)]).isRequired,
+      filter: PropTypes.instanceOf(Filter).isRequired,
       name: PropTypes.string.isRequired
     };
   }
@@ -48,7 +48,7 @@ class SelectFacet extends React.Component {
    */
   static get propTypes() {
     return {
-      filter: PropTypes.oneOfType([PropTypes.instanceOf(Filter)]).isRequired,
+      filter: PropTypes.instanceOf(Filter).isRequired,
       name: PropTypes.string.isRequired,
       options: PropTypes.object.isRequired
     };

@@ -13,7 +13,7 @@ class TabsFacet extends React.Component {
    */
   static get propTypes() {
     return {
-      filter: PropTypes.oneOfType([PropTypes.instanceOf(Filter)]).isRequired,
+      filter: PropTypes.instanceOf(Filter).isRequired,
       tabs: PropTypes.array.isRequired
     };
   }
