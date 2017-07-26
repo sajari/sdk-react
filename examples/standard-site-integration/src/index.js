@@ -193,9 +193,6 @@ const initInterface = () => {
   filter = new CombineFilters([tabsFilter, initialFilter].filter(Boolean));
   values.set({ filter: () => filter.filter() });
 
-  console.log(filter);
-  console.log(initialFilter);
-
   if (config.overlay) {
     initOverlay(config);
     return;
