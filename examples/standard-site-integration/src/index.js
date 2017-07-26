@@ -186,17 +186,19 @@ const initInterface = () => {
   }
   values.set(queryValues);
 
-  const query = Boolean(queryValues.q);
-  if (query) {
-    pipeline.search(values, tracking);
-    window._sjui.overlay.show();
-  }
-
   filter = new CombineFilters([tabsFilter, initialFilter].filter(Boolean));
   values.set({ filter: () => filter.filter() });
 
+  const query = Boolean(queryValues.q);
+  if (query) {
+    pipeline.search(values, tracking);
+  }
+
   if (config.overlay) {
     initOverlay(config);
+    if (query) {
+      window._sjui.overlay.show();
+    }
     return;
   }
   if (config.attachSearchBox && config.attachSearchResponse) {
