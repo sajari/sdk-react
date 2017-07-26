@@ -43,13 +43,11 @@ class SelectFacet extends React.Component {
   /**
    * propTypes
    * @property {Filter} filter
-   * @property {string} name
    * @property {Object} options
    */
   static get propTypes() {
     return {
       filter: PropTypes.instanceOf(Filter).isRequired,
-      name: PropTypes.string.isRequired,
       options: PropTypes.object.isRequired
     };
   }
@@ -57,7 +55,10 @@ class SelectFacet extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { active: props.filter.isSet(props.name) };
+    const current = props.filter.get();
+    if (current.length > 0) {
+      this.state = { active: current[0] };
+    }
   }
 
   componentDidMount() {
@@ -68,12 +69,15 @@ class SelectFacet extends React.Component {
     this.unregister();
   }
 
-  filterChanged = filter => {
-    this.setState({ active: filter.get() });
+  filterChanged = (filter) => {
+    const current = this.props.filter.get();
+    if (current.length > 0) {
+      this.setState({ active: current[0] });
+    }
   };
 
-  handleChange = e => {
-    filter.set(e.target.value, true);
+  handleChange = (e) => {
+    this.props.filter.set(e.target.value, true);
   };
 
   render() {
