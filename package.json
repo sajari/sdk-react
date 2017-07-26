@@ -1,7 +1,7 @@
 {
   "name": "sajari-react",
-  "description": "React SDK for the Sajari search API",
-  "version": "0.9.0",
+  "description": "React SDK for the Sajari API",
+  "version": "1.0.0",
   "author": [
     {
       "name": "Trent Billington",
@@ -60,7 +60,9 @@
     "recommend",
     "sajari",
     "search",
-    "search api"
+    "search api",
+    "site search",
+    "website search"
   ],
   "license": "MIT",
   "main": "./src/index.js",
