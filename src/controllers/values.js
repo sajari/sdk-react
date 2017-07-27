@@ -1,7 +1,6 @@
 import { Listener } from "./";
 
 export const changeEvent = "change";
-export const postChangeEvent = "post-change";
 
 class Values {
   /**
@@ -10,7 +9,6 @@ class Values {
   constructor() {
     this.listeners = {
       [changeEvent]: new Listener(),
-      [postChangeEvent]: new Listener()
     };
     this.values = {};
   }
@@ -21,7 +19,7 @@ class Values {
    * @param {Function} callback Callback to run when the event happens.
    */
   listen(event, callback) {
-    if (event !== changeEvent && event !== postChangeEvent) {
+    if (event !== valuesChangedEvent) {
       throw new Error(`unknown event type "${event}"`);
     }
     return this.listeners[event].listen(callback);
@@ -36,10 +34,6 @@ class Values {
   emitChange(values = {}) {
     this.listeners[changeEvent].notify(listener => {
       listener(values, this._set.bind(this));
-    });
-
-    this.listeners[postChangeEvent].notify(listener => {
-      listener(values);
     });
   }
 

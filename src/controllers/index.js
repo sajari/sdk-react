@@ -8,5 +8,5 @@ export {
   resultClickedEvent,
   trackingResetEvent
 } from "./pipeline";
-export { default as Values, changeEvent, postChangeEvent } from "./values";
+export { default as Values, valuesChangedEvent } from "./values";
 export { initWebsiteTracking } from "./trackingUtils";
