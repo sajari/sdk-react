@@ -80,10 +80,10 @@ const isFunction = x => typeof x === "function";
 class GoogleAnalytics {
   /**
    * Constructs a GoogleAnalytics object.
-   * @param {string} id The name of the ga global object. Defaults to "ga" or "_ua" if one isn't supplied.
+   * @param {string} [id=undefined] The name of the ga global object. Defaults to "ga" or "_ua" if one isn't supplied.
    * @param {string} [param="q"] The URL parameter to use to indicate a search. Default to "q".
    */
-  constructor(id, param = "q") {
+  constructor(id = undefined, param = "q") {
     if (id !== undefined) {
       this.id = id;
     } else if (isFunction(window.ga)) {
