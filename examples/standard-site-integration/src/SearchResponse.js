@@ -52,10 +52,10 @@ class SearchResponse extends React.Component {
 
     let tabs = null;
     if (config.tabFilters) {
-      const tabsFacetMap = [];
-      config.tabFilters.tabs.forEach(t => {
-        tabsFacetMap[t.title] = t.title;
-      });
+      const tabsFacetMap = config.tabFilters.tabs.map(t => ({
+        name: t.title,
+        displayText: t.title
+      }));
       tabs = <TabsFacet tabs={tabsFacetMap} filter={tabsFilter} />;
     }
 
