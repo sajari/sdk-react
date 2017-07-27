@@ -5,8 +5,8 @@
   "dependencies": {
     "react": "15.6.1",
     "react-dom": "15.6.1",
-    "sajari": "0.17.0",
-    "sajari-react": "1.0.1"
+    "sajari": "0.17.1",
+    "sajari-react": "1.0.2"
   },
   "devDependencies": {
     "react-scripts": "1.0.10"
