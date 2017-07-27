@@ -3,8 +3,9 @@ import { Listener, postChangeEvent } from "./";
 export const searchEvent = "search";
 export const errorEvent = "error";
 export const resultsEvent = "results";
+export const resultClickedEvent = "result-clicked";
 
-const events = [searchEvent, errorEvent, resultsEvent];
+const events = [searchEvent, errorEvent, resultsEvent, resultClickedEvent];
 
 class Pipeline {
   /**
@@ -21,7 +22,8 @@ class Pipeline {
     this.listeners = {
       [searchEvent]: new Listener(),
       [errorEvent]: new Listener(),
-      [resultsEvent]: new Listener()
+      [resultsEvent]: new Listener(),
+      [resultClickedEvent]: new Listener()
     };
     /** @private */
     this.searchCount = 0;
@@ -76,6 +78,16 @@ class Pipeline {
   _emitResults() {
     this.listeners[resultsEvent].notify(listener => {
       listener(this.results, this.responseValues);
+    });
+  }
+
+  /**
+   * Emits a result clicked event to the results clicked event listeners.
+   * @param {*} value Value to send to the listeners.
+   */
+  emitResultClicked(value) {
+    this.listeners[resultClickedEvent].notify(listener => {
+      listener(value);
     });
   }
 

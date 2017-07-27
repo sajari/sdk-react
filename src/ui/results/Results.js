@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Tracking } from "sajari";
-
 import { Pipeline, errorEvent, resultsEvent } from "../../controllers";
 
 import { Result } from "./";
@@ -13,14 +11,12 @@ class Results extends React.Component {
    * @property {Object[]} [results] Results data.
    * @property {string} [error] Error from search.
    * @property {Pipeline} pipeline Pipeline object.
-   * @property {Sajari.Tracking} tracking Tracking object.
    */
   static get propTypes() {
     return {
       results: PropTypes.arrayOf(PropTypes.object),
       error: PropTypes.string,
-      pipeline: PropTypes.instanceOf(Pipeline).isRequired,
-      tracking: PropTypes.instanceOf(Tracking).isRequired,
+      pipeline: PropTypes.instanceOf(Pipeline).isRequired
     };
   }
 
@@ -66,7 +62,7 @@ class Results extends React.Component {
   };
 
   onResultClicked = url => {
-    this.props.tracking.emitResultClicked(url);
+    this.props.pipeline.emitResultClicked(url);
   };
 
   render() {
