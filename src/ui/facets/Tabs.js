@@ -9,21 +9,22 @@ class TabsFacet extends React.Component {
   /**
    * propTypes
    * @property {Filter} filter
-   * @property {string} name
+   * @property {Object} tabs
    */
   static get propTypes() {
     return {
       filter: PropTypes.instanceOf(Filter).isRequired,
-      tabs: PropTypes.array.isRequired
+      tabs: PropTypes.object.isRequired
     };
   }
 
   render() {
+    const { tabs, filter } = this.props;
     return (
       <div className="sj-tabs-container">
         <div className="sj-tabs">
-          {this.props.tabs.map(t =>
-            <Tab key={t.title} title={t.title} filter={this.props.filter} />
+          {Object.keys(tabs).map(filterName =>
+            <Tab key={filterName} title={tabs[filterName]} filter={filter} />
           )}
         </div>
       </div>

@@ -42,11 +42,11 @@ const tabsFilter = new Filter(
 );
 values.set({ filter: () => tabsFilter.filter() });
 
-const tabs = [
-  { title: "All", filter: "" },
-  { title: "Blog", filter: "dir1='blog'" },
-  { title: "FAQ", filter: "dir1='faq'" }
-];
+const tabs = {
+  All: "All",
+  Blog: "Blog",
+  FAQ: "FAQ"
+};
 
 tabsFilter.listen(() => {
   if (values.get()["q"]) {
