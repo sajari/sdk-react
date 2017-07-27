@@ -94,11 +94,12 @@ class AutocompleteInput extends React.Component {
   };
 
   handleKeyDown = e => {
+    const { text, completion } = this.state;
     if (e.keyCode === RETURN_KEYCODE) {
       e.preventDefault();
       this.setText(text, true);
     }
-    if (!this.state.completion) {
+    if (!completion) {
       return;
     }
     if (
