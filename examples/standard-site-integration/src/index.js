@@ -121,7 +121,7 @@ const initOverlay = config => {
   );
 };
 
-const initInPage = (config, tabsFilter) => {
+const initInPage = config => {
   ReactDOM.render(<InPage config={config} />, config.attachSearchBox);
   ReactDOM.render(
     <SearchResponse config={config} tabsFilter={tabsFilter} />,
