@@ -163,6 +163,7 @@ const initInterface = () => {
       opts[t.title] = t.filter;
     });
     tabsFilter = new Filter(opts, [config.tabFilters.defaultTab]);
+    tabsFilter.set(config.tabFilters.defaultTab, true);
     tabsFilter.listen(() => {
       // Perform a search when the tabs change
       if (!disableTabFacetSearch) {
