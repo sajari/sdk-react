@@ -70,9 +70,9 @@ class Pipeline {
    * Emits a search event to the search event listener.
    * @private
    */
-  _emitSearch() {
+  _emitSearch(queryValues) {
     this.listeners[searchSentEvent].notify(listener => {
-      listener(this.queryValues);
+      listener(queryValues);
     });
   }
 
@@ -102,18 +102,19 @@ class Pipeline {
    * @param {Sajari.Tracking} tracking Tracking object from sajari package.
    */
   search(values, tracking) {
-    this.queryValues = values.get();
+    const queryValues = values.get();
     this.searchCount++;
     const currentSearch = this.searchCount;
     this.client.searchPipeline(
       this.name,
-      this.queryValues,
+      queryValues,
       tracking,
       (error, results = {}, responseValues = {}) => {
         if (currentSearch < this.searchCount) {
           return;
         }
 
+        this.queryValues = queryValues;
         if (error) {
           this.error = error;
           this.results = undefined;
@@ -127,7 +128,7 @@ class Pipeline {
         this._emitResults();
       }
     );
-    this._emitSearch();
+    this._emitSearch(queryValues);
   }
 
   /**
