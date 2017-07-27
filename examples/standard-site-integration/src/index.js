@@ -87,7 +87,7 @@ const initOverlay = config => {
       document.getElementsByTagName("body")[0].style.overflow = "";
       values.set({ q: undefined, "q.override": undefined });
       pipeline.clearResults();
-      if (config.tabFilters.defaultTab) {
+      if (config.tabFilters && config.tabFilters.defaultTab) {
         disableTabFacetSearch = true;
         tabsFilter.set(config.tabFilters.defaultTab);
         disableTabFacetSearch = false;
