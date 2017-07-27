@@ -1,4 +1,4 @@
-import { changeEvent } from "../controllers";
+import { changeEvent } from "./";
 
 const initWebsiteTracking = (values, tracking, paramQ = "q") => {
   let prevQ = "";

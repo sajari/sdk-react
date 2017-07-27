@@ -1,8 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { Analytics, initWebsiteTracking } from "sajari-react/analytics";
-import { Filter, CombineFilters, changeEvent } from "sajari-react/controllers";
+import { Analytics } from "sajari-react/analytics";
+import {
+  Filter,
+  CombineFilters,
+  changeEvent,
+  initWebsiteTracking
+} from "sajari-react/controllers";
 
 import loaded from "./loaded";
 import Overlay from "./Overlay";

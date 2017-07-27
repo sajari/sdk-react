@@ -9,3 +9,4 @@ export {
   trackingResetEvent
 } from "./pipeline";
 export { default as Values, changeEvent, postChangeEvent } from "./values";
+export { initWebsiteTracking } from "./trackingUtils";
