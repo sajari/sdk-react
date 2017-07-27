@@ -1,7 +1,6 @@
 import React from "react";
 
 import {
-  Response,
   Summary,
   Results,
   Paginator,
@@ -9,30 +8,68 @@ import {
   Result
 } from "sajari-react/ui/results";
 import { TabsFacet } from "sajari-react/ui/facets";
+import {
+  resultsReceivedEvent,
+  errorReceivedEvent
+} from "sajari-react/controllers";
 
 import { values, pipeline, tracking } from "./resources";
 
-const SearchResponse = ({ config, tabsFilter }) => {
-  let tabs = null;
-  if (config.tabFilters) {
-    tabs = <TabsFacet tabs={config.tabFilters.tabs} filter={tabsFilter} />;
+class SearchResponse extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { results: pipeline.getResults() || {} };
   }
 
-  const results = config.results || {};
-  const resultRenderer = results.showImages ? ImageResult : Result;
-  return (
-    <Response pipeline={pipeline}>
-      {tabs}
-      <Summary values={values} pipeline={pipeline} tracking={tracking} />
-      <Results
-        ResultRenderer={resultRenderer}
-        values={values}
-        pipeline={pipeline}
-        tracking={tracking}
-      />
-      <Paginator values={values} pipeline={pipeline} tracking={tracking} />
-    </Response>
-  );
-};
+  componentDidMount() {
+    this.removeErrorListener = pipeline.listen(
+      errorReceivedEvent,
+      this.resultsChanged
+    );
+    this.removeResultsListener = pipeline.listen(
+      resultsReceivedEvent,
+      this.resultsChanged
+    );
+  }
+
+  componentWillUnmount() {
+    this.removeErrorListener();
+    this.removeResultsListener();
+  }
+
+  resultsChanged = () => {
+    this.setState({ results: pipeline.getResults() || {} });
+  };
+
+  render() {
+    const { config, tabsFilter } = this.props;
+    const { results } = this.state;
+
+    if ((!results.time && !pipeline.getError()) || !values.get().q) {
+      return null;
+    }
+
+    let tabs = null;
+    if (config.tabFilters) {
+      tabs = <TabsFacet tabs={config.tabFilters.tabs} filter={tabsFilter} />;
+    }
+
+    const resultsConfig = config.results || {};
+    const resultRenderer = resultsConfig.showImages ? ImageResult : Result;
+    return (
+      <div className="sj-pipeline-response">
+        {tabs}
+        <Summary values={values} pipeline={pipeline} tracking={tracking} />
+        <Results
+          ResultRenderer={resultRenderer}
+          values={values}
+          pipeline={pipeline}
+        />
+        <Paginator values={values} pipeline={pipeline} tracking={tracking} />
+      </div>
+    );
+  }
+}
 
 export default SearchResponse;
