@@ -15,7 +15,7 @@ const initialiseResources = (project, collection, pipelineName) => {
   pipeline = new Pipeline(client, pipelineName, values, tracking);
 
   values.listen(valuesChangedEvent, (changes, set) => {
-    if (!changes.page) {
+    if (!changes.page && values.get().page !== "1") {
       set({ page: "1" });
     }
   });

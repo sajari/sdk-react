@@ -166,6 +166,7 @@ const initInterface = () => {
     tabsFilter.listen(() => {
       // Perform a search when the tabs change
       if (!disableTabFacetSearch) {
+        values.emitChange();
         pipeline.search(values, tracking);
       }
     });
