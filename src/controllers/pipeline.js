@@ -1,11 +1,16 @@
 import { Listener } from "./";
 
-export const searchEvent = "search";
-export const errorEvent = "error";
-export const resultsEvent = "results";
+export const searchSentEvent = "search";
+export const errorReceivedEvent = "error";
+export const resultsReceivedEvent = "results";
 export const resultClickedEvent = "result-clicked";
 
-const events = [searchEvent, errorEvent, resultsEvent, resultClickedEvent];
+const events = [
+  searchSentEvent,
+  errorReceivedEvent,
+  resultsReceivedEvent,
+  resultClickedEvent
+];
 
 class Pipeline {
   /**
@@ -20,9 +25,9 @@ class Pipeline {
     this.name = name;
     /** @private */
     this.listeners = {
-      [searchEvent]: new Listener(),
-      [errorEvent]: new Listener(),
-      [resultsEvent]: new Listener(),
+      [searchSentEvent]: new Listener(),
+      [errorReceivedEvent]: new Listener(),
+      [resultsReceivedEvent]: new Listener(),
       [resultClickedEvent]: new Listener()
     };
     /** @private */
@@ -56,7 +61,7 @@ class Pipeline {
    * @private
    */
   _emitError() {
-    this.listeners[errorEvent].notify(listener => {
+    this.listeners[errorReceivedEvent].notify(listener => {
       listener(this.error);
     });
   }
@@ -66,7 +71,7 @@ class Pipeline {
    * @private
    */
   _emitSearch() {
-    this.listeners[searchEvent].notify(listener => {
+    this.listeners[searchSentEvent].notify(listener => {
       listener(this.queryValues);
     });
   }
@@ -76,7 +81,7 @@ class Pipeline {
    * @private
    */
   _emitResults() {
-    this.listeners[resultsEvent].notify(listener => {
+    this.listeners[resultsReceivedEvent].notify(listener => {
       listener(this.results, this.responseValues);
     });
   }

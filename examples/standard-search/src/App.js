@@ -4,7 +4,7 @@ import {
   Filter,
   Pipeline,
   Values,
-  changeEvent
+  valuesChangedEvent
 } from "sajari-react/controllers";
 import { AutocompleteInput } from "sajari-react/ui/text";
 import { Response, Results, Summary, Paginator } from "sajari-react/ui/results";
@@ -26,7 +26,7 @@ const client = new Client(project, collection);
 const tracking = new Tracking();
 const pipeline = new Pipeline(client, pipelineName);
 
-values.listen(changeEvent, (changes, set) => {
+values.listen(valuesChangedEvent, (changes, set) => {
   if (!changes.page) {
     set({ page: "1" });
   }

@@ -1,8 +1,8 @@
-import { changeEvent } from "./";
+import { valuesChangedEvent } from "./";
 
 const initWebsiteTracking = (values, tracking, paramQ = "q") => {
   let prevQ = "";
-  return values.listen(changeEvent, changed => {
+  return values.listen(valuesChangedEvent, changed => {
     if (changed.q === undefined) {
       return;
     }

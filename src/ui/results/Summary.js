@@ -3,7 +3,12 @@ import PropTypes from "prop-types";
 
 import { Tracking } from "sajari";
 
-import { Pipeline, resultsEvent, errorEvent, Values } from "../../controllers";
+import {
+  Pipeline,
+  resultsReceivedEvent,
+  errorReceivedEvent,
+  Values
+} from "../../controllers";
 
 class Summary extends React.Component {
   /**
@@ -38,9 +43,12 @@ class Summary extends React.Component {
       results: pipeline.getResults(),
       responseValues: pipeline.getResponseValues()
     });
-    this.removeErrorListener = pipeline.listen(errorEvent, this.errorChanged);
+    this.removeErrorListener = pipeline.listen(
+      errorReceivedEvent,
+      this.errorChanged
+    );
     this.removeResultsListener = pipeline.listen(
-      resultsEvent,
+      resultsReceivedEvent,
       this.resultsChanged
     );
   }

@@ -1,6 +1,6 @@
 import { Client, Tracking } from "sajari";
 
-import { Values, changeEvent, Pipeline } from "sajari-react/controllers";
+import { Values, valuesChangedEvent, Pipeline } from "sajari-react/controllers";
 
 let client;
 let pipeline;
@@ -14,7 +14,7 @@ const initialiseResources = (project, collection, pipelineName) => {
   tracking.clickTokens("url");
   pipeline = new Pipeline(client, pipelineName, values, tracking);
 
-  values.listen(changeEvent, (changes, set) => {
+  values.listen(valuesChangedEvent, (changes, set) => {
     if (!changes.page) {
       set({ page: "1" });
     }

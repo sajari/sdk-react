@@ -1,6 +1,6 @@
 import { Listener } from "./";
 
-export const changeEvent = "change";
+export const valuesChangedEvent = "values-changed";
 
 class Values {
   /**
@@ -8,7 +8,7 @@ class Values {
    */
   constructor() {
     this.listeners = {
-      [changeEvent]: new Listener(),
+      [valuesChangedEvent]: new Listener()
     };
     this.values = {};
   }
@@ -32,7 +32,7 @@ class Values {
    * @param {Object} values
    */
   emitChange(values = {}) {
-    this.listeners[changeEvent].notify(listener => {
+    this.listeners[valuesChangedEvent].notify(listener => {
       listener(values, this._set.bind(this));
     });
   }

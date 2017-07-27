@@ -5,7 +5,7 @@ import { Analytics } from "sajari-react/analytics";
 import {
   Filter,
   CombineFilters,
-  changeEvent,
+  valuesChangedEvent,
   initWebsiteTracking
 } from "sajari-react/controllers";
 
@@ -170,7 +170,7 @@ const initInterface = () => {
       }
     });
 
-    values.listen(changeEvent, changes => {
+    values.listen(valuesChangedEvent, changes => {
       // If the query is empty, reset the tab back to the default if it's not already
       if (
         !values.get().q &&

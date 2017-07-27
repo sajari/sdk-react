@@ -1,7 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Pipeline, resultsEvent, errorEvent } from "../../controllers";
+import {
+  Pipeline,
+  resultsReceivedEvent,
+  errorReceivedEvent
+} from "../../controllers";
 
 class Response extends React.Component {
   /**
@@ -24,11 +28,11 @@ class Response extends React.Component {
 
   componentDidMount() {
     this.removeErrorListener = this.props.pipeline.listen(
-      errorEvent,
+      errorReceivedEvent,
       this.resultsChanged
     );
     this.removeResultsListener = this.props.pipeline.listen(
-      resultsEvent,
+      resultsReceivedEvent,
       this.resultsChanged
     );
   }

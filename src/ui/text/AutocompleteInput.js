@@ -4,7 +4,12 @@ import PropTypes from "prop-types";
 
 import { Tracking } from "sajari";
 
-import { Pipeline, Values, resultsEvent, changeEvent } from "../../controllers";
+import {
+  Pipeline,
+  Values,
+  resultsReceivedEvent,
+  valuesChangedEvent
+} from "../../controllers";
 
 const RIGHT_ARROW_KEYCODE = 39;
 const TAB_KEYCODE = 9;
@@ -43,11 +48,11 @@ class AutocompleteInput extends React.Component {
 
   componentDidMount() {
     this.removeValuesListener = this.props.values.listen(
-      changeEvent,
+      valuesChangedEvent,
       this.valuesChanged
     );
     this.removeResultsListener = this.props.pipeline.listen(
-      resultsEvent,
+      resultsReceivedEvent,
       this.valuesChanged
     );
   }

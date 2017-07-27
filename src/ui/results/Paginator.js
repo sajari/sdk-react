@@ -3,7 +3,12 @@ import PropTypes from "prop-types";
 
 import { Tracking } from "sajari";
 
-import { Pipeline, errorEvent, resultsEvent, Values } from "../../controllers";
+import {
+  Pipeline,
+  errorReceivedEvent,
+  resultsReceivedEvent,
+  Values
+} from "../../controllers";
 
 const pageNumbers = (page, totalPages) => {
   const pages = [];
@@ -120,9 +125,12 @@ class Paginator extends React.Component {
       error: pipeline.getError(),
       results: pipeline.getResults()
     });
-    this.removeErrorListener = pipeline.listen(errorEvent, this.errorChanged);
+    this.removeErrorListener = pipeline.listen(
+      errorReceivedEvent,
+      this.errorChanged
+    );
     this.removeResultsListener = pipeline.listen(
-      resultsEvent,
+      resultsReceivedEvent,
       this.resultsChanged
     );
   }

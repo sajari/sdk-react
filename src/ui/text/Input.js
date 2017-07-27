@@ -4,7 +4,12 @@ import PropTypes from "prop-types";
 
 import { Tracking } from "sajari";
 
-import { Pipeline, resultsEvent, Values, changeEvent } from "../../controllers";
+import {
+  Pipeline,
+  resultsReceivedEvent,
+  Values,
+  valuesChangedEvent
+} from "../../controllers";
 
 const RETURN_KEYCODE = 13;
 
@@ -43,7 +48,7 @@ class Input extends React.Component {
 
   componentDidMount() {
     this.removeValuesListener = this.props.values.listen(
-      changeEvent,
+      valuesChangedEvent,
       this.valuesChanged
     );
   }
