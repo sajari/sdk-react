@@ -11,12 +11,15 @@ class Pipeline {
    * Constructs a Pipeline object.
    * @param {Sajari.Client} client Client instance from sajari package.
    * @param {string} name Name of the pipeline.
+   * @param {Sajari.Tracking|undefined} tracking Default tracking to use in searches.
    */
-  constructor(client, name) {
+  constructor(client, name, tracking) {
     /** @private */
     this.client = client;
     /** @private */
     this.name = name;
+    /** @private */
+    this.tracking = tracking;
     /** @private */
     this.listeners = {
       [searchSentEvent]: new Listener(),
@@ -85,7 +88,8 @@ class Pipeline {
   /**
    * Perform a search.
    * @param {Values} values Values object.
-   * @param {Sajari.Tracking} tracking Tracking object from sajari package.
+   * @param {Sajari.Tracking|undefined} tracking Tracking object from sajari package. Defaults
+   * to this.tracking.
    */
   search(values, tracking) {
     const queryValues = values.get();
@@ -96,7 +100,7 @@ class Pipeline {
     this.client.searchPipeline(
       this.name,
       queryValues,
-      tracking,
+      tracking || this.tracking,
       (error, response = {}) => {
         if (currentSearch < this.searchCount) {
           return;
