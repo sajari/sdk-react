@@ -95,14 +95,13 @@ class Paginator extends React.Component {
    * propTypes
    * @property {Values} values Values object.
    * @property {Pipeline} pipeline Pipeline object.
-   * @property {Sajari.Tracking} tracking Tracking object from the sajari package.
-   * @property {string} totalResults Number of results. Usually supplied by Response.
+   * @property {Sajari.Tracking|undefined} tracking Tracking object from the sajari package.
    */
   static get propTypes() {
     return {
       values: PropTypes.instanceOf(Values).isRequired,
       pipeline: PropTypes.instanceOf(Pipeline).isRequired,
-      tracking: PropTypes.instanceOf(Tracking).isRequired
+      tracking: PropTypes.instanceOf(Tracking)
     };
   }
 

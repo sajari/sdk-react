@@ -19,7 +19,7 @@ class Summary extends React.Component {
     return {
       pipeline: PropTypes.instanceOf(Pipeline).isRequired,
       values: PropTypes.instanceOf(Values).isRequired,
-      tracking: PropTypes.instanceOf(Tracking).isRequired
+      tracking: PropTypes.instanceOf(Tracking)
     };
   }
 

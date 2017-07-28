@@ -29,7 +29,7 @@ class AutocompleteInput extends React.Component {
     return {
       values: PropTypes.instanceOf(Values).isRequired,
       pipeline: PropTypes.instanceOf(Pipeline).isRequired,
-      tracking: PropTypes.instanceOf(Tracking).isRequired,
+      tracking: PropTypes.instanceOf(Tracking),
       qParam: PropTypes.string,
       qOverrideParam: PropTypes.string,
       focus: PropTypes.bool
