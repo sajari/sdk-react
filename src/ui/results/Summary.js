@@ -46,7 +46,7 @@ class Summary extends React.Component {
 
   handleOverride = event => {
     event.preventDefault();
-    this.props.values.set({ q: this.values.get()["q"], "q.override": "true" });
+    this.props.values.set({ q: this.props.values.get()["q"], "q.override": "true" });
     this.props.pipeline.search(this.props.values, this.props.tracking);
   };
 
