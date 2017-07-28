@@ -3,12 +3,7 @@ import PropTypes from "prop-types";
 
 import { Tracking } from "sajari";
 
-import {
-  Pipeline,
-  errorReceivedEvent,
-  resultsReceivedEvent,
-  Values
-} from "../../controllers";
+import { Pipeline, responseUpdatedEvent, Values } from "../../controllers";
 
 const pageNumbers = (page, totalPages) => {
   const pages = [];
@@ -98,7 +93,6 @@ const Page = ({ currentPage, page, setPage, children }) =>
 class Paginator extends React.Component {
   /**
    * propTypes
-   * @property {error} [string] Error from search. Usually supplied by Response.
    * @property {Values} values Values object.
    * @property {Pipeline} pipeline Pipeline object.
    * @property {Sajari.Tracking} tracking Tracking object from the sajari package.
@@ -106,46 +100,31 @@ class Paginator extends React.Component {
    */
   static get propTypes() {
     return {
-      error: PropTypes.string,
       values: PropTypes.instanceOf(Values).isRequired,
       pipeline: PropTypes.instanceOf(Pipeline).isRequired,
-      tracking: PropTypes.instanceOf(Tracking).isRequired,
-      totalResults: PropTypes.string
+      tracking: PropTypes.instanceOf(Tracking).isRequired
     };
   }
 
   constructor(props) {
     super(props);
-    this.state = { error: null, results: null, responseValues: null };
+
+    this.state = { response: props.pipeline.getResponse() };
   }
 
   componentDidMount() {
-    const { pipeline } = this.props;
-    this.setState({
-      error: pipeline.getError(),
-      results: pipeline.getResults()
-    });
-    this.removeErrorListener = pipeline.listen(
-      errorReceivedEvent,
-      this.errorChanged
-    );
-    this.removeResultsListener = pipeline.listen(
-      resultsReceivedEvent,
-      this.resultsChanged
+    this.removeResponseListener = this.props.pipeline.listen(
+      responseUpdatedEvent,
+      this.responseUpdated
     );
   }
 
   componentWillUnmount() {
-    this.removeErrorListener();
-    this.removeResultsListener();
+    this.removeResponseListener();
   }
 
-  errorChanged = error => {
-    this.setState({ error });
-  };
-
-  resultsChanged = results => {
-    this.setState({ results, error: null });
+  responseUpdated = response => {
+    this.setState({ response });
   };
 
   setPage = page => {
@@ -157,26 +136,26 @@ class Paginator extends React.Component {
 
   render() {
     const { values } = this.props;
-    const { error, results } = this.state;
+    const { response } = this.state;
 
-    if (error || !results) {
+    if (response.isEmpty() || response.isError()) {
       return null;
     }
 
-    const queryValues = values.get();
+    const queryValues = response.getQueryValues();
 
     const page = queryValues.page ? parseInt(queryValues.page, 10) : 1;
     const resultsPerPage = queryValues.resultsPerPage
       ? parseInt(queryValues.resultsPerPage, 10)
       : 10;
-    const totalResultsInt = parseInt(results.totalResults, 10);
+    const totalResults = parseInt(response.totalResults, 10);
 
     return (
       <RawPaginator
         setPage={this.setPage}
         page={page}
         resultsPerPage={resultsPerPage}
-        totalResults={totalResultsInt}
+        totalResults={totalResults}
       />
     );
   }

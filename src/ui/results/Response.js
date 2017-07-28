@@ -1,11 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {
-  Pipeline,
-  resultsReceivedEvent,
-  errorReceivedEvent
-} from "../../controllers";
+import { Pipeline, responseUpdatedEvent } from "../../controllers";
 
 class Response extends React.Component {
   /**
@@ -23,34 +19,29 @@ class Response extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { results: props.pipeline.getResults() || {} };
+    this.state = { response: props.pipeline.getResponse() };
   }
 
   componentDidMount() {
-    this.removeErrorListener = this.props.pipeline.listen(
-      errorReceivedEvent,
-      this.resultsChanged
-    );
-    this.removeResultsListener = this.props.pipeline.listen(
-      resultsReceivedEvent,
-      this.resultsChanged
+    this.removeResponseListener = this.props.pipeline.listen(
+      responseUpdatedEvent,
+      this.responseUpdated
     );
   }
 
   componentWillUnmount() {
-    this.removeErrorListener();
-    this.removeResultsListener();
+    this.removeResponseListener();
   }
 
-  resultsChanged = () => {
-    this.setState({ results: this.props.pipeline.getResults() || {} });
+  responseUpdated = response => {
+    this.setState({ response });
   };
 
   render() {
     const { children, pipeline, ...rest } = this.props;
-    const { results } = this.state;
+    const { response } = this.state;
 
-    if (!results.time && !pipeline.getError()) {
+    if (response.isEmpty()) {
       return null;
     }
 

@@ -2,7 +2,7 @@ import { trackingResetEvent } from "sajari";
 
 import GA from "./ga";
 
-import { resultsReceivedEvent, resultClickedEvent } from "../controllers";
+import { responseUpdatedEvent, resultClickedEvent } from "../controllers";
 
 class Analytics {
   /**
@@ -29,13 +29,13 @@ class Analytics {
     this.bodyAutocompletedLabel = "q.used";
 
     this.beforeunload = this.beforeunload.bind(this);
-    this.onChange = this.onChange.bind(this);
+    this.responseUpdated = this.responseUpdated.bind(this);
     this.resetBody = this.resetBody.bind(this);
     this.resultClicked = this.resultClicked.bind(this);
 
     window.addEventListener("beforeunload", this.beforeunload);
 
-    this.pipeline.listen(resultsReceivedEvent, this.onChange);
+    this.pipeline.listen(responseUpdatedEvent, this.responseUpdated);
     this.pipeline.listen(resultClickedEvent, this.resultClicked);
     this.tracking.listen(trackingResetEvent, this.resetBody);
   }
@@ -67,17 +67,16 @@ class Analytics {
   }
 
   /**
-   * Runs when the results have changed. Updates the currently held search parameters.
+   * Runs when the response has been updated. Updates the currently held search parameters.
    */
-  onChange() {
-    const searchResponse = this.pipeline.getResults() || {};
-    // Enable analytics once a successful search has been performed
-    if (!searchResponse.time) {
+  responseUpdated(response) {
+    if (response.isEmpty() || response.isError()) {
       return;
     }
+
     this.enabled = true;
 
-    const values = this.pipeline.getQueryValues() || {};
+    const values = response.getQueryValues() || {};
     const originalBody = values[this.bodyLabel] || "";
     const newBody = values[this.bodyAutocompletedLabel] || originalBody;
 

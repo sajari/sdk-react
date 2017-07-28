@@ -7,7 +7,7 @@ import { Tracking } from "sajari";
 import {
   Pipeline,
   Values,
-  resultsReceivedEvent,
+  responseUpdatedEvent,
   valuesChangedEvent
 } from "../../controllers";
 
@@ -51,20 +51,20 @@ class AutocompleteInput extends React.Component {
       valuesChangedEvent,
       this.valuesChanged
     );
-    this.removeResultsListener = this.props.pipeline.listen(
-      resultsReceivedEvent,
+    this.removeResponseListener = this.props.pipeline.listen(
+      responseUpdatedEvent,
       this.valuesChanged
     );
   }
 
   componentWillUnmount() {
     this.removeValuesListener();
-    this.removeResultsListener();
+    this.removeResponseListener();
   }
 
   getState = (values, pipeline, qParam) => {
     const text = values.get()[qParam] || "";
-    const responseValues = pipeline.getResponseValues();
+    const responseValues = pipeline.getResponse().getValues();
     const completion =
       text && responseValues ? responseValues[qParam] || "" : "";
     return { text, completion };
@@ -85,7 +85,7 @@ class AutocompleteInput extends React.Component {
     if (textValues[this.state.qParam]) {
       this.props.pipeline.search(this.props.values, this.props.tracking);
     } else {
-      this.props.pipeline.clearResults();
+      this.props.pipeline.clearResponse();
     }
   };
 

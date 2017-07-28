@@ -8,10 +8,7 @@ import {
   Result
 } from "sajari-react/ui/results";
 import { TabsFacet } from "sajari-react/ui/facets";
-import {
-  resultsReceivedEvent,
-  errorReceivedEvent
-} from "sajari-react/controllers";
+import { responseUpdatedEvent } from "sajari-react/controllers";
 
 import { values, pipeline, tracking } from "./resources";
 
@@ -19,27 +16,22 @@ class SearchResponse extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { results: pipeline.getResults() || {} };
+    this.state = { response: pipeline.getResponse() };
   }
 
   componentDidMount() {
-    this.removeErrorListener = pipeline.listen(
-      errorReceivedEvent,
-      this.resultsChanged
-    );
-    this.removeResultsListener = pipeline.listen(
-      resultsReceivedEvent,
-      this.resultsChanged
+    this.removeResponseListener = pipeline.listen(
+      responseUpdatedEvent,
+      this.responseUpdated
     );
   }
 
   componentWillUnmount() {
-    this.removeErrorListener();
-    this.removeResultsListener();
+    this.removeResponseListener();
   }
 
-  resultsChanged = () => {
-    this.setState({ results: pipeline.getResults() || {} });
+  responseUpdated = () => {
+    this.setState({ response: pipeline.getResponse() });
   };
 
   render() {

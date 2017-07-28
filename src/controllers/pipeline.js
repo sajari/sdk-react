@@ -1,16 +1,10 @@
 import { Listener } from "./";
 
-export const searchSentEvent = "search";
-export const errorReceivedEvent = "error";
-export const resultsReceivedEvent = "results";
+export const searchSentEvent = "search-sent";
+export const responseUpdatedEvent = "response-updated";
 export const resultClickedEvent = "result-clicked";
 
-const events = [
-  searchSentEvent,
-  errorReceivedEvent,
-  resultsReceivedEvent,
-  resultClickedEvent
-];
+const events = [searchSentEvent, responseUpdatedEvent, resultClickedEvent];
 
 class Pipeline {
   /**
@@ -26,21 +20,13 @@ class Pipeline {
     /** @private */
     this.listeners = {
       [searchSentEvent]: new Listener(),
-      [errorReceivedEvent]: new Listener(),
-      [resultsReceivedEvent]: new Listener(),
+      [responseUpdatedEvent]: new Listener(),
       [resultClickedEvent]: new Listener()
     };
     /** @private */
     this.searchCount = 0;
-
     /** @private */
-    this.queryValues = undefined;
-    /** @private */
-    this.error = undefined;
-    /** @private */
-    this.results = undefined;
-    /** @private */
-    this.responseValues = undefined;
+    this.response = new Response();
   }
 
   /**
@@ -57,20 +43,10 @@ class Pipeline {
   }
 
   /**
-   * Emits an error event to the error event listener.
-   * @private
-   */
-  _emitError() {
-    this.listeners[errorReceivedEvent].notify(listener => {
-      listener(this.error);
-    });
-  }
-
-  /**
    * Emits a search event to the search event listener.
    * @private
    */
-  _emitSearch(queryValues) {
+  _emitSearchSent(queryValues) {
     this.listeners[searchSentEvent].notify(listener => {
       listener(queryValues);
     });
@@ -80,9 +56,19 @@ class Pipeline {
    * Emits a results event to the results event listener.
    * @private
    */
-  _emitResults() {
-    this.listeners[resultsReceivedEvent].notify(listener => {
-      listener(this.results, this.responseValues);
+  _emitResponseUpdated(response) {
+    this.listeners[responseUpdatedEvent].notify(listener => {
+      listener(response);
+    });
+  }
+
+  /**
+   * Emits a results cleared event to the results cleared event listener.
+   * @private
+   */
+  _emitResponseCleared() {
+    this.listeners[responseClearedEvent].notify(listener => {
+      listener();
     });
   }
 
@@ -103,36 +89,90 @@ class Pipeline {
    */
   search(values, tracking) {
     const queryValues = values.get();
+
     this.searchCount++;
     const currentSearch = this.searchCount;
+
     this.client.searchPipeline(
       this.name,
       queryValues,
       tracking,
-      (error, results = {}, responseValues = {}) => {
+      (error, response = {}) => {
         if (currentSearch < this.searchCount) {
           return;
         }
 
-        this.queryValues = queryValues;
-        if (error) {
-          this.error = error;
-          this.results = undefined;
-          this.responseValues = undefined;
-          this._emitError();
-          return;
-        }
-        this.error = undefined;
-        this.results = results.searchResponse;
-        this.responseValues = results.values;
-        this._emitResults();
+        this.response = new Response(
+          error ? error : undefined,
+          queryValues,
+          response.searchResponse,
+          response.values
+        );
+        this._emitResponseUpdated(this.response);
       }
     );
-    this._emitSearch(queryValues);
+    this._emitSearchSent(queryValues);
   }
 
   /**
-   * Returns the current error.
+   * Clears the error, response, and response values from this object.
+   */
+  clearResponse() {
+    this.response = new Response();
+    this._emitResponseUpdated(this.response);
+  }
+
+  /**
+   * Returns the current response.
+   * @return {Response}
+   */
+  getResponse() {
+    return this.response;
+  }
+}
+
+class Response {
+  /**
+   * Constructs a Response object.
+   * @param {*} error 
+   * @param {*} queryValues 
+   * @param {*} response 
+   * @param {*} values 
+   */
+  constructor(error, queryValues, response, values) {
+    /** @private */
+    this.error = error;
+    /** @private */
+    this.queryValues = queryValues;
+    /** @private */
+    this.response = response;
+    /** @private */
+    this.values = values;
+  }
+
+  /**
+   * Returns true if has a current response.
+   * @return {boolean}
+   */
+  isEmpty() {
+    return (
+      this.error === undefined &&
+      this.response === undefined &&
+      this.values === undefined &&
+      this.queryValues === undefined
+    );
+  }
+
+  /**
+   * Returns true if the response is an error.
+   * @return {boolean}
+   */
+  isError() {
+    return this.error !== undefined;
+  }
+
+  /**
+   * Returns error.
    * @return {string|undefined}
    */
   getError() {
@@ -140,23 +180,7 @@ class Pipeline {
   }
 
   /**
-   * Returns the results.
-   * @return {Object|undefined}
-   */
-  getResults() {
-    return this.results;
-  }
-
-  /**
-   * Return the pipeline values returned by the search.
-   * @return {Object|undefined}
-   */
-  getResponseValues() {
-    return this.responseValues;
-  }
-
-  /**
-   * Return the last values used in a search.
+   * Return the query values used in the search which created this response.
    * @return {Object|undefined}
    */
   getQueryValues() {
@@ -164,14 +188,20 @@ class Pipeline {
   }
 
   /**
-   * Clears the error, results, and response values from this object.
+   * Returns the response, which includes results and aggregates etc.
+   * @return {Object|undefined}
    */
-  clearResults() {
-    this.error = undefined;
-    this.results = undefined;
-    this.responseValues = undefined;
-    this._emitResults();
+  getResponse() {
+    return this.response;
+  }
+
+  /**
+   * Return the pipeline values returned by the search.
+   * @return {Object|undefined}
+   */
+  getValues() {
+    return this.values;
   }
 }
 
-export default Pipeline;
+export { Pipeline, Response };

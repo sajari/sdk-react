@@ -17,27 +17,25 @@ class DebugFacet extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { current: props.filter.get(), filter: props.filter.filter() };
+    this.state = { filter: props.filter.filter() };
   }
 
   componentDidMount() {
-    this.props.filter.listen(this.filterChanged);
+    this.unregister = this.props.filter.listen(this.filterChanged);
+  }
+
+  componentWillUnmount() {
+    this.unregister();
   }
 
   filterChanged = () => {
-    this.setState({
-      current: this.props.filter.get(),
-      filter: this.props.filter.filter()
-    });
+    this.setState({ filter: this.props.filter.filter() });
   };
 
   render() {
-    const { current, filter } = this.state;
-    const currentDisplay =
-      current instanceof Array ? current.join(" ") : current;
     return (
       <span>
-        {filter || "<empty>"}
+        {this.state.filter || "<empty>"}
       </span>
     );
   }

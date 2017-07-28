@@ -3,12 +3,7 @@ import PropTypes from "prop-types";
 
 import { Tracking } from "sajari";
 
-import {
-  Pipeline,
-  resultsReceivedEvent,
-  errorReceivedEvent,
-  Values
-} from "../../controllers";
+import { Pipeline, responseUpdatedEvent, Values } from "../../controllers";
 
 class Summary extends React.Component {
   /**
@@ -24,66 +19,47 @@ class Summary extends React.Component {
     return {
       pipeline: PropTypes.instanceOf(Pipeline).isRequired,
       values: PropTypes.instanceOf(Values).isRequired,
-      tracking: PropTypes.instanceOf(Tracking).isRequired,
-      time: PropTypes.string,
-      totalResults: PropTypes.string,
-      error: PropTypes.string
+      tracking: PropTypes.instanceOf(Tracking).isRequired
     };
   }
 
   constructor(props) {
     super(props);
-    this.state = { error: null, results: null, responseValues: null };
+
+    this.state = { response: props.pipeline.getResponse() };
   }
 
   componentDidMount() {
-    const { pipeline } = this.props;
-    this.setState({
-      error: pipeline.getError(),
-      results: pipeline.getResults(),
-      responseValues: pipeline.getResponseValues()
-    });
-    this.removeErrorListener = pipeline.listen(
-      errorReceivedEvent,
-      this.errorChanged
-    );
-    this.removeResultsListener = pipeline.listen(
-      resultsReceivedEvent,
-      this.resultsChanged
+    this.removeResponseListener = this.props.pipeline.listen(
+      responseUpdatedEvent,
+      this.responseUpdated
     );
   }
 
   componentWillUnmount() {
-    this.removeErrorListener();
-    this.removeResultsListener();
+    this.removeResponseListener();
   }
 
-  errorChanged = error => {
-    this.setState({ error });
+  responseUpdated = response => {
+    this.setState({ response });
   };
 
-  resultsChanged = (results, responseValues) => {
-    this.setState({
-      results,
-      responseValues,
-      error: null
-    });
-  };
-
-  runOverride = event => {
+  handleOverride = event => {
     event.preventDefault();
     this.props.values.set({ q: this.values.get()["q"], "q.override": "true" });
     this.props.pipeline.search(this.props.values, this.props.tracking);
   };
 
   render() {
-    const { pipeline, tracking } = this.props;
-    const { error, results, responseValues = {} } = this.state;
-    const queryValues = pipeline.getQueryValues() || {};
+    const { values, pipeline, tracking } = this.props;
+    const { response } = this.state;
 
-    if (error || !results) {
+    if (response.isEmpty() || response.isError()) {
       return null;
     }
+
+    const responseValues = response.getValues();
+    const queryValues = response.getQueryValues();
 
     const text = responseValues["q"] || queryValues["q"];
     const page = parseInt(queryValues.page, 10);
@@ -93,19 +69,20 @@ class Summary extends React.Component {
       responseValues["q"].toLowerCase() !== queryValues["q"].toLowerCase()
         ? <span className="sj-result-summary-autocomplete-override">
             {`search instead for `}
-            <a onClick={this.runOverride} href="">
+            <a onClick={this.handleOverride} href="">
               {" "}{queryValues["q"]}{" "}
             </a>
           </span>
         : null;
 
+    const resp = response.getResponse();
     return (
       <div className="sj-result-summary">
         <span className="sj-result-summary-text">
-          {`${pageNumber}${results.totalResults} results for `}
+          {`${pageNumber}${resp.totalResults} results for `}
           "<strong>{text}</strong>"{" "}
         </span>
-        <span className="sj-result-summary-query-`time`">{`(${results.time}) `}</span>
+        <span className="sj-result-summary-query-time">{`(${resp.time}) `}</span>
         {override}
       </div>
     );
