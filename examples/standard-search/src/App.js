@@ -24,7 +24,8 @@ const pipelineName = "website";
 const values = new Values();
 const client = new Client(project, collection);
 const tracking = new Tracking();
-const pipeline = new Pipeline(client, pipelineName);
+tracking.clickTokens("url");
+const pipeline = new Pipeline(client, pipelineName, tracking);
 
 values.listen(valuesChangedEvent, (changes, set) => {
   if (!changes.page) {
@@ -60,14 +61,13 @@ const App = () =>
     <AutocompleteInput
       values={values}
       pipeline={pipeline}
-      tracking={tracking}
       focus={true}
     />
     <Response pipeline={pipeline}>
       <TabsFacet tabs={tabs} filter={tabsFilter} />
-      <Summary values={values} pipeline={pipeline} tracking={tracking} />
-      <Results pipeline={pipeline} tracking={tracking} />
-      <Paginator values={values} pipeline={pipeline} tracking={tracking} />
+      <Summary values={values} pipeline={pipeline} />
+      <Results pipeline={pipeline} />
+      <Paginator values={values} pipeline={pipeline} />
     </Response>
   </div>;
 

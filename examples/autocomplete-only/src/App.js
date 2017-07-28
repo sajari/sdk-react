@@ -11,18 +11,14 @@ const project = "sajariptyltd";
 const collection = "sajari-com";
 const pipelineName = "autocomplete";
 
-const values = new Values();
 const client = new Client(project, collection);
 const tracking = new Tracking();
-const pipeline = new Pipeline(client, pipelineName);
+const pipeline = new Pipeline(client, pipelineName, tracking);
+const values = new Values();
 
 const App = () =>
   <div className="searchApp">
-    <AutocompleteInput
-      values={values}
-      pipeline={pipeline}
-      tracking={tracking}
-    />
+    <AutocompleteInput values={values} pipeline={pipeline} />
   </div>;
 
 export default App;

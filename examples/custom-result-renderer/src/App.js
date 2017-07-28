@@ -28,7 +28,7 @@ const client = new Client(project, collection);
 
 const tracking = new Tracking();
 tracking.clickTokens("url");
-const pipeline = new Pipeline(client, pipelineName);
+const pipeline = new Pipeline(client, pipelineName, tracking);
 
 values.listen(valuesChangedEvent, (changes, set) => {
   if (!changes.page) {
@@ -73,15 +73,11 @@ const CustomResult = ({ values, token, onResultClicked }) => {
 
 const App = () =>
   <div className="searchApp">
-    <AutocompleteInput
-      values={values}
-      pipeline={pipeline}
-      tracking={tracking}
-    />
+    <AutocompleteInput values={values} pipeline={pipeline} />
     <Response pipeline={pipeline} className="sj-pipeline-response">
-      <Summary values={values} pipeline={pipeline} tracking={tracking} />
+      <Summary values={values} pipeline={pipeline} />
       <Results pipeline={pipeline} ResultRenderer={CustomResult} />
-      <Paginator values={values} pipeline={pipeline} tracking={tracking} />
+      <Paginator values={values} pipeline={pipeline} />
     </Response>
   </div>;
 
