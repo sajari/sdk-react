@@ -77,9 +77,9 @@ class Summary extends React.Component {
   };
 
   render() {
-    const { values, pipeline, tracking } = this.props;
+    const { pipeline, tracking } = this.props;
     const { error, results, responseValues = {} } = this.state;
-    const queryValues = values.get() || {};
+    const queryValues = pipeline.getQueryValues() || {};
 
     if (error || !results) {
       return null;
