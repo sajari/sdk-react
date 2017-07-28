@@ -6,7 +6,6 @@ import { Tracking } from "sajari";
 
 import {
   Pipeline,
-  resultsReceivedEvent,
   Values,
   valuesChangedEvent
 } from "../../controllers";
