@@ -109,8 +109,8 @@ class Pipeline {
         this.response = new Response(
           error ? error : undefined,
           queryValues,
-          response.searchResponse,
-          response.values
+          response ? response.searchResponse : undefined,
+          response ? response.values : undefined
         );
         this._emitResponseUpdated(this.response);
       }
