@@ -131,10 +131,10 @@ class Pipeline {
 class Response {
   /**
    * Constructs a Response object.
-   * @param {*} error 
-   * @param {*} queryValues 
-   * @param {*} response 
-   * @param {*} values 
+   * @param {*} error
+   * @param {*} queryValues
+   * @param {*} response
+   * @param {*} values
    */
   constructor(error, queryValues, response, values) {
     /** @private */
