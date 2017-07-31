@@ -4,13 +4,12 @@ import {
   Filter,
   Pipeline,
   Values,
-  valuesChangedEvent
+  valuesChangedEvent,
+  Tracking
 } from "sajari-react/controllers";
 import { AutocompleteInput } from "sajari-react/ui/text";
 import { Response, Results, Summary, Paginator } from "sajari-react/ui/results";
 import { TabsFacet } from "sajari-react/ui/facets";
-
-import { Client, Tracking } from "sajari";
 
 import "sajari-react/ui/text/AutocompleteInput.css";
 import "sajari-react/ui/results/Results.css";
@@ -22,10 +21,9 @@ const collection = "sajari-com";
 const pipelineName = "website";
 
 const values = new Values();
-const client = new Client(project, collection);
 const tracking = new Tracking();
 tracking.clickTokens("url");
-const pipeline = new Pipeline(client, pipelineName, tracking);
+const pipeline = new Pipeline(project, collection, pipelineName, tracking);
 
 values.listen(valuesChangedEvent, (changes, set) => {
   if (!changes.page) {
@@ -58,11 +56,7 @@ tabsFilter.listen(() => {
 
 const App = () =>
   <div className="searchApp">
-    <AutocompleteInput
-      values={values}
-      pipeline={pipeline}
-      focus={true}
-    />
+    <AutocompleteInput values={values} pipeline={pipeline} focus={true} />
     <Response pipeline={pipeline}>
       <TabsFacet tabs={tabs} filter={tabsFilter} />
       <Summary values={values} pipeline={pipeline} />

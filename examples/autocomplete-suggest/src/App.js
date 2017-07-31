@@ -4,11 +4,10 @@ import PropTypes from "prop-types";
 import {
   Pipeline,
   Values,
-  responseUpdatedEvent
+  responseUpdatedEvent,
+  Tracking
 } from "sajari-react/controllers";
 import { AutocompleteInput } from "sajari-react/ui/text";
-
-import { Client, Tracking } from "sajari";
 
 import "sajari-react/ui/text/AutocompleteInput.css";
 
@@ -18,9 +17,7 @@ const project = "sajariptyltd";
 const collection = "sajari-com";
 const pipelineName = "autocomplete";
 
-const client = new Client(project, collection);
-const tracking = new Tracking();
-const pipeline = new Pipeline(client, pipelineName, tracking);
+const pipeline = new Pipeline(project, collection, pipelineName);
 const values = new Values();
 
 const AutocompleteSuggestion = ({ text, suggestion, setText }) => {
@@ -48,7 +45,7 @@ class AutocompleteSuggestions extends React.Component {
    * propTypes
    * @property {Values} values Values object.
    * @property {Pipeline} pipeline Pipeline object.
-   * @property {Tracking} tracking Tracking object.
+   * @property {Tracking|undefined} [tracking=undefined] Tracking object.
    * @property {string} [qParam="q"] Search parameter.
    * @property {string} [qOverrideParam="q.override"] Override parameter.
    * @property {boolean} [focus=false] Whether to focus the input element.

@@ -1,12 +1,11 @@
 import React from "react";
 
-import { Client, Tracking } from "sajari";
-
 import {
   Filter,
   CombineFilters,
   Pipeline,
-  Values
+  Values,
+  Tracking
 } from "sajari-react/controllers";
 import { RadioFacet, CheckboxFacet } from "sajari-react/ui/facets";
 import { AutocompleteInput } from "sajari-react/ui/text";
@@ -21,11 +20,10 @@ const collection = "sajari-com";
 const pipelineName = "website";
 
 const values = new Values();
-const client = new Client(project, collection);
 
 const tracking = new Tracking();
 tracking.clickTokens("url");
-const pipeline = new Pipeline(client, pipelineName, tracking);
+const pipeline = new Pipeline(project, collection, pipelineName, tracking);
 
 const currentUnix = parseInt(String(new Date().getTime() / 1000), 10);
 const lastDays = n => currentUnix - n * 24 * 60 * 60;
