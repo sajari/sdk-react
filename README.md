@@ -10,7 +10,7 @@ We also provide a vanilla Sajari JS library [here](https://github.com/sajari/saj
 
 <img width="1060" alt="screen shot 2017-07-26 at 8 42 16 pm" src="https://user-images.githubusercontent.com/2822/28617328-4ce241aa-7243-11e7-8d0e-47fdde1867e6.png">
 
-# Table of Contents
+# Table of contents
 
 * [Examples](#examples)
 * [Setup](#setup)
@@ -44,14 +44,13 @@ We currently distribute the `sajari-react` library through NPM. NPM is only requ
 $ npm install --save sajari sajari-react
 ```
 
-# Performing Searches
+# Quick reference
 
-To perform a search on a collection, you'll need a few key pieces:
+This library includes a standard set of components for building search interfaces.
 
-* `Pipeline`: handles search requests/response lifecycle.
-* `Values`: set of key-value pairs defining parameters for use in `Pipeline` calls.
+### Setting up API calls
 
-For the mostpart, you'll be using the pre-defined `website` pipeline for searching, which provides a great starting point for website search.
+Before you can use any components, you'll need to initialise a [`Pipeline`](#using-pipelines) and [`Values`](#using-values) parameter mapping for handling search requests to the API:
 
 ```javascript
 import { Pipeline, Values } from "sajari-react/controllers";
@@ -69,10 +68,6 @@ values.set({
 // Perform a search.
 pipeline.search(values);
 ```
-
-# Quick Reference
-
-This library includes a standard set of components for building search interfaces.
 
 ## AutocompleteInput
 
@@ -96,7 +91,7 @@ import { Input } from "sajari-react/ui/text";
 <Input values={values} pipeline={pipeline} />
 ```
 
-## Building Facets
+## Building facets
 
 Use the `Filter` helper-class from `sajari-react/controllers` to integrate facets into UI.  The library provides a standard set of components under `sajari-react/ui/facets` which can automatically bind state to `Filter` instances.  For more details, see the [full documentation](./src/controllers/filter.js).
 
@@ -247,7 +242,7 @@ const unregister = filter.listen(() => {
 unregister();
 ```
 
-## Using Values
+## Using `Values`
 
 The `Values` controller is used to manage parameters for running searches.
 
@@ -288,7 +283,7 @@ unregister();
 
 Note: this event is only triggered by calls to `Values.set`.
 
-## Using Pipelines
+## Using `Pipeline`
 
 The `Pipeline` controller handles all the search request/response lifecycle.
 
@@ -346,6 +341,6 @@ const unregister = pipeline.listen(responseUpdatedEvent, (response) => {
 
 We use the [MIT license](./LICENSE)
 
-# Browser Support
+# Browser support
 
 The browser support is dependent on the React library, which currently supports recent versions of Chrome, Firefox, Sajari, Opera, and IE9+. (17/8/2016)
