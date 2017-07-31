@@ -50,7 +50,7 @@ This library includes a standard set of components for building search interface
 
 ### Setting up API calls
 
-Before you can use any components, you'll need to initialise a [`Pipeline`](#using-pipelines) and [`Values`](#using-values) parameter mapping for handling search requests to the API:
+Before you can use any components, you'll need to initialise a [`Pipeline`](#using-pipeline) and [`Values`](#using-values) parameter mapping for handling search requests to the API:
 
 ```javascript
 import { Pipeline, Values } from "sajari-react/controllers";
@@ -311,7 +311,12 @@ pipeline.search(values);
 
 ### Listening for responses
 
-Register listeners to be notified when search responses come back from the server, or are cleared by UI events.  Every listener is passed a `Response` which wraps 
+Register listeners to be notified when search responses come back from the server, or are cleared by UI events.  Every listener is passed a `Response` which wraps the server response with convenience methods:
+
+* `isEmpty()`: returns `true` if the response is empty (i.e. as a result of a call to `Pipeline.clearResponse()`)
+* `isError()`: returns `true` if the response is an error response.
+* `getError()`: returns the underlying error.
+* `getResponse()`: returns the search response.
 
 ```javascript
 import { responseUpdatedEvent } from "sajari-react/controllers";
