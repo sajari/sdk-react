@@ -2,7 +2,7 @@
 
 This directory contains the autocomplete + suggestions UI example.
 
-![autocomplete](https://media.giphy.com/media/26zyVB5UcumOfOInu/giphy.gif)
+![autocomplete-suggest](https://media.giphy.com/media/xT39DnBWdmrxJ1Xd1S/giphy.gif)
 
 It has been created using the [Create React App](https://github.com/facebookincubator/create-react-app) tool to make development and deployment quick and easy.
 
