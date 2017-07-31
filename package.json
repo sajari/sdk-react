@@ -75,7 +75,7 @@
     "build:copy-files": "babel-node ./scripts/copy-files.js",
     "lint": "eslint src/*",
     "clean:build": "rimraf build/*",
-    "build:watch": "npm run clean:build && npm run build:copy-files && babel ./src/ --out-dir ./build --copy-files --watch",
+    "build:watch": "npm run clean:build && npm run build:copy-files && npm run build:babel -- --watch",
     "prebuild": "npm run clean:build",
     "test": "jest"
   }
