@@ -123,6 +123,8 @@ const categories = new Filter(
 
 Each filter is given a name (in this example: `all`, `blog`, `articles`) which can then be used to bind them to UI components:
 
+<img width="136" alt="screen shot 2017-07-31 at 11 44 33 am" src="https://user-images.githubusercontent.com/2822/28759899-b1da1c36-75e5-11e7-969c-ab865642ea78.png">
+
 ```javascript
 import { RadioFacet } from "sajari-react/ui/facets";
 
@@ -135,6 +137,8 @@ import { RadioFacet } from "sajari-react/ui/facets";
 ```
 
 Or a drop-down select box:
+
+<img width="90" alt="screen shot 2017-07-31 at 11 46 57 am" src="https://user-images.githubusercontent.com/2822/28759924-03bbcff4-75e6-11e7-95eb-770bf36ee2f1.png">
 
 ```javascript
 import { SelectFacet } from "sajari-react/ui/facets";
@@ -180,6 +184,8 @@ const categories = new Filter(
 ```
 
 This can be hooked up to a list of checkboxes:
+
+<img width="140" alt="screen shot 2017-07-31 at 11 42 16 am" src="https://user-images.githubusercontent.com/2822/28759868-5bf0ac7c-75e5-11e7-8a52-ceb190be7279.png">
 
 ```javascript
 import { CheckboxFacet } from "sajari-react/ui/facets";
