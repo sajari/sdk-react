@@ -48,28 +48,20 @@ $ npm install --save sajari sajari-react
 
 To perform a search on a collection, you'll need a few key pieces:
 
-* `Client`: used to make underlying API calls.
 * `Pipeline`: handles search requests/response lifecycle.
-* `Values`: set of key-value pairs defining parameters to use in `Pipeline` search requests.
+* `Values`: set of key-value pairs defining parameters for use in `Pipeline` calls.
 
 For the mostpart, you'll be using the pre-defined `website` pipeline for searching, which provides a great starting point for website search.
 
 ```javascript
-import { Client, Tracking } from "sajari";
-import { Pipeline, Values } from "sajari-react/controllers";
+import { Pipeline, Tracking, Values } from "sajari-react/controllers";
 
-// Setup your project/collection configuration
-const project = "<your-project>";
-const collection = "<your-collection>";
-const pipelineName = "website";
-
-// Create a client for making API requests.
-const client = new Client(project, collection);
+// Setup click token tracking.
 const tracking = new Tracking();
 tracking.clickTokens("url");
 
 // Create a pipeline for maing search calls.
-const pipeline = new Pipeline(client, pipelineName, tracking);
+const pipeline = new Pipeline("<your-project>", "<your-collection>", "website", tracking);
 
 // Pipeline parameters are defined in values.
 const values = new Values();
@@ -161,11 +153,12 @@ import { SelectFacet } from "sajari-react/ui/facets";
 To include the filter in a search it needs to be attached to the `Values` instance used by `Pipeline`:
 
 ```javascript
-// Add the filter to the values instance.
+// Add the filter to `values`.  Note category.filter() will be
+// evaluated every time `values` is used in `pipeline.search`.
 values.set({ filter: () => categories.filter() }); 
 
-// Trigger a search every time the filter seletion changes.
-categories.listen(() => pipeline.search(values, tracking));
+// Trigger a search every time the filter selection changes.
+categories.listen(() => pipeline.search(values));
 ```
 
 ## Multi-select filters
@@ -204,20 +197,21 @@ The default operator used to combine selected filters is `OR`, but this can be o
 To include the filter in a search it needs to be attached to the `Values` instance used by `Pipeline`:
 
 ```javascript
-// Add the filter to the values instance.
+// Add the filter to `values`.  Note category.filter() will be
+// evaluated every time `values` is used in `pipeline.search`.
 values.set({ filter: () => categories.filter() }); 
 
-// Trigger a search every time the filter seletion changes.
-categories.listen(() => pipeline.search(values, tracking));
+// Trigger a search every time the filter selection changes.
+categories.listen(() => pipeline.search(values));
 ```
 
 ### Tidying up filter listeners
 
-The `listen` method returns a closure that will unrgister itself:
+The `listen` method returns a closure that will unregister the new listener:
 
 ```javascript
 const unregister = filter.listen(() => {
-  console.log("filter changed:", filter.get());
+  console.log("filter changed:", filter.filter());
 });
 
 // sometime later...
@@ -229,10 +223,10 @@ unregister();
 To combine multiple `Filter` instances into one, use the `CombineFilters` function.
 
 ```javascript
-// Define recency filter
+// Define recency filter...
 const recencyFilter = new Filter(...);
 
-// Define category Filter
+// Define category Filter...
 const categoryFilter = new Filter(...);
 
 // Combine both recency and category filters.
