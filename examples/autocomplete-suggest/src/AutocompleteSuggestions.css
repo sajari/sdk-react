@@ -1,0 +1,20 @@
+div.suggestions {
+   font-size: 20px;
+   border: 1px solid #999;
+   max-width: 500px;
+}
+
+div.suggestion {
+   padding: 4px 8px;
+   background-color: #fff;
+   color: #666;
+}
+
+div.suggestion strong {
+   font-weight: 600;
+   color: #333;
+}
+
+div.suggestion:hover {
+   background-color: #ccc;
+}
