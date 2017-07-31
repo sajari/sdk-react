@@ -199,6 +199,43 @@ class Response {
   getValues() {
     return this.values;
   }
+
+  /**
+   * Return results from the response if it's available
+   * @return {Object|undefined}
+   */
+  getResults() {
+    return this.response !== undefined ? this.response.results : undefined;
+  }
+
+  /**
+   * Return the total number of results from the response if it's available
+   * @return {number|undefined}
+   */
+  getTotalResults() {
+    return this.response !== undefined
+      ? parseInt(this.response.totalResults, 10)
+      : undefined;
+  }
+
+  /**
+   * Return time from the response if it's available
+   * @return {string|undefined}
+   */
+  getTime() {
+    return this.response !== undefined ? this.response.time : undefined;
+  }
+
+  /**
+   * Return the aggregates object from the query if it's available
+   * @return {Object|undefined}
+   */
+  getAggregates() {
+    if (this.response === undefined || this.response.aggregates === undefined) {
+      return undefined;
+    }
+    return this.response.aggregates;
+  }
 }
 
 export { Pipeline, Response };
