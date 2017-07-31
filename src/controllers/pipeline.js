@@ -69,16 +69,6 @@ class Pipeline {
   }
 
   /**
-   * Emits a results cleared event to the results cleared event listener.
-   * @private
-   */
-  _emitResponseCleared() {
-    this.listeners[responseClearedEvent].notify(listener => {
-      listener();
-    });
-  }
-
-  /**
    * Emits a result clicked event to the results clicked event listeners.
    * @param {*} value Value to send to the listeners.
    */
