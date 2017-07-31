@@ -1,3 +1,5 @@
+import { Client, Tracking } from "sajari";
+
 import { Listener } from "./";
 
 export const searchSentEvent = "search-sent";
@@ -9,13 +11,14 @@ const events = [searchSentEvent, responseUpdatedEvent, resultClickedEvent];
 class Pipeline {
   /**
    * Constructs a Pipeline object.
-   * @param {Sajari.Client} client Client instance from sajari package.
+   * @param {string} project Name of the project
+   * @param {string} collection Name of the collection
    * @param {string} name Name of the pipeline.
-   * @param {Sajari.Tracking|undefined} tracking Default tracking to use in searches.
+   * @param {Sajari.Tracking|undefined} [tracking=Tracking()] Default tracking to use in searches.
    */
-  constructor(client, name, tracking) {
+  constructor(project, collection, name, tracking = new Tracking()) {
     /** @private */
-    this.client = client;
+    this.client = new Client(project, collection);
     /** @private */
     this.name = name;
     /** @private */
