@@ -4,11 +4,7 @@ import PropTypes from "prop-types";
 
 import { Tracking } from "sajari";
 
-import {
-  Pipeline,
-  Values,
-  valuesChangedEvent
-} from "../../controllers";
+import { Pipeline, Values, valuesChangedEvent } from "../../controllers";
 
 const RETURN_KEYCODE = 13;
 
@@ -39,9 +35,7 @@ class Input extends React.Component {
     super(props);
 
     this.state = {
-      ...this.getState(props.values, props.qParam),
-      qParam: props.qParam,
-      qOverrideParam: props.qOverrideParam
+      text: this.props.values.get()[this.props.qParam] || ""
     };
   }
 
@@ -56,30 +50,23 @@ class Input extends React.Component {
     this.removeValuesListener();
   }
 
-  getState = (values, qParam) => {
-    const text = values.get()[qParam] || "";
-    return { text };
-  };
-
   valuesChanged = () => {
-    this.setState(this.getState(this.props.values, this.state.qParam));
+    this.setState({ text: this.props.values.get()[this.props.qParam] || "" });
   };
 
   setText = text => {
     const textValues = {
-      [this.state.qParam]: text,
-      [this.state.qOverrideParam]: "true"
+      [this.props.qParam]: text,
+      [this.props.qOverrideParam]: "true"
     };
     this.props.values.set(textValues);
-    if (textValues[this.state.qParam]) {
+    if (textValues[this.props.qParam]) {
       this.props.pipeline.search(this.props.values, this.props.tracking);
     }
   };
 
   handleChange = e => {
-    if (this.props.instant) {
-      this.setText(e.target.value);
-    }
+    this.setText(e.target.value);
   };
 
   handleKeyDown = e => {
@@ -91,7 +78,7 @@ class Input extends React.Component {
 
   render() {
     const { text } = this.state;
-    const { qParam, qOverrideParam, instant, focus, ...rest } = this.props;
+    const { instant, focus, ...rest } = this.props;
 
     return (
       <input
@@ -99,7 +86,7 @@ class Input extends React.Component {
         value={text}
         autoFocus={focus}
         onChange={this.handleChange}
-        onKeyDown={this.handleKeyDown}
+        onKeyDown={this.props.instant ? this.handleKeyDown : undefined}
         {...rest}
       />
     );

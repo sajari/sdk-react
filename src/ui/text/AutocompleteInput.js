@@ -15,6 +15,13 @@ const RIGHT_ARROW_KEYCODE = 39;
 const TAB_KEYCODE = 9;
 const RETURN_KEYCODE = 13;
 
+const getState = (values, pipeline, qParam) => {
+  const text = values.get()[qParam] || "";
+  const responseValues = pipeline.getResponse().getValues();
+  const completion = text && responseValues ? responseValues[qParam] || "" : "";
+  return { text, completion };
+};
+
 class AutocompleteInput extends React.Component {
   /**
    * propTypes
@@ -39,9 +46,7 @@ class AutocompleteInput extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      ...this.getState(props.values, props.pipeline, props.qParam),
-    };
+    this.state = getState(props.values, props.pipeline, props.qParam);
   }
 
   componentDidMount() {
@@ -60,17 +65,9 @@ class AutocompleteInput extends React.Component {
     this.removeResponseListener();
   }
 
-  getState = (values, pipeline, qParam) => {
-    const text = values.get()[qParam] || "";
-    const responseValues = pipeline.getResponse().getValues();
-    const completion =
-      text && responseValues ? responseValues[qParam] || "" : "";
-    return { text, completion };
-  };
-
   valuesChanged = () => {
     this.setState(
-      this.getState(this.props.values, this.props.pipeline, this.props.qParam)
+      getState(this.props.values, this.props.pipeline, this.props.qParam)
     );
   };
 
@@ -140,7 +137,8 @@ class AutocompleteInput extends React.Component {
 
 AutocompleteInput.defaultProps = {
   qParam: "q",
-  qOverrideParam: "q.override"
+  qOverrideParam: "q.override",
+  placeHolder: "Type to search"
 };
 
 export default AutocompleteInput;
