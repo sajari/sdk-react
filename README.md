@@ -23,12 +23,12 @@ We also provide a vanilla Sajari JS library [here](https://github.com/sajari/saj
 
 It's easy to get up and running using one of our examples as a starting point.  They're pre-configured with all the correct dependencies, so all you need to do is copy the example directory into your own workspace and you're on your way!
 
-* [Autocomplete](./examples/autocomplete-only/): Search box with autocomplete.
-* [Autocomplete with suggestions](./examples/autocomplete-suggest/): Search box with autocomplete + suggestions.
-* [Simple Search](./examples/simple-search/): Instant search with autocomplete.
-* [Standard Search](./examples/standard-search/): Instant search with autocomplete + tab filtering.
-* [Custom Result Renderer](./examples/custom-result-renderer/): Instant search with autocomplete + custom result renderers.
-* [Radio/Checkbox](./examples/radio-checkbox/): Radio/Checkbox filtering.
+* [Autocomplete](./examples/autocomplete-only/): search box with autocomplete.
+* [Autocomplete with suggestions](./examples/autocomplete-suggest/): search box with autocomplete + suggestions.
+* [Simple search](./examples/simple-search/): instant search with autocomplete.
+* [Standard search](./examples/standard-search/): instant search with autocomplete + tab filtering.
+* [Custom result renderer](./examples/custom-result-renderer/): instant search with autocomplete + custom result renderers.
+* [Radio/checkbox](./examples/radio-checkbox/): radio/checkbox filtering.
 
 # Setup
 
@@ -54,14 +54,10 @@ To perform a search on a collection, you'll need a few key pieces:
 For the mostpart, you'll be using the pre-defined `website` pipeline for searching, which provides a great starting point for website search.
 
 ```javascript
-import { Pipeline, Tracking, Values } from "sajari-react/controllers";
+import { Pipeline, Values } from "sajari-react/controllers";
 
-// Setup click token tracking.
-const tracking = new Tracking();
-tracking.clickTokens("url");
-
-// Create a pipeline for maing search calls.
-const pipeline = new Pipeline("<your-project>", "<your-collection>", "website", tracking);
+// Create a pipeline for running searches.
+const pipeline = new Pipeline("<your-project>", "<your-collection>", "website");
 
 // Pipeline parameters are defined in values.
 const values = new Values();
@@ -70,7 +66,7 @@ values.set({
   "filter": "category='articles'",
 })
 
-// Perform a search
+// Perform a search.
 pipeline.search(values);
 ```
 
@@ -249,6 +245,101 @@ const unregister = filter.listen(() => {
 
 // Sometime later...
 unregister();
+```
+
+## Using Values
+
+The `Values` controller is used to manage parameters for running searches.
+
+```javascript
+import { Values } from "sajari-react/controllers";
+
+const values = new Values();
+```
+
+### Setting values
+
+Use to the `set` method to set values in an instance of `Values`:
+
+```javascript
+values.set({ "q": "search query" });
+```
+
+It's also possible to assign closures to value keys, these will be evaluated whenever `Values.get()` is called (i.e. from within `pipeline.search(values)`).
+
+```javascript
+values.set({ hello: () => "Hello" })
+```
+
+### Listening for changes
+
+Register listeners to be notified of changes to a `Values` instance:
+
+```javascript
+import { valuesChangedEvent } from "sajari-react/controllers";
+
+const unregister = values.listen(valuesChangedEvent, () => {
+  console.log("values: ", values.get());
+});
+
+// Sometime later...
+unregister();
+```
+
+Note: this event is only triggered by calls to `Values.set`.
+
+## Using Pipelines
+
+The `Pipeline` controller handles all the search request/response lifecycle.
+
+```javascript
+import { Pipeline } from "sajari-react/controllers";
+
+const pipeline = new Pipeline("<your-project>", "<your-collection>", "website");
+```
+
+### Performing searches
+
+To perform a search you need to first setup a [`Values`](#using-values) instance to handle the search parameters.
+
+```javascript
+import { Values } from "sajari-react/controllers";
+
+const values = new Values();
+values.set({
+  q: "search keywords",
+  filter: "dir1='articles'"
+});
+
+pipeline.search(values);
+```
+
+### Listening for responses
+
+Register listeners to be notified when search responses come back from the server, or are cleared by UI events.  Every listener is passed a `Response` which wraps 
+
+```javascript
+import { responseUpdatedEvent } from "sajari-react/controllers";
+
+const unregister = pipeline.listen(responseUpdatedEvent, (response) => {
+  if (response.isEmpty()) {
+    // Empty response, could have been cleared via pipeline.clearResponse()
+    console.log("empty response");
+    return;
+  }
+
+  if (response.isError()) {
+    // Error response, normally due to incorrect project/collection/pipeline
+    // or transient errors contacting the server.
+    console.error("error response:", response.getError());
+    return;
+  }
+
+  const resp = response.getResponse()
+  resp.results.forEach((result) => {
+    console.log(result);
+  }
+});
 ```
 
 # License
