@@ -1,15 +1,16 @@
 import React from "react";
 
-import { Pipeline, Values } from "sajari-react/controllers";
+import { Pipeline, Values, Tracking } from "sajari-react/controllers";
 import { AutocompleteInput } from "sajari-react/ui/text";
 
 import "sajari-react/ui/text/AutocompleteInput.css";
 
-const project = "sajariptyltd";
-const collection = "sajari-com";
-const pipelineName = "autocomplete";
-
-const pipeline = new Pipeline(project, collection, pipelineName);
+const pipeline = new Pipeline(
+  "sajariptyltd",
+  "sajari-com",
+  "autocomplete",
+  new Tracking()
+);
 const values = new Values();
 
 const App = () =>

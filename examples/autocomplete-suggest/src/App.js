@@ -13,11 +13,12 @@ import "sajari-react/ui/text/AutocompleteInput.css";
 
 import "./AutocompleteSuggestions.css";
 
-const project = "sajariptyltd";
-const collection = "sajari-com";
-const pipelineName = "autocomplete";
-
-const pipeline = new Pipeline(project, collection, pipelineName);
+const pipeline = new Pipeline(
+  "sajariptyltd",
+  "sajari-com",
+  "autocomplete",
+  new Tracking()
+);
 const values = new Values();
 
 const AutocompleteSuggestion = ({ text, suggestion, setText }) => {

@@ -4,8 +4,7 @@ import {
   Filter,
   CombineFilters,
   Pipeline,
-  Values,
-  Tracking
+  Values
 } from "sajari-react/controllers";
 import { RadioFacet, CheckboxFacet } from "sajari-react/ui/facets";
 import { AutocompleteInput } from "sajari-react/ui/text";
@@ -15,15 +14,8 @@ import "sajari-react/ui/text/AutocompleteInput.css";
 import "sajari-react/ui/results/Paginator.css";
 import "sajari-react/ui/results/Results.css";
 
-const project = "sajariptyltd";
-const collection = "sajari-com";
-const pipelineName = "website";
-
+const pipeline = new Pipeline("sajariptyltd", "sajari-com", "website");
 const values = new Values();
-
-const tracking = new Tracking();
-tracking.clickTokens("url");
-const pipeline = new Pipeline(project, collection, pipelineName, tracking);
 
 const currentUnix = parseInt(String(new Date().getTime() / 1000), 10);
 const lastDays = n => currentUnix - n * 24 * 60 * 60;
@@ -51,7 +43,7 @@ const categoryFilter = new Filter(
 const filter = CombineFilters([recencyFilter, categoryFilter]);
 values.set({ filter: () => filter.filter() });
 filter.listen(() => {
-  pipeline.search(values, tracking);
+  pipeline.search(values);
 });
 
 const App = () =>
