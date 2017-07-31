@@ -2,7 +2,7 @@
 
 This directory contains the radio/checkbox search UI example.
 
-INSERT PICTURE HERE!
+<img width="859" alt="screen shot 2017-07-31 at 11 34 52 am" src="https://user-images.githubusercontent.com/2822/28759763-5652fc76-75e4-11e7-86fe-391044a7ebea.png">
 
 It has been created using the [Create React App](https://github.com/facebookincubator/create-react-app) tool to make development and deployment quick and easy.
 
