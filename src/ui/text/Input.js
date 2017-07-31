@@ -2,9 +2,12 @@ import React from "react";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 
-import { Tracking } from "sajari";
-
-import { Pipeline, Values, valuesChangedEvent } from "../../controllers";
+import {
+  Pipeline,
+  Tracking,
+  Values,
+  valuesChangedEvent
+} from "../../controllers";
 
 const RETURN_KEYCODE = 13;
 

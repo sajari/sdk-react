@@ -1,9 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Tracking } from "sajari";
-
-import { Pipeline, responseUpdatedEvent, Values } from "../../controllers";
+import {
+  Pipeline,
+  Tracking,
+  responseUpdatedEvent,
+  Values
+} from "../../controllers";
 
 class Summary extends React.Component {
   /**
@@ -46,7 +49,10 @@ class Summary extends React.Component {
 
   handleOverride = event => {
     event.preventDefault();
-    this.props.values.set({ q: this.props.values.get()["q"], "q.override": "true" });
+    this.props.values.set({
+      q: this.props.values.get()["q"],
+      "q.override": "true"
+    });
     this.props.pipeline.search(this.props.values, this.props.tracking);
   };
 

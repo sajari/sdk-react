@@ -2,10 +2,9 @@ import React from "react";
 import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 
-import { Tracking } from "sajari";
-
 import {
   Pipeline,
+  Tracking,
   Values,
   responseUpdatedEvent,
   valuesChangedEvent

@@ -1,8 +1,10 @@
-import { trackingResetEvent } from "sajari";
-
 import GA from "./ga";
 
-import { responseUpdatedEvent, resultClickedEvent } from "../controllers";
+import {
+  trackingResetEvent,
+  responseUpdatedEvent,
+  resultClickedEvent
+} from "../controllers";
 
 class Analytics {
   /**

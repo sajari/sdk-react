@@ -1,9 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Tracking } from "sajari";
-
-import { Values, Pipeline, Filter } from "../../controllers";
+import { Values, Pipeline, Tracking, Filter } from "../../controllers";
 
 class TabsFacet extends React.Component {
   /**

@@ -1,9 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Tracking } from "sajari";
-
-import { Pipeline, responseUpdatedEvent, Values } from "../../controllers";
+import {
+  Pipeline,
+  Tracking,
+  responseUpdatedEvent,
+  Values
+} from "../../controllers";
 
 const pageNumbers = (page, totalPages) => {
   const pages = [];
