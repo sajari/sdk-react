@@ -24,6 +24,7 @@ We also provide a vanilla Sajari JS library [here](https://github.com/sajari/saj
 It's easy to get up and running using one of our examples as a starting point.  They're pre-configured with all the correct dependencies, so all you need to do is copy the example directory into your own workspace and you're on your way!
 
 * [Autocomplete](./examples/autocomplete-only/): Search box with autocomplete.
+* [Autocomplete with suggestions](./examples/autocomplete-suggest/): Search box with autocomplete + suggestions.
 * [Simple Search](./examples/simple-search/): Instant search with autocomplete.
 * [Standard Search](./examples/standard-search/): Instant search with autocomplete + tab filtering.
 * [Custom Result Renderer](./examples/custom-result-renderer/): Instant search with autocomplete + custom result renderers.
@@ -31,14 +32,16 @@ It's easy to get up and running using one of our examples as a starting point.  
 
 # Setup
 
-Check out our examples for the best way to get started.  You only need to follow the instructions here if you are wanting to add the SDK to an existing project, or just want to start from scratch.
+Check out our [examples](./examples) for the best way to get started.
+
+If you want to add the SDK to an existing project, or want to start from scratch, then you can get `sajari-react` using NPM.
 
 ### NPM
 
-We currently distribute the `sajari-react` library through npm. Npm is only required for downloading the library. The SDK is made to be used from the browser.
+We currently distribute the `sajari-react` library through NPM. NPM is only required for downloading the library. The SDK is made to be used from the browser.
 
-```
-npm install --save sajari sajari-react
+```shell
+$ npm install --save sajari sajari-react
 ```
 
 # Performing Searches
@@ -63,9 +66,10 @@ const pipelineName = "website";
 // Create a client for making API requests.
 const client = new Client(project, collection);
 const tracking = new Tracking();
+tracking.clickTokens("url");
 
-// Create a pipeline for handling the "website" pipeline.
-const pipeline = new Pipeline(client, "website");
+// Create a pipeline for maing search calls.
+const pipeline = new Pipeline(client, pipelineName, tracking);
 
 // Pipeline parameters are defined in values.
 const values = new Values();
@@ -75,7 +79,7 @@ values.set({
 })
 
 // Perform a search
-pipeline.search(values, tracking);
+pipeline.search(values);
 ```
 
 # Quick Reference
@@ -104,11 +108,11 @@ import { Input } from "sajari-react/ui/text";
 <Input values={values} pipeline={pipeline} />
 ```
 
-# Building Facets
+## Building Facets
 
 Use the `Filter` helper-class from `sajari-react/controllers` to integrate facets into UI.  The library provides a standard set of components under `sajari-react/ui/facets` which can automatically bind state to `Filter` instances.  For more details, see the [full documentation](./src/controllers/filter.js).
 
-## Single-select filters
+### Single-select filters
 
 A single-select filter is used to handle state for components that offer multiple filtering options but only allow one option to be enabled at any one time. For example: a drop-down box or group of radio buttons.
 
@@ -207,7 +211,7 @@ values.set({ filter: () => categories.filter() });
 categories.listen(() => pipeline.search(values, tracking));
 ```
 
-## Tidying up filter listeners
+### Tidying up filter listeners
 
 The `listen` method returns a closure that will unrgister itself:
 
@@ -220,7 +224,7 @@ const unregister = filter.listen(() => {
 unregister();
 ```
 
-## Combining multiple filters
+### Combining multiple filters
 
 To combine multiple `Filter` instances into one, use the `CombineFilters` function.
 
@@ -234,20 +238,23 @@ const categoryFilter = new Filter(...);
 // Combine both recency and category filters.
 const filter = CombineFilters([recencyFilter, categoryFilter])
 
+// Set value to evaluate filter every time it is used.
+values.set({ filter: () => filter.filter() })
+
 // When either recencyFilter or categoryFilter is updated, they trigger
 // an event on the combined filter.
 const unregister = filter.listen(() => {
-  pipeline.search(values, tracking);
+  pipeline.search(values);
 });
 
-// sometime later...
+// Sometime later...
 unregister();
 ```
 
-## License
+# License
 
 We use the [MIT license](./LICENSE)
 
-## Browser Support
+# Browser Support
 
 The browser support is dependent on the React library, which currently supports recent versions of Chrome, Firefox, Sajari, Opera, and IE9+. (17/8/2016)
