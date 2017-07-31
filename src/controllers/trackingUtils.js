@@ -1,3 +1,5 @@
+import { Tracking } from "sajari";
+
 import { valuesChangedEvent } from "./";
 
 const initWebsiteTracking = (values, tracking, paramQ = "q") => {
@@ -20,4 +22,14 @@ const initWebsiteTracking = (values, tracking, paramQ = "q") => {
   });
 };
 
-export { initWebsiteTracking };
+/**
+ * Creates a new click tracking analytics object.
+ * @param {string|undefined} [field="url"] Unique field to use for tracking.
+ */
+const ClickTracking = (field = "url") => {
+  const tracking = new Tracking();
+  tracking.clickTokens(field);
+  return tracking;
+};
+
+export { initWebsiteTracking, ClickTracking };
