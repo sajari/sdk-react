@@ -30,11 +30,6 @@ class Analytics {
     this.bodyLabel = "q";
     this.bodyAutocompletedLabel = "q.used";
 
-    this.beforeunload = this.beforeunload.bind(this);
-    this.responseUpdated = this.responseUpdated.bind(this);
-    this.resetBody = this.resetBody.bind(this);
-    this.resultClicked = this.resultClicked.bind(this);
-
     window.addEventListener("beforeunload", this.beforeunload);
 
     this.pipeline.listen(responseUpdatedEvent, this.responseUpdated);
@@ -45,17 +40,17 @@ class Analytics {
   /**
    * Runs before the page is closed/navigated away from. Can trigger a ga onPageClose call.
    */
-  beforeunload() {
+  beforeunload = () => {
     if (this.enabled && this.body) {
       this.ga.onPageClose(this.body);
       this.enabled = false;
     }
-  }
+  };
 
   /**
    * Resets the currently held parameters. Can trigger a ga onBodyReset call.
    */
-  resetBody() {
+  resetBody = () => {
     if (this.enabled) {
       // Send the longest body since the last time the body was cleared.
       // Use completion if available.
@@ -66,12 +61,12 @@ class Analytics {
       this.longestAutocompletedBody = "";
       this.enabled = false;
     }
-  }
+  };
 
   /**
    * Runs when the response has been updated. Updates the currently held search parameters.
    */
-  responseUpdated(response) {
+  responseUpdated = response => {
     if (response.isEmpty() || response.isError()) {
       return;
     }
@@ -93,19 +88,19 @@ class Analytics {
     }
 
     this.body = newBody;
-  }
+  };
 
   /**
    * Runs when a result has been clicked. Can trigger a ga onResultClicked call.
    */
-  resultClicked() {
+  resultClicked = () => {
     if (this.enabled && this.body) {
       this.ga.onResultClicked(this.body);
       this.longestNonAutocompletedBody = "";
       this.longestAutocompletedBody = "";
       this.enabled = false;
     }
-  }
+  };
 }
 
 export default Analytics;
