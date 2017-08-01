@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Filter } from "../../controllers";
+import { Filter, selectionUpdatedEvent } from "../../controllers";
 
 class CheckboxFacet extends React.Component {
   /**
@@ -39,65 +39,6 @@ class RadioFacet extends React.Component {
   }
 }
 
-class SelectFacet extends React.Component {
-  /**
-   * propTypes
-   * @property {Filter} filter
-   * @property {Object} options
-   */
-  static get propTypes() {
-    return {
-      filter: PropTypes.instanceOf(Filter).isRequired,
-      options: PropTypes.object.isRequired
-    };
-  }
-
-  constructor(props) {
-    super(props);
-
-    const current = props.filter.get();
-    if (current.length > 0) {
-      this.state = { active: current[0] };
-    }
-  }
-
-  componentDidMount() {
-    this.unregister = this.props.filter.listen(this.filterChanged);
-  }
-
-  componentWillUnmount() {
-    this.unregister();
-  }
-
-  filterChanged = (filter) => {
-    const current = this.props.filter.get();
-    if (current.length > 0) {
-      this.setState({ active: current[0] });
-    }
-  };
-
-  handleChange = (e) => {
-    this.props.filter.set(e.target.value, true);
-  };
-
-  render() {
-    const { filter, name, options, ...rest } = this.props;
-
-    const optionsRendered = Object.keys(options).map(o => {
-      return (
-        <option value={o} key={o}>
-          {options[o]}
-        </option>
-      );
-    });
-    return (
-      <select value={this.state.active} onChange={this.handleChange}>
-        {optionsRendered}
-      </select>
-    );
-  }
-}
-
 class InputFacet extends React.Component {
   constructor(props) {
     super(props);
@@ -106,15 +47,18 @@ class InputFacet extends React.Component {
   }
 
   componentDidMount() {
-    this.unregister = this.props.filter.listen(this.filterChanged);
+    this.unregister = this.props.filter.listen(
+      selectionUpdatedEvent,
+      this.selectionUpdated
+    );
   }
 
   componentWillUnmount() {
     this.unregister();
   }
 
-  filterChanged = filter => {
-    this.setState({ active: filter.isSet(this.props.name) });
+  selectionUpdated = () => {
+    this.setState({ active: this.props.filter.isSet(this.props.name) });
   };
 
   handleChange = () => {
@@ -133,4 +77,4 @@ class InputFacet extends React.Component {
   }
 }
 
-export { CheckboxFacet, RadioFacet, SelectFacet };
+export { CheckboxFacet, RadioFacet };
