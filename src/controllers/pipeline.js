@@ -120,7 +120,7 @@ class Pipeline {
   }
 
   /**
-   * Returns the current response.
+   * The current response.
    * @return {Response}
    */
   getResponse() {
@@ -148,7 +148,7 @@ class Response {
   }
 
   /**
-   * Returns true if has a current response.
+   * Is this response empty?
    * @return {boolean}
    */
   isEmpty() {
@@ -161,7 +161,7 @@ class Response {
   }
 
   /**
-   * Returns true if the response is an error.
+   * Is this response an error?
    * @return {boolean}
    */
   isError() {
@@ -169,7 +169,7 @@ class Response {
   }
 
   /**
-   * Returns error.
+   * The error associated with this response.
    * @return {string|undefined}
    */
   getError() {
@@ -201,7 +201,7 @@ class Response {
   }
 
   /**
-   * Return results from the response if it's available
+   * Return results from the response.
    * @return {Object|undefined}
    */
   getResults() {
@@ -209,7 +209,7 @@ class Response {
   }
 
   /**
-   * Return the total number of results from the response if it's available
+   * Return the total number of results.
    * @return {number|undefined}
    */
   getTotalResults() {
@@ -219,7 +219,7 @@ class Response {
   }
 
   /**
-   * Return time from the response if it's available
+   * Return time from the response.
    * @return {string|undefined}
    */
   getTime() {
@@ -227,7 +227,7 @@ class Response {
   }
 
   /**
-   * Return the aggregates object from the query if it's available
+   * Return the aggregates in the response.
    * @return {Object|undefined}
    */
   getAggregates() {
