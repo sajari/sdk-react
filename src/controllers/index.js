@@ -1,5 +1,10 @@
 export { default as Listener } from "./listener";
-export { Filter, CombineFilters } from "./filter";
+export {
+  Filter,
+  CombineFilters,
+  selectionUpdatedEvent,
+  optionsUpdatedEvent
+} from "./filter";
 export {
   Pipeline,
   Response,

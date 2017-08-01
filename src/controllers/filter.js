@@ -1,5 +1,10 @@
 import { Listener } from "./";
 
+export const selectionUpdatedEvent = "selection-updated";
+export const optionsUpdatedEvent = "options-updated";
+
+const events = [selectionUpdatedEvent, optionsUpdatedEvent];
+
 /**
  * Filter is a helper class for building filters from UI components.
  */
@@ -28,25 +33,42 @@ class Filter {
     /** @private */
     this.joinOperator = joinOperator;
     /** @private */
-    this.listener = new Listener();
+    this.listeners = {
+      [selectionUpdatedEvent]: new Listener(),
+      [optionsUpdatedEvent]: new Listener()
+    };
   }
 
   /**
-   * Listen for updates are made to the filter.
-   * @param {function(filter: Filter)} listener Function to run when updates are made.
+   * Register a listener for a specific event.
+   * @param {string} event Event to listen for
+   * @param {function(filter: Filter)} callback Function to run when updates are made.
    * @return {function()} The function to unregister the listener.
    */
-  listen(listener) {
-    return this.listener.listen(listener);
+  listen(event, callback) {
+    if (events.indexOf(event) === -1) {
+      throw new Error(`unknown event type "${event}"`);
+    }
+    return this.listeners[event].listen(callback);
   }
 
   /**
-   * Notifies the listeners that the filter has been updated.
-   * All listeners receive a reference to the instance of the Filter object as the first argument.
+   * Emits a selection updated event to the selection updated listener.
+   * @private
    */
-  notify() {
-    this.listener.notify(l => {
-      l(this);
+  _emitSelectionUpdated() {
+    this.listeners[selectionUpdatedEvent].notify(listener => {
+      listener();
+    });
+  }
+
+  /**
+   * Emits an options updated event to the options updated listener.
+   * @private
+   */
+  _emitOptionsUpdated() {
+    this.listeners[optionsUpdatedEvent].notify(listener => {
+      listener();
     });
   }
 
@@ -76,7 +98,7 @@ class Filter {
         this.current = this.current.filter(n => n !== name);
       }
     }
-    this.notify();
+    this._emitSelectionUpdated();
   }
 
   /**
@@ -89,24 +111,34 @@ class Filter {
   }
 
   /**
-   * Adds a filter to the available options.
-   * @param {string} name Name of the filter to add
-   * @param {string} value Filter to run if enabled
+   * Merge options into the filter options.
+   *
+   * Set an option to undefined to remove it.
+   * 
+   * @param {*} options 
    */
-  add(name, value) {
-    this.options[name] = value;
+  setOptions(options) {
+    Object.keys(options).forEach(k => {
+      if (options[k] === undefined) {
+        delete this.options[k];
+        this.current = this.current.filter(n => n !== k);
+      } else {
+        this.options[k] = options[k];
+      }
+    });
+    this._emitOptionsUpdated();
   }
 
   /**
-   * Removes a filter from the available options.
-   * @param {string} name Name of the filter to remove
+   * Get all the options defined in this filter.
+   * @return {Object} Dictionary of name -> filter pairs.
    */
-  remove(name) {
-    delete this.options[name];
+  getOptions() {
+    return this.options;
   }
 
   /**
-   * Get returns the filters.
+   * Get the current selection in this filter.
    * @return {string[]}
    */
   get() {
@@ -164,10 +196,9 @@ const CombineFilters = (filters, operator = "AND") => {
   });
 
   const combFilter = new Filter(opts, on, true, operator);
-  count = 1;
   filters.forEach(f => {
-    f.listen(() => {
-      combFilter.notify();
+    f.listen(selectionUpdatedEvent, () => {
+      combFilter._emitSelectionUpdated();
     });
   });
 
