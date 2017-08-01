@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Filter } from "../../controllers";
+import { Filter, selectionUpdatedEvent } from "../../controllers";
 
 class DebugFacet extends React.Component {
   /**
@@ -21,7 +21,10 @@ class DebugFacet extends React.Component {
   }
 
   componentDidMount() {
-    this.unregister = this.props.filter.listen(this.filterChanged);
+    this.unregister = this.props.filter.listen(
+      selectionUpdatedEvent,
+      this.filterChanged
+    );
   }
 
   componentWillUnmount() {

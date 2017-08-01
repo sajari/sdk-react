@@ -1,7 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Values, Pipeline, Tracking, Filter } from "../../controllers";
+import {
+  Values,
+  Pipeline,
+  Tracking,
+  Filter,
+  selectionUpdatedEvent
+} from "../../controllers";
 
 class TabsFacet extends React.Component {
   /**
@@ -38,7 +44,10 @@ class Tab extends React.Component {
   }
 
   componentDidMount() {
-    this.unregister = this.props.filter.listen(this.filterChanged);
+    this.unregister = this.props.filter.listen(
+      selectionUpdatedEvent,
+      this.filterChanged
+    );
   }
 
   componentWillUnmount() {
