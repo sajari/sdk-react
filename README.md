@@ -92,6 +92,27 @@ import { Input } from "sajari-react/ui/text";
 <Input values={values} pipeline={pipeline} />
 ```
 
+## Handling results
+
+A typical search result UI could includes a summary of the search, maybe with options to change spellings or search for alternatives, and a list of the paginated results.  We include components for all of these pieces so it's easy to get started.
+
+A standard search response handler would look something like this:
+
+```javascript
+<Response pipeline={pipeline}>
+  <Summary values={values} pipeline={pipeline} />
+  <Results pipeline={pipeline} />
+  <Paginator values={values} pipeline={pipeline} />
+</Response>
+```
+#### `<Response/>`
+
+The `<Response />` component doesn't render its children if the pipeline `Response` is empty (i.e. the initial pre-search state, or after `pipeline.clearResponse()` has been called).
+
+#### `<Results />`
+
+The `<Results />` component can also take a custom renderer which will be used to render its individual results.  See the [custom result renderer example](./examples/custom-result-renderer) for more details.
+
 ## Building facets
 
 Use the `Filter` helper-class from `sajari-react/controllers` to integrate facets into UI.  The library provides a standard set of components under `sajari-react/ui/facets` which can automatically bind state to `Filter` instances.  For more details, see the [full documentation](./src/controllers/filter.js).
