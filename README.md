@@ -29,6 +29,7 @@ It's easy to get up and running using one of our examples as a starting point.  
 * [Standard search](./examples/standard-search/): instant search with autocomplete + tab filtering.
 * [Custom result renderer](./examples/custom-result-renderer/): instant search with autocomplete + custom result renderers.
 * [Radio/checkbox](./examples/radio-checkbox/): radio/checkbox filtering.
+* [Aggregate](./examples/aggregate/): aggregate filtering.
 
 # Setup
 
@@ -100,6 +101,8 @@ Use the `Filter` helper-class from `sajari-react/controllers` to integrate facet
 A single-select filter is used to handle state for components that offer multiple filtering options but only allow one option to be enabled at any one time. For example: a drop-down box or group of radio buttons.
 
 ```javascript
+import { Filter } from "sajari-react/controllers";
+
 const categories = new Filter(
   {
     // Options: Name -> Filter
@@ -148,12 +151,14 @@ import { SelectFacet } from "sajari-react/ui/facets";
 To include the filter in a search it needs to be attached to the `Values` instance used by `Pipeline`:
 
 ```javascript
+import { selectionUpdatedEvent } from "sajari-react/controllers";
+
 // Add the filter to `values`.  Note category.filter() will be
 // evaluated every time `values` is used in `pipeline.search`.
 values.set({ filter: () => categories.filter() }); 
 
 // Trigger a search every time the filter selection changes.
-categories.listen(() => pipeline.search(values));
+categories.listen(selectionUpdatedEvent, () => pipeline.search(values));
 ```
 
 ## Multi-select filters
@@ -194,12 +199,14 @@ The default operator used to combine selected filters is `OR`, but this can be o
 To include the filter in a search it needs to be attached to the `Values` instance used by `Pipeline`:
 
 ```javascript
+import { selectionUpdatedEvent } from "sajari-react/controllers";
+
 // Add the filter to `values`.  Note category.filter() will be
 // evaluated every time `values` is used in `pipeline.search`.
 values.set({ filter: () => categories.filter() }); 
 
 // Trigger a search every time the filter selection changes.
-categories.listen(() => pipeline.search(values));
+categories.listen(selectionUpdatedEvent, () => pipeline.search(values));
 ```
 
 ### Tidying up filter listeners
@@ -220,6 +227,8 @@ unregister();
 To combine multiple `Filter` instances into one, use the `CombineFilters` function.
 
 ```javascript
+import { selectionUpdatedEvent } from "sajari-react/controllers";
+
 // Define recency filter...
 const recencyFilter = new Filter(...);
 
@@ -234,7 +243,7 @@ values.set({ filter: () => filter.filter() })
 
 // When either recencyFilter or categoryFilter is updated, they trigger
 // an event on the combined filter.
-const unregister = filter.listen(() => {
+const unregister = filter.listen(selectionUpdatedEvent, () => {
   pipeline.search(values);
 });
 
@@ -316,7 +325,11 @@ Register listeners to be notified when search responses come back from the serve
 * `isEmpty()`: returns `true` if the response is empty (i.e. as a result of a call to `Pipeline.clearResponse()`)
 * `isError()`: returns `true` if the response is an error response.
 * `getError()`: returns the underlying error.
-* `getResponse()`: returns the search response.
+* `getResponse()`: returns the full search response.
+* `getResults()`: returns the search results from the response.
+* `getTotalResults()`: returns the total results found.
+* `getTime()`: returns the total query time.
+* `getAggregates()`: returns aggregate data attached to response.
 
 ```javascript
 import { responseUpdatedEvent } from "sajari-react/controllers";
@@ -335,10 +348,9 @@ const unregister = pipeline.listen(responseUpdatedEvent, (response) => {
     return;
   }
 
-  const resp = response.getResponse()
-  resp.results.forEach((result) => {
+  response.getResults().forEach((result) => {
     console.log(result);
-  }
+  })
 });
 ```
 
