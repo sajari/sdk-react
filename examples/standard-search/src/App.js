@@ -2,6 +2,7 @@ import React from "react";
 
 import {
   Filter,
+  selectionUpdatedEvent,
   Pipeline,
   Values,
   valuesChangedEvent
@@ -40,7 +41,7 @@ const tabs = [
   { name: "FAQ", displayText: "FAQ" }
 ];
 
-tabsFilter.listen(() => {
+tabsFilter.listen(selectionUpdatedEvent, () => {
   if (values.get()["q"]) {
     values.emitChange();
     pipeline.search(values);

@@ -214,7 +214,7 @@ categories.listen(selectionUpdatedEvent, () => pipeline.search(values));
 The `listen` method returns a closure that will unregister the new listener:
 
 ```javascript
-const unregister = filter.listen(() => {
+const unregister = filter.listen(selectionUpdatedEvent, () => {
   console.log("filter changed:", filter.filter());
 });
 

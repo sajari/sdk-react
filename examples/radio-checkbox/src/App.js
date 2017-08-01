@@ -2,6 +2,7 @@ import React from "react";
 
 import {
   Filter,
+  selectionUpdatedEvent,
   CombineFilters,
   Pipeline,
   Values
@@ -42,7 +43,7 @@ const categoryFilter = new Filter(
 
 const filter = CombineFilters([recencyFilter, categoryFilter]);
 values.set({ filter: () => filter.filter() });
-filter.listen(() => {
+filter.listen(selectionUpdatedEvent, () => {
   pipeline.search(values);
 });
 
