@@ -7,7 +7,7 @@ import {
   Tracking,
   Values,
   responseUpdatedEvent,
-  valuesChangedEvent
+  valuesUpdatedEvent
 } from "../../controllers";
 
 const RIGHT_ARROW_KEYCODE = 39;
@@ -50,7 +50,7 @@ class AutocompleteInput extends React.Component {
 
   componentDidMount() {
     this.removeValuesListener = this.props.values.listen(
-      valuesChangedEvent,
+      valuesUpdatedEvent,
       this.valuesChanged
     );
     this.removeResponseListener = this.props.pipeline.listen(

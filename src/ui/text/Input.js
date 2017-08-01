@@ -6,7 +6,7 @@ import {
   Pipeline,
   Tracking,
   Values,
-  valuesChangedEvent
+  valuesUpdatedEvent
 } from "../../controllers";
 
 const RETURN_KEYCODE = 13;
@@ -44,7 +44,7 @@ class Input extends React.Component {
 
   componentDidMount() {
     this.removeValuesListener = this.props.values.listen(
-      valuesChangedEvent,
+      valuesUpdatedEvent,
       this.valuesChanged
     );
   }

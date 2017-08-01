@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Pipeline, Values, valuesChangedEvent } from "sajari-react/controllers";
+import { Pipeline, Values, valuesUpdatedEvent } from "sajari-react/controllers";
 import { AutocompleteInput } from "sajari-react/ui/text";
 import {
   Response,
@@ -20,7 +20,7 @@ import "sajari-react/ui/results/Results.css";
 const pipeline = new Pipeline("sajariptyltd", "sajari-com", "website");
 const values = new Values();
 
-values.listen(valuesChangedEvent, (changes, set) => {
+values.listen(valuesUpdatedEvent, (changes, set) => {
   if (!changes.page) {
     set({ page: "1" });
   }

@@ -12,6 +12,6 @@ export {
   responseUpdatedEvent,
   resultClickedEvent
 } from "./pipeline";
-export { default as Values, valuesChangedEvent } from "./values";
+export { default as Values, valuesUpdatedEvent } from "./values";
 export { initWebsiteTracking, ClickTracking } from "./trackingUtils";
 export { Tracking, trackingResetEvent } from "sajari";

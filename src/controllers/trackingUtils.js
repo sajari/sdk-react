@@ -1,10 +1,10 @@
 import { Tracking } from "sajari";
 
-import { valuesChangedEvent } from "./";
+import { valuesUpdatedEvent } from "./";
 
 const initWebsiteTracking = (values, tracking, paramQ = "q") => {
   let prevQ = "";
-  return values.listen(valuesChangedEvent, changed => {
+  return values.listen(valuesUpdatedEvent, changed => {
     if (changed.q === undefined) {
       return;
     }

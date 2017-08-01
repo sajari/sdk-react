@@ -280,9 +280,9 @@ values.set({ hello: () => "Hello" })
 Register listeners to be notified of changes to a `Values` instance:
 
 ```javascript
-import { valuesChangedEvent } from "sajari-react/controllers";
+import { valuesUpdatedEvent } from "sajari-react/controllers";
 
-const unregister = values.listen(valuesChangedEvent, () => {
+const unregister = values.listen(valuesUpdatedEvent, () => {
   console.log("values: ", values.get());
 });
 
