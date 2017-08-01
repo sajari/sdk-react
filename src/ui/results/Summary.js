@@ -81,14 +81,13 @@ class Summary extends React.Component {
           </span>
         : null;
 
-    const resp = response.getResponse();
     return (
       <div className="sj-result-summary">
         <span className="sj-result-summary-text">
-          {`${pageNumber}${resp.totalResults} results for `}
+          {`${pageNumber}${response.getTotalResults()} results for `}
           "<strong>{text}</strong>"{" "}
         </span>
-        <span className="sj-result-summary-query-time">{`(${resp.time}) `}</span>
+        <span className="sj-result-summary-query-time">{`(${response.getTime()}) `}</span>
         {override}
       </div>
     );

@@ -74,7 +74,7 @@ const ResultsRenderer = ({ response, resultClicked, ResultRenderer }) => {
     return null;
   }
 
-  const renderedResults = response.getResponse().results.map((r, index) => {
+  const renderedResults = response.getResults().map((r, index) => {
     const token = r.tokens && r.tokens.click && r.tokens.click.token;
 
     return (
