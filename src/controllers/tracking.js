@@ -1,4 +1,4 @@
-import { Tracking as clientTracking } from "sajari";
+import { Tracking as clientTracking, clickTracking } from "sajari";
 
 import { Listener } from "./";
 
@@ -57,7 +57,7 @@ class Tracking {
 class ClickTracking extends Tracking {
   /**
    * Construct a ClickTracking instance.
-   * 
+   *
    * @param {string} field Field to use for click token generation.
    * @param {string="q"} qParam Value to use for full-text query param.
    */
@@ -69,8 +69,7 @@ class ClickTracking extends Tracking {
     /** @private */
     this.qParam = qParam;
 
-    const tracking = new clientTracking();
-    tracking.clickTokens(field);
+    const tracking = new clientTracking(clickTracking, "url");
     /** @private */
     this.clientTracking = tracking;
 
@@ -89,7 +88,7 @@ class ClickTracking extends Tracking {
 
   /**
    * Construct a tracking session to be used in a search.
-   * 
+   *
    * @param {Object} values Key-value pair parameters to use in the pipeline.
    */
   tracking(values) {
