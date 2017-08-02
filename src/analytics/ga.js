@@ -1,3 +1,9 @@
+import {
+  pageClosedAnalyticsEvent,
+  bodyResetAnalyticsEvent,
+  resultClickedAnalyticsEvent
+} from "../controllers";
+
 const url = {
   /**
    * Convert a query string in to an object
@@ -80,10 +86,24 @@ const isFunction = x => typeof x === "function";
 class GoogleAnalytics {
   /**
    * Constructs a GoogleAnalytics object.
+   * @param {Analytics} analytics The analytics object to attach to.
    * @param {string} [id=undefined] The name of the ga global object. Defaults to "ga" or "_ua" if one isn't supplied.
    * @param {string} [param="q"] The URL parameter to use to indicate a search. Default to "q".
    */
-  constructor(id = undefined, param = "q") {
+  constructor(analytics, id = undefined, param = "q") {
+    this.unregisterPageClosed = analytics.listen(
+      pageClosedAnalyticsEvent,
+      this.onPageClose
+    );
+    this.unregisterBodyReset = analytics.listen(
+      bodyResetAnalyticsEvent,
+      this.onBodyReset
+    );
+    this.unregisterResultClicked = analytics.listen(
+      resultClickedAnalyticsEvent,
+      this.onResultClicked
+    );
+
     if (id !== undefined) {
       this.id = id;
     } else if (isFunction(window.ga)) {
@@ -94,6 +114,15 @@ class GoogleAnalytics {
       this.id = null;
     }
     this.param = param;
+  }
+
+  /**
+   * Stops this object listening for events.
+   */
+  detatch() {
+    this.unregisterPageClosed();
+    this.unregisterBodyReset();
+    this.unregisterResultClicked();
   }
 
   /**
@@ -120,25 +149,25 @@ class GoogleAnalytics {
    * Callback for when the body has been reset. Calls sendGAPageView.
    * @param {string} previousBody
    */
-  onBodyReset(previousBody) {
-    this.sendGAPageView(previousBody);
-  }
+  onBodyReset = body => {
+    this.sendGAPageView(body);
+  };
 
   /**
    * Callback for when a result has been clicked. Calls sendGAPageView.
    * @param {string} body
    */
-  onResultClicked(body) {
+  onResultClicked = body => {
     this.sendGAPageView(body);
-  }
+  };
 
   /**
    * Callback for when the page has been closed. Calls sendGAPageView.
    * @param {string} body
    */
-  onPageClose(body) {
+  onPageClose = body => {
     this.sendGAPageView(body);
-  }
+  };
 }
 
 export default GoogleAnalytics;
