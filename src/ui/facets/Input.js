@@ -40,6 +40,17 @@ class RadioFacet extends React.Component {
 }
 
 class InputFacet extends React.Component {
+  /**
+   * propTypes
+   * @property {Filter} filter
+   * @property {string} name
+   */
+  static get propTypes() {
+    return {
+      filter: PropTypes.instanceOf(Filter).isRequired,
+      name: PropTypes.string.isRequired
+    };
+  }
   constructor(props) {
     super(props);
 

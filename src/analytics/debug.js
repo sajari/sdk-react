@@ -7,7 +7,7 @@ import {
 
 export default class DebugAnalytics {
   /**
-    * 
+    *
     * @param {Analytics} analytics Analytics adaptor to listen for events on.
     */
   constructor(analytics) {
@@ -16,15 +16,18 @@ export default class DebugAnalytics {
     analytics.listen(resultClickedAnalyticsEvent, this.resultClicked);
   }
 
-  pageClosed = (bodyToSend) => {
+  pageClosed = bodyToSend => {
+    // eslint-disable-next-line no-console
     console.log("DebugAnalytics: pageClosed, body:", bodyToSend);
   };
 
-  bodyReset = (bodyToSend) => {
+  bodyReset = bodyToSend => {
+    // eslint-disable-next-line no-console
     console.log("DebugAnalytics: bodyReset, body:", bodyToSend);
   };
 
-  resultClicked = (bodyToSend) => {
+  resultClicked = bodyToSend => {
+    // eslint-disable-next-line no-console
     console.log("DebugAnalytics: resultClicked, body:", bodyToSend);
   };
 }

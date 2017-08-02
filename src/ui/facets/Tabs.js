@@ -36,6 +36,18 @@ class TabsFacet extends React.Component {
 }
 
 class Tab extends React.Component {
+  /**
+   * propTypes
+   * @property {Filter} filter
+   * @property {string} title
+   */
+  static get propTypes() {
+    return {
+      filter: PropTypes.instanceOf(Filter).isRequired,
+      title: PropTypes.string.isRequired
+    };
+  }
+
   constructor(props) {
     super(props);
 
