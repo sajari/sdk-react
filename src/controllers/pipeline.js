@@ -93,7 +93,7 @@ class Pipeline {
 
   /**
    * Perform a search.
-   * @param {Object} values Key-value pair parameters to run the search with.
+   * @param {Object} values Key-value parameters to pass to the pipeline.
    */
   search(values) {
     const tracking = this.tracking.tracking(values);
