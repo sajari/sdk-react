@@ -73,7 +73,7 @@
     "lint": "eslint src/*",
     "clean:build": "rimraf build/*",
     "build:watch": "npm run clean:build && npm run build:copy-files && npm run build:babel -- --watch",
-    "prebuild": "npm run clean:build",
+    "prebuild": "eslint src/* && jest && npm run clean:build",
     "test": "jest"
   }
 }
