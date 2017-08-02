@@ -12,12 +12,7 @@ import "sajari-react/ui/text/AutocompleteInput.css";
 
 import "./AutocompleteSuggestions.css";
 
-const pipeline = new Pipeline(
-  "sajariptyltd",
-  "sajari-com",
-  "autocomplete",
-  new Tracking()
-);
+const pipeline = new Pipeline("sajariptyltd", "sajari-com", "autocomplete");
 const values = new Values();
 
 const AutocompleteSuggestion = ({ text, suggestion, setText }) => {
@@ -62,12 +57,13 @@ class AutocompleteSuggestions extends React.Component {
     super(props);
 
     this.state = { response: this.props.pipeline.getResponse() };
+    this.setText = this.setText.bind(this);
   }
 
   componentDidMount() {
     this.removeResponseListener = this.props.pipeline.listen(
       responseUpdatedEvent,
-      this.responseUpdated
+      this.responseUpdated.bind(this)
     );
   }
 
@@ -75,11 +71,11 @@ class AutocompleteSuggestions extends React.Component {
     this.removeResponseListener();
   }
 
-  responseUpdated = response => {
+  responseUpdated(response) {
     this.setState({ response });
-  };
+  }
 
-  setText = (text, override = false) => {
+  setText(text, override = false) {
     const textValues = {
       [this.props.qParam]: text,
       [this.props.qOverrideParam]: override ? "true" : undefined
@@ -90,7 +86,7 @@ class AutocompleteSuggestions extends React.Component {
     } else {
       this.props.pipeline.clearResponse(this.props.values.get());
     }
-  };
+  }
 
   render() {
     const { response } = this.state;

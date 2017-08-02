@@ -6,7 +6,8 @@ import {
   optionsUpdatedEvent,
   Pipeline,
   responseUpdatedEvent,
-  Values
+  Values,
+  valuesUpdatedEvent
 } from "sajari-react/controllers";
 import { CheckboxFacet } from "sajari-react/ui/facets";
 import { AutocompleteInput } from "sajari-react/ui/text";
@@ -20,6 +21,11 @@ const pipeline = new Pipeline("sajariptyltd", "sajari-com", "website");
 
 // Setup the counting aggregate on field dir1.
 const values = new Values({ count: "dir1" });
+values.listen(valuesUpdatedEvent, (changes, set) => {
+  if (!changes.page) {
+    set({ page: "1" });
+  }
+});
 
 // Create a categorisation filter.
 const categoryFilter = new Filter({}, [], true);
@@ -52,7 +58,7 @@ pipeline.listen(responseUpdatedEvent, response => {
 /**
  * Convert aggregate data from a Response into a filter
  * option dictionary.
- * 
+ *
  * @param {sajari-react/controllers/Response} response Response from search. Assumed
  * to be non-empty and not an error (see Response.isEmpty() and Response.isError()).
  * @param {string} field Field aggregate was run on.
@@ -80,7 +86,7 @@ class Categories extends React.Component {
   componentDidMount() {
     this.unregister = this.props.filter.listen(
       optionsUpdatedEvent,
-      this.optionsUpdated
+      this.optionsUpdated.bind(this)
     );
   }
 
@@ -88,13 +94,13 @@ class Categories extends React.Component {
     this.unregister();
   }
 
-  optionsUpdated = () => {
+  optionsUpdated() {
     this.setState({
       categories: Object.keys(this.props.filter.getOptions()).filter(
         k => k.length > 0
       )
     });
-  };
+  }
 
   render() {
     const categories = this.state.categories.map(c =>
