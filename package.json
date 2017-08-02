@@ -70,7 +70,7 @@
   },
   "scripts": {
     "build": "npm run build:babel && npm run build:copy-files",
-    "build:babel": "babel ./src/ --out-dir ./build --copy-files",
+    "build:babel": "babel ./src/ --out-dir ./build --ignore '*.test.js' --copy-files",
     "build:copy-files": "babel-node ./scripts/copy-files.js",
     "lint": "eslint src/*",
     "clean:build": "rimraf build/*",
