@@ -11,7 +11,7 @@ class Response extends React.Component {
    */
   static get propTypes() {
     return {
-      pipeline: PropTypes.instanceOf(Pipeline),
+      pipeline: PropTypes.instanceOf(Pipeline).isRequired,
       children: PropTypes.node
     };
   }
