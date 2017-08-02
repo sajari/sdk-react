@@ -17,10 +17,9 @@ import "sajari-react/ui/results/Paginator.css";
 import "sajari-react/ui/results/Results.css";
 
 const pipeline = new Pipeline("sajariptyltd", "sajari-com", "website");
-const values = new Values();
 
 // Setup the counting aggregate on field dir1.
-values.set({ count: "dir1" });
+const values = new Values({ count: "dir1" });
 
 // Create a categorisation filter.
 const categoryFilter = new Filter({}, [], true);

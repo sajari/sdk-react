@@ -18,16 +18,14 @@ import "sajari-react/ui/results/Paginator.css";
 import "sajari-react/ui/results/Results.css";
 
 const pipeline = new Pipeline("sajariptyltd", "sajari-com", "website");
-const values = new Values();
 
+// Set the "fields" value to fetch the dir1 field in results.
+const values = new Values({ fields: "title,description,url,dir1" });
 values.listen(valuesUpdatedEvent, (changes, set) => {
   if (!changes.page) {
     set({ page: "1" });
   }
 });
-
-// Set the "fields" value to fetch the dir1 field in results.
-values.set({ fields: "title,description,url,dir1" });
 
 // BlogPostResult will be rendered for blog posts.
 const BlogPostResult = ({ values, token, onResultClicked }) =>

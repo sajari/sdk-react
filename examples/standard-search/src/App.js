@@ -43,7 +43,7 @@ const tabs = [
 
 tabsFilter.listen(selectionUpdatedEvent, () => {
   if (values.get()["q"]) {
-    values.emitChange();
+    values.emitUpdated();
     pipeline.search(values);
   }
 });

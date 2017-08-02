@@ -27,12 +27,12 @@ class Values {
   }
 
   /**
-   * Emits a change event.
-   * Use to notify listeners that a value has changed.
-   * Manually trigger this if have a value that is a function whos contents will change.
+   * Emits an event to notify listener that the values have been updated.
+   *
    * @param {Object} values
+   * @private
    */
-  emitChange(values = {}) {
+  emitUpdated(values = {}) {
     this.listeners[valuesUpdatedEvent].notify(listener => {
       listener(values, this._set.bind(this));
     });
@@ -61,7 +61,7 @@ class Values {
    */
   set(values) {
     this._set(values);
-    this.emitChange(values);
+    this.emitUpdated(values);
   }
 
   /**
