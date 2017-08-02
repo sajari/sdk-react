@@ -12,5 +12,11 @@ export {
   responseUpdatedEvent,
   resultClickedEvent
 } from "./pipeline";
+export {
+  Analytics,
+  pageClosedAnalyticsEvent,
+  bodyResetAnalyticsEvent,
+  resultClickedAnalyticsEvent
+} from "./analytics";
 export { default as Values, valuesUpdatedEvent } from "./values";
 export { Tracking, trackingResetEvent, ClickTracking } from "./tracking";
