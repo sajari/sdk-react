@@ -10,7 +10,6 @@ class Tracking {
   constructor() {
     this.listeners = {
       [trackingResetEvent]: new Listener()
-      // [resultClickedEvent]: new Listener()
     };
   }
 
@@ -31,15 +30,15 @@ class Tracking {
    * Emits a tracking reset event to the tracking reset event listener.
    * @private
    */
-  _emitTrackingReset(queryValues) {
+  _emitTrackingReset(values) {
     this.listeners[trackingResetEvent].notify(listener => {
-      listener(queryValues);
+      listener(values);
     });
   }
 
   /**
    * Reset the tracking.
-   * @param {Object} values Key-value parameters for pipeline request.
+   * @param {Object} values Key-value pair parameters to use in the pipeline.
    */
   reset(values) {
     throw new Error("method 'reset' unimplemented");
@@ -47,8 +46,7 @@ class Tracking {
 
   /**
    * Tracking returns the tracking data to be attached to the pipeline request.
-   * @param {Object} values The key-value pairs of parameters to use in the
-   * pipeline search.
+   * @param {Object} values Key-value pair parameters to use in the pipeline.
    * @return {clientTracking} Tracking values to be used in the search request.
    */
   tracking(values) {
@@ -82,7 +80,7 @@ class ClickTracking extends Tracking {
 
   /**
    * Reset the tracking.
-   * @param {Object} values Key-value parameters for pipeline request.
+   * @param {Object} values Key-value pair parameters to use in the pipeline.
    */
   reset(values) {
     this.clientTracking.reset();
@@ -92,7 +90,7 @@ class ClickTracking extends Tracking {
   /**
    * Construct a tracking session to be used in a search.
    * 
-   * @param {Object} values Key-value pairs to use in query.
+   * @param {Object} values Key-value pair parameters to use in the pipeline.
    */
   tracking(values) {
     const newQ = values[this.qParam];

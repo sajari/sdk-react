@@ -45,7 +45,7 @@ const filter = CombineFilters([recencyFilter, categoryFilter]);
 values.set({ filter: () => filter.filter() });
 filter.listen(selectionUpdatedEvent, () => {
   values.emitUpdated();
-  pipeline.search(values);
+  pipeline.search(values.get());
 });
 
 const App = () =>

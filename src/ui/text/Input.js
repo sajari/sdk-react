@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 
 import {
   Pipeline,
-  Tracking,
   Values,
   valuesUpdatedEvent
 } from "../../controllers";
@@ -16,7 +15,6 @@ class Input extends React.Component {
    * propTypes
    * @property {Values} values Values object.
    * @property {Pipeline} pipeline Pipeline object.
-   * @property {Tracking} tracking Tracking object.
    * @property {string} [qParam="q"] Search parameter.
    * @property {string} [qOverrideParam="q.override"] Override parameter.
    * @property {boolean} [focus=false] Whether to focus the input element.
@@ -26,7 +24,6 @@ class Input extends React.Component {
     return {
       values: PropTypes.instanceOf(Values).isRequired,
       pipeline: PropTypes.instanceOf(Pipeline).isRequired,
-      tracking: PropTypes.instanceOf(Tracking),
       qParam: PropTypes.string,
       qOverrideParam: PropTypes.string,
       focus: PropTypes.bool,
@@ -64,9 +61,9 @@ class Input extends React.Component {
     };
     this.props.values.set(textValues);
     if (textValues[this.props.qParam]) {
-      this.props.pipeline.search(this.props.values, this.props.tracking);
+      this.props.pipeline.search(this.props.values.get());
     } else {
-      this.props.pipeline.clearResponse(this.props.values);
+      this.props.pipeline.clearResponse(this.props.values.get());
     }
   };
 

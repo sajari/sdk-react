@@ -54,20 +54,16 @@ This library includes a standard set of components for building search interface
 Before you can use any components, you'll need to initialise a [`Pipeline`](#using-pipeline) and [`Values`](#using-values) parameter mapping for handling search requests to the API:
 
 ```javascript
-import { Pipeline, Values } from "sajari-react/controllers";
+import { Pipeline } from "sajari-react/controllers";
 
 // Create a pipeline for running searches.
 const pipeline = new Pipeline("<your-project>", "<your-collection>", "website");
 
-// Pipeline parameters are defined in values.
-const values = new Values();
-values.set({
+// Perform a search.
+pipeline.search({
   "q": "awesome articles",
   "filter": "category='articles'",
-})
-
-// Perform a search.
-pipeline.search(values);
+});
 ```
 
 ## AutocompleteInput
@@ -179,7 +175,7 @@ import { selectionUpdatedEvent } from "sajari-react/controllers";
 values.set({ filter: () => categories.filter() }); 
 
 // Trigger a search every time the filter selection changes.
-categories.listen(selectionUpdatedEvent, () => pipeline.search(values));
+categories.listen(selectionUpdatedEvent, () => pipeline.search(values.get()));
 ```
 
 ## Multi-select filters
@@ -227,7 +223,7 @@ import { selectionUpdatedEvent } from "sajari-react/controllers";
 values.set({ filter: () => categories.filter() }); 
 
 // Trigger a search every time the filter selection changes.
-categories.listen(selectionUpdatedEvent, () => pipeline.search(values));
+categories.listen(selectionUpdatedEvent, () => pipeline.search(values.get()));
 ```
 
 ### Tidying up filter listeners
@@ -265,7 +261,7 @@ values.set({ filter: () => filter.filter() })
 // When either recencyFilter or categoryFilter is updated, they trigger
 // an event on the combined filter.
 const unregister = filter.listen(selectionUpdatedEvent, () => {
-  pipeline.search(values);
+  pipeline.search(values.get());
 });
 
 // Sometime later...
@@ -290,7 +286,7 @@ Use to the `set` method to set values in an instance of `Values`:
 values.set({ "q": "search query" });
 ```
 
-It's also possible to assign closures to value keys, these will be evaluated whenever `Values.get()` is called (i.e. from within `pipeline.search(values)`).
+It's also possible to assign closures to value keys, these will be evaluated whenever `Values.get()` is called (i.e. `pipeline.search(values.get())`).
 
 ```javascript
 values.set({ hello: () => "Hello" })
@@ -328,15 +324,10 @@ const pipeline = new Pipeline("<your-project>", "<your-collection>", "website");
 To perform a search you need to first setup a [`Values`](#using-values) instance to handle the search parameters.
 
 ```javascript
-import { Values } from "sajari-react/controllers";
-
-const values = new Values();
-values.set({
+pipeline.search({
   q: "search keywords",
   filter: "dir1='articles'"
 });
-
-pipeline.search(values);
 ```
 
 ### Listening for responses

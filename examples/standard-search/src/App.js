@@ -19,6 +19,7 @@ import "sajari-react/ui/facets/Tabs.css";
 const pipeline = new Pipeline("sajariptyltd", "sajari-com", "website");
 const values = new Values();
 
+// Any change to values should reset the paginator back to page 1
 values.listen(valuesUpdatedEvent, (changes, set) => {
   if (!changes.page) {
     set({ page: "1" });
@@ -44,7 +45,7 @@ const tabs = [
 tabsFilter.listen(selectionUpdatedEvent, () => {
   if (values.get()["q"]) {
     values.emitUpdated();
-    pipeline.search(values);
+    pipeline.search(values.get());
   }
 });
 

@@ -1,12 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {
-  Pipeline,
-  Tracking,
-  responseUpdatedEvent,
-  Values
-} from "../../controllers";
+import { Pipeline, responseUpdatedEvent, Values } from "../../controllers";
 
 const pageNumbers = (page, totalPages) => {
   const pages = [];
@@ -98,13 +93,11 @@ class Paginator extends React.Component {
    * propTypes
    * @property {Values} values Values object.
    * @property {Pipeline} pipeline Pipeline object.
-   * @property {Sajari.Tracking|undefined} tracking Tracking object from the sajari package.
    */
   static get propTypes() {
     return {
       values: PropTypes.instanceOf(Values).isRequired,
-      pipeline: PropTypes.instanceOf(Pipeline).isRequired,
-      tracking: PropTypes.instanceOf(Tracking)
+      pipeline: PropTypes.instanceOf(Pipeline).isRequired
     };
   }
 
@@ -130,10 +123,10 @@ class Paginator extends React.Component {
   };
 
   setPage = page => {
-    const { values, pipeline, tracking } = this.props;
+    const { values, pipeline } = this.props;
     window.scrollTo(0, 0);
     values.set({ page: String(page) });
-    pipeline.search(values, tracking);
+    pipeline.search(values.get());
   };
 
   render() {

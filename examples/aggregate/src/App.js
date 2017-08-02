@@ -28,7 +28,7 @@ values.set({ filter: () => categoryFilter.filter() });
 // Trigger a search when the selection of the filter
 // changes.
 categoryFilter.listen(selectionUpdatedEvent, () => {
-  pipeline.search(values);
+  pipeline.search(values.get());
 });
 
 // Listen for responses combing back and populate

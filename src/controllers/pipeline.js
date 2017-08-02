@@ -54,9 +54,9 @@ class Pipeline {
    * Emits a search event to the search event listener.
    * @private
    */
-  _emitSearchSent(queryValues) {
+  _emitSearchSent(values) {
     this.listeners[searchSentEvent].notify(listener => {
-      listener(queryValues);
+      listener(values);
     });
   }
 
@@ -82,18 +82,17 @@ class Pipeline {
 
   /**
    * Perform a search.
-   * @param {Values} values Values object.
+   * @param {Object} values Key-value pair parameters to run the search with.
    */
   search(values) {
-    const queryValues = values.get();
-    const tracking = this.tracking.tracking(queryValues);
+    const tracking = this.tracking.tracking(values);
 
     this.searchCount++;
     const currentSearch = this.searchCount;
 
     this.client.searchPipeline(
       this.name,
-      queryValues,
+      values,
       tracking,
       (error, response = {}) => {
         if (currentSearch < this.searchCount) {
@@ -101,22 +100,22 @@ class Pipeline {
         }
         this.response = new Response(
           error ? error : undefined,
-          queryValues,
+          values,
           response ? response.searchResponse : undefined,
           response ? response.values : undefined
         );
         this._emitResponseUpdated(this.response);
       }
     );
-    this._emitSearchSent(queryValues);
+    this._emitSearchSent(values);
   }
 
   /**
    * Clears the error, response, and response values from this object.
-   * @param {Values} values Values object
+   * @param {Object} values Key-value pair parameters.
    */
   clearResponse(values) {
-    this.tracking.tracking(values.get());
+    this.tracking.tracking(values);
 
     this.response = new Response();
     this._emitResponseUpdated(this.response);
