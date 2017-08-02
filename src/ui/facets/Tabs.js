@@ -1,12 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import {
-  Values,
-  Pipeline,
-  Filter,
-  selectionUpdatedEvent
-} from "../../controllers";
+import { Filter, selectionUpdatedEvent } from "../../controllers";
 
 class TabsFacet extends React.Component {
   /**

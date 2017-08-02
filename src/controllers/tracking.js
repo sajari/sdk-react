@@ -40,7 +40,7 @@ class Tracking {
    * Reset the tracking.
    * @param {Object} values Key-value pair parameters to use in the pipeline.
    */
-  reset(values) {
+  reset(/*values*/) {
     throw new Error("method 'reset' unimplemented");
   }
 
@@ -49,7 +49,7 @@ class Tracking {
    * @param {Object} values Key-value pair parameters to use in the pipeline.
    * @return {clientTracking} Tracking values to be used in the search request.
    */
-  tracking(values) {
+  tracking(/*values*/) {
     throw new Error("method 'tracking' unimplemented");
   }
 }

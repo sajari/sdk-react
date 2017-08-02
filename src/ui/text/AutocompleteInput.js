@@ -1,5 +1,4 @@
 import React from "react";
-import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 
 import {
@@ -25,17 +24,19 @@ class AutocompleteInput extends React.Component {
    * propTypes
    * @property {Values} values Values object.
    * @property {Pipeline} pipeline Pipeline object.
+   * @property {string} placeholder Placeholder to use.
    * @property {string} [qParam="q"] Search parameter.
    * @property {string} [qOverrideParam="q.override"] Override parameter.
-   * @property {boolean} [focus=false] Whether to focus the input element.
+   * @property {boolean} [autoFocus=false] Whether to focus the input element.
    */
   static get propTypes() {
     return {
       values: PropTypes.instanceOf(Values).isRequired,
       pipeline: PropTypes.instanceOf(Pipeline).isRequired,
+      placeholder: PropTypes.string,
       qParam: PropTypes.string,
       qOverrideParam: PropTypes.string,
-      focus: PropTypes.bool
+      autoFocus: PropTypes.bool
     };
   }
 
@@ -105,7 +106,7 @@ class AutocompleteInput extends React.Component {
 
   render() {
     const { text, completion } = this.state;
-    const { placeHolder, focus } = this.props;
+    const { placeholder, autoFocus } = this.props;
 
     return (
       <div className="sj-search-input-holder-outer">
@@ -119,8 +120,8 @@ class AutocompleteInput extends React.Component {
           <input
             type="text"
             className="sj-search-bar-input sj-search-bar-input-common"
-            placeholder={placeHolder}
-            autoFocus={focus}
+            placeholder={placeholder}
+            autoFocus={autoFocus}
             value={text}
             onChange={this.handleChange}
             onKeyDown={this.handleKeyDown}

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Pipeline, responseUpdatedEvent } from "../../controllers";
+import { Pipeline, responseUpdatedEvent, Response } from "../../controllers";
 
 import { Result } from "./";
 
@@ -12,7 +12,11 @@ class Results extends React.Component {
    */
   static get propTypes() {
     return {
-      pipeline: PropTypes.instanceOf(Pipeline).isRequired
+      pipeline: PropTypes.instanceOf(Pipeline).isRequired,
+      ResultRenderer: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.instanceOf(React.Component)
+      ])
     };
   }
 
@@ -42,7 +46,6 @@ class Results extends React.Component {
   };
 
   render() {
-    const { pipeline } = this.props;
     const { response } = this.state;
 
     if (response.isEmpty()) {
@@ -91,6 +94,15 @@ const ResultsRenderer = ({ response, resultClicked, ResultRenderer }) => {
       {renderedResults}
     </div>
   );
+};
+
+ResultsRenderer.propTypes = {
+  response: PropTypes.instanceOf(Response).isRequired,
+  resultClicked: PropTypes.func.isRequired,
+  ResultRenderer: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.instanceOf(React.Component)
+  ])
 };
 
 export default Results;

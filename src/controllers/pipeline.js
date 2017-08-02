@@ -1,4 +1,4 @@
-import { Client, Tracking } from "sajari";
+import { Client } from "sajari";
 
 import { GoogleAnalytics } from "../analytics";
 import { Listener, ClickTracking, Analytics } from "./";

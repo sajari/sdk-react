@@ -4,5 +4,5 @@ import { Overlay } from "./";
 
 test("renders without crashing", () => {
   const div = document.createElement("div");
-  ReactDOM.render(<Overlay />, div);
+  ReactDOM.render(<Overlay active={true} />, div);
 });

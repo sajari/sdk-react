@@ -58,7 +58,7 @@ const url = {
    * Takes an existing URL and merges additional data into the query string
    */
   augmentUri: function(uri, args) {
-    const m = /^([^\?]+)\?(.+)+$/.exec(uri);
+    const m = /^([^?]+)\?(.+)+$/.exec(uri);
     if (m) {
       return m[1] + "?" + this.mergeQueryStr(m[2], args);
     } else {
@@ -74,7 +74,7 @@ const url = {
       decodeURIComponent(
         (new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(
           location.search
-        ) || [, ""])[1]
+        ) || [undefined, ""])[1]
           .replace(/\+/g, "%20")
       ) || null
     );
@@ -130,11 +130,7 @@ class GoogleAnalytics {
    * @param {string} body
    */
   sendGAPageView(body) {
-    if (
-      this.id &&
-      isFunction(window[this.id]) &&
-      process.env.NODE_ENV.environment !== "development"
-    ) {
+    if (this.id && isFunction(window[this.id])) {
       // Merge the body in with the existing query params in the url
       const pageAddress = url.augmentUri(
         // Take only the portion of the url following the domain

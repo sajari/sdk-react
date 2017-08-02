@@ -38,7 +38,9 @@ class Listener {
       try {
         f(l);
       } catch (e) {
+        // eslint-disable-next-line no-console
         if (console && console.error) {
+          // eslint-disable-next-line no-console
           console.error(e);
         }
       }

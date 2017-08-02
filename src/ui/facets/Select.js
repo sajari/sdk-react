@@ -42,7 +42,7 @@ class SelectFacet extends React.Component {
   };
 
   render() {
-    const { filter, name, options, ...rest } = this.props;
+    const { options } = this.props;
 
     const optionsRendered = Object.keys(options).map(o => {
       return (
@@ -54,7 +54,9 @@ class SelectFacet extends React.Component {
 
     return (
       <select
-        value={this.state.current.length > 0 ? this.state.current[0] : undefined}
+        value={
+          this.state.current.length > 0 ? this.state.current[0] : undefined
+        }
         onChange={this.handleChange}
       >
         {optionsRendered}

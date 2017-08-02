@@ -28,13 +28,7 @@ const pageNumbers = (page, totalPages) => {
   return pages;
 };
 
-const RawPaginator = ({
-  resultsPerPage,
-  page,
-  totalResults,
-  setPage,
-  pageFn
-}) => {
+const RawPaginator = ({ resultsPerPage, page, totalResults, setPage }) => {
   if (totalResults <= resultsPerPage) {
     return null;
   }
@@ -80,6 +74,13 @@ const RawPaginator = ({
   );
 };
 
+RawPaginator.propTypes = {
+  resultsPerPage: PropTypes.number.isRequired,
+  page: PropTypes.number.isRequired,
+  totalResults: PropTypes.number.isRequired,
+  setPage: PropTypes.func.isRequired
+};
+
 const Page = ({ currentPage, page, setPage, children }) =>
   <div
     className={currentPage === page ? "current" : null}
@@ -87,6 +88,13 @@ const Page = ({ currentPage, page, setPage, children }) =>
   >
     {children}
   </div>;
+
+Page.propTypes = {
+  currentPage: PropTypes.number.isRequired,
+  page: PropTypes.number.isRequired,
+  setPage: PropTypes.func.isRequired,
+  children: PropTypes.node
+};
 
 class Paginator extends React.Component {
   /**
@@ -130,7 +138,6 @@ class Paginator extends React.Component {
   };
 
   render() {
-    const { values } = this.props;
     const { response } = this.state;
 
     if (response.isEmpty() || response.isError()) {

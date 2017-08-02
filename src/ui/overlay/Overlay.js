@@ -26,7 +26,7 @@ const Overlay = ({ active, children }) => {
   );
 };
 
-Overlay.PropTypes = {
+Overlay.propTypes = {
   active: PropTypes.bool.isRequired,
   children: PropTypes.node
 };

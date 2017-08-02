@@ -1,12 +1,7 @@
 import React from "react";
-import { findDOMNode } from "react-dom";
 import PropTypes from "prop-types";
 
-import {
-  Pipeline,
-  Values,
-  valuesUpdatedEvent
-} from "../../controllers";
+import { Pipeline, Values, valuesUpdatedEvent } from "../../controllers";
 
 const RETURN_KEYCODE = 13;
 
@@ -15,19 +10,21 @@ class Input extends React.Component {
    * propTypes
    * @property {Values} values Values object.
    * @property {Pipeline} pipeline Pipeline object.
+   * @property {string} [placeholder="Type to search"] Search box placeholder.
+   * @property {boolean} [autoFocus=false] Whether to focus the input element automatically.
+   * @property {boolean} [instant=true] Whether to search on key press.
    * @property {string} [qParam="q"] Search parameter.
    * @property {string} [qOverrideParam="q.override"] Override parameter.
-   * @property {boolean} [focus=false] Whether to focus the input element.
-   * @property {boolean} [instant] Whether to search on key press.
    */
   static get propTypes() {
     return {
       values: PropTypes.instanceOf(Values).isRequired,
       pipeline: PropTypes.instanceOf(Pipeline).isRequired,
+      placeholder: PropTypes.string,
+      autoFocus: PropTypes.bool,
+      instant: PropTypes.bool,
       qParam: PropTypes.string,
-      qOverrideParam: PropTypes.string,
-      focus: PropTypes.bool,
-      instant: PropTypes.bool
+      qOverrideParam: PropTypes.string
     };
   }
 
@@ -74,28 +71,20 @@ class Input extends React.Component {
   handleKeyDown = e => {
     if (e.keyCode === RETURN_KEYCODE) {
       e.preventDefault();
-      this.setText(text);
     }
+    this.setText(e.target.value);
   };
 
   render() {
     const { text } = this.state;
-    const {
-      instant,
-      focus,
-      pipeline,
-      qParam,
-      qOverrideParam,
-      ...rest
-    } = this.props;
+    const { instant, pipeline, qParam, qOverrideParam, ...rest } = this.props;
 
     return (
       <input
         type="text"
         value={text}
-        autoFocus={focus}
         onChange={this.handleChange}
-        onKeyDown={this.props.instant ? this.handleKeyDown : undefined}
+        onKeyDown={instant ? this.handleKeyDown : undefined}
         {...rest}
       />
     );

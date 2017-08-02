@@ -1,5 +1,4 @@
 import {
-  Analytics,
   pageClosedAnalyticsEvent,
   bodyResetAnalyticsEvent,
   resultClickedAnalyticsEvent

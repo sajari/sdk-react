@@ -47,7 +47,6 @@ class Summary extends React.Component {
   };
 
   render() {
-    const { values, pipeline, tracking } = this.props;
     const { response } = this.state;
 
     if (response.isEmpty() || response.isError()) {

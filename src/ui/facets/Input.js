@@ -48,9 +48,11 @@ class InputFacet extends React.Component {
   static get propTypes() {
     return {
       filter: PropTypes.instanceOf(Filter).isRequired,
-      name: PropTypes.string.isRequired
+      name: PropTypes.string.isRequired,
+      children: PropTypes.node
     };
   }
+
   constructor(props) {
     super(props);
 
