@@ -16,15 +16,15 @@ export default class DebugAnalytics {
     analytics.listen(resultClickedAnalyticsEvent, this.resultClicked);
   }
 
-  pageClosed = () => {
-    console.log("DebugAnalytics: pageClosed");
+  pageClosed = (bodyToSend) => {
+    console.log("DebugAnalytics: pageClosed, body:", bodyToSend);
   };
 
-  bodyReset = () => {
-    console.log("DebugAnalytics: bodyReset");
+  bodyReset = (bodyToSend) => {
+    console.log("DebugAnalytics: bodyReset, body:", bodyToSend);
   };
 
-  resultClicked = () => {
-    console.log("DebugAnalytics: resultClicked");
+  resultClicked = (bodyToSend) => {
+    console.log("DebugAnalytics: resultClicked, body:", bodyToSend);
   };
 }
