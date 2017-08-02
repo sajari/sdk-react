@@ -51,7 +51,7 @@ This library includes a standard set of components for building search interface
 
 ### Setting up API calls
 
-Before you can use any components, you'll need to initialise a [`Pipeline`](#using-pipeline) and [`Values`](#using-values) parameter mapping for handling search requests to the API:
+Before you can use any components, you'll need to initialise a [`Pipeline`](#using-pipeline) for handling search requests to the API:
 
 ```javascript
 import { Pipeline } from "sajari-react/controllers";
@@ -170,8 +170,8 @@ To include the filter in a search it needs to be attached to the `Values` instan
 ```javascript
 import { selectionUpdatedEvent } from "sajari-react/controllers";
 
-// Add the filter to `values`.  Note category.filter() will be
-// evaluated every time `values` is used in `pipeline.search`.
+// Add the filter to `values`.  Note: category.filter() will be
+// evaluated in `values.get()`.
 values.set({ filter: () => categories.filter() }); 
 
 // Trigger a search every time the filter selection changes.
@@ -218,8 +218,8 @@ To include the filter in a search it needs to be attached to the `Values` instan
 ```javascript
 import { selectionUpdatedEvent } from "sajari-react/controllers";
 
-// Add the filter to `values`.  Note category.filter() will be
-// evaluated every time `values` is used in `pipeline.search`.
+// Add the filter to `values`.  Note: category.filter() will be
+// evaluated in `values.get()`.
 values.set({ filter: () => categories.filter() }); 
 
 // Trigger a search every time the filter selection changes.
@@ -255,7 +255,8 @@ const categoryFilter = new Filter(...);
 // Combine both recency and category filters.
 const filter = CombineFilters([recencyFilter, categoryFilter])
 
-// Set value to evaluate filter every time it is used.
+// Add the filter to `values`.  Note: filter.filter() will be
+// evaluated in `values.get()`.
 values.set({ filter: () => filter.filter() })
 
 // When either recencyFilter or categoryFilter is updated, they trigger
@@ -270,12 +271,13 @@ unregister();
 
 ## Using `Values`
 
-The `Values` controller is used to manage parameters for running searches.
+The `Values` convenience class used to manage parameters for running searches.
 
 ```javascript
 import { Values } from "sajari-react/controllers";
 
-const values = new Values();
+// Initialise with resultsPerPage parameter.
+const values = new Values({ resultsPerPage: "5" });
 ```
 
 ### Setting values
@@ -299,15 +301,20 @@ Register listeners to be notified of changes to a `Values` instance:
 ```javascript
 import { valuesUpdatedEvent } from "sajari-react/controllers";
 
-const unregister = values.listen(valuesUpdatedEvent, () => {
+// All listeners are passed the dictionary of values that were applied
+// and a set function which will set a new value (without triggering another
+// valuesUpdatedEvent).
+const unregister = values.listen(valuesUpdatedEvent, (updated, set) => {
+  // If page any parameter was updated, but the page wasn't, reset to 1
+  if (!updated.page) {
+    set({ page: "1" });
+  }
   console.log("values: ", values.get());
 });
 
 // Sometime later...
 unregister();
 ```
-
-Note: this event is only triggered by calls to `Values.set`.
 
 ## Using `Pipeline`
 
@@ -321,7 +328,7 @@ const pipeline = new Pipeline("<your-project>", "<your-collection>", "website");
 
 ### Performing searches
 
-To perform a search you need to first setup a [`Values`](#using-values) instance to handle the search parameters.
+To perform a search you need a dictionary of parameter key-value pairs.
 
 ```javascript
 pipeline.search({
