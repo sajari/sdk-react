@@ -5,12 +5,13 @@ export const valuesUpdatedEvent = "values-changed";
 class Values {
   /**
    * Constructor for Values object.
+   * @param {Object} values Initial values.
    */
-  constructor() {
+  constructor(values = {}) {
     this.listeners = {
       [valuesUpdatedEvent]: new Listener()
     };
-    this.values = {};
+    this.values = values;
   }
 
   /**
