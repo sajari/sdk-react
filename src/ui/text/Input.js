@@ -80,7 +80,14 @@ class Input extends React.Component {
 
   render() {
     const { text } = this.state;
-    const { instant, focus, ...rest } = this.props;
+    const {
+      instant,
+      focus,
+      pipeline,
+      qParam,
+      qOverrideParam,
+      ...rest
+    } = this.props;
 
     return (
       <input
@@ -98,7 +105,7 @@ class Input extends React.Component {
 Input.defaultProps = {
   qParam: "q",
   qOverrideParam: "q.override",
-  placeHolder: "Type to search",
+  placeholder: "Type to search",
   instant: true
 };
 
