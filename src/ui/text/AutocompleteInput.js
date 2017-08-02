@@ -79,7 +79,7 @@ class AutocompleteInput extends React.Component {
     if (textValues[this.props.qParam]) {
       this.props.pipeline.search(this.props.values, this.props.tracking);
     } else {
-      this.props.pipeline.clearResponse();
+      this.props.pipeline.clearResponse(this.props.values);
     }
   };
 

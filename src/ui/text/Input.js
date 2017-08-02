@@ -65,6 +65,8 @@ class Input extends React.Component {
     this.props.values.set(textValues);
     if (textValues[this.props.qParam]) {
       this.props.pipeline.search(this.props.values, this.props.tracking);
+    } else {
+      this.props.pipeline.clearResponse(this.props.values);
     }
   };
 

@@ -1,6 +1,6 @@
 import { Client, Tracking } from "sajari";
 
-import { Listener, ClickTracking } from "./";
+import { Listener, ClickTracking, Analytics } from "./";
 
 export const searchSentEvent = "search-sent";
 export const responseUpdatedEvent = "response-updated";
@@ -33,6 +33,8 @@ class Pipeline {
     this.searchCount = 0;
     /** @private */
     this.response = new Response();
+    /** @private */
+    this.analytics = new Analytics(this, this.tracking);
   }
 
   /**
@@ -111,8 +113,11 @@ class Pipeline {
 
   /**
    * Clears the error, response, and response values from this object.
+   * @param {Values} values Values object
    */
-  clearResponse() {
+  clearResponse(values) {
+    this.tracking.tracking(values.get());
+
     this.response = new Response();
     this._emitResponseUpdated(this.response);
   }
@@ -123,6 +128,14 @@ class Pipeline {
    */
   getResponse() {
     return this.response;
+  }
+
+  /**
+   * The analytics adaptor connected to this pipeline.
+   * @return {Analytics}
+   */
+  getAnalytics() {
+    return this.analytics;
   }
 }
 
