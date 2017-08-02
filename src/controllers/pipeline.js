@@ -14,9 +14,9 @@ class Pipeline {
    * @param {string} project Name of the project
    * @param {string} collection Name of the collection
    * @param {string} name Name of the pipeline.
-   * @param {Sajari.Tracking|undefined} [tracking=ClickTracking()] Default tracking to use in searches.
+   * @param {Tracking|undefined} [tracking=ClickTracking()] Default tracking to use in searches.
    */
-  constructor(project, collection, name, tracking = ClickTracking()) {
+  constructor(project, collection, name, tracking = new ClickTracking()) {
     /** @private */
     this.client = new Client(project, collection);
     /** @private */
@@ -81,11 +81,10 @@ class Pipeline {
   /**
    * Perform a search.
    * @param {Values} values Values object.
-   * @param {Sajari.Tracking|undefined} tracking Tracking object from sajari package. Defaults
-   * to this.tracking.
    */
-  search(values, tracking) {
+  search(values) {
     const queryValues = values.get();
+    const tracking = this.tracking.tracking(queryValues);
 
     this.searchCount++;
     const currentSearch = this.searchCount;
@@ -93,12 +92,11 @@ class Pipeline {
     this.client.searchPipeline(
       this.name,
       queryValues,
-      tracking || this.tracking,
+      tracking,
       (error, response = {}) => {
         if (currentSearch < this.searchCount) {
           return;
         }
-
         this.response = new Response(
           error ? error : undefined,
           queryValues,
