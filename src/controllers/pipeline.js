@@ -1,5 +1,6 @@
 import { Client, Tracking } from "sajari";
 
+import { GoogleAnalytics } from "../analytics";
 import { Listener, ClickTracking, Analytics } from "./";
 
 export const searchSentEvent = "search-sent";
@@ -15,8 +16,15 @@ class Pipeline {
    * @param {string} collection Name of the collection
    * @param {string} name Name of the pipeline.
    * @param {Tracking|undefined} [tracking=ClickTracking()] Default tracking to use in searches.
+   * @param {Object[]} [analyticsAdapters=GoogleAnalytics]
    */
-  constructor(project, collection, name, tracking = new ClickTracking()) {
+  constructor(
+    project,
+    collection,
+    name,
+    tracking = new ClickTracking(),
+    analyticsAdapters = [GoogleAnalytics]
+  ) {
     /** @private */
     this.client = new Client(project, collection);
     /** @private */
@@ -35,6 +43,9 @@ class Pipeline {
     this.response = new Response();
     /** @private */
     this.analytics = new Analytics(this, this.tracking);
+    analyticsAdapters.forEach(adapter => {
+      new adapter(this.analytics);
+    });
   }
 
   /**
