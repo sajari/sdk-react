@@ -44,7 +44,7 @@ class Analytics {
 
     // default to working with website pipeline values
     this.bodyLabel = "q";
-    this.bodyAutocompletedLabel = "q.used";
+    this.bodyAutocompletedLabel = "q";
 
     window.addEventListener("beforeunload", this.beforeunload);
 
@@ -83,13 +83,10 @@ class Analytics {
    */
   resetBody = () => {
     if (this.enabled) {
-      // Send the longest body since the last time the body was cleared.
-      // Use completion if available.
-      const bodyToSend =
-        this.longestAutocompletedBody || this.longestNonAutocompletedBody;
       this.listeners[bodyResetAnalyticsEvent].notify(callback => {
-        callback(bodyToSend);
+        callback(this.body);
       });
+
       this.longestNonAutocompletedBody = "";
       this.longestAutocompletedBody = "";
       this.enabled = false;
@@ -106,9 +103,11 @@ class Analytics {
 
     this.enabled = true;
 
-    const values = response.getQueryValues() || {};
-    const originalBody = values[this.bodyLabel] || "";
-    const newBody = values[this.bodyAutocompletedLabel] || originalBody;
+    const originalBody = response.getQueryValues()[this.bodyLabel] || "";
+    const responseBody =
+      response.getValues()[this.bodyAutocompletedLabel] || originalBody;
+
+    this.body = responseBody;
 
     // Here we check the lengths of the non-autocompleted bodies.
     // We do this because while the user is backspacing their query
@@ -117,10 +116,8 @@ class Analytics {
     // from them removing chars.
     if (originalBody.length >= this.longestNonAutocompletedBody.length) {
       this.longestNonAutocompletedBody = originalBody;
-      this.longestAutocompletedBody = values[this.bodyAutocompletedLabel];
+      this.longestAutocompletedBody = responseBody;
     }
-
-    this.body = newBody;
   };
 
   /**
