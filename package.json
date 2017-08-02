@@ -24,7 +24,7 @@
   ],
   "dependencies": {
     "prop-types": "^15.5.10",
-    "sajari": "0.17.1"
+    "sajari": "0.18.0"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
@@ -45,7 +45,6 @@
     "react": "15.6.1",
     "react-dom": "15.6.1",
     "rimraf": "^2.5.3",
-    "sajari": "0.17.1",
     "webpack": "^1.9.10"
   },
   "keywords": [
