@@ -13,9 +13,9 @@ We also provide a vanilla Sajari JS library [here](https://github.com/sajari/saj
 * [Examples](#examples)
 * [Setup](#setup)
   * [NPM](#npm)
-* [Getting started](#getting-started)
+* [Quick reference](#quick-reference)
 * [License](#license)
-* [Browser Support](#browser-support)
+* [Browser support](#browser-support)
 
 # Examples
 
@@ -57,10 +57,9 @@ import { Pipeline } from "sajari-react/controllers";
 // Create a pipeline for running searches.
 const pipeline = new Pipeline("<your-project>", "<your-collection>", "website");
 
-// Perform a search.
+// Now you're ready to perform a search.
 pipeline.search({
   "q": "awesome articles",
-  "filter": "category='articles'",
 });
 ```
 
