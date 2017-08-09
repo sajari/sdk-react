@@ -122,6 +122,14 @@ class Pipeline {
   }
 
   /**
+   * Cancels the current search in progress
+   */
+  cancelSearch() {
+    // FIXME(tbillington): call abort on network request when using js sdk with xmlhttprequest
+    this.searchCount++;
+  }
+
+  /**
    * Clears the error, response, and response values from this object.
    * @param {Object} values Key-value pair parameters.
    */
