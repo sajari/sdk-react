@@ -92,7 +92,7 @@ class ClickTracking extends Tracking {
    * @param {Object} values Key-value pair parameters to use in the pipeline.
    */
   tracking(values) {
-    const newQ = values[this.qParam];
+    const newQ = values[this.qParam] || "";
     const first3CharactersChanged = !newQ.startsWith(
       this.prevQ.substr(0, Math.min(newQ.length, 3))
     );
