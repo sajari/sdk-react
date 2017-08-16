@@ -69,7 +69,7 @@ class ClickTracking extends Tracking {
     /** @private */
     this.qParam = qParam;
 
-    const tracking = new clientTracking(clickTracking, "url");
+    const tracking = new clientTracking(clickTracking, field);
     /** @private */
     this.clientTracking = tracking;
 
