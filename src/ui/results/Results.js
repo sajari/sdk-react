@@ -69,7 +69,7 @@ Results.defaultProps = {
 const ResultsRenderer = ({ response, resultClicked, ResultRenderer }) => {
   if (response.isError()) {
     return (
-      <div className="sj-result-error">An error occured while searching.</div>
+      <div className="sj-result-error">An error occurred while searching.</div>
     );
   }
 
