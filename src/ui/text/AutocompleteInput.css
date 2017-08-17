@@ -5,15 +5,16 @@
 .sj-search-input-holder-outer {
   padding: 0.9em 0px;
   position: relative;
-  height: 28px;
+  min-height: 72px;
 }
 
 .sj-search-input-holder-inner {
   position: absolute;
+  width: 100%;
 }
 
 .sj-search-bar-input-common {
-  width: 500px;
+  width: 100%;
   font-size: 20px;
   padding: 0.4em;
   outline: none;
@@ -21,19 +22,21 @@
   margin-top: auto;
   margin-bottom: auto;
   margin-left: auto;
-  line-height: 24px;
+  line-height: 28px;
   text-rendering: optimizeLegibility;
   border-radius: 0;
   box-sizing: initial;
+  box-shadow: 0 0 0 1px #DDD;
+  border-radius: 3px;
+  border: 0;
+  box-sizing: inherit;
 }
 
 .sj-search-bar-completion {
-  border: 1px solid #d9d9d9;
   color: #bebebe;
 }
 
 .sj-search-bar-input {
-  border: 1px solid transparent;
   position: absolute;
   background: transparent;
   color: #666;
