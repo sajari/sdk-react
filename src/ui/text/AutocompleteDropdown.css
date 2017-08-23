@@ -1,0 +1,40 @@
+.sj-suggestions {
+  position: absolute;
+  width: 100%;
+}
+
+.sj-autocomplete-dropdown {
+  position: relative;
+}
+
+.sj-search-bar-input {
+  position: static;
+  background-color: white;
+}
+
+.sj-suggestion {
+  font-size: 18px;
+  padding: 8px 8px;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  background-color: #fff;
+  color: #666;
+}
+
+.sj-suggestion:first-child {
+  border-top: 1px solid #ddd;
+}
+
+.sj-suggestion:last-child {
+  border-bottom: 1px solid #ddd;
+}
+
+.sj-suggestion strong {
+  font-weight: 600;
+  color: #333;
+}
+
+.sj-suggestion.sj-suggestion-selected,
+.sj-suggestion:hover {
+  background-color: #ddd;
+}
