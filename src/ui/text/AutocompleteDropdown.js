@@ -220,7 +220,7 @@ class AutocompleteDropdown extends React.Component {
             <AutocompleteSuggestion
               key={s}
               suggestion={s}
-              text={text}
+              text={text.toLowerCase()}
               selected={i === selectedPosition}
               submit={this.submit}
             >
