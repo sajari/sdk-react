@@ -208,7 +208,6 @@ class AutocompleteDropdown extends React.Component {
       <div className="sj-autocomplete-dropdown">
         <input
           type="text"
-          autoCapitalize="none"
           className="sj-search-bar-input-common"
           placeholder={placeholder}
           autoFocus={autoFocus}
