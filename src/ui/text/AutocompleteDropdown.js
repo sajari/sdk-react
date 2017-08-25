@@ -88,13 +88,13 @@ class AutocompleteDropdown extends React.Component {
    * @property {Pipeline} pipeline Pipeline object.
    * @property {string} placeholder Placeholder to use.
    * @property {number} suggestionAmount Maximum number of suggestion to show.
-   * @property {Function} handleSubmit Submit function to call when a query has been chosen.
-   * @property {Function} handleUpdate Update function to call when a query has been modified.
+   * @property {Function} handleForceSearch Callback function called when a user presses Enter while highlighting a suggestion or clicks a suggestion.
+   * @property {Function} handleUpdate Callback function called when the query has been modified.
    * @property {string} [qParam="q"] Search parameter.
-   * @property {string} [qParam="q.override"] Search parameter.
+   * @property {string} [qParam="q.override"] Search override parameter.
    * @property {boolean} [autoFocus=false] Whether to focus the input element.
-   * @property {boolean} [search=true] Whether to search on text updated.
-   * @property {boolean} [showCompletion=true] Whether to show completions or not.
+   * @property {boolean} [instant=true] Whether to search on text updated.
+   * @property {boolean} [showCompletion=true] Whether to show completions inline with the query text.
    */
   static get propTypes() {
     return {
@@ -102,12 +102,12 @@ class AutocompleteDropdown extends React.Component {
       pipeline: PropTypes.instanceOf(Pipeline).isRequired,
       placeholder: PropTypes.string,
       suggestionAmount: PropTypes.number,
-      handleSubmit: PropTypes.func,
-      handleUpdate: PropTypes.func,
+      handleForceSearch: PropTypes.func,
+      handleForceSearch: PropTypes.func,
       qParam: PropTypes.string,
       qOverrideParam: PropTypes.string,
       autoFocus: PropTypes.bool,
-      search: PropTypes.bool,
+      instant: PropTypes.bool,
       showCompletion: PropTypes.bool
     };
   }
@@ -162,10 +162,10 @@ class AutocompleteDropdown extends React.Component {
   };
 
   setText = text => {
-    const { qParam, qOverrideParam, values, pipeline, search } = this.props;
+    const { qParam, qOverrideParam, values, pipeline, instant } = this.props;
     const textValues = { [qParam]: text, [qOverrideParam]: undefined };
     values.set(textValues);
-    if (!search) {
+    if (!instant) {
       return;
     }
     if (textValues[qParam]) {
@@ -176,7 +176,7 @@ class AutocompleteDropdown extends React.Component {
   };
 
   submit = query => {
-    this.props.handleSubmit(query);
+    this.props.handleForceSearch(query);
     this.setState({ text: query, suggestions: [], selectedPosition: -1 });
   };
 
@@ -287,9 +287,9 @@ AutocompleteDropdown.defaultProps = {
   qOverrideParam: "q.override",
   suggestionAmount: 10,
   placeHolder: "Search",
-  handleSubmit: () => {},
+  handleForceSearch: () => {},
   handleUpdate: () => {},
-  search: true,
+  instant: true,
   showCompletion: true
 };
 
