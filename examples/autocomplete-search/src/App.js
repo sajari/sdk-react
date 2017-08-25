@@ -80,7 +80,7 @@ class App extends React.Component {
           pipeline={pipelineForAutocomplete}
           suggestionAmount={suggestionAmount}
           handleUpdate={this.update}
-          handleSubmit={this.submit}
+          handleForceSearch={this.submit}
           search={searchAutocomplete}
           showCompletion={showCompletion}
         />
