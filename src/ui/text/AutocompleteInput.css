@@ -2,41 +2,38 @@
  * Search box
  */
 
-.sj-search-holder-outer {
+.sj-search-input-holder-outer {
   padding: 0.9em 0px;
   position: relative;
-  min-height: 72px;
-  box-sizing: border-box;
+  height: 28px;
 }
 
-.sj-overlay .sj-search-holder-outer {
-  margin-right: 34px;
-}
-
-.sj-search-holder-inner {
+.sj-search-input-holder-inner {
   position: absolute;
-  width: 100%;
 }
 
 .sj-search-bar-input-common {
+  width: 500px;
   font-size: 20px;
   padding: 0.4em;
   outline: none;
   letter-spacing: 0.6px;
-  line-height: 28px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  line-height: 24px;
   text-rendering: optimizeLegibility;
-  width: 100%;
-  box-shadow: 0 0 0 1px #ddd;
-  border-radius: 3px;
-  border: 0;
-  box-sizing: inherit;
+  border-radius: 0;
+  box-sizing: initial;
 }
 
 .sj-search-bar-completion {
+  border: 1px solid #d9d9d9;
   color: #bebebe;
 }
 
 .sj-search-bar-input {
+  border: 1px solid transparent;
   position: absolute;
   background: transparent;
   color: #666;
@@ -60,10 +57,4 @@
 
 .sj-result-summary-autocomplete-override > a {
   color: #1a0dab;
-}
-
-@media (max-width: 768px) {
-  .sj-overlay .sj-search-holder-outer {
-    margin-right: 54px;
-  }
 }
