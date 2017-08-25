@@ -240,43 +240,42 @@ class AutocompleteDropdown extends React.Component {
       selectedPosition === -1 ? text : suggestions[selectedPosition];
 
     return (
-      <div className="sj-autocomplete-dropdown">
-        <div className="sj-search-input-holder-outer">
-          <div className="sj-search-input-holder-inner">
-            <input
-              type="text"
-              className="sj-search-bar-completion sj-search-bar-input-common"
-              value={
-                showCompletion
-                  ? completion.indexOf(text) === 0 ? completion : text
-                  : ""
-              }
-              readOnly
-            />
-
-            <input
-              type="text"
-              className="sj-search-bar-input sj-search-bar-input-common"
-              placeholder={placeholder}
-              autoFocus={autoFocus}
-              value={text}
-              onChange={this.handleChange}
-              onKeyDown={this.handleKeyDown}
-            />
-          </div>
-        </div>
-        <div className="sj-suggestions">
-          {suggestions.map((s, i) =>
-            <AutocompleteSuggestion
-              key={s}
-              suggestion={s}
-              text={text.toLowerCase()}
-              selected={i === selectedPosition}
-              submit={this.submit}
-            >
-              {s}
-            </AutocompleteSuggestion>
-          )}
+      <div className="sj-search-holder-outer">
+        <div className="sj-search-holder-inner">
+          <input
+            type="text"
+            className="sj-search-bar-completion sj-search-bar-input-common"
+            value={
+              showCompletion
+                ? completion.indexOf(text) === 0 ? completion : text
+                : ""
+            }
+            readOnly
+          />
+          <input
+            type="text"
+            className="sj-search-bar-input sj-search-bar-input-common"
+            placeholder={placeholder}
+            autoFocus={autoFocus}
+            value={text}
+            onChange={this.handleChange}
+            onKeyDown={this.handleKeyDown}
+          />
+          {suggestions.length > 0
+            ? <div className="sj-suggestions">
+                {suggestions.map((s, i) =>
+                  <AutocompleteSuggestion
+                    key={s}
+                    suggestion={s}
+                    text={text.toLowerCase()}
+                    selected={i === selectedPosition}
+                    submit={this.submit}
+                  >
+                    {s}
+                  </AutocompleteSuggestion>
+                )}
+              </div>
+            : null}
         </div>
       </div>
     );
