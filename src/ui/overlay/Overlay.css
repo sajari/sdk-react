@@ -29,8 +29,7 @@
 }
 
 .sj-overlay-search {
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 0px 30px;
 }
 
 .sj-overlay-close {
@@ -57,12 +56,12 @@
   font-size: 12px;
 }
 
-@media (max-width: 845px) {
-  .sj-overlay-close {
-    right: 3%;
+@media (max-width: 768px) {
+  .sj-overlay-search {
+    padding: 0px 10px;
   }
 
-  .sj-overlay .sj-search-bar-input-common {
-    width: 70vw;
+  .sj-overlay .sj-search-holder-outer {
+    margin-right: 54px;
   }
 }

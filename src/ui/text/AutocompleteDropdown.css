@@ -1,26 +1,16 @@
-.sj-suggestions {
-  width: 100%;
-}
-
 .sj-autocomplete-dropdown {
   position: relative;
+}
+
+.sj-suggestions {
+  border: 1px solid #ddd;
 }
 
 .sj-suggestion {
   font-size: 18px;
   padding: 8px 8px;
-  border-left: 1px solid #ddd;
-  border-right: 1px solid #ddd;
   background-color: #fff;
   color: #666;
-}
-
-.sj-suggestion:first-child {
-  border-top: 1px solid #ddd;
-}
-
-.sj-suggestion:last-child {
-  border-bottom: 1px solid #ddd;
 }
 
 .sj-suggestion strong {
