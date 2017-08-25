@@ -16,22 +16,82 @@ const websitePipeline = new Pipeline(project, collection, "website");
 const autocompleteValues = new Values();
 const websiteValues = new Values();
 
-const App = () =>
-  <div className="search-app">
-    <AutocompleteDropdown
-      values={autocompleteValues}
-      pipeline={autocompletePipeline}
-      suggestionAmount={10}
-      submit={query => {
-        websiteValues.set({ q: query, "q.override": true });
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { autocomplete: true, instant: false };
+  }
+
+  update = query => {
+    if (this.state.instant && !this.state.autocomplete) {
+      websiteValues.set({ q: query, "q.override": undefined });
+      if (query) {
         websitePipeline.search(websiteValues.get());
-      }}
-    />
-    <Response pipeline={websitePipeline}>
-      <Summary values={websiteValues} pipeline={websitePipeline} />
-      <Results pipeline={websitePipeline} />
-      <Paginator values={websiteValues} pipeline={websitePipeline} />
-    </Response>
-  </div>;
+        return;
+      }
+      websitePipeline.clearResponse(websiteValues.get());
+      return;
+    }
+  };
+
+  submit = query => {
+    if (query) {
+      websiteValues.set({ q: query, "q.override": true });
+      websitePipeline.search(websiteValues.get());
+      return;
+    }
+    websitePipeline.clearResponse();
+  };
+
+  render() {
+    const { autocomplete, instant } = this.state;
+
+    const valuesForAutocomplete = instant ? websiteValues : autocompleteValues;
+    const pipelineForAutocomplete = instant
+      ? websitePipeline
+      : autocompletePipeline;
+
+    const suggestionAmount = autocomplete ? 5 : 0;
+    const searchAutocomplete =
+      (autocomplete || instant) && !(instant && !autocomplete);
+    const showCompletion = instant;
+
+    return (
+      <div className="search-app">
+        <label>
+          Autocomplete
+          <input
+            type="checkbox"
+            checked={autocomplete}
+            onChange={() => this.setState({ autocomplete: !autocomplete })}
+          />
+        </label>
+        <br />
+        <label>
+          Instant
+          <input
+            type="checkbox"
+            checked={instant}
+            onChange={() => this.setState({ instant: !instant })}
+          />
+        </label>
+        <AutocompleteDropdown
+          values={valuesForAutocomplete}
+          pipeline={pipelineForAutocomplete}
+          suggestionAmount={suggestionAmount}
+          handleUpdate={this.update}
+          handleSubmit={this.submit}
+          search={searchAutocomplete}
+          showCompletion={showCompletion}
+        />
+        <Response pipeline={websitePipeline}>
+          <Summary values={websiteValues} pipeline={websitePipeline} />
+          <Results pipeline={websitePipeline} />
+          <Paginator values={websiteValues} pipeline={websitePipeline} />
+        </Response>
+      </div>
+    );
+  }
+}
 
 export default App;
