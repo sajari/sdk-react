@@ -91,7 +91,7 @@ class AutocompleteDropdown extends React.Component {
    * @property {Function} handleForceSearch Callback function called when a user presses Enter while highlighting a suggestion or clicks a suggestion.
    * @property {Function} handleUpdate Callback function called when the query has been modified.
    * @property {string} [qParam="q"] Search parameter.
-   * @property {string} [qParam="q.override"] Search override parameter.
+   * @property {string} [qOverrideParam="q.override"] Search override parameter.
    * @property {boolean} [autoFocus=false] Whether to focus the input element.
    * @property {boolean} [instant=true] Whether to search on text updated.
    * @property {boolean} [showCompletion=true] Whether to show completions inline with the query text.
