@@ -285,7 +285,7 @@ class AutocompleteDropdown extends React.Component {
 AutocompleteDropdown.defaultProps = {
   qParam: "q",
   qOverrideParam: "q.override",
-  suggestionAmount: 10,
+  suggestionAmount: 5,
   placeHolder: "Search",
   handleForceSearch: () => {},
   handleUpdate: () => {},
