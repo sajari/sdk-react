@@ -69,15 +69,16 @@ class AutocompleteSuggestion extends React.Component {
 const getState = (values, pipeline, qParam, suggestionAmount) => {
   const text = values.get()[qParam] || "";
   if (!text) {
-    return { text, suggestions: [], selectedPosition: -1 };
+    return { text, completion: "", suggestions: [], selectedPosition: -1 };
   }
   const responseValues = pipeline.getResponse().getValues();
+  const completion = text && responseValues ? responseValues[qParam] || "" : "";
   const suggestions = responseValues
     ? (responseValues["q.suggestions"] || "")
         .split(",")
         .filter((s, i) => s.length > 0 && i < suggestionAmount)
     : [];
-  return { text, suggestions, selectedPosition: -1 };
+  return { text, completion, suggestions, selectedPosition: -1 };
 };
 
 class AutocompleteDropdown extends React.Component {
@@ -87,9 +88,13 @@ class AutocompleteDropdown extends React.Component {
    * @property {Pipeline} pipeline Pipeline object.
    * @property {string} placeholder Placeholder to use.
    * @property {number} suggestionAmount Maximum number of suggestion to show.
-   * @property {Function} submit Submit function to call when a query has been chosen.
+   * @property {Function} handleSubmit Submit function to call when a query has been chosen.
+   * @property {Function} handleUpdate Update function to call when a query has been modified.
    * @property {string} [qParam="q"] Search parameter.
+   * @property {string} [qParam="q.override"] Search parameter.
    * @property {boolean} [autoFocus=false] Whether to focus the input element.
+   * @property {boolean} [search=true] Whether to search on text updated.
+   * @property {boolean} [showCompletion=true] Whether to show completions or not.
    */
   static get propTypes() {
     return {
@@ -97,9 +102,13 @@ class AutocompleteDropdown extends React.Component {
       pipeline: PropTypes.instanceOf(Pipeline).isRequired,
       placeholder: PropTypes.string,
       suggestionAmount: PropTypes.number,
-      submit: PropTypes.func,
+      handleSubmit: PropTypes.func,
+      handleUpdate: PropTypes.func,
       qParam: PropTypes.string,
-      autoFocus: PropTypes.bool
+      qOverrideParam: PropTypes.string,
+      autoFocus: PropTypes.bool,
+      search: PropTypes.bool,
+      showCompletion: PropTypes.bool
     };
   }
 
@@ -123,6 +132,25 @@ class AutocompleteDropdown extends React.Component {
     );
   }
 
+  componentWillUpdate(nextProps) {
+    const { values: newValues, pipeline: newPipeline } = nextProps;
+    const { values: oldValues, pipeline: oldPipeline } = this.props;
+    if (newValues !== oldValues) {
+      this.removeValuesListener();
+      this.removeValuesListener = newValues.listen(
+        valuesUpdatedEvent,
+        this.valuesChanged
+      );
+    }
+    if (newPipeline !== oldPipeline) {
+      this.removeResponseListener();
+      this.removeResponseListener = newPipeline.listen(
+        responseUpdatedEvent,
+        this.valuesChanged
+      );
+    }
+  }
+
   componentWillUnmount() {
     this.removeValuesListener();
     this.removeResponseListener();
@@ -134,9 +162,12 @@ class AutocompleteDropdown extends React.Component {
   };
 
   setText = text => {
-    const { qParam, values, pipeline } = this.props;
-    const textValues = { [qParam]: text };
+    const { qParam, qOverrideParam, values, pipeline, search } = this.props;
+    const textValues = { [qParam]: text, [qOverrideParam]: undefined };
     values.set(textValues);
+    if (!search) {
+      return;
+    }
     if (textValues[qParam]) {
       pipeline.search(values.get());
     } else {
@@ -145,19 +176,22 @@ class AutocompleteDropdown extends React.Component {
   };
 
   submit = query => {
-    const { submit } = this.props;
-    submit(query);
+    this.props.handleSubmit(query);
     this.setState({ text: query, suggestions: [], selectedPosition: -1 });
   };
 
   handleChange = e => {
     this.setText(e.target.value);
+    this.props.handleUpdate(e.target.value);
   };
 
   handleKeyDown = e => {
-    const { submit } = this.props;
-    const { text, suggestions, selectedPosition } = this.state;
+    const { handleUpdate } = this.props;
+    const { text, completion, suggestions, selectedPosition } = this.state;
     if (e.keyCode === ESC_KEYCODE) {
+      if (selectedPosition !== -1) {
+        handleUpdate(text);
+      }
       this.setState({ suggestions: [], selectedPosition: -1 });
       return;
     }
@@ -187,34 +221,50 @@ class AutocompleteDropdown extends React.Component {
       }
       return;
     }
-    if (
-      (e.keyCode === RIGHT_ARROW_KEYCODE || e.keyCode === TAB_KEYCODE) &&
-      selectedPosition >= 0
-    ) {
+    if (e.keyCode === RIGHT_ARROW_KEYCODE || e.keyCode === TAB_KEYCODE) {
       e.preventDefault();
-      this.setText(suggestions[selectedPosition]);
-      this.setState({ selectedPosition: -1 });
+      if (selectedPosition >= 0) {
+        this.setText(suggestions[selectedPosition]);
+        this.setState({ selectedPosition: -1 });
+      } else if (completion) {
+        this.setState({ text: completion, suggestions: [] });
+      }
     }
   };
 
   render() {
-    const { text, suggestions, selectedPosition } = this.state;
-    const { placeholder, autoFocus } = this.props;
+    const { text, completion, suggestions, selectedPosition } = this.state;
+    const { placeholder, autoFocus, showCompletion } = this.props;
 
     const inputText =
       selectedPosition === -1 ? text : suggestions[selectedPosition];
 
     return (
       <div className="sj-autocomplete-dropdown">
-        <input
-          type="text"
-          className="sj-search-bar-input-common"
-          placeholder={placeholder}
-          autoFocus={autoFocus}
-          value={inputText}
-          onChange={this.handleChange}
-          onKeyDown={this.handleKeyDown}
-        />
+        <div className="sj-search-input-holder-outer">
+          <div className="sj-search-input-holder-inner">
+            <input
+              type="text"
+              className="sj-search-bar-completion sj-search-bar-input-common"
+              value={
+                showCompletion
+                  ? completion.indexOf(text) === 0 ? completion : text
+                  : ""
+              }
+              readOnly
+            />
+
+            <input
+              type="text"
+              className="sj-search-bar-input sj-search-bar-input-common"
+              placeholder={placeholder}
+              autoFocus={autoFocus}
+              value={text}
+              onChange={this.handleChange}
+              onKeyDown={this.handleKeyDown}
+            />
+          </div>
+        </div>
         <div className="sj-suggestions">
           {suggestions.map((s, i) =>
             <AutocompleteSuggestion
@@ -235,8 +285,13 @@ class AutocompleteDropdown extends React.Component {
 
 AutocompleteDropdown.defaultProps = {
   qParam: "q",
+  qOverrideParam: "q.override",
   suggestionAmount: 10,
-  placeHolder: "Search"
+  placeHolder: "Search",
+  handleSubmit: () => {},
+  handleUpdate: () => {},
+  search: true,
+  showCompletion: true
 };
 
 export default AutocompleteDropdown;
