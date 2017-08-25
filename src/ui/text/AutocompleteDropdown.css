@@ -1,15 +1,9 @@
 .sj-suggestions {
-  position: absolute;
   width: 100%;
 }
 
 .sj-autocomplete-dropdown {
   position: relative;
-}
-
-.sj-search-bar-input {
-  position: static;
-  background-color: white;
 }
 
 .sj-suggestion {
