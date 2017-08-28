@@ -29,7 +29,7 @@
   box-shadow: 0 0 0 1px #ddd;
   border-radius: 3px;
   border: 0;
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 
 .sj-search-bar-completion {
