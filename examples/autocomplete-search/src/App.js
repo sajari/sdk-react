@@ -11,28 +11,14 @@ import "sajari-react/ui/results/Paginator.css";
 
 const project = "sajariptyltd";
 const collection = "sajari-com";
-const autocompletePipeline = new Pipeline(project, collection, "autocomplete");
 const websitePipeline = new Pipeline(project, collection, "website");
-const autocompleteValues = new Values();
 const websiteValues = new Values();
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { autocomplete: true, instant: false };
+    this.state = { autocomplete: true };
   }
-
-  update = query => {
-    if (this.state.instant && !this.state.autocomplete) {
-      websiteValues.set({ q: query, "q.override": undefined });
-      if (query) {
-        websitePipeline.search(websiteValues.get());
-        return;
-      }
-      websitePipeline.clearResponse(websiteValues.get());
-      return;
-    }
-  };
 
   submit = query => {
     if (query) {
@@ -43,19 +29,12 @@ class App extends React.Component {
     websitePipeline.clearResponse();
   };
 
+  toggleAutocomplete = () => {
+    this.setState({ autocomplete: !this.state.autocomplete });
+  };
+
   render() {
-    const { autocomplete, instant } = this.state;
-
-    const valuesForAutocomplete = instant ? websiteValues : autocompleteValues;
-    const pipelineForAutocomplete = instant
-      ? websitePipeline
-      : autocompletePipeline;
-
-    const suggestionAmount = autocomplete ? 5 : 0;
-    const searchAutocomplete =
-      (autocomplete || instant) && !(instant && !autocomplete);
-    const showCompletion = instant;
-
+    const { autocomplete } = this.state;
     return (
       <div className="search-app">
         <label>
@@ -63,26 +42,16 @@ class App extends React.Component {
           <input
             type="checkbox"
             checked={autocomplete}
-            onChange={() => this.setState({ autocomplete: !autocomplete })}
-          />
-        </label>
-        <br />
-        <label>
-          Instant
-          <input
-            type="checkbox"
-            checked={instant}
-            onChange={() => this.setState({ instant: !instant })}
+            onChange={this.toggleAutocomplete}
           />
         </label>
         <AutocompleteDropdown
-          values={valuesForAutocomplete}
-          pipeline={pipelineForAutocomplete}
-          suggestionAmount={suggestionAmount}
-          handleUpdate={this.update}
+          values={websiteValues}
+          pipeline={websitePipeline}
+          numSuggestions={autocomplete ? 5 : 0}
           handleForceSearch={this.submit}
-          search={searchAutocomplete}
-          showCompletion={showCompletion}
+          autocompleteOnQueryChanged={true}
+          showInlineCompletion={true}
         />
         <Response pipeline={websitePipeline}>
           <Summary values={websiteValues} pipeline={websitePipeline} />
