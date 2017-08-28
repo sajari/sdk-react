@@ -66,7 +66,7 @@ class AutocompleteSuggestion extends React.Component {
   }
 }
 
-const getState = (values, pipeline, qParam, suggestionAmount) => {
+const getState = (values, pipeline, qParam, numSuggestions) => {
   const text = values.get()[qParam] || "";
   if (!text) {
     return { text, completion: "", suggestions: [], selectedPosition: -1 };
@@ -76,7 +76,7 @@ const getState = (values, pipeline, qParam, suggestionAmount) => {
   const suggestions = responseValues
     ? (responseValues["q.suggestions"] || "")
         .split(",")
-        .filter((s, i) => s.length > 0 && i < suggestionAmount)
+        .filter((s, i) => s.length > 0 && i < numSuggestions)
     : [];
   return { text, completion, suggestions, selectedPosition: -1 };
 };
@@ -86,29 +86,29 @@ class AutocompleteDropdown extends React.Component {
    * propTypes
    * @property {Values} values Values object.
    * @property {Pipeline} pipeline Pipeline object.
-   * @property {string} placeholder Placeholder to use.
-   * @property {number} suggestionAmount Maximum number of suggestion to show.
+   * @property {string} placeholder Placeholder to use for the input element.
+   * @property {number} [numSuggestions=5] Maximum number of suggestion to show.
    * @property {Function} handleForceSearch Callback function called when a user presses Enter while highlighting a suggestion or clicks a suggestion.
-   * @property {Function} handleUpdate Callback function called when the query has been modified.
+   * @property {Function} handleQueryChanged Callback function called when the query has been modified.
    * @property {string} [qParam="q"] Search parameter.
    * @property {string} [qOverrideParam="q.override"] Search override parameter.
-   * @property {boolean} [autoFocus=false] Whether to focus the input element.
-   * @property {boolean} [instant=true] Whether to search on text updated.
-   * @property {boolean} [showCompletion=true] Whether to show completions inline with the query text.
+   * @property {boolean} [autoFocus=false] Whether to focus the input element on creation.
+   * @property {boolean} [autocompleteOnQueryChanged=true] Whether to search autocomplete on query change.
+   * @property {boolean} [showInlineCompletion=true] Whether to show completions inline with the query text.
    */
   static get propTypes() {
     return {
       values: PropTypes.instanceOf(Values).isRequired,
       pipeline: PropTypes.instanceOf(Pipeline).isRequired,
       placeholder: PropTypes.string,
-      suggestionAmount: PropTypes.number,
+      numSuggestions: PropTypes.number,
       handleForceSearch: PropTypes.func,
-      handleForceSearch: PropTypes.func,
+      handleQueryChanged: PropTypes.func,
       qParam: PropTypes.string,
       qOverrideParam: PropTypes.string,
       autoFocus: PropTypes.bool,
-      instant: PropTypes.bool,
-      showCompletion: PropTypes.bool
+      autocompleteOnQueryChanged: PropTypes.bool,
+      showInlineCompletion: PropTypes.bool
     };
   }
 
@@ -119,7 +119,7 @@ class AutocompleteDropdown extends React.Component {
       props.values,
       props.pipeline,
       props.qParam,
-      props.suggestionAmount
+      props.numSuggestions
     );
 
     this.removeValuesListener = this.props.values.listen(
@@ -157,15 +157,21 @@ class AutocompleteDropdown extends React.Component {
   }
 
   valuesChanged = () => {
-    const { values, pipeline, qParam, suggestionAmount } = this.props;
-    this.setState(getState(values, pipeline, qParam, suggestionAmount));
+    const { values, pipeline, qParam, numSuggestions } = this.props;
+    this.setState(getState(values, pipeline, qParam, numSuggestions));
   };
 
   setText = text => {
-    const { qParam, qOverrideParam, values, pipeline, instant } = this.props;
+    const {
+      qParam,
+      qOverrideParam,
+      values,
+      pipeline,
+      autocompleteOnQueryChanged
+    } = this.props;
     const textValues = { [qParam]: text, [qOverrideParam]: undefined };
     values.set(textValues);
-    if (!instant) {
+    if (!autocompleteOnQueryChanged) {
       return;
     }
     if (textValues[qParam]) {
@@ -182,15 +188,15 @@ class AutocompleteDropdown extends React.Component {
 
   handleChange = e => {
     this.setText(e.target.value);
-    this.props.handleUpdate(e.target.value);
+    this.props.handleQueryChanged(e.target.value);
   };
 
   handleKeyDown = e => {
-    const { handleUpdate } = this.props;
+    const { handleQueryChanged } = this.props;
     const { text, completion, suggestions, selectedPosition } = this.state;
     if (e.keyCode === ESC_KEYCODE) {
       if (selectedPosition !== -1) {
-        handleUpdate(text);
+        handleQueryChanged(text);
       }
       this.setState({ suggestions: [], selectedPosition: -1 });
       return;
@@ -234,10 +240,11 @@ class AutocompleteDropdown extends React.Component {
 
   render() {
     const { text, completion, suggestions, selectedPosition } = this.state;
-    const { placeholder, autoFocus, showCompletion } = this.props;
+    const { placeholder, autoFocus, showInlineCompletion } = this.props;
 
-    const inputText =
-      selectedPosition === -1 ? text : suggestions[selectedPosition];
+    const completionValue = showInlineCompletion
+      ? completion.indexOf(text) === 0 ? completion : text
+      : "";
 
     return (
       <div className="sj-search-holder-outer">
@@ -245,11 +252,7 @@ class AutocompleteDropdown extends React.Component {
           <input
             type="text"
             className="sj-search-bar-completion sj-search-bar-input-common"
-            value={
-              showCompletion
-                ? completion.indexOf(text) === 0 ? completion : text
-                : ""
-            }
+            value={completionValue}
             readOnly
           />
           <input
@@ -285,12 +288,11 @@ class AutocompleteDropdown extends React.Component {
 AutocompleteDropdown.defaultProps = {
   qParam: "q",
   qOverrideParam: "q.override",
-  suggestionAmount: 5,
-  placeHolder: "Search",
+  numSuggestions: 5,
   handleForceSearch: () => {},
-  handleUpdate: () => {},
-  instant: true,
-  showCompletion: true
+  handleQueryChanged: () => {},
+  autocompleteOnQueryChanged: true,
+  showInlineCompletion: true
 };
 
 export default AutocompleteDropdown;
