@@ -34,7 +34,7 @@ class AutocompleteSuggestion extends React.Component {
     };
   }
 
-  onClick = () => {
+  handleClick = () => {
     this.props.submit(this.props.suggestion);
   };
 
@@ -58,7 +58,7 @@ class AutocompleteSuggestion extends React.Component {
     });
 
     return (
-      <div className={className} onClick={this.onClick}>
+      <div className={className} onClick={this.handleClick}>
         {prefix}
         {suggestion.substr(prefixLen)}
       </div>
