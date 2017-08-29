@@ -15,11 +15,6 @@ const websitePipeline = new Pipeline(project, collection, "website");
 const websiteValues = new Values();
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { autocomplete: true };
-  }
-
   submit = query => {
     if (query) {
       websiteValues.set({ q: query, "q.override": true });
@@ -29,26 +24,13 @@ class App extends React.Component {
     websitePipeline.clearResponse();
   };
 
-  toggleAutocomplete = () => {
-    this.setState({ autocomplete: !this.state.autocomplete });
-  };
-
   render() {
-    const { autocomplete } = this.state;
     return (
       <div className="search-app">
-        <label>
-          Autocomplete
-          <input
-            type="checkbox"
-            checked={autocomplete}
-            onChange={this.toggleAutocomplete}
-          />
-        </label>
         <AutocompleteDropdown
           values={websiteValues}
           pipeline={websitePipeline}
-          numSuggestions={autocomplete ? 5 : 0}
+          numSuggestions={5}
           handleForceSearch={this.submit}
           autocompleteOnQueryChanged={true}
           showInlineCompletion={true}
