@@ -89,19 +89,7 @@ import { Input } from "sajari-react/ui/text";
 
 `AutocompleteDropdown` is a text box which performs autocomplete as the user types and renders autocomplete suggestions in a list underneath.
 
-| Prop | Type | Description |
-| :-- | :-: | :-- |
-| values | `Values` |  Values object. |
-| pipeline | `Pipeline` |  Pipeline object. |
-| placeholder | `string` |  Placeholder to use. |
-| numSuggestions | `number` |  Maximum number of suggestion to show. |
-| handleForceSearch | `Function` |  Callback function called when a user presses Enter while highlighting a suggestion or clicks a suggestion. |
-| handleQueryChanged | `Function` |  Callback function called when the query has been modified. |
-| qParam | `string` | Search parameter. |
-| qOverrideParam | `string` | Search override parameter. |
-| autoFocus | `boolean` | Whether to focus the input element. |
-| autocompleteOnQueryChanged | `boolean` | Whether to search autocomplete on query change. |
-| showInlineCompletion | `boolean` | Whether to show completions inline with the query text. |
+![autocomplete-suggest](https://media.giphy.com/media/xT39DnBWdmrxJ1Xd1S/giphy.gif)
 
 ```javascript
 import { AutocompleteDropdown } from "sajari-react/ui/text";
