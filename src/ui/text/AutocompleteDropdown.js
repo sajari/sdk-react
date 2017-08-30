@@ -76,7 +76,8 @@ const getState = (values, pipeline, qParam, numSuggestions) => {
   const suggestions = responseValues
     ? (responseValues["q.suggestions"] || "")
         .split(",")
-        .filter((s, i) => s.length > 0 && i < numSuggestions)
+        .filter(s => s.length > 0)
+        .slice(0, numSuggestions)
     : [];
   return { text, completion, suggestions, selectedPosition: -1 };
 };
