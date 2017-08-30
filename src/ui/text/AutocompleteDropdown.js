@@ -24,7 +24,7 @@ const getState = (values, pipeline, qParam, numSuggestions) => {
       text,
       completion: "",
       suggestions: [],
-      highlightedSuggestionIndex: -1
+      selectedIndex: -1
     };
   }
   const responseValues = pipeline.getResponse().getValues();
@@ -35,7 +35,7 @@ const getState = (values, pipeline, qParam, numSuggestions) => {
         .filter(s => s.length > 0)
         .slice(0, numSuggestions)
     : [];
-  return { text, completion, suggestions, highlightedSuggestionIndex: -1 };
+  return { text, completion, suggestions, selectedIndex: -1 };
 };
 
 class AutocompleteDropdown extends React.Component {
@@ -142,7 +142,7 @@ class AutocompleteDropdown extends React.Component {
     this.setState({
       text: query,
       suggestions: [],
-      highlightedSuggestionIndex: -1
+      selectedIndex: -1
     });
     this.props.handleForceSearch(query);
   };
@@ -154,24 +154,19 @@ class AutocompleteDropdown extends React.Component {
 
   handleKeyDown = e => {
     const { handleQueryChanged } = this.props;
-    const {
-      text,
-      completion,
-      suggestions,
-      highlightedSuggestionIndex
-    } = this.state;
+    const { text, completion, suggestions, selectedIndex } = this.state;
 
     if (e.keyCode === ESC_KEYCODE) {
-      if (highlightedSuggestionIndex !== -1) {
+      if (selectedIndex !== -1) {
         handleQueryChanged(text);
       }
-      this.setState({ suggestions: [], highlightedSuggestionIndex: -1 });
+      this.setState({ suggestions: [], selectedIndex: -1 });
       return;
     }
 
     if (e.keyCode === RETURN_KEYCODE) {
-      if (highlightedSuggestionIndex >= 0) {
-        this.submit(suggestions[highlightedSuggestionIndex]);
+      if (selectedIndex >= 0) {
+        this.submit(suggestions[selectedIndex]);
       } else {
         this.submit(text);
       }
@@ -180,9 +175,9 @@ class AutocompleteDropdown extends React.Component {
 
     if (e.keyCode === UP_ARROW_KEYCODE) {
       e.preventDefault();
-      if (highlightedSuggestionIndex >= 0) {
+      if (selectedIndex >= 0) {
         this.setState({
-          highlightedSuggestionIndex: highlightedSuggestionIndex - 1
+          selectedIndex: selectedIndex - 1
         });
       }
       return;
@@ -190,9 +185,9 @@ class AutocompleteDropdown extends React.Component {
 
     if (e.keyCode === DOWN_ARROW_KEYCODE) {
       e.preventDefault();
-      if (highlightedSuggestionIndex < suggestions.length - 1) {
+      if (selectedIndex < suggestions.length - 1) {
         this.setState({
-          highlightedSuggestionIndex: highlightedSuggestionIndex + 1
+          selectedIndex: selectedIndex + 1
         });
       }
       return;
@@ -200,9 +195,9 @@ class AutocompleteDropdown extends React.Component {
 
     if (e.keyCode === RIGHT_ARROW_KEYCODE || e.keyCode === TAB_KEYCODE) {
       e.preventDefault();
-      if (highlightedSuggestionIndex >= 0) {
-        this.setText(suggestions[highlightedSuggestionIndex]);
-        this.setState({ highlightedSuggestionIndex: -1 });
+      if (selectedIndex >= 0) {
+        this.setText(suggestions[selectedIndex]);
+        this.setState({ selectedIndex: -1 });
       } else if (completion) {
         this.setState({ text: completion, suggestions: [] });
       }
@@ -214,7 +209,7 @@ class AutocompleteDropdown extends React.Component {
       text,
       completion,
       suggestions,
-      highlightedSuggestionIndex
+      selectedIndex
     } = this.state;
     const { placeholder, autoFocus, showInlineCompletion } = this.props;
 
@@ -230,7 +225,7 @@ class AutocompleteDropdown extends React.Component {
                 key={s}
                 suggestion={s}
                 text={text.toLowerCase()}
-                selected={i === highlightedSuggestionIndex}
+                selected={i === selectedIndex}
                 submit={this.submit}
               />
             )}
