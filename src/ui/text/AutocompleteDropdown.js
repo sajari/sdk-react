@@ -271,6 +271,21 @@ class AutocompleteDropdown extends React.Component {
       ? completion.indexOf(text) === 0 ? completion : text
       : "";
 
+    const suggestionList =
+      suggestions.length > 0
+        ? <div className="sj-suggestions">
+            {suggestions.map((s, i) =>
+              <AutocompleteSuggestion
+                key={s}
+                suggestion={s}
+                text={text.toLowerCase()}
+                selected={i === highlightedSuggestionIndex}
+                submit={this.submit}
+              />
+            )}
+          </div>
+        : null;
+
     return (
       <div className="sj-search-holder-outer">
         <div className="sj-search-holder-inner">
@@ -289,19 +304,7 @@ class AutocompleteDropdown extends React.Component {
             onChange={this.handleChange}
             onKeyDown={this.handleKeyDown}
           />
-          {suggestions.length > 0
-            ? <div className="sj-suggestions">
-                {suggestions.map((s, i) =>
-                  <AutocompleteSuggestion
-                    key={s}
-                    suggestion={s}
-                    text={text.toLowerCase()}
-                    selected={i === highlightedSuggestionIndex}
-                    submit={this.submit}
-                  />
-                )}
-              </div>
-            : null}
+          {suggestionList}
         </div>
       </div>
     );
