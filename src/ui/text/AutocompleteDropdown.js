@@ -195,6 +195,7 @@ class AutocompleteDropdown extends React.Component {
   handleKeyDown = e => {
     const { handleQueryChanged } = this.props;
     const { text, completion, suggestions, selectedPosition } = this.state;
+
     if (e.keyCode === ESC_KEYCODE) {
       if (selectedPosition !== -1) {
         handleQueryChanged(text);
@@ -202,6 +203,7 @@ class AutocompleteDropdown extends React.Component {
       this.setState({ suggestions: [], selectedPosition: -1 });
       return;
     }
+
     if (e.keyCode === RETURN_KEYCODE) {
       if (selectedPosition >= 0) {
         this.submit(suggestions[selectedPosition]);
@@ -210,6 +212,7 @@ class AutocompleteDropdown extends React.Component {
       }
       return;
     }
+
     if (e.keyCode === UP_ARROW_KEYCODE) {
       e.preventDefault();
       if (selectedPosition >= 0) {
@@ -219,6 +222,7 @@ class AutocompleteDropdown extends React.Component {
       }
       return;
     }
+
     if (e.keyCode === DOWN_ARROW_KEYCODE) {
       e.preventDefault();
       if (selectedPosition < suggestions.length - 1) {
@@ -228,6 +232,7 @@ class AutocompleteDropdown extends React.Component {
       }
       return;
     }
+
     if (e.keyCode === RIGHT_ARROW_KEYCODE || e.keyCode === TAB_KEYCODE) {
       e.preventDefault();
       if (selectedPosition >= 0) {
