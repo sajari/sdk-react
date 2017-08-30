@@ -69,7 +69,12 @@ class AutocompleteSuggestion extends React.Component {
 const getState = (values, pipeline, qParam, numSuggestions) => {
   const text = values.get()[qParam] || "";
   if (!text) {
-    return { text, completion: "", suggestions: [], selectedPosition: -1 };
+    return {
+      text,
+      completion: "",
+      suggestions: [],
+      highlightedSuggestionIndex: -1
+    };
   }
   const responseValues = pipeline.getResponse().getValues();
   const completion = text && responseValues ? responseValues[qParam] || "" : "";
@@ -79,7 +84,7 @@ const getState = (values, pipeline, qParam, numSuggestions) => {
         .filter(s => s.length > 0)
         .slice(0, numSuggestions)
     : [];
-  return { text, completion, suggestions, selectedPosition: -1 };
+  return { text, completion, suggestions, highlightedSuggestionIndex: -1 };
 };
 
 class AutocompleteDropdown extends React.Component {
@@ -183,8 +188,12 @@ class AutocompleteDropdown extends React.Component {
   };
 
   submit = query => {
+    this.setState({
+      text: query,
+      suggestions: [],
+      highlightedSuggestionIndex: -1
+    });
     this.props.handleForceSearch(query);
-    this.setState({ text: query, suggestions: [], selectedPosition: -1 });
   };
 
   handleChange = e => {
@@ -194,19 +203,24 @@ class AutocompleteDropdown extends React.Component {
 
   handleKeyDown = e => {
     const { handleQueryChanged } = this.props;
-    const { text, completion, suggestions, selectedPosition } = this.state;
+    const {
+      text,
+      completion,
+      suggestions,
+      highlightedSuggestionIndex
+    } = this.state;
 
     if (e.keyCode === ESC_KEYCODE) {
-      if (selectedPosition !== -1) {
+      if (highlightedSuggestionIndex !== -1) {
         handleQueryChanged(text);
       }
-      this.setState({ suggestions: [], selectedPosition: -1 });
+      this.setState({ suggestions: [], highlightedSuggestionIndex: -1 });
       return;
     }
 
     if (e.keyCode === RETURN_KEYCODE) {
-      if (selectedPosition >= 0) {
-        this.submit(suggestions[selectedPosition]);
+      if (highlightedSuggestionIndex >= 0) {
+        this.submit(suggestions[highlightedSuggestionIndex]);
       } else {
         this.submit(text);
       }
@@ -215,9 +229,9 @@ class AutocompleteDropdown extends React.Component {
 
     if (e.keyCode === UP_ARROW_KEYCODE) {
       e.preventDefault();
-      if (selectedPosition >= 0) {
+      if (highlightedSuggestionIndex >= 0) {
         this.setState({
-          selectedPosition: selectedPosition - 1
+          highlightedSuggestionIndex: highlightedSuggestionIndex - 1
         });
       }
       return;
@@ -225,9 +239,9 @@ class AutocompleteDropdown extends React.Component {
 
     if (e.keyCode === DOWN_ARROW_KEYCODE) {
       e.preventDefault();
-      if (selectedPosition < suggestions.length - 1) {
+      if (highlightedSuggestionIndex < suggestions.length - 1) {
         this.setState({
-          selectedPosition: selectedPosition + 1
+          highlightedSuggestionIndex: highlightedSuggestionIndex + 1
         });
       }
       return;
@@ -235,9 +249,9 @@ class AutocompleteDropdown extends React.Component {
 
     if (e.keyCode === RIGHT_ARROW_KEYCODE || e.keyCode === TAB_KEYCODE) {
       e.preventDefault();
-      if (selectedPosition >= 0) {
-        this.setText(suggestions[selectedPosition]);
-        this.setState({ selectedPosition: -1 });
+      if (highlightedSuggestionIndex >= 0) {
+        this.setText(suggestions[highlightedSuggestionIndex]);
+        this.setState({ highlightedSuggestionIndex: -1 });
       } else if (completion) {
         this.setState({ text: completion, suggestions: [] });
       }
@@ -245,7 +259,12 @@ class AutocompleteDropdown extends React.Component {
   };
 
   render() {
-    const { text, completion, suggestions, selectedPosition } = this.state;
+    const {
+      text,
+      completion,
+      suggestions,
+      highlightedSuggestionIndex
+    } = this.state;
     const { placeholder, autoFocus, showInlineCompletion } = this.props;
 
     const completionValue = showInlineCompletion
@@ -277,7 +296,7 @@ class AutocompleteDropdown extends React.Component {
                     key={s}
                     suggestion={s}
                     text={text.toLowerCase()}
-                    selected={i === selectedPosition}
+                    selected={i === highlightedSuggestionIndex}
                     submit={this.submit}
                   />
                 )}
