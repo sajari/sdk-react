@@ -8,7 +8,7 @@ import {
   valuesUpdatedEvent
 } from "../../controllers";
 
-import classnames from "../classnames";
+import { AutocompleteSuggestion } from "./";
 
 const RIGHT_ARROW_KEYCODE = 39;
 const TAB_KEYCODE = 9;
@@ -16,55 +16,6 @@ const RETURN_KEYCODE = 13;
 const ESC_KEYCODE = 27;
 const UP_ARROW_KEYCODE = 38;
 const DOWN_ARROW_KEYCODE = 40;
-
-class AutocompleteSuggestion extends React.Component {
-  /**
-   * propTypes
-   * @property {string} text Current user input text.
-   * @property {string} suggestion Suggestion text of this component.
-   * @property {boolean} selected Whether this suggestion is currently selected.
-   * @property {Function} submit Submit function when the user clicks the suggestion.
-   */
-  static get propTypes() {
-    return {
-      text: PropTypes.string,
-      suggestion: PropTypes.string,
-      selected: PropTypes.bool,
-      submit: PropTypes.func
-    };
-  }
-
-  handleClick = () => {
-    this.props.submit(this.props.suggestion);
-  };
-
-  render() {
-    const { text, suggestion, selected } = this.props;
-
-    let prefix = null;
-    let prefixLen = 0;
-    if (suggestion.substr(0, text.length) === text) {
-      prefix = (
-        <strong>
-          {text}
-        </strong>
-      );
-      prefixLen = text.length;
-    }
-
-    const className = classnames({
-      "sj-suggestion": true,
-      "sj-suggestion-selected": selected
-    });
-
-    return (
-      <div className={className} onClick={this.handleClick}>
-        {prefix}
-        {suggestion.substr(prefixLen)}
-      </div>
-    );
-  }
-}
 
 const getState = (values, pipeline, qParam, numSuggestions) => {
   const text = values.get()[qParam] || "";
