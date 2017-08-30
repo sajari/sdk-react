@@ -22,6 +22,7 @@ const getState = (values, pipeline, qParam, numSuggestions) => {
   if (!text) {
     return {
       text,
+      displayText: text,
       completion: "",
       suggestions: [],
       selectedIndex: -1
@@ -127,6 +128,7 @@ class AutocompleteDropdown extends React.Component {
       autocompleteOnQueryChanged
     } = this.props;
     const textValues = { [qParam]: text, [qOverrideParam]: undefined };
+    this.setState({ text, displayText: text });
     values.set(textValues);
     if (!autocompleteOnQueryChanged) {
       return;
@@ -141,6 +143,7 @@ class AutocompleteDropdown extends React.Component {
   submit = query => {
     this.setState({
       text: query,
+      displayText: query,
       suggestions: [],
       selectedIndex: -1
     });
@@ -177,6 +180,7 @@ class AutocompleteDropdown extends React.Component {
       e.preventDefault();
       if (selectedIndex >= 0) {
         this.setState({
+          displayText: suggestions[selectedIndex - 1] || text,
           selectedIndex: selectedIndex - 1
         });
       }
@@ -187,6 +191,7 @@ class AutocompleteDropdown extends React.Component {
       e.preventDefault();
       if (selectedIndex < suggestions.length - 1) {
         this.setState({
+          displayText: suggestions[selectedIndex + 1],
           selectedIndex: selectedIndex + 1
         });
       }
@@ -207,6 +212,7 @@ class AutocompleteDropdown extends React.Component {
   render() {
     const {
       text,
+      displayText,
       completion,
       suggestions,
       selectedIndex
@@ -214,7 +220,7 @@ class AutocompleteDropdown extends React.Component {
     const { placeholder, autoFocus, showInlineCompletion } = this.props;
 
     const completionValue = showInlineCompletion
-      ? completion.indexOf(text) === 0 ? completion : text
+      ? completion.indexOf(displayText) === 0 ? completion : displayText
       : "";
 
     const suggestionList =
@@ -246,7 +252,7 @@ class AutocompleteDropdown extends React.Component {
             className="sj-search-bar-input sj-search-bar-input-common"
             placeholder={placeholder}
             autoFocus={autoFocus}
-            value={text}
+            value={displayText}
             onChange={this.handleChange}
             onKeyDown={this.handleKeyDown}
           />
