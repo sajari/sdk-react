@@ -274,9 +274,7 @@ class AutocompleteDropdown extends React.Component {
                     text={text.toLowerCase()}
                     selected={i === selectedPosition}
                     submit={this.submit}
-                  >
-                    {s}
-                  </AutocompleteSuggestion>
+                  />
                 )}
               </div>
             : null}
