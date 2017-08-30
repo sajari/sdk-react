@@ -13,10 +13,10 @@ class AutocompleteSuggestion extends React.Component {
    */
   static get propTypes() {
     return {
-      text: PropTypes.string,
-      suggestion: PropTypes.string,
-      selected: PropTypes.bool,
-      submit: PropTypes.func
+      text: PropTypes.string.isRequired,
+      suggestion: PropTypes.string.isRequired,
+      selected: PropTypes.bool.isRequired,
+      submit: PropTypes.func.isRequired
     };
   }
 
