@@ -11,34 +11,27 @@ import "sajari-react/ui/results/Paginator.css";
 
 const project = "sajariptyltd";
 const collection = "sajari-com";
-const pipeline = new Pipeline(project, collection, "website");
-const values = new Values();
+const autocompletePipeline = new Pipeline(project, collection, "autocomplete");
+const autocompleteValues = new Values();
+
+const websitePipeline = new Pipeline(project, collection, "website");
+const websiteValues = new Values();
 
 class App extends React.Component {
-  submit = query => {
-    if (query) {
-      values.set({ q: query, "q.override": true });
-      pipeline.search(values.get());
-      return;
-    }
-    pipeline.clearResponse();
-  };
-
   render() {
     return (
       <div className="search-app">
         <AutocompleteDropdown
-          values={values}
-          pipeline={pipeline}
+          values={autocompleteValues}
+          pipeline={autocompletePipeline}
+          forceSearchValues={websiteValues}
+          forceSearchPipeline={websitePipeline}
           numSuggestions={5}
-          handleForceSearch={this.submit}
-          autocompleteOnQueryChanged={true}
-          showInlineCompletion={true}
         />
-        <Response pipeline={pipeline}>
-          <Summary values={values} pipeline={pipeline} />
-          <Results pipeline={pipeline} />
-          <Paginator values={values} pipeline={pipeline} />
+        <Response pipeline={websitePipeline}>
+          <Summary values={websiteValues} pipeline={websitePipeline} />
+          <Results pipeline={websitePipeline} />
+          <Paginator values={websiteValues} pipeline={websitePipeline} />
         </Response>
       </div>
     );
