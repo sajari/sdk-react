@@ -27,17 +27,6 @@ class AutocompleteSuggestion extends React.Component {
   render() {
     const { text, suggestion, selected } = this.props;
 
-    let prefix = null;
-    let prefixLen = 0;
-    if (suggestion.substr(0, text.length) === text) {
-      prefix = (
-        <strong>
-          {text}
-        </strong>
-      );
-      prefixLen = text.length;
-    }
-
     const className = classnames({
       "sj-suggestion": true,
       "sj-suggestion-selected": selected
@@ -45,8 +34,8 @@ class AutocompleteSuggestion extends React.Component {
 
     return (
       <div className={className} onClick={this.handleClick}>
-        {prefix}
-        {suggestion.substr(prefixLen)}
+        {text}
+        <strong>{suggestion.substr(text.length)}</strong>
       </div>
     );
   }
