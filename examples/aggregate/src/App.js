@@ -66,10 +66,23 @@ pipeline.listen(responseUpdatedEvent, response => {
 const CountAggregateFilterOptions = (response, field) => {
   // Extract the aggregates from the response.
   const aggs = response.getAggregates();
-  const countAggs = aggs[`count.${field}`]["count"]["counts"];
-
+  if (!aggs) {
+    return {};
+  }
+  const topLevelCount = aggs[`count.${field}`];
+  if (!topLevelCount) {
+    return {};
+  }
+  const secondLevelCount = topLevelCount["count"];
+  if (!secondLevelCount) {
+    return {};
+  }
+  const actualCounts = secondLevelCount["counts"];
+  if (!actualCounts) {
+    return {};
+  }
   let opts = {};
-  Object.keys(countAggs).forEach(c => {
+  Object.keys(actualCounts).forEach(c => {
     // Setup the name -> filter pair.
     opts[c] = `${field}='${c}'`;
   });
