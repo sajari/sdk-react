@@ -106,4 +106,32 @@ class ClickTracking extends Tracking {
   }
 }
 
-export { ClickTracking };
+class NoneTracking extends Tracking {
+  /**
+   * Construct a NoneTracking instance.
+   */
+  constructor() {
+    super();
+
+    /** @private */
+    this.clientTracking = new clientTracking();
+  }
+
+  /**
+   * Reset the tracking.
+   * @param {Object} values Key-value pair parameters to use in the pipeline.
+   */
+  reset(values) {
+    this.clientTracking.reset();
+    this._emitTrackingReset(values);
+  }
+
+  /**
+   * Construct a tracking session to be used in a search.
+   */
+  tracking() {
+    return this.clientTracking;
+  }
+}
+
+export { ClickTracking, NoneTracking };
