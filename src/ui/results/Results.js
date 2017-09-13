@@ -86,6 +86,8 @@ const ResultsRenderer = ({ response, resultClicked, ResultRenderer }) => {
         values={r.values}
         token={token}
         resultClicked={resultClicked}
+        score={r.score}
+        indexScore={r.indexScore}
       />
     );
   });

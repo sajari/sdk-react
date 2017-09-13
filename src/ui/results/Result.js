@@ -8,6 +8,8 @@ import { TokenLink, Image, Title, Description, URL } from "./";
  * @property {Object} values Values of record to be rendered.
  * @property {string} token Token to be used in the url.
  * @property {function()} resultClicked Function to be called when the result is clicked.
+ * @property {Number} score Score of the record.
+ * @property {Number} indexScore Index score of the record.
  */
 
 /**
