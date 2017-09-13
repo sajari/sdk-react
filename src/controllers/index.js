@@ -19,4 +19,4 @@ export {
   resultClickedAnalyticsEvent
 } from "./analytics";
 export { default as Values, valuesUpdatedEvent } from "./values";
-export { trackingResetEvent, ClickTracking } from "./tracking";
+export { trackingResetEvent, ClickTracking, NoneTracking } from "./tracking";
