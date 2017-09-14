@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Pipeline, Values } from "../../controllers";
-import { AutocompleteDropdownStandalone } from "./";
+import { AutocompleteDropdownBase } from "./";
 
 test("renders without crashing", () => {
   const div = document.createElement("div");
@@ -9,7 +9,7 @@ test("renders without crashing", () => {
   const values = new Values();
   const onForceSearch = () => {};
   ReactDOM.render(
-    <AutocompleteDropdownStandalone
+    <AutocompleteDropdownBase
       pipeline={pipeline}
       values={values}
       onForceSearch={onForceSearch}

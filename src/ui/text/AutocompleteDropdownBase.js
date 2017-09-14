@@ -30,7 +30,7 @@ const getState = (values, pipeline, qParam, numSuggestions) => {
   return { text, displayText: text, suggestions, selectedIndex: -1 };
 };
 
-class AutocompleteDropdownCommon extends React.Component {
+class AutocompleteDropdownBase extends React.Component {
   /**
    * propTypes
    * @property {Values} values Values object.
@@ -109,7 +109,20 @@ class AutocompleteDropdownCommon extends React.Component {
   };
 
   handleForceSearch = query => {
-    this.setState(this.props.onForceSearch(query));
+    const { qParam, qOverrideParam, onForceSearch } = this.props;
+    const { values, pipeline } = onForceSearch(query);
+    values.set({ [qParam]: query, [qOverrideParam]: "true" });
+    if (query) {
+      pipeline.search(values.get());
+    } else {
+      pipeline.clearResponse(values.get());
+    }
+    this.setState({
+      text: query,
+      displayText: query,
+      suggestions: [],
+      selectedIndex: -1
+    });
   };
 
   handleChange = event => {
@@ -195,10 +208,10 @@ class AutocompleteDropdownCommon extends React.Component {
   }
 }
 
-AutocompleteDropdownCommon.defaultProps = {
+AutocompleteDropdownBase.defaultProps = {
   qParam: "q",
   qOverrideParam: "q.override",
   numSuggestions: 5
 };
 
-export default AutocompleteDropdownCommon;
+export default AutocompleteDropdownBase;

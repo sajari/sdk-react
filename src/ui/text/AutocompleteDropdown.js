@@ -1,8 +1,8 @@
 import React from "react";
 
-import AutocompleteDropdownCommon from "./AutocompleteDropdownCommon";
+import AutocompleteDropdownBase from "./AutocompleteDropdownBase";
 
-class AutocompleteDropdown extends AutocompleteDropdownCommon {
+class AutocompleteDropdown extends AutocompleteDropdownBase {
   /**
    * propTypes
    * @property {Values} values Values object.
@@ -16,41 +16,25 @@ class AutocompleteDropdown extends AutocompleteDropdownCommon {
    * @property {boolean} [autoFocus=false] Whether to focus the input element on creation.
    */
   static get propTypes() {
-    return AutocompleteDropdownCommon.propTypes;
+    return AutocompleteDropdownBase.propTypes;
   }
 
-  onForceSearch = query => {
+  onForceSearch = () => {
     const {
-      qParam,
-      qOverrideParam,
       values,
       pipeline,
       forceSearchValues,
       forceSearchPipeline
     } = this.props;
-    let valuesToSearch = values;
-    let pipelineToSearch = pipeline;
     if (forceSearchValues && forceSearchPipeline) {
-      valuesToSearch = forceSearchValues;
-      pipelineToSearch = forceSearchPipeline;
+      return { values: forceSearchValues, pipeline: forceSearchPipeline };
     }
-    valuesToSearch.set({ [qParam]: query, [qOverrideParam]: "true" });
-    if (query) {
-      pipelineToSearch.search(valuesToSearch.get());
-    } else {
-      pipelineToSearch.clearResponse(valuesToSearch.get());
-    }
-    return {
-      text: query,
-      displayText: query,
-      suggestions: [],
-      selectedIndex: -1
-    };
+    return { values, pipeline };
   };
 
   render() {
     return (
-      <AutocompleteDropdownCommon
+      <AutocompleteDropdownBase
         {...this.props}
         onForceSearch={this.onForceSearch}
       />
