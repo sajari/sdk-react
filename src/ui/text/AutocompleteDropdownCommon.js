@@ -38,6 +38,7 @@ class AutocompleteDropdownCommon extends React.Component {
    * @property {Values} forceSearchValues Values to use for forced search.
    * @property {Pipeline} forceSearchPipeline Pipeline to use for forced search.
    * @property {string} placeholder Placeholder to use for the input element.
+   * @property {Function} OnForceSearch Function to call when user forces a search
    * @property {number} [numSuggestions=5] Maximum number of suggestion to show.
    * @property {string} [qParam="q"] Search parameter.
    * @property {string} [qOverrideParam="q.override"] Search override parameter.
@@ -50,6 +51,7 @@ class AutocompleteDropdownCommon extends React.Component {
       forceSearchValues: PropTypes.instanceOf(Values),
       forceSearchPipeline: PropTypes.instanceOf(Pipeline),
       placeholder: PropTypes.string,
+      onForceSearch: PropTypes.func,
       numSuggestions: PropTypes.number,
       qParam: PropTypes.string,
       qOverrideParam: PropTypes.string,
@@ -106,7 +108,9 @@ class AutocompleteDropdownCommon extends React.Component {
     this.setState(getState(values, pipeline, qParam, numSuggestions));
   };
 
-  onSubmit = () => {};
+  handleForceSearch = query => {
+    this.setState(this.props.onForceSearch(query));
+  };
 
   handleChange = event => {
     const { qParam, qOverrideParam, values, pipeline } = this.props;
@@ -127,9 +131,9 @@ class AutocompleteDropdownCommon extends React.Component {
   handleReturn = () => {
     const { text, selectedIndex, suggestions } = this.state;
     if (selectedIndex >= 0) {
-      this.submit(suggestions[selectedIndex]);
+      this.handleForceSearch(suggestions[selectedIndex]);
     } else {
-      this.submit(text);
+      this.handleForceSearch(text);
     }
   };
 
@@ -172,7 +176,7 @@ class AutocompleteDropdownCommon extends React.Component {
 
     return (
       <AutocompleteDropdownRenderer
-        submit={this.onSubmit}
+        submit={this.handleForceSearch}
         text={text}
         displayText={displayText}
         suggestions={suggestions}
