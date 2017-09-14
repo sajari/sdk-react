@@ -1,7 +1,25 @@
+import React from "react";
+
 import AutocompleteDropdownCommon from "./AutocompleteDropdownCommon";
 
 class AutocompleteDropdown extends AutocompleteDropdownCommon {
-  onSubmit = query => {
+  /**
+   * propTypes
+   * @property {Values} values Values object.
+   * @property {Pipeline} pipeline Pipeline object.
+   * @property {Values} forceSearchValues Values to use for forced search.
+   * @property {Pipeline} forceSearchPipeline Pipeline to use for forced search.
+   * @property {string} placeholder Placeholder to use for the input element.
+   * @property {number} [numSuggestions=5] Maximum number of suggestion to show.
+   * @property {string} [qParam="q"] Search parameter.
+   * @property {string} [qOverrideParam="q.override"] Search override parameter.
+   * @property {boolean} [autoFocus=false] Whether to focus the input element on creation.
+   */
+  static get propTypes() {
+    return AutocompleteDropdownCommon.propTypes;
+  }
+
+  onForceSearch = query => {
     const {
       qParam,
       qOverrideParam,
@@ -10,12 +28,6 @@ class AutocompleteDropdown extends AutocompleteDropdownCommon {
       forceSearchValues,
       forceSearchPipeline
     } = this.props;
-    this.setState({
-      text: query,
-      displayText: query,
-      suggestions: [],
-      selectedIndex: -1
-    });
     let valuesToSearch = values;
     let pipelineToSearch = pipeline;
     if (forceSearchValues && forceSearchPipeline) {
@@ -28,7 +40,22 @@ class AutocompleteDropdown extends AutocompleteDropdownCommon {
     } else {
       pipelineToSearch.clearResponse(valuesToSearch.get());
     }
+    return {
+      text: query,
+      displayText: query,
+      suggestions: [],
+      selectedIndex: -1
+    };
   };
+
+  render() {
+    return (
+      <AutocompleteDropdownCommon
+        {...this.props}
+        onForceSearch={this.onForceSearch}
+      />
+    );
+  }
 }
 
 AutocompleteDropdown.defaultProps = {
