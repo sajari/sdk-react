@@ -32,10 +32,24 @@ class AutocompleteSuggestion extends React.Component {
       "sj-suggestion-selected": selected
     });
 
+    let textLength = text.length;
+
+    let prefix;
+    let suffix;
+
+    // If the suggestion starts with the users original query
+    if (suggestion.indexOf(text) === 0) {
+      prefix = suggestion.substr(0, textLength);
+      suffix = suggestion.substr(textLength);
+    } else {
+      prefix = "";
+      suffix = suggestion;
+    }
+
     return (
       <div className={className} onClick={this.handleClick}>
-        {text}
-        <strong>{suggestion.substr(text.length)}</strong>
+        {prefix}
+        <strong>{suffix}</strong>
       </div>
     );
   }
