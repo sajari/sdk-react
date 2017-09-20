@@ -1,7 +1,7 @@
 {
   "name": "sajari-react",
   "description": "React SDK for the Sajari API",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "author": [
     {
       "name": "Trent Billington",
@@ -68,11 +68,13 @@
   },
   "scripts": {
     "build": "npm run build:babel && npm run build:copy-files",
-    "build:babel": "babel ./src/ --out-dir ./build --ignore '*.test.js' --copy-files",
+    "build:babel":
+      "babel ./src/ --out-dir ./build --ignore '*.test.js' --copy-files",
     "build:copy-files": "babel-node ./scripts/copy-files.js",
     "lint": "eslint src/*",
     "clean:build": "rimraf build/*",
-    "build:watch": "npm run clean:build && npm run build:copy-files && npm run build:babel -- --watch",
+    "build:watch":
+      "npm run clean:build && npm run build:copy-files && npm run build:babel -- --watch",
     "prebuild": "eslint src/* && jest && npm run clean:build",
     "test": "jest"
   }
