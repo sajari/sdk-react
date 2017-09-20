@@ -106,9 +106,9 @@ class ClickTracking extends Tracking {
   }
 }
 
-class NoneTracking extends Tracking {
+class NoTracking extends Tracking {
   /**
-   * Construct a NoneTracking instance.
+   * Construct a NoTracking instance.
    */
   constructor() {
     super();
@@ -134,4 +134,4 @@ class NoneTracking extends Tracking {
   }
 }
 
-export { ClickTracking, NoneTracking };
+export { ClickTracking, NoTracking };
