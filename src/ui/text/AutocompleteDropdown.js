@@ -19,7 +19,7 @@ class AutocompleteDropdown extends AutocompleteDropdownBase {
     return AutocompleteDropdownBase.propTypes;
   }
 
-  onForceSearch = () => {
+  handleForceSearch = () => {
     const {
       values,
       pipeline,
@@ -36,7 +36,7 @@ class AutocompleteDropdown extends AutocompleteDropdownBase {
     return (
       <AutocompleteDropdownBase
         {...this.props}
-        onForceSearch={this.onForceSearch}
+        onForceSearch={this.handleForceSearch}
       />
     );
   }
