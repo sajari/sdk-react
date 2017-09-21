@@ -10,7 +10,7 @@ import {
 
 import AutocompleteDropdownRenderer from "./AutocompleteDropdownRenderer";
 
-const getState = (values, pipeline, qParam, numSuggestions) => {
+const getState = (values, pipeline, qParam, maxSuggestions) => {
   const text = values.get()[qParam] || "";
   if (!text) {
     return {
@@ -25,7 +25,7 @@ const getState = (values, pipeline, qParam, numSuggestions) => {
     ? (responseValues["q.suggestions"] || "")
         .split(",")
         .filter(s => s.length > 0)
-        .slice(0, numSuggestions)
+        .slice(0, maxSuggestions)
     : [];
   return { text, displayText: text, suggestions, selectedIndex: -1 };
 };
@@ -39,7 +39,7 @@ class AutocompleteDropdownBase extends React.Component {
    * @property {Pipeline} forceSearchPipeline Pipeline to use for forced search.
    * @property {string} placeholder Placeholder to use for the input element.
    * @property {Function} onForceSearch Function to call when user forces a search
-   * @property {number} [numSuggestions=5] Maximum number of suggestion to show.
+   * @property {number} [maxSuggestions=5] Maximum number of suggestion to show.
    * @property {string} [qParam="q"] Search parameter.
    * @property {string} [qOverrideParam="q.override"] Search override parameter.
    * @property {boolean} [autoFocus=false] Whether to focus the input element on creation.
@@ -52,7 +52,7 @@ class AutocompleteDropdownBase extends React.Component {
       forceSearchPipeline: PropTypes.instanceOf(Pipeline),
       placeholder: PropTypes.string,
       onForceSearch: PropTypes.func,
-      numSuggestions: PropTypes.number,
+      maxSuggestions: PropTypes.number,
       qParam: PropTypes.string,
       qOverrideParam: PropTypes.string,
       autoFocus: PropTypes.bool
@@ -66,7 +66,7 @@ class AutocompleteDropdownBase extends React.Component {
       props.values,
       props.pipeline,
       props.qParam,
-      props.numSuggestions
+      props.maxSuggestions
     );
 
     this.removeValuesListener = props.values.listen(
@@ -104,8 +104,8 @@ class AutocompleteDropdownBase extends React.Component {
   }
 
   valuesChanged = () => {
-    const { values, pipeline, qParam, numSuggestions } = this.props;
-    this.setState(getState(values, pipeline, qParam, numSuggestions));
+    const { values, pipeline, qParam, maxSuggestions } = this.props;
+    this.setState(getState(values, pipeline, qParam, maxSuggestions));
   };
 
   handleForceSearch = query => {
@@ -211,7 +211,7 @@ class AutocompleteDropdownBase extends React.Component {
 AutocompleteDropdownBase.defaultProps = {
   qParam: "q",
   qOverrideParam: "q.override",
-  numSuggestions: 5
+  maxSuggestions: 5
 };
 
 export default AutocompleteDropdownBase;
