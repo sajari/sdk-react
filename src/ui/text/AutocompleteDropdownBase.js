@@ -111,7 +111,7 @@ class AutocompleteDropdownBase extends React.Component {
   handleForceSearch = query => {
     const { qParam, qOverrideParam, onForceSearch } = this.props;
     const { values, pipeline } = onForceSearch(query);
-    values.set({ [qParam]: query, [qOverrideParam]: "true" });
+    values.set({ [qParam]: query, [qOverrideParam]: "true", page: "1" });
     if (query) {
       pipeline.search(values.get());
     } else {
