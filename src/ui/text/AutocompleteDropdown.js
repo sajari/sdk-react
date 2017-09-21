@@ -26,10 +26,10 @@ class AutocompleteDropdown extends AutocompleteDropdownBase {
       forceSearchValues,
       forceSearchPipeline
     } = this.props;
-    if (forceSearchValues && forceSearchPipeline) {
-      return { values: forceSearchValues, pipeline: forceSearchPipeline };
-    }
-    return { values, pipeline };
+    return {
+      values: forceSearchValues || values,
+      pipeline: forceSearchPipeline || pipeline
+    };
   };
 
   render() {
