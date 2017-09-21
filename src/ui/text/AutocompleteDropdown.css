@@ -4,6 +4,7 @@
 
 .sj-suggestions {
   border: 1px solid #ddd;
+  cursor: pointer;
 }
 
 .sj-suggestion {
