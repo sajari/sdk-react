@@ -51,12 +51,15 @@ class Input extends React.Component {
     this.setState({ text: this.props.values.get()[this.props.qParam] || "" });
   };
 
-  setText = text => {
+  setText = (text, search) => {
     const textValues = {
       [this.props.qParam]: text,
       [this.props.qOverrideParam]: "true"
     };
     this.props.values.set(textValues);
+    if (!search) {
+      return;
+    }
     if (textValues[this.props.qParam]) {
       this.props.pipeline.search(this.props.values.get());
     } else {
@@ -65,14 +68,14 @@ class Input extends React.Component {
   };
 
   handleChange = e => {
-    this.setText(e.target.value);
+    this.setText(e.target.value, this.props.instant);
   };
 
   handleKeyDown = e => {
     if (e.keyCode === RETURN_KEYCODE) {
       e.preventDefault();
+      this.setText(e.target.value, true);
     }
-    this.setText(e.target.value);
   };
 
   render() {
@@ -84,7 +87,7 @@ class Input extends React.Component {
         type="text"
         value={text}
         onChange={this.handleChange}
-        onKeyDown={instant ? this.handleKeyDown : undefined}
+        onKeyDown={this.handleKeyDown}
         {...rest}
       />
     );
