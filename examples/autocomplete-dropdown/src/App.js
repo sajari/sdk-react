@@ -27,6 +27,7 @@ class App extends React.Component {
           forceSearchValues={websiteValues}
           forceSearchPipeline={websitePipeline}
           numSuggestions={5}
+          placeholder="Type to search"
         />
         <Response pipeline={websitePipeline}>
           <Summary values={websiteValues} pipeline={websitePipeline} />
