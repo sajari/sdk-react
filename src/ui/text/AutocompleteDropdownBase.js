@@ -38,7 +38,7 @@ class AutocompleteDropdownBase extends React.Component {
    * @property {Values} forceSearchValues Values to use for forced search.
    * @property {Pipeline} forceSearchPipeline Pipeline to use for forced search.
    * @property {string} placeholder Placeholder to use for the input element.
-   * @property {Function} onForceSearch Function to call when user forces a search
+   * @property {Function} onForceSearch Function to call when user forces a search.
    * @property {number} [maxSuggestions=5] Maximum number of suggestion to show.
    * @property {string} [qParam="q"] Search parameter.
    * @property {string} [qOverrideParam="q.override"] Search override parameter.
