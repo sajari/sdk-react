@@ -109,8 +109,8 @@ class AutocompleteInput extends React.Component {
     const { placeholder, autoFocus } = this.props;
 
     return (
-      <div className="sj-search-input-holder-outer">
-        <div className="sj-search-input-holder-inner">
+      <div className="sj-search-holder-outer">
+        <div className="sj-search-holder-inner">
           <input
             type="text"
             className="sj-search-bar-completion sj-search-bar-input-common"

@@ -85,6 +85,18 @@ import { Input } from "sajari-react/ui/text";
 <Input values={values} pipeline={pipeline} />
 ```
 
+## AutocompleteDropdown
+
+`AutocompleteDropdown` is a text box which performs autocomplete as the user types and renders autocomplete suggestions in a list underneath.
+
+![autocomplete-suggest](https://media.giphy.com/media/xT39DnBWdmrxJ1Xd1S/giphy.gif)
+
+```javascript
+import { AutocompleteDropdown } from "sajari-react/ui/text";
+
+<AutocompleteDropdown values={values} pipeline={pipeline} />
+```
+
 ## Handling results
 
 A typical search result UI could includes a summary of the search, maybe with options to change spellings or search for alternatives, and a list of the paginated results.  We include components for all of these pieces so it's easy to get started.
