@@ -16,7 +16,7 @@ To use this as a starting point for your own search interface, copy this entire 
 
 ## Development
 
-This example comes with great dev tooling (courtousy of [Create React App](https://github.com/facebookincubator/create-react-app).  To get up and running:
+This example comes with great dev tooling (courtousy of [Create React App](https://github.com/facebookincubator/create-react-app)).  To get up and running run the following from the this directory (examples/autocomplete-dropdown):
 
 ```shell
 $ npm install   # Install dependencies
