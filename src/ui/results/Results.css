@@ -66,6 +66,46 @@
   color: #a2a2a2;
 }
 
+.sj-result-url a[href$=".pdf"]::before {
+  content: "PDF";
+  background-color: black;
+  color: white;
+  border-radius: 3px;
+  font-size: 0.7em;
+  margin-right: 0.5em;
+  padding: 2px 4px;
+}
+
+.sj-result-url a[href$=".doc"]::before {
+  content: "DOC";
+  background-color: black;
+  color: white;
+  border-radius: 3px;
+  font-size: 0.7em;
+  margin-right: 0.5em;
+  padding: 2px 4px;
+}
+
+.sj-result-url a[href$=".docx"]::before {
+  content: "DOCX";
+  background-color: black;
+  color: white;
+  border-radius: 3px;
+  font-size: 0.7em;
+  margin-right: 0.5em;
+  padding: 2px 4px;
+}
+
+.sj-result-url a[href$=".xml"]::before {
+  content: "XML";
+  background-color: black;
+  color: white;
+  border-radius: 3px;
+  font-size: 0.7em;
+  margin-right: 0.5em;
+  padding: 2px 4px;
+}
+
 .sj-result-image-container {
   float: left;
   width: 100px;
