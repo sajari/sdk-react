@@ -15,15 +15,25 @@ import { TokenLink } from "./";
  * @param {UrlProps} props
  * @returns {React.Component}
  */
-const URL = ({ url, token, resultClicked }) =>
-  <p className="sj-result-url">
-    <TokenLink
-      token={token}
-      url={url}
-      text={url}
-      resultClicked={resultClicked}
-    />
-  </p>;
+const URL = ({ url, token, resultClicked }) => {
+  let decodedText;
+  try {
+    decodedText = decodeURI(url);
+  } catch (e) {
+    // encoded url was malformed, fall back to displaying the encoded text
+    decodedText = url;
+  }
+  return (
+    <p className="sj-result-url">
+      <TokenLink
+        token={token}
+        url={url}
+        text={decodedText}
+        resultClicked={resultClicked}
+      />
+    </p>
+  );
+};
 
 URL.propTypes = {
   url: PropTypes.string,
