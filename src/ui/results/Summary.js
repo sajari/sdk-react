@@ -3,6 +3,22 @@ import PropTypes from "prop-types";
 
 import { Pipeline, responseUpdatedEvent, Values } from "../../controllers";
 
+const formatQueryTime = time => {
+  if (!time) {
+    return "";
+  }
+
+  const splitNum = time.split(".");
+  if (splitNum.length === 1 || parseInt(splitNum[1]) === 0) {
+    return parseInt(splitNum[0]) + "s";
+  }
+
+  const numZeros = /0*/.exec(splitNum[1])[0].length;
+  const fractional = splitNum[1].slice(0, numZeros + 1);
+
+  return splitNum[0] + "." + fractional + "s";
+};
+
 class Summary extends React.Component {
   /**
    * propTypes
@@ -70,17 +86,22 @@ class Summary extends React.Component {
           </span>
         : null;
 
+    const responseTime = formatQueryTime(response.getTime());
+
     return (
       <div className="sj-result-summary">
         <span className="sj-result-summary-text">
           {`${pageNumber}${response.getTotalResults()} results for `}
           "<strong>{text}</strong>"{" "}
         </span>
-        <span className="sj-result-summary-query-time">{`(${response.getTime()}) `}</span>
+        <span className="sj-result-summary-query-time">{`(${
+          responseTime
+        }) `}</span>
         {override}
       </div>
     );
   }
 }
 
+export { formatQueryTime };
 export default Summary;
