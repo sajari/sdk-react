@@ -115,6 +115,10 @@ class Pipeline {
           response ? response.searchResponse : undefined,
           response ? response.values : undefined
         );
+        // eslint-disable-next-line no-console
+        if (error && console && console.error) {
+          console.error(error); // eslint-disable-line no-console
+        }
         this._emitResponseUpdated(this.response);
       }
     );

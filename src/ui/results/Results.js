@@ -68,9 +68,14 @@ Results.defaultProps = {
 
 const ResultsRenderer = ({ response, resultClicked, ResultRenderer }) => {
   if (response.isError()) {
-    return (
-      <div className="sj-result-error">An error occurred while searching.</div>
-    );
+    if (response.getError().code === 403) {
+      return (
+        <div className="sj-result-error">
+          Authorisation for this request failed. Check your credentials.
+        </div>
+      );
+    }
+    return <div className="sj-result-error">{response.getError().message}</div>;
   }
 
   if (response.isEmpty()) {
