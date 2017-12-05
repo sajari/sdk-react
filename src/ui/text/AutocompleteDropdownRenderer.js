@@ -98,15 +98,17 @@ class AutocompleteDropdownRenderer extends React.Component {
     return (
       <div className="sj-search-holder-outer">
         <div className="sj-search-holder-inner">
-          <input
-            type="text"
-            className="sj-search-bar-input-common"
-            placeholder={placeholder}
-            autoFocus={autoFocus}
-            value={displayText}
-            onChange={handleChange}
-            onKeyDown={this.handleKeyDown}
-          />
+          <span className="sj-search-input-wrapper">
+            <input
+              type="text"
+              className="sj-search-bar-input-common"
+              placeholder={placeholder}
+              autoFocus={autoFocus}
+              value={displayText}
+              onChange={handleChange}
+              onKeyDown={this.handleKeyDown}
+            />
+          </span>
           <AutocompleteSuggestions
             suggestions={suggestions}
             text={text}
