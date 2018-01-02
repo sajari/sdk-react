@@ -305,16 +305,13 @@ values.set({ hello: () => "Hello" })
 
 ### Listening for changes
 
-Register listeners to be notified of changes to a `Values` instance:
+Register listeners to be notified of changes to a `Values` instance (via `valuesUpdatedEvent`).  All listeners are passed the dictionary of values that were updated and a set function will set a new value without triggering another `valuesUpdatedEvent`.
 
 ```javascript
 import { valuesUpdatedEvent } from "sajari-react/controllers";
 
-// All listeners are passed the dictionary of values that were applied
-// and a set function which will set a new value (without triggering another
-// valuesUpdatedEvent).
 const unregister = values.listen(valuesUpdatedEvent, (updated, set) => {
-  // If page any parameter was updated, but the page wasn't, reset to 1
+  // If any values were updated, and `page` wasn't, then reset `page` to 1
   if (!updated.page) {
     set({ page: "1" });
   }
