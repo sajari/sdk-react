@@ -91,7 +91,7 @@ class Summary extends React.Component {
     return (
       <div className="sj-result-summary">
         <span className="sj-result-summary-text">
-          {`${pageNumber}${response.getTotalResults()} results for `}
+          {`${pageNumber}${response.getTotalResults().toLocaleString()} results for `}
           "<strong>{text}</strong>"{" "}
         </span>
         <span className="sj-result-summary-query-time">{`(${
