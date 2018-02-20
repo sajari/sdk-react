@@ -132,6 +132,7 @@ class Pipeline {
   clearResponse(values) {
     this.tracking.tracking(values);
 
+    this.searchCount++;
     this.response = new Response();
     this._emitResponseUpdated(this.response);
   }
