@@ -23,6 +23,7 @@ It's easy to get up and running using one of our examples as a starting point.  
 
 * [Autocomplete](./examples/autocomplete-only/): search box with autocomplete.
 * [Autocomplete with suggestions](./examples/autocomplete-suggest/): search box with autocomplete + suggestions.
+* [Sliding autocomplete dropdown](./examples/sliding-autocomplete-dropdown): search box enabled by clicking search icon.
 * [Simple search](./examples/simple-search/): instant search with autocomplete.
 * [Standard search](./examples/standard-search/): instant search with autocomplete + tab filtering.
 * [Custom result renderer](./examples/custom-result-renderer/): instant search with autocomplete + custom result renderers.
