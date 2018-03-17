@@ -24,26 +24,30 @@
   ],
   "dependencies": {
     "prop-types": "^15.5.10",
-    "sajari": "0.20.0"
+    "sajari": "^0.20.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.10.1",
-    "babel-core": "^6.11.4",
-    "babel-eslint": "^7.2.3",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.11.1",
-    "babel-preset-stage-0": "^6.5.0",
+    "@babel/cli": "^7.0.0-beta.42",
+    "@babel/core": "^7.0.0-beta.42",
+    "@babel/node": "^7.0.0-beta.42",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.42",
+    "@babel/polyfill": "^7.0.0-beta.42",
+    "@babel/preset-env": "^7.0.0-beta.42",
+    "@babel/preset-react": "^7.0.0-beta.42",
+    "@babel/preset-stage-3": "^7.0.0-beta.42",
+    "babel-core": "^7.0.0-0",
+    "babel-eslint": "7",
+    "babel-jest": "^23.0.0-alpha.0",
     "eslint": "^4.3.0",
     "eslint-plugin-class-property": "^1.0.6",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-react": "^7.1.0",
     "fs-extra": "^0.30.0",
-    "jest": "^20.0.4",
-    "react": "15.6.1",
-    "react-dom": "15.6.1",
-    "rimraf": "^2.5.3",
-    "webpack": "^1.9.10"
+    "jest": "^22.4.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "regenerator-runtime": "^0.11.1",
+    "rimraf": "^2.5.3"
   },
   "keywords": [
     "autocomplete",
@@ -63,10 +67,14 @@
     "url": "https://github.com/sajari/sajari-sdk-react"
   },
   "scripts": {
-    "build": "npm run build:babel && npm run build:copy-files",
+    "build":
+      "npm run build:babel && npm run build:babel:es && npm run build:copy-files",
     "build:babel":
-      "babel ./src/ --out-dir ./build --ignore '*.test.js' --copy-files",
-    "build:copy-files": "babel-node ./scripts/copy-files.js",
+      "BABEL_ENV=std babel --extends .babelrc --out-dir ./build --ignore '*.test.js' --copy-files --delete-dir-on-start ./src",
+    "build:babel:es":
+      "babel --out-dir ./build/es --ignore '*.test.js' --copy-files --delete-dir-on-start ./src",
+    "build:copy-files":
+      "babel-node --presets=@babel/preset-env ./scripts/copy-files.js",
     "lint": "eslint src/*",
     "clean:build": "rimraf build/*",
     "build:watch":
