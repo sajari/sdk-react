@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const tokenUrl = "https://www.sajari.com/token/";
 
-class TokenLink extends React.Component {
+export class TokenLink extends React.Component {
   /**
    * propTypes
    * @property {function()} resultClicked Function to be called when the result is clicked. Typically for analytics

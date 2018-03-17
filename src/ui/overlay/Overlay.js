@@ -12,16 +12,14 @@ import PropTypes from "prop-types";
  * @param {OverlayProps} props
  * @returns {React.Component}
  */
-const Overlay = ({ active, children }) => {
+export const Overlay = ({ active, children }) => {
   if (!active) {
     return null;
   }
 
   return (
     <div className="sj-overlay">
-      <div className="sj-overlay-search">
-        {children}
-      </div>
+      <div className="sj-overlay-search">{children}</div>
     </div>
   );
 };

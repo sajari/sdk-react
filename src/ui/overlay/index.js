@@ -1,3 +1,3 @@
-export { default as Overlay } from "./Overlay";
-export { default as Close } from "./Close";
-export { default as Logo } from "./Logo";
+export { Overlay } from "./Overlay";
+export { Close } from "./Close";
+export { Logo } from "./Logo";

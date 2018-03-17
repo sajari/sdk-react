@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-class Image extends React.Component {
+export class Image extends React.Component {
   /**
    * propTypes
    * @property {string} url URL of the image.

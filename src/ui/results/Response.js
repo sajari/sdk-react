@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import { Pipeline, responseUpdatedEvent } from "../../controllers";
 
-class Response extends React.Component {
+export class Response extends React.Component {
   /**
    * propTypes
    * @property {Pipeline} pipeline Pipeline object.
@@ -45,11 +45,7 @@ class Response extends React.Component {
       return null;
     }
 
-    return (
-      <div {...rest}>
-        {children}
-      </div>
-    );
+    return <div {...rest}>{children}</div>;
   }
 }
 

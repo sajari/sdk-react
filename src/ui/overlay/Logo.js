@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
  * @param {LogoProps} props
  * @returns {React.Component}
  */
-const Logo = ({ closeOverlay, src, alt }) =>
+export const Logo = ({ closeOverlay, src, alt }) => (
   <div className="sj-overlay-logo">
     <img
       className="sj-overlay-logo-image"
@@ -21,7 +21,8 @@ const Logo = ({ closeOverlay, src, alt }) =>
       src={src}
       alt={alt}
     />
-  </div>;
+  </div>
+);
 
 Logo.propTypes = {
   closeOverlay: PropTypes.func,

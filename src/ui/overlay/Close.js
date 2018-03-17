@@ -12,14 +12,15 @@ import PropTypes from "prop-types";
  * @param {CloseProps} props
  * @returns {React.Component}
  */
-const Close = ({ onClick, closeOverlay }) =>
+export const Close = ({ onClick, closeOverlay }) => (
   <div
     className="sj-overlay-close"
     onClick={onClick ? e => onClick(e, closeOverlay) : closeOverlay}
   >
     <div className="sj-close">×</div>
     <div className="sj-esc">ESC</div>
-  </div>;
+  </div>
+);
 
 Close.propTypes = {
   onClick: PropTypes.func,
