@@ -114,8 +114,8 @@ class Filter {
    * Merge options into the filter options.
    *
    * Set an option to undefined to remove it.
-   * 
-   * @param {*} options 
+   *
+   * @param {*} options
    */
   setOptions(options) {
     Object.keys(options).forEach(k => {

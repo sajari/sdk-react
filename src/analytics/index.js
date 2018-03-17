@@ -1,2 +1,2 @@
 export { default as GoogleAnalytics } from "./ga";
-export { default as DebugAnalytics} from "./debug";
+export { default as DebugAnalytics } from "./debug";

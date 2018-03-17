@@ -5,6 +5,8 @@
  * @return {string}
  */
 const classnames = classes =>
-  Object.keys(classes).filter(key => classes[key]).join(" ");
+  Object.keys(classes)
+    .filter(key => classes[key])
+    .join(" ");
 
 export default classnames;

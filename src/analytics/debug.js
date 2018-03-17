@@ -6,9 +6,9 @@ import {
 
 export default class DebugAnalytics {
   /**
-    *
-    * @param {Analytics} analytics Analytics adaptor to listen for events on.
-    */
+   *
+   * @param {Analytics} analytics Analytics adaptor to listen for events on.
+   */
   constructor(analytics) {
     analytics.listen(pageClosedAnalyticsEvent, this.pageClosed);
     analytics.listen(bodyResetAnalyticsEvent, this.bodyReset);
