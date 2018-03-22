@@ -43,6 +43,7 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-react": "^7.1.0",
     "fs-extra": "^0.30.0",
+    "globby": "^8.0.1",
     "jest": "^22.4.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -67,18 +68,13 @@
     "url": "https://github.com/sajari/sajari-sdk-react"
   },
   "scripts": {
-    "build":
-      "npm run build:babel && npm run build:babel:es && npm run build:copy-files",
-    "build:babel":
-      "BABEL_ENV=std babel --extends .babelrc --out-dir ./build --ignore '*.test.js' --copy-files --delete-dir-on-start ./src",
-    "build:babel:es":
-      "babel --out-dir ./build/es --ignore '*.test.js' --copy-files --delete-dir-on-start ./src",
-    "build:copy-files":
-      "babel-node --presets=@babel/preset-env ./scripts/copy-files.js",
+    "build": "npm run build:babel && npm run build:babel:es && npm run build:copy-files",
+    "build:babel": "BABEL_ENV=std babel --extends .babelrc --out-dir ./build --ignore **/*.test.js --delete-dir-on-start ./src",
+    "build:babel:es": "babel --out-dir ./build/es --ignore **/*.test.js --delete-dir-on-start ./src",
+    "build:copy-files": "babel-node --presets=@babel/preset-env ./scripts/copy-files.js",
     "lint": "eslint src/*",
     "clean:build": "rimraf build/*",
-    "build:watch":
-      "npm run clean:build && npm run build:copy-files && npm run build:babel -- --watch",
+    "build:watch": "npm run clean:build && npm run build:copy-files && npm run build:babel -- --watch",
     "prebuild": "eslint src/* && jest && npm run clean:build",
     "test": "jest"
   }
