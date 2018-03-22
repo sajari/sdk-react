@@ -19,7 +19,7 @@ const formatQueryTime = time => {
   return splitNum[0] + "." + fractional + "s";
 };
 
-class Summary extends React.Component {
+export class Summary extends React.Component {
   /**
    * propTypes
    * @property {Pipeline} pipeline Pipeline object.
@@ -77,26 +77,27 @@ class Summary extends React.Component {
     const pageNumber = page && page > 1 ? `Page ${page} of ` : "";
     const override =
       responseValues["q"] &&
-      responseValues["q"].toLowerCase() !== queryValues["q"].toLowerCase()
-        ? <span className="sj-result-summary-autocomplete-override">
-            {`search instead for `}
-            <a onClick={this.handleOverride} href="">
-              {" "}{queryValues["q"]}{" "}
-            </a>
-          </span>
-        : null;
+      responseValues["q"].toLowerCase() !== queryValues["q"].toLowerCase() ? (
+        <span className="sj-result-summary-autocomplete-override">
+          {`search instead for `}
+          <a onClick={this.handleOverride} href="">
+            {" "}
+            {queryValues["q"]}{" "}
+          </a>
+        </span>
+      ) : null;
 
     const responseTime = formatQueryTime(response.getTime());
 
     return (
       <div className="sj-result-summary">
         <span className="sj-result-summary-text">
-          {`${pageNumber}${response.getTotalResults().toLocaleString()} results for `}
+          {`${pageNumber}${response
+            .getTotalResults()
+            .toLocaleString()} results for `}
           "<strong>{text}</strong>"{" "}
         </span>
-        <span className="sj-result-summary-query-time">{`(${
-          responseTime
-        }) `}</span>
+        <span className="sj-result-summary-query-time">{`(${responseTime}) `}</span>
         {override}
       </div>
     );

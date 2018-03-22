@@ -11,10 +11,9 @@ import PropTypes from "prop-types";
  * @param {DescriptionProps} props
  * @returns {React.Component}
  */
-const Description = ({ description }) =>
-  <p className="sj-result-description">
-    {description}
-  </p>;
+export const Description = ({ description }) => (
+  <p className="sj-result-description">{description}</p>
+);
 
 Description.propTypes = {
   description: PropTypes.string.isRequired

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { TokenLink } from "./";
+import { TokenLink } from "./TokenLink";
 
 /**
  * @typedef {Object} UrlProps
@@ -15,7 +15,7 @@ import { TokenLink } from "./";
  * @param {UrlProps} props
  * @returns {React.Component}
  */
-const URL = ({ url, token, resultClicked }) => {
+export const URL = ({ url, token, resultClicked }) => {
   let decodedText;
   try {
     decodedText = decodeURI(url);

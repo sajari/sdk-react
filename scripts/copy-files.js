@@ -1,10 +1,12 @@
 /* eslint-disable no-console */
 import path from 'path';
 import fse from 'fs-extra';
+import globby from 'globby';
 
 const files = [
   'README.md',
   'LICENSE',
+  ...globby.sync("src/**/*.css")
 ];
 
 Promise.all(
@@ -28,7 +30,11 @@ function copyFile(file) {
 }
 
 function resolveBuildPath(file) {
-  return path.resolve(__dirname, '../build/', path.basename(file));
+  const filepath = file.split(path.sep)
+  if (filepath.length > 1) {
+    filepath.shift()
+  }
+  return path.resolve(__dirname, '../build/', filepath.join(path.sep));
 }
 
 function createPackageFile() {
@@ -62,6 +68,7 @@ function createPackageFile() {
       version,
       description,
       main: './index.js',
+      module: "./es/index.js",
       keywords,
       repository,
       license,

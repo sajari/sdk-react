@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Image } from "./";
+import { Image } from "./Image";
 
 test("renders without crashing", () => {
   const div = document.createElement("div");

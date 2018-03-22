@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import { Filter, selectionUpdatedEvent } from "../../controllers";
 
-class SelectFacet extends React.Component {
+export class SelectFacet extends React.Component {
   /**
    * propTypes
    * @property {Filter} filter

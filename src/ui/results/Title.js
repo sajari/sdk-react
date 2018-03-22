@@ -16,7 +16,7 @@ import { TokenLink } from "./";
  * @param {TitleProps} props
  * @returns {React.Component}
  */
-const Title = ({ title, url, token, resultClicked }) =>
+export const Title = ({ title, url, token, resultClicked }) => (
   <h3 className="sj-result-title">
     <TokenLink
       token={token}
@@ -24,7 +24,8 @@ const Title = ({ title, url, token, resultClicked }) =>
       text={title}
       resultClicked={resultClicked}
     />
-  </h3>;
+  </h3>
+);
 
 Title.propTypes = {
   title: PropTypes.string,

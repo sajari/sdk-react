@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 
 import { Pipeline, responseUpdatedEvent, Response } from "../../controllers";
 
-import { Result } from "./";
+import { Result } from "./Result";
 
-class Results extends React.Component {
+export class Results extends React.Component {
   /**
    * propTypes
    * @property {Pipeline} pipeline Pipeline object.
@@ -96,11 +96,7 @@ const ResultsRenderer = ({ response, resultClicked, ResultRenderer }) => {
       />
     );
   });
-  return (
-    <div className="sj-result-list">
-      {renderedResults}
-    </div>
-  );
+  return <div className="sj-result-list">{renderedResults}</div>;
 };
 
 ResultsRenderer.propTypes = {

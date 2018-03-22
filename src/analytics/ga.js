@@ -74,8 +74,7 @@ const url = {
       decodeURIComponent(
         (new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(
           location.search
-        ) || [undefined, ""])[1]
-          .replace(/\+/g, "%20")
+        ) || [undefined, ""])[1].replace(/\+/g, "%20")
       ) || null
     );
   }

@@ -1,7 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { TokenLink, Image, Title, Description, URL } from "./";
+import { TokenLink } from "./TokenLink";
+import { Image } from "./Image";
+import { Title } from "./Title";
+import { Description } from "./Description";
+import { URL } from "./URL";
 
 /**
  * @typedef {Object} ResultProps
@@ -17,7 +21,7 @@ import { TokenLink, Image, Title, Description, URL } from "./";
  * @param {ResultProps} props
  * @returns {React.Component}
  */
-const Result = ({ values, token, resultClicked }) =>
+const Result = ({ values, token, resultClicked }) => (
   <div className="sj-result">
     <div className="sj-result-text">
       <Title
@@ -29,7 +33,8 @@ const Result = ({ values, token, resultClicked }) =>
       <Description description={values.description} />
       <URL url={values.url} token={token} resultClicked={resultClicked} />
     </div>
-  </div>;
+  </div>
+);
 
 Result.propTypes = {
   values: PropTypes.object,
@@ -49,15 +54,15 @@ Result.propTypes = {
  * @param {ResultProps} props
  * @returns {React.Component}
  */
-const ImageResult = ({ values, token, resultClicked }) =>
+const ImageResult = ({ values, token, resultClicked }) => (
   <div className="sj-result">
-    {values.image
-      ? <div className="sj-result-image-container">
-          <TokenLink token={token} url={values.url}>
-            <Image url={values.image} title={values.title} />
-          </TokenLink>
-        </div>
-      : null}
+    {values.image ? (
+      <div className="sj-result-image-container">
+        <TokenLink token={token} url={values.url}>
+          <Image url={values.image} title={values.title} />
+        </TokenLink>
+      </div>
+    ) : null}
     <div className="sj-result-text">
       <Title
         title={values.title}
@@ -68,7 +73,8 @@ const ImageResult = ({ values, token, resultClicked }) =>
       <Description description={values.description} />
       <URL url={values.url} token={token} resultClicked={resultClicked} />
     </div>
-  </div>;
+  </div>
+);
 
 ImageResult.propTypes = {
   values: PropTypes.object,

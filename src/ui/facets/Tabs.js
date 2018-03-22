@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import { Filter, selectionUpdatedEvent } from "../../controllers";
 
-class TabsFacet extends React.Component {
+export class TabsFacet extends React.Component {
   /**
    * propTypes
    * @property {Filter} filter
@@ -21,9 +21,9 @@ class TabsFacet extends React.Component {
     return (
       <div className="sj-tabs-container">
         <div className="sj-tabs">
-          {tabs.map(t =>
+          {tabs.map(t => (
             <Tab key={t.name} title={t.displayText} filter={filter} />
-          )}
+          ))}
         </div>
       </div>
     );
