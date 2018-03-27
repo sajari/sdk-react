@@ -88,6 +88,10 @@ class Input extends React.Component {
         value={text}
         onChange={this.handleChange}
         onKeyDown={this.handleKeyDown}
+        autoComplete="off"
+        autoCorrect="off"
+        autoCapitalize="off"
+        spellCheck="false"
         {...rest}
       />
     );

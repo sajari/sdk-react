@@ -107,6 +107,10 @@ class AutocompleteDropdownRenderer extends React.Component {
               value={displayText}
               onChange={handleChange}
               onKeyDown={this.handleKeyDown}
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck="false"
             />
           </span>
           <AutocompleteSuggestions
