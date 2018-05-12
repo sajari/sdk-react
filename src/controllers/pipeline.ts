@@ -112,10 +112,9 @@ export class Pipeline {
     const currentSearch = this.searchCount;
 
     this.client.search(
-      this.name,
       values,
-      this.tracking,
-      (error: Error, response: { [k: string]: { [k: string]: any } } = {}) => {
+      this.tracking.clientTracking,
+      (error: Error, results = {}, responseValues = {}) => {
         if (currentSearch < this.searchCount) {
           return;
         }
@@ -123,10 +122,8 @@ export class Pipeline {
         this.response = new Response(
           error ? error : undefined,
           new Map(Object.entries(values)),
-          response
-            ? new Map(Object.entries(response.searchResponse))
-            : undefined,
-          response ? new Map(Object.entries(response.values)) : undefined
+          new Map(Object.entries(results)),
+          new Map(Object.entries(responseValues))
         );
         // eslint-disable-next-line no-console
         if (error && console && console.error) {

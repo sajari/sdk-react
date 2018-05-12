@@ -10,7 +10,7 @@ const events = [EVENT_TRACKING_RESET];
 
 export class Tracking {
   private listeners: ListenerMap;
-  protected clientTracking: Session;
+  public clientTracking: Session;
 
   constructor() {
     this.listeners = new Map(
