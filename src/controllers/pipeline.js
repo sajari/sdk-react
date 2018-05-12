@@ -26,7 +26,7 @@ class Pipeline {
     analyticsAdapters = [GoogleAnalytics]
   ) {
     /** @private */
-    this.client = new Client(project, collection);
+    this.client = new Client(project, collection).pipeline(name);
     /** @private */
     this.name = name;
     /** @private */
@@ -96,24 +96,23 @@ class Pipeline {
    * @param {Object} values Key-value parameters to pass to the pipeline.
    */
   search(values) {
-    const tracking = this.tracking.tracking(values);
+    // const tracking = this.tracking.tracking(values);
 
     this.searchCount++;
     const currentSearch = this.searchCount;
 
-    this.client.searchPipeline(
-      this.name,
+    this.client.search(
       values,
-      tracking,
-      (error, response = {}) => {
+      this.tracking.clientTracking,
+      (error, results = {}, responseValues) => {
         if (currentSearch < this.searchCount) {
           return;
         }
         this.response = new Response(
           error ? error : undefined,
           values,
-          response ? response.searchResponse : undefined,
-          response ? response.values : undefined
+          results,
+          responseValues
         );
         // eslint-disable-next-line no-console
         if (error && console && console.error) {
@@ -130,7 +129,7 @@ class Pipeline {
    * @param {Object} values Key-value pair parameters.
    */
   clearResponse(values) {
-    this.tracking.tracking(values);
+    this.tracking.next(values);
 
     this.searchCount++;
     this.response = new Response();

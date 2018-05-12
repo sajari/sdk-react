@@ -1,6 +1,20 @@
-import { Tracking as clientTracking, clickTracking } from "sajari";
+import { Session, TextSession, TrackingClick, TrackingNone } from "sajari";
+import Cookies from "js-cookie";
 
 import { Listener } from "./";
+
+const getTrackingData = () => {
+  const data = {};
+  const ga = Cookies.get("_ga");
+  if (ga) {
+    data.ga = ga;
+  }
+  const sjID = Cookies.get("sjID");
+  if (sjID) {
+    data.sjID = sjID;
+  }
+  return data;
+};
 
 export const trackingResetEvent = "tracking-reset";
 
@@ -49,7 +63,7 @@ class Tracking {
    * @param {Object} values Key-value pair parameters to use in the pipeline.
    * @return {clientTracking} Tracking values to be used in the search request.
    */
-  tracking(/*values*/) {
+  next(/*values*/) {
     throw new Error("method 'tracking' unimplemented");
   }
 }
@@ -69,7 +83,10 @@ class ClickTracking extends Tracking {
     /** @private */
     this.qParam = qParam;
 
-    const tracking = new clientTracking(clickTracking, field);
+    const tracking = new TextSession(
+      qParam,
+      new Session(TrackingClick, field, getTrackingData())
+    );
     /** @private */
     this.clientTracking = tracking;
 
@@ -91,18 +108,12 @@ class ClickTracking extends Tracking {
    *
    * @param {Object} values Key-value pair parameters to use in the pipeline.
    */
-  tracking(values) {
-    const newQ = values[this.qParam] || "";
-    const shortenedPrevQ = this.prevQ.substr(0, Math.min(newQ.length, 3));
-    const first3CharactersChanged = !(
-      newQ.substr(0, shortenedPrevQ.length) === shortenedPrevQ
-    );
-    const queryCleared = this.prevQ.length > 0 && newQ.length === 0;
-    if (first3CharactersChanged || queryCleared) {
-      this.reset(values);
+  next(values) {
+    const [tracking, error] = this.clientTracking.next(values);
+    if (error) {
+      throw new Error(error);
     }
-    this.prevQ = newQ;
-    return this.clientTracking;
+    return tracking;
   }
 }
 
@@ -114,7 +125,7 @@ class NoTracking extends Tracking {
     super();
 
     /** @private */
-    this.clientTracking = new clientTracking();
+    this.clientTracking = new Session(TrackingNone, "_id", getTrackingData());
   }
 
   /**
@@ -129,8 +140,12 @@ class NoTracking extends Tracking {
   /**
    * Construct a tracking session to be used in a search.
    */
-  tracking() {
-    return this.clientTracking;
+  next(values) {
+    const [tracking, error] = this.clientTracking.next(values);
+    if (error) {
+      throw new Error(error);
+    }
+    return tracking;
   }
 }
 
