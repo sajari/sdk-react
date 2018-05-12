@@ -1,49 +1,59 @@
 {
   "name": "sajari-react",
   "description": "React SDK for the Sajari API",
-  "version": "1.5.1",
-  "author": [
-    {
-      "name": "Trent Billington",
-      "email": "tbillington@sajari.com",
-      "url": "https://www.sajari.com"
-    },
-    {
-      "name": "David Howden",
-      "email": "dhowden@sajari.com",
-      "url": "https://www.sajari.com"
-    }
+  "license": "MIT",
+  "contributors": [
+    "Sajari Support <support@sajari.com> (https://www.sajari.com)"
   ],
   "homepage": "https://github.com/sajari/sajari-sdk-react",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sajari/sajari-sdk-react"
+  },
   "bugs": "https://github.com/sajari/sajari-sdk-react/issues",
-  "contributors": [
-    {
-      "name": "Sajari Support <support@sajari.com>",
-      "url": "https://www.sajari.com"
-    }
-  ],
+  "version": "2.0.0-alpha.0",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.es.js",
+  "browser": "./dist/index.umd.js",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "npm-run-all --parallel dev:webpack dev:build",
+    "dev:build": "rollup -c -w",
+    "dev:webpack": "webpack-serve --config dev/webpack.config.js",
+    "lint": "tslint",
+    "test": "jest"
+  },
   "dependencies": {
-    "prop-types": "^15.5.10",
+    "js-cookie": "^2.2.0",
     "sajari": "0.20.0"
   },
+  "peerDependencies": {
+    "prop-types": "^15.6.1",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2"
+  },
   "devDependencies": {
-    "babel-cli": "^6.10.1",
-    "babel-core": "^6.11.4",
-    "babel-eslint": "^7.2.3",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-react": "^6.11.1",
-    "babel-preset-stage-0": "^6.5.0",
-    "eslint": "^4.3.0",
-    "eslint-plugin-class-property": "^1.0.6",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-react": "^7.1.0",
-    "fs-extra": "^0.30.0",
-    "jest": "^20.0.4",
-    "react": "15.6.1",
-    "react-dom": "15.6.1",
-    "rimraf": "^2.5.3",
-    "webpack": "^1.9.10"
+    "@babel/cli": "^7.0.0-beta.46",
+    "@babel/core": "^7.0.0-beta.46",
+    "@babel/plugin-external-helpers": "^7.0.0-beta.46",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.46",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.46",
+    "@babel/preset-env": "^7.0.0-beta.46",
+    "@babel/preset-react": "^7.0.0-beta.46",
+    "@babel/preset-typescript": "^7.0.0-beta.46",
+    "babel-loader": "^8.0.0-beta",
+    "html-webpack-plugin": "^3.2.0",
+    "npm-run-all": "^4.1.3",
+    "prop-types": "^15.6.1",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "rollup": "^0.58.2",
+    "rollup-plugin-babel": "^4.0.0-beta.4",
+    "rollup-plugin-commonjs": "^9.1.3",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "typescript": "^2.8.3",
+    "webpack": "^4.8.2",
+    "webpack-serve": "^0.3.2"
   },
   "keywords": [
     "autocomplete",
@@ -56,22 +66,21 @@
     "site search",
     "website search"
   ],
-  "license": "MIT",
-  "main": "./src/index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sajari/sajari-sdk-react"
-  },
-  "scripts": {
-    "build": "npm run build:babel && npm run build:copy-files",
-    "build:babel":
-      "babel ./src/ --out-dir ./build --ignore '*.test.js' --copy-files",
-    "build:copy-files": "babel-node ./scripts/copy-files.js",
-    "lint": "eslint src/*",
-    "clean:build": "rimraf build/*",
-    "build:watch":
-      "npm run clean:build && npm run build:copy-files && npm run build:babel -- --watch",
-    "prebuild": "eslint src/* && jest && npm run clean:build",
-    "test": "jest"
-  }
+  "authors": [
+    {
+      "name": "Trent Billington",
+      "email": "tbillington@sajari.com",
+      "url": "https://www.sajari.com"
+    },
+    {
+      "name": "David Howden",
+      "email": "dhowden@sajari.com",
+      "url": "https://www.sajari.com"
+    },
+    {
+      "name": "Ben Hinchley",
+      "email": "bhinchley@sajari.com",
+      "url": "https://www.sajari.com"
+    }
+  ]
 }
