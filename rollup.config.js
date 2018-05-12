@@ -13,7 +13,11 @@ const external = [
 
 const plugins = [
   resolve(),
-  commonjs(),
+  commonjs({
+    namedExports: {
+      react: ["Component"]
+    }
+  }),
   typescript(),
   babel({
     exclude: "node_modules/**" // only transpile our source code
