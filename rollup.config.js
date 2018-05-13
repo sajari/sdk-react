@@ -15,7 +15,7 @@ const plugins = [
   resolve(),
   commonjs({
     namedExports: {
-      react: ["Component"]
+      react: ["PureComponent", "Component", "createElement"]
     }
   }),
   typescript(),

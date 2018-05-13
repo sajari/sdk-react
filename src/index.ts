@@ -10,7 +10,14 @@ export {
   DebugAnalytics
 } from "./controllers";
 
-export { IContext, Consumer, Provider, Input } from "./components";
+export {
+  IContext,
+  Consumer,
+  Provider,
+  Input,
+  Results,
+  Result
+} from "./components";
 
 export {
   EVENT_SELECTION_UPDATED,

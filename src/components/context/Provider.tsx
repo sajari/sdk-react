@@ -86,7 +86,8 @@ export class Provider extends React.PureComponent<
           query,
           completion,
           suggestions,
-          search: this.search
+          search: this.search,
+          resultClicked: this.handleResultClicked
         }}
       >
         {children}
@@ -113,6 +114,9 @@ export class Provider extends React.PureComponent<
       pipeline.clearResponse(values.get());
     }
   };
+
+  handleResultClicked = (url: string) =>
+    this.props.pipeline.emitResultClicked(url);
 }
 
 const repsonseUpdatedListener = (
@@ -123,6 +127,28 @@ const repsonseUpdatedListener = (
   const query = values.get()[config.qParam] || "";
   const responseValues = response.getValues();
 
+  return {
+    response,
+    ...updateState(query, responseValues, config)
+  };
+};
+
+const valuesUpdatedListener = (
+  values: Values,
+  pipeline: Pipeline,
+  config: IConfig
+) => {
+  const query = values.get()[config.qParam] || "";
+  const responseValues = pipeline.getResponse().getValues();
+
+  return updateState(query, responseValues, config);
+};
+
+const updateState = (
+  query: string,
+  responseValues: Map<string, string> | undefined,
+  config: IConfig
+) => {
   const completion =
     query && responseValues ? responseValues.get(config.qParam) || "" : "";
 
@@ -135,27 +161,7 @@ const repsonseUpdatedListener = (
 
   return {
     query,
-    response,
     completion,
     suggestions
   };
-};
-
-const valuesUpdatedListener = (
-  values: Values,
-  pipeline: Pipeline,
-  config: IConfig
-) => {
-  const query = values.get()[config.qParam] || "";
-  const responseValues = pipeline.getResponse().getValues();
-  const completion =
-    query && responseValues ? responseValues.get(config.qParam) || "" : "";
-  const suggestions = responseValues
-    ? (responseValues.get(config.qSuggestionsParam) || "")
-        .split(",")
-        .filter(suggestion => suggestion.length > 0)
-        .slice(0, config.maxSuggestions)
-    : [];
-
-  return { query, completion, suggestions };
 };
