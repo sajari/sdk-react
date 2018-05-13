@@ -17,7 +17,8 @@ export {
   Input,
   Results,
   Result,
-  Summary
+  Summary,
+  Paginator
 } from "./components";
 
 export {

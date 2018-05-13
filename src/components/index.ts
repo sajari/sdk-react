@@ -6,3 +6,5 @@ export { Results } from "./Results";
 export { Result } from "./Result";
 
 export { Summary } from "./Summary";
+
+export { Paginator } from "./Paginator";

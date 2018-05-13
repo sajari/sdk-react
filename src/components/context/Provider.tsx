@@ -87,7 +87,8 @@ export class Provider extends React.PureComponent<
           completion,
           suggestions,
           search: this.search,
-          resultClicked: this.handleResultClicked
+          resultClicked: this.handleResultClicked,
+          paginate: this.handlePaginate
         }}
       >
         {children}
@@ -117,6 +118,13 @@ export class Provider extends React.PureComponent<
 
   public handleResultClicked = (url: string) =>
     this.props.pipeline.emitResultClicked(url);
+
+  public handlePaginate = (page: number) => {
+    const { pipeline, values } = this.props;
+
+    values.set({ page: String(page) });
+    pipeline.search(values.get());
+  };
 }
 
 const repsonseUpdatedListener = (

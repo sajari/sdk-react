@@ -5,6 +5,7 @@ import { Response } from "../../controllers";
 
 export type SearchFn = (query: string, override: boolean) => void;
 export type ResultClickedFn = (url: string) => void;
+export type PaginateFn = (page: number) => void;
 
 export interface IContext {
   response: Response | null;
@@ -15,6 +16,7 @@ export interface IContext {
 
   search: SearchFn;
   resultClicked: ResultClickedFn;
+  paginate: PaginateFn;
 }
 
 export const Context = createReactContext({} as IContext);
