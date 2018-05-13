@@ -26,7 +26,7 @@ export class Response {
   /**
    * Is this response empty?
    */
-  isEmpty(): boolean {
+  public isEmpty(): boolean {
     return (
       this.error === undefined &&
       this.response === undefined &&
@@ -38,15 +38,17 @@ export class Response {
   /**
    * Is this response an error?
    */
-  isError(): boolean {
+  public isError(): boolean {
     return this.error !== undefined;
   }
 
   /**
    * The error associated with this response.
    */
-  getError(): Error | null {
-    if (this.error === undefined) return null;
+  public getError(): Error | null {
+    if (this.error === undefined) {
+      return null;
+    }
     return this.error;
   }
 
@@ -54,7 +56,7 @@ export class Response {
    * Return the query values used in the search which created this response.
    * @return {Object|undefined}
    */
-  getQueryValues() {
+  public getQueryValues() {
     return this.queryValues;
   }
 
@@ -62,7 +64,7 @@ export class Response {
    * Returns the response, which includes results and aggregates etc.
    * @return {Object|undefined}
    */
-  getResponse() {
+  public getResponse() {
     return this.response;
   }
 
@@ -70,14 +72,14 @@ export class Response {
    * Return the pipeline values returned by the search.
    * @return {Object|undefined}
    */
-  getValues() {
+  public getValues() {
     return this.values;
   }
 
   /**
    * Return results from the response.
    */
-  getResults(): { [k: string]: any } | undefined {
+  public getResults(): { [k: string]: any } | undefined {
     return this.response !== undefined
       ? (this.response.get("results") as { [k: string]: any })
       : undefined;

@@ -19,7 +19,7 @@ export class Listener {
    * @param callback The callback to be registered.
    * @return The unregister function to remove the callback from the listener.
    */
-  listen(callback: CallbackFn): UnlistenFn {
+  public listen(callback: CallbackFn): UnlistenFn {
     this.listeners.push(callback);
     return () => this.unlisten(callback);
   }
@@ -27,7 +27,7 @@ export class Listener {
   /**
    * Removes a callback from the listener.
    */
-  unlisten(callback: CallbackFn) {
+  public unlisten(callback: CallbackFn) {
     const index = this.listeners.indexOf(callback);
     if (index >= 0) {
       this.listeners.splice(index, 1);
@@ -39,8 +39,8 @@ export class Listener {
    * The listener is supplied as the first argument to the function.
    * @param {function(callback: Function)} fn Function to call each of the callbacks in the listener with.
    */
-  notify(fn: (callback: CallbackFn) => void) {
-    this.listeners.forEach((l) => {
+  public notify(fn: (callback: CallbackFn) => void) {
+    this.listeners.forEach(l => {
       try {
         fn(l);
       } catch (e) {

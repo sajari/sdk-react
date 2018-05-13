@@ -1,7 +1,7 @@
-import * as React from "react";
 import createReactContext from "create-react-context";
-import { Response } from "../../controllers";
+import * as React from "react";
 import { IConfig } from "../../config";
+import { Response } from "../../controllers";
 
 export type SearchFn = (query: string, override: boolean) => void;
 export type ResultClickedFn = (url: string) => void;
@@ -10,7 +10,7 @@ export interface IContext {
   response: Response | null;
   query: string;
   completion: string;
-  suggestions: Array<string>;
+  suggestions: string[];
   config: IConfig;
 
   search: SearchFn;

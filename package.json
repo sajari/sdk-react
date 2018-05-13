@@ -20,7 +20,8 @@
     "dev": "npm-run-all --parallel dev:webpack dev:build",
     "dev:build": "rollup -c -w",
     "dev:webpack": "webpack-serve --config dev/webpack.config.js",
-    "lint": "tslint",
+    "fmt": "prettier --write --config .prettierrc.js \"src/**/*.{ts,tsx}\"",
+    "lint": "tslint -c tslint.json --fix \"src/**/*.{ts,tsx}\"",
     "test": "jest"
   },
   "dependencies": {
@@ -51,6 +52,7 @@
     "html-webpack-plugin": "^3.2.0",
     "jest": "^22.4.3",
     "npm-run-all": "^4.1.3",
+    "prettier": "^1.12.1",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
@@ -60,22 +62,12 @@
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-typescript2": "^0.14.0",
     "ts-jest": "^22.4.6",
+    "tslint": "^5.10.0",
+    "tslint-config-prettier": "^1.12.0",
+    "tslint-react": "^3.6.0",
     "typescript": "^2.8.3",
     "webpack": "^4.8.2",
     "webpack-serve": "^0.3.2"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testMatch": [
-      "**/?(*.)(spec|test).ts?(x)"
-    ]
   },
   "keywords": [
     "autocomplete",
@@ -104,5 +96,18 @@
       "email": "bhinchley@sajari.com",
       "url": "https://www.sajari.com"
     }
-  ]
+  ],
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testMatch": [
+      "**/?(*.)(spec|test).ts?(x)"
+    ]
+  }
 }

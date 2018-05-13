@@ -4,7 +4,9 @@ import { Listener } from "./listener";
 const events = [EVENT_SELECTION_UPDATED, EVENT_OPTIONS_UPDATED];
 
 export type OptionsFn = () => string;
-export type Options = { [k: string]: string | OptionsFn };
+export interface Options {
+  [k: string]: string | OptionsFn;
+}
 export type CallbackFn = (filter: Filter) => void;
 
 /**
@@ -89,7 +91,9 @@ export class Filter {
       return;
     }
 
-    if (on === false) return;
+    if (on === false) {
+      return;
+    }
 
     if (name) {
       this.current = [name];
@@ -152,7 +156,7 @@ export class Filter {
    * Builds up the filter string from the current filter and it's children.
    */
   public filter(): string {
-    let filters = this.current
+    const filters = this.current
       .map(c => {
         let f = this.options[c];
         if (typeof f === "function") {
@@ -187,12 +191,12 @@ export class Filter {
  * @return The resulting Filter.
  */
 export const CombineFilters = (
-  filters: Array<Filter>,
+  filters: Filter[],
   operator: "AND" | "OR" = "AND"
 ) => {
   const opts: { [k: string]: () => string } = {};
   let count = 1;
-  let on: Array<string> = [];
+  let on: string[] = [];
 
   filters.forEach(f => {
     opts["" + count] = () => f.filter();

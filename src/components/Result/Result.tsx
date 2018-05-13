@@ -12,7 +12,7 @@ export interface IResultProps {
 }
 
 export class Result extends React.Component<IResultProps> {
-  render() {
+  public render() {
     const { token, values, resultClicked } = this.props;
 
     return (
@@ -40,25 +40,25 @@ export class Result extends React.Component<IResultProps> {
 
 const TOKEN_URL = "https://www.sajari.com/token/";
 
-export type TokenLinkProps = {
+export interface TokenLinkProps {
   token: string;
   url: string;
   resultClicked: ResultClickedFn;
   text?: string;
   children?: React.ReactNode;
-};
+}
 
-export type TokenLinkState = {
+export interface TokenLinkState {
   clicked: boolean;
-};
+}
 
 export class TokenLink extends React.PureComponent<
   TokenLinkProps,
   TokenLinkState
 > {
-  state = { clicked: false };
+  public state = { clicked: false };
 
-  render() {
+  public render() {
     const { token, url, text, children } = this.props;
 
     let decodedText;
@@ -87,7 +87,7 @@ export class TokenLink extends React.PureComponent<
     );
   }
 
-  click = () =>
+  private click = () =>
     this.setState(
       state => ({ ...state, clicked: true }),
       () => {

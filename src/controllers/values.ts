@@ -22,7 +22,7 @@ export class Values {
    * @param {string} event Event to listen for
    * @param {Function} callback Callback to run when the event happens.
    */
-  listen(event: string, callback: () => void) {
+  public listen(event: string, callback: () => void) {
     if (event !== EVENT_VALUES_UPDATED) {
       throw new Error(`unknown event type "${event}"`);
     }
@@ -34,8 +34,8 @@ export class Values {
    *
    * @private
    */
-  _emitUpdated() {
-    (this.listeners.get(EVENT_VALUES_UPDATED) as Listener).notify((listener) =>
+  public _emitUpdated() {
+    (this.listeners.get(EVENT_VALUES_UPDATED) as Listener).notify(listener =>
       listener()
     );
   }
@@ -44,7 +44,7 @@ export class Values {
    * Sets values without triggering an event, internal use only.
    */
   private _set(values: { [k: string]: string | ValueFn | undefined }) {
-    Object.keys(values).forEach((key) => {
+    Object.keys(values).forEach(key => {
       if (values[key] === undefined) {
         this.values.delete(key);
       } else {
@@ -58,7 +58,7 @@ export class Values {
    *
    * Set a value to undefined to remove it.
    */
-  set(values: { [k: string]: string | ValueFn }) {
+  public set(values: { [k: string]: string | ValueFn }) {
     this._set(values);
     this._emitUpdated();
   }
@@ -66,7 +66,7 @@ export class Values {
   /**
    * get returns the current values.
    */
-  get(): { [k: string]: string } {
+  public get(): { [k: string]: string } {
     const values = {} as { [k: string]: string };
 
     this.values.forEach((value, key) => {

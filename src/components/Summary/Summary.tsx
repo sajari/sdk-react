@@ -64,10 +64,10 @@ class Override extends React.PureComponent<{
     );
   }
 
-  public click = (event: any) => {
+  private click = (event: any) => {
     const { search, query } = this.props;
 
     event.preventDefault();
     search(query, true);
-  }
+  };
 }

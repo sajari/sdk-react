@@ -2,8 +2,8 @@ import { UnlistenFn } from "../listener";
 import { Analytics } from "./analytics";
 
 import {
-  EVENT_ANALYTICS_PAGE_CLOSED,
   EVENT_ANALYTICS_BODY_RESET,
+  EVENT_ANALYTICS_PAGE_CLOSED,
   EVENT_ANALYTICS_RESULT_CLICKED
 } from "../../events";
 
@@ -11,7 +11,7 @@ export class GoogleAnalytics {
   private id: string | null;
   private param: string;
 
-  private unregisterFunctions: Array<UnlistenFn> = [];
+  private unregisterFunctions: UnlistenFn[] = [];
 
   /**
    * Constructs a GoogleAnalytics object.
@@ -53,12 +53,12 @@ export class GoogleAnalytics {
   /**
    * Stops this object listening for events.
    */
-  detatch = () => this.unregisterFunctions.forEach((fn) => fn());
+  public detatch = () => this.unregisterFunctions.forEach(fn => fn());
 
   /**
    * Sends a page view event if ga is found on the page and we're not in dev mode.
    */
-  sendGAPageView(body: string) {
+  public sendGAPageView(body: string) {
     // @ts-ignore: window is an object
     if (this.id && isFunction(window[this.id])) {
       // Merge the body in with the existing query params in the url
@@ -76,24 +76,24 @@ export class GoogleAnalytics {
   /**
    * Callback for when the body has been reset. Calls sendGAPageView.
    */
-  onBodyReset = (body: string) => this.sendGAPageView(body);
+  public onBodyReset = (body: string) => this.sendGAPageView(body);
 
   /**
    * Callback for when a result has been clicked. Calls sendGAPageView.
    */
-  onResultClicked = (body: string) => this.sendGAPageView(body);
+  public onResultClicked = (body: string) => this.sendGAPageView(body);
 
   /**
    * Callback for when the page has been closed. Calls sendGAPageView.
    */
-  onPageClose = (body: string) => this.sendGAPageView(body);
+  public onPageClose = (body: string) => this.sendGAPageView(body);
 }
 
 const url = {
   /**
    * Convert a query string in to an object
    */
-  decodeUriArgs: function(queryStr: string) {
+  decodeUriArgs(queryStr: string) {
     const args = {} as { [k: string]: string };
     const a = queryStr.split("&");
     for (const i in a) {
@@ -108,7 +108,7 @@ const url = {
   /**
    * Convert an arguments object in to a query string
    */
-  encodeUriArgs: function(args: { [k: string]: string }) {
+  encodeUriArgs(args: { [k: string]: string }) {
     const queryParts = [];
     for (const i in args) {
       queryParts.push(
@@ -122,12 +122,12 @@ const url = {
    * Merges query strings or objects into a single query string. Accepts a variable number of query string/objects
    * to merge. The latter overrides the former.
    */
-  mergeQueryStr: function(
+  mergeQueryStr(
     first: string | { [k: string]: string },
     ...rest: Array<string | { [k: string]: string }>
   ) {
     const args = typeof first === "string" ? this.decodeUriArgs(first) : first;
-    rest.forEach((arg) => {
+    rest.forEach(arg => {
       const next = typeof arg === "string" ? this.decodeUriArgs(arg) : arg;
       for (const prop in next) {
         args[prop] = next[prop];
@@ -139,7 +139,7 @@ const url = {
   /**
    * Takes an existing URL and merges additional data into the query string
    */
-  augmentUri: function(uri: string, args: { [k: string]: string }) {
+  augmentUri(uri: string, args: { [k: string]: string }) {
     const m = /^([^?]+)\?(.+)+$/.exec(uri);
     if (m) {
       return m[1] + "?" + this.mergeQueryStr(m[2], args);
@@ -151,7 +151,7 @@ const url = {
   /**
    * Get a parameter from the URL
    */
-  getURLParameter: function(name: string) {
+  getURLParameter(name: string) {
     const value = new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(
       location.search
     ) || [undefined, ""];

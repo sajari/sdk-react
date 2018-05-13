@@ -64,7 +64,7 @@ export class Pipeline {
    * @param callback Callback to run when the event happens.
    * @return The unregister function to remove the callback from the listener.
    */
-  listen(event: string, callback: CallbackFn) {
+  public listen(event: string, callback: CallbackFn) {
     if (events.indexOf(event) === -1) {
       throw new Error(`unknown event type "${event}"`);
     }
@@ -75,7 +75,7 @@ export class Pipeline {
    * Emits a search event to the search event listener.
    * @private
    */
-  _emitSearchSent(values: { [k: string]: string }) {
+  public _emitSearchSent(values: { [k: string]: string }) {
     (this.listeners.get(EVENT_SEARCH_SENT) as Listener).notify(listener => {
       listener(values);
     });
@@ -85,7 +85,7 @@ export class Pipeline {
    * Emits a results event to the results event listener.
    * @private
    */
-  _emitResponseUpdated(response: Response) {
+  public _emitResponseUpdated(response: Response) {
     (this.listeners.get(EVENT_RESPONSE_UPDATED) as Listener).notify(
       listener => {
         listener(response);
@@ -97,7 +97,7 @@ export class Pipeline {
    * Emits a result clicked event to the results clicked event listeners.
    * @param value Value to send to the listeners.
    */
-  emitResultClicked(value: string) {
+  public emitResultClicked(value: string) {
     (this.listeners.get(EVENT_RESULT_CLICKED) as Listener).notify(listener => {
       listener(value);
     });
@@ -107,7 +107,7 @@ export class Pipeline {
    * Perform a search.
    * @param values Key-value parameters to pass to the pipeline.
    */
-  search(values: { [k: string]: string }) {
+  public search(values: { [k: string]: string }) {
     this.searchCount++;
     const currentSearch = this.searchCount;
 
@@ -139,7 +139,7 @@ export class Pipeline {
    * Clears the error, response, and response values from this object.
    * @param values Key-value pair parameters.
    */
-  clearResponse(values: { [k: string]: string }) {
+  public clearResponse(values: { [k: string]: string }) {
     this.tracking.next(values);
 
     this.searchCount++;
@@ -150,14 +150,14 @@ export class Pipeline {
   /**
    * The current response.
    */
-  getResponse(): Response {
+  public getResponse(): Response {
     return this.response;
   }
 
   /**
    * The analytics adaptor connected to this pipeline.
    */
-  getAnalytics(): Analytics | GoogleAnalytics | DebugAnalytics {
+  public getAnalytics(): Analytics | GoogleAnalytics | DebugAnalytics {
     return this.analytics;
   }
 }

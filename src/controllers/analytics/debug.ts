@@ -1,8 +1,8 @@
 import { Analytics } from "./analytics";
 
 import {
-  EVENT_ANALYTICS_PAGE_CLOSED,
   EVENT_ANALYTICS_BODY_RESET,
+  EVENT_ANALYTICS_PAGE_CLOSED,
   EVENT_ANALYTICS_RESULT_CLICKED
 } from "../../events";
 
@@ -17,17 +17,17 @@ export class DebugAnalytics {
     analytics.listen(EVENT_ANALYTICS_RESULT_CLICKED, this.resultClicked);
   }
 
-  pageClosed = (bodyToSend: string) => {
+  public pageClosed = (bodyToSend: string) => {
     // eslint-disable-next-line no-console
     console.log("DebugAnalytics: pageClosed, body:", bodyToSend);
   };
 
-  bodyReset = (bodyToSend: string) => {
+  public bodyReset = (bodyToSend: string) => {
     // eslint-disable-next-line no-console
     console.log("DebugAnalytics: bodyReset, body:", bodyToSend);
   };
 
-  resultClicked = (bodyToSend: string) => {
+  public resultClicked = (bodyToSend: string) => {
     // eslint-disable-next-line no-console
     console.log("DebugAnalytics: resultClicked, body:", bodyToSend);
   };

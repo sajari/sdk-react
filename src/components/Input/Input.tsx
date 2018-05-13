@@ -1,5 +1,5 @@
-import * as React from "react";
 import Downshift from "downshift";
+import * as React from "react";
 // @ts-ignore: module missing definition file
 import AutosizeInput from "react-input-autosize";
 
@@ -14,13 +14,13 @@ export interface IInputState {
 }
 
 export class Input extends React.Component<IInputProps, IInputState> {
-  state = { inputValue: "" };
+  public state = { inputValue: "" };
 
-  static defaultProps = {
+  public static defaultProps = {
     autocomplete: false
   };
 
-  render() {
+  public render() {
     const { autocomplete } = this.props;
     const { inputValue } = this.state;
 

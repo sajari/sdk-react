@@ -1,10 +1,10 @@
 // @ts-ignore: module missing defintion file
-import { Session, TextSession, TrackingClick, TrackingNone } from "sajari";
-// @ts-ignore: module missing defintion file
 import Cookies from "js-cookie";
+// @ts-ignore: module missing defintion file
+import { Session, TextSession, TrackingClick, TrackingNone } from "sajari";
 
 import { EVENT_TRACKING_RESET } from "../events";
-import { CallbackFn, Listener, UnlistenFn, ListenerMap } from "./listener";
+import { CallbackFn, Listener, ListenerMap, UnlistenFn } from "./listener";
 
 const events = [EVENT_TRACKING_RESET];
 
@@ -26,7 +26,7 @@ export class Tracking {
    * @param callback Callback to run when the event happens.
    * @return The unregister function to remove the callback from the listener.
    */
-  listen(event: string, callback: CallbackFn): UnlistenFn {
+  public listen(event: string, callback: CallbackFn): UnlistenFn {
     if (events.indexOf(event) === -1) {
       throw new Error(`unknown event type "${event}"`);
     }
@@ -37,7 +37,7 @@ export class Tracking {
    * Emits a tracking reset event to the tracking reset event listener.
    * @private
    */
-  _emitTrackingReset(values: { [k: string]: string }) {
+  public _emitTrackingReset(values: { [k: string]: string }) {
     (this.listeners.get(EVENT_TRACKING_RESET) as Listener).notify(listener => {
       listener(values);
     });
@@ -47,7 +47,7 @@ export class Tracking {
    * Reset the tracking.
    * @param values Key-value pair parameters to use in the pipeline.
    */
-  reset(values: { [k: string]: string }) {
+  public reset(values: { [k: string]: string }) {
     throw new Error("method 'reset' unimplemented");
   }
 
@@ -56,7 +56,7 @@ export class Tracking {
    * @param values Key-value pair parameters to use in the pipeline.
    * @return Tracking values to be used in the search request.
    */
-  next(values: { [k: string]: string }) {
+  public next(values: { [k: string]: string }) {
     throw new Error("method 'next' unimplemented");
   }
 }
@@ -88,7 +88,7 @@ export class ClickTracking extends Tracking {
    * Reset the tracking.
    * @param values Key-value pair parameters to use in the pipeline.
    */
-  reset(values: { [k: string]: string }) {
+  public reset(values: { [k: string]: string }) {
     this.clientTracking.reset();
     this._emitTrackingReset(values);
   }
@@ -98,7 +98,7 @@ export class ClickTracking extends Tracking {
    *
    * @param values Key-value pair parameters to use in the pipeline.
    */
-  next(values: { [k: string]: string }) {
+  public next(values: { [k: string]: string }) {
     const [tracking, error] = this.clientTracking.next(values);
     if (error) {
       throw new Error(error);
@@ -120,7 +120,7 @@ export class NoTracking extends Tracking {
    * Reset the tracking.
    * @param values Key-value pair parameters to use in the pipeline.
    */
-  reset(values: { [k: string]: string }) {
+  public reset(values: { [k: string]: string }) {
     this.clientTracking.reset();
     this._emitTrackingReset(values);
   }
@@ -128,7 +128,7 @@ export class NoTracking extends Tracking {
   /**
    * Construct a tracking session to be used in a search.
    */
-  next(values: { [k: string]: string }) {
+  public next(values: { [k: string]: string }) {
     const [tracking, error] = this.clientTracking.next(values);
     if (error) {
       throw new Error(error);
@@ -141,11 +141,11 @@ const getTrackingData = () => {
   const data = {} as { [k: string]: string };
   const ga = Cookies.get("_ga");
   if (ga) {
-    data["ga"] = ga;
+    data.ga = ga;
   }
   const sjID = Cookies.get("sjID");
   if (sjID) {
-    data["sjID"] = sjID;
+    data.sjID = sjID;
   }
   return data;
 };

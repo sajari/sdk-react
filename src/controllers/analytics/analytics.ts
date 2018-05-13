@@ -1,15 +1,15 @@
-import { Listener, CallbackFn, ListenerMap } from "../listener";
+import { CallbackFn, Listener, ListenerMap } from "../listener";
 
 import { Pipeline } from "../pipeline";
 import { Response } from "../response";
 import { Tracking } from "../tracking";
 
 import {
+  EVENT_ANALYTICS_BODY_RESET,
+  EVENT_ANALYTICS_PAGE_CLOSED,
+  EVENT_ANALYTICS_RESULT_CLICKED,
   EVENT_RESPONSE_UPDATED,
   EVENT_RESULT_CLICKED,
-  EVENT_ANALYTICS_PAGE_CLOSED,
-  EVENT_ANALYTICS_BODY_RESET,
-  EVENT_ANALYTICS_RESULT_CLICKED,
   EVENT_TRACKING_RESET
 } from "../../events";
 
@@ -84,10 +84,10 @@ export class Analytics {
   /**
    * Runs before the page is closed/navigated away from. Can trigger a ga onPageClose call.
    */
-  beforeunload = () => {
+  public beforeunload = () => {
     if (this.enabled && this.body) {
       (this.listeners.get(EVENT_ANALYTICS_PAGE_CLOSED) as Listener).notify(
-        (callback) => {
+        callback => {
           callback(this.body);
         }
       );
@@ -98,10 +98,10 @@ export class Analytics {
   /**
    * Resets the currently held parameters. Can trigger a ga onBodyReset call.
    */
-  resetBody = () => {
+  public resetBody = () => {
     if (this.enabled) {
       (this.listeners.get(EVENT_ANALYTICS_BODY_RESET) as Listener).notify(
-        (callback) => {
+        callback => {
           callback(this.body);
         }
       );
@@ -115,7 +115,7 @@ export class Analytics {
   /**
    * Runs when the response has been updated. Updates the currently held search parameters.
    */
-  responseUpdated = (response: Response) => {
+  public responseUpdated = (response: Response) => {
     if (response.isEmpty() || response.isError()) {
       return;
     }
@@ -146,10 +146,10 @@ export class Analytics {
   /**
    * Runs when a result has been clicked. Can trigger a ga onResultClicked call.
    */
-  resultClicked = () => {
+  public resultClicked = () => {
     if (this.enabled && this.body) {
       (this.listeners.get(EVENT_ANALYTICS_RESULT_CLICKED) as Listener).notify(
-        (callback) => {
+        callback => {
           callback(this.body);
         }
       );

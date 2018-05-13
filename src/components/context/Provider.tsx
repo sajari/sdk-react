@@ -1,9 +1,9 @@
 import * as React from "react";
-import { Context, IContext } from "./context";
-import { Pipeline, Values, Response } from "../../controllers";
+import { defaultConfig, IConfig } from "../../config";
+import { Pipeline, Response, Values } from "../../controllers";
 import { UnlistenFn } from "../../controllers/listener";
 import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from "../../events";
-import { defaultConfig, IConfig } from "../../config";
+import { Context, IContext } from "./context";
 
 export interface IProviderProps {
   pipeline: Pipeline;
@@ -19,20 +19,20 @@ export interface IProviderState {
   query: string;
   config: IConfig;
   completion: string;
-  suggestions: Array<string>;
+  suggestions: string[];
 }
 
-let _unregisterFunctions: Array<UnlistenFn> = [];
+let _unregisterFunctions: UnlistenFn[] = [];
 
 export class Provider extends React.PureComponent<
   IProviderProps,
   IProviderState
 > {
-  static defaultProps = {
+  public static defaultProps = {
     config: defaultConfig
   };
 
-  state = {
+  public state = {
     response: null,
     query: "",
     config: defaultConfig,
@@ -40,7 +40,7 @@ export class Provider extends React.PureComponent<
     suggestions: []
   };
 
-  componentDidMount() {
+  public componentDidMount() {
     const { pipeline, values } = this.props;
     const config = { ...defaultConfig, ...this.props.config };
 
@@ -69,12 +69,12 @@ export class Provider extends React.PureComponent<
     );
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     _unregisterFunctions.forEach(fn => fn());
     _unregisterFunctions = [];
   }
 
-  render() {
+  public render() {
     const { children } = this.props;
     const { response, config, query, completion, suggestions } = this.state;
 
@@ -95,7 +95,7 @@ export class Provider extends React.PureComponent<
     );
   }
 
-  search = (query: string, override: boolean = false) => {
+  public search = (query: string, override: boolean = false) => {
     const { pipeline, values } = this.props;
     const { config } = this.state;
 
@@ -115,7 +115,7 @@ export class Provider extends React.PureComponent<
     }
   };
 
-  handleResultClicked = (url: string) =>
+  public handleResultClicked = (url: string) =>
     this.props.pipeline.emitResultClicked(url);
 }
 

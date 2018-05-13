@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { Consumer, IContext } from "../context";
-import { Result, IResultProps } from "../Result";
+import { IResultProps, Result } from "../Result";
 
 const STATUS_UNAUTHORISED = 403;
 
@@ -12,11 +12,11 @@ export interface IResultsProps {
 export interface IResultsState {}
 
 export class Results extends React.Component<IResultsProps, IResultsState> {
-  static defaultProps = {
+  public static defaultProps = {
     ResultRenderer: Result
   };
 
-  render() {
+  public render() {
     const { ResultRenderer } = this.props;
 
     return (
