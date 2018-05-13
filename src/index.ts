@@ -16,7 +16,8 @@ export {
   Provider,
   Input,
   Results,
-  Result
+  Result,
+  Summary
 } from "./components";
 
 export {
