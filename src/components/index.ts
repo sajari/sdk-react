@@ -15,3 +15,5 @@ export { Summary } from "./Summary";
 export { Paginator } from "./Paginator";
 
 export { Tabs } from "./Tabs";
+
+export { Select } from "./Select";

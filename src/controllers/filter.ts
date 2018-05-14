@@ -91,15 +91,14 @@ export class Filter {
       return;
     }
 
-    if (on === false) {
-      return;
-    }
-
-    if (name) {
+    // if on add to current
+    if (on) {
       this.current = [name];
     } else {
+      // clear current
       this.current = [];
     }
+
     this._emitSelectionUpdated();
   }
 

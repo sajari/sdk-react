@@ -121,7 +121,7 @@ export class Provider extends React.PureComponent<
       resultClicked: this.handleResultClicked,
       paginate: this.handlePaginate
     }),
-    (a: any, b: any) => isEqual(a, b)
+    isEqual
   );
 }
 

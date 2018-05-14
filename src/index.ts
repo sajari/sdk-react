@@ -19,7 +19,8 @@ export {
   Result,
   Summary,
   Paginator,
-  Tabs
+  Tabs,
+  Select
 } from "./components";
 
 export {

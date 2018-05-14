@@ -64,6 +64,6 @@ export class FilterProvider extends React.PureComponent<
       ...state,
       set: (name: string, value: boolean) => this.props.filter.set(name, value)
     }),
-    (a: any, b: any) => isEqual(a, b)
+    isEqual
   );
 }

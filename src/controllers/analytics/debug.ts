@@ -18,17 +18,17 @@ export class DebugAnalytics {
   }
 
   public pageClosed = (bodyToSend: string) => {
-    // eslint-disable-next-line no-console
+    // tslint:disable-next-line no-console
     console.log("DebugAnalytics: pageClosed, body:", bodyToSend);
   };
 
   public bodyReset = (bodyToSend: string) => {
-    // eslint-disable-next-line no-console
+    // tslint:disable-next-line no-console
     console.log("DebugAnalytics: bodyReset, body:", bodyToSend);
   };
 
   public resultClicked = (bodyToSend: string) => {
-    // eslint-disable-next-line no-console
+    // tslint:disable-next-line no-console
     console.log("DebugAnalytics: resultClicked, body:", bodyToSend);
   };
 }
