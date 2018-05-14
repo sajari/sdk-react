@@ -1,3 +1,6 @@
+import { isEqual } from "lodash-es";
+// @ts-ignore: module missing defintion file
+import memoize from "memoize-one";
 import * as React from "react";
 import { defaultConfig, IConfig } from "../../config";
 import { Pipeline, Response, Values } from "../../controllers";
@@ -76,24 +79,9 @@ export class Provider extends React.PureComponent<
 
   public render() {
     const { children } = this.props;
-    const { response, config, query, completion, suggestions } = this.state;
+    const value = this.getContext(this.state);
 
-    return (
-      <Context.Provider
-        value={{
-          response,
-          config,
-          query,
-          completion,
-          suggestions,
-          search: this.search,
-          resultClicked: this.handleResultClicked,
-          paginate: this.handlePaginate
-        }}
-      >
-        {children}
-      </Context.Provider>
-    );
+    return <Context.Provider value={value}>{children}</Context.Provider>;
   }
 
   public search = (query: string, override: boolean = false) => {
@@ -125,6 +113,16 @@ export class Provider extends React.PureComponent<
     values.set({ page: String(page) });
     pipeline.search(values.get());
   };
+
+  private getContext = memoize(
+    (state: IProviderState) => ({
+      ...state,
+      search: this.search,
+      resultClicked: this.handleResultClicked,
+      paginate: this.handlePaginate
+    }),
+    (a: any, b: any) => isEqual(a, b)
+  );
 }
 
 const repsonseUpdatedListener = (

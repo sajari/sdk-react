@@ -18,7 +18,8 @@ export {
   Results,
   Result,
   Summary,
-  Paginator
+  Paginator,
+  Tabs
 } from "./components";
 
 export {
