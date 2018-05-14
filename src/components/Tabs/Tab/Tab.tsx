@@ -12,7 +12,7 @@ export const Tab: React.SFC<ITabProps> = ({ title }) => (
       return (
         <div
           style={{ color: isSelected ? "blue" : "inherit" }}
-          onClick={() => set(title, !isSelected)}
+          onClick={setFilter(set)(title, !isSelected)}
         >
           {title}
         </div>
@@ -20,3 +20,8 @@ export const Tab: React.SFC<ITabProps> = ({ title }) => (
     }}
   </FilterConsumer>
 );
+
+const setFilter = (set: (name: string, value: boolean) => void) => (
+  name: string,
+  value: boolean
+) => (event: any) => set(name, value);

@@ -9,9 +9,7 @@ export interface IResultsProps {
   ResultRenderer: React.ComponentType<IResultProps>;
 }
 
-export interface IResultsState {}
-
-export class Results extends React.Component<IResultsProps, IResultsState> {
+export class Results extends React.Component<IResultsProps, {}> {
   public static defaultProps = {
     ResultRenderer: Result
   };
@@ -21,7 +19,7 @@ export class Results extends React.Component<IResultsProps, IResultsState> {
 
     return (
       <Consumer>
-        {({ response }) => {
+        {({ response, resultClicked }) => {
           if (response === null || response.isEmpty()) {
             return null;
           }
@@ -55,7 +53,7 @@ export class Results extends React.Component<IResultsProps, IResultsState> {
                       key={key}
                       token={token}
                       values={result.values}
-                      resultClicked={() => {}}
+                      resultClicked={resultClicked}
                     />
                   );
                 }

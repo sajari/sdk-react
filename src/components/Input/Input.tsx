@@ -4,6 +4,7 @@ import * as React from "react";
 import AutosizeInput from "react-input-autosize";
 
 import { Consumer, IContext } from "../context";
+import { SearchFn } from "../context/context";
 
 export interface IInputProps {
   autocomplete: boolean | "autocomplete";
@@ -14,11 +15,11 @@ export interface IInputState {
 }
 
 export class Input extends React.Component<IInputProps, IInputState> {
-  public state = { inputValue: "" };
-
   public static defaultProps = {
     autocomplete: false
   };
+
+  public state = { inputValue: "" };
 
   public render() {
     const { autocomplete } = this.props;
@@ -29,21 +30,13 @@ export class Input extends React.Component<IInputProps, IInputState> {
         {({ completion, suggestions, search }) => (
           <Downshift
             inputValue={inputValue}
-            onSelect={selectedItem =>
-              this.setState(
-                state => ({ ...state, inputValue: selectedItem }),
-                () => {
-                  const { inputValue } = this.state;
-                  search(inputValue, true);
-                }
-              )
-            }
+            onSelect={this.handleSelect(search)}
           >
             {({
               getInputProps,
               getItemProps,
               isOpen,
-              inputValue,
+              inputValue: value,
               highlightedIndex,
               selectedItem
             }) => (
@@ -51,30 +44,18 @@ export class Input extends React.Component<IInputProps, IInputState> {
                 <div>
                   <AutosizeInput
                     minWidth={1}
-                    value={inputValue}
+                    value={value}
                     autoComplete="off"
                     autoCorrect="off"
                     autoCapitalize="off"
                     spellCheck="false"
                     {...getInputProps({
-                      onChange: (event: any) => {
-                        event.persist();
-                        this.setState(
-                          state => ({
-                            ...state,
-                            inputValue: event.target.value
-                          }),
-                          () => {
-                            const { inputValue } = this.state;
-                            search(inputValue, false);
-                          }
-                        );
-                      }
+                      onChange: this.handleOnChange(search)
                     })}
                   />
                   {autocomplete ? (
                     <span>
-                      {completion.slice((inputValue as string).length || 0)}
+                      {completion.slice((value as string).length || 0)}
                     </span>
                   ) : null}
                 </div>
@@ -104,4 +85,27 @@ export class Input extends React.Component<IInputProps, IInputState> {
       </Consumer>
     );
   }
+
+  private handleSelect = (search: SearchFn) => (selectedItem: string) =>
+    this.setState(
+      state => ({ ...state, inputValue: selectedItem }),
+      () => {
+        const { inputValue } = this.state;
+        search(inputValue, true);
+      }
+    );
+
+  private handleOnChange = (search: SearchFn) => (event: any) => {
+    event.persist();
+    this.setState(
+      state => ({
+        ...state,
+        inputValue: event.target.value
+      }),
+      () => {
+        const { inputValue } = this.state;
+        search(inputValue, false);
+      }
+    );
+  };
 }

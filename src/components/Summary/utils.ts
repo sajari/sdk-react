@@ -6,8 +6,8 @@ export const formatQueryTime = (time: string) => {
   time = String(time);
 
   const splitNum = time.split(".");
-  if (splitNum.length === 1 || parseInt(splitNum[1]) === 0) {
-    return parseInt(splitNum[0]) + "s";
+  if (splitNum.length === 1 || parseInt(splitNum[1], 10) === 0) {
+    return parseInt(splitNum[0], 10) + "s";
   }
 
   const numZeros = (/0*/.exec(splitNum[1]) as RegExpExecArray)[0].length;

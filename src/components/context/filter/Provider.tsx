@@ -3,7 +3,7 @@ import { isEqual } from "lodash-es";
 import memoize from "memoize-one";
 import * as React from "react";
 import { Filter } from "../../../controllers";
-import { Options } from "../../../controllers/filter";
+import { IOptions } from "../../../controllers/filter";
 import { UnlistenFn } from "../../../controllers/listener";
 import {
   EVENT_OPTIONS_UPDATED,
@@ -16,7 +16,7 @@ export interface IFilterProviderProps {
 }
 
 export interface IFilterProviderState {
-  options: Options;
+  options: IOptions;
   selected: string[];
 }
 
@@ -26,6 +26,14 @@ export class FilterProvider extends React.PureComponent<
 > {
   public state = { options: {}, selected: [] };
   private unregisterFuntions: UnlistenFn[] = [];
+
+  private getContext = memoize(
+    (state: IFilterProviderState) => ({
+      ...state,
+      set: (name: string, value: boolean) => this.props.filter.set(name, value)
+    }),
+    isEqual
+  );
 
   public componentDidMount() {
     const { filter } = this.props;
@@ -58,12 +66,4 @@ export class FilterProvider extends React.PureComponent<
     const value = this.getContext(this.state);
     return <Context.Provider value={value}>{children}</Context.Provider>;
   }
-
-  private getContext = memoize(
-    (state: IFilterProviderState) => ({
-      ...state,
-      set: (name: string, value: boolean) => this.props.filter.set(name, value)
-    }),
-    isEqual
-  );
 }

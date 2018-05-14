@@ -44,9 +44,9 @@ export class Listener {
       try {
         fn(l);
       } catch (e) {
-        // eslint-disable-next-line no-console
+        // tslint:disable-next-line no-console
         if (console && console.error) {
-          // eslint-disable-next-line no-console
+          // tslint:disable-next-line no-console
           console.error(e);
         }
       }

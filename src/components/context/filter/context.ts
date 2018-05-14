@@ -1,9 +1,9 @@
 import createReactContext from "create-react-context";
 import * as React from "react";
-import { Options } from "../../../controllers/filter";
+import { IOptions } from "../../../controllers/filter";
 
 export interface IFilterContext {
-  options: Options;
+  options: IOptions;
   selected: string[];
   set: (key: string, value: boolean) => void;
 }

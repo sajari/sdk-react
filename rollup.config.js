@@ -23,8 +23,8 @@ const plugins = [
   typescript(),
   babel({
     exclude: "node_modules/**" // only transpile our source code
-  })
-  //   sizes()
+  }),
+  sizes()
 ];
 
 export default [

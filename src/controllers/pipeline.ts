@@ -54,6 +54,7 @@ export class Pipeline {
     this.response = new Response();
     this.analytics = new Analytics(this, this.tracking);
     analyticsAdapters.forEach(Adapter => {
+      // tslint:disable-next-line
       new Adapter(this.analytics);
     });
   }
@@ -125,9 +126,10 @@ export class Pipeline {
           new Map(Object.entries(results)),
           new Map(Object.entries(responseValues))
         );
-        // eslint-disable-next-line no-console
+        // tslint:disable-next-line no-console
         if (error && console && console.error) {
-          console.error(error); // eslint-disable-line no-console
+          // tslint:disable-next-line no-console
+          console.error(error);
         }
         this._emitResponseUpdated(this.response);
       }

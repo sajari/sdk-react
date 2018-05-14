@@ -19,11 +19,7 @@ export class GoogleAnalytics {
    * @param {string} [id=undefined] The name of the ga global object. Defaults to "ga" or "_ua" if one isn't supplied.
    * @param {string} [param="q"] The URL parameter to use to indicate a search. Default to "q".
    */
-  constructor(
-    analytics: Analytics,
-    id: string | undefined = undefined,
-    param: string = "q"
-  ) {
+  constructor(analytics: Analytics, id?: string, param: string = "q") {
     this.unregisterFunctions.push(
       analytics.listen(EVENT_ANALYTICS_PAGE_CLOSED, this.onPageClose)
     );
@@ -109,12 +105,12 @@ const url = {
    * Convert an arguments object in to a query string
    */
   encodeUriArgs(args: { [k: string]: string }) {
-    const queryParts = [];
-    for (const i in args) {
+    const queryParts: string[] = [];
+    Object.keys(args).forEach(key =>
       queryParts.push(
-        encodeURIComponent(i) + "=" + encodeURIComponent(args[i])
-      );
-    }
+        encodeURIComponent(key) + "=" + encodeURIComponent(args[key])
+      )
+    );
     return queryParts.join("&");
   },
 
@@ -129,9 +125,7 @@ const url = {
     const args = typeof first === "string" ? this.decodeUriArgs(first) : first;
     rest.forEach(arg => {
       const next = typeof arg === "string" ? this.decodeUriArgs(arg) : arg;
-      for (const prop in next) {
-        args[prop] = next[prop];
-      }
+      Object.keys(next).forEach(prop => (args[prop] = next[prop]));
     });
     return this.encodeUriArgs(args);
   },

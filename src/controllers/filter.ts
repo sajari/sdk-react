@@ -4,7 +4,7 @@ import { Listener } from "./listener";
 const events = [EVENT_SELECTION_UPDATED, EVENT_OPTIONS_UPDATED];
 
 export type OptionsFn = () => string;
-export interface Options {
+export interface IOptions {
   [k: string]: string | OptionsFn;
 }
 export type CallbackFn = (filter: Filter) => void;
@@ -13,9 +13,8 @@ export type CallbackFn = (filter: Filter) => void;
  * Filter is a helper class for building filters from UI components.
  */
 export class Filter {
-  public _field: string;
   private current: string[];
-  private options: Options;
+  private options: IOptions;
   private multi: boolean;
   private joinOperator: "OR" | "AND";
   private listeners: { [k: string]: Listener };
@@ -27,7 +26,7 @@ export class Filter {
    * const filter = new Filter({});
    */
   constructor(
-    options: Options, // Dictionary of name -> filter pairs
+    options: IOptions, // Dictionary of name -> filter pairs
     initial: string | string[] = [], // List of initially selected items
     multi: boolean = false, // Multiple selections allowed?
     joinOperator: "OR" | "AND" = "OR" // Join operator used if multi = true
@@ -35,7 +34,6 @@ export class Filter {
     if (typeof initial === "string") {
       initial = [initial];
     }
-    this._field = "";
 
     /** @private */
     this.current = initial;
@@ -63,26 +61,6 @@ export class Filter {
   }
 
   /**
-   * Emits a selection updated event to the selection updated listener.
-   * @private
-   */
-  protected _emitSelectionUpdated() {
-    this.listeners[EVENT_SELECTION_UPDATED].notify(listener => {
-      listener();
-    });
-  }
-
-  /**
-   * Emits an options updated event to the options updated listener.
-   * @private
-   */
-  protected _emitOptionsUpdated() {
-    this.listeners[EVENT_OPTIONS_UPDATED].notify(listener => {
-      listener();
-    });
-  }
-
-  /**
    * Set the state of the filter.
    */
   public set(name: string, on: boolean) {
@@ -97,17 +75,6 @@ export class Filter {
     } else {
       // clear current
       this.current = [];
-    }
-
-    this._emitSelectionUpdated();
-  }
-
-  /** @private */
-  private _setMulti(name: string, on: boolean) {
-    if (on && this.current.indexOf(name) === -1) {
-      this.current = this.current.concat(name);
-    } else {
-      this.current = this.current.filter(n => n !== name);
     }
 
     this._emitSelectionUpdated();
@@ -140,7 +107,7 @@ export class Filter {
   /**
    * Get all the options defined in this filter.
    */
-  public getOptions(...fields: string[]): Options {
+  public getOptions(...fields: string[]): IOptions {
     return this.options;
   }
 
@@ -175,6 +142,37 @@ export class Filter {
       default:
         return filters.join(` ${this.joinOperator} `);
     }
+  }
+
+  /**
+   * Emits a selection updated event to the selection updated listener.
+   * @private
+   */
+  protected _emitSelectionUpdated() {
+    this.listeners[EVENT_SELECTION_UPDATED].notify(listener => {
+      listener();
+    });
+  }
+
+  /**
+   * Emits an options updated event to the options updated listener.
+   * @private
+   */
+  protected _emitOptionsUpdated() {
+    this.listeners[EVENT_OPTIONS_UPDATED].notify(listener => {
+      listener();
+    });
+  }
+
+  /** @private */
+  private _setMulti(name: string, on: boolean) {
+    if (on && this.current.indexOf(name) === -1) {
+      this.current = this.current.concat(name);
+    } else {
+      this.current = this.current.filter(n => n !== name);
+    }
+
+    this._emitSelectionUpdated();
   }
 }
 

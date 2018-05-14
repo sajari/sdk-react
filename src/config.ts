@@ -6,8 +6,8 @@ export interface IConfig {
 }
 
 export const defaultConfig = {
-  qParam: "q",
+  maxSuggestions: 5,
   qOverrideParam: "q.override",
-  qSuggestionsParam: "q.suggestions",
-  maxSuggestions: 5
+  qParam: "q",
+  qSuggestionsParam: "q.suggestions"
 };

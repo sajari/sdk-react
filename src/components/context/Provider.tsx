@@ -25,8 +25,6 @@ export interface IProviderState {
   suggestions: string[];
 }
 
-let _unregisterFunctions: UnlistenFn[] = [];
-
 export class Provider extends React.PureComponent<
   IProviderProps,
   IProviderState
@@ -36,12 +34,24 @@ export class Provider extends React.PureComponent<
   };
 
   public state = {
-    response: null,
-    query: "",
-    config: defaultConfig,
     completion: "",
+    config: defaultConfig,
+    query: "",
+    response: null,
     suggestions: []
   };
+
+  private unregisterFunctions: UnlistenFn[] = [];
+
+  private getContext = memoize(
+    (state: IProviderState) => ({
+      ...state,
+      paginate: this.handlePaginate,
+      resultClicked: this.handleResultClicked,
+      search: this.search
+    }),
+    isEqual
+  );
 
   public componentDidMount() {
     const { pipeline, values } = this.props;
@@ -53,7 +63,7 @@ export class Provider extends React.PureComponent<
       response: pipeline.getResponse()
     }));
 
-    _unregisterFunctions.push(
+    this.unregisterFunctions.push(
       pipeline.listen(EVENT_RESPONSE_UPDATED, (response: Response) =>
         this.setState(state => ({
           ...state,
@@ -62,7 +72,7 @@ export class Provider extends React.PureComponent<
       )
     );
 
-    _unregisterFunctions.push(
+    this.unregisterFunctions.push(
       values.listen(EVENT_VALUES_UPDATED, () =>
         this.setState(state => ({
           ...state,
@@ -73,8 +83,8 @@ export class Provider extends React.PureComponent<
   }
 
   public componentWillUnmount() {
-    _unregisterFunctions.forEach(fn => fn());
-    _unregisterFunctions = [];
+    this.unregisterFunctions.forEach(fn => fn());
+    this.unregisterFunctions = [];
   }
 
   public render() {
@@ -84,7 +94,7 @@ export class Provider extends React.PureComponent<
     return <Context.Provider value={value}>{children}</Context.Provider>;
   }
 
-  public search = (query: string, override: boolean = false) => {
+  private search = (query: string, override: boolean = false) => {
     const { pipeline, values } = this.props;
     const { config } = this.state;
 
@@ -104,25 +114,15 @@ export class Provider extends React.PureComponent<
     }
   };
 
-  public handleResultClicked = (url: string) =>
+  private handleResultClicked = (url: string) =>
     this.props.pipeline.emitResultClicked(url);
 
-  public handlePaginate = (page: number) => {
+  private handlePaginate = (page: number) => {
     const { pipeline, values } = this.props;
 
     values.set({ page: String(page) });
     pipeline.search(values.get());
   };
-
-  private getContext = memoize(
-    (state: IProviderState) => ({
-      ...state,
-      search: this.search,
-      resultClicked: this.handleResultClicked,
-      paginate: this.handlePaginate
-    }),
-    isEqual
-  );
 }
 
 const repsonseUpdatedListener = (
@@ -166,8 +166,8 @@ const updateState = (
     : [];
 
   return {
-    query,
     completion,
+    query,
     suggestions
   };
 };

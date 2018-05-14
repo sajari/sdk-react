@@ -42,32 +42,34 @@ export class Summary extends React.Component {
   }
 }
 
-class Override extends React.PureComponent<{
+export interface IOverrideProps {
   responseQuery: string;
   query: string;
   search: SearchFn;
-}> {
-  public render() {
-    const { responseQuery, query } = this.props;
+}
 
-    if (!responseQuery || responseQuery.toLowerCase() === query.toLowerCase()) {
-      return null;
-    }
-
-    return (
-      <span>
-        {`search instead for `}
-        <a onClick={this.click} href="">
-          {query}
-        </a>
-      </span>
-    );
+const Override: React.SFC<IOverrideProps> = ({
+  responseQuery,
+  query,
+  search
+}) => {
+  if (!responseQuery || responseQuery.toLowerCase() === query.toLowerCase()) {
+    return null;
   }
 
-  private click = (event: any) => {
-    const { search, query } = this.props;
+  return (
+    <span>
+      {`search instead for `}
+      <a onClick={click({ search, query })} href="">
+        {query}
+      </a>
+    </span>
+  );
+};
 
-    event.preventDefault();
-    search(query, true);
-  };
-}
+const click = ({ search, query }: { search: SearchFn; query: string }) => (
+  event: any
+) => {
+  event.preventDefault();
+  search(query, true);
+};

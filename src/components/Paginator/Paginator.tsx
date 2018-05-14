@@ -42,7 +42,7 @@ export class Paginator extends React.Component {
             <div>
               <div
                 style={{ color: page === 1 ? "#aaa" : undefined }}
-                onClick={() => this.prevPage(paginate, page)}
+                onClick={this.prevPage(paginate, page)}
               >
                 &lt;
               </div>
@@ -52,14 +52,14 @@ export class Paginator extends React.Component {
                   style={{
                     fontWeight: page === pageNumber ? "bold" : "normal"
                   }}
-                  onClick={() => this.setPage(paginate, pageNumber)}
+                  onClick={this.setPage(paginate, pageNumber)}
                 >
                   {pageNumber}
                 </div>
               ))}
               <div
                 style={{ color: page === totalPages ? "#aaa" : undefined }}
-                onClick={() => this.nextPage(paginate, page, totalPages)}
+                onClick={this.nextPage(paginate, page, totalPages)}
               >
                 &gt;
               </div>
@@ -70,7 +70,7 @@ export class Paginator extends React.Component {
     );
   }
 
-  private prevPage = (paginate: PaginateFn, page: number) => {
+  private prevPage = (paginate: PaginateFn, page: number) => () => {
     if (page === 1) {
       return;
     }
@@ -82,7 +82,7 @@ export class Paginator extends React.Component {
     paginate: PaginateFn,
     page: number,
     totalPages: number
-  ) => {
+  ) => () => {
     if (page === totalPages) {
       return;
     }
@@ -90,7 +90,7 @@ export class Paginator extends React.Component {
     this.setPage(paginate, page + 1);
   };
 
-  private setPage = (paginate: PaginateFn, page: number) => {
+  private setPage = (paginate: PaginateFn, page: number) => () => {
     window.scrollTo(0, 0);
     paginate(page);
   };

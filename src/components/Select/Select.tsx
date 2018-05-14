@@ -5,7 +5,7 @@ import * as React from "react";
 // @ts-ignore: module missing defintions file
 import ReactSelect from "react-select";
 
-import { Filter, Options } from "../../controllers/filter";
+import { Filter, IOptions } from "../../controllers/filter";
 import {
   FilterConsumer,
   FilterProvider,
@@ -33,7 +33,7 @@ export const Select: React.SFC<ISelectProps> = ({ filter }) => (
 );
 
 const mapOptions = memoize(
-  (options: Options) =>
+  (options: IOptions) =>
     Object.entries(options).map(([label, value]) => ({
       label,
       value

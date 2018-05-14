@@ -30,30 +30,6 @@ export class Values {
   }
 
   /**
-   * Emits an event to notify listener that the values have been updated.
-   *
-   * @private
-   */
-  public _emitUpdated() {
-    (this.listeners.get(EVENT_VALUES_UPDATED) as Listener).notify(listener =>
-      listener()
-    );
-  }
-
-  /**
-   * Sets values without triggering an event, internal use only.
-   */
-  private _set(values: { [k: string]: string | ValueFn | undefined }) {
-    Object.keys(values).forEach(key => {
-      if (values[key] === undefined) {
-        this.values.delete(key);
-      } else {
-        this.values.set(key, values[key] as string | ValueFn);
-      }
-    });
-  }
-
-  /**
    * Merge values into the value map.
    *
    * Set a value to undefined to remove it.
@@ -77,5 +53,29 @@ export class Values {
       }
     });
     return values;
+  }
+
+  /**
+   * Emits an event to notify listener that the values have been updated.
+   *
+   * @private
+   */
+  private _emitUpdated() {
+    (this.listeners.get(EVENT_VALUES_UPDATED) as Listener).notify(listener =>
+      listener()
+    );
+  }
+
+  /**
+   * Sets values without triggering an event, internal use only.
+   */
+  private _set(values: { [k: string]: string | ValueFn | undefined }) {
+    Object.keys(values).forEach(key => {
+      if (values[key] === undefined) {
+        this.values.delete(key);
+      } else {
+        this.values.set(key, values[key] as string | ValueFn);
+      }
+    });
   }
 }
