@@ -5,6 +5,8 @@ import babel from "rollup-plugin-babel";
 import sizes from "rollup-plugin-sizes";
 import pkg from "./package.json";
 
+const IS_DEV = process.env.NODE_ENV !== "production";
+
 const input = "src/index.ts";
 
 const external = [
@@ -33,23 +35,26 @@ const plugins = [
   sizes()
 ];
 
-export default [
-  {
-    input,
-    output: {
-      name: "SajariReactSDK",
-      file: pkg.browser,
-      format: "umd"
-    },
-    plugins
-  },
-  {
-    input,
-    external,
-    output: [
-      { file: pkg.main, format: "cjs" },
-      { file: pkg.module, format: "es" }
-    ],
-    plugins
-  }
-];
+const browser = IS_DEV
+  ? undefined
+  : {
+      input,
+      output: {
+        name: "SajariReactSDK",
+        file: pkg.browser,
+        format: "umd"
+      },
+      plugins
+    };
+
+const modules = {
+  input,
+  external,
+  output: [
+    IS_DEV ? undefined : { file: pkg.main, format: "cjs" },
+    { file: pkg.module, format: "es" }
+  ].filter(x => !!x),
+  plugins
+};
+
+export default [browser, modules].filter(x => !!x);
