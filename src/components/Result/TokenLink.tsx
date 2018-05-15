@@ -1,5 +1,6 @@
 import * as React from "react";
 import { ResultClickedFn } from "../context/context";
+import { Link } from "./styled";
 
 const TOKEN_URL = "https://www.sajari.com/token/";
 
@@ -36,17 +37,10 @@ export class TokenLink extends React.PureComponent<
     decodedText = text ? text : decodedText;
 
     return (
-      <a
-        href={token ? TOKEN_URL + token : url}
-        onMouseDown={this.click}
-        style={{
-          overflow: "hidden",
-          textOverflow: "ellipsis"
-        }}
-      >
+      <Link href={token ? TOKEN_URL + token : url} onMouseDown={this.click}>
         {decodedText}
         {children}
-      </a>
+      </Link>
     );
   }
 

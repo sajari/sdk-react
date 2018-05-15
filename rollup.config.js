@@ -16,7 +16,13 @@ const plugins = [
   resolve(),
   commonjs({
     namedExports: {
-      react: ["PureComponent", "Component", "createElement"],
+      react: [
+        "PureComponent",
+        "Component",
+        "createElement",
+        "Fragment",
+        "createFactory"
+      ],
       "react-dom": ["findDOMNode", "createPortal"]
     }
   }),
