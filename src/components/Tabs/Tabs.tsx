@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Filter } from "../../controllers";
 import { FilterProvider, IFilterContext } from "../context/filter";
+
+import { Container, TabsContainer } from "./styled";
 import { Tab } from "./Tab";
 
 export interface ITabsProps {
@@ -9,9 +11,11 @@ export interface ITabsProps {
 }
 
 export const Tabs: React.SFC<ITabsProps> = ({ filter, tabs }) => (
-  <div>
+  <Container>
     <FilterProvider filter={filter}>
-      <div>{tabs.map(tab => <Tab key={tab.name} title={tab.display} />)}</div>
+      <TabsContainer>
+        {tabs.map(tab => <Tab key={tab.name} title={tab.display} />)}
+      </TabsContainer>
     </FilterProvider>
-  </div>
+  </Container>
 );
