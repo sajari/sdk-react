@@ -4,6 +4,8 @@ import { Consumer, IContext } from "../context";
 import { SearchFn } from "../context/context";
 import { formatQueryTime } from "./utils";
 
+import { Container, Emphasis } from "./styled";
+
 export class Summary extends React.Component {
   public render() {
     return (
@@ -23,10 +25,10 @@ export class Summary extends React.Component {
           const responseTime = formatQueryTime(response.getTime() as string);
 
           return (
-            <div>
+            <Container>
               <span>
                 {`${pageNumber}${totalResults} results for `}
-                "<strong>{text}</strong>"{" "}
+                "<Emphasis>{text}</Emphasis>"{" "}
               </span>
               <span>{`(${responseTime}) `}</span>
               <Override
@@ -34,7 +36,7 @@ export class Summary extends React.Component {
                 query={query}
                 search={search}
               />
-            </div>
+            </Container>
           );
         }}
       </Consumer>
