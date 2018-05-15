@@ -21,7 +21,7 @@ const values = new Values();
 
 export default () => (
   <Provider pipeline={pipeline} values={values}>
-    <Input autocomplete />
+    <Input />
 
     <Summary />
     <Results />
