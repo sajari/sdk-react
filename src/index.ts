@@ -14,6 +14,8 @@ export {
   IContext,
   Consumer,
   Provider,
+  IFilterContext,
+  FilterProvider,
   Input,
   Results,
   Result,

@@ -21,6 +21,7 @@
     "dev:build": "rollup -c -w",
     "dev:webpack": "webpack-serve --config dev/webpack.config.js",
     "fmt": "prettier --write --config .prettierrc.js \"src/**/*.{ts,tsx}\"",
+    "prelint": "npm-run-all type-check",
     "lint": "tslint -c tslint.json --fix \"src/**/*.{ts,tsx}\"",
     "test": "jest",
     "type-check": "tsc --noEmit"
