@@ -3,6 +3,8 @@ import * as React from "react";
 import { Consumer, IContext } from "../context";
 import { IResultProps, Result } from "../Result";
 
+import { Container, Error } from "./styled";
+
 const STATUS_UNAUTHORISED = 403;
 
 export interface IResultsProps {
@@ -29,16 +31,16 @@ export class Results extends React.Component<IResultsProps, {}> {
             // @ts-ignore: RequestError
             if (error.code === STATUS_UNAUTHORISED) {
               return (
-                <div>
+                <Error>
                   Authorisation for this request failed. Check your credentials.
-                </div>
+                </Error>
               );
             }
-            return <div>{error.message}</div>;
+            return <Error>{error.message}</Error>;
           }
 
           return (
-            <div>
+            <Container>
               {(response.getResults() as { [k: string]: any }).map(
                 (result: { [k: string]: any }, index: number) => {
                   const key =
@@ -58,7 +60,7 @@ export class Results extends React.Component<IResultsProps, {}> {
                   );
                 }
               )}
-            </div>
+            </Container>
           );
         }}
       </Consumer>
