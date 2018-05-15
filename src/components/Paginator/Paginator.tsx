@@ -4,6 +4,8 @@ import { Consumer, IContext } from "../context";
 import { PaginateFn } from "../context/context";
 import { pageNumbers } from "./utils";
 
+import { Container, PageButton, PageNumber } from "./styled";
+
 export class Paginator extends React.Component {
   public render() {
     return (
@@ -39,31 +41,29 @@ export class Paginator extends React.Component {
           }
 
           return (
-            <div>
-              <div
-                style={{ color: page === 1 ? "#aaa" : undefined }}
+            <Container>
+              <PageButton
+                isDisabled={page === 1}
                 onClick={this.prevPage(paginate, page)}
               >
                 &lt;
-              </div>
+              </PageButton>
               {pageNumbers(page, totalPages).map(pageNumber => (
-                <div
+                <PageNumber
                   key={pageNumber}
-                  style={{
-                    fontWeight: page === pageNumber ? "bold" : "normal"
-                  }}
+                  isCurrent={page === pageNumber}
                   onClick={this.setPage(paginate, pageNumber)}
                 >
                   {pageNumber}
-                </div>
+                </PageNumber>
               ))}
-              <div
-                style={{ color: page === totalPages ? "#aaa" : undefined }}
+              <PageButton
+                isDisabled={page === totalPages}
                 onClick={this.nextPage(paginate, page, totalPages)}
               >
                 &gt;
-              </div>
-            </div>
+              </PageButton>
+            </Container>
           );
         }}
       </Consumer>
@@ -75,7 +75,7 @@ export class Paginator extends React.Component {
       return;
     }
 
-    this.setPage(paginate, page - 1);
+    this.setPage(paginate, page - 1)();
   };
 
   private nextPage = (
@@ -87,7 +87,7 @@ export class Paginator extends React.Component {
       return;
     }
 
-    this.setPage(paginate, page + 1);
+    this.setPage(paginate, page + 1)();
   };
 
   private setPage = (paginate: PaginateFn, page: number) => () => {
