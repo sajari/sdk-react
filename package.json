@@ -38,6 +38,7 @@
     "react-input-autosize": "^2.2.1",
     "react-select": "^2.0.0-beta.2",
     "recompose": "^0.27.0",
+    "resize-observer-polyfill": "^1.5.0",
     "sajari": "0.20.0"
   },
   "peerDependencies": {
