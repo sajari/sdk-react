@@ -1,24 +1,37 @@
-import Downshift from "downshift";
+import Downshift, { DownshiftState } from "downshift";
 import * as React from "react";
 // @ts-ignore: module missing definition file
 import AutosizeInput from "react-input-autosize";
 
-import { Consumer, IContext } from "../context";
-import { SearchFn } from "../context/context";
-import { IResizerState, Resizer } from "./Resizer";
+import { Consumer } from "../context";
+import { SearchFn } from "../context/pipeline/context";
+import { IRenderFnProps, Resizer } from "./Resizer";
 
 import {
   Container,
   Input as SearchInput,
   InputContainer,
+  InputInnerContainer,
   inputResetStyles,
+  SearchIcon,
   Suggestion,
   SuggestionsContainer,
   Typeahead
 } from "./styled";
 
+const RIGHT_ARROW_KEYCODE = 39;
+const TAB_KEYCODE = 9;
+const RETURN_KEYCODE = 13;
+
+/*
+simple - no instant, enter to search
+typeahead - instant, enter to select type ahaed value, with search for instaed being actual qritten query
+suggestions -  no instant, select option or enter
+*/
+
 export interface IInputProps {
-  autocomplete: boolean | "autocomplete";
+  autocomplete: boolean | "dropdown";
+  instant?: boolean;
 }
 
 export interface IInputState {
@@ -27,7 +40,8 @@ export interface IInputState {
 
 export class Input extends React.Component<IInputProps, IInputState> {
   public static defaultProps = {
-    autocomplete: false
+    autocomplete: false,
+    instant: false
   };
 
   public state = { inputValue: "" };
@@ -41,11 +55,17 @@ export class Input extends React.Component<IInputProps, IInputState> {
 
     return (
       <Consumer>
-        {({ completion, suggestions, search }) => (
+        {({
+          search: { completion, suggestions, search },
+          instant: {
+            search: instantSearch,
+            suggestions: instantSuggestions,
+            completion: instantCompletion
+          }
+        }) => (
           <Downshift
-            inputValue={inputValue}
+            stateReducer={stateReducer}
             onSelect={this.handleSelect(search)}
-            defaultIsOpen={true}
           >
             {({
               getRootProps,
@@ -54,58 +74,112 @@ export class Input extends React.Component<IInputProps, IInputState> {
               isOpen,
               inputValue: value,
               highlightedIndex,
-              selectedItem
-            }) => (
-              <Container {...getRootProps({ refKey: "innerRef" })}>
-                <InputContainer
-                  innerRef={this.inputContainerRef}
-                  onClick={this.positionCaret}
-                >
-                  <SearchInput
-                    minWidth={1}
-                    value={value}
-                    autoComplete="off"
-                    autoCorrect="off"
-                    autoCapitalize="off"
-                    spellCheck="false"
-                    inputRef={this.inputRef}
-                    style={inputResetStyles.container}
-                    inputStyle={inputResetStyles.input}
-                    {...getInputProps({
-                      onChange: this.handleOnChange(search)
-                    })}
-                  />
-                  {autocomplete ? (
-                    <Typeahead>
-                      {completion.slice((value as string).length || 0)}
-                    </Typeahead>
-                  ) : null}
-                </InputContainer>
-                <Resizer element={this.inputContainer}>
-                  {({ offset }: IResizerState) => (
-                    <React.Fragment>
-                      {autocomplete &&
-                      (autocomplete as string) === "dropdown" &&
-                      isOpen &&
-                      suggestions.length > 0 ? (
-                        <SuggestionsContainer position={offset}>
-                          {suggestions.map((item, index) => (
-                            <Suggestion
-                              {...getItemProps({ item })}
-                              key={item}
-                              isHighlighted={highlightedIndex === index}
-                              isSelected={selectedItem === item}
-                            >
-                              {item}
-                            </Suggestion>
-                          ))}
-                        </SuggestionsContainer>
+              selectedItem,
+              selectItem,
+              // @ts-ignore: setState is passed by Downshift
+              setState
+            }) => {
+              const isSuggestionsDropdownOpen =
+                autocomplete &&
+                (autocomplete as string) === "dropdown" &&
+                isOpen &&
+                isNotEmptyArray(suggestions, instantSuggestions).length > 0;
+
+              return (
+                <Container {...getRootProps({ refKey: "innerRef" })}>
+                  <InputContainer
+                    innerRef={this.inputContainerRef}
+                    onClick={this.positionCaret}
+                    isDropdownOpen={isSuggestionsDropdownOpen}
+                  >
+                    <InputInnerContainer>
+                      <SearchInput
+                        minWidth={1}
+                        value={value}
+                        autoComplete="off"
+                        autoCorrect="off"
+                        autoCapitalize="off"
+                        spellCheck="false"
+                        inputRef={this.inputRef}
+                        style={inputResetStyles.container}
+                        inputStyle={inputResetStyles.input}
+                        {...getInputProps({
+                          onChange: this.handleOnChange(instantSearch),
+                          onKeyUp: (event: any) => {
+                            if (
+                              !autocomplete &&
+                              event.keyCode === RETURN_KEYCODE
+                            ) {
+                              selectItem(event.target.value);
+                            }
+                            if (
+                              autocomplete &&
+                              autocomplete !== "dropdown" &&
+                              event.keyCode === RIGHT_ARROW_KEYCODE
+                            ) {
+                              this.setState(
+                                state => ({
+                                  ...state,
+                                  inputValue: instantCompletion
+                                }),
+                                () => {
+                                  const { inputValue } = this.state;
+                                  setState({ inputValue });
+                                }
+                              );
+                            }
+                          }
+                        })}
+                      />
+                      {autocomplete && isOpen && inputValue !== "" ? (
+                        <Typeahead>
+                          {isNotEmptyString(
+                            completion,
+                            instantCompletion
+                          ).slice((value as string).length)}
+                        </Typeahead>
                       ) : null}
-                    </React.Fragment>
-                  )}
-                </Resizer>
-              </Container>
-            )}
+                    </InputInnerContainer>
+                    <SearchIcon />
+                    <div
+                      style={{ display: "none" }}
+                      {...getItemProps({ item: value as string })}
+                    />
+                    {autocomplete && autocomplete !== "dropdown" ? (
+                      <div
+                        style={{ display: "none" }}
+                        {...getItemProps({ item: instantCompletion })}
+                      />
+                    ) : null}
+                  </InputContainer>
+                  <Resizer element={this.inputContainer}>
+                    {({ offset }: IRenderFnProps) => (
+                      <React.Fragment>
+                        {isSuggestionsDropdownOpen ? (
+                          <SuggestionsContainer position={offset}>
+                            {isNotEmptyArray(
+                              suggestions,
+                              instantSuggestions
+                            ).map((item, index) => (
+                              <Suggestion
+                                {...getItemProps({ item })}
+                                key={item}
+                                isHighlighted={highlightedIndex === index + 1}
+                              >
+                                {item.substr(0, (value as string).length)}
+                                <strong>
+                                  {item.slice((value as string).length)}
+                                </strong>
+                              </Suggestion>
+                            ))}
+                          </SuggestionsContainer>
+                        ) : null}
+                      </React.Fragment>
+                    )}
+                  </Resizer>
+                </Container>
+              );
+            }}
           </Downshift>
         )}
       </Consumer>
@@ -132,6 +206,8 @@ export class Input extends React.Component<IInputProps, IInputState> {
     );
 
   private handleOnChange = (search: SearchFn) => (event: any) => {
+    const { autocomplete } = this.props;
+
     event.persist();
     this.setState(
       state => ({
@@ -140,8 +216,32 @@ export class Input extends React.Component<IInputProps, IInputState> {
       }),
       () => {
         const { inputValue } = this.state;
-        search(inputValue, false);
+        search(inputValue, !autocomplete);
       }
     );
   };
 }
+
+const stateReducer = (state: DownshiftState, changes: any) => {
+  switch (changes.type) {
+    case Downshift.stateChangeTypes.blurInput:
+    case Downshift.stateChangeTypes.mouseUp:
+      return {
+        ...changes,
+        inputValue: state.inputValue
+      };
+
+    default:
+      if (state.highlightedIndex === null) {
+        return {
+          ...changes,
+          highlightedIndex: 0
+        };
+      }
+
+      return changes;
+  }
+};
+
+const isNotEmptyString = (a: string, b: string) => (a === "" ? b : a);
+const isNotEmptyArray = (a: any[], b: any[]) => (a.length === 0 ? b : a);

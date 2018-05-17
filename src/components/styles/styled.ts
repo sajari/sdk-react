@@ -1,4 +1,4 @@
-import omit from "lodash-es/omit";
+import { omit } from "lodash-es";
 import * as React from "react";
 import styled, {
   StyledComponent,

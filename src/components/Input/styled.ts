@@ -11,8 +11,7 @@ import {
 
 // @ts-ignore: module missing definition file
 import AutosizeInput from "react-input-autosize";
-
-const clean = strip([]);
+import { SearchIcon as Icon } from "./SeachIcon";
 
 export const Container = styled("div")({
   width: "100%",
@@ -45,6 +44,13 @@ export const InputContainer = styled<IInputContainerProps, "div">("div")(
       : {}
 );
 
+const searchIconSize = "1.5rem";
+
+export const InputInnerContainer = styled("div")({
+  minWidth: `calc(100% - ${searchIconSize})`,
+  overflow: "scroll"
+});
+
 export const Input = styled(AutosizeInput)({
   "& input:focus, & input:active": {
     outline: "none"
@@ -69,6 +75,14 @@ export const inputResetStyles = {
     backgroundColor: "transparent"
   }
 };
+
+export const SearchIcon = styled(Icon)({
+  minWidth: searchIconSize,
+  minHeight: searchIconSize,
+  width: searchIconSize,
+  height: searchIconSize,
+  color: "grey"
+});
 
 export interface ISuggestionsContainerProps {
   position: {
@@ -99,7 +113,6 @@ export const SuggestionsContainer = styled<ISuggestionsContainerProps, "div">(
 
 export interface ISuggestionProps {
   isHighlighted: boolean;
-  isSelected: boolean;
 }
 
 export const Suggestion = styled<ISuggestionProps, "div">("div")(
@@ -109,8 +122,7 @@ export const Suggestion = styled<ISuggestionProps, "div">("div")(
     color: "#666"
   },
   props => ({
-    backgroundColor: props.isHighlighted ? "#ddd" : "#fff",
-    fontWeight: props.isSelected ? "bold" : "normal"
+    backgroundColor: props.isHighlighted ? "#ddd" : "#fff"
   })
 );
 

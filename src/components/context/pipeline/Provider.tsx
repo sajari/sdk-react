@@ -183,10 +183,9 @@ export class Provider extends React.PureComponent<
     query: string,
     override: boolean = false
   ) => {
-    const props = this.props;
-    const state = this.state;
-    const { pipeline, values } = props[key] as ProviderPipelineConfig;
-    const { config } = state[key];
+    const { pipeline, values } =
+      (this.props[key] as ProviderPipelineConfig) || this.instant;
+    const { config } = this.state[key];
 
     const text = {
       [config.qParam]: query
