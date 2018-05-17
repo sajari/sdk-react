@@ -1,3 +1,2 @@
-export { IContext } from "./context";
-export { Consumer } from "./Consumer";
+export { PipelineConsumer as Consumer } from "./pipeline";
 export { Provider } from "./Provider";

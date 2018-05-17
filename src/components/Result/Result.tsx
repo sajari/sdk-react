@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import { Consumer, IContext } from "../context";
-import { ResultClickedFn } from "../context/context";
+import { Consumer } from "../context";
+import { ResultClickedFn } from "../context/pipeline/context";
 import { TokenLink } from "./TokenLink";
 
 import { Container, Description, Title, URL } from "./styled";

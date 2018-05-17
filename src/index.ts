@@ -11,7 +11,6 @@ export {
 } from "./controllers";
 
 export {
-  IContext,
   Consumer,
   Provider,
   IFilterContext,

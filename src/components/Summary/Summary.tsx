@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import { Consumer, IContext } from "../context";
-import { SearchFn } from "../context/context";
+import { Consumer } from "../context";
+import { SearchFn } from "../context/pipeline/context";
 import { formatQueryTime } from "./utils";
 
 import { Container, Emphasis } from "./styled";
@@ -10,8 +10,13 @@ export class Summary extends React.Component {
   public render() {
     return (
       <Consumer>
-        {({ search, response, query, config }) => {
-          if (response === null || response.isEmpty() || response.isError()) {
+        {({ search: { response, query, config, search } }) => {
+          if (
+            response === null ||
+            response === undefined ||
+            response.isEmpty() ||
+            response.isError()
+          ) {
             return null;
           }
           const responseValues = response.getValues() as Map<string, string>;

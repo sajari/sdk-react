@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { Consumer, IContext } from "../context";
+import { Consumer } from "../context";
 import { IResultProps, Result } from "../Result";
 
 import { Container, Error } from "./styled";
@@ -21,8 +21,12 @@ export class Results extends React.Component<IResultsProps, {}> {
 
     return (
       <Consumer>
-        {({ response, resultClicked }) => {
-          if (response === null || response.isEmpty()) {
+        {({ search: { response }, resultClicked }) => {
+          if (
+            response === null ||
+            response === undefined ||
+            response.isEmpty()
+          ) {
             return null;
           }
 

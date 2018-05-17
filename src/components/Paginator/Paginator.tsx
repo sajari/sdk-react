@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import { Consumer, IContext } from "../context";
-import { PaginateFn } from "../context/context";
+import { Consumer } from "../context";
+import { PaginateFn } from "../context/pipeline/context";
 import { pageNumbers } from "./utils";
 
 import { Container, PageButton, PageNumber } from "./styled";
@@ -10,8 +10,13 @@ export class Paginator extends React.Component {
   public render() {
     return (
       <Consumer>
-        {({ response, paginate }) => {
-          if (response === null || response.isEmpty() || response.isError()) {
+        {({ search: { response }, paginate }) => {
+          if (
+            response === null ||
+            response === undefined ||
+            response.isEmpty() ||
+            response.isError()
+          ) {
             return null;
           }
 

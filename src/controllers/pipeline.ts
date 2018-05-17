@@ -19,6 +19,11 @@ const events = [
 ];
 
 export class Pipeline {
+  public config: {
+    project: string;
+    collection: string;
+  };
+
   private client: Client;
   private name: string;
   private tracking: ClickTracking | NoTracking;
@@ -42,6 +47,7 @@ export class Pipeline {
     tracking = new ClickTracking(),
     analyticsAdapters = [GoogleAnalytics]
   ) {
+    this.config = { project, collection };
     this.client = new Client(project, collection).pipeline(name);
     this.name = name;
     this.tracking = tracking;

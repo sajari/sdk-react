@@ -1,4 +1,4 @@
-export { IContext, Consumer, Provider } from "./context";
+export { Consumer, Provider } from "./context";
 export {
   IFilterContext,
   FilterConsumer,

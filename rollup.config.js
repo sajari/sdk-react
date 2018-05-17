@@ -23,7 +23,8 @@ const plugins = [
         "Component",
         "createElement",
         "Fragment",
-        "createFactory"
+        "createFactory",
+        "Children"
       ],
       "react-dom": ["findDOMNode", "createPortal"]
     }

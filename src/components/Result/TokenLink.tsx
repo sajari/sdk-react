@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ResultClickedFn } from "../context/context";
+import { ResultClickedFn } from "../context/pipeline/context";
 import { Link } from "./styled";
 
 const TOKEN_URL = "https://www.sajari.com/token/";
