@@ -23,7 +23,22 @@ export interface IResizerState {
   };
 }
 
-export type RenderFn = (props: IResizerState) => React.ReactNode;
+export interface IRenderFnProps {
+  client: {
+    top: number;
+    left: number;
+    width: number;
+    height: number;
+  };
+  offset: {
+    top: number;
+    left: number;
+    width: number;
+    height: number;
+  };
+}
+
+export type RenderFn = (props: IRenderFnProps) => React.ReactNode;
 
 export class Resizer extends React.Component<IResizerProps, IResizerState> {
   public state = {
@@ -68,7 +83,9 @@ export class Resizer extends React.Component<IResizerProps, IResizerState> {
           }
         };
 
-        if (isEqual(this.state, newState)) { return; }
+        if (isEqual(this.state, newState)) {
+          return;
+        }
 
         this.setState(state => ({
           ...state,
@@ -77,7 +94,9 @@ export class Resizer extends React.Component<IResizerProps, IResizerState> {
       }
     });
 
-    if (element === undefined) { return; }
+    if (element === undefined) {
+      return;
+    }
     this.observer.observe(element);
   }
 
@@ -96,7 +115,9 @@ export class Resizer extends React.Component<IResizerProps, IResizerState> {
   }
 
   public componentWillUnmount() {
-    if (this.observer === undefined) { return; }
+    if (this.observer === undefined) {
+      return;
+    }
     this.observer.disconnect();
   }
 
@@ -104,8 +125,7 @@ export class Resizer extends React.Component<IResizerProps, IResizerState> {
     const { children } = this.props;
 
     if (typeof children !== "function") {
-      console.log("Resizer requires a render function");
-      return null;
+      throw new Error("Resizer requires a render function as a child");
     }
 
     const props = this.getChildProps(this.state);
