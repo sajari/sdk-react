@@ -1,6 +1,5 @@
 export {
   Pipeline,
-  Response,
   Values,
   Filter,
   CombineFilters,
@@ -16,6 +15,7 @@ export {
   IFilterContext,
   FilterProvider,
   Input,
+  Response,
   Results,
   Result,
   Summary,
