@@ -16,6 +16,7 @@ export interface IContainerProps {
 export const Container = styled<IContainerProps, "div">("div")(
   {
     display: "inline-block",
+    boxSizing: "border-box",
     fontSize: 16,
     cursor: "pointer",
     margin: 0,
@@ -28,5 +29,7 @@ export const Container = styled<IContainerProps, "div">("div")(
           color: " #333",
           borderBottom: "3px solid #333"
         }
-      : {}
+      : {
+          borderBottom: "3px solid transparent"
+        }
 );

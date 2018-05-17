@@ -52,7 +52,7 @@ export const Title = clean(
       color: "#333",
       whiteSpace: "nowrap",
       overflow: "hidden",
-      textOverflow: "hidden"
+      textOverflow: "ellipsis"
     },
     ({ theme }) => ({
       // @ts-ignore: hopefully this still works
