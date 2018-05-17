@@ -20,7 +20,7 @@ const pipeline = new Pipeline(
 const values = new Values();
 
 export default () => (
-  <Provider pipeline={pipeline} values={values}>
+  <Provider search={{ pipeline, values }}>
     <Input />
 
     <Summary />

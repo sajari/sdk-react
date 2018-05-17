@@ -57,7 +57,7 @@ tabsFilter.listen(EVENT_SELECTION_UPDATED, () => {
 
 export default () => (
   <Provider search={{ pipeline, values }}>
-    <Input autocomplete />
+    <Input autocomplete="dropdown" />
     <Response>
       <Tabs tabs={tabs} filter={tabsFilter} />
 

@@ -5,6 +5,7 @@ import App from "./containers/App";
 
 import Simple from "./examples/simple";
 import Standard from "./examples/standard";
+import Dropdown from "./examples/dropdown";
 
 const examples = [
   {
@@ -16,6 +17,11 @@ const examples = [
     to: "/standard",
     label: "Standard",
     component: Standard
+  },
+  {
+    to: "/dropdown",
+    label: "Dropdown",
+    component: Dropdown
   }
 ];
 
