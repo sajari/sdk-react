@@ -215,8 +215,10 @@ export class Input extends React.Component<IInputProps, IInputState> {
         inputValue: event.target.value
       }),
       () => {
-        const { inputValue } = this.state;
-        search(inputValue, !autocomplete);
+        if (autocomplete) {
+          const { inputValue } = this.state;
+          search(inputValue, !autocomplete);
+        }
       }
     );
   };
