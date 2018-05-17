@@ -3,6 +3,7 @@ import commonjs from "rollup-plugin-commonjs";
 import typescript from "rollup-plugin-typescript2";
 import babel from "rollup-plugin-babel";
 import sizes from "rollup-plugin-sizes";
+import analyze from "rollup-analyzer-plugin";
 import pkg from "./package.json";
 
 const IS_DEV = process.env.NODE_ENV !== "production";
@@ -32,9 +33,12 @@ const plugins = [
   typescript(),
   babel({
     exclude: "node_modules/**" // only transpile our source code
-  }),
-  sizes()
+  })
 ];
+
+if (IS_DEV) {
+  plugins.push(analyze({ limit: 5, root: __dirname }), sizes());
+}
 
 const browser = IS_DEV
   ? undefined

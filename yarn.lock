@@ -6160,6 +6160,16 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
+rollup-analyzer-plugin@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/rollup-analyzer-plugin/-/rollup-analyzer-plugin-1.1.1.tgz#617d3147b91b9a33b93133965223d55066d01650"
+  dependencies:
+    rollup-analyzer "^1.1.0"
+
+rollup-analyzer@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/rollup-analyzer/-/rollup-analyzer-1.1.0.tgz#057e1af0905e5f54e3045e2ffdaf7c8fc70ee5f3"
+
 rollup-plugin-babel@^4.0.0-beta.4:
   version "4.0.0-beta.4"
   resolved "https://registry.yarnpkg.com/rollup-plugin-babel/-/rollup-plugin-babel-4.0.0-beta.4.tgz#d869646885d6ad73dd10791a261fb92674a80410"
