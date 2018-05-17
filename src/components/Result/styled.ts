@@ -46,7 +46,7 @@ export const Title = clean(
     {
       marginTop: 0,
       marginBottom: 0,
-      fontSize: 20,
+      fontSize: "1.1rem",
       fontWeight: 400,
       lineHeight: 1.1,
       color: "#333",
@@ -73,8 +73,9 @@ export const Description = clean(
   styled<IDescriptionProps, "p">("p")(
     {
       color: "#545454",
-      fontSize: 15,
+      fontSize: "0.85rem",
       lineHeight: 1.4,
+      wordWrap: "break-word",
       overflowWrap: "break-word",
       marginTop: 2,
       marginBottom: 4

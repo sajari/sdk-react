@@ -11,7 +11,8 @@ import {
 
 export const Container = styled("div")({
   marginBottom: "1.5em",
-  color: "#aaa"
+  color: "#aaa",
+  fontSize: "small"
 });
 
 export const Emphasis = styled("strong")(

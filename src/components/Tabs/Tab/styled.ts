@@ -19,7 +19,7 @@ export const Container = styled<IContainerProps, "div">("div")(
     fontSize: 16,
     cursor: "pointer",
     margin: 0,
-    padding: ".9em",
+    padding: ".45rem .9rem .5rem",
     userSelect: "none"
   },
   props =>
