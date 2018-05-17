@@ -19,7 +19,9 @@ export class Provider extends React.PureComponent<IProviderProps> {
 
     return (
       <PipelineProvider search={search} instant={instant}>
-        <ThemeProvider theme={theme || {}}>{children}</ThemeProvider>
+        <ThemeProvider theme={theme || {}}>
+          <React.Fragment>{children}</React.Fragment>
+        </ThemeProvider>
       </PipelineProvider>
     );
   }
