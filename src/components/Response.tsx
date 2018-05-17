@@ -7,7 +7,7 @@ export const Response: React.SFC = ({ children }) => (
       if (response === null || response === undefined || response.isEmpty()) {
         return null;
       }
-      return <React.Fragment>{children}</React.Fragment>;
+      return children;
     }}
   </Consumer>
 );
