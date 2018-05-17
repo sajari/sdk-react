@@ -1,6 +1,6 @@
-import React from "react";
+import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
-import { HashRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Redirect } from "react-router-dom";
 import App from "./containers/App";
 
 import Simple from "./examples/simple";
@@ -21,7 +21,10 @@ const examples = [
 
 ReactDOM.render(
   <Router>
-    <App examples={examples} />
+    <Fragment>
+      <Route exact path="/" render={() => <Redirect to="/simple" />} />
+      <App examples={examples} />
+    </Fragment>
   </Router>,
   document.getElementById("root")
 );
