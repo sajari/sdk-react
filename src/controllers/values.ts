@@ -34,7 +34,7 @@ export class Values {
    *
    * Set a value to undefined to remove it.
    */
-  public set(values: { [k: string]: string | ValueFn }) {
+  public set(values: { [k: string]: string | ValueFn | undefined }) {
     this._set(values);
     this._emitUpdated();
   }

@@ -188,7 +188,8 @@ export class Provider extends React.PureComponent<
     const { config } = this.state[key];
 
     const text = {
-      [config.qParam]: query
+      [config.qParam]: query,
+      [config.qOverrideParam]: undefined
     };
 
     if (override) {

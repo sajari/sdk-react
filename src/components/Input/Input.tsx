@@ -23,12 +23,6 @@ const RIGHT_ARROW_KEYCODE = 39;
 const TAB_KEYCODE = 9;
 const RETURN_KEYCODE = 13;
 
-/*
-simple - no instant, enter to search
-typeahead - instant, enter to select type ahaed value, with search for instaed being actual qritten query
-suggestions -  no instant, select option or enter
-*/
-
 export interface IInputProps {
   autocomplete: boolean | "dropdown";
   instant?: boolean;
@@ -50,7 +44,7 @@ export class Input extends React.Component<IInputProps, IInputState> {
   private input?: HTMLInputElement;
 
   public render() {
-    const { autocomplete } = this.props;
+    const { autocomplete, instant } = this.props;
     const { inputValue } = this.state;
 
     return (
@@ -104,39 +98,42 @@ export class Input extends React.Component<IInputProps, IInputState> {
                         style={inputResetStyles.container}
                         inputStyle={inputResetStyles.input}
                         {...getInputProps({
-                          onChange: this.handleOnChange(instantSearch),
-                          onKeyUp: (event: any) => {
+                          onChange: this.handleOnChange(
+                            instant
+                              ? search
+                              : autocomplete && autocomplete !== "dropdown"
+                                ? search
+                                : instantSearch
+                          ),
+                          onKeyDown: (event: any) => {
                             if (
                               !autocomplete &&
                               event.keyCode === RETURN_KEYCODE
                             ) {
                               selectItem(event.target.value);
                             }
-                            if (
-                              autocomplete &&
-                              autocomplete !== "dropdown" &&
-                              event.keyCode === RIGHT_ARROW_KEYCODE
-                            ) {
-                              this.setState(
-                                state => ({
-                                  ...state,
-                                  inputValue: instantCompletion
-                                }),
-                                () => {
-                                  const { inputValue } = this.state;
-                                  setState({ inputValue });
-                                }
-                              );
-                            }
+
+                            this.handleTypeaheadCompletionKeyPress(
+                              autocomplete,
+                              event,
+                              event.keyCode,
+                              isNotEmptyString(completion, instantCompletion),
+                              [suggestions, instantSuggestions],
+                              (highlightedIndex || 0) - 1,
+                              setState
+                            );
                           }
                         })}
                       />
                       {autocomplete && isOpen && inputValue !== "" ? (
                         <Typeahead>
-                          {isNotEmptyString(
-                            completion,
-                            instantCompletion
-                          ).slice((value as string).length)}
+                          {this.getTypeaheadValue(
+                            autocomplete,
+                            [completion, instantCompletion],
+                            [suggestions, instantSuggestions],
+                            (highlightedIndex || 0) - 1,
+                            (value as string).length
+                          )}
                         </Typeahead>
                       ) : null}
                     </InputInnerContainer>
@@ -221,6 +218,60 @@ export class Input extends React.Component<IInputProps, IInputState> {
         }
       }
     );
+  };
+
+  private getTypeaheadValue = (
+    autocomplete: boolean | "dropdown",
+    completion: string[],
+    suggestions: Array<Array<string>>,
+    index: number,
+    length: number
+  ) => {
+    return autocomplete !== "dropdown"
+      ? isNotEmptyString(completion[0], completion[1]).slice(length)
+      : (isNotEmptyArray(suggestions[0], suggestions[1])[index] || "").slice(
+          length
+        );
+  };
+
+  private handleTypeaheadCompletionKeyPress = (
+    autocomplete: boolean | "dropdown",
+    event: any,
+    keyCode: number,
+    completion: string,
+    suggestions: Array<Array<string>>,
+    index: number,
+    setState: (state: { [k: string]: any }) => void
+  ) => {
+    if (!autocomplete) {
+      return;
+    }
+
+    if (keyCode === TAB_KEYCODE) {
+      event.preventDefault();
+    }
+
+    if (keyCode === RIGHT_ARROW_KEYCODE || keyCode === TAB_KEYCODE) {
+      const value =
+        autocomplete !== "dropdown"
+          ? completion
+          : isNotEmptyArray(suggestions[0], suggestions[1])[index];
+
+      if (autocomplete === "dropdown" && value === undefined) {
+        return;
+      }
+
+      this.setState(
+        state => ({
+          ...state,
+          inputValue: value
+        }),
+        () => {
+          const { inputValue } = this.state;
+          setState({ inputValue });
+        }
+      );
+    }
   };
 }
 
