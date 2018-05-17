@@ -114,7 +114,7 @@ export class Pipeline {
 
     this.client.search(
       values,
-      this.tracking.clientTracking,
+      this.tracking,
       (error: Error, results = {}, responseValues = {}) => {
         if (currentSearch < this.searchCount) {
           return;

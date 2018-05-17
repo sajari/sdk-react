@@ -42,10 +42,6 @@ export class ClickTracking extends Tracking {
    * @param values Key-value pair parameters to use in the pipeline.
    */
   public next(values: { [k: string]: string }) {
-    const [tracking, error] = this.clientTracking.next(values);
-    if (error) {
-      throw new Error(error);
-    }
-    return tracking;
+    return this.clientTracking.next(values);
   }
 }
