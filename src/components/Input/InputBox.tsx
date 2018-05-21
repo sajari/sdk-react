@@ -4,6 +4,7 @@ import { isNotEmptyString, isNotEmptyArray, trimPrefix } from "./utils";
 
 import { Consumer } from "../context";
 import { SearchFn } from "../context/pipeline/context";
+import { Typeahead } from "./Typeahead";
 
 import {
   Input as SearchInput,
@@ -11,8 +12,7 @@ import {
   InputInnerContainer,
   inputResetStyles,
   SearchButton,
-  SearchIcon,
-  Typeahead
+  SearchIcon
 } from "./styled";
 
 type DownshiftSetStateFn = (state: { [k: string]: any }) => void;
@@ -88,9 +88,7 @@ export class InputBox extends React.Component<IInputBoxProps> {
                 style={inputResetStyles.container}
                 inputStyle={inputResetStyles.input}
                 {...getInputProps({
-                  onFocus: () => {
-                    openMenu();
-                  },
+                  onFocus: openMenu,
                   onChange: this.handleOnChange(
                     instant
                       ? search
@@ -98,39 +96,24 @@ export class InputBox extends React.Component<IInputBoxProps> {
                         ? search
                         : instantSearch
                   ),
-                  onKeyDown: (event: any) => {
-                    if (
-                      (!autocomplete ||
-                        (autocomplete && autocomplete !== "dropdown")) &&
-                      event.keyCode === RETURN_KEYCODE
-                    ) {
-                      selectItem(event.target.value);
-                      return;
-                    }
-
-                    this.handleTypeaheadCompletionKeyPress(
-                      autocomplete,
-                      event,
-                      event.keyCode,
-                      isNotEmptyString(completion, instantCompletion),
-                      [suggestions, instantSuggestions],
-                      highlightedIndex - 1,
-                      setState
-                    );
-                  }
-                })}
-              />
-              {autocomplete && isOpen && !isOverride && value !== "" ? (
-                <Typeahead>
-                  {getTypeaheadValue(
+                  onKeyDown: this.handleKeyDown(
                     autocomplete,
                     [completion, instantCompletion],
                     [suggestions, instantSuggestions],
                     highlightedIndex - 1,
-                    value as string
-                  )}
-                </Typeahead>
-              ) : null}
+                    setState,
+                    selectItem
+                  )
+                })}
+              />
+              <Typeahead
+                isActive={autocomplete && isOpen && !isOverride && value !== ""}
+                value={value}
+                autocomplete={autocomplete}
+                completion={[completion, instantCompletion]}
+                suggestions={[suggestions, instantSuggestions]}
+                highlightedIndex={highlightedIndex - 1}
+              />
             </InputInnerContainer>
             <SearchButton onClick={this.handleSearchButton(search)}>
               <SearchIcon />
@@ -138,18 +121,14 @@ export class InputBox extends React.Component<IInputBoxProps> {
             <div
               style={{ display: "none" }}
               {...getItemProps({ item: value as string })}
-            >
-              {value}
-            </div>
+            />
             {autocomplete && autocomplete !== "dropdown" ? (
               <div
                 style={{ display: "none" }}
                 {...getItemProps({
                   item: isNotEmptyString(completion, instantCompletion)
                 })}
-              >
-                {isNotEmptyString(completion, instantCompletion)}
-              </div>
+              />
             ) : null}
           </InputContainer>
         )}
@@ -190,6 +169,33 @@ export class InputBox extends React.Component<IInputBoxProps> {
     }
   };
 
+  private handleKeyDown = (
+    autocomplete: boolean | "dropdown",
+    completion: string[],
+    suggestions: string[][],
+    highlightedIndex: number,
+    setState: DownshiftSetStateFn,
+    selectItem: (item: string) => void
+  ) => (event: any) => {
+    if (
+      (!autocomplete || (autocomplete && autocomplete !== "dropdown")) &&
+      event.keyCode === RETURN_KEYCODE
+    ) {
+      selectItem(event.target.value);
+      return;
+    }
+
+    this.handleTypeaheadCompletionKeyPress(
+      autocomplete,
+      event,
+      event.keyCode,
+      isNotEmptyString(completion[0], completion[1]),
+      suggestions,
+      highlightedIndex,
+      setState
+    );
+  };
+
   private handleTypeaheadCompletionKeyPress = (
     autocomplete: boolean | "dropdown",
     event: any,
@@ -217,18 +223,3 @@ export class InputBox extends React.Component<IInputBoxProps> {
     }
   };
 }
-
-const getTypeaheadValue = (
-  autocomplete: boolean | "dropdown",
-  completion: string[],
-  suggestions: string[][],
-  index: number,
-  value: string
-) => {
-  const suggestion =
-    autocomplete !== "dropdown"
-      ? isNotEmptyString(completion[0], completion[1])
-      : isNotEmptyArray(suggestions[0], suggestions[1])[index] || "";
-
-  return trimPrefix(suggestion, value);
-};
