@@ -3,6 +3,10 @@ import { Listener, ListenerMap } from "./listener";
 
 export type ValueFn = () => string;
 export type ValuesMap = Map<string, string | ValueFn>;
+export type CallbackFn = (
+  values: { [k: string]: string },
+  set: (values: { [k: string]: string }) => void
+) => void;
 
 export class Values {
   private values: ValuesMap;
@@ -22,7 +26,7 @@ export class Values {
    * @param {string} event Event to listen for
    * @param {Function} callback Callback to run when the event happens.
    */
-  public listen(event: string, callback: () => void) {
+  public listen(event: string, callback: CallbackFn) {
     if (event !== EVENT_VALUES_UPDATED) {
       throw new Error(`unknown event type "${event}"`);
     }
@@ -36,7 +40,7 @@ export class Values {
    */
   public set(values: { [k: string]: string | ValueFn | undefined }) {
     this._set(values);
-    this._emitUpdated();
+    this._emitUpdated(values);
   }
 
   /**
@@ -60,9 +64,9 @@ export class Values {
    *
    * @private
    */
-  private _emitUpdated() {
+  private _emitUpdated(changes: { [k: string]: string | ValueFn | undefined }) {
     (this.listeners.get(EVENT_VALUES_UPDATED) as Listener).notify(listener =>
-      listener()
+      listener(changes, (values: { [k: string]: string }) => this._set(values))
     );
   }
 
