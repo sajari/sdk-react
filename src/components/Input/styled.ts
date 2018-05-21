@@ -61,7 +61,7 @@ export const inputResetStyles = {
   container: {
     background: "none",
     padding: 0,
-    maxWidth: "calc(100% - 1.5rem)"
+    maxWidth: `calc(100% - ${searchIconSize})`
   },
   input: {
     height: 34,
@@ -75,6 +75,23 @@ export const inputResetStyles = {
     backgroundColor: "transparent"
   }
 };
+
+export const SearchButton = styled("button")({
+  minWidth: searchIconSize,
+  minHeight: searchIconSize,
+  width: searchIconSize,
+  height: searchIconSize,
+
+  padding: 0,
+  border: "none",
+  background: "transparent",
+
+  cursor: "pointer",
+
+  "&:focus, &:active": {
+    outline: "none"
+  }
+});
 
 export const SearchIcon = styled(Icon)({
   minWidth: searchIconSize,
@@ -122,7 +139,7 @@ export const Suggestion = styled<ISuggestionProps, "div">("div")(
     color: "#666"
   },
   props => ({
-    backgroundColor: props.isHighlighted ? "#ddd" : "#fff"
+    backgroundColor: props.isHighlighted ? "#eaeaea" : "#fff"
   })
 );
 
