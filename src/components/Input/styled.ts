@@ -22,11 +22,8 @@ export interface IInputContainerProps {
   isDropdownOpen: boolean;
 }
 
-export const InputContainer = styled<IInputContainerProps, "div">("div")(
+export const InputContainer = styled<IInputContainerProps, "form">("form")(
   {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
     padding: "3px 9px",
     borderRadius: 2,
     boxShadow: "0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)",
@@ -44,11 +41,18 @@ export const InputContainer = styled<IInputContainerProps, "div">("div")(
       : {}
 );
 
+export const SearchContainer = styled("div")({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  width: "100%"
+});
+
 const searchIconSize = "1.5rem";
 
 export const InputInnerContainer = styled("div")({
   minWidth: `calc(100% - ${searchIconSize})`,
-  overflow: "scroll"
+  overflow: "auto"
 });
 
 export const Input = styled(AutosizeInput)({

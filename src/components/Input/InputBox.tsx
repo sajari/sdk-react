@@ -1,4 +1,5 @@
 import * as React from "react";
+import { css } from "emotion";
 
 import { isNotEmptyArray, isNotEmptyString, trimPrefix } from "./utils";
 
@@ -9,6 +10,7 @@ import { Typeahead } from "./Typeahead";
 import {
   Input as SearchInput,
   InputContainer,
+  SearchContainer,
   InputInnerContainer,
   inputResetStyles,
   SearchButton,
@@ -76,55 +78,65 @@ export class InputBox extends React.Component<IInputBoxProps> {
             isDropdownOpen={isDropdownOpen}
             onClick={this.positionCaret}
           >
-            <InputInnerContainer>
-              <SearchInput
-                minWidth={1}
-                value={value}
-                autoComplete="off"
-                autoCorrect="off"
-                autoCapitalize="off"
-                spellCheck="false"
-                inputRef={this.inputRef}
-                style={inputResetStyles.container}
-                inputStyle={inputResetStyles.input}
-                {...getInputProps({
-                  onFocus: openMenu,
-                  onChange: this.handleOnChange(
-                    instant
-                      ? search
-                      : autocomplete && autocomplete !== "dropdown"
+            <SearchContainer role="search">
+              <InputInnerContainer>
+                <SearchInput
+                  minWidth={1}
+                  value={value}
+                  autoComplete="off"
+                  autoCorrect="off"
+                  autoCapitalize="off"
+                  spellCheck="false"
+                  inputRef={this.inputRef}
+                  className={css(inputResetStyles.container)}
+                  inputStyle={inputResetStyles.input}
+                  {...getInputProps({
+                    onFocus: openMenu,
+                    onChange: this.handleOnChange(
+                      instant
                         ? search
-                        : instantSearch
-                  ),
-                  onKeyDown: this.handleKeyDown(
-                    autocomplete,
-                    [completion, instantCompletion],
-                    [suggestions, instantSuggestions],
-                    highlightedIndex - 1,
-                    setState,
-                    selectItem
-                  )
-                })}
-              />
-              <Typeahead
-                isActive={autocomplete && isOpen && !isOverride && value !== ""}
-                value={value}
-                autocomplete={autocomplete}
-                completion={[completion, instantCompletion]}
-                suggestions={[suggestions, instantSuggestions]}
-                highlightedIndex={highlightedIndex - 1}
-              />
-            </InputInnerContainer>
-            <SearchButton onClick={this.handleSearchButton(search)}>
-              <SearchIcon />
-            </SearchButton>
-            <div
-              style={{ display: "none" }}
+                        : autocomplete && autocomplete !== "dropdown"
+                          ? search
+                          : instantSearch
+                    ),
+                    onKeyDown: this.handleKeyDown(
+                      autocomplete,
+                      [completion, instantCompletion],
+                      [suggestions, instantSuggestions],
+                      highlightedIndex - 1,
+                      setState,
+                      selectItem
+                    )
+                  })}
+                />
+                <Typeahead
+                  isActive={
+                    autocomplete && isOpen && !isOverride && value !== ""
+                  }
+                  value={value}
+                  autocomplete={autocomplete}
+                  completion={[completion, instantCompletion]}
+                  suggestions={[suggestions, instantSuggestions]}
+                  highlightedIndex={highlightedIndex - 1}
+                />
+              </InputInnerContainer>
+              <SearchButton
+                onClick={this.handleSearchButton(search)}
+                aria-label="Do search"
+                value="Search"
+              >
+                <SearchIcon />
+              </SearchButton>
+            </SearchContainer>
+            <span
+              className={css({ display: "none" })}
               {...getItemProps({ item: value as string })}
             />
-            {autocomplete && autocomplete !== "dropdown" ? (
-              <div
-                style={{ display: "none" }}
+            {autocomplete &&
+            autocomplete !== "dropdown" &&
+            isNotEmptyString(completion, instantCompletion) !== value ? (
+              <span
+                className={css({ display: "none" })}
                 {...getItemProps({
                   item: isNotEmptyString(completion, instantCompletion)
                 })}
@@ -215,7 +227,10 @@ export class InputBox extends React.Component<IInputBoxProps> {
           ? completion
           : isNotEmptyArray(suggestions[0], suggestions[1])[index];
 
-      if (autocomplete === "dropdown" && value === undefined) {
+      if (
+        value === "" ||
+        (autocomplete === "dropdown" && value === undefined)
+      ) {
         return;
       }
 

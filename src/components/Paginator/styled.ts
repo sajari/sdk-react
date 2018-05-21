@@ -9,7 +9,7 @@ import {
   StyledComponent
 } from "../styles";
 
-export const Container = styled("div")({
+export const Container = styled("nav")({
   margin: "1em 0",
   textAlign: "center"
 });
@@ -18,9 +18,9 @@ export interface IPageNumberProps {
   isCurrent?: boolean;
 }
 
-export const PageNumber = styled<IPageNumberProps, "div">("div")(
+export const PageNumber = styled<IPageNumberProps, "a">("a")(
   {
-    display: "inline",
+    display: "inline-block",
     padding: 10,
     fontWeight: "bold",
     cursor: "pointer",
@@ -37,13 +37,19 @@ export interface IPageButtonProps {
   isDisabled?: boolean;
 }
 
-export const PageButton = styled<IPageButtonProps, "div">("div")(
+export const PageButton = styled<IPageButtonProps, "button">("button")(
   {
-    display: "inline",
+    display: "inline-block",
     padding: 10,
     fontWeight: "bold",
     cursor: "pointer",
-    userSelect: "none"
+    userSelect: "none",
+    border: "none",
+    backgroundColor: "transparent",
+    fontSize: "1rem",
+    "&:active, &:focus": {
+      outline: "none"
+    }
   },
   props => ({ color: props.isDisabled ? "#aaa" : "#777" })
 );

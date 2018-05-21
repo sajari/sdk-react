@@ -1,4 +1,5 @@
 import * as React from "react";
+import { css } from "emotion";
 
 import { Consumer } from "../context";
 import { PaginateFn } from "../context/pipeline/context";
@@ -46,28 +47,50 @@ export class Paginator extends React.Component {
           }
 
           return (
-            <Container>
-              <PageButton
-                isDisabled={page === 1}
-                onClick={this.prevPage(paginate, page)}
-              >
-                &lt;
-              </PageButton>
-              {pageNumbers(page, totalPages).map(pageNumber => (
-                <PageNumber
-                  key={pageNumber}
-                  isCurrent={page === pageNumber}
-                  onClick={this.setPage(paginate, pageNumber)}
+            <Container aria-label="Pagination Navigation">
+              {page !== 1 && (
+                <PageButton
+                  isDisabled={page === 1}
+                  onClick={this.prevPage(paginate, page)}
+                  aria-label="Goto Previous Page"
                 >
-                  {pageNumber}
-                </PageNumber>
-              ))}
-              <PageButton
-                isDisabled={page === totalPages}
-                onClick={this.nextPage(paginate, page, totalPages)}
+                  &lt;
+                </PageButton>
+              )}
+              <ul
+                className={css({
+                  display: "inline-flex",
+                  listStyle: "none",
+                  padding: 0,
+                  margin: 0
+                })}
               >
-                &gt;
-              </PageButton>
+                {pageNumbers(page, totalPages).map(pageNumber => (
+                  <li key={pageNumber}>
+                    <PageNumber
+                      isCurrent={page === pageNumber}
+                      onClick={this.setPage(paginate, pageNumber)}
+                      aria-label={
+                        page === pageNumber
+                          ? `Current Page, Page ${pageNumber}`
+                          : `Page ${pageNumber}`
+                      }
+                      aria-current={page === pageNumber ? true : undefined}
+                    >
+                      {pageNumber}
+                    </PageNumber>
+                  </li>
+                ))}
+              </ul>
+              {page !== totalPages && (
+                <PageButton
+                  isDisabled={page === totalPages}
+                  onClick={this.nextPage(paginate, page, totalPages)}
+                  aria-label="Goto Next Page"
+                >
+                  &gt;
+                </PageButton>
+              )}
             </Container>
           );
         }}
