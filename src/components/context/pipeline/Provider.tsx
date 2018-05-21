@@ -8,19 +8,19 @@ import { UnlistenFn } from "../../../controllers/listener";
 import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from "../../../events";
 import { Context, IContext } from "./context";
 
-export type ProviderPipelineConfig = {
+export interface ProviderPipelineConfig {
   pipeline: Pipeline;
   values: Values;
   config?: IConfig;
-};
+}
 
-export type ProviderPipelineState = {
+export interface ProviderPipelineState {
   response: Response | null;
   query: string;
   config: IConfig;
   completion: string;
   suggestions: string[];
-};
+}
 
 export interface IPipelineProviderProps {
   search: ProviderPipelineConfig;
