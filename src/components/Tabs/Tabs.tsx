@@ -11,11 +11,11 @@ export interface ITabsProps {
 }
 
 export const Tabs: React.SFC<ITabsProps> = ({ filter, tabs }) => (
-  <Container>
-    <FilterProvider filter={filter}>
+  <FilterProvider filter={filter}>
+    <Container>
       <TabsContainer>
         {tabs.map(tab => <Tab key={tab.name} title={tab.display} />)}
       </TabsContainer>
-    </FilterProvider>
-  </Container>
+    </Container>
+  </FilterProvider>
 );
