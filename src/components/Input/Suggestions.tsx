@@ -1,8 +1,8 @@
-import * as React from "react";
 import { isEqual } from "lodash-es";
+import * as React from "react";
 
+import { Suggestion, SuggestionsContainer } from "./styled";
 import { trimPrefix } from "./utils";
-import { SuggestionsContainer, Suggestion } from "./styled";
 
 export interface ISuggestionsProps {
   isOpen: boolean;

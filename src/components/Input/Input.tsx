@@ -1,19 +1,20 @@
 import Downshift, { DownshiftState } from "downshift";
+// @ts-ignore: module missing definition file
+import memoize from "memoize-one";
 import * as React from "react";
 // @ts-ignore: module missing definition file
 import AutosizeInput from "react-input-autosize";
-// @ts-ignore: module missing definition file
-import memoize from "memoize-one";
 
-import { isNotEmptyString, isNotEmptyArray, trimPrefix } from "./utils";
+import { isNotEmptyArray, isNotEmptyString, trimPrefix } from "./utils";
 
+import { Response } from "../../controllers/response";
 import { Consumer } from "../context";
 import { SearchFn } from "../context/pipeline/context";
-import { Response } from "../../controllers/response";
-import { IRenderFnProps, Resizer } from "./Resizer";
 import { InputBox } from "./InputBox";
+import { IRenderFnProps, Resizer } from "./Resizer";
 import { Suggestions } from "./Suggestions";
 
+import { IConfig } from "../../config";
 import {
   Container,
   Input as SearchInput,
@@ -24,7 +25,6 @@ import {
   SearchIcon,
   Typeahead
 } from "./styled";
-import { IConfig } from "../../config";
 
 export interface IInputProps {
   autocomplete: boolean | "dropdown";

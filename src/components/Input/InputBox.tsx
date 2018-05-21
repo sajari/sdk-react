@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { isNotEmptyString, isNotEmptyArray, trimPrefix } from "./utils";
+import { isNotEmptyArray, isNotEmptyString, trimPrefix } from "./utils";
 
 import { Consumer } from "../context";
 import { SearchFn } from "../context/pipeline/context";
@@ -42,7 +42,7 @@ export interface IInputBoxProps {
 export class InputBox extends React.Component<IInputBoxProps> {
   private input?: HTMLInputElement;
 
-  render() {
+  public render() {
     const {
       value,
       autocomplete,

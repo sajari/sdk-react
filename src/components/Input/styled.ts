@@ -11,7 +11,7 @@ import {
 
 // @ts-ignore: module missing definition file
 import AutosizeInput from "react-input-autosize";
-import { SearchIcon as Icon } from "./SeachIcon";
+import { SearchIcon as Icon, IIconProps } from "./SeachIcon";
 
 export const Container = styled("div")({
   width: "100%",

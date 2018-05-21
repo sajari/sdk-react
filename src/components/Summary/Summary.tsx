@@ -1,5 +1,5 @@
-import * as React from "react";
 import idx from "idx";
+import * as React from "react";
 
 import { Consumer } from "../context";
 import { SearchFn } from "../context/pipeline/context";

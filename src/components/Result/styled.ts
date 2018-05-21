@@ -11,7 +11,7 @@ import {
 
 const clean = strip([]);
 
-interface IContainerProps extends IStyledProps<HTMLDivElement> {}
+export interface IContainerProps extends IStyledProps<HTMLDivElement> {}
 
 export const Container = clean(
   styled<IContainerProps, "div">("div")(
@@ -24,7 +24,7 @@ export const Container = clean(
   )
 ) as React.ComponentClass<IContainerProps>;
 
-interface ILinkProps extends IStyledProps<HTMLAnchorElement> {}
+export interface ILinkProps extends IStyledProps<HTMLAnchorElement> {}
 
 export const Link = styled<ILinkProps, "a">("a")(
   {
@@ -39,7 +39,7 @@ export const Link = styled<ILinkProps, "a">("a")(
   override
 );
 
-interface ITitleProps extends IStyledProps<HTMLHeadingElement> {}
+export interface ITitleProps extends IStyledProps<HTMLHeadingElement> {}
 
 export const Title = clean(
   styled<ITitleProps, "h3">("h3")(
