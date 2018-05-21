@@ -1,7 +1,8 @@
 import * as React from "react";
+import idx from "idx";
 
 import { Consumer } from "../context";
-import { IResultProps, Result } from "../Result";
+import { IResultProps, IResultStyles, Result } from "../Result";
 
 import { Container, Error } from "./styled";
 
@@ -9,6 +10,10 @@ const STATUS_UNAUTHORISED = 403;
 
 export interface IResultsProps {
   ResultRenderer: React.ComponentType<IResultProps>;
+  styles?: {
+    container?: React.CSSProperties;
+    result?: IResultStyles;
+  };
 }
 
 export class Results extends React.Component<IResultsProps, {}> {
@@ -17,7 +22,7 @@ export class Results extends React.Component<IResultsProps, {}> {
   };
 
   public render() {
-    const { ResultRenderer } = this.props;
+    const { ResultRenderer, styles = {} } = this.props;
 
     return (
       <Consumer>
@@ -44,7 +49,7 @@ export class Results extends React.Component<IResultsProps, {}> {
           }
 
           return (
-            <Container>
+            <Container styles={idx(styles, _ => _.container)}>
               {(response.getResults() as { [k: string]: any }).map(
                 (result: { [k: string]: any }, index: number) => {
                   const key =
@@ -60,6 +65,7 @@ export class Results extends React.Component<IResultsProps, {}> {
                       token={token}
                       values={result.values}
                       resultClicked={resultClicked}
+                      styles={idx(styles, _ => _.result)}
                     />
                   );
                 }

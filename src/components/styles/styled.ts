@@ -14,7 +14,7 @@ export default styled as ThemedReactEmotionInterface<ITheme>;
 export interface IStyledProps<T>
   extends React.HTMLAttributes<T>,
     React.ClassAttributes<T> {
-  styles?: { [k: string]: any };
+  styles?: React.CSSProperties | null;
   class?: string;
   theme?: ITheme;
 }

@@ -16,7 +16,9 @@ export const Error = styled("div")(
   override
 );
 
-export const Container = styled("div")(
+export interface IContainerProps extends IStyledProps<HTMLDivElement> {}
+
+export const Container = styled<IContainerProps, "div">("div")(
   {
     width: "100%",
 

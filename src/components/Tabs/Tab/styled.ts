@@ -23,13 +23,20 @@ export const Container = styled<IContainerProps, "div">("div")(
     padding: ".45rem .9rem .5rem",
     userSelect: "none"
   },
-  props =>
-    props.isSelected
+
+  ({ theme, isSelected }) =>
+    isSelected
       ? {
-          color: " #333",
-          borderBottom: "3px solid #333"
+          // @ts-ignore
+          color: idx(theme, _ => _.colors.brand.primary) || "#333",
+          borderBottom: "3px solid"
         }
       : {
-          borderBottom: "3px solid transparent"
-        }
+          borderBottom: "3px solid transparent",
+          "&:hover": {
+            // @ts-ignore
+            color: idx(theme, _ => _.colors.brand.primary) || "#333"
+          }
+        },
+  override
 );

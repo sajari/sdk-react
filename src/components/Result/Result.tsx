@@ -1,4 +1,5 @@
 import * as React from "react";
+import idx from "idx";
 
 import { Consumer } from "../context";
 import { ResultClickedFn } from "../context/pipeline/context";
@@ -12,15 +13,28 @@ export interface IResultProps {
   resultClicked: ResultClickedFn;
   score?: number;
   indexScore?: number;
+
+  styles?: IResultStyles | null;
+}
+
+export interface IResultStyles {
+  container?: React.CSSProperties;
+  title?: React.CSSProperties;
+  description?: React.CSSProperties;
+  url?: React.CSSProperties;
 }
 
 export class Result extends React.Component<IResultProps> {
   public render() {
     const { token, values, resultClicked } = this.props;
+    let styles = this.props.styles;
+    if (styles === null || styles === undefined) {
+      styles = {};
+    }
 
     return (
-      <Container>
-        <Title>
+      <Container styles={idx(styles, _ => _.container)}>
+        <Title styles={idx(styles, _ => _.title)}>
           <TokenLink
             token={token}
             url={values.url as string}
@@ -28,8 +42,10 @@ export class Result extends React.Component<IResultProps> {
             resultClicked={resultClicked}
           />
         </Title>
-        <Description>{values.description as string}</Description>
-        <URL>
+        <Description styles={idx(styles, _ => _.description)}>
+          {values.description as string}
+        </Description>
+        <URL styles={idx(styles, _ => _.url)}>
           <TokenLink
             token={token}
             url={values.url as string}

@@ -1,1 +1,1 @@
-export { Result, IResultProps } from "./Result";
+export { Result, IResultProps, IResultStyles } from "./Result";

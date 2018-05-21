@@ -76,29 +76,39 @@ export const inputResetStyles = {
   }
 };
 
-export const SearchButton = styled("button")({
-  minWidth: searchIconSize,
-  minHeight: searchIconSize,
-  width: searchIconSize,
-  height: searchIconSize,
+export interface ISearchButtonProps extends IStyledProps<HTMLButtonElement> {}
 
-  padding: 0,
-  border: "none",
-  background: "transparent",
+export const SearchButton = styled<ISearchButtonProps, "button">("button")(
+  {
+    minWidth: searchIconSize,
+    minHeight: searchIconSize,
+    width: searchIconSize,
+    height: searchIconSize,
 
-  cursor: "pointer",
+    padding: 0,
+    border: "none",
+    background: "transparent",
+    color: "grey",
 
-  "&:focus, &:active": {
-    outline: "none"
-  }
-});
+    cursor: "pointer",
+
+    "&:focus, &:active": {
+      outline: "none"
+    }
+  },
+  ({ theme }) => ({
+    "&:hover": {
+      // @ts-ignore
+      color: idx(theme, _ => _.colors.brand.primary) || "grey"
+    }
+  })
+);
 
 export const SearchIcon = styled(Icon)({
   minWidth: searchIconSize,
   minHeight: searchIconSize,
   width: searchIconSize,
-  height: searchIconSize,
-  color: "grey"
+  height: searchIconSize
 });
 
 export interface ISuggestionsContainerProps {

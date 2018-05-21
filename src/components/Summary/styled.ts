@@ -9,11 +9,16 @@ import {
   StyledComponent
 } from "../styles";
 
-export const Container = styled("div")({
-  marginBottom: "1.5em",
-  color: "#aaa",
-  fontSize: "small"
-});
+export interface IContainerProps extends IStyledProps<HTMLDivElement> {}
+
+export const Container = styled<IContainerProps, "div">("div")(
+  {
+    marginBottom: "1.5em",
+    color: "#aaa",
+    fontSize: "small"
+  },
+  override
+);
 
 export const Emphasis = styled("strong")(
   {
@@ -26,3 +31,7 @@ export const Emphasis = styled("strong")(
   }),
   override
 );
+
+export const OverrideContainer = styled<IStyledProps<HTMLSpanElement>, "span">(
+  "span"
+)(override);

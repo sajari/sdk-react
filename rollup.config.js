@@ -40,19 +40,7 @@ if (IS_DEV) {
   plugins.push(analyze({ limit: 5, root: __dirname }), sizes());
 }
 
-const browser = IS_DEV
-  ? undefined
-  : {
-      input,
-      output: {
-        name: "SajariReactSDK",
-        file: pkg.browser,
-        format: "umd"
-      },
-      plugins
-    };
-
-const modules = {
+export default {
   input,
   external,
   output: [
@@ -61,5 +49,3 @@ const modules = {
   ].filter(x => !!x),
   plugins
 };
-
-export default [browser, modules].filter(x => !!x);

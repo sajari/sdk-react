@@ -1,13 +1,23 @@
 import * as React from "react";
+import idx from "idx";
 
 import { Consumer } from "../context";
 import { SearchFn } from "../context/pipeline/context";
 import { formatQueryTime } from "./utils";
 
-import { Container, Emphasis } from "./styled";
+import { Container, Emphasis, OverrideContainer } from "./styled";
 
-export class Summary extends React.Component {
+export interface ISummaryProps {
+  styles?: {
+    container?: React.CSSProperties;
+    override?: IOverrideStyles;
+  };
+}
+
+export class Summary extends React.Component<ISummaryProps> {
   public render() {
+    const { styles = {} } = this.props;
+
     return (
       <Consumer>
         {({ search: { response, query, config, search } }) => {
@@ -30,7 +40,7 @@ export class Summary extends React.Component {
           const responseTime = formatQueryTime(response.getTime() as string);
 
           return (
-            <Container>
+            <Container styles={idx(styles, _ => _.container)}>
               <span>
                 {`${pageNumber}${totalResults} results for `}
                 "<Emphasis>{text}</Emphasis>"{" "}
@@ -40,6 +50,7 @@ export class Summary extends React.Component {
                 responseQuery={responseValues.get(config.qParam) as string}
                 query={query}
                 search={search}
+                styles={idx(styles, _ => _.override)}
               />
             </Container>
           );
@@ -53,24 +64,35 @@ export interface IOverrideProps {
   responseQuery: string;
   query: string;
   search: SearchFn;
+
+  styles?: IOverrideStyles | null;
+}
+
+export interface IOverrideStyles {
+  container?: React.CSSProperties;
 }
 
 const Override: React.SFC<IOverrideProps> = ({
   responseQuery,
   query,
-  search
+  search,
+  styles
 }) => {
   if (!responseQuery || responseQuery.toLowerCase() === query.toLowerCase()) {
     return null;
   }
 
+  if (styles === null || styles === undefined) {
+    styles = {};
+  }
+
   return (
-    <span>
+    <OverrideContainer styles={idx(styles, _ => _.container)}>
       {`search instead for `}
       <a onClick={click({ search, query })} href="">
         {query}
       </a>
-    </span>
+    </OverrideContainer>
   );
 };
 

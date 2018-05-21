@@ -49,13 +49,14 @@ export const Title = clean(
       fontSize: "1.1rem",
       fontWeight: 400,
       lineHeight: 1.1,
-      color: "#333",
       whiteSpace: "nowrap",
       overflow: "hidden",
       textOverflow: "ellipsis"
     },
     ({ theme }) => ({
-      // @ts-ignore: hopefully this still works
+      // @ts-ignore: If an intermediate property is either null or undefined, it is instead returned
+      color: idx(theme, _ => _.colors.brand.primary) || "#333",
+      // @ts-ignore: fixed by babel-plugin-emotion
       [Link]: {
         // @ts-ignore: If an intermediate property is either null or undefined, it is instead returned
         color: idx(theme, _ => _.colors.brand.primary) || "#333"
@@ -67,7 +68,7 @@ export const Title = clean(
   )
 ) as React.ComponentClass<ITitleProps>;
 
-interface IDescriptionProps extends IStyledProps<HTMLParagraphElement> {}
+export interface IDescriptionProps extends IStyledProps<HTMLParagraphElement> {}
 
 export const Description = clean(
   styled<IDescriptionProps, "p">("p")(
@@ -83,12 +84,12 @@ export const Description = clean(
     // override styles
     override
   )
-);
+) as React.ComponentClass<IDescriptionProps>;
 
-interface IURLProps extends IStyledProps<HTMLParagraphElement> {}
+export interface IURLProps extends IStyledProps<HTMLParagraphElement> {}
 
 export const URL = clean(
-  styled<IDescriptionProps, "p">("p")(
+  styled<IURLProps, "p">("p")(
     {
       color: "#a2a2a2",
       fontSize: 13,
@@ -98,12 +99,21 @@ export const URL = clean(
       overflow: "hidden",
       textOverflow: "ellipsis",
 
-      // @ts-ignore: hopefully this still works
+      // @ts-ignore: fixed by babel-plugin-emotion
       [Link]: {
         color: "#a2a2a2"
       }
     },
+    ({ theme }) => ({
+      // @ts-ignore: fixed by babel-plugin-emotion
+      [Link]: {
+        "&:hover": {
+          // @ts-ignore
+          color: idx(theme, _ => _.colors.brand.primary) || "#333"
+        }
+      }
+    }),
     // override styles
     override
   )
-);
+) as React.ComponentClass<IURLProps>;

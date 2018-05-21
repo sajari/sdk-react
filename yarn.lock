@@ -1234,6 +1234,10 @@ babel-plugin-emotion@^9.1.2:
     source-map "^0.5.7"
     touch "^1.0.0"
 
+babel-plugin-idx@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/babel-plugin-idx/-/babel-plugin-idx-2.2.0.tgz#5816a8621346f1025a70ce88a9fe4ecc810679b7"
+
 babel-plugin-istanbul@^4.1.5, babel-plugin-istanbul@^4.1.6:
   version "4.1.6"
   resolved "https://registry.yarnpkg.com/babel-plugin-istanbul/-/babel-plugin-istanbul-4.1.6.tgz#36c59b2192efce81c5b378321b74175add1c9a45"

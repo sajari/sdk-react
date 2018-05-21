@@ -14,7 +14,6 @@
   "version": "2.0.0-alpha.0",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.es.js",
-  "browser": "./dist/index.umd.js",
   "files": [
     "dist/*"
   ],
@@ -68,6 +67,7 @@
     "@types/recompose": "^0.26.1",
     "babel-loader": "^8.0.0-beta",
     "babel-plugin-emotion": "^9.1.2",
+    "babel-plugin-idx": "^2.2.0",
     "babel-plugin-lodash": "^3.3.2",
     "cross-env": "^5.1.5",
     "html-webpack-plugin": "^3.2.0",
