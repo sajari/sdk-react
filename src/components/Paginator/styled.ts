@@ -10,7 +10,7 @@ import {
 } from "../styles";
 
 export const Container = styled("nav")({
-  margin: "1em 0",
+  marginBottom: "1em",
   textAlign: "center"
 });
 

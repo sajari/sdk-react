@@ -1,4 +1,12 @@
 export interface ITheme {
+  layout?: {
+    type?: "list" | "grid";
+    custom?: {
+      container?: React.CSSProperties;
+      item?: React.CSSProperties;
+    };
+  };
+
   colors?: {
     brand?: {
       primary?: string;

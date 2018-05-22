@@ -1,5 +1,6 @@
 import idx from "idx";
 import * as React from "react";
+import { css } from "emotion";
 import {
   IStyledProps,
   ITheme,
@@ -13,11 +14,23 @@ const clean = strip([]);
 
 export interface IContainerProps extends IStyledProps<HTMLDivElement> {}
 
+const gridContainer = css({
+  display: "flex",
+  flexDirection: "column",
+  height: "100%",
+  justifyContent: "space-between"
+});
+
 export const Container = clean(
   styled<IContainerProps, "div">("div")(
     {
       width: "100%"
     },
+    ({ theme }) =>
+      // @ts-ignore: idx
+      (idx(theme, _ => _.layout.type) || "list") === "grid"
+        ? gridContainer
+        : {},
 
     // override styles
     override

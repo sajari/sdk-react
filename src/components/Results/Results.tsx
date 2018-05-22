@@ -4,7 +4,7 @@ import * as React from "react";
 import { Consumer } from "../context";
 import { IResultProps, IResultStyles, Result } from "../Result";
 
-import { Container, Error } from "./styled";
+import { Container, Error, ResultItem } from "./styled";
 
 const STATUS_UNAUTHORISED = 403;
 
@@ -12,6 +12,7 @@ export interface IResultsProps {
   ResultRenderer: React.ComponentType<IResultProps>;
   styles?: {
     container?: React.CSSProperties;
+    item?: React.CSSProperties;
     result?: IResultStyles;
   };
 }
@@ -60,13 +61,14 @@ export class Results extends React.Component<IResultsProps, {}> {
                     result.tokens.click.token;
 
                   return (
-                    <ResultRenderer
-                      key={key}
-                      token={token}
-                      values={result.values}
-                      resultClicked={resultClicked}
-                      styles={idx(styles, _ => _.result)}
-                    />
+                    <ResultItem key={key} styles={idx(styles, _ => _.item)}>
+                      <ResultRenderer
+                        token={token}
+                        values={result.values}
+                        resultClicked={resultClicked}
+                        styles={idx(styles, _ => _.result)}
+                      />
+                    </ResultItem>
                   );
                 }
               )}
