@@ -38,14 +38,18 @@ export class TokenLink extends React.PureComponent<
     // if the text prop is provided, use that instead of the decoded URI
     decodedText = text ? text : decodedText;
 
+    let renderChildren = children;
+    if (renderChildren === undefined) {
+      renderChildren = decodedText;
+    }
+
     return (
       <Link
         href={token ? TOKEN_URL + token : url}
         onMouseDown={this.click}
         styles={styles}
       >
-        {decodedText}
-        {children}
+        {renderChildren}
       </Link>
     );
   }
