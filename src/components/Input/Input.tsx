@@ -34,6 +34,7 @@ export interface IInputProps {
   styles?: IInputStyles;
 
   DropdownRenderer?: React.ComponentType;
+  onSearchButtonClick?: (event: any, search: SearchFn, value: string) => void;
 }
 
 export interface IInputState {
@@ -62,7 +63,8 @@ export class Input extends React.Component<IInputProps, IInputState> {
       instant,
       autofocus,
       styles = {},
-      DropdownRenderer
+      DropdownRenderer,
+      onSearchButtonClick
     } = this.props;
 
     return (
@@ -113,6 +115,7 @@ export class Input extends React.Component<IInputProps, IInputState> {
                     isDropdownOpen={isSuggestionsDropdownOpen}
                     highlightedIndex={highlightedIndex || 0}
                     onChange={this.handleOnChange}
+                    onSearchButtonClick={onSearchButtonClick}
                     downshift={{
                       isOpen,
                       getInputProps,

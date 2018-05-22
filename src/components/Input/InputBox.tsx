@@ -33,6 +33,7 @@ export interface IInputBoxProps {
   highlightedIndex: number;
   containerRef: (el: any) => void;
   onChange: (value: string) => void;
+  onSearchButtonClick?: (event: any, search: SearchFn, value: string) => void;
   downshift: {
     isOpen: boolean;
     getInputProps: (props: any) => any;
@@ -181,9 +182,15 @@ export class InputBox extends React.Component<IInputBoxProps> {
   };
 
   private handleSearchButton = (search: SearchFn) => (event: any) => {
+    const { value, onSearchButtonClick } = this.props;
+
     event.preventDefault();
 
-    const { value } = this.props;
+    if (onSearchButtonClick !== undefined) {
+      onSearchButtonClick(event, search, value);
+      return;
+    }
+
     search(value, true);
   };
 
