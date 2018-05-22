@@ -11,14 +11,17 @@ import {
 
 // @ts-ignore: module missing definition file
 import AutosizeInput from "react-input-autosize";
-import { SearchIcon as Icon, IIconProps } from "./SeachIcon";
+import { IIconProps, SearchIcon as Icon } from "./SeachIcon";
 
-export const Container = styled("div")({
-  width: "100%",
-  marginBottom: "1rem"
-});
+export const Container = styled<IStyledProps<HTMLDivElement>, "div">("div")(
+  {
+    width: "100%",
+    marginBottom: "1rem"
+  },
+  override
+);
 
-export interface IInputContainerProps {
+export interface IInputContainerProps extends IStyledProps<HTMLFormElement> {
   isDropdownOpen: boolean;
 }
 
@@ -38,7 +41,8 @@ export const InputContainer = styled<IInputContainerProps, "form">("form")(
           borderBottomLeftRadius: 0,
           borderBottomRightRadius: 0
         }
-      : {}
+      : {},
+  override
 );
 
 export const SearchContainer = styled("div")({
@@ -50,10 +54,15 @@ export const SearchContainer = styled("div")({
 
 const searchIconSize = "1.5rem";
 
-export const InputInnerContainer = styled("div")({
-  minWidth: `calc(100% - ${searchIconSize})`,
-  overflow: "auto"
-});
+export const InputInnerContainer = styled<IStyledProps<HTMLDivElement>, "div">(
+  "div"
+)(
+  {
+    minWidth: `calc(100% - ${searchIconSize})`,
+    overflow: "auto"
+  },
+  override
+);
 
 export const Input = styled(AutosizeInput)({
   "& input:focus, & input:active": {
@@ -75,7 +84,7 @@ export const inputResetStyles = {
     fontFamily: "inherit",
     fontSize: "1rem",
     textRendering: "optimizeLegibility",
-    color: "#666",
+    color: "currentcolor",
     backgroundColor: "transparent"
   }
 };
@@ -105,7 +114,8 @@ export const SearchButton = styled<ISearchButtonProps, "button">("button")(
       // @ts-ignore
       color: idx(theme, _ => _.colors.brand.primary) || "grey"
     }
-  })
+  }),
+  override
 );
 
 export const SearchIcon = styled(Icon)({
@@ -154,14 +164,18 @@ export const Suggestion = styled<ISuggestionProps, "div">("div")(
   },
   props => ({
     backgroundColor: props.isHighlighted ? "#eaeaea" : "#fff"
-  })
+  }),
+  override
 );
 
-export const Typeahead = styled("span")({
-  position: "relative",
-  zIndex: -1,
-  display: "inline",
-  marginLeft: -2,
-  color: "#bebebe",
-  fontSize: "1rem"
-});
+export const Typeahead = styled<IStyledProps<HTMLSpanElement>, "span">("span")(
+  {
+    position: "relative",
+    zIndex: -1,
+    display: "inline",
+    marginLeft: -2,
+    color: "#bebebe",
+    fontSize: "1rem"
+  },
+  override
+);

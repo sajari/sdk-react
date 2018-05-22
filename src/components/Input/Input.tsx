@@ -1,4 +1,5 @@
 import Downshift, { DownshiftState } from "downshift";
+import idx from "idx";
 // @ts-ignore: module missing definition file
 import memoize from "memoize-one";
 import * as React from "react";
@@ -28,17 +29,25 @@ import {
 
 export interface IInputProps {
   autocomplete: boolean | "dropdown";
+  autofocus?: boolean;
   instant?: boolean;
+  styles?: IInputStyles;
 }
 
 export interface IInputState {
   inputValue: string;
 }
 
+export interface IInputStyles {
+  container?: any;
+  input?: any;
+}
+
 export class Input extends React.Component<IInputProps, IInputState> {
   public static defaultProps = {
     autocomplete: false,
-    instant: false
+    instant: false,
+    autofocus: false
   };
 
   public state = { inputValue: "" };
@@ -46,7 +55,7 @@ export class Input extends React.Component<IInputProps, IInputState> {
   private inputContainer?: HTMLDivElement;
 
   public render() {
-    const { autocomplete, instant } = this.props;
+    const { autocomplete, instant, autofocus, styles = {} } = this.props;
 
     return (
       <Consumer>
@@ -82,11 +91,15 @@ export class Input extends React.Component<IInputProps, IInputState> {
                 isNotEmptyArray(suggestions, instantSuggestions).length > 0;
 
               return (
-                <Container {...getRootProps({ refKey: "innerRef" })}>
+                <Container
+                  {...getRootProps({ refKey: "innerRef" })}
+                  styles={idx(styles, _ => _.container)}
+                >
                   <InputBox
                     value={value as string}
                     autocomplete={autocomplete}
                     instant={instant as boolean}
+                    autofocus={autofocus as boolean}
                     containerRef={this.inputContainerRef}
                     isOverride={isOverride(response, config)}
                     isDropdownOpen={isSuggestionsDropdownOpen}
@@ -100,6 +113,7 @@ export class Input extends React.Component<IInputProps, IInputState> {
                       selectItem,
                       openMenu
                     }}
+                    styles={idx(styles, _ => _.input)}
                   />
                   <Resizer element={this.inputContainer}>
                     {({ offset }: IRenderFnProps) => (

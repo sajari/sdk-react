@@ -1,6 +1,6 @@
+import { css } from "emotion";
 import idx from "idx";
 import * as React from "react";
-import { css } from "emotion";
 import {
   IStyledProps,
   ITheme,

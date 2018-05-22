@@ -1,5 +1,5 @@
-import * as React from "react";
 import { css } from "emotion";
+import * as React from "react";
 
 import { Consumer } from "../context";
 import { PaginateFn } from "../context/pipeline/context";

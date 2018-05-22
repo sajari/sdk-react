@@ -12,6 +12,7 @@ export interface ITypeaheadProps {
   suggestions: string[][];
   highlightedIndex: number;
   value: string;
+  styles?: React.CSSProperties | null;
 }
 
 export const Typeahead: React.SFC<ITypeaheadProps> = ({
@@ -20,10 +21,11 @@ export const Typeahead: React.SFC<ITypeaheadProps> = ({
   completion,
   suggestions,
   highlightedIndex,
-  value
+  value,
+  styles = {}
 }) => {
   return isActive ? (
-    <Container>
+    <Container styles={styles}>
       {getTypeaheadValue(
         autocomplete,
         completion,

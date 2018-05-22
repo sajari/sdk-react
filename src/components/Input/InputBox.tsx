@@ -1,5 +1,6 @@
-import * as React from "react";
 import { css } from "emotion";
+import idx from "idx";
+import * as React from "react";
 
 import { isNotEmptyArray, isNotEmptyString, trimPrefix } from "./utils";
 
@@ -10,10 +11,10 @@ import { Typeahead } from "./Typeahead";
 import {
   Input as SearchInput,
   InputContainer,
-  SearchContainer,
   InputInnerContainer,
   inputResetStyles,
   SearchButton,
+  SearchContainer,
   SearchIcon
 } from "./styled";
 
@@ -26,6 +27,7 @@ export interface IInputBoxProps {
   value: string;
   autocomplete: boolean | "dropdown";
   instant: boolean;
+  autofocus: boolean;
   isOverride: boolean;
   isDropdownOpen: boolean;
   highlightedIndex: number;
@@ -39,6 +41,13 @@ export interface IInputBoxProps {
     selectItem: (item: any) => void;
     openMenu: () => void;
   };
+
+  styles?: {
+    container?: React.CSSProperties;
+    input?: React.CSSProperties;
+    typeahead?: React.CSSProperties;
+    button?: React.CSSProperties;
+  };
 }
 
 export class InputBox extends React.Component<IInputBoxProps> {
@@ -49,6 +58,7 @@ export class InputBox extends React.Component<IInputBoxProps> {
       value,
       autocomplete,
       instant,
+      autofocus,
       highlightedIndex,
       isOverride,
       isDropdownOpen,
@@ -60,7 +70,8 @@ export class InputBox extends React.Component<IInputBoxProps> {
         setState,
         selectItem,
         openMenu
-      }
+      },
+      styles = {}
     } = this.props;
 
     return (
@@ -77,15 +88,17 @@ export class InputBox extends React.Component<IInputBoxProps> {
             innerRef={containerRef}
             isDropdownOpen={isDropdownOpen}
             onClick={this.positionCaret}
+            styles={idx(styles, _ => _.container)}
           >
             <SearchContainer role="search">
-              <InputInnerContainer>
+              <InputInnerContainer styles={idx(styles, _ => _.input)}>
                 <SearchInput
                   minWidth={1}
                   value={value}
                   autoComplete="off"
                   autoCorrect="off"
                   autoCapitalize="off"
+                  autoFocus={autofocus}
                   spellCheck="false"
                   inputRef={this.inputRef}
                   className={css(inputResetStyles.container)}
@@ -111,19 +124,24 @@ export class InputBox extends React.Component<IInputBoxProps> {
                 />
                 <Typeahead
                   isActive={
-                    autocomplete && isOpen && !isOverride && value !== ""
+                    autocomplete &&
+                    (autocomplete !== "dropdown" || isOpen) &&
+                    !isOverride &&
+                    value !== ""
                   }
                   value={value}
                   autocomplete={autocomplete}
                   completion={[completion, instantCompletion]}
                   suggestions={[suggestions, instantSuggestions]}
                   highlightedIndex={highlightedIndex - 1}
+                  styles={idx(styles, _ => _.typeahead)}
                 />
               </InputInnerContainer>
               <SearchButton
                 onClick={this.handleSearchButton(search)}
                 aria-label="Do search"
                 value="Search"
+                styles={idx(styles, _ => _.button)}
               >
                 <SearchIcon />
               </SearchButton>
