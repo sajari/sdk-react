@@ -67,6 +67,12 @@ export class Input extends React.Component<IInputProps, IInputState> {
       onSearchButtonClick
     } = this.props;
 
+    if (autocomplete === "dropdown" && DropdownRenderer !== undefined) {
+      throw new Error(
+        'You cannot provide a DropdownRenderer when using `autocomplete="dropdown"`'
+      );
+    }
+
     return (
       <Consumer>
         {({
@@ -127,7 +133,9 @@ export class Input extends React.Component<IInputProps, IInputState> {
                     styles={idx(styles, _ => _.input)}
                   />
                   <Resizer element={this.inputContainer}>
-                    {DropdownRenderer !== undefined ? (
+                    {autocomplete &&
+                    autocomplete !== "dropdown" &&
+                    DropdownRenderer !== undefined ? (
                       <DropdownRenderer />
                     ) : (
                       <Suggestions
