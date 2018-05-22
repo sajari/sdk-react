@@ -11,6 +11,7 @@ import {
   FilterProvider,
   IFilterContext
 } from "../context/filter";
+import { styles as defaultStyles } from "./styled";
 
 export interface ISelectProps {
   filter: Filter;
@@ -22,6 +23,7 @@ export const Select: React.SFC<ISelectProps> = ({ filter }) => (
       {({ options, selected, set }) => {
         return (
           <ReactSelect
+            styles={defaultStyles}
             isClearable={true}
             options={mapOptions(options)}
             onChange={handleChange(selected, set)}
