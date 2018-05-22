@@ -18,6 +18,7 @@ export {
   Response,
   Results,
   Result,
+  TokenLink,
   Summary,
   Paginator,
   Tabs,

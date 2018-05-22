@@ -10,6 +10,8 @@ export interface ITokenLinkProps {
   resultClicked: ResultClickedFn;
   text?: string;
   children?: React.ReactNode;
+
+  styles?: React.CSSProperties;
 }
 
 export interface ITokenLinkState {
@@ -23,7 +25,7 @@ export class TokenLink extends React.PureComponent<
   public state = { clicked: false };
 
   public render() {
-    const { token, url, text, children } = this.props;
+    const { token, url, text, styles = {}, children } = this.props;
 
     let decodedText;
     try {
@@ -37,7 +39,11 @@ export class TokenLink extends React.PureComponent<
     decodedText = text ? text : decodedText;
 
     return (
-      <Link href={token ? TOKEN_URL + token : url} onMouseDown={this.click}>
+      <Link
+        href={token ? TOKEN_URL + token : url}
+        onMouseDown={this.click}
+        styles={styles}
+      >
         {decodedText}
         {children}
       </Link>
