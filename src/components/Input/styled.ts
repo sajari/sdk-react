@@ -125,32 +125,10 @@ export const SearchIcon = styled(Icon)({
   height: searchIconSize
 });
 
-export interface ISuggestionsContainerProps {
-  position: {
-    top: number;
-    left: number;
-    height: number;
-    width: number;
-  };
-}
-
-export const SuggestionsContainer = styled<ISuggestionsContainerProps, "div">(
-  "div"
-)(
-  {
-    position: "absolute",
-    boxSizing: "border-box",
-    cursor: "default",
-    boxShadow: "0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08)",
-    borderBottomLeftRadius: 2,
-    borderBottomRightRadius: 2
-  },
-  ({ position: { width, top, left, height } }) => ({
-    width,
-    top: top + height,
-    left
-  })
-);
+export const SuggestionsContainer = styled("div")({
+  boxSizing: "border-box",
+  cursor: "default"
+});
 
 export interface ISuggestionProps {
   isHighlighted: boolean;

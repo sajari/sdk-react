@@ -9,7 +9,6 @@ export interface ISuggestionsProps {
   highlightedIndex: number;
   inputValue: string;
   suggestions: string[];
-  offset: any;
   getItemProps: any;
 }
 
@@ -38,12 +37,11 @@ export class Suggestions extends React.Component<ISuggestionsProps> {
       highlightedIndex,
       suggestions,
       inputValue,
-      offset,
       getItemProps
     } = this.props;
 
     return isOpen ? (
-      <SuggestionsContainer position={offset}>
+      <SuggestionsContainer>
         {suggestions.map((item, index) => (
           <Suggestion
             {...getItemProps({ item })}

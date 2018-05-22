@@ -3,6 +3,7 @@ import { isEqual } from "lodash-es";
 import memoize from "memoize-one";
 import * as React from "react";
 import ResizeObserver from "resize-observer-polyfill";
+import { styled, StyledComponent } from "../styles";
 
 export interface IResizerProps {
   element?: HTMLElement;
@@ -57,7 +58,7 @@ export class Resizer extends React.Component<IResizerProps, IResizerState> {
   };
 
   private observer?: ResizeObserver;
-  private getChildProps = memoize((state: IResizerState) => state, isEqual);
+  private getContainerProps = memoize((state: IResizerState) => state, isEqual);
 
   public componentDidMount() {
     const { element } = this.props;
@@ -124,11 +125,33 @@ export class Resizer extends React.Component<IResizerProps, IResizerState> {
   public render() {
     const { children } = this.props;
 
-    if (typeof children !== "function") {
-      throw new Error("Resizer requires a render function as a child");
-    }
-
-    const props = this.getChildProps(this.state);
-    return (children as RenderFn)(props);
+    const { offset } = this.getContainerProps(this.state);
+    return <Container position={offset}>{children}</Container>;
   }
 }
+
+export interface IContainerProps {
+  position: {
+    top: number;
+    left: number;
+    height: number;
+    width: number;
+  };
+}
+
+const Container = styled<IContainerProps, "div">("div")(
+  {
+    position: "absolute",
+    boxSizing: "border-box",
+    zIndex: 2000,
+    backgroundColor: "white",
+    boxShadow: "0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08)",
+    borderBottomLeftRadius: 2,
+    borderBottomRightRadius: 2
+  },
+  ({ position: { width, top, left, height } }) => ({
+    width,
+    top: top + height,
+    left
+  })
+);

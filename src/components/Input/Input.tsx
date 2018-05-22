@@ -32,6 +32,8 @@ export interface IInputProps {
   autofocus?: boolean;
   instant?: boolean;
   styles?: IInputStyles;
+
+  DropdownRenderer?: React.ComponentType;
 }
 
 export interface IInputState {
@@ -55,7 +57,13 @@ export class Input extends React.Component<IInputProps, IInputState> {
   private inputContainer?: HTMLDivElement;
 
   public render() {
-    const { autocomplete, instant, autofocus, styles = {} } = this.props;
+    const {
+      autocomplete,
+      instant,
+      autofocus,
+      styles = {},
+      DropdownRenderer
+    } = this.props;
 
     return (
       <Consumer>
@@ -116,10 +124,11 @@ export class Input extends React.Component<IInputProps, IInputState> {
                     styles={idx(styles, _ => _.input)}
                   />
                   <Resizer element={this.inputContainer}>
-                    {({ offset }: IRenderFnProps) => (
+                    {DropdownRenderer !== undefined ? (
+                      <DropdownRenderer />
+                    ) : (
                       <Suggestions
                         isOpen={isSuggestionsDropdownOpen}
-                        offset={offset}
                         suggestions={isNotEmptyArray(
                           suggestions,
                           instantSuggestions
