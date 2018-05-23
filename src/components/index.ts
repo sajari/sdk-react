@@ -18,3 +18,5 @@ export { Paginator } from "./Paginator";
 export { Tabs } from "./Tabs";
 
 export { Select } from "./Select";
+
+export { Checkbox } from "./Checkbox";

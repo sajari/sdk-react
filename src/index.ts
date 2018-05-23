@@ -22,7 +22,8 @@ export {
   Summary,
   Paginator,
   Tabs,
-  Select
+  Select,
+  Checkbox
 } from "./components";
 
 export {
