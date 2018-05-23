@@ -25,10 +25,9 @@ const pipeline = new Pipeline(
 const values = new Values();
 
 // Any change to values should reset the paginator back to page 1
-values.listen(EVENT_VALUES_UPDATED, () => {
-  const changes = values.get();
+values.listen(EVENT_VALUES_UPDATED, (changes, set) => {
   if (!changes.page) {
-    values.set({ page: "1" });
+    set({ page: "1" });
   }
 });
 
