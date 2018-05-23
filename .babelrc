@@ -1,14 +1,20 @@
 {
   "presets": [
-      ["@babel/env", {
-        "modules": false
-      }],
-      "@babel/react"
+    [
+      "@babel/env",
+      {
+        "modules": false,
+        "target": {
+          "browsers": [">0.25%", "not ie 11", "not op_mini all"]
+        }
+      }
+    ],
+    "@babel/react"
   ],
   "plugins": [
-      "@babel/proposal-class-properties",
-      "@babel/proposal-object-rest-spread",
-      "emotion",
-      "idx"
+    "@babel/proposal-class-properties",
+    "@babel/proposal-object-rest-spread",
+    ["emotion", { "hoist": true }],
+    "idx"
   ]
 }
