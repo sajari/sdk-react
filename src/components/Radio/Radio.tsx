@@ -1,13 +1,13 @@
 import * as React from "react";
 import { FilterConsumer } from "../context/filter";
 import { CheckedIcon, EmptyIcon } from "./icons";
-import { Container, HiddenInput, icon as iconStyles } from "./styled";
+import { Container, HiddenInput, iconStyles } from "./styled";
 
-export interface ICheckboxProps {
+export interface IRadioProps {
   name: string;
 }
 
-export class Checkbox extends React.Component<ICheckboxProps> {
+export class Radio extends React.Component<IRadioProps> {
   public render() {
     const { name } = this.props;
 
@@ -20,7 +20,7 @@ export class Checkbox extends React.Component<ICheckboxProps> {
               isSelected={isSelected}
               onClick={this.onClick(name, isSelected, set)}
             >
-              <HiddenInput type="checkbox" value={name} checked={isSelected} />
+              <HiddenInput type="radio" value={name} checked={isSelected} />
               <CheckboxIcon isChecked={isSelected} />
             </Container>
           );
@@ -39,17 +39,9 @@ export class Checkbox extends React.Component<ICheckboxProps> {
 const CheckboxIcon: React.SFC<{ isChecked: boolean }> = ({ isChecked }) => (
   <React.Fragment>
     {isChecked ? (
-      <CheckedIcon
-        fill="currentcolor"
-        shapeRendering="geometricPrecision"
-        className={iconStyles}
-      />
+      <CheckedIcon className={iconStyles} />
     ) : (
-      <EmptyIcon
-        fill="currentcolor"
-        shapeRendering="crispEdges"
-        className={iconStyles}
-      />
+      <EmptyIcon className={iconStyles} />
     )}
   </React.Fragment>
 );

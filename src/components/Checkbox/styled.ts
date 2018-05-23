@@ -37,7 +37,7 @@ export const Container = styled<IContainerProps, "div">("div")(
   override
 );
 
-export const HiddenCheckbox = styled("input")({
+export const HiddenInput = styled("input")({
   border: 0,
   clip: "rect(1px, 1px, 1px, 1px)",
   height: 1,

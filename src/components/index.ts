@@ -20,3 +20,5 @@ export { Tabs } from "./Tabs";
 export { Select } from "./Select";
 
 export { Checkbox } from "./Checkbox";
+
+export { Radio } from "./Radio";

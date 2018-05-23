@@ -23,7 +23,8 @@ export {
   Paginator,
   Tabs,
   Select,
-  Checkbox
+  Checkbox,
+  Radio
 } from "./components";
 
 export {
