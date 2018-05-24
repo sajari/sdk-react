@@ -4,11 +4,11 @@ import * as React from "react";
 import { IConfig } from "../../config";
 import { Pipeline, Values } from "../../controllers";
 import { IPipelineContext, PipelineProvider } from "./pipeline";
-import { ProviderPipelineConfig } from "./pipeline/Provider";
+import { IProviderPipelineConfig } from "./pipeline/Provider";
 
 export interface IProviderProps {
-  search: ProviderPipelineConfig;
-  instant?: ProviderPipelineConfig;
+  search: IProviderPipelineConfig;
+  instant?: IProviderPipelineConfig;
 
   theme?: { [k: string]: any };
 }

@@ -8,13 +8,13 @@ import { UnlistenFn } from "../../../controllers/listener";
 import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from "../../../events";
 import { Context, IContext } from "./context";
 
-export interface ProviderPipelineConfig {
+export interface IProviderPipelineConfig {
   pipeline: Pipeline;
   values: Values;
   config?: IConfig;
 }
 
-export interface ProviderPipelineState {
+export interface IProviderPipelineState {
   response: Response | null;
   query: string;
   config: IConfig;
@@ -23,15 +23,15 @@ export interface ProviderPipelineState {
 }
 
 export interface IPipelineProviderProps {
-  search: ProviderPipelineConfig;
-  instant?: ProviderPipelineConfig;
+  search: IProviderPipelineConfig;
+  instant?: IProviderPipelineConfig;
 
   theme?: any;
 }
 
 export interface IPipelineProviderState {
-  search: ProviderPipelineState;
-  instant: ProviderPipelineState;
+  search: IProviderPipelineState;
+  instant: IProviderPipelineState;
 }
 
 const defaultState = {
@@ -52,7 +52,7 @@ export class Provider extends React.PureComponent<
   };
 
   private unregisterFunctions: UnlistenFn[] = [];
-  private instant?: ProviderPipelineConfig;
+  private instant?: IProviderPipelineConfig;
 
   private getContext = memoize(
     (state: IPipelineProviderState) => ({
@@ -130,7 +130,7 @@ export class Provider extends React.PureComponent<
     }
 
     this.unregisterFunctions.push(
-      (this.instant as ProviderPipelineConfig).pipeline.listen(
+      (this.instant as IProviderPipelineConfig).pipeline.listen(
         EVENT_RESPONSE_UPDATED,
         (response: Response) =>
           this.setState(state => ({
@@ -139,7 +139,7 @@ export class Provider extends React.PureComponent<
               ...state.instant,
               response,
               ...responseUpdatedListener(
-                (this.instant as ProviderPipelineConfig).values,
+                (this.instant as IProviderPipelineConfig).values,
                 state.instant.config,
                 response
               )
@@ -149,7 +149,7 @@ export class Provider extends React.PureComponent<
     );
 
     this.unregisterFunctions.push(
-      (this.instant as ProviderPipelineConfig).values.listen(
+      (this.instant as IProviderPipelineConfig).values.listen(
         EVENT_VALUES_UPDATED,
         () =>
           this.setState(state => ({
@@ -157,8 +157,8 @@ export class Provider extends React.PureComponent<
             instant: {
               ...state.instant,
               ...valuesUpdatedListener(
-                (this.instant as ProviderPipelineConfig).values,
-                (this.instant as ProviderPipelineConfig).pipeline,
+                (this.instant as IProviderPipelineConfig).values,
+                (this.instant as IProviderPipelineConfig).pipeline,
                 state.instant.config
               )
             }
@@ -184,7 +184,7 @@ export class Provider extends React.PureComponent<
     override: boolean = false
   ) => {
     const { pipeline, values } =
-      (this.props[key] as ProviderPipelineConfig) || this.instant;
+      (this.props[key] as IProviderPipelineConfig) || this.instant;
     const { config } = this.state[key];
 
     const text = {
