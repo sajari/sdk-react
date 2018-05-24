@@ -10,6 +10,7 @@ const STATUS_UNAUTHORISED = 403;
 
 export interface IResultsProps {
   ResultRenderer: React.ComponentType<IResultProps>;
+  showImages?: boolean;
   styles?: {
     container?: React.CSSProperties;
     item?: React.CSSProperties;
@@ -23,7 +24,7 @@ export class Results extends React.Component<IResultsProps, {}> {
   };
 
   public render() {
-    const { ResultRenderer, styles = {} } = this.props;
+    const { ResultRenderer, showImages, styles = {} } = this.props;
 
     return (
       <Consumer>
@@ -66,6 +67,7 @@ export class Results extends React.Component<IResultsProps, {}> {
                         token={token}
                         values={result.values}
                         resultClicked={resultClicked}
+                        showImage={showImages}
                         styles={idx(styles, _ => _.result)}
                       />
                     </ResultItem>
