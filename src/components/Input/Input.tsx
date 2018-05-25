@@ -44,6 +44,7 @@ export interface IInputState {
 export interface IInputStyles {
   container?: any;
   input?: any;
+  dropdown?: any;
 }
 
 export class Input extends React.Component<IInputProps, IInputState> {
@@ -132,7 +133,10 @@ export class Input extends React.Component<IInputProps, IInputState> {
                     }}
                     styles={idx(styles, _ => _.input)}
                   />
-                  <Resizer element={this.inputContainer}>
+                  <Resizer
+                    element={this.inputContainer}
+                    styles={idx(styles, _ => _.dropdown)}
+                  >
                     {autocomplete &&
                     autocomplete !== "dropdown" &&
                     DropdownRenderer !== undefined ? (

@@ -3,10 +3,11 @@ import { isEqual } from "lodash-es";
 import memoize from "memoize-one";
 import * as React from "react";
 import ResizeObserver from "resize-observer-polyfill";
-import { styled, StyledComponent } from "../styles";
+import { styled, StyledComponent, override, IStyledProps } from "../styles";
 
 export interface IResizerProps {
   element?: HTMLElement;
+  styles?: React.CSSProperties;
 }
 
 export interface IResizerState {
@@ -123,14 +124,18 @@ export class Resizer extends React.Component<IResizerProps, IResizerState> {
   }
 
   public render() {
-    const { children } = this.props;
+    const { children, styles } = this.props;
 
     const { offset } = this.getContainerProps(this.state);
-    return <Container position={offset}>{children}</Container>;
+    return (
+      <Container position={offset} styles={styles}>
+        {children}
+      </Container>
+    );
   }
 }
 
-export interface IContainerProps {
+export interface IContainerProps extends IStyledProps<HTMLDivElement> {
   position: {
     top: number;
     left: number;
@@ -144,11 +149,11 @@ const Container = styled<IContainerProps, "div">("div")(
     position: "absolute",
     boxSizing: "border-box",
     zIndex: 2000,
-    backgroundColor: "white",
     boxShadow: "0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08)",
     borderBottomLeftRadius: 2,
     borderBottomRightRadius: 2
   },
+  override,
   ({ position: { width, top, left, height } }) => ({
     width,
     top: top + height,
