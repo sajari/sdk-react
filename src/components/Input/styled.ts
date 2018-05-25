@@ -74,7 +74,11 @@ export const inputResetStyles = {
   container: {
     background: "none",
     padding: 0,
-    maxWidth: `calc(100% - ${searchIconSize})`
+    maxWidth: `calc(100% - ${searchIconSize})`,
+    "& > div": {
+      // fixes sizing bug in firefox
+      overflow: "unset !important"
+    }
   },
   input: {
     height: 34,
