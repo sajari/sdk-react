@@ -153,7 +153,6 @@ export const Suggestion = styled<ISuggestionProps, "div">("div")(
 export const Typeahead = styled<IStyledProps<HTMLSpanElement>, "span">("span")(
   {
     position: "relative",
-    zIndex: -1,
     display: "inline",
     marginLeft: -2,
     color: "#bebebe",
