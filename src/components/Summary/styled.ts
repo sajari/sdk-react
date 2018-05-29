@@ -4,7 +4,6 @@ import {
   IStyledProps,
   ITheme,
   override,
-  strip,
   styled,
   StyledComponent
 } from "../styles";
@@ -26,7 +25,7 @@ export const Emphasis = styled("strong")(
   },
 
   ({ theme }) => ({
-    // @ts-ignore
+    // @ts-ignore: idx
     color: idx(theme, _ => _.colors.brandPrimary) || "#aaa"
   }),
   override

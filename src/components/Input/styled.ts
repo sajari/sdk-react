@@ -4,7 +4,6 @@ import {
   IStyledProps,
   ITheme,
   override,
-  strip,
   styled,
   StyledComponent
 } from "../styles";

@@ -4,7 +4,6 @@ import {
   IStyledProps,
   ITheme,
   override,
-  strip,
   styled,
   StyledComponent
 } from "../../styles";
@@ -27,14 +26,14 @@ export const Container = styled<IContainerProps, "div">("div")(
   ({ theme, isSelected }) =>
     isSelected
       ? {
-          // @ts-ignore
+          // @ts-ignore: idx
           color: idx(theme, _ => _.colors.brand.primary) || "#333",
           borderBottom: "3px solid"
         }
       : {
           borderBottom: "3px solid transparent",
           "&:hover": {
-            // @ts-ignore
+            // @ts-ignore: idx
             color: idx(theme, _ => _.colors.brand.primary) || "#333"
           }
         },

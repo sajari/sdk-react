@@ -5,12 +5,9 @@ import {
   IStyledProps,
   ITheme,
   override,
-  strip,
   styled,
   StyledComponent
 } from "../styles";
-
-const clean = strip([]);
 
 export interface IContainerProps extends IStyledProps<HTMLDivElement> {
   showImage: boolean;
@@ -59,11 +56,11 @@ export const Title = styled<ITitleProps, "h3">("h3")(
     textOverflow: "ellipsis"
   },
   ({ theme }) => ({
-    // @ts-ignore: If an intermediate property is either null or undefined, it is instead returned
+    // @ts-ignore: idx
     color: idx(theme, _ => _.colors.brand.primary) || "#333",
     // @ts-ignore: fixed by babel-plugin-emotion
     [Link]: {
-      // @ts-ignore: If an intermediate property is either null or undefined, it is instead returned
+      // @ts-ignore: idx
       color: idx(theme, _ => _.colors.brand.primary) || "#333"
     }
   }),
