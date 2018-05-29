@@ -1,5 +1,5 @@
 // @ts-ignore: module missing defintion file
-import { Client } from "sajari";
+import { Client } from "@sajari/sdk-js";
 
 import {
   EVENT_RESPONSE_UPDATED,

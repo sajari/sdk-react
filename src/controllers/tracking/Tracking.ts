@@ -1,5 +1,10 @@
-// @ts-ignore: module missing defintion file
-import { Session, TextSession, TrackingClick, TrackingNone } from "sajari";
+import {
+  Session,
+  TextSession,
+  TrackingClick,
+  TrackingNone
+  // @ts-ignore: module missing defintion file
+} from "@sajari/sdk-js";
 
 import { EVENT_TRACKING_RESET } from "../../events";
 import { CallbackFn, Listener, ListenerMap, UnlistenFn } from "../listener";

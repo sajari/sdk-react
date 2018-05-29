@@ -1,5 +1,5 @@
 // @ts-ignore: module missing defintion file
-import { Session, TextSession, TrackingClick } from "sajari";
+import { Session, TextSession, TrackingClick } from "@sajari/sdk-js";
 
 import { Tracking } from "./Tracking";
 import { getTrackingData } from "./utils";
