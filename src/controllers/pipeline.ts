@@ -1,5 +1,5 @@
 // @ts-ignore: module missing defintion file
-import { Client } from "@sajari/sdk-js";
+import { Client, withEndpoint } from "@sajari/sdk-js";
 
 import {
   EVENT_RESPONSE_UPDATED,
@@ -22,6 +22,7 @@ export class Pipeline {
   public config: {
     project: string;
     collection: string;
+    endpoint?: string;
   };
 
   private client: Client;
@@ -34,21 +35,26 @@ export class Pipeline {
 
   /**
    * Constructs a Pipeline object.
-   * @param project Name of the project
-   * @param collection Name of the collection
+   * @param config Project, Collection config
    * @param name Name of the pipeline.
    * @param [tracking=ClickTracking()] Default tracking to use in searches.
    * @param [analyticsAdapters=GoogleAnalytics]
    */
   constructor(
-    project: string,
-    collection: string,
+    config: {
+      project: string;
+      collection: string;
+      endpoint?: string;
+    },
     name: string,
     tracking = new ClickTracking(),
     analyticsAdapters = [GoogleAnalytics]
   ) {
-    this.config = { project, collection };
-    this.client = new Client(project, collection).pipeline(name);
+    const { project, collection, endpoint } = config;
+    this.config = config;
+    const opts = endpoint !== undefined ? [withEndpoint(endpoint)] : [];
+
+    this.client = new Client(project, collection, opts).pipeline(name);
     this.name = name;
     this.tracking = tracking;
     this.listeners = new Map([

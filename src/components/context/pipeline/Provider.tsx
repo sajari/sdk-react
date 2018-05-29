@@ -122,9 +122,12 @@ export class Provider extends React.PureComponent<
 
     this.instant = instant;
     if (this.instant === undefined) {
-      const { project, collection } = search.pipeline.config;
+      const { project, collection, endpoint } = search.pipeline.config;
       this.instant = {
-        pipeline: new Pipeline(project, collection, "autocomplete"),
+        pipeline: new Pipeline(
+          { project, collection, endpoint },
+          "autocomplete"
+        ),
         values: new Values()
       };
     }
