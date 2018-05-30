@@ -12,10 +12,10 @@ import { Response } from "../../controllers/response";
 import { Consumer } from "../context";
 import { SearchFn } from "../context/pipeline/context";
 import { InputBox } from "./InputBox";
-import { IRenderFnProps, Resizer } from "./Resizer";
+import { RenderFnProps, Resizer } from "./Resizer";
 import { Suggestions } from "./Suggestions";
 
-import { IConfig } from "../../config";
+import { Config } from "../../config";
 import {
   Container,
   Input as SearchInput,
@@ -27,31 +27,31 @@ import {
   Typeahead
 } from "./styled";
 
-export interface IInputProps {
+export interface InputProps {
   autocomplete: boolean | "dropdown";
   autofocus?: boolean;
   instant?: boolean;
-  styles?: IInputStyles;
+  styles?: InputStyles;
 
   DropdownRenderer?: React.ComponentType;
   onSearchButtonClick?: (event: any, search: SearchFn, value: string) => void;
 }
 
-export interface IInputState {
+export interface InputState {
   inputValue: string;
 }
 
-export interface IInputStyles {
+export interface InputStyles {
   container?: any;
   input?: any;
   dropdown?: any;
 }
 
-export class Input extends React.Component<IInputProps, IInputState> {
+export class Input extends React.Component<InputProps, InputState> {
   public static defaultProps = {
     autocomplete: false,
-    instant: false,
-    autofocus: false
+    autofocus: false,
+    instant: false
   };
 
   public state = { inputValue: "" };
@@ -77,14 +77,16 @@ export class Input extends React.Component<IInputProps, IInputState> {
     return (
       <Consumer>
         {({
-          search: { response, completion, suggestions, search, config },
+          search: { response, completion, suggestions, search, config, query },
           instant: {
             search: instantSearch,
             suggestions: instantSuggestions,
-            completion: instantCompletion
+            completion: instantCompletion,
+            query: instantQuery
           }
         }) => (
           <Downshift
+            defaultInputValue={isNotEmptyString(query, instantQuery)}
             stateReducer={this.stateReducer(instantSearch)}
             onSelect={this.handleSelect(search, instantSearch)}
           >
@@ -93,7 +95,7 @@ export class Input extends React.Component<IInputProps, IInputState> {
               getInputProps,
               getItemProps,
               isOpen,
-              inputValue: value = "",
+              inputValue,
               highlightedIndex,
               selectedItem,
               selectItem,
@@ -107,13 +109,18 @@ export class Input extends React.Component<IInputProps, IInputState> {
                 isOpen &&
                 isNotEmptyArray(suggestions, instantSuggestions).length > 0;
 
+              const value = isNotEmptyString(
+                inputValue as string,
+                isNotEmptyString(query, instantQuery)
+              );
+
               return (
                 <Container
                   {...getRootProps({ refKey: "innerRef" })}
                   styles={idx(styles, _ => _.container)}
                 >
                   <InputBox
-                    value={value as string}
+                    inputValue={value}
                     autocomplete={autocomplete}
                     instant={instant as boolean}
                     autofocus={autofocus as boolean}
@@ -148,7 +155,7 @@ export class Input extends React.Component<IInputProps, IInputState> {
                           suggestions,
                           instantSuggestions
                         )}
-                        inputValue={value as string}
+                        inputValue={inputValue as string}
                         highlightedIndex={highlightedIndex as number}
                         getItemProps={getItemProps}
                       />
@@ -188,7 +195,7 @@ export class Input extends React.Component<IInputProps, IInputState> {
     );
 
   private stateReducer = (search: SearchFn) => (
-    state: DownshiftState,
+    downshiftState: DownshiftState,
     changes: any
   ) => {
     switch (changes.type) {
@@ -196,7 +203,7 @@ export class Input extends React.Component<IInputProps, IInputState> {
       case Downshift.stateChangeTypes.mouseUp:
         return {
           ...changes,
-          inputValue: state.inputValue
+          inputValue: downshiftState.inputValue
         };
 
       case Downshift.stateChangeTypes.keyDownEscape:
@@ -209,7 +216,7 @@ export class Input extends React.Component<IInputProps, IInputState> {
         return changes;
 
       default:
-        if (state.highlightedIndex === null) {
+        if (downshiftState.highlightedIndex === null) {
           return {
             ...changes,
             highlightedIndex: 0
@@ -221,14 +228,14 @@ export class Input extends React.Component<IInputProps, IInputState> {
   };
 }
 
-const isOverride = (response: Response | null, config: IConfig) => {
-  let isOverride = false;
+const isOverride = (response: Response | null, config: Config) => {
+  let override = false;
   if (response !== null && response.getQueryValues() !== undefined) {
-    isOverride = Boolean(
+    override = Boolean(
       (response.getQueryValues() as Map<string, string>).get(
         config.qOverrideParam
       )
     );
   }
-  return isOverride;
+  return override;
 };

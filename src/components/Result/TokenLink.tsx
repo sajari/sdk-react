@@ -4,7 +4,7 @@ import { Link } from "./styled";
 
 const TOKEN_URL = "https://www.sajari.com/token/";
 
-export interface ITokenLinkProps {
+export interface TokenLinkProps {
   token: string;
   url: string;
   resultClicked: ResultClickedFn;
@@ -14,13 +14,13 @@ export interface ITokenLinkProps {
   styles?: React.CSSProperties;
 }
 
-export interface ITokenLinkState {
+export interface TokenLinkState {
   clicked: boolean;
 }
 
 export class TokenLink extends React.PureComponent<
-  ITokenLinkProps,
-  ITokenLinkState
+  TokenLinkProps,
+  TokenLinkState
 > {
   public state = { clicked: false };
 

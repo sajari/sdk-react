@@ -3,11 +3,11 @@ import { FilterConsumer } from "../context/filter";
 import { CheckedIcon, EmptyIcon } from "./icons";
 import { Container, HiddenInput, icon as iconStyles } from "./styled";
 
-export interface ICheckboxProps {
+export interface CheckboxProps {
   name: string;
 }
 
-export class Checkbox extends React.Component<ICheckboxProps> {
+export class Checkbox extends React.Component<CheckboxProps> {
   public render() {
     const { name } = this.props;
 

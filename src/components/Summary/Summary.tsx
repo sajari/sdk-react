@@ -7,14 +7,14 @@ import { formatQueryTime } from "./utils";
 
 import { Container, Emphasis, OverrideContainer } from "./styled";
 
-export interface ISummaryProps {
+export interface SummaryProps {
   styles?: {
     container?: React.CSSProperties;
-    override?: IOverrideStyles;
+    override?: OverrideStyles;
   };
 }
 
-export class Summary extends React.Component<ISummaryProps> {
+export class Summary extends React.Component<SummaryProps> {
   public render() {
     const { styles = {} } = this.props;
 
@@ -60,19 +60,19 @@ export class Summary extends React.Component<ISummaryProps> {
   }
 }
 
-export interface IOverrideProps {
+export interface OverrideProps {
   responseQuery: string;
   query: string;
   search: SearchFn;
 
-  styles?: IOverrideStyles | null;
+  styles?: OverrideStyles | null;
 }
 
-export interface IOverrideStyles {
+export interface OverrideStyles {
   container?: React.CSSProperties;
 }
 
-const Override: React.SFC<IOverrideProps> = ({
+const Override: React.SFC<OverrideProps> = ({
   responseQuery,
   query,
   search,

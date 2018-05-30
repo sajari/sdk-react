@@ -1,16 +1,16 @@
 import * as React from "react";
 import { Filter } from "../../controllers";
-import { FilterProvider, IFilterContext } from "../context/filter";
+import { FilterContext, FilterProvider } from "../context/filter";
 
 import { Container, TabsContainer } from "./styled";
 import { Tab } from "./Tab";
 
-export interface ITabsProps {
+export interface TabsProps {
   filter: Filter;
   tabs: Array<{ name: string; display: string }>;
 }
 
-export const Tabs: React.SFC<ITabsProps> = ({ filter, tabs }) => (
+export const Tabs: React.SFC<TabsProps> = ({ filter, tabs }) => (
   <FilterProvider filter={filter}>
     <Container>
       <TabsContainer>

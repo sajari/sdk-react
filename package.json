@@ -26,7 +26,7 @@
     "examples": "webpack-serve --config examples/webpack.config.js",
     "fmt": "prettier --write --config .prettierrc.js \"src/**/*.{ts,tsx}\"",
     "prelint": "npm-run-all type-check",
-    "lint": "tslint -c tslint.json --fix \"src/**/*.{ts,tsx}\"",
+    "lint": "tslint -p tsconfig.json -c tslint.json --fix \"src/**/*.{ts,tsx}\"",
     "test": "jest",
     "type-check": "tsc --noEmit"
   },

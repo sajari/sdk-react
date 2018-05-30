@@ -5,7 +5,7 @@ import { isNotEmptyArray, isNotEmptyString, trimPrefix } from "./utils";
 import { Typeahead as Container } from "./styled";
 import { Suggestions } from "./Suggestions";
 
-export interface ITypeaheadProps {
+export interface TypeaheadProps {
   isActive: boolean;
   autocomplete: boolean | "dropdown";
   completion: string[];
@@ -15,7 +15,7 @@ export interface ITypeaheadProps {
   styles?: React.CSSProperties | null;
 }
 
-export const Typeahead: React.SFC<ITypeaheadProps> = ({
+export const Typeahead: React.SFC<TypeaheadProps> = ({
   isActive,
   autocomplete,
   completion,

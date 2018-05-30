@@ -1,35 +1,35 @@
 import { css } from "emotion";
 import * as React from "react";
 import {
-  IStyledProps,
-  ITheme,
   override,
   styled,
-  StyledComponent
+  StyledComponent,
+  StyledProps,
+  Theme
 } from "../styles";
 
 const iconSize = "1rem";
 
 const size = {
-  width: iconSize,
   height: iconSize,
   minHeight: iconSize,
-  minWidth: iconSize
+  minWidth: iconSize,
+  width: iconSize
 };
 
 export const icon = css(size);
 
-export interface IContainerProps extends IStyledProps<HTMLDivElement> {
+export interface ContainerProps extends StyledProps<HTMLDivElement> {
   isSelected: boolean;
 }
 
-export const Container = styled<IContainerProps, "div">("div")(
+export const Container = styled<ContainerProps, "div">("div")(
   {
-    display: "inline-block",
-    cursor: "pointer",
     "&:hover": {
       color: "#333"
-    }
+    },
+    cursor: "pointer",
+    display: "inline-block"
   },
   ({ isSelected }) => ({ color: isSelected ? "blue" : "#999" }),
   size,
@@ -40,10 +40,10 @@ export const HiddenInput = styled("input")({
   border: 0,
   clip: "rect(1px, 1px, 1px, 1px)",
   height: 1,
+  opacity: 0,
   overflow: "hidden",
   padding: 0,
   position: "absolute",
   whiteSpace: "nowrap",
-  width: 1,
-  opacity: 0
+  width: 1
 });

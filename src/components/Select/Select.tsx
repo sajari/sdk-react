@@ -5,19 +5,19 @@ import * as React from "react";
 // @ts-ignore: module missing defintions file
 import ReactSelect from "react-select";
 
-import { Filter, IOptions } from "../../controllers/filter";
+import { Filter, Options } from "../../controllers/filter";
 import {
   FilterConsumer,
-  FilterProvider,
-  IFilterContext
+  FilterContext,
+  FilterProvider
 } from "../context/filter";
 import { styles as defaultStyles } from "./styled";
 
-export interface ISelectProps {
+export interface SelectProps {
   filter: Filter;
 }
 
-export const Select: React.SFC<ISelectProps> = ({ filter }) => (
+export const Select: React.SFC<SelectProps> = ({ filter }) => (
   <FilterProvider filter={filter}>
     <FilterConsumer>
       {({ options, selected, set }) => {
@@ -35,7 +35,7 @@ export const Select: React.SFC<ISelectProps> = ({ filter }) => (
 );
 
 const mapOptions = memoize(
-  (options: IOptions) =>
+  (options: Options) =>
     Object.entries(options).map(([label, value]) => ({
       label,
       value

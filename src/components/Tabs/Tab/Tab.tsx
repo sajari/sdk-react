@@ -1,13 +1,13 @@
 import * as React from "react";
-import { FilterConsumer, IFilterContext } from "../../context/filter";
+import { FilterConsumer, FilterContext } from "../../context/filter";
 
 import { Container } from "./styled";
 
-export interface ITabProps {
+export interface TabProps {
   title: string;
 }
 
-export const Tab: React.SFC<ITabProps> = ({ title }) => (
+export const Tab: React.SFC<TabProps> = ({ title }) => (
   <FilterConsumer>
     {({ selected, set }) => {
       const isSelected = selected.includes(title);

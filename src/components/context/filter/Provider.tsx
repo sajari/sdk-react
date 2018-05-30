@@ -3,32 +3,32 @@ import { isEqual } from "lodash-es";
 import memoize from "memoize-one";
 import * as React from "react";
 import { Filter } from "../../../controllers";
-import { IOptions } from "../../../controllers/filter";
+import { Options } from "../../../controllers/filter";
 import { UnlistenFn } from "../../../controllers/listener";
 import {
   EVENT_OPTIONS_UPDATED,
   EVENT_SELECTION_UPDATED
 } from "../../../events";
-import { Context, IFilterContext } from "./context";
+import { Context, FilterContext } from "./context";
 
-export interface IFilterProviderProps {
+export interface FilterProviderProps {
   filter: Filter;
 }
 
-export interface IFilterProviderState {
-  options: IOptions;
+export interface FilterProviderState {
+  options: Options;
   selected: string[];
 }
 
 export class FilterProvider extends React.PureComponent<
-  IFilterProviderProps,
-  IFilterProviderState
+  FilterProviderProps,
+  FilterProviderState
 > {
   public state = { options: {}, selected: [] };
   private unregisterFuntions: UnlistenFn[] = [];
 
   private getContext = memoize(
-    (state: IFilterProviderState) => ({
+    (state: FilterProviderState) => ({
       ...state,
       set: (name: string, value: boolean) => this.props.filter.set(name, value)
     }),

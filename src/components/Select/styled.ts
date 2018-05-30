@@ -1,25 +1,26 @@
+// tslint:disable
 export const styles = {
   container: (base: any, { isFocused }: { [k: string]: boolean }) => {
     return {
       ...base,
-      width: "auto",
+      borderBottom: "1px solid",
+      borderBottomColor: isFocused ? "currentcolor" : "#ccc",
       display: "inline-block",
       padding: "0.25rem 0",
-      borderBottom: "1px solid",
-      borderBottomColor: isFocused ? "currentcolor" : "#ccc"
+      width: "auto"
     };
   },
   control: (base: any, { isFocused }: { [k: string]: boolean }) => {
     return {
       ...base,
-      minHeight: 0,
       backgroundColor: "transparent",
-      fontSize: "0.8rem",
-      borderRadius: 0,
-      color: "#666",
       border: "none",
+      borderRadius: 0,
       boxShadow: null,
+      color: "#666",
       display: "inline-flex",
+      fontSize: "0.8rem",
+      minHeight: 0,
       minWidth: "120px"
     };
   },
@@ -39,9 +40,9 @@ export const styles = {
   },
   menu: (base: any) => ({
     ...base,
-    width: "100%",
     borderRadius: 0,
-    fontSize: "0.8rem"
+    fontSize: "0.8rem",
+    width: "100%"
   }),
   menuList: (base: any) => ({
     ...base,
@@ -59,8 +60,8 @@ export const styles = {
     padding: "0 0 0 .5rem"
   }),
   singleValue: () => ({
-    padding: 0,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    padding: 0
   }),
   placeholder: (base: any) => ({
     padding: 0

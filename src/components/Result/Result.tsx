@@ -5,10 +5,10 @@ import { Consumer } from "../context";
 import { ResultClickedFn } from "../context/pipeline/context";
 import { TokenLink } from "./TokenLink";
 
-import { Container, Description, Title, URL } from "./styled";
 import { Image } from "./Image";
+import { Container, Description, Title, URL } from "./styled";
 
-export interface IResultProps {
+export interface ResultProps {
   token: string;
   values: { [k: string]: string | string[] };
   resultClicked: ResultClickedFn;
@@ -16,17 +16,17 @@ export interface IResultProps {
   indexScore?: number;
   showImage?: boolean;
 
-  styles?: IResultStyles | null;
+  styles?: ResultStyles | null;
 }
 
-export interface IResultStyles {
+export interface ResultStyles {
   container?: React.CSSProperties;
   title?: React.CSSProperties;
   description?: React.CSSProperties;
   url?: React.CSSProperties;
 }
 
-export class Result extends React.Component<IResultProps> {
+export class Result extends React.Component<ResultProps> {
   public render() {
     const { token, values, resultClicked, showImage = false } = this.props;
     let styles = this.props.styles;

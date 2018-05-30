@@ -3,11 +3,11 @@ import { FilterConsumer } from "../context/filter";
 import { CheckedIcon, EmptyIcon } from "./icons";
 import { Container, HiddenInput, iconStyles } from "./styled";
 
-export interface IRadioProps {
+export interface RadioProps {
   name: string;
 }
 
-export class Radio extends React.Component<IRadioProps> {
+export class Radio extends React.Component<RadioProps> {
   public render() {
     const { name } = this.props;
 

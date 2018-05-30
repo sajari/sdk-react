@@ -4,7 +4,7 @@ import { Listener } from "./listener";
 const events = [EVENT_SELECTION_UPDATED, EVENT_OPTIONS_UPDATED];
 
 export type OptionsFn = () => string;
-export interface IOptions {
+export interface Options {
   [k: string]: string | OptionsFn;
 }
 export type CallbackFn = (filter: Filter) => void;
@@ -14,7 +14,7 @@ export type CallbackFn = (filter: Filter) => void;
  */
 export class Filter {
   private current: string[];
-  private options: IOptions;
+  private options: Options;
   private multi: boolean;
   private joinOperator: "OR" | "AND";
   private listeners: { [k: string]: Listener };
@@ -26,7 +26,7 @@ export class Filter {
    * const filter = new Filter({});
    */
   constructor(
-    options: IOptions, // Dictionary of name -> filter pairs
+    options: Options, // Dictionary of name -> filter pairs
     initial: string | string[] = [], // List of initially selected items
     multi: boolean = false, // Multiple selections allowed?
     joinOperator: "OR" | "AND" = "OR" // Join operator used if multi = true
@@ -107,7 +107,7 @@ export class Filter {
   /**
    * Get all the options defined in this filter.
    */
-  public getOptions(...fields: string[]): IOptions {
+  public getOptions(...fields: string[]): Options {
     return this.options;
   }
 

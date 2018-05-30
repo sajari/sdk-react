@@ -2,48 +2,43 @@ import { css } from "emotion";
 import idx from "idx";
 import * as React from "react";
 import {
-  IStyledProps,
-  ITheme,
   override,
   styled,
-  StyledComponent
+  StyledComponent,
+  StyledProps,
+  Theme
 } from "../styles";
 
 import { Container as ResultContainer } from "../Result/styled";
 
-export const Error = styled("div")(
-  {
-    color: "red"
-  },
-  override
-);
+export const Error = styled("div")({ color: "red" }, override);
 
-export interface IContainerProps extends IStyledProps<HTMLOListElement> {}
+export interface ContainerProps extends StyledProps<HTMLOListElement> {}
 
-export const Container = styled<IContainerProps, "ol">("ol")(
+export const Container = styled<ContainerProps, "ol">("ol")(
   {
     display: "flex",
     flexWrap: "wrap",
-    width: "100%",
     listStyle: "none",
     margin: 0,
-    padding: 0
+    padding: 0,
+    width: "100%"
   },
   override
 );
 
-export interface IResultItemProps extends IStyledProps<HTMLLIElement> {}
+export interface ResultItemProps extends StyledProps<HTMLLIElement> {}
 
 const gridItem = css({
   boxSizing: "border-box",
-  width: "25%",
-  padding: "0.5rem"
+  padding: "0.5rem",
+  width: "25%"
 });
 
-export const ResultItem = styled<IResultItemProps, "li">("li")(
+export const ResultItem = styled<ResultItemProps, "li">("li")(
   {
-    width: "100%",
-    marginBottom: "1.5rem"
+    marginBottom: "1.5rem",
+    width: "100%"
   },
   ({ theme }) =>
     // @ts-ignore: idx

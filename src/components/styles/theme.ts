@@ -1,4 +1,4 @@
-export interface ITheme {
+export interface Theme {
   layout?: {
     type?: "list" | "grid";
     custom?: {

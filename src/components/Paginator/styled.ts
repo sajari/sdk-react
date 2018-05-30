@@ -1,11 +1,11 @@
 import idx from "idx";
 import * as React from "react";
 import {
-  IStyledProps,
-  ITheme,
   override,
   styled,
-  StyledComponent
+  StyledComponent,
+  StyledProps,
+  Theme
 } from "../styles";
 
 export const Container = styled("nav")({
@@ -13,16 +13,16 @@ export const Container = styled("nav")({
   textAlign: "center"
 });
 
-export interface IPageNumberProps {
+export interface PageNumberProps {
   isCurrent?: boolean;
 }
 
-export const PageNumber = styled<IPageNumberProps, "a">("a")(
+export const PageNumber = styled<PageNumberProps, "a">("a")(
   {
-    display: "inline-block",
-    padding: 10,
-    fontWeight: "bold",
     cursor: "pointer",
+    display: "inline-block",
+    fontWeight: "bold",
+    padding: 10,
     userSelect: "none"
   },
   ({ isCurrent: curr, theme }) => ({
@@ -32,23 +32,23 @@ export const PageNumber = styled<IPageNumberProps, "a">("a")(
   override
 );
 
-export interface IPageButtonProps {
+export interface PageButtonProps {
   isDisabled?: boolean;
 }
 
-export const PageButton = styled<IPageButtonProps, "button">("button")(
+export const PageButton = styled<PageButtonProps, "button">("button")(
   {
-    display: "inline-block",
-    padding: 10,
-    fontWeight: "bold",
-    cursor: "pointer",
-    userSelect: "none",
-    border: "none",
-    backgroundColor: "transparent",
-    fontSize: "1rem",
     "&:active, &:focus": {
       outline: "none"
-    }
+    },
+    backgroundColor: "transparent",
+    border: "none",
+    cursor: "pointer",
+    display: "inline-block",
+    fontSize: "1rem",
+    fontWeight: "bold",
+    padding: 10,
+    userSelect: "none"
   },
   props => ({ color: props.isDisabled ? "#aaa" : "#777" })
 );

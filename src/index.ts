@@ -12,7 +12,7 @@ export {
 export {
   Consumer,
   Provider,
-  IFilterContext,
+  FilterContext,
   FilterProvider,
   Input,
   Response,
@@ -26,6 +26,8 @@ export {
   Checkbox,
   Radio
 } from "./components";
+
+export { Overlay } from "./containers";
 
 export {
   EVENT_SELECTION_UPDATED,

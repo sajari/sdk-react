@@ -2,90 +2,101 @@ import { isEqual } from "lodash-es";
 // @ts-ignore: module missing defintion file
 import memoize from "memoize-one";
 import * as React from "react";
-import { defaultConfig, IConfig } from "../../../config";
+import { Config, defaultConfig } from "../../../config";
 import { Pipeline, Response, Values } from "../../../controllers";
 import { UnlistenFn } from "../../../controllers/listener";
 import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from "../../../events";
-import { Context, IContext } from "./context";
+import { Context, PipelineContext } from "./context";
 
-export interface IProviderPipelineConfig {
+export interface ProviderPipelineConfig {
   pipeline: Pipeline;
   values: Values;
-  config?: IConfig;
+  config?: Config;
 }
 
-export interface IProviderPipelineState {
+export interface ProviderPipelineState {
   response: Response | null;
   query: string;
-  config: IConfig;
+  config: Config;
   completion: string;
   suggestions: string[];
 }
 
-export interface IPipelineProviderProps {
-  search: IProviderPipelineConfig;
-  instant?: IProviderPipelineConfig;
+export interface PipelineProviderProps {
+  search: ProviderPipelineConfig;
+  instant?: ProviderPipelineConfig;
 
   theme?: any;
 }
 
-export interface IPipelineProviderState {
-  search: IProviderPipelineState;
-  instant: IProviderPipelineState;
+export interface PipelineProviderState {
+  search: ProviderPipelineState;
+  instant: ProviderPipelineState;
 }
 
 const defaultState = {
   response: null,
   query: "",
-  config: defaultConfig,
   completion: "",
-  suggestions: []
+  suggestions: [],
+  config: defaultConfig
+} as {
+  response: Response | null;
+  query: string;
+  completion: string;
+  suggestions: string[];
+  config: Config;
 };
 
 export class Provider extends React.PureComponent<
-  IPipelineProviderProps,
-  IPipelineProviderState
+  PipelineProviderProps,
+  PipelineProviderState
 > {
-  public state = {
+  public state: PipelineProviderState = {
     search: defaultState,
     instant: defaultState
   };
 
   private unregisterFunctions: UnlistenFn[] = [];
-  private instant?: IProviderPipelineConfig;
+  private instant?: ProviderPipelineConfig;
 
   private getContext = memoize(
-    (state: IPipelineProviderState) => ({
-      ...state,
-      search: {
-        ...state.search,
-        search: this.search("search")
-      },
-      instant: {
-        ...state.instant,
-        search: this.search("instant")
-      },
-      paginate: this.handlePaginate,
-      resultClicked: this.handleResultClicked
-    }),
+    (state: PipelineProviderState) =>
+      ({
+        ...state,
+        search: {
+          ...state.search,
+          search: this.search("search")
+        },
+        instant: {
+          ...state.instant,
+          search: this.search("instant")
+        },
+        resultClicked: this.handleResultClicked,
+        paginate: this.handlePaginate
+      } as Context),
     isEqual
   );
 
   public componentDidMount() {
     const { search, instant } = this.props;
 
-    this.setState(state => ({
-      ...state,
-      search: {
-        ...state.search,
-        config: { ...defaultConfig, ...search.config },
-        response: search.pipeline.getResponse()
-      },
-      instant: {
-        ...state.instant,
-        config: { ...defaultConfig, ...search.config }
-      }
-    }));
+    this.setState(
+      state =>
+        ({
+          ...state,
+          search: {
+            ...state.search,
+            response: search.pipeline.getResponse(),
+            query: search.values.get().q || "",
+            config: { ...defaultConfig, ...search.config }
+          },
+          instant: {
+            ...state.instant,
+            config: { ...defaultConfig, ...search.config }
+          }
+        } as PipelineProviderState)
+    );
 
     this.unregisterFunctions.push(
       search.pipeline.listen(EVENT_RESPONSE_UPDATED, (response: Response) =>
@@ -133,7 +144,7 @@ export class Provider extends React.PureComponent<
     }
 
     this.unregisterFunctions.push(
-      (this.instant as IProviderPipelineConfig).pipeline.listen(
+      (this.instant as ProviderPipelineConfig).pipeline.listen(
         EVENT_RESPONSE_UPDATED,
         (response: Response) =>
           this.setState(state => ({
@@ -142,7 +153,7 @@ export class Provider extends React.PureComponent<
               ...state.instant,
               response,
               ...responseUpdatedListener(
-                (this.instant as IProviderPipelineConfig).values,
+                (this.instant as ProviderPipelineConfig).values,
                 state.instant.config,
                 response
               )
@@ -152,7 +163,7 @@ export class Provider extends React.PureComponent<
     );
 
     this.unregisterFunctions.push(
-      (this.instant as IProviderPipelineConfig).values.listen(
+      (this.instant as ProviderPipelineConfig).values.listen(
         EVENT_VALUES_UPDATED,
         () =>
           this.setState(state => ({
@@ -160,8 +171,8 @@ export class Provider extends React.PureComponent<
             instant: {
               ...state.instant,
               ...valuesUpdatedListener(
-                (this.instant as IProviderPipelineConfig).values,
-                (this.instant as IProviderPipelineConfig).pipeline,
+                (this.instant as ProviderPipelineConfig).values,
+                (this.instant as ProviderPipelineConfig).pipeline,
                 state.instant.config
               )
             }
@@ -179,7 +190,11 @@ export class Provider extends React.PureComponent<
     const { children } = this.props;
     const value = this.getContext(this.state);
 
-    return <Context.Provider value={value}>{children}</Context.Provider>;
+    return (
+      <PipelineContext.Provider value={value}>
+        {children}
+      </PipelineContext.Provider>
+    );
   }
 
   private search = (key: "search" | "instant") => (
@@ -187,7 +202,7 @@ export class Provider extends React.PureComponent<
     override: boolean = false
   ) => {
     const { pipeline, values } =
-      (this.props[key] as IProviderPipelineConfig) || this.instant;
+      (this.props[key] as ProviderPipelineConfig) || this.instant;
     const { config } = this.state[key];
 
     const text = {
@@ -221,7 +236,7 @@ export class Provider extends React.PureComponent<
 
 const responseUpdatedListener = (
   values: Values,
-  config: IConfig,
+  config: Config,
   response: Response
 ) => {
   const query = values.get()[config.qParam] || "";
@@ -233,7 +248,7 @@ const responseUpdatedListener = (
 const valuesUpdatedListener = (
   values: Values,
   pipeline: Pipeline,
-  config: IConfig
+  config: Config
 ) => {
   const query = values.get()[config.qParam] || "";
   const responseValues = pipeline.getResponse().getValues();
@@ -244,7 +259,7 @@ const valuesUpdatedListener = (
 const updateState = (
   query: string,
   responseValues: Map<string, string> | undefined,
-  config: IConfig
+  config: Config
 ) => {
   const completion =
     query && responseValues ? responseValues.get(config.qParam) || "" : "";

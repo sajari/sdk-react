@@ -2,23 +2,23 @@ import idx from "idx";
 import * as React from "react";
 
 import { Consumer } from "../context";
-import { IResultProps, IResultStyles, Result } from "../Result";
+import { Result, ResultProps, ResultStyles } from "../Result";
 
 import { Container, Error, ResultItem } from "./styled";
 
 const STATUS_UNAUTHORISED = 403;
 
-export interface IResultsProps {
-  ResultRenderer: React.ComponentType<IResultProps>;
+export interface ResultsProps {
+  ResultRenderer: React.ComponentType<ResultProps>;
   showImages?: boolean;
   styles?: {
     container?: React.CSSProperties;
     item?: React.CSSProperties;
-    result?: IResultStyles;
+    result?: ResultStyles;
   };
 }
 
-export class Results extends React.Component<IResultsProps, {}> {
+export class Results extends React.Component<ResultsProps, {}> {
   public static defaultProps = {
     ResultRenderer: Result
   };

@@ -2,58 +2,61 @@ import { css } from "emotion";
 import idx from "idx";
 import * as React from "react";
 import {
-  IStyledProps,
-  ITheme,
   override,
   styled,
-  StyledComponent
+  StyledComponent,
+  StyledProps,
+  Theme
 } from "../styles";
 
-export interface IContainerProps extends IStyledProps<HTMLDivElement> {
+export interface ContainerProps extends StyledProps<HTMLDivElement> {
   showImage: boolean;
 }
 
-export const Container = styled<IContainerProps, "div">("div")(
+export const Container = styled<ContainerProps, "div">("div")(
   {
-    width: "100%",
-    display: "flex"
+    display: "flex",
+    width: "100%"
   },
   ({ showImage }) =>
     showImage
-      ? { flexDirection: "row", alignItems: "center" }
+      ? {
+          alignItems: "center",
+          flexDirection: "row"
+        }
       : { flexDirection: "column" },
 
   // override styles
   override
 );
 
-export interface ILinkProps extends IStyledProps<HTMLAnchorElement> {}
+export interface LinkProps extends StyledProps<HTMLAnchorElement> {}
 
-export const Link = styled<ILinkProps, "a">("a")(
+export const Link = styled<LinkProps, "a">("a")(
   {
-    textDecoration: "none",
     "&:hover": {
       cursor: "pointer",
       textDecoration: "underline"
-    }
+    },
+    textDecoration: "none"
   },
 
   // override styles
   override
 );
 
-export interface ITitleProps extends IStyledProps<HTMLHeadingElement> {}
+export interface TitleProps extends StyledProps<HTMLHeadingElement> {}
 
-export const Title = styled<ITitleProps, "h3">("h3")(
+export const Title = styled<TitleProps, "h3">("h3")(
   {
-    marginTop: 0,
-    marginBottom: 0,
     fontSize: "1.1rem",
     fontWeight: 400,
     lineHeight: 1.1,
-    whiteSpace: "nowrap",
+    marginBottom: 0,
+    marginTop: 0,
     overflow: "hidden",
-    textOverflow: "ellipsis"
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap"
   },
   ({ theme }) => ({
     // @ts-ignore: idx
@@ -69,33 +72,33 @@ export const Title = styled<ITitleProps, "h3">("h3")(
   override
 );
 
-export interface IDescriptionProps extends IStyledProps<HTMLParagraphElement> {}
+export interface DescriptionProps extends StyledProps<HTMLParagraphElement> {}
 
-export const Description = styled<IDescriptionProps, "p">("p")(
+export const Description = styled<DescriptionProps, "p">("p")(
   {
     color: "#545454",
     fontSize: "0.85rem",
     lineHeight: 1.4,
-    wordWrap: "break-word",
-    overflowWrap: "break-word",
+    marginBottom: 4,
     marginTop: 2,
-    marginBottom: 4
+    overflowWrap: "break-word",
+    wordWrap: "break-word"
   },
   // override styles
   override
 );
 
-export interface IURLProps extends IStyledProps<HTMLParagraphElement> {}
+export interface URLProps extends StyledProps<HTMLParagraphElement> {}
 
-export const URL = styled<IURLProps, "p">("p")(
+export const URL = styled<URLProps, "p">("p")(
   {
     color: "#a2a2a2",
     fontSize: 13,
     lineHeight: 1.4,
     margin: 0,
-    whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
 
     // @ts-ignore: fixed by babel-plugin-emotion
     [Link]: {

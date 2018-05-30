@@ -1,4 +1,4 @@
 import * as React from "react";
-import { Context, IContext } from "./context";
+import { Context, PipelineContext } from "./context";
 
-export const Consumer = Context.Consumer;
+export const Consumer = PipelineContext.Consumer;

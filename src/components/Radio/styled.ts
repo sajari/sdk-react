@@ -1,16 +1,13 @@
 import * as React from "react";
 import {
-  IStyledProps,
-  ITheme,
   override,
   styled,
-  StyledComponent
+  StyledComponent,
+  StyledProps,
+  Theme
 } from "../styles";
 
-import {
-  Container as BaseContainer,
-  IContainerProps
-} from "../Checkbox/styled";
+import { Container as BaseContainer, ContainerProps } from "../Checkbox/styled";
 
 export { HiddenInput, icon as iconStyles } from "../Checkbox/styled";
 

@@ -3,14 +3,14 @@ import { isEqual } from "lodash-es";
 import memoize from "memoize-one";
 import * as React from "react";
 import ResizeObserver from "resize-observer-polyfill";
-import { styled, StyledComponent, override, IStyledProps } from "../styles";
+import { override, styled, StyledComponent, StyledProps } from "../styles";
 
-export interface IResizerProps {
+export interface ResizerProps {
   element?: HTMLElement;
   styles?: React.CSSProperties;
 }
 
-export interface IResizerState {
+export interface ResizerState {
   client: {
     top: number;
     left: number;
@@ -25,7 +25,7 @@ export interface IResizerState {
   };
 }
 
-export interface IRenderFnProps {
+export interface RenderFnProps {
   client: {
     top: number;
     left: number;
@@ -40,9 +40,9 @@ export interface IRenderFnProps {
   };
 }
 
-export type RenderFn = (props: IRenderFnProps) => React.ReactNode;
+export type RenderFn = (props: RenderFnProps) => React.ReactNode;
 
-export class Resizer extends React.Component<IResizerProps, IResizerState> {
+export class Resizer extends React.Component<ResizerProps, ResizerState> {
   public state = {
     client: {
       top: 0,
@@ -56,22 +56,22 @@ export class Resizer extends React.Component<IResizerProps, IResizerState> {
       width: 0,
       height: 0
     }
-  };
+  } as ResizerState;
 
   private observer?: ResizeObserver;
-  private getContainerProps = memoize((state: IResizerState) => state, isEqual);
+  private getContainerProps = memoize((state: ResizerState) => state, isEqual);
 
   public componentDidMount() {
     const { element } = this.props;
 
     this.observer = new ResizeObserver((entries, observer) => {
       for (const entry of entries) {
-        const newState: IResizerState = {
+        const newState: ResizerState = {
           client: {
             top: entry.target.clientTop,
             left: entry.target.clientLeft,
-            height: entry.target.clientHeight,
-            width: entry.target.clientWidth
+            width: entry.target.clientWidth,
+            height: entry.target.clientHeight
           },
           offset: {
             // @ts-ignore
@@ -79,9 +79,9 @@ export class Resizer extends React.Component<IResizerProps, IResizerState> {
             // @ts-ignore
             left: entry.target.offsetLeft,
             // @ts-ignore
-            height: entry.target.offsetHeight,
+            width: entry.target.offsetWidth,
             // @ts-ignore
-            width: entry.target.offsetWidth
+            height: entry.target.offsetHeight
           }
         };
 
@@ -102,7 +102,7 @@ export class Resizer extends React.Component<IResizerProps, IResizerState> {
     this.observer.observe(element);
   }
 
-  public componentDidUpdate(prevProps: IResizerProps) {
+  public componentDidUpdate(prevProps: ResizerProps) {
     const { element } = this.props;
     const { element: prevElem } = prevProps;
 
@@ -135,7 +135,7 @@ export class Resizer extends React.Component<IResizerProps, IResizerState> {
   }
 }
 
-export interface IContainerProps extends IStyledProps<HTMLDivElement> {
+export interface ContainerProps extends StyledProps<HTMLDivElement> {
   position: {
     top: number;
     left: number;
@@ -144,19 +144,19 @@ export interface IContainerProps extends IStyledProps<HTMLDivElement> {
   };
 }
 
-const Container = styled<IContainerProps, "div">("div")(
+const Container = styled<ContainerProps, "div">("div")(
   {
-    position: "absolute",
-    boxSizing: "border-box",
-    zIndex: 2000,
-    boxShadow: "0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08)",
     borderBottomLeftRadius: 2,
-    borderBottomRightRadius: 2
+    borderBottomRightRadius: 2,
+    boxShadow: "0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08)",
+    boxSizing: "border-box",
+    position: "absolute",
+    zIndex: 2000
   },
   override,
   ({ position: { width, top, left, height } }) => ({
+    left,
     width,
-    top: top + height,
-    left
+    top: top + height
   })
 );

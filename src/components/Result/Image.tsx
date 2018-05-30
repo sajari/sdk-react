@@ -1,19 +1,14 @@
-import * as React from "react";
 import { css, cx } from "emotion";
+import * as React from "react";
 
-export interface IImageProps {
+export interface ImageProps {
   alt: string;
   src: string;
 }
 
-export class Image extends React.PureComponent<
-  IImageProps,
-  { error: boolean }
-> {
-  state = { error: false };
-
-  static getDerivedStateFromProps(
-    nextProps: IImageProps,
+export class Image extends React.PureComponent<ImageProps, { error: boolean }> {
+  public static getDerivedStateFromProps(
+    nextProps: ImageProps,
     prevState: { error: boolean }
   ) {
     const { src } = nextProps;
@@ -23,7 +18,9 @@ export class Image extends React.PureComponent<
     return prevState;
   }
 
-  render() {
+  public state = { error: false };
+
+  public render() {
     const { alt, src } = this.props;
     const { error } = this.state;
 

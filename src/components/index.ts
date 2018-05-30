@@ -1,6 +1,6 @@
 export { Consumer, Provider } from "./context";
 export {
-  IFilterContext,
+  FilterContext,
   FilterConsumer,
   FilterProvider
 } from "./context/filter";

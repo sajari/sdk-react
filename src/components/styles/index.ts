@@ -1,7 +1,7 @@
 export {
   default as styled,
   StyledComponent,
-  IStyledProps,
+  StyledProps,
   override
 } from "./styled";
-export { ITheme } from "./theme";
+export { Theme } from "./theme";

@@ -4,16 +4,16 @@ import styled, {
   ThemedReactEmotionInterface
 } from "react-emotion";
 
-import { ITheme } from "./theme";
+import { Theme } from "./theme";
 
 export { StyledComponent };
-export default styled as ThemedReactEmotionInterface<ITheme>;
+export default styled as ThemedReactEmotionInterface<Theme>;
 
-export interface IStyledProps<T>
+export interface StyledProps<T>
   extends React.HTMLAttributes<T>,
     React.ClassAttributes<T> {
   styles?: React.CSSProperties | null;
-  theme?: ITheme;
+  theme?: Theme;
 }
 
 export const override = (props: any) => (props.styles ? props.styles : {});

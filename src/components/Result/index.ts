@@ -1,2 +1,2 @@
-export { Result, IResultProps, IResultStyles } from "./Result";
-export { TokenLink, ITokenLinkProps, ITokenLinkState } from "./TokenLink";
+export { Result, ResultProps, ResultStyles } from "./Result";
+export { TokenLink, TokenLinkProps, TokenLinkState } from "./TokenLink";

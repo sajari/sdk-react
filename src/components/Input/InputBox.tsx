@@ -23,8 +23,8 @@ type DownshiftSetStateFn = (state: { [k: string]: any }) => void;
 const RETURN_KEYCODE = 13;
 const RIGHT_ARROW_KEYCODE = 39;
 
-export interface IInputBoxProps {
-  value: string;
+export interface InputBoxProps {
+  inputValue: string;
   autocomplete: boolean | "dropdown";
   instant: boolean;
   autofocus: boolean;
@@ -51,12 +51,12 @@ export interface IInputBoxProps {
   };
 }
 
-export class InputBox extends React.Component<IInputBoxProps> {
+export class InputBox extends React.Component<InputBoxProps> {
   private input?: HTMLInputElement;
 
   public render() {
     const {
-      value,
+      inputValue,
       autocomplete,
       instant,
       autofocus,
@@ -95,7 +95,7 @@ export class InputBox extends React.Component<IInputBoxProps> {
               <InputInnerContainer styles={idx(styles, _ => _.input)}>
                 <SearchInput
                   minWidth={1}
-                  value={value}
+                  value={inputValue}
                   autoComplete="off"
                   autoCorrect="off"
                   autoCapitalize="off"
@@ -105,7 +105,6 @@ export class InputBox extends React.Component<IInputBoxProps> {
                   className={css(inputResetStyles.container)}
                   inputStyle={inputResetStyles.input}
                   {...getInputProps({
-                    onFocus: openMenu,
                     onChange: this.handleOnChange(
                       instant
                         ? search
@@ -113,6 +112,7 @@ export class InputBox extends React.Component<IInputBoxProps> {
                           ? search
                           : instantSearch
                     ),
+                    onFocus: openMenu,
                     onKeyDown: this.handleKeyDown(
                       autocomplete,
                       [completion, instantCompletion],
@@ -128,9 +128,9 @@ export class InputBox extends React.Component<IInputBoxProps> {
                     autocomplete &&
                     (autocomplete !== "dropdown" || isOpen) &&
                     !isOverride &&
-                    value !== ""
+                    inputValue !== ""
                   }
-                  value={value}
+                  value={inputValue}
                   autocomplete={autocomplete}
                   completion={[completion, instantCompletion]}
                   suggestions={[suggestions, instantSuggestions]}
@@ -149,11 +149,11 @@ export class InputBox extends React.Component<IInputBoxProps> {
             </SearchContainer>
             <span
               className={css({ display: "none" })}
-              {...getItemProps({ item: value as string })}
+              {...getItemProps({ item: inputValue })}
             />
             {autocomplete &&
             autocomplete !== "dropdown" &&
-            isNotEmptyString(completion, instantCompletion) !== value ? (
+            isNotEmptyString(completion, instantCompletion) !== inputValue ? (
               <span
                 className={css({ display: "none" })}
                 {...getItemProps({
@@ -182,16 +182,16 @@ export class InputBox extends React.Component<IInputBoxProps> {
   };
 
   private handleSearchButton = (search: SearchFn) => (event: any) => {
-    const { value, onSearchButtonClick } = this.props;
+    const { inputValue, onSearchButtonClick } = this.props;
 
     event.preventDefault();
 
     if (onSearchButtonClick !== undefined) {
-      onSearchButtonClick(event, search, value);
+      onSearchButtonClick(event, search, inputValue);
       return;
     }
 
-    search(value, true);
+    search(inputValue, true);
   };
 
   private handleOnChange = (search: SearchFn) => (event: any) => {

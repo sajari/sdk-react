@@ -58,6 +58,6 @@
     "src/**/*"
   ],
   "exclude": [
-    "src/**/*.test" 
+    "src/**/*.test.ts"
   ]
 }

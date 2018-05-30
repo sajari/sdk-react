@@ -1,28 +1,26 @@
 import idx from "idx";
 import * as React from "react";
 import {
-  IStyledProps,
-  ITheme,
   override,
   styled,
-  StyledComponent
+  StyledComponent,
+  StyledProps,
+  Theme
 } from "../styles";
 
-export interface IContainerProps extends IStyledProps<HTMLDivElement> {}
+export interface ContainerProps extends StyledProps<HTMLDivElement> {}
 
-export const Container = styled<IContainerProps, "div">("div")(
+export const Container = styled<ContainerProps, "div">("div")(
   {
-    marginBottom: "1.5em",
     color: "#aaa",
-    fontSize: "small"
+    fontSize: "small",
+    marginBottom: "1.5em"
   },
   override
 );
 
 export const Emphasis = styled("strong")(
-  {
-    color: "#aaa"
-  },
+  { color: "#aaa" },
 
   ({ theme }) => ({
     // @ts-ignore: idx
@@ -31,6 +29,6 @@ export const Emphasis = styled("strong")(
   override
 );
 
-export const OverrideContainer = styled<IStyledProps<HTMLSpanElement>, "span">(
+export const OverrideContainer = styled<StyledProps<HTMLSpanElement>, "span">(
   "span"
 )(override);

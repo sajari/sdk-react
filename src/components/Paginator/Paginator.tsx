@@ -61,8 +61,8 @@ export class Paginator extends React.Component {
                 className={css({
                   display: "inline-flex",
                   listStyle: "none",
-                  padding: 0,
-                  margin: 0
+                  margin: 0,
+                  padding: 0
                 })}
               >
                 {pageNumbers(page, totalPages).map(pageNumber => (

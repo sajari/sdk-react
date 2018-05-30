@@ -4,7 +4,7 @@ import * as React from "react";
 import { Suggestion, SuggestionsContainer } from "./styled";
 import { trimPrefix } from "./utils";
 
-export interface ISuggestionsProps {
+export interface SuggestionsProps {
   isOpen: boolean;
   highlightedIndex: number;
   inputValue: string;
@@ -12,8 +12,8 @@ export interface ISuggestionsProps {
   getItemProps: any;
 }
 
-export class Suggestions extends React.Component<ISuggestionsProps> {
-  public shouldComponentUpdate(nextProps: ISuggestionsProps) {
+export class Suggestions extends React.Component<SuggestionsProps> {
+  public shouldComponentUpdate(nextProps: SuggestionsProps) {
     const { suggestions, isOpen, highlightedIndex } = this.props;
     const {
       suggestions: nextSuggestions,

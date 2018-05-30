@@ -1,38 +1,38 @@
 import idx from "idx";
 import * as React from "react";
 import {
-  IStyledProps,
-  ITheme,
   override,
   styled,
-  StyledComponent
+  StyledComponent,
+  StyledProps,
+  Theme
 } from "../styles";
 
 // @ts-ignore: module missing definition file
 import AutosizeInput from "react-input-autosize";
-import { IIconProps, SearchIcon as Icon } from "./SeachIcon";
+import { IconProps, SearchIcon as Icon } from "./SeachIcon";
 
-export const Container = styled<IStyledProps<HTMLDivElement>, "div">("div")(
+export const Container = styled<StyledProps<HTMLDivElement>, "div">("div")(
   {
-    width: "100%",
-    marginBottom: "1rem"
+    marginBottom: "1rem",
+    width: "100%"
   },
   override
 );
 
-export interface IInputContainerProps extends IStyledProps<HTMLFormElement> {
+export interface InputContainerProps extends StyledProps<HTMLFormElement> {
   isDropdownOpen: boolean;
 }
 
-export const InputContainer = styled<IInputContainerProps, "form">("form")(
+export const InputContainer = styled<InputContainerProps, "form">("form")(
   {
-    padding: "3px 9px",
-    borderRadius: 2,
-    boxShadow: "0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)",
-    transition: "box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1)",
     "&:hover": {
       boxShadow: "0 3px 8px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)"
-    }
+    },
+    borderRadius: 2,
+    boxShadow: "0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)",
+    padding: "3px 9px",
+    transition: "box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1)"
   },
   ({ isDropdownOpen }) =>
     isDropdownOpen
@@ -45,15 +45,15 @@ export const InputContainer = styled<IInputContainerProps, "form">("form")(
 );
 
 export const SearchContainer = styled("div")({
+  alignItems: "center",
   display: "flex",
   justifyContent: "space-between",
-  alignItems: "center",
   width: "100%"
 });
 
 const searchIconSize = "1.5rem";
 
-export const InputInnerContainer = styled<IStyledProps<HTMLDivElement>, "div">(
+export const InputInnerContainer = styled<StyledProps<HTMLDivElement>, "div">(
   "div"
 )(
   {
@@ -71,46 +71,43 @@ export const Input = styled(AutosizeInput)({
 
 export const inputResetStyles = {
   container: {
-    background: "none",
-    padding: 0,
-    maxWidth: `calc(100% - ${searchIconSize})`,
     "& > div": {
       // fixes sizing bug in firefox
       overflow: "unset !important"
-    }
+    },
+    background: "none",
+    maxWidth: `calc(100% - ${searchIconSize})`,
+    padding: 0
   },
   input: {
-    height: 34,
+    backgroundColor: "transparent",
     border: "none",
     borderRadius: 0,
-    padding: 0,
+    color: "currentcolor",
     fontFamily: "inherit",
     fontSize: "1rem",
-    textRendering: "optimizeLegibility",
-    color: "currentcolor",
-    backgroundColor: "transparent"
+    height: 34,
+    padding: 0,
+    textRendering: "optimizeLegibility"
   }
 };
 
-export interface ISearchButtonProps extends IStyledProps<HTMLButtonElement> {}
+export interface SearchButtonProps extends StyledProps<HTMLButtonElement> {}
 
-export const SearchButton = styled<ISearchButtonProps, "button">("button")(
+export const SearchButton = styled<SearchButtonProps, "button">("button")(
   {
-    minWidth: searchIconSize,
-    minHeight: searchIconSize,
-    width: searchIconSize,
-    height: searchIconSize,
-
-    padding: 0,
-    border: "none",
-    background: "transparent",
-    color: "grey",
-
-    cursor: "pointer",
-
     "&:focus, &:active": {
       outline: "none"
-    }
+    },
+    background: "transparent",
+    border: "none",
+    color: "grey",
+    cursor: "pointer",
+    height: searchIconSize,
+    minHeight: searchIconSize,
+    minWidth: searchIconSize,
+    padding: 0,
+    width: searchIconSize
   },
   ({ theme }) => ({
     "&:hover": {
@@ -122,10 +119,10 @@ export const SearchButton = styled<ISearchButtonProps, "button">("button")(
 );
 
 export const SearchIcon = styled(Icon)({
-  minWidth: searchIconSize,
+  height: searchIconSize,
   minHeight: searchIconSize,
-  width: searchIconSize,
-  height: searchIconSize
+  minWidth: searchIconSize,
+  width: searchIconSize
 });
 
 export const SuggestionsContainer = styled("div")({
@@ -133,15 +130,15 @@ export const SuggestionsContainer = styled("div")({
   cursor: "default"
 });
 
-export interface ISuggestionProps {
+export interface SuggestionProps {
   isHighlighted: boolean;
 }
 
-export const Suggestion = styled<ISuggestionProps, "div">("div")(
+export const Suggestion = styled<SuggestionProps, "div">("div")(
   {
+    color: "#666",
     fontSize: "1rem",
-    padding: "0.25rem 0.5rem",
-    color: "#666"
+    padding: "0.25rem 0.5rem"
   },
   props => ({
     backgroundColor: props.isHighlighted ? "#eaeaea" : "#fff"
@@ -149,13 +146,13 @@ export const Suggestion = styled<ISuggestionProps, "div">("div")(
   override
 );
 
-export const Typeahead = styled<IStyledProps<HTMLSpanElement>, "span">("span")(
+export const Typeahead = styled<StyledProps<HTMLSpanElement>, "span">("span")(
   {
-    position: "relative",
-    display: "inline",
-    marginLeft: -2,
     color: "#bebebe",
-    fontSize: "1rem"
+    display: "inline",
+    fontSize: "1rem",
+    marginLeft: -2,
+    position: "relative"
   },
   override
 );

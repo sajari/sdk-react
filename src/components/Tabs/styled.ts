@@ -1,18 +1,17 @@
-import idx from "idx";
 import * as React from "react";
 import {
-  IStyledProps,
-  ITheme,
   override,
   styled,
-  StyledComponent
+  StyledComponent,
+  StyledProps,
+  Theme
 } from "../styles";
 
 export const Container = styled("div")({
   borderBottom: "1px solid #ebebeb",
   color: "#777",
-  width: "100%",
-  marginBottom: "1em"
+  marginBottom: "1em",
+  width: "100%"
 });
 
 export const TabsContainer = styled("div")({
