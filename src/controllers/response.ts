@@ -30,7 +30,7 @@ export class Response {
    */
   public isEmpty(): boolean {
     return (
-      this.error === undefined &&
+      this.error === null &&
       this.response === undefined &&
       this.values === undefined &&
       this.queryValues === undefined

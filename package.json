@@ -11,7 +11,7 @@
     "url": "https://github.com/sajari/sajari-sdk-react"
   },
   "bugs": "https://github.com/sajari/sajari-sdk-react/issues",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0-alpha.1",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
