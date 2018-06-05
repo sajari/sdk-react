@@ -6,7 +6,7 @@ export const styles = {
       borderBottom: "1px solid",
       borderBottomColor: isFocused ? "currentcolor" : "#ccc",
       display: "inline-block",
-      padding: "0.25rem 0",
+      padding: "0.25em 0",
       width: "auto"
     };
   },
@@ -19,7 +19,7 @@ export const styles = {
       boxShadow: null,
       color: "#666",
       display: "inline-flex",
-      fontSize: "0.8rem",
+      fontSize: "0.8em",
       minHeight: 0,
       minWidth: "120px"
     };
@@ -41,7 +41,7 @@ export const styles = {
   menu: (base: any) => ({
     ...base,
     borderRadius: 0,
-    fontSize: "0.8rem",
+    fontSize: "0.8em",
     width: "100%"
   }),
   menuList: (base: any) => ({
@@ -53,11 +53,11 @@ export const styles = {
   }),
   dropdownIndicator: (base: any) => ({
     ...base,
-    padding: "0 0 0 .5rem"
+    padding: "0 0 0 .5em"
   }),
   clearIndicator: (base: any) => ({
     ...base,
-    padding: "0 0 0 .5rem"
+    padding: "0 0 0 .5em"
   }),
   singleValue: () => ({
     fontWeight: "bold",

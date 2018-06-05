@@ -31,13 +31,13 @@ export interface ResultItemProps extends StyledProps<HTMLLIElement> {}
 
 const gridItem = css({
   boxSizing: "border-box",
-  padding: "0.5rem",
+  padding: "0.5em",
   width: "25%"
 });
 
 export const ResultItem = styled<ResultItemProps, "li">("li")(
   {
-    marginBottom: "1.5rem",
+    marginBottom: "1.5em",
     width: "100%"
   },
   ({ theme }) =>

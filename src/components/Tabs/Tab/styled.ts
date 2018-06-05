@@ -19,7 +19,7 @@ export const Container = styled<ContainerProps, "div">("div")(
     display: "inline-block",
     fontSize: 16,
     margin: 0,
-    padding: ".45rem .9rem .5rem",
+    padding: ".45em .9em .5em",
     userSelect: "none"
   },
 

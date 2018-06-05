@@ -51,7 +51,7 @@ export const SearchContainer = styled("div")({
   width: "100%"
 });
 
-const searchIconSize = "1.5rem";
+const searchIconSize = "1.5em";
 
 export const InputInnerContainer = styled<StyledProps<HTMLDivElement>, "div">(
   "div"
@@ -138,7 +138,7 @@ export const Suggestion = styled<SuggestionProps, "div">("div")(
   {
     color: "#666",
     fontSize: "1em",
-    padding: "0.25rem 0.5rem"
+    padding: "0.25em 0.5em"
   },
   props => ({
     backgroundColor: props.isHighlighted ? "#eaeaea" : "#fff"

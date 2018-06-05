@@ -77,7 +77,7 @@ export interface DescriptionProps extends StyledProps<HTMLParagraphElement> {}
 export const Description = styled<DescriptionProps, "p">("p")(
   {
     color: "#545454",
-    fontSize: "0.85rem",
+    fontSize: "0.85em",
     lineHeight: 1.4,
     marginBottom: 4,
     marginTop: 2,
