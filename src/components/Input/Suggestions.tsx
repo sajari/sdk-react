@@ -1,4 +1,5 @@
-import { isEqual } from "lodash-es";
+// @ts-ignore: module missing defintion file
+import isEqual from "deep-is";
 import * as React from "react";
 
 import { Suggestion, SuggestionsContainer } from "./styled";

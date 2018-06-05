@@ -1,4 +1,5 @@
-import { isEqual } from "lodash-es";
+// @ts-ignore: module missing defintion file
+import isEqual from "deep-is";
 // @ts-ignore: module missing defintion file
 import memoize from "memoize-one";
 import * as React from "react";

@@ -104,14 +104,14 @@ export class InputBox extends React.Component<InputBoxProps> {
                   inputRef={this.inputRef}
                   className={css(inputResetStyles.container)}
                   inputStyle={inputResetStyles.input}
-                  {...getInputProps({
-                    onChange: this.handleOnChange(
-                      instant
+                  onChange={this.handleOnChange(
+                    instant
+                      ? search
+                      : autocomplete && autocomplete !== "dropdown"
                         ? search
-                        : autocomplete && autocomplete !== "dropdown"
-                          ? search
-                          : instantSearch
-                    ),
+                        : instantSearch
+                  )}
+                  {...getInputProps({
                     onFocus: openMenu,
                     onKeyDown: this.handleKeyDown(
                       autocomplete,
@@ -196,8 +196,6 @@ export class InputBox extends React.Component<InputBoxProps> {
 
   private handleOnChange = (search: SearchFn) => (event: any) => {
     const { autocomplete, onChange } = this.props;
-
-    event.persist();
     const value = event.target.value;
 
     onChange(value);
