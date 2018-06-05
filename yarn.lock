@@ -669,9 +669,9 @@
   version "0.6.3"
   resolved "https://registry.yarnpkg.com/@emotion/unitless/-/unitless-0.6.3.tgz#65682e68a82701c70eefb38d7f941a2c0bfa90de"
 
-"@sajari/sdk-js@^1.0.0-rc.2":
-  version "1.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/@sajari/sdk-js/-/sdk-js-1.0.0-rc.2.tgz#fb9e594af49dff98f83bf69290d1732e61a0651e"
+"@sajari/sdk-js@^1.0.0-rc.6":
+  version "1.0.0-rc.6"
+  resolved "https://registry.yarnpkg.com/@sajari/sdk-js/-/sdk-js-1.0.0-rc.6.tgz#45b8ed109124f9f45f71e2694308a78c0afbcce8"
 
 "@shellscape/koa-send@^4.1.0":
   version "4.1.3"

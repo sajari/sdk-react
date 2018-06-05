@@ -37,7 +37,7 @@ export class Summary extends React.Component<SummaryProps> {
           const pageNumber = page && page > 1 ? `Page ${page} of ` : "";
           const totalResults = (response.getTotalResults() as number).toLocaleString();
 
-          const responseTime = formatQueryTime(response.getTime() as string);
+          const responseTime = formatQueryTime(response.getTime() as number);
 
           return (
             <Container styles={idx(styles, _ => _.container)}>

@@ -1,3 +1,4 @@
+import { RequestError, Result as SDKResult } from "@sajari/sdk-js";
 import idx from "idx";
 import * as React from "react";
 
@@ -38,9 +39,8 @@ export class Results extends React.Component<ResultsProps, {}> {
           }
 
           if (response.isError()) {
-            const error = response.getError() as Error;
-            // @ts-ignore: RequestError
-            if (error.code === STATUS_UNAUTHORISED) {
+            const error = response.getError() as RequestError;
+            if (error.httpStatusCode === STATUS_UNAUTHORISED) {
               return (
                 <Error>
                   Authorisation for this request failed. Check your credentials.
@@ -50,30 +50,30 @@ export class Results extends React.Component<ResultsProps, {}> {
             return <Error>{error.message}</Error>;
           }
 
+          const results =
+            response !== undefined ? response.getResults() || [] : [];
+
           return (
             <Container styles={idx(styles, _ => _.container)}>
-              {(response.getResults() as { [k: string]: any }).map(
-                (result: { [k: string]: any }, index: number) => {
-                  const key =
-                    result.values._id || "" + index + result.values.url;
-                  const token =
-                    result.tokens &&
-                    result.tokens.click &&
-                    result.tokens.click.token;
+              {results.map((result: { [k: string]: any }, index: number) => {
+                const key = result.values._id || "" + index + result.values.url;
+                const token =
+                  result.tokens &&
+                  result.tokens.click &&
+                  result.tokens.click.token;
 
-                  return (
-                    <ResultItem key={key} styles={idx(styles, _ => _.item)}>
-                      <ResultRenderer
-                        token={token}
-                        values={result.values}
-                        resultClicked={resultClicked}
-                        showImage={showImages}
-                        styles={idx(styles, _ => _.result)}
-                      />
-                    </ResultItem>
-                  );
-                }
-              )}
+                return (
+                  <ResultItem key={key} styles={idx(styles, _ => _.item)}>
+                    <ResultRenderer
+                      token={token}
+                      values={result.values}
+                      resultClicked={resultClicked}
+                      showImage={showImages}
+                      styles={idx(styles, _ => _.result)}
+                    />
+                  </ResultItem>
+                );
+              })}
             </Container>
           );
         }}

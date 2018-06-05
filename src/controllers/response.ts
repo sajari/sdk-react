@@ -1,9 +1,11 @@
-import { RequestError } from "@sajari/sdk-js";
+import { AggregateResponse, RequestError, Result } from "@sajari/sdk-js";
+
+export type ResponseMap = Map<string, number | AggregateResponse | Result[]>;
 
 export class Response {
   private error: RequestError | null;
   private queryValues?: Map<string, string>;
-  private response?: Map<string, string | { [k: string]: string }>;
+  private response?: ResponseMap;
   private values?: Map<string, string>;
 
   /**
@@ -16,7 +18,7 @@ export class Response {
   constructor(
     error: RequestError | null,
     queryValues?: Map<string, string>,
-    response?: Map<string, string | { [k: string]: any }>,
+    response?: ResponseMap,
     values?: Map<string, string>
   ) {
     this.error = error;
@@ -61,7 +63,7 @@ export class Response {
   /**
    * Returns the response, which includes results and aggregates etc.
    */
-  public getResponse(): Map<string, string | { [k: string]: any }> | undefined {
+  public getResponse(): ResponseMap | undefined {
     return this.response;
   }
 
@@ -75,9 +77,9 @@ export class Response {
   /**
    * Return results from the response.
    */
-  public getResults(): { [k: string]: any } | undefined {
+  public getResults(): Result[] | undefined {
     return this.response !== undefined
-      ? (this.response.get("results") as { [k: string]: any })
+      ? (this.response.get("results") as Result[])
       : undefined;
   }
 
@@ -86,23 +88,23 @@ export class Response {
    */
   public getTotalResults(): number | undefined {
     return this.response !== undefined
-      ? parseInt(this.response.get("totalResults") as string, 10)
+      ? (this.response.get("totalResults") as number)
       : undefined;
   }
 
   /**
    * Return time from the response.
    */
-  public getTime(): string | undefined {
+  public getTime(): number | undefined {
     return this.response !== undefined
-      ? (this.response.get("time") as string)
+      ? (this.response.get("time") as number)
       : undefined;
   }
 
   /**
    * Return the aggregates in the response.
    */
-  public getAggregates(): { [k: string]: any } | undefined {
+  public getAggregates(): AggregateResponse | undefined {
     if (this.response === undefined) {
       return undefined;
     }
@@ -111,6 +113,6 @@ export class Response {
     if (aggregates === undefined) {
       return undefined;
     }
-    return aggregates as { [k: string]: any };
+    return aggregates as AggregateResponse;
   }
 }

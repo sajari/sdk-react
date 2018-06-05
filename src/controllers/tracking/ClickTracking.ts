@@ -49,6 +49,9 @@ export class ClickTracking extends Tracking {
    * @param values Key-value pair parameters to use in the pipeline.
    */
   public next(values: { [k: string]: string }) {
-    return (this.clientTracking as Session).next(values);
+    if (this.clientTracking === null) {
+      throw new Error("clientTracking is null");
+    }
+    return this.clientTracking.next(values);
   }
 }

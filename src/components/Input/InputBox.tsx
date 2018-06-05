@@ -108,7 +108,6 @@ export class InputBox extends React.Component<InputBoxProps> {
                   className={css(inputResetStyles.container)}
                   inputStyle={inputResetStyles.input}
                   {...getInputProps({
-                    onFocus: openMenu,
                     onChange: this.handleOnChange(
                       instant
                         ? search
@@ -116,6 +115,7 @@ export class InputBox extends React.Component<InputBoxProps> {
                           ? search
                           : instantSearch
                     ),
+                    onFocus: openMenu,
                     onKeyDown: this.handleKeyDown(
                       autocomplete,
                       [completion, instantCompletion],

@@ -36,6 +36,9 @@ export class NoTracking extends Tracking {
    * Construct a tracking session to be used in a search.
    */
   public next(values: { [k: string]: string }) {
-    return (this.clientTracking as Session).next(values);
+    if (this.clientTracking === null) {
+      throw new Error("clientTracking is null");
+    }
+    return this.clientTracking.next(values);
   }
 }

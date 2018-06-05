@@ -1,11 +1,11 @@
-export const formatQueryTime = (time: string) => {
+export const formatQueryTime = (time: number) => {
   if (!time) {
     return "";
   }
 
-  time = String(time);
+  const strTime = String(time);
 
-  const splitNum = time.split(".");
+  const splitNum = strTime.split(".");
   if (splitNum.length === 1 || parseInt(splitNum[1], 10) === 0) {
     return parseInt(splitNum[0], 10) + "s";
   }

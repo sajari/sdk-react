@@ -30,10 +30,11 @@
     "prelint": "npm-run-all type-check",
     "lint": "tslint -p tsconfig.json -c tslint.json --fix \"src/**/*.{ts,tsx}\"",
     "test": "jest",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "prepublishOnly": "npm-run-all build"
   },
   "dependencies": {
-    "@sajari/sdk-js": "^1.0.0-rc.2",
+    "@sajari/sdk-js": "^1.0.0-rc.6",
     "create-react-context": "^0.2.2",
     "deep-is": "^0.1.3",
     "downshift": "^1.31.14",

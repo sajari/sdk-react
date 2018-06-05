@@ -2,7 +2,7 @@ import {
   Client,
   Pipeline as SDKPipeline,
   RequestError,
-  Results,
+  Response as SDKResponse,
   Session,
   withEndpoint
 } from "@sajari/sdk-js";
@@ -135,7 +135,7 @@ export class Pipeline {
       this.tracking,
       (
         error: RequestError | null,
-        results: Results | undefined,
+        response: SDKResponse | undefined,
         responseValues = {}
       ) => {
         if (currentSearch < this.searchCount) {
@@ -145,7 +145,9 @@ export class Pipeline {
         this.response = new Response(
           error ? error : null,
           new Map(Object.entries(values)),
-          results !== undefined ? new Map(Object.entries(results)) : undefined,
+          response !== undefined
+            ? new Map(Object.entries(response))
+            : undefined,
           new Map(Object.entries(responseValues))
         );
         // tslint:disable-next-line no-console
