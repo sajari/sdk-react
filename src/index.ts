@@ -1,3 +1,5 @@
+export { RequestError } from "@sajari/sdk-js";
+
 export {
   Pipeline,
   Values,

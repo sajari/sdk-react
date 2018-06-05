@@ -1,10 +1,4 @@
-import {
-  Session,
-  TextSession,
-  TrackingClick,
-  TrackingNone
-  // @ts-ignore: module missing defintion file
-} from "@sajari/sdk-js";
+import { InteractiveSession, Session, TrackingType } from "@sajari/sdk-js";
 
 import { EVENT_TRACKING_RESET } from "../../events";
 import { CallbackFn, Listener, ListenerMap, UnlistenFn } from "../listener";
@@ -13,7 +7,7 @@ import { getTrackingData } from "./utils";
 const events = [EVENT_TRACKING_RESET];
 
 export class Tracking {
-  public clientTracking: Session;
+  public clientTracking: Session | null = null;
   private listeners: ListenerMap;
 
   constructor() {
@@ -51,7 +45,7 @@ export class Tracking {
    * Reset the tracking.
    * @param values Key-value pair parameters to use in the pipeline.
    */
-  public reset(values: { [k: string]: string }) {
+  public reset(values?: { [k: string]: string }) {
     throw new Error("method 'reset' unimplemented");
   }
 

@@ -1,5 +1,11 @@
-// @ts-ignore: module missing defintion file
-import { Client, withEndpoint } from "@sajari/sdk-js";
+import {
+  Client,
+  Pipeline as SDKPipeline,
+  RequestError,
+  Results,
+  Session,
+  withEndpoint
+} from "@sajari/sdk-js";
 
 import {
   EVENT_RESPONSE_UPDATED,
@@ -25,7 +31,7 @@ export class Pipeline {
     endpoint?: string;
   };
 
-  private client: Client;
+  private pipeline: SDKPipeline;
   private name: string;
   private tracking: ClickTracking | NoTracking;
   private listeners: ListenerMap;
@@ -47,14 +53,14 @@ export class Pipeline {
       endpoint?: string;
     },
     name: string,
-    tracking = new ClickTracking(),
+    tracking: ClickTracking | NoTracking = new ClickTracking(),
     analyticsAdapters = [GoogleAnalytics]
   ) {
     const { project, collection, endpoint } = config;
     this.config = config;
     const opts = endpoint !== undefined ? [withEndpoint(endpoint)] : [];
 
-    this.client = new Client(project, collection, opts).pipeline(name);
+    this.pipeline = new Client(project, collection, opts).pipeline(name);
     this.name = name;
     this.tracking = tracking;
     this.listeners = new Map([
@@ -63,7 +69,7 @@ export class Pipeline {
       [EVENT_RESULT_CLICKED, new Listener()]
     ]);
     this.searchCount = 0;
-    this.response = new Response();
+    this.response = new Response(null);
     this.analytics = new Analytics(this, this.tracking);
     analyticsAdapters.forEach(Adapter => {
       // tslint:disable-next-line
@@ -124,18 +130,22 @@ export class Pipeline {
     this.searchCount++;
     const currentSearch = this.searchCount;
 
-    this.client.search(
+    this.pipeline.search(
       values,
       this.tracking,
-      (error: Error, results = {}, responseValues = {}) => {
+      (
+        error: RequestError | null,
+        results: Results | undefined,
+        responseValues = {}
+      ) => {
         if (currentSearch < this.searchCount) {
           return;
         }
 
         this.response = new Response(
-          error ? error : undefined,
+          error ? error : null,
           new Map(Object.entries(values)),
-          new Map(Object.entries(results)),
+          results !== undefined ? new Map(Object.entries(results)) : undefined,
           new Map(Object.entries(responseValues))
         );
         // tslint:disable-next-line no-console
@@ -157,7 +167,7 @@ export class Pipeline {
     this.tracking.next(values);
 
     this.searchCount++;
-    this.response = new Response();
+    this.response = new Response(null);
     this._emitResponseUpdated(this.response);
   }
 

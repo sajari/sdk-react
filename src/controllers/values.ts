@@ -14,7 +14,7 @@ export class Values {
 
   /**
    * Constructor for Values object.
-   * @param {Object} values Initial values.
+   * @param values Initial values.
    */
   constructor(values: { [k: string]: string | ValueFn } = {}) {
     this.listeners = new Map([[EVENT_VALUES_UPDATED, new Listener()]]);
@@ -23,8 +23,8 @@ export class Values {
 
   /**
    * Register a listener for a specific event.
-   * @param {string} event Event to listen for
-   * @param {Function} callback Callback to run when the event happens.
+   * @param event Event to listen for
+   * @param callback Callback to run when the event happens.
    */
   public listen(event: string, callback: CallbackFn) {
     if (event !== EVENT_VALUES_UPDATED) {

@@ -1,5 +1,7 @@
+import { RequestError } from "@sajari/sdk-js";
+
 export class Response {
-  private error?: Error;
+  private error: RequestError | null;
   private queryValues?: Map<string, string>;
   private response?: Map<string, string | { [k: string]: string }>;
   private values?: Map<string, string>;
@@ -12,9 +14,9 @@ export class Response {
    * @param values
    */
   constructor(
-    error?: Error,
+    error: RequestError | null,
     queryValues?: Map<string, string>,
-    response?: Map<string, string | { [k: string]: string }>,
+    response?: Map<string, string | { [k: string]: any }>,
     values?: Map<string, string>
   ) {
     this.error = error;
@@ -39,40 +41,34 @@ export class Response {
    * Is this response an error?
    */
   public isError(): boolean {
-    return this.error !== undefined;
+    return this.error !== null;
   }
 
   /**
    * The error associated with this response.
    */
-  public getError(): Error | null {
-    if (this.error === undefined) {
-      return null;
-    }
+  public getError(): RequestError | null {
     return this.error;
   }
 
   /**
    * Return the query values used in the search which created this response.
-   * @return {Object|undefined}
    */
-  public getQueryValues() {
+  public getQueryValues(): Map<string, string> | undefined {
     return this.queryValues;
   }
 
   /**
    * Returns the response, which includes results and aggregates etc.
-   * @return {Object|undefined}
    */
-  public getResponse() {
+  public getResponse(): Map<string, string | { [k: string]: any }> | undefined {
     return this.response;
   }
 
   /**
    * Return the pipeline values returned by the search.
-   * @return {Object|undefined}
    */
-  public getValues() {
+  public getValues(): Map<string, string> | undefined {
     return this.values;
   }
 

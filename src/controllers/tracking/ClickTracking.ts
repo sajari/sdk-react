@@ -1,5 +1,10 @@
-// @ts-ignore: module missing defintion file
-import { Session, TextSession, TrackingClick } from "@sajari/sdk-js";
+import {
+  DefaultSession,
+  InteractiveSession,
+  Session,
+  Tracking as SDKTracking,
+  TrackingType
+} from "@sajari/sdk-js";
 
 import { Tracking } from "./Tracking";
 import { getTrackingData } from "./utils";
@@ -20,9 +25,9 @@ export class ClickTracking extends Tracking {
 
     this.field = field;
     this.qParam = qParam;
-    this.clientTracking = new TextSession(
+    this.clientTracking = new InteractiveSession(
       qParam,
-      new Session(TrackingClick, field, getTrackingData())
+      new DefaultSession(TrackingType.Click, field, getTrackingData())
     );
     this.prevQ = "";
   }
@@ -31,9 +36,11 @@ export class ClickTracking extends Tracking {
    * Reset the tracking.
    * @param values Key-value pair parameters to use in the pipeline.
    */
-  public reset(values: { [k: string]: string }) {
-    this.clientTracking.reset();
-    this._emitTrackingReset(values);
+  public reset(values?: { [k: string]: string }) {
+    (this.clientTracking as Session).reset();
+    if (values !== undefined) {
+      this._emitTrackingReset(values);
+    }
   }
 
   /**
@@ -42,6 +49,6 @@ export class ClickTracking extends Tracking {
    * @param values Key-value pair parameters to use in the pipeline.
    */
   public next(values: { [k: string]: string }) {
-    return this.clientTracking.next(values);
+    return (this.clientTracking as Session).next(values);
   }
 }
