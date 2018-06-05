@@ -11,7 +11,7 @@
     "url": "https://github.com/sajari/sajari-sdk-react"
   },
   "bugs": "https://github.com/sajari/sajari-sdk-react/issues",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-alpha.2",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
@@ -31,7 +31,7 @@
     "lint": "tslint -p tsconfig.json -c tslint.json --fix \"src/**/*.{ts,tsx}\"",
     "test": "jest",
     "type-check": "tsc --noEmit",
-    "prepublishOnly": "npm-run-all build"
+    "prepublishOnly": "npm-run-all type-check build"
   },
   "dependencies": {
     "@sajari/sdk-js": "^1.0.0-rc.6",
