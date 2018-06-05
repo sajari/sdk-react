@@ -49,7 +49,7 @@ export interface TitleProps extends StyledProps<HTMLHeadingElement> {}
 
 export const Title = styled<TitleProps, "h3">("h3")(
   {
-    fontSize: "1.1rem",
+    fontSize: "1.1em",
     fontWeight: 400,
     lineHeight: 1.1,
     marginBottom: 0,

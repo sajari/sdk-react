@@ -8,7 +8,7 @@ import {
   Theme
 } from "../styles";
 
-const iconSize = "1rem";
+const iconSize = "1em";
 
 const size = {
   height: iconSize,

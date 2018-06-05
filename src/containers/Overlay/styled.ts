@@ -23,6 +23,6 @@ export const Container = styled("div")({
   backgroundColor: "#fff",
   boxSizing: "border-box",
   height: "80%",
-  padding: "1rem",
+  padding: "1em",
   width: "80%"
 });

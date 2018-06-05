@@ -45,7 +45,7 @@ export const PageButton = styled<PageButtonProps, "button">("button")(
     border: "none",
     cursor: "pointer",
     display: "inline-block",
-    fontSize: "1rem",
+    fontSize: "1em",
     fontWeight: "bold",
     padding: 10,
     userSelect: "none"

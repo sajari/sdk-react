@@ -14,7 +14,7 @@ import { IconProps, SearchIcon as Icon } from "./SeachIcon";
 
 export const Container = styled<StyledProps<HTMLDivElement>, "div">("div")(
   {
-    marginBottom: "1rem",
+    marginBottom: "1em",
     width: "100%"
   },
   override
@@ -85,7 +85,7 @@ export const inputResetStyles = {
     borderRadius: 0,
     color: "currentcolor",
     fontFamily: "inherit",
-    fontSize: "1rem",
+    fontSize: "1em",
     height: 34,
     padding: 0,
     textRendering: "optimizeLegibility"
@@ -137,7 +137,7 @@ export interface SuggestionProps {
 export const Suggestion = styled<SuggestionProps, "div">("div")(
   {
     color: "#666",
-    fontSize: "1rem",
+    fontSize: "1em",
     padding: "0.25rem 0.5rem"
   },
   props => ({
@@ -150,7 +150,7 @@ export const Typeahead = styled<StyledProps<HTMLSpanElement>, "span">("span")(
   {
     color: "#bebebe",
     display: "inline",
-    fontSize: "1rem",
+    fontSize: "1em",
     marginLeft: -2,
     position: "relative"
   },
