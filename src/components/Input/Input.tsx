@@ -31,6 +31,7 @@ export interface InputProps {
   autocomplete: boolean | "dropdown";
   autofocus?: boolean;
   instant?: boolean;
+  placeholder?: string;
   styles?: InputStyles;
 
   DropdownRenderer?: React.ComponentType;
@@ -63,6 +64,7 @@ export class Input extends React.Component<InputProps, InputState> {
       autocomplete,
       instant,
       autofocus,
+      placeholder,
       styles = {},
       DropdownRenderer,
       onSearchButtonClick
@@ -86,7 +88,6 @@ export class Input extends React.Component<InputProps, InputState> {
           }
         }) => (
           <Downshift
-            defaultInputValue={isNotEmptyString(query, instantQuery)}
             stateReducer={this.stateReducer(instantSearch)}
             onSelect={this.handleSelect(search, instantSearch)}
           >
@@ -109,19 +110,15 @@ export class Input extends React.Component<InputProps, InputState> {
                 isOpen &&
                 isNotEmptyArray(suggestions, instantSuggestions).length > 0;
 
-              const value = isNotEmptyString(
-                inputValue as string,
-                isNotEmptyString(query, instantQuery)
-              );
-
               return (
                 <Container
                   {...getRootProps({ refKey: "innerRef" })}
                   styles={idx(styles, _ => _.container)}
                 >
                   <InputBox
-                    inputValue={value}
+                    inputValue={inputValue !== null ? inputValue : ""}
                     autocomplete={autocomplete}
+                    placeholder={placeholder}
                     instant={instant as boolean}
                     autofocus={autofocus as boolean}
                     containerRef={this.inputContainerRef}

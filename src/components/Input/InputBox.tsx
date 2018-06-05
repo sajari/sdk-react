@@ -25,6 +25,7 @@ const RIGHT_ARROW_KEYCODE = 39;
 
 export interface InputBoxProps {
   inputValue: string;
+  placeholder?: string;
   autocomplete: boolean | "dropdown";
   instant: boolean;
   autofocus: boolean;
@@ -57,6 +58,7 @@ export class InputBox extends React.Component<InputBoxProps> {
   public render() {
     const {
       inputValue,
+      placeholder,
       autocomplete,
       instant,
       autofocus,
@@ -96,6 +98,7 @@ export class InputBox extends React.Component<InputBoxProps> {
                 <SearchInput
                   minWidth={1}
                   value={inputValue}
+                  placeholder={!isOpen ? placeholder : undefined}
                   autoComplete="off"
                   autoCorrect="off"
                   autoCapitalize="off"
@@ -104,15 +107,15 @@ export class InputBox extends React.Component<InputBoxProps> {
                   inputRef={this.inputRef}
                   className={css(inputResetStyles.container)}
                   inputStyle={inputResetStyles.input}
-                  onChange={this.handleOnChange(
-                    instant
-                      ? search
-                      : autocomplete && autocomplete !== "dropdown"
-                        ? search
-                        : instantSearch
-                  )}
                   {...getInputProps({
                     onFocus: openMenu,
+                    onChange: this.handleOnChange(
+                      instant
+                        ? search
+                        : autocomplete && autocomplete !== "dropdown"
+                          ? search
+                          : instantSearch
+                    ),
                     onKeyDown: this.handleKeyDown(
                       autocomplete,
                       [completion, instantCompletion],
