@@ -1,0 +1,121 @@
+// @ts-ignore: module missing defintion file
+import isEqual from "deep-is";
+import * as React from "react";
+
+import { SearchFn } from "../../../context/pipeline/context";
+import { Consumer } from "../../context";
+import { Suggestion, SuggestionsContainer } from "./styled";
+import { trimPrefix } from "../../utils";
+
+export interface SuggestionsProps {
+  inputValue: string;
+  isDropdownOpen: boolean;
+  highlightedIndex?: number;
+  suggestions: string[];
+
+  setHighlightedIndex: (index: number) => void;
+  selectItem: (item: string) => void;
+}
+
+export class Suggestions extends React.Component<SuggestionsProps> {
+  public shouldComponentUpdate(nextProps: SuggestionsProps) {
+    const {
+      inputValue,
+      suggestions,
+      isDropdownOpen,
+      highlightedIndex
+    } = this.props;
+    const {
+      inputValue: nextInputValue,
+      suggestions: nextSuggestions,
+      isDropdownOpen: nextIsOpen,
+      highlightedIndex: nextHighlightedIndex
+    } = nextProps;
+
+    if (
+      !isEqual(inputValue, nextInputValue) ||
+      !isEqual(isDropdownOpen, nextIsOpen) ||
+      !isEqual(highlightedIndex, nextHighlightedIndex)
+    ) {
+      return true;
+    }
+
+    return !isEqual(suggestions, nextSuggestions);
+  }
+
+  public render() {
+    const {
+      isDropdownOpen,
+      highlightedIndex,
+      suggestions,
+      inputValue
+    } = this.props;
+
+    return isDropdownOpen ? (
+      <SuggestionsContainer>
+        {suggestions.map((item, index) => (
+          <Suggestion
+            key={item}
+            isHighlighted={highlightedIndex === index + 1}
+            onMouseOver={this.handleSuggestionMouseOver}
+            onMouseDown={this.handleSuggestionMouseDown}
+          >
+            {this.getItemText(item, inputValue)}
+          </Suggestion>
+        ))}
+      </SuggestionsContainer>
+    ) : null;
+  }
+
+  private handleSuggestionMouseOver = (
+    event: React.MouseEvent<HTMLDivElement>
+  ) => {
+    const { suggestions, setHighlightedIndex } = this.props;
+    // @ts-ignore: innerText is a member of event.target
+    setHighlightedIndex(suggestions.indexOf(event.target.innerText) + 1);
+  };
+
+  private handleSuggestionMouseDown = (
+    event: React.MouseEvent<HTMLDivElement>
+  ) => {
+    const { selectItem } = this.props;
+    // @ts-ignore: innerText is a member of event.target
+    const value = event.target.innerText;
+    selectItem(value);
+  };
+
+  private getItemText = (item: string, value: string) => {
+    const suffix = trimPrefix(item, value);
+    return suffix === "" ? (
+      item
+    ) : (
+      <React.Fragment>
+        {item.substr(0, value.length)}
+        <strong>{suffix}</strong>
+      </React.Fragment>
+    );
+  };
+}
+
+export default () => (
+  <Consumer>
+    {({
+      inputValue,
+      isDropdownOpen,
+      suggestions,
+      highlightedIndex,
+      setHighlightedIndex,
+      selectItem,
+      search
+    }) => (
+      <Suggestions
+        inputValue={inputValue}
+        isDropdownOpen={isDropdownOpen}
+        suggestions={suggestions}
+        highlightedIndex={highlightedIndex}
+        setHighlightedIndex={setHighlightedIndex}
+        selectItem={selectItem(search.search)}
+      />
+    )}
+  </Consumer>
+);

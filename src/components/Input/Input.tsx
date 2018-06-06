@@ -1,238 +1,280 @@
-import Downshift, { DownshiftState } from "downshift";
-import idx from "idx";
-// @ts-ignore: module missing definition file
-import memoize from "memoize-one";
 import * as React from "react";
-// @ts-ignore: module missing definition file
-import AutosizeInput from "react-input-autosize";
+// @ts-ignore: module missing type defs file
+import memoize from "memoize-one";
+// @ts-ignore: module missing type defs file
+import isEqual from "deep-is";
+import { Result } from "@sajari/sdk-js";
 
-import { isNotEmptyArray, isNotEmptyString, trimPrefix } from "./utils";
+import { Provider, RenderFnProps } from "./context";
 
-import { Response } from "../../controllers/response";
-import { Consumer } from "../context";
-import { SearchFn } from "../context/pipeline/context";
-import { InputBox } from "./InputBox";
-import { RenderFnProps, Resizer } from "./Resizer";
-import { Suggestions } from "./Suggestions";
-
-import { Config } from "../../config";
+import { Container } from "./styled";
 import {
-  Container,
-  Input as SearchInput,
-  InputContainer,
-  InputInnerContainer,
-  inputResetStyles,
-  SearchButton,
-  SearchIcon,
-  Typeahead
-} from "./styled";
+  InputBox,
+  InputChangeEvent,
+  InputFocusEvent,
+  InputKeyboardEvent,
+  ButtonMouseEvent
+} from "./components/InputBox";
+import { Dropdown } from "./containers/Dropdown";
+import { Suggestions } from "./components/Suggestions";
+import { InputContext } from "./context/context";
+import { SearchFn, ClearFn } from "../context/pipeline/context";
+
+enum InputKeyCodes {
+  Return = 13,
+  Escape = 27,
+  UpArrow = 38,
+  RightArrow = 39,
+  DownArrow = 40
+}
 
 export interface InputProps {
-  autocomplete: boolean | "dropdown";
-  autofocus?: boolean;
-  instant?: boolean;
+  defaultValue?: string;
   placeholder?: string;
-  styles?: InputStyles;
 
-  DropdownRenderer?: React.ComponentType;
-  onSearchButtonClick?: (event: any, search: SearchFn, value: string) => void;
+  inputRef?: (element: HTMLInputElement) => void;
 }
 
 export interface InputState {
   inputValue: string;
-}
-
-export interface InputStyles {
-  container?: any;
-  input?: any;
-  dropdown?: any;
+  isDropdownOpen: boolean;
+  highlightedIndex: number;
 }
 
 export class Input extends React.Component<InputProps, InputState> {
-  public static defaultProps = {
-    autocomplete: false,
-    autofocus: false,
-    instant: false
+  public state = {
+    inputValue: "",
+    isDropdownOpen: false,
+    highlightedIndex: 0
   };
 
-  public state = { inputValue: "" };
+  private inputContainer?: HTMLFormElement;
+  private input?: HTMLInputElement;
 
-  private inputContainer?: HTMLDivElement;
+  private getProviderValue = memoize(
+    (state: InputState) => ({
+      ...state
+    }),
+    isEqual
+  );
+
+  static getDerivedStateFromProps(props: InputProps, state: InputState) {
+    const { defaultValue } = props;
+    if (defaultValue === undefined) {
+      return state;
+    }
+
+    return {
+      ...state,
+      inputValue: defaultValue
+    };
+  }
 
   public render() {
-    const {
-      autocomplete,
-      instant,
-      autofocus,
-      placeholder,
-      styles = {},
-      DropdownRenderer,
-      onSearchButtonClick
-    } = this.props;
-
-    if (autocomplete === "dropdown" && DropdownRenderer !== undefined) {
-      throw new Error(
-        'You cannot provide a DropdownRenderer when using `autocomplete="dropdown"`'
-      );
-    }
+    const { placeholder } = this.props;
+    const value = {
+      ...this.state,
+      setHighlightedIndex: this.setHighlightedIndex,
+      selectItem: this.selectItem
+    };
 
     return (
-      <Consumer>
+      <Provider value={value}>
         {({
-          search: { response, completion, suggestions, search, config, query },
-          instant: {
-            search: instantSearch,
-            suggestions: instantSuggestions,
-            completion: instantCompletion,
-            query: instantQuery
-          }
-        }) => (
-          <Downshift
-            stateReducer={this.stateReducer(instantSearch)}
-            onSelect={this.handleSelect(search, instantSearch)}
-          >
-            {({
-              getRootProps,
-              getInputProps,
-              getItemProps,
-              isOpen,
-              inputValue,
-              highlightedIndex,
-              selectedItem,
-              selectItem,
-              // @ts-ignore: setState is passed by Downshift
-              setState,
-              openMenu
-            }) => {
-              const isSuggestionsDropdownOpen =
-                autocomplete &&
-                (autocomplete as string) === "dropdown" &&
-                isOpen &&
-                isNotEmptyArray(suggestions, instantSuggestions).length > 0;
-
-              return (
-                <Container
-                  {...getRootProps({ refKey: "innerRef" })}
-                  styles={idx(styles, _ => _.container)}
-                >
-                  <InputBox
-                    inputValue={inputValue !== null ? inputValue : ""}
-                    autocomplete={autocomplete}
-                    placeholder={placeholder}
-                    instant={instant as boolean}
-                    autofocus={autofocus as boolean}
-                    containerRef={this.inputContainerRef}
-                    isOverride={isOverride(response, config)}
-                    isDropdownOpen={isSuggestionsDropdownOpen}
-                    highlightedIndex={highlightedIndex || 0}
-                    onChange={this.handleOnChange}
-                    onSearchButtonClick={onSearchButtonClick}
-                    downshift={{
-                      isOpen,
-                      getInputProps,
-                      getItemProps,
-                      setState,
-                      selectItem,
-                      openMenu
-                    }}
-                    styles={idx(styles, _ => _.input)}
-                  />
-                  <Resizer
-                    element={this.inputContainer}
-                    styles={idx(styles, _ => _.dropdown)}
-                  >
-                    {autocomplete &&
-                    autocomplete !== "dropdown" &&
-                    DropdownRenderer !== undefined ? (
-                      <DropdownRenderer />
-                    ) : (
-                      <Suggestions
-                        isOpen={isSuggestionsDropdownOpen}
-                        suggestions={isNotEmptyArray(
-                          suggestions,
-                          instantSuggestions
-                        )}
-                        inputValue={inputValue as string}
-                        highlightedIndex={highlightedIndex as number}
-                        getItemProps={getItemProps}
-                      />
-                    )}
-                  </Resizer>
-                </Container>
-              );
-            }}
-          </Downshift>
+          inputValue,
+          isDropdownOpen,
+          suggestions,
+          results,
+          search,
+          instant
+        }: RenderFnProps) => (
+          <Container>
+            <InputBox
+              inputRef={this.inputRef}
+              inputContainerRef={this.inputContainerRef}
+              value={inputValue}
+              placeholder={placeholder}
+              isDropdownOpen={isDropdownOpen}
+              onChange={this.handleInputOnChange(search, instant)}
+              onKeyDown={this.handleInputOnKeyDown(
+                suggestions,
+                results,
+                search,
+                instant
+              )}
+              onFocus={this.handleInputOnFocus}
+              onBlur={this.handleInputOnBlur}
+              onVoiceInput={this.handleOnVoiceInput(search.search)}
+              onSearchButtonClick={this.handleSearchButtonClick(search.search)}
+            />
+            <Dropdown isOpen={isDropdownOpen} element={this.inputContainer}>
+              <Suggestions />
+            </Dropdown>
+          </Container>
         )}
-      </Consumer>
+      </Provider>
     );
   }
 
-  private inputContainerRef = (el: any) => (this.inputContainer = el);
+  private inputContainerRef = (element: HTMLFormElement) =>
+    (this.inputContainer = element);
 
-  private handleOnChange = (inputValue: string) =>
-    this.setState(state => ({ ...state, inputValue }));
-
-  private handleSelect = (search: SearchFn, instantSearch: SearchFn) => (
-    selectedItem: string
-  ) =>
-    this.setState(
-      state => ({ ...state, inputValue: selectedItem }),
-      () => {
-        const { autocomplete } = this.props;
-        const { inputValue } = this.state;
-
-        search(inputValue, true);
-
-        if (autocomplete && autocomplete !== "dropdown") {
-          // this is to update the suggestions list if the user
-          // clicks on the input again
-          instantSearch(inputValue, false);
-        }
-      }
-    );
-
-  private stateReducer = (search: SearchFn) => (
-    downshiftState: DownshiftState,
-    changes: any
-  ) => {
-    switch (changes.type) {
-      case Downshift.stateChangeTypes.blurInput:
-      case Downshift.stateChangeTypes.mouseUp:
-        return {
-          ...changes,
-          inputValue: downshiftState.inputValue
-        };
-
-      case Downshift.stateChangeTypes.keyDownEscape:
-        this.setState(
-          state => ({ ...state, inputValue: changes.inputValue }),
-          () => {
-            search(this.state.inputValue, false);
-          }
-        );
-        return changes;
-
-      default:
-        if (downshiftState.highlightedIndex === null) {
-          return {
-            ...changes,
-            highlightedIndex: 0
-          };
-        }
-
-        return changes;
+  private inputRef = (element: HTMLInputElement) => {
+    this.input = element;
+    if (typeof this.props.inputRef === "function") {
+      this.props.inputRef(element);
     }
   };
-}
 
-const isOverride = (response: Response | null, config: Config) => {
-  let override = false;
-  if (response !== null && response.getQueryValues() !== undefined) {
-    override = Boolean(
-      (response.getQueryValues() as Map<string, string>).get(
-        config.qOverrideParam
-      )
+  private handleInputOnChange = (
+    search: { search: SearchFn },
+    instant: { search: SearchFn }
+  ) => (event: InputChangeEvent) => {
+    const value = event.target.value;
+    this.setState(
+      state => ({ ...state, inputValue: value, highlightedIndex: 0 }),
+      () => {
+        const { inputValue } = this.state;
+        instant.search(inputValue, false);
+      }
     );
-  }
-  return override;
-};
+  };
+
+  private handleInputOnKeyDown = (
+    suggestions: string[],
+    results: Result[],
+    search: { search: SearchFn; clear: ClearFn },
+    instant: { search: SearchFn; clear: ClearFn }
+  ) => (event: InputKeyboardEvent) => {
+    const { keyCode } = event;
+
+    if (keyCode === InputKeyCodes.Return) {
+      const { inputValue, highlightedIndex } = this.state;
+      const suggestion = suggestions[highlightedIndex - 1];
+
+      if (suggestion === undefined) {
+        search.search(inputValue, true);
+      } else {
+        this.setState(state => ({ ...state, inputValue: suggestion }));
+        search.search(suggestion, true);
+      }
+
+      instant.clear();
+      if (this.input !== undefined) {
+        this.input.blur();
+      }
+    }
+
+    if (keyCode === InputKeyCodes.Escape) {
+      this.setState(
+        state => ({
+          ...state,
+          inputValue: "",
+          isDropdownOpen: false,
+          highlightedIndex: 0
+        }),
+        () => {
+          search.clear({ q: "" });
+          instant.clear({ q: "" });
+
+          if (this.input !== undefined) {
+            this.input.blur();
+          }
+        }
+      );
+      return;
+    }
+
+    if (keyCode === InputKeyCodes.UpArrow) {
+      event.preventDefault();
+      const { highlightedIndex } = this.state;
+      if (highlightedIndex === 0) {
+        this.setState(state => ({
+          ...state,
+          highlightedIndex: suggestions.length
+        }));
+        return;
+      }
+
+      this.setState(state => ({
+        ...state,
+        highlightedIndex: ((state.highlightedIndex as number) -= 1)
+      }));
+      return;
+    }
+
+    if (keyCode === InputKeyCodes.DownArrow) {
+      const { highlightedIndex } = this.state;
+      if (highlightedIndex === suggestions.length) {
+        this.setState(state => ({ ...state, highlightedIndex: 0 }));
+        return;
+      }
+
+      this.setState(state => ({
+        ...state,
+        highlightedIndex: ((state.highlightedIndex as number) += 1)
+      }));
+      return;
+    }
+
+    if (keyCode === InputKeyCodes.RightArrow) {
+      const { highlightedIndex } = this.state;
+      const suggestion = suggestions[highlightedIndex - 1];
+      if (suggestion === undefined) {
+        return;
+      }
+
+      this.setState(
+        state => ({
+          ...state,
+          inputValue: suggestions[state.highlightedIndex - 1]
+        }),
+        () => {
+          const { inputValue } = this.state;
+          instant.search(inputValue, false);
+        }
+      );
+    }
+  };
+
+  private handleInputOnFocus = (event: InputFocusEvent) => {
+    this.setState(state => ({ ...state, isDropdownOpen: true }));
+  };
+
+  private handleInputOnBlur = (event: InputFocusEvent) => {
+    this.setState(state => ({
+      ...state,
+      isDropdownOpen: false,
+      highlightedIndex: 0
+    }));
+  };
+
+  private handleOnVoiceInput = (search: SearchFn) => (result: string) => {
+    this.setState(
+      state => ({ ...state, inputValue: result }),
+      () => {
+        const { inputValue } = this.state;
+        search(inputValue, true);
+      }
+    );
+  };
+
+  private handleSearchButtonClick = (search: SearchFn) => (
+    event: ButtonMouseEvent
+  ) => {
+    const { inputValue } = this.state;
+    search(inputValue, true);
+  };
+
+  private setHighlightedIndex = (index: number) =>
+    this.setState(state => ({ ...state, highlightedIndex: index }));
+
+  private selectItem = (search: SearchFn) => (item: string) =>
+    this.setState(
+      state => ({ ...state, inputValue: item }),
+      () => {
+        const { inputValue } = this.state;
+        search(inputValue, true);
+      }
+    );
+}

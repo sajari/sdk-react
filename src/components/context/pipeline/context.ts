@@ -4,6 +4,7 @@ import { Config } from "../../../config";
 import { Response } from "../../../controllers";
 
 export type SearchFn = (query: string, override: boolean) => void;
+export type ClearFn = (values?: { [k: string]: string | undefined }) => void;
 export type ResultClickedFn = (url: string) => void;
 export type PaginateFn = (page: number) => void;
 
@@ -14,6 +15,7 @@ export interface PipelineContextState {
   suggestions: string[];
   config: Config;
   search: SearchFn;
+  clear: ClearFn;
 }
 
 export interface Context {

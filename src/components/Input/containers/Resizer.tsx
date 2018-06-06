@@ -4,11 +4,11 @@ import isEqual from "deep-is";
 import memoize from "memoize-one";
 import * as React from "react";
 import ResizeObserver from "resize-observer-polyfill";
-import { override, styled, StyledComponent, StyledProps } from "../styles";
 
 export interface ResizerProps {
   element?: HTMLElement;
   styles?: React.CSSProperties;
+  children: RenderFn;
 }
 
 export interface ResizerState {
@@ -127,37 +127,11 @@ export class Resizer extends React.Component<ResizerProps, ResizerState> {
   public render() {
     const { children, styles } = this.props;
 
-    const { offset } = this.getContainerProps(this.state);
-    return (
-      <Container position={offset} styles={styles}>
-        {children}
-      </Container>
-    );
+    if (typeof children !== "function") {
+      throw new Error("Resizer requires a render function as a child.");
+    }
+
+    const renderProps = this.getContainerProps(this.state);
+    return children(renderProps);
   }
 }
-
-export interface ContainerProps extends StyledProps<HTMLDivElement> {
-  position: {
-    top: number;
-    left: number;
-    height: number;
-    width: number;
-  };
-}
-
-const Container = styled<ContainerProps, "div">("div")(
-  {
-    borderBottomLeftRadius: 2,
-    borderBottomRightRadius: 2,
-    boxShadow: "0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08)",
-    boxSizing: "border-box",
-    position: "absolute",
-    zIndex: 2000
-  },
-  override,
-  ({ position: { width, top, left, height } }) => ({
-    left,
-    width,
-    top: top + height
-  })
-);

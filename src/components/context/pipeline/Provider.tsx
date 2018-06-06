@@ -4,7 +4,7 @@ import isEqual from "deep-is";
 import memoize from "memoize-one";
 import * as React from "react";
 import { Config, defaultConfig } from "../../../config";
-import { Pipeline, Response, Values } from "../../../controllers";
+import { Pipeline, Response, Values, NoTracking } from "../../../controllers";
 import { UnlistenFn } from "../../../controllers/listener";
 import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from "../../../events";
 import { Context, PipelineContext } from "./context";
@@ -67,11 +67,13 @@ export class Provider extends React.PureComponent<
         ...state,
         search: {
           ...state.search,
-          search: this.search("search")
+          search: this.search("search"),
+          clear: this.clear("search")
         },
         instant: {
           ...state.instant,
-          search: this.search("instant")
+          search: this.search("instant"),
+          clear: this.clear("instant")
         },
         resultClicked: this.handleResultClicked,
         paginate: this.handlePaginate
@@ -138,7 +140,8 @@ export class Provider extends React.PureComponent<
       this.instant = {
         pipeline: new Pipeline(
           { project, collection, endpoint },
-          "autocomplete"
+          "autocomplete",
+          new NoTracking()
         ),
         values: new Values()
       };
@@ -221,6 +224,18 @@ export class Provider extends React.PureComponent<
     } else {
       pipeline.clearResponse(values.get());
     }
+  };
+
+  private clear = (key: "search" | "instant") => (vals?: {
+    [k: string]: string | undefined;
+  }) => {
+    const { pipeline, values } =
+      (this.props[key] as ProviderPipelineConfig) || this.instant;
+
+    if (vals !== undefined) {
+      values.set(vals);
+    }
+    pipeline.clearResponse(values.get());
   };
 
   private handleResultClicked = (url: string) =>
