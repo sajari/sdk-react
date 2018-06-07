@@ -2,7 +2,7 @@
 import isEqual from "deep-is";
 import * as React from "react";
 
-import { SearchFn } from "../../../context/pipeline/context";
+import { SetStateFn } from "../../context/context";
 import { Consumer } from "../../context";
 import { Suggestion, SuggestionsContainer } from "./styled";
 import { trimPrefix } from "../../utils";
@@ -14,7 +14,8 @@ export interface SuggestionsProps {
   suggestions: string[];
 
   setHighlightedIndex: (index: number) => void;
-  selectItem: (item: string) => void;
+  setState: SetStateFn;
+  pipelines: { [k: string]: any };
 }
 
 export class Suggestions extends React.Component<SuggestionsProps> {
@@ -52,7 +53,9 @@ export class Suggestions extends React.Component<SuggestionsProps> {
     } = this.props;
 
     return isDropdownOpen ? (
-      <SuggestionsContainer>
+      <SuggestionsContainer
+        onMouseLeave={this.handleSuggestionsContainerMouseLeave}
+      >
         {suggestions.map((item, index) => (
           <Suggestion
             key={item}
@@ -67,6 +70,13 @@ export class Suggestions extends React.Component<SuggestionsProps> {
     ) : null;
   }
 
+  private handleSuggestionsContainerMouseLeave = (
+    event: React.MouseEvent<HTMLDivElement>
+  ) => {
+    const { setHighlightedIndex } = this.props;
+    setHighlightedIndex(0);
+  };
+
   private handleSuggestionMouseOver = (
     event: React.MouseEvent<HTMLDivElement>
   ) => {
@@ -78,10 +88,13 @@ export class Suggestions extends React.Component<SuggestionsProps> {
   private handleSuggestionMouseDown = (
     event: React.MouseEvent<HTMLDivElement>
   ) => {
-    const { selectItem } = this.props;
+    const { setState, pipelines } = this.props;
     // @ts-ignore: innerText is a member of event.target
     const value = event.target.innerText;
-    selectItem(value);
+    // @ts-ignore: partial state update
+    setState({ inputValue: value, highlightedIndex: 0 }, (state: any) => {
+      pipelines.search.search(state.inputValue, true);
+    });
   };
 
   private getItemText = (item: string, value: string) => {
@@ -105,8 +118,8 @@ export default () => (
       suggestions,
       highlightedIndex,
       setHighlightedIndex,
-      selectItem,
-      search
+      setState,
+      pipelines
     }) => (
       <Suggestions
         inputValue={inputValue}
@@ -114,7 +127,8 @@ export default () => (
         suggestions={suggestions}
         highlightedIndex={highlightedIndex}
         setHighlightedIndex={setHighlightedIndex}
-        selectItem={selectItem(search.search)}
+        setState={setState}
+        pipelines={pipelines}
       />
     )}
   </Consumer>

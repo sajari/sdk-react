@@ -1,17 +1,12 @@
 import * as React from "react";
-// @ts-ignore: module missing type defs file
-import memoize from "memoize-one";
-// @ts-ignore: module missing type defs file
-import isEqual from "deep-is";
 import { Result } from "@sajari/sdk-js";
 
-import { Provider, RenderFnProps } from "./context";
+import { Provider } from "./context";
 
 import { Container } from "./styled";
 import {
   InputBox,
   InputChangeEvent,
-  InputFocusEvent,
   InputKeyboardEvent,
   ButtonMouseEvent
 } from "./components/InputBox";
@@ -28,90 +23,75 @@ enum InputKeyCodes {
   DownArrow = 40
 }
 
+export type InputMode = "suggestions" | "results" | "typeahead" | "standard";
+
 export interface InputProps {
+  mode?: InputMode;
   defaultValue?: string;
   placeholder?: string;
 
   inputRef?: (element: HTMLInputElement) => void;
 }
 
-export interface InputState {
-  inputValue: string;
-  isDropdownOpen: boolean;
-  highlightedIndex: number;
-}
-
-export class Input extends React.Component<InputProps, InputState> {
-  public state = {
-    inputValue: "",
-    isDropdownOpen: false,
-    highlightedIndex: 0
+export class Input extends React.Component<InputProps> {
+  public static defaultProps = {
+    mode: "standard"
   };
 
   private inputContainer?: HTMLFormElement;
   private input?: HTMLInputElement;
 
-  private getProviderValue = memoize(
-    (state: InputState) => ({
-      ...state
-    }),
-    isEqual
-  );
-
-  static getDerivedStateFromProps(props: InputProps, state: InputState) {
-    const { defaultValue } = props;
-    if (defaultValue === undefined) {
-      return state;
-    }
-
-    return {
-      ...state,
-      inputValue: defaultValue
-    };
-  }
-
   public render() {
-    const { placeholder } = this.props;
-    const value = {
-      ...this.state,
-      setHighlightedIndex: this.setHighlightedIndex,
-      selectItem: this.selectItem
-    };
+    const { mode, defaultValue, placeholder } = this.props;
 
     return (
-      <Provider value={value}>
+      <Provider defaultInputValue={defaultValue}>
         {({
           inputValue,
+          highlightedIndex,
           isDropdownOpen,
           suggestions,
           results,
-          search,
-          instant
-        }: RenderFnProps) => (
-          <Container>
-            <InputBox
-              inputRef={this.inputRef}
-              inputContainerRef={this.inputContainerRef}
-              value={inputValue}
-              placeholder={placeholder}
-              isDropdownOpen={isDropdownOpen}
-              onChange={this.handleInputOnChange(search, instant)}
-              onKeyDown={this.handleInputOnKeyDown(
-                suggestions,
-                results,
-                search,
-                instant
-              )}
-              onFocus={this.handleInputOnFocus}
-              onBlur={this.handleInputOnBlur}
-              onVoiceInput={this.handleOnVoiceInput(search.search)}
-              onSearchButtonClick={this.handleSearchButtonClick(search.search)}
-            />
-            <Dropdown isOpen={isDropdownOpen} element={this.inputContainer}>
-              <Suggestions />
-            </Dropdown>
-          </Container>
-        )}
+
+          getInputProps,
+          setState,
+          pipelines
+        }: InputContext) => {
+          return (
+            <Container>
+              <InputBox
+                inputRef={this.inputRef}
+                inputContainerRef={this.inputContainerRef}
+                value={inputValue}
+                placeholder={placeholder}
+                isDropdownOpen={isDropdownOpen}
+                mode={mode === "results" ? undefined : mode}
+                {...getInputProps({
+                  onChange: this.handleInputOnChange(pipelines.instant),
+                  onKeyDown: this.handleInputOnKeyDown(
+                    inputValue,
+                    highlightedIndex,
+                    suggestions,
+                    results,
+                    setState,
+                    pipelines
+                  )
+                })}
+                onVoiceInput={this.handleOnVoiceInput(
+                  setState,
+                  pipelines.search.search
+                )}
+                onSearchButtonClick={this.handleSearchButtonClick(
+                  inputValue,
+                  pipelines.search.search
+                )}
+              />
+              <Dropdown isOpen={isDropdownOpen} element={this.inputContainer}>
+                {mode === "suggestions" ? <Suggestions /> : null}
+              </Dropdown>
+            </Container>
+          );
+        }}
       </Provider>
     );
   }
@@ -126,155 +106,113 @@ export class Input extends React.Component<InputProps, InputState> {
     }
   };
 
-  private handleInputOnChange = (
-    search: { search: SearchFn },
-    instant: { search: SearchFn }
-  ) => (event: InputChangeEvent) => {
-    const value = event.target.value;
-    this.setState(
-      state => ({ ...state, inputValue: value, highlightedIndex: 0 }),
-      () => {
-        const { inputValue } = this.state;
-        instant.search(inputValue, false);
-      }
-    );
+  private handleInputOnChange = (instant: { search: SearchFn }) => (
+    event: InputChangeEvent
+  ) => {
+    const { mode } = this.props;
+    if (mode !== "standard") {
+      const value = event.target.value;
+      instant.search(value, false);
+    }
   };
 
   private handleInputOnKeyDown = (
+    inputValue: string,
+    highlightedIndex: number,
     suggestions: string[],
     results: Result[],
-    search: { search: SearchFn; clear: ClearFn },
-    instant: { search: SearchFn; clear: ClearFn }
+    setState: any,
+    pipelines: {
+      search: { search: SearchFn; clear: ClearFn };
+      instant: { search: SearchFn; clear: ClearFn };
+    }
   ) => (event: InputKeyboardEvent) => {
+    const { mode } = this.props;
     const { keyCode } = event;
 
     if (keyCode === InputKeyCodes.Return) {
-      const { inputValue, highlightedIndex } = this.state;
       const suggestion = suggestions[highlightedIndex - 1];
 
       if (suggestion === undefined) {
-        search.search(inputValue, true);
+        pipelines.search.search(inputValue, true);
       } else {
-        this.setState(state => ({ ...state, inputValue: suggestion }));
-        search.search(suggestion, true);
+        setState({ inputValue: suggestion });
+        pipelines.search.search(suggestion, true);
       }
 
-      instant.clear();
+      pipelines.instant.clear();
       if (this.input !== undefined) {
         this.input.blur();
       }
     }
 
     if (keyCode === InputKeyCodes.Escape) {
-      this.setState(
-        state => ({
-          ...state,
-          inputValue: "",
-          isDropdownOpen: false,
-          highlightedIndex: 0
-        }),
-        () => {
-          search.clear({ q: "" });
-          instant.clear({ q: "" });
+      pipelines.search.clear({ q: "" });
+      pipelines.instant.clear({ q: "" });
 
-          if (this.input !== undefined) {
-            this.input.blur();
-          }
-        }
-      );
+      if (this.input !== undefined) {
+        this.input.blur();
+      }
       return;
     }
 
     if (keyCode === InputKeyCodes.UpArrow) {
       event.preventDefault();
-      const { highlightedIndex } = this.state;
       if (highlightedIndex === 0) {
-        this.setState(state => ({
-          ...state,
-          highlightedIndex: suggestions.length
-        }));
+        setState({ highlightedIndex: suggestions.length });
         return;
       }
 
-      this.setState(state => ({
-        ...state,
-        highlightedIndex: ((state.highlightedIndex as number) -= 1)
-      }));
+      setState({ highlightedIndex: (highlightedIndex -= 1) });
       return;
     }
 
     if (keyCode === InputKeyCodes.DownArrow) {
-      const { highlightedIndex } = this.state;
       if (highlightedIndex === suggestions.length) {
-        this.setState(state => ({ ...state, highlightedIndex: 0 }));
+        setState({ highlightedIndex: 0 });
         return;
       }
 
-      this.setState(state => ({
-        ...state,
-        highlightedIndex: ((state.highlightedIndex as number) += 1)
-      }));
+      setState({ highlightedIndex: (highlightedIndex += 1) });
       return;
     }
 
     if (keyCode === InputKeyCodes.RightArrow) {
-      const { highlightedIndex } = this.state;
+      if (mode === "typeahead") {
+        setState({ inputValue: suggestions[0] }, (state: any) => {
+          const { inputValue } = state;
+          pipelines.instant.search(inputValue, false);
+        });
+        return;
+      }
+
       const suggestion = suggestions[highlightedIndex - 1];
       if (suggestion === undefined) {
         return;
       }
 
-      this.setState(
-        state => ({
-          ...state,
-          inputValue: suggestions[state.highlightedIndex - 1]
-        }),
-        () => {
-          const { inputValue } = this.state;
-          instant.search(inputValue, false);
+      setState(
+        { inputValue: suggestions[highlightedIndex - 1] },
+        (state: any) => {
+          const { inputValue } = state;
+          pipelines.instant.search(inputValue, false);
         }
       );
     }
   };
 
-  private handleInputOnFocus = (event: InputFocusEvent) => {
-    this.setState(state => ({ ...state, isDropdownOpen: true }));
+  private handleOnVoiceInput = (setState: any, search: SearchFn) => (
+    result: string
+  ) => {
+    setState({ inputValue: result }, (state: any) => {
+      const { inputValue } = state;
+      search(inputValue, true);
+    });
   };
 
-  private handleInputOnBlur = (event: InputFocusEvent) => {
-    this.setState(state => ({
-      ...state,
-      isDropdownOpen: false,
-      highlightedIndex: 0
-    }));
-  };
-
-  private handleOnVoiceInput = (search: SearchFn) => (result: string) => {
-    this.setState(
-      state => ({ ...state, inputValue: result }),
-      () => {
-        const { inputValue } = this.state;
-        search(inputValue, true);
-      }
-    );
-  };
-
-  private handleSearchButtonClick = (search: SearchFn) => (
+  private handleSearchButtonClick = (inputValue: string, search: SearchFn) => (
     event: ButtonMouseEvent
   ) => {
-    const { inputValue } = this.state;
     search(inputValue, true);
   };
-
-  private setHighlightedIndex = (index: number) =>
-    this.setState(state => ({ ...state, highlightedIndex: index }));
-
-  private selectItem = (search: SearchFn) => (item: string) =>
-    this.setState(
-      state => ({ ...state, inputValue: item }),
-      () => {
-        const { inputValue } = this.state;
-        search(inputValue, true);
-      }
-    );
 }

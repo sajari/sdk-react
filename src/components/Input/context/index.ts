@@ -1,2 +1,2 @@
-export { InputProvider as Provider, RenderFnProps } from "./Provider";
+export { InputProvider as Provider } from "./Provider";
 export { Consumer } from "./Consumer";

@@ -12,6 +12,7 @@ import {
   ButtonContainer
 } from "./styled";
 import { VoiceInputButton } from "./VoiceInputButton";
+import { Typeahead } from "../Typeahead";
 
 const RETURN_KEYCODE = 13;
 
@@ -24,6 +25,7 @@ export interface InputBoxProps {
   value: string;
   placeholder?: string;
   isDropdownOpen?: boolean;
+  mode?: "standard" | "typeahead" | "suggestions";
 
   inputRef?: (element: HTMLInputElement) => void;
   inputContainerRef?: (element: HTMLFormElement) => void;
@@ -41,6 +43,10 @@ export interface InputBoxState {
 }
 
 export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
+  public static defaultProps = {
+    mode: "standard"
+  };
+
   public state = { focused: false };
   private input?: HTMLInputElement;
   private inputContainer?: HTMLFormElement;
@@ -50,8 +56,8 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
       value,
       placeholder,
       isDropdownOpen,
+      mode,
       onChange,
-      onKeyDown,
       onVoiceInput
     } = this.props;
     const { focused } = this.state;
@@ -79,6 +85,9 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
               onFocus={this.handleInputOnFocus}
               onBlur={this.handleInputOnBlur}
             />
+            {mode === "typeahead" || mode === "suggestions" ? (
+              <Typeahead mode={mode} />
+            ) : null}
           </InputInnerContainer>
           <ButtonContainer>
             <VoiceInputButton onVoiceInput={onVoiceInput} />

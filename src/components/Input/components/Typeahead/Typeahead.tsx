@@ -1,50 +1,59 @@
 import * as React from "react";
 
-import { isNotEmptyArray, isNotEmptyString, trimPrefix } from "./utils";
-
-import { Typeahead as Container } from "./components/SearchInput/styled";
+import { Consumer } from "../../context";
+import { trimPrefix } from "../../utils";
+import { Container } from "./styled";
 
 export interface TypeaheadProps {
-  isActive: boolean;
-  autoComplete: boolean | "dropdown";
+  mode: "typeahead" | "suggestions";
   highlightedIndex: number;
   inputValue: string;
-  completion: string[];
-  suggestions: string[][];
+  completion: string;
+  suggestions: string[];
 }
 
 export const Typeahead: React.SFC<TypeaheadProps> = ({
-  isActive,
-  autoComplete,
+  mode,
   highlightedIndex,
   inputValue,
   completion,
   suggestions
 }) => {
-  return isActive ? (
+  return (
     <Container>
       {getTypeaheadValue(
-        autoComplete,
+        mode,
         completion,
         suggestions,
         highlightedIndex,
         inputValue
       )}
     </Container>
-  ) : null;
+  );
 };
 
 const getTypeaheadValue = (
-  autoComplete: boolean | "dropdown",
-  completion: string[],
-  suggestions: string[][],
+  mode: "typeahead" | "suggestions",
+  completion: string,
+  suggestions: string[],
   index: number,
   value: string
 ) => {
   const suggestion =
-    autoComplete !== "dropdown"
-      ? isNotEmptyString(completion[0], completion[1])
-      : isNotEmptyArray(suggestions[0], suggestions[1])[index] || "";
-
+    mode === "suggestions" ? suggestions[index - 1] || "" : completion;
   return trimPrefix(suggestion, value);
 };
+
+export default ({ mode }: { mode: "typeahead" | "suggestions" }) => (
+  <Consumer>
+    {({ completion, suggestions, highlightedIndex, inputValue }) => (
+      <Typeahead
+        mode={mode}
+        inputValue={inputValue}
+        highlightedIndex={highlightedIndex}
+        completion={completion}
+        suggestions={suggestions}
+      />
+    )}
+  </Consumer>
+);

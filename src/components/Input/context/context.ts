@@ -3,27 +3,36 @@ import createReactContext from "create-react-context";
 import { Result } from "@sajari/sdk-js";
 
 import { SearchFn, ClearFn } from "../../context/pipeline/context";
+import { ProviderState } from "./Provider";
+
+export type SetStateFn = (
+  newState: ProviderState,
+  callback?: (state: ProviderState) => void
+) => void;
 
 export interface InputContext {
-  inputValue: string;
-  isDropdownOpen: boolean;
-  highlightedIndex: number;
+  inputValue: string; // current raw contents of the input box
+  highlightedIndex: number; // current result or suggestion item highlighted
+  isDropdownOpen: boolean; // whether the dropdown should be open;
+
+  getInputProps: (props: { [k: string]: any }) => { [k: string]: any };
   setHighlightedIndex: (index: number) => void;
-  selectItem: (search: SearchFn) => (item: string) => void;
+  setState: SetStateFn;
 
   query: string;
   completion: string;
   suggestions: string[];
   results: Result[];
 
-  search: {
-    search: SearchFn;
-    clear: ClearFn;
-  };
-
-  instant: {
-    search: SearchFn;
-    clear: ClearFn;
+  pipelines: {
+    search: {
+      search: SearchFn;
+      clear: ClearFn;
+    };
+    instant: {
+      search: SearchFn;
+      clear: ClearFn;
+    };
   };
 }
 
