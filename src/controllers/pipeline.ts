@@ -36,7 +36,7 @@ export class Pipeline {
   private tracking: ClickTracking | NoTracking;
   private listeners: ListenerMap;
   private searchCount: number;
-  private response: Response;
+  private response: Response = new Response(null);
   private analytics: Analytics;
 
   /**

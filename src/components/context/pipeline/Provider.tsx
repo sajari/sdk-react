@@ -1,7 +1,3 @@
-// @ts-ignore: module missing defintion file
-import isEqual from "deep-is";
-// @ts-ignore: module missing defintion file
-import memoize from "memoize-one";
 import * as React from "react";
 import { Config, defaultConfig } from "../../../config";
 import { Pipeline, Response, Values, NoTracking } from "../../../controllers";
@@ -61,25 +57,21 @@ export class Provider extends React.PureComponent<
   private unregisterFunctions: UnlistenFn[] = [];
   private instant?: ProviderPipelineConfig;
 
-  private getContext = memoize(
-    (state: PipelineProviderState) =>
-      ({
-        ...state,
-        search: {
-          ...state.search,
-          search: this.search("search"),
-          clear: this.clear("search")
-        },
-        instant: {
-          ...state.instant,
-          search: this.search("instant"),
-          clear: this.clear("instant")
-        },
-        resultClicked: this.handleResultClicked,
-        paginate: this.handlePaginate
-      } as Context),
-    isEqual
-  );
+  private getContext = (state: PipelineProviderState) => ({
+    ...state,
+    search: {
+      ...state.search,
+      search: this.search("search"),
+      clear: this.clear("search")
+    },
+    instant: {
+      ...state.instant,
+      search: this.search("instant"),
+      clear: this.clear("instant")
+    },
+    resultClicked: this.handleResultClicked,
+    paginate: this.handlePaginate
+  });
 
   public componentDidMount() {
     const { search, instant } = this.props;
