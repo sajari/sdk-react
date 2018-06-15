@@ -2,7 +2,10 @@ import { EVENT_VALUES_UPDATED } from "../events";
 import { Listener, ListenerMap } from "./listener";
 
 export type ValueFn = () => string;
-export type ValuesMap = Map<string, string | string[] | ValueFn>;
+export type ValuesMap = Map<
+  string,
+  string | string[] | number | boolean | ValueFn
+>;
 export type CallbackFn = (
   values: { [k: string]: string },
   set: (values: { [k: string]: string }) => void
@@ -55,7 +58,7 @@ export class Values {
       } else if (Array.isArray(value)) {
         values[key] = (value as string[]).join(",");
       } else {
-        values[key] = value as string;
+        values[key] = String(value);
       }
     });
     return values;
