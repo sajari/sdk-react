@@ -15,6 +15,7 @@ export interface ResultProps {
   score?: number;
   indexScore?: number;
   showImage?: boolean;
+  itemIndex?: number;
 
   styles?: ResultStyles | null;
 }
@@ -34,42 +35,53 @@ export class Result extends React.Component<ResultProps> {
       styles = {};
     }
 
+    const Body = (
+      <React.Fragment>
+        <Title styles={idx(styles, _ => _.title)}>
+          <TokenLink
+            token={token}
+            url={values.url as string}
+            text={values.title as string}
+            resultClicked={resultClicked}
+          />
+        </Title>
+        <Description styles={idx(styles, _ => _.description)}>
+          {values.description as string}
+        </Description>
+        <URL styles={idx(styles, _ => _.url)}>
+          <TokenLink
+            token={token}
+            url={values.url as string}
+            resultClicked={resultClicked}
+          />
+        </URL>
+      </React.Fragment>
+    );
+
     return (
-      <Container showImage={showImage} styles={idx(styles, _ => _.container)}>
+      <Container
+        className="sj-result"
+        showImage={showImage}
+        styles={idx(styles, _ => _.container)}
+      >
         {showImage && (
-          <div>
-            <TokenLink
-              token={token}
-              url={values.url as string}
-              resultClicked={resultClicked}
-            >
-              <Image
-                src={values.image as string}
-                alt={values.title as string}
-              />
-            </TokenLink>
-          </div>
+          <React.Fragment>
+            <div className="sj-result__image">
+              <TokenLink
+                token={token}
+                url={values.url as string}
+                resultClicked={resultClicked}
+              >
+                <Image
+                  src={values.image as string}
+                  alt={values.title as string}
+                />
+              </TokenLink>
+            </div>
+            <div className="sj-result__text">{Body}</div>
+          </React.Fragment>
         )}
-        <div>
-          <Title styles={idx(styles, _ => _.title)}>
-            <TokenLink
-              token={token}
-              url={values.url as string}
-              text={values.title as string}
-              resultClicked={resultClicked}
-            />
-          </Title>
-          <Description styles={idx(styles, _ => _.description)}>
-            {values.description as string}
-          </Description>
-          <URL styles={idx(styles, _ => _.url)}>
-            <TokenLink
-              token={token}
-              url={values.url as string}
-              resultClicked={resultClicked}
-            />
-          </URL>
-        </div>
+        {!showImage && <div className="sj-result__text">Body</div>}
       </Container>
     );
   }
