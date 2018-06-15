@@ -2,10 +2,10 @@
 import isEqual from "deep-is";
 import * as React from "react";
 
-import { SetStateFn } from "../../context/context";
 import { Consumer } from "../../context";
-import { Suggestion, SuggestionsContainer } from "./styled";
+import { SetStateFn } from "../../context/context";
 import { trimPrefix } from "../../utils";
+import { Suggestion, SuggestionsContainer } from "./styled";
 
 export interface SuggestionsProps {
   inputValue: string;
@@ -60,7 +60,7 @@ export class Suggestions extends React.Component<SuggestionsProps> {
           <Suggestion
             key={item}
             isHighlighted={highlightedIndex === index + 1}
-            onMouseOver={this.handleSuggestionMouseOver}
+            onMouseMove={this.handleSuggestionMouseMove}
             onMouseDown={this.handleSuggestionMouseDown}
           >
             {this.getItemText(item, inputValue)}
@@ -77,7 +77,7 @@ export class Suggestions extends React.Component<SuggestionsProps> {
     setHighlightedIndex(0);
   };
 
-  private handleSuggestionMouseOver = (
+  private handleSuggestionMouseMove = (
     event: React.MouseEvent<HTMLDivElement>
   ) => {
     const { suggestions, setHighlightedIndex } = this.props;

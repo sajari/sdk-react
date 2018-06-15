@@ -1,17 +1,17 @@
 import * as React from "react";
 import {
-  StyledProps,
-  StyledComponent,
-  Theme,
+  override,
   styled,
-  override
+  StyledComponent,
+  StyledProps,
+  Theme
 } from "../../../styles";
 
 export const SuggestionsContainer = styled("div")({
   borderBottomLeftRadius: 2,
   borderBottomRightRadius: 2,
-  boxSizing: "border-box",
   boxShadow: "0 3px 8px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)",
+  boxSizing: "border-box",
   cursor: "default"
 });
 
