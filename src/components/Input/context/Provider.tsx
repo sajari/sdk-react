@@ -1,11 +1,11 @@
-import * as React from "react";
 import { Result } from "@sajari/sdk-js";
+import * as React from "react";
 
-import { Consumer as PipelineConsumer } from "../../context/pipeline/Consumer";
-import { Context, InputContext } from "./context";
-import { isNotEmptyString, isNotEmptyArray } from "../utils";
-import { SearchFn, ClearFn } from "../../context/pipeline/context";
 import { Response } from "../../../controllers";
+import { Consumer as PipelineConsumer } from "../../context/Consumer";
+import { ClearFn, SearchFn } from "../../context/pipeline/context";
+import { isNotEmptyArray, isNotEmptyString } from "../utils";
+import { Context, InputContext } from "./context";
 
 enum InputKeyCodes {
   Return = 13,
@@ -37,6 +37,11 @@ export interface ProviderProps {
     };
   };
 
+  aria: {
+    announceAssertive: (message: string) => void;
+    announcePolite: (message: string) => void;
+  };
+
   defaultInputValue?: string;
   children: (props: InputContext) => React.ReactNode;
 }
@@ -53,18 +58,10 @@ export interface ProviderState {
 }
 
 export class Provider extends React.Component<ProviderProps, ProviderState> {
-  public state = {
-    inputValue: "",
-    highlightedIndex: 0,
-    isDropdownOpen: false,
-
-    query: "",
-    completion: "",
-    suggestions: [],
-    results: []
-  };
-
-  static getDerivedStateFromProps(props: ProviderProps, state: ProviderState) {
+  public static getDerivedStateFromProps(
+    props: ProviderProps,
+    state: ProviderState
+  ) {
     const { defaultInputValue, pipelines } = props;
 
     const query = isNotEmptyString(
@@ -80,18 +77,35 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
       pipelines.instant.suggestions
     );
 
+    const results =
+      pipelines.search.response !== null
+        ? pipelines.search.response.getResults() || []
+        : [];
+
     return {
       ...state,
       completion,
       query,
+      results,
       suggestions,
       inputValue:
         defaultInputValue === undefined ? state.inputValue : defaultInputValue
     };
   }
 
-  render() {
-    const { pipelines, children } = this.props;
+  public state = {
+    inputValue: "",
+    isDropdownOpen: false,
+    highlightedIndex: 0,
+
+    query: "",
+    completion: "",
+    suggestions: [],
+    results: []
+  } as ProviderState;
+
+  public render() {
+    const { pipelines, aria, children } = this.props;
 
     if (typeof children !== "function") {
       throw new Error("Provider requires children to be a render function");
@@ -100,20 +114,23 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
     const value = {
       ...this.state,
 
+      aria,
       pipelines: {
-        search: {
-          search: pipelines.search.search,
-          clear: pipelines.search.clear
-        },
         instant: {
-          search: pipelines.instant.search,
-          clear: pipelines.instant.clear
+          clear: pipelines.instant.clear,
+          search: pipelines.instant.search
+        },
+        search: {
+          clear: pipelines.search.clear,
+          search: pipelines.search.search
         }
       },
 
+      // tslint:disable:object-literal-sort-keys
       setHighlightedIndex: this.setHighlightedIndex,
       getInputProps: this.getInputProps,
       setState: this.handleSetState
+      // tslint:enable:object-literal-sort-keys
     };
 
     return (
@@ -128,38 +145,41 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
 
   private getInputProps = (props: { [k: string]: any }) => {
     return {
+      onBlur: (event: React.FocusEvent<HTMLInputElement>) => {
+        this.setState(state => ({ ...state, isDropdownOpen: false }));
+        if (typeof props.onBlur === "function") {
+          props.onBlur(event);
+        }
+      },
       onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
         this.setState(state => ({ ...state, inputValue: value }));
-        if (typeof props["onChange"] === "function") {
+        if (typeof props.onChange === "function") {
           props.onChange(event);
         }
       },
       onFocus: (event: React.FocusEvent<HTMLInputElement>) => {
         this.setState(state => ({ ...state, isDropdownOpen: true }));
-        if (typeof props["onFocus"] === "function") {
+        if (typeof props.onFocus === "function") {
           props.onFocus(event);
-        }
-      },
-      onBlur: (event: React.FocusEvent<HTMLInputElement>) => {
-        this.setState(state => ({ ...state, isDropdownOpen: false }));
-        if (typeof props["onBlur"] === "function") {
-          props.onBlur(event);
         }
       },
       onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => {
         const { keyCode } = event;
 
         if (keyCode === InputKeyCodes.Escape) {
-          this.setState(state => ({
-            ...state,
-            inputValue: "",
-            isDropdownOpen: false,
-            highlightedIndex: 0
-          }));
+          this.setState(
+            state =>
+              ({
+                ...state,
+                inputValue: "",
+                isDropdownOpen: false,
+                highlightedIndex: 0
+              } as ProviderState)
+          );
         }
 
-        if (typeof props["onKeyDown"] === "function") {
+        if (typeof props.onKeyDown === "function") {
           props.onKeyDown(event);
         }
       }
@@ -191,9 +211,10 @@ export const InputProvider: React.SFC<InputProviderProps> = ({
   children
 }: InputProviderProps) => (
   <PipelineConsumer>
-    {({ search, instant }) => (
+    {({ search, instant, announceAssertive, announcePolite }) => (
       <Provider
         pipelines={{ search, instant }}
+        aria={{ announceAssertive, announcePolite }}
         defaultInputValue={defaultInputValue}
       >
         {children}

@@ -1,5 +1,5 @@
-import * as React from "react";
 import { css } from "emotion";
+import * as React from "react";
 
 import { SearchButton } from "./styled";
 import { VoiceInputIcon } from "./VoiceInputIcon";
@@ -41,6 +41,8 @@ export class VoiceInputButton extends React.Component<
       <SearchButton
         className={css({ marginRight: "0.25em" })}
         onClick={this.handleClick}
+        aria-label="Search by Voice"
+        value="Voice Search"
       >
         <VoiceInputIcon />
       </SearchButton>
@@ -65,7 +67,7 @@ export class VoiceInputButton extends React.Component<
     recognition.continuous = false;
     recognition.interimResults = false;
 
-    recognition.lang = "en-US";
+    recognition.lang = navigator.language || "en-US";
     recognition.start();
 
     recognition.addEventListener("result", ({ results }: any) => {

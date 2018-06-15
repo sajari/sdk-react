@@ -1,10 +1,10 @@
 import * as React from "react";
 import {
-  StyledProps,
-  StyledComponent,
-  Theme,
+  override,
   styled,
-  override
+  StyledComponent,
+  StyledProps,
+  Theme
 } from "../styles";
 
 export const Container = styled<StyledProps<HTMLDivElement>, "div">("div")(

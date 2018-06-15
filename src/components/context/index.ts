@@ -1,2 +1,2 @@
-export { PipelineConsumer as Consumer } from "./pipeline";
 export { Provider } from "./Provider";
+export { Consumer } from "./Consumer";

@@ -1,4 +1,4 @@
-import { RequestError, Result as SDKResult } from "@sajari/sdk-js";
+import { ClickToken, RequestError, Result as SDKResult } from "@sajari/sdk-js";
 import idx from "idx";
 import * as React from "react";
 
@@ -10,7 +10,7 @@ import { Container, Error, ResultItem } from "./styled";
 const STATUS_UNAUTHORISED = 403;
 
 export interface ResultsProps {
-  ResultRenderer: React.ComponentType<ResultProps>;
+  ResultRenderer?: React.ComponentType<ResultProps>;
   showImages?: boolean;
   styles?: {
     container?: React.CSSProperties;
@@ -20,12 +20,8 @@ export interface ResultsProps {
 }
 
 export class Results extends React.Component<ResultsProps, {}> {
-  public static defaultProps = {
-    ResultRenderer: Result
-  };
-
   public render() {
-    const { ResultRenderer, showImages, styles = {} } = this.props;
+    const { ResultRenderer = Result, showImages, styles = {} } = this.props;
 
     return (
       <Consumer>
@@ -53,19 +49,20 @@ export class Results extends React.Component<ResultsProps, {}> {
           const results =
             response !== undefined ? response.getResults() || [] : [];
 
-          return (
+          return results.length > 1 ? (
             <Container styles={idx(styles, _ => _.container)}>
-              {results.map((result: { [k: string]: any }, index: number) => {
-                const key = result.values._id || "" + index + result.values.url;
+              {results.map((result: SDKResult, index: number) => {
+                const key =
+                  (result.values._id as string) ||
+                  (("" + index + result.values.url) as string);
                 const token =
-                  result.tokens &&
-                  result.tokens.click &&
-                  result.tokens.click.token;
+                  result.token && (result.token as ClickToken).click;
 
                 return (
                   <ResultItem key={key} styles={idx(styles, _ => _.item)}>
                     <ResultRenderer
                       token={token}
+                      itemIndex={index}
                       values={result.values}
                       resultClicked={resultClicked}
                       showImage={showImages}
@@ -75,7 +72,7 @@ export class Results extends React.Component<ResultsProps, {}> {
                 );
               })}
             </Container>
-          );
+          ) : null;
         }}
       </Consumer>
     );

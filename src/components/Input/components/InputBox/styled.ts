@@ -37,8 +37,8 @@ export const InputContainer = styled<InputContainerProps, "form">("form")(
 );
 
 export const SearchContainer = styled("div")({
-  alignItems: "center",
   alignContent: "stretch",
+  alignItems: "center",
   display: "flex",
   flexWrap: "nowrap",
   justifyContent: "space-between",

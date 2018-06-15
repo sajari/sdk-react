@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Config, defaultConfig } from "../../../config";
-import { Pipeline, Response, Values, NoTracking } from "../../../controllers";
+import { NoTracking, Pipeline, Response, Values } from "../../../controllers";
 import { UnlistenFn } from "../../../controllers/listener";
 import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from "../../../events";
 import { Context, PipelineContext } from "./context";
@@ -56,22 +56,6 @@ export class Provider extends React.PureComponent<
 
   private unregisterFunctions: UnlistenFn[] = [];
   private instant?: ProviderPipelineConfig;
-
-  private getContext = (state: PipelineProviderState) => ({
-    ...state,
-    search: {
-      ...state.search,
-      search: this.search("search"),
-      clear: this.clear("search")
-    },
-    instant: {
-      ...state.instant,
-      search: this.search("instant"),
-      clear: this.clear("instant")
-    },
-    resultClicked: this.handleResultClicked,
-    paginate: this.handlePaginate
-  });
 
   public componentDidMount() {
     const { search, instant } = this.props;
@@ -175,6 +159,11 @@ export class Provider extends React.PureComponent<
           }))
       )
     );
+
+    // If q is set when component loads, trigger a search
+    if (search.values.get().q) {
+      search.pipeline.search(search.values.get());
+    }
   }
 
   public componentWillUnmount() {
@@ -192,6 +181,23 @@ export class Provider extends React.PureComponent<
       </PipelineContext.Provider>
     );
   }
+
+  private getContext = (state: PipelineProviderState) =>
+    ({
+      ...state,
+      search: {
+        ...state.search,
+        search: this.search("search"),
+        clear: this.clear("search")
+      },
+      instant: {
+        ...state.instant,
+        search: this.search("instant"),
+        clear: this.clear("instant")
+      },
+      resultClicked: this.handleResultClicked,
+      paginate: this.handlePaginate
+    } as Context);
 
   private search = (key: "search" | "instant") => (
     query: string,

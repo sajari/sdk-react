@@ -1,5 +1,7 @@
 import { ThemeProvider } from "emotion-theming";
 import * as React from "react";
+// @ts-ignore: module missing definintions file
+import { LiveAnnouncer } from "react-aria-live";
 
 import { Config } from "../../config";
 import { Pipeline, Values } from "../../controllers";
@@ -20,7 +22,9 @@ export class Provider extends React.PureComponent<ProviderProps> {
     return (
       <PipelineProvider search={search} instant={instant}>
         <ThemeProvider theme={theme || {}}>
-          <React.Fragment>{children}</React.Fragment>
+          <React.Fragment>
+            <LiveAnnouncer>{children}</LiveAnnouncer>
+          </React.Fragment>
         </ThemeProvider>
       </PipelineProvider>
     );

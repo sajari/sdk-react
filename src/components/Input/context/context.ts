@@ -1,8 +1,8 @@
-import * as React from "react";
-import createReactContext from "create-react-context";
 import { Result } from "@sajari/sdk-js";
+import createReactContext from "create-react-context";
+import * as React from "react";
 
-import { SearchFn, ClearFn } from "../../context/pipeline/context";
+import { ClearFn, SearchFn } from "../../context/pipeline/context";
 import { ProviderState } from "./Provider";
 
 export type SetStateFn = (
@@ -33,6 +33,11 @@ export interface InputContext {
       search: SearchFn;
       clear: ClearFn;
     };
+  };
+
+  aria: {
+    announcePolite: (message: string) => void;
+    announceAssertive: (message: string) => void;
   };
 }
 

@@ -81,7 +81,7 @@ export class Result extends React.Component<ResultProps> {
             <div className="sj-result__text">{Body}</div>
           </React.Fragment>
         )}
-        {!showImage && <div className="sj-result__text">Body</div>}
+        {!showImage && Body}
       </Container>
     );
   }

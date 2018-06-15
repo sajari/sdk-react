@@ -1,18 +1,18 @@
-import * as React from "react";
 import { css } from "emotion";
+import * as React from "react";
 
+import { Typeahead } from "../Typeahead";
 import {
-  InputContainer,
-  SearchContainer,
-  InputInnerContainer,
+  ButtonContainer,
   Input,
+  InputContainer,
+  InputInnerContainer,
   inputResetStyles,
   SearchButton,
-  SearchIcon,
-  ButtonContainer
+  SearchContainer,
+  SearchIcon
 } from "./styled";
 import { VoiceInputButton } from "./VoiceInputButton";
-import { Typeahead } from "../Typeahead";
 
 const RETURN_KEYCODE = 13;
 
@@ -26,6 +26,7 @@ export interface InputBoxProps {
   placeholder?: string;
   isDropdownOpen?: boolean;
   mode?: "standard" | "typeahead" | "suggestions";
+  suggestions?: string[];
 
   inputRef?: (element: HTMLInputElement) => void;
   inputContainerRef?: (element: HTMLFormElement) => void;
@@ -44,18 +45,20 @@ export interface InputBoxState {
 
 export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
   public static defaultProps = {
-    mode: "standard"
+    mode: "standard",
+    suggestions: []
   };
 
   public state = { focused: false };
   private input?: HTMLInputElement;
   private inputContainer?: HTMLFormElement;
 
-  render() {
+  public render() {
     const {
       value,
       placeholder,
       isDropdownOpen,
+      suggestions,
       mode,
       onChange,
       onVoiceInput
@@ -75,6 +78,17 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
               inputStyle={inputResetStyles.input}
               inputRef={this.inputRef}
               value={value}
+              aria-label="Search Input"
+              role="combobox"
+              aria-autocomplete={mode === "suggestions" ? "both" : undefined}
+              aria-haspopup={mode === "suggestions" ? "true" : undefined}
+              aria-expanded={
+                isDropdownOpen !== undefined && mode === "suggestions"
+                  ? (suggestions || []).length > 0
+                    ? isDropdownOpen
+                    : false
+                  : undefined
+              }
               placeholder={!focused ? placeholder : undefined}
               autoComplete="off"
               autoCorrect="off"

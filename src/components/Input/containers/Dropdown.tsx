@@ -15,6 +15,7 @@ export interface DropdownState {
 
 export class Dropdown extends React.Component<DropdownProps, DropdownState> {
   public state = { top: -1 };
+  private ticking = false;
 
   public componentDidMount() {
     document.addEventListener("scroll", this.scrollListener, true);
@@ -43,7 +44,6 @@ export class Dropdown extends React.Component<DropdownProps, DropdownState> {
     );
   }
 
-  private ticking = false;
   private scrollListener = (event: any) => {
     if (!this.ticking) {
       window.requestAnimationFrame(() => {

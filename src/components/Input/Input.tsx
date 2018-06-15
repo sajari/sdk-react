@@ -1,19 +1,19 @@
-import * as React from "react";
 import { Result } from "@sajari/sdk-js";
+import * as React from "react";
 
 import { Provider } from "./context";
 
-import { Container } from "./styled";
+import { ClearFn, SearchFn } from "../context/pipeline/context";
 import {
+  ButtonMouseEvent,
   InputBox,
   InputChangeEvent,
-  InputKeyboardEvent,
-  ButtonMouseEvent
+  InputKeyboardEvent
 } from "./components/InputBox";
-import { Dropdown } from "./containers/Dropdown";
 import { Suggestions } from "./components/Suggestions";
+import { Dropdown } from "./containers/Dropdown";
 import { InputContext } from "./context/context";
-import { SearchFn, ClearFn } from "../context/pipeline/context";
+import { Container } from "./styled";
 
 enum InputKeyCodes {
   Return = 13,
@@ -23,26 +23,48 @@ enum InputKeyCodes {
   DownArrow = 40
 }
 
-export type InputMode = "suggestions" | "results" | "typeahead" | "standard";
+export type InputMode = "standard" | "typeahead";
+export type DropdownMode = "none" | "suggestions" | "results";
 
 export interface InputProps {
-  mode?: InputMode;
+  inputMode?: InputMode;
+  dropdownMode?: DropdownMode;
+  instantSearch?: boolean;
+
   defaultValue?: string;
   placeholder?: string;
 
   inputRef?: (element: HTMLInputElement) => void;
+  onKeyDown?: (event: InputKeyboardEvent) => void;
+  onSearchButtonClick?: (
+    event: ButtonMouseEvent,
+    search: SearchFn,
+    value: string
+  ) => void;
+  ResultsDropdownRenderer?: React.ComponentType<{
+    highlightedIndex: number;
+    setHighlightedIndex: (index: number) => void;
+  }>;
 }
 
 export class Input extends React.Component<InputProps> {
   public static defaultProps = {
-    mode: "standard"
+    dropdownMode: "none",
+    inputMode: "standard",
+    instantSearch: false
   };
 
   private inputContainer?: HTMLFormElement;
   private input?: HTMLInputElement;
 
   public render() {
-    const { mode, defaultValue, placeholder } = this.props;
+    const {
+      inputMode,
+      dropdownMode,
+      defaultValue,
+      placeholder,
+      ResultsDropdownRenderer
+    } = this.props;
 
     return (
       <Provider defaultInputValue={defaultValue}>
@@ -55,6 +77,7 @@ export class Input extends React.Component<InputProps> {
 
           getInputProps,
           setState,
+          setHighlightedIndex,
           pipelines
         }: InputContext) => {
           return (
@@ -65,9 +88,15 @@ export class Input extends React.Component<InputProps> {
                 value={inputValue}
                 placeholder={placeholder}
                 isDropdownOpen={isDropdownOpen}
-                mode={mode === "results" ? undefined : mode}
+                suggestions={
+                  dropdownMode === "suggestions" ? suggestions : undefined
+                }
+                mode={dropdownMode === "suggestions" ? dropdownMode : inputMode}
                 {...getInputProps({
-                  onChange: this.handleInputOnChange(pipelines.instant),
+                  onChange: this.handleInputOnChange(
+                    pipelines.search,
+                    pipelines.instant
+                  ),
                   onKeyDown: this.handleInputOnKeyDown(
                     inputValue,
                     highlightedIndex,
@@ -87,7 +116,14 @@ export class Input extends React.Component<InputProps> {
                 )}
               />
               <Dropdown isOpen={isDropdownOpen} element={this.inputContainer}>
-                {mode === "suggestions" ? <Suggestions /> : null}
+                {dropdownMode === "suggestions" ? <Suggestions /> : null}
+                {dropdownMode === "results" &&
+                ResultsDropdownRenderer !== undefined ? (
+                  <ResultsDropdownRenderer
+                    highlightedIndex={highlightedIndex}
+                    setHighlightedIndex={setHighlightedIndex}
+                  />
+                ) : null}
               </Dropdown>
             </Container>
           );
@@ -106,11 +142,15 @@ export class Input extends React.Component<InputProps> {
     }
   };
 
-  private handleInputOnChange = (instant: { search: SearchFn }) => (
-    event: InputChangeEvent
-  ) => {
-    const { mode } = this.props;
-    if (mode !== "standard") {
+  private handleInputOnChange = (
+    search: { search: SearchFn },
+    instant: { search: SearchFn }
+  ) => (event: InputChangeEvent) => {
+    const { inputMode, dropdownMode, instantSearch } = this.props;
+    if (instantSearch || dropdownMode === "results") {
+      const value = event.target.value;
+      search.search(value, false);
+    } else if (inputMode === "typeahead") {
       const value = event.target.value;
       instant.search(value, false);
     }
@@ -127,10 +167,14 @@ export class Input extends React.Component<InputProps> {
       instant: { search: SearchFn; clear: ClearFn };
     }
   ) => (event: InputKeyboardEvent) => {
-    const { mode } = this.props;
+    const { inputMode, dropdownMode } = this.props;
     const { keyCode } = event;
 
-    if (keyCode === InputKeyCodes.Return) {
+    if (typeof this.props.onKeyDown === "function") {
+      this.props.onKeyDown(event);
+    }
+
+    if (dropdownMode !== "results" && keyCode === InputKeyCodes.Return) {
       const suggestion = suggestions[highlightedIndex - 1];
 
       if (suggestion === undefined) {
@@ -159,7 +203,12 @@ export class Input extends React.Component<InputProps> {
     if (keyCode === InputKeyCodes.UpArrow) {
       event.preventDefault();
       if (highlightedIndex === 0) {
-        setState({ highlightedIndex: suggestions.length });
+        let length = suggestions.length;
+        if (dropdownMode === "results") {
+          length = results.length;
+        }
+
+        setState({ highlightedIndex: length });
         return;
       }
 
@@ -168,7 +217,12 @@ export class Input extends React.Component<InputProps> {
     }
 
     if (keyCode === InputKeyCodes.DownArrow) {
-      if (highlightedIndex === suggestions.length) {
+      let length = suggestions.length;
+      if (dropdownMode === "results") {
+        length = results.length;
+      }
+
+      if (highlightedIndex === length) {
         setState({ highlightedIndex: 0 });
         return;
       }
@@ -178,10 +232,9 @@ export class Input extends React.Component<InputProps> {
     }
 
     if (keyCode === InputKeyCodes.RightArrow) {
-      if (mode === "typeahead") {
+      if (inputMode === "typeahead") {
         setState({ inputValue: suggestions[0] }, (state: any) => {
-          const { inputValue } = state;
-          pipelines.instant.search(inputValue, false);
+          pipelines.instant.search(state.inputValue, false);
         });
         return;
       }
@@ -194,8 +247,7 @@ export class Input extends React.Component<InputProps> {
       setState(
         { inputValue: suggestions[highlightedIndex - 1] },
         (state: any) => {
-          const { inputValue } = state;
-          pipelines.instant.search(inputValue, false);
+          pipelines.instant.search(state.inputValue, false);
         }
       );
     }
@@ -213,6 +265,11 @@ export class Input extends React.Component<InputProps> {
   private handleSearchButtonClick = (inputValue: string, search: SearchFn) => (
     event: ButtonMouseEvent
   ) => {
+    if (typeof this.props.onSearchButtonClick === "function") {
+      this.props.onSearchButtonClick(event, search, inputValue);
+      return;
+    }
+
     search(inputValue, true);
   };
 }
