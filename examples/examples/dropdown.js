@@ -17,8 +17,10 @@ import {
 } from "sajari-react";
 
 const pipeline = new Pipeline(
-  "sajariptyltd",
-  "sajari-com",
+  {
+    project: "sajariptyltd",
+    collection: "sajari-com"
+  },
   "website",
   new NoTracking()
 );
@@ -56,7 +58,7 @@ tabsFilter.listen(EVENT_SELECTION_UPDATED, () => {
 
 export default () => (
   <Provider search={{ pipeline, values }}>
-    <Input autocomplete="dropdown" />
+    <Input inputMode="typeahead" dropdownMode="suggestions" />
     <Response>
       <Tabs tabs={tabs} filter={tabsFilter} />
 

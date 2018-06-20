@@ -13,8 +13,10 @@ import {
 } from "sajari-react";
 
 const pipeline = new Pipeline(
-  "sajariptyltd",
-  "sajari-com",
+  {
+    project: "sajariptyltd",
+    collection: "sajari-com"
+  },
   "website",
   new NoTracking()
 );
