@@ -87,6 +87,7 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
               inputStyle={inputResetStyles.input}
               inputRef={this.inputRef}
               value={value}
+              minWidth={5}
               aria-label="Search Input"
               role="combobox"
               aria-autocomplete={mode === "suggestions" ? "both" : undefined}
