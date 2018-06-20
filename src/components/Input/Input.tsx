@@ -34,6 +34,8 @@ export interface InputProps {
   defaultValue?: string;
   placeholder?: string;
 
+  styles?: any;
+
   inputRef?: (element: HTMLInputElement) => void;
   onKeyDown?: (event: InputKeyboardEvent) => void;
   onSearchButtonClick?: (
@@ -63,7 +65,8 @@ export class Input extends React.Component<InputProps> {
       dropdownMode,
       defaultValue,
       placeholder,
-      ResultsDropdownRenderer
+      ResultsDropdownRenderer,
+      styles = {}
     } = this.props;
 
     return (
@@ -81,7 +84,7 @@ export class Input extends React.Component<InputProps> {
           pipelines
         }: InputContext) => {
           return (
-            <Container>
+            <Container styles={styles.container}>
               <InputBox
                 inputRef={this.inputRef}
                 inputContainerRef={this.inputContainerRef}
@@ -92,6 +95,7 @@ export class Input extends React.Component<InputProps> {
                   dropdownMode === "suggestions" ? suggestions : undefined
                 }
                 mode={dropdownMode === "suggestions" ? dropdownMode : inputMode}
+                styles={styles.input}
                 {...getInputProps({
                   onChange: this.handleInputOnChange(
                     pipelines.search,

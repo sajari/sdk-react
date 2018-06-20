@@ -10,6 +10,7 @@ export interface TypeaheadProps {
   inputValue: string;
   completion: string;
   suggestions: string[];
+  styles?: any;
 }
 
 export const Typeahead: React.SFC<TypeaheadProps> = ({
@@ -17,10 +18,11 @@ export const Typeahead: React.SFC<TypeaheadProps> = ({
   highlightedIndex,
   inputValue,
   completion,
-  suggestions
+  suggestions,
+  styles = {}
 }) => {
   return (
-    <Container>
+    <Container styles={styles}>
       {getTypeaheadValue(
         mode,
         completion,
@@ -44,7 +46,13 @@ const getTypeaheadValue = (
   return trimPrefix(suggestion, value);
 };
 
-export default ({ mode }: { mode: "typeahead" | "suggestions" }) => (
+export default ({
+  mode,
+  styles
+}: {
+  mode: "typeahead" | "suggestions";
+  styles?: any;
+}) => (
   <Consumer>
     {({ completion, suggestions, highlightedIndex, inputValue }) => (
       <Typeahead
@@ -53,6 +61,7 @@ export default ({ mode }: { mode: "typeahead" | "suggestions" }) => (
         highlightedIndex={highlightedIndex}
         completion={completion}
         suggestions={suggestions}
+        styles={styles}
       />
     )}
   </Consumer>

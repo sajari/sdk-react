@@ -28,6 +28,13 @@ export interface InputBoxProps {
   mode?: "standard" | "typeahead" | "suggestions";
   suggestions?: string[];
 
+  styles?: {
+    container?: React.CSSProperties;
+    input?: React.CSSProperties;
+    typeahead?: React.CSSProperties;
+    button?: React.CSSProperties;
+  };
+
   inputRef?: (element: HTMLInputElement) => void;
   inputContainerRef?: (element: HTMLFormElement) => void;
   onFocus?: (event: InputFocusEvent) => void;
@@ -61,7 +68,8 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
       suggestions,
       mode,
       onChange,
-      onVoiceInput
+      onVoiceInput,
+      styles = {}
     } = this.props;
     const { focused } = this.state;
 
@@ -70,9 +78,10 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
         innerRef={this.inputContainerRef}
         isDropdownOpen={isDropdownOpen === undefined ? false : isDropdownOpen}
         onClick={this.positionCaret}
+        styles={styles.container}
       >
         <SearchContainer role="search">
-          <InputInnerContainer>
+          <InputInnerContainer styles={styles.input}>
             <Input
               className={css(inputResetStyles.container)}
               inputStyle={inputResetStyles.input}
@@ -100,7 +109,7 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
               onBlur={this.handleInputOnBlur}
             />
             {mode === "typeahead" || mode === "suggestions" ? (
-              <Typeahead mode={mode} />
+              <Typeahead mode={mode} styles={styles.typeahead} />
             ) : null}
           </InputInnerContainer>
           <ButtonContainer>
@@ -109,6 +118,7 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
               onClick={this.handleSearchButtonOnClick}
               aria-label="Do search"
               value="Search"
+              styles={styles.button}
             >
               <SearchIcon />
             </SearchButton>
