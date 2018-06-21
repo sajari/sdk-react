@@ -19,7 +19,9 @@ export class Values {
    * Constructor for Values object.
    * @param values Initial values.
    */
-  constructor(values: { [k: string]: string | ValueFn } = {}) {
+  constructor(
+    values: { [k: string]: string | string[] | number | boolean | ValueFn } = {}
+  ) {
     this.listeners = new Map([[EVENT_VALUES_UPDATED, new Listener()]]);
     this.values = new Map(Object.entries(values));
   }
