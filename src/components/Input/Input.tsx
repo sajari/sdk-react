@@ -8,7 +8,8 @@ import {
   ButtonMouseEvent,
   InputBox,
   InputChangeEvent,
-  InputKeyboardEvent
+  InputKeyboardEvent,
+  InputFocusEvent
 } from "./components/InputBox";
 import { Suggestions } from "./components/Suggestions";
 import { Dropdown } from "./containers/Dropdown";
@@ -38,6 +39,8 @@ export interface InputProps {
 
   inputRef?: (element: HTMLInputElement) => void;
   onKeyDown?: (event: InputKeyboardEvent) => void;
+  onFocus?: (event: InputFocusEvent) => void;
+  onBlur?: (event: InputFocusEvent) => void;
   onSearchButtonClick?: (
     event: ButtonMouseEvent,
     search: SearchFn,
@@ -66,6 +69,8 @@ export class Input extends React.Component<InputProps> {
       defaultValue,
       placeholder,
       ResultsDropdownRenderer,
+      onFocus,
+      onBlur,
       styles = {}
     } = this.props;
 
@@ -108,7 +113,9 @@ export class Input extends React.Component<InputProps> {
                     results,
                     setState,
                     pipelines
-                  )
+                  ),
+                  onFocus,
+                  onBlur
                 })}
                 onVoiceInput={this.handleOnVoiceInput(
                   setState,
