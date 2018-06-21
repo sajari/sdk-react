@@ -71,7 +71,7 @@ export const inputResetStyles = {
     },
     background: "none",
     maxWidth: "100%",
-    padding: 0
+    padding: ".3em 0"
   },
   input: {
     background: 0,
