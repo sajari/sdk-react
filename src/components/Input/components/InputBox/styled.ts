@@ -64,23 +64,23 @@ export const Input = styled(AutosizeInput)({
 
 export const inputResetStyles = {
   container: {
-    "& > div": {
+    "& > div[style]": {
       // fixes sizing bug in firefox
-      overflow: "unset !important"
+      overflow: "unset !important",
+      display: "inline"
     },
     background: "none",
     maxWidth: "100%",
     padding: 0
   },
   input: {
-    backgroundColor: "transparent",
-    border: "none",
-    borderRadius: 0,
-    color: "currentcolor",
+    background: 0,
+    border: 0,
     fontFamily: "inherit",
-    fontSize: "1em",
-    height: 34,
+    fontSize: "inherit",
+    outline: 0,
     padding: 0,
+    color: "inherit",
     textRendering: "optimizeLegibility"
   }
 };
