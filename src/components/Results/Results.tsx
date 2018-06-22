@@ -49,7 +49,7 @@ export class Results extends React.Component<ResultsProps, {}> {
           const results =
             response !== undefined ? response.getResults() || [] : [];
 
-          return results.length > 1 ? (
+          return results.length > 0 ? (
             <Container styles={idx(styles, _ => _.container)}>
               {results.map((result: SDKResult, index: number) => {
                 const key =
