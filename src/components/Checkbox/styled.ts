@@ -23,7 +23,7 @@ export interface ContainerProps extends StyledProps<HTMLDivElement> {
   isSelected: boolean;
 }
 
-export const Container = styled<ContainerProps, "div">("div")(
+export const Container = styled("div")<ContainerProps>(
   {
     "&:hover": {
       color: "#333"

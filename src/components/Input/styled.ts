@@ -7,7 +7,7 @@ import {
   Theme
 } from "../styles";
 
-export const Container = styled<StyledProps<HTMLDivElement>, "div">("div")(
+export const Container = styled("div")<StyledProps<HTMLDivElement>>(
   {
     marginBottom: "1em",
     width: "100%"

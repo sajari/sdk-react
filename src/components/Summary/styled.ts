@@ -10,7 +10,7 @@ import {
 
 export interface ContainerProps extends StyledProps<HTMLDivElement> {}
 
-export const Container = styled<ContainerProps, "div">("div")(
+export const Container = styled("div")<ContainerProps>(
   {
     color: "#808080",
     fontSize: "small",
@@ -29,6 +29,6 @@ export const Emphasis = styled("strong")(
   override
 );
 
-export const OverrideContainer = styled<StyledProps<HTMLSpanElement>, "span">(
-  "span"
-)(override);
+export const OverrideContainer = styled("span")<StyledProps<HTMLSpanElement>>(
+  override
+);

@@ -15,7 +15,7 @@ export const Error = styled("div")({ color: "red" }, override);
 
 export interface ContainerProps extends StyledProps<HTMLOListElement> {}
 
-export const Container = styled<ContainerProps, "ol">("ol")(
+export const Container = styled("ol")<ContainerProps>(
   {
     display: "flex",
     flexWrap: "wrap",
@@ -35,7 +35,7 @@ const gridItem = css({
   width: "25%"
 });
 
-export const ResultItem = styled<ResultItemProps, "li">("li")(
+export const ResultItem = styled("li")<ResultItemProps>(
   {
     marginBottom: "1.5em",
     width: "100%"

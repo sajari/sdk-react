@@ -77,7 +77,7 @@ export interface ContainerProps extends StyledProps<HTMLDivElement> {
   };
 }
 
-const Container = styled<ContainerProps, "div">("div")(
+const Container = styled("div")<ContainerProps>(
   {
     boxSizing: "border-box",
     position: "absolute",

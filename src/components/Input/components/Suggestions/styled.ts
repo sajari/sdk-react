@@ -19,7 +19,7 @@ export interface SuggestionProps {
   isHighlighted: boolean;
 }
 
-export const Suggestion = styled<SuggestionProps, "div">("div")(
+export const Suggestion = styled("div")<SuggestionProps>(
   {
     color: "#666",
     fontSize: "1em",

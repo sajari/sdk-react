@@ -16,7 +16,7 @@ export interface InputContainerProps extends StyledProps<HTMLFormElement> {
   isDropdownOpen: boolean;
 }
 
-export const InputContainer = styled<InputContainerProps, "form">("form")(
+export const InputContainer = styled("form")<InputContainerProps>(
   {
     "&:hover": {
       boxShadow: "0 3px 8px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)"
@@ -47,9 +47,7 @@ export const SearchContainer = styled("div")({
 
 const searchIconSize = "1.5em";
 
-export const InputInnerContainer = styled<StyledProps<HTMLDivElement>, "div">(
-  "div"
-)(
+export const InputInnerContainer = styled("div")<StyledProps<HTMLDivElement>>(
   {
     overflow: "auto"
   },
@@ -65,9 +63,9 @@ export const Input = styled(AutosizeInput)({
 export const inputResetStyles = {
   container: {
     "& > div[style]": {
+      display: "inline",
       // fixes sizing bug in firefox
-      overflow: "unset !important",
-      display: "inline"
+      overflow: "unset !important"
     },
     background: "none",
     maxWidth: "100%",
@@ -76,18 +74,18 @@ export const inputResetStyles = {
   input: {
     background: 0,
     border: 0,
+    color: "inherit",
     fontFamily: "inherit",
     fontSize: "inherit",
     outline: 0,
     padding: 0,
-    color: "inherit",
     textRendering: "optimizeLegibility"
   }
 };
 
 export interface SearchButtonProps extends StyledProps<HTMLButtonElement> {}
 
-export const SearchButton = styled<SearchButtonProps, "button">("button")(
+export const SearchButton = styled("button")<SearchButtonProps>(
   {
     "&:focus, &:active": {
       outline: "none"

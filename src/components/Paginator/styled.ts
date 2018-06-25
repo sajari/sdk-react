@@ -17,7 +17,7 @@ export interface PageNumberProps {
   isCurrent?: boolean;
 }
 
-export const PageNumber = styled<PageNumberProps, "a">("a")(
+export const PageNumber = styled("a")<PageNumberProps>(
   {
     cursor: "pointer",
     display: "inline-block",
@@ -36,7 +36,7 @@ export interface PageButtonProps {
   isDisabled?: boolean;
 }
 
-export const PageButton = styled<PageButtonProps, "button">("button")(
+export const PageButton = styled("button")<PageButtonProps>(
   {
     "&:active, &:focus": {
       outline: "none"

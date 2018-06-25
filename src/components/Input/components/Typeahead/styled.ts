@@ -7,7 +7,7 @@ import {
   Theme
 } from "../../../styles";
 
-export const Container = styled<StyledProps<HTMLSpanElement>, "span">("span")(
+export const Container = styled("span")<StyledProps<HTMLSpanElement>>(
   {
     color: "#bebebe",
     display: "inline",

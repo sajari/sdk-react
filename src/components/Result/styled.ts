@@ -13,7 +13,7 @@ export interface ContainerProps extends StyledProps<HTMLDivElement> {
   showImage: boolean;
 }
 
-export const Container = styled<ContainerProps, "div">("div")(
+export const Container = styled("div")<ContainerProps>(
   {
     display: "flex",
     width: "100%"
@@ -32,7 +32,7 @@ export const Container = styled<ContainerProps, "div">("div")(
 
 export interface LinkProps extends StyledProps<HTMLAnchorElement> {}
 
-export const Link = styled<LinkProps, "a">("a")(
+export const Link = styled("a")<LinkProps>(
   {
     "&:hover": {
       cursor: "pointer",
@@ -47,7 +47,7 @@ export const Link = styled<LinkProps, "a">("a")(
 
 export interface TitleProps extends StyledProps<HTMLHeadingElement> {}
 
-export const Title = styled<TitleProps, "h3">("h3")(
+export const Title = styled("h3")<TitleProps>(
   {
     fontSize: "1.1em",
     fontWeight: 400,
@@ -74,7 +74,7 @@ export const Title = styled<TitleProps, "h3">("h3")(
 
 export interface DescriptionProps extends StyledProps<HTMLParagraphElement> {}
 
-export const Description = styled<DescriptionProps, "p">("p")(
+export const Description = styled("p")<DescriptionProps>(
   {
     color: "#545454",
     fontSize: "0.85em",
@@ -90,7 +90,7 @@ export const Description = styled<DescriptionProps, "p">("p")(
 
 export interface URLProps extends StyledProps<HTMLParagraphElement> {}
 
-export const URL = styled<URLProps, "p">("p")(
+export const URL = styled("p")<URLProps>(
   {
     color: "#a2a2a2",
     fontSize: 13,

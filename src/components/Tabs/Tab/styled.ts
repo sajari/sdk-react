@@ -12,7 +12,7 @@ export interface ContainerProps {
   isSelected: boolean;
 }
 
-export const Container = styled<ContainerProps, "div">("div")(
+export const Container = styled("div")<ContainerProps>(
   {
     boxSizing: "border-box",
     cursor: "pointer",
