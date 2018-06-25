@@ -8,7 +8,11 @@ export interface DropdownProps {
 export class Dropdown extends React.Component<DropdownProps> {
   public render() {
     const { isOpen, children } = this.props;
-    return isOpen ? <Container>{children}</Container> : null;
+    return isOpen ? (
+      <Container>
+        <Content>{children}</Content>
+      </Container>
+    ) : null;
   }
 }
 
@@ -17,4 +21,10 @@ const Container = styled("div")({
   position: "relative",
   width: "100%",
   zIndex: 10000
+});
+
+const Content = styled("div")({
+  boxSizing: "border-box",
+  position: "absolute",
+  width: "100%"
 });
