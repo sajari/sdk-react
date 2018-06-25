@@ -46,8 +46,7 @@
     "react-aria-live": "^2.0.2",
     "react-emotion": "^9.2.4",
     "react-input-autosize": "^2.2.1",
-    "react-select": "^2.0.0-beta.2",
-    "resize-observer-polyfill": "^1.5.0"
+    "react-select": "^2.0.0-beta.2"
   },
   "peerDependencies": {
     "prop-types": "^15.6.1",

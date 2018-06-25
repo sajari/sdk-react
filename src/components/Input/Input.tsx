@@ -126,7 +126,7 @@ export class Input extends React.Component<InputProps> {
                   pipelines.search.search
                 )}
               />
-              <Dropdown isOpen={isDropdownOpen} element={this.inputContainer}>
+              <Dropdown isOpen={isDropdownOpen}>
                 {dropdownMode === "suggestions" ? <Suggestions /> : null}
                 {dropdownMode === "results" &&
                 ResultsDropdownRenderer !== undefined ? (
