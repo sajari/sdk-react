@@ -8,12 +8,15 @@ import {
   Theme
 } from "../styles";
 
-export const Container = styled("nav")({
-  marginBottom: "1em",
-  textAlign: "center"
-});
+export const Container = styled("nav")<StyledProps<HTMLElement>>(
+  {
+    marginBottom: "1em",
+    textAlign: "center"
+  },
+  override
+);
 
-export interface PageNumberProps {
+export interface PageNumberProps extends StyledProps<HTMLAnchorElement> {
   isCurrent?: boolean;
 }
 
@@ -32,7 +35,7 @@ export const PageNumber = styled("a")<PageNumberProps>(
   override
 );
 
-export interface PageButtonProps {
+export interface PageButtonProps extends StyledProps<HTMLButtonElement> {
   isDisabled?: boolean;
 }
 
@@ -50,5 +53,6 @@ export const PageButton = styled("button")<PageButtonProps>(
     padding: 10,
     userSelect: "none"
   },
-  props => ({ color: props.isDisabled ? "#aaa" : "#777" })
+  props => ({ color: props.isDisabled ? "#aaa" : "#777" }),
+  override
 );

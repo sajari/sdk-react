@@ -7,8 +7,16 @@ import { pageNumbers } from "./utils";
 
 import { Container, PageButton, PageNumber } from "./styled";
 
-export class Paginator extends React.Component {
+export interface PaginatorProps {
+  styles?: {
+    controls?: React.CSSProperties;
+    number?: React.CSSProperties;
+  };
+}
+
+export class Paginator extends React.Component<PaginatorProps> {
   public render() {
+    const { styles = {} } = this.props;
     return (
       <Consumer>
         {({ search: { response }, paginate }) => {
@@ -53,6 +61,7 @@ export class Paginator extends React.Component {
                   isDisabled={page === 1}
                   onClick={this.prevPage(paginate, page)}
                   aria-label="Goto Previous Page"
+                  styles={styles.controls}
                 >
                   &lt;
                 </PageButton>
@@ -76,6 +85,7 @@ export class Paginator extends React.Component {
                           : `Page ${pageNumber}`
                       }
                       aria-current={page === pageNumber ? true : undefined}
+                      styles={styles.number}
                     >
                       {pageNumber}
                     </PageNumber>
@@ -87,6 +97,7 @@ export class Paginator extends React.Component {
                   isDisabled={page === totalPages}
                   onClick={this.nextPage(paginate, page, totalPages)}
                   aria-label="Goto Next Page"
+                  styles={styles.controls}
                 >
                   &gt;
                 </PageButton>
