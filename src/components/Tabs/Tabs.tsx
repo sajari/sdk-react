@@ -8,13 +8,19 @@ import { Tab } from "./Tab";
 export interface TabsProps {
   filter: Filter;
   tabs: Array<{ name: string; display: string }>;
+  styles?: {
+    container?: React.CSSProperties;
+    tab?: React.CSSProperties;
+  };
 }
 
-export const Tabs: React.SFC<TabsProps> = ({ filter, tabs }) => (
+export const Tabs: React.SFC<TabsProps> = ({ filter, tabs, styles = {} }) => (
   <FilterProvider filter={filter}>
-    <Container>
+    <Container styles={styles.container}>
       <TabsContainer>
-        {tabs.map(tab => <Tab key={tab.name} title={tab.display} />)}
+        {tabs.map(tab => (
+          <Tab key={tab.name} title={tab.display} styles={styles.tab} />
+        ))}
       </TabsContainer>
     </Container>
   </FilterProvider>
