@@ -1,0 +1,86 @@
+---
+name: Pipeline
+menu: Controllers
+route: /controllers/pipeline
+---
+
+# Pipeline
+
+The `Pipeline` controller handles all the search request/response lifecycle.
+
+## Constructor Type Definition
+```typescript
+type PipelineConstructor = (
+    config: {
+        project: string,
+        collection: string
+    },
+    pipeline: string,
+    tracking: ClickTracking | NoTracking = new ClickTracking(),
+    analytics?: GoogleAnalytics | DebugAnalytics
+    ) => Pipeline;
+```
+
+## Usage
+
+```javascript
+import { Pipeline } from "@sajari/sdk-react";
+
+const pipeline = new Pipeline(
+    {
+        project: "<your-project>",
+        collection: "<your-collection>"
+    },
+    "website"
+);
+```
+
+### Performing searches
+
+To perform a search you need a dictionary of parameter key-value pairs.
+
+```javascript
+pipeline.search({
+  q: "search keywords",
+  filter: "dir1='articles'"
+});
+```
+
+### Listening for responses
+
+Register listeners to be notified when search responses come back from the server, or are cleared by UI events.  Every listener is passed a `Response` which wraps the server response with convenience methods:
+
+* `isEmpty()`: returns `true` if the response is empty (i.e. as a result of a call to `Pipeline.clearResponse()`)
+* `isError()`: returns `true` if the response is an error response.
+* `getError()`: returns the underlying error.
+* `getResponse()`: returns the full search response.
+* `getResults()`: returns the search results from the response.
+* `getTotalResults()`: returns the total results found.
+* `getTime()`: returns the total query time.
+* `getAggregates()`: returns aggregate data attached to response.
+
+```javascript
+import { EVENT_RESPONSE_UPDATED } from "@sajari/sdk-react";
+
+const unregister = pipeline.listen(EVENT_RESPONSE_UPDATED, (response) => {
+  if (response.isEmpty()) {
+    // Empty response, could have been cleared via pipeline.clearResponse()
+    console.log("empty response");
+    return;
+  }
+
+  if (response.isError()) {
+    // Error response, normally due to incorrect project/collection/pipeline
+    // or transient errors contacting the server.
+    console.error("error response:", response.getError());
+    return;
+  }
+
+  response.getResults().forEach((result) => {
+    console.log(result);
+  })
+});
+
+// Sometime later...
+unregister();
+```

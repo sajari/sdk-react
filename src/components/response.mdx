@@ -1,0 +1,23 @@
+---
+name: Response
+menu: Components
+route: /components/response
+---
+
+import {Playground, PropsTable} from "docz"
+import { Provider } from "./context/Provider.tsx"
+import { Pipeline, Values, NoTracking } from "../controllers"
+import {Response} from "./Response.tsx"
+
+# Response
+
+The `<Response />` component doesn't render its children if the pipeline `Response`
+is empty (i.e. the initial pre-search state, or after `pipeline.clearResponse()` has been called).
+
+## Usage
+
+<Playground>
+    <Response>
+        <h1>I'll only be rendered if there is a valid response available</h1>
+    </Response>
+</Playground>

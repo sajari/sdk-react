@@ -1,0 +1,53 @@
+---
+name: Input
+menu: Components
+route: /components/input
+---
+
+import { Playground, PropsTable } from "docz"
+import { Provider } from "../context/Provider.tsx"
+import { Pipeline, Values, NoTracking } from "../../controllers"
+import { Input } from "./Input.tsx"
+
+# Input
+
+The `Input` component provides a text-box which performs searches as the user types.
+It is customizable through the use of props, to render appropraite autocomplete
+suggestions back in the input box, and to also render autocomplete suggestions in
+a list underneath.
+
+## Props
+<PropsTable of={Input} />
+
+## Usage
+
+### With default props
+<Playground>
+    <Input />
+</Playground>
+
+### With suggestions dropdown
+<Playground>
+    <Input inputMode="typeahead" dropdownMode="suggestions" />
+</Playground>
+
+
+### With custom styles
+<Playground>
+    <Input inputMode="typeahead" dropdownMode="suggestions" styles={{
+        input: {
+            container: {
+                width: "300px",
+                backgroundColor: "#999",
+                color: "#fff",
+                border: "1px solid #999",
+                boxShadow: "none"
+            },
+            button: {
+                color: "#eee"
+            }
+        }
+    }} />
+</Playground>
+
+

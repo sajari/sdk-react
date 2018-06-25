@@ -1,0 +1,172 @@
+---
+name: Facets & Filtering
+route: /facets-and-filtering
+---
+
+# Facets & Filtering
+
+Use the `Filter` helper-class from `@sajari/sdk-react` to integrate facets into UI.
+The library provides a standard set of components which can automatically bind state to `Filter` instances.
+
+### Single-select filters
+
+A single-select filter is used to handle state for components that offer multiple filtering options
+but only allow one option to be enabled at any one time. For example: a drop-down box or group of radio buttons.
+
+```javascript
+import { Filter } from "@sajari/sdk-react";
+
+const categories = new Filter(
+  {
+    // Options: Name -> Filter
+    "all":      "",
+    "blog":     "dir1='blog'",     // limit to results with dir1='blog'
+    "articles": "dir1='articles'"  // limit to results with dir1='articles'
+  },
+  // The default option.
+  "all"
+);
+```
+
+Each filter is given a name (in this example: `all`, `blog`, `articles`) which can then be used to bind them to UI components:
+
+<img width="136" alt="screen shot 2017-07-31 at 11 44 33 am" src="https://user-images.githubusercontent.com/2822/28759899-b1da1c36-75e5-11e7-969c-ab865642ea78.png" />
+
+```javascript
+import { FilterProvider, Radio } from "@sajari/sdk-react";
+
+<div>
+  <h3>Categories</h3>
+  <FilterProvider filter={categories}>
+    <Radio name="all" /><label>All</label>
+    <Radio name="blog" /><label>Blog</label>
+    <Radio name="articles" /><label>Articles</label>
+  </FilterProvider>
+</div>
+```
+
+Or a drop-down select box:
+
+<img width="90" alt="screen shot 2017-07-31 at 11 46 57 am" src="https://user-images.githubusercontent.com/2822/28759924-03bbcff4-75e6-11e7-95eb-770bf36ee2f1.png" />
+
+```javascript
+import { Select } from "@sajari/sdk-react";
+
+<Select
+  filter={categories}
+  options={{
+    // Options: Name -> Display Name
+    all: "All",
+    blog: "Blog",
+    articles: "Articles"
+  }}
+/>
+```
+
+To include the filter in a search it needs to be attached to the `Values` instance used by `Pipeline`:
+
+```javascript
+import { EVENT_SELECTION_UPDATED } from "@sajari/sdk-react";
+
+// Add the filter to `values`.  Note: category.filter() will be
+// evaluated in `values.get()`.
+values.set({ filter: () => categories.filter() });
+
+// Trigger a search every time the filter selection changes.
+categories.listen(EVENT_SELECTION_UPDATED, () => pipeline.search(values.get()));
+```
+
+## Multi-select filters
+
+A multi-select filter is used to represent state for UI components that can have multiple options selected at once, i.e. a list of check boxes or a multi-select list.
+
+```javascript
+const categories = new Filter(
+  {
+    // Options: Name -> Filter
+    "blog":     "dir1='blog'",     // limit to dir1='blog'
+    "articles": "dir1='articles'", // limit to dir1='articles'
+    "other":    "dir1!='blog' AND dir1!='articles'", // everything else
+  },
+  // The default filters to be enabled
+  ["blog", "articles"], // default filter will be "dir1='blog' OR dir1='articles'"
+  true, // Allow multiple selections
+);
+```
+
+This can be hooked up to a list of checkboxes:
+
+<img width="140" alt="screen shot 2017-07-31 at 11 42 16 am" src="https://user-images.githubusercontent.com/2822/28759868-5bf0ac7c-75e5-11e7-8a52-ceb190be7279.png" />
+
+```javascript
+import { FilterProvider, Checkbox } from "@sajari/sdk-react";
+
+<div>
+  <h3>Categories</h3>
+  <FilterProvider filter={categories}>
+    <Checkbox name="blog" /><label>Blog</label>
+    <Checkbox name="articles" /><label>Articles</label>
+    <Checkbox name="other" /><label>Other</label>
+  </FilterProvider>
+</div>
+```
+
+The default operator used to combine selected filters is `OR`, but this can be overriden by the last argument in the `Filter` construtor.
+See the full class docs for more details.
+
+To include the filter in a search it needs to be attached to the `Values` instance used by `Pipeline`:
+
+```javascript
+import { EVENT_SELECTION_UPDATED } from "@sajari/sdk-react";
+
+// Add the filter to `values`.  Note: category.filter() will be
+// evaluated in `values.get()`.
+values.set({ filter: () => categories.filter() });
+
+// Trigger a search every time the filter selection changes.
+categories.listen(EVENT_SELECTION_UPDATED, () => pipeline.search(values.get()));
+```
+
+### Tidying up filter listeners
+
+The `listen` method returns a closure that will unregister the new listener:
+
+```javascript
+const unregister = filter.listen(EVENT_SELECTION_UPDATED, () => {
+  console.log("filter changed:", filter.filter());
+});
+
+// sometime later...
+unregister();
+```
+
+### Combining multiple filters
+
+To combine multiple `Filter` instances into one, use the `CombineFilters` function.
+
+```javascript
+import { Filter, CombineFilters, EVENT_SELECTION_UPDATED } from "@sajari/sdk-react";
+
+// Define recency filter...
+const recencyFilter = new Filter(...);
+
+// Define category Filter...
+const categoryFilter = new Filter(...);
+
+// Combine both recency and category filters.
+const filter = CombineFilters([recencyFilter, categoryFilter])
+
+// Add the filter to `values`.  Note: filter.filter() will be
+// evaluated in `values.get()`.
+values.set({ filter: () => filter.filter() })
+
+// When either recencyFilter or categoryFilter is updated, they trigger
+// an event on the combined filter.
+const unregister = filter.listen(EVENT_SELECTION_UPDATED, () => {
+  pipeline.search(values.get());
+});
+
+// Sometime later...
+unregister();
+```
+

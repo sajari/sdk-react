@@ -1,0 +1,95 @@
+---
+name: Results
+menu: Components
+route: /components/results
+---
+
+import {Playground, PropsTable} from "docz"
+import { Provider } from "../context/Provider.tsx"
+import { Pipeline, Values, NoTracking } from "../../controllers"
+import { Results } from "./Results.tsx"
+
+
+# Results
+
+`<Results />` renders the results list using the component passed to the `ResultRenderer`, defaulting
+to a standard `Result` component if nothing is provided.
+
+## Props
+
+<PropsTable of={Results} />
+
+#### ResultRenderer propTypes
+```typescript
+type ResultClickedFn = (url: string) => void;
+type ResultRendererProps = {
+    token: string;
+    values: { [k: string]: string | string[] };
+    resultClicked: ResultClickedFn;
+    score?: number;
+    indexScore?: number;
+    itemIndex?: number;
+}
+```
+
+## Styles
+
+```typescript
+type ResultsStyles = {
+    container?: React.CSSProperties,
+    item?: React.CSSProperties,
+    result?: {
+        container?: React.CSSProperties;
+        title?: React.CSSProperties;
+        description?: React.CSSProperties;
+        url?: React.CSSProperties;
+    }
+}
+```
+
+## Usage
+
+### Basic
+<Playground>
+    <Results />
+</Playground>
+
+### With images
+<Playground>
+    <Results showImages />
+</Playground>
+
+### With custom styles
+<Playground>
+    <Results styles={{
+        container: {
+            flexWrap: "nowrap",
+            justifyContent: "space-between"
+        },
+        item: {
+            width: "32%",
+            padding: "0.5rem",
+            boxShadow: "0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)"
+        },
+        result: {
+            container: {
+                height: "100%",
+                justifyContent: "space-between"
+            }
+        }
+    }} />
+</Playground>
+
+### With custom result renderer
+
+<Playground>
+    <Results
+        ResultRenderer={({values, token}) => <a href={token || "#"}>{values.title}</a>}
+        styles={{
+            item: {
+                marginBottom: "0.25rem"
+            }
+        }}
+    />
+</Playground>
+
