@@ -64,6 +64,7 @@ typings/
 # built files
 lib/
 dist/
+.docz/
 
 # cache files
 .rpt2_cache/
