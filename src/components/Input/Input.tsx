@@ -8,8 +8,8 @@ import {
   ButtonMouseEvent,
   InputBox,
   InputChangeEvent,
-  InputKeyboardEvent,
-  InputFocusEvent
+  InputFocusEvent,
+  InputKeyboardEvent
 } from "./components/InputBox";
 import { Suggestions } from "./components/Suggestions";
 import { Dropdown } from "./containers/Dropdown";
@@ -102,6 +102,8 @@ export class Input extends React.Component<InputProps> {
                 mode={dropdownMode === "suggestions" ? dropdownMode : inputMode}
                 styles={styles.input}
                 {...getInputProps({
+                  onBlur,
+                  onFocus,
                   onChange: this.handleInputOnChange(
                     pipelines.search,
                     pipelines.instant
@@ -113,9 +115,7 @@ export class Input extends React.Component<InputProps> {
                     results,
                     setState,
                     pipelines
-                  ),
-                  onFocus,
-                  onBlur
+                  )
                 })}
                 onVoiceInput={this.handleOnVoiceInput(
                   setState,
