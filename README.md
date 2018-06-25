@@ -1,25 +1,32 @@
-# Sajari React SDK &middot; [![npm version](https://img.shields.io/npm/v/sajari-react.svg?style=flat-square)](https://www.npmjs.com/package/sajari-react) [![build](https://travis-ci.org/sajari/sajari-sdk-react.svg?branch=master)](https://travis-ci.org/sajari/sajari-sdk-react) [![license](http://img.shields.io/badge/license-MIT-green.svg?style=flat-square)](./LICENSE)
+# Sajari React SDK 
+[![npm (scoped)](https://img.shields.io/npm/v/@sajari/sdk-react.svg?style=flat-square)](https://www.npmjs.com/package/@sajari/sdk-react)
+[![Travis](https://img.shields.io/travis/sajari/sajari-sdk-react.svg?style=flat-square)](https://travis-ci.org/sajari/sajari-sdk-react)
+[![license](https://img.shields.io/npm/l/@sajari/sdk-react.svg?style=flat-square)](./LICENSE)
 
-**sajari-react** is a client side javascript library of React Components for the [Sajari](https://www.sajari.com) search platform to help build fast and powerful search interfaces.
+`@sajari/sdk-react` is a client side javascript library of React Components for the [Sajari](https://www.sajari.com) search platform to help build fast and powerful search interfaces.
 
 React provides a simple and elegant way to structure user interfaces. The Sajari React SDK provides a way to seamlessly integrate the Sajari platform into any web-based app through the use of easily composable Components.
 
 We also provide a vanilla Sajari JS library [here](https://github.com/sajari/sajari-sdk-js/).
 
-<img width="1060" alt="screen shot 2017-07-26 at 8 42 16 pm" src="https://user-images.githubusercontent.com/2822/28617328-4ce241aa-7243-11e7-8d0e-47fdde1867e6.png">
+<!-- TODO(@benhinchley): take new screenshot -->
 
 # Table of contents
 
-* [Examples](#examples)
+<!-- * [Examples](#examples) -->
 * [Setup](#setup)
   * [NPM](#npm)
+* [Documentation](#documentation)
 * [Quick reference](#quick-reference)
 * [License](#license)
 * [Browser support](#browser-support)
 
+<!-- 
 # Examples
 
 It's easy to get up and running using one of our examples as a starting point.  They're pre-configured with all the correct dependencies, so all you need to do is copy the example directory into your own workspace and you're on your way!
+
+TODO(@benhinchley): build examples in codesandbox
 
 * [Autocomplete](./examples/autocomplete-only/): search box with autocomplete.
 * [Autocomplete with suggestions](./examples/autocomplete-suggest/): search box with autocomplete + suggestions.
@@ -30,19 +37,22 @@ It's easy to get up and running using one of our examples as a starting point.  
 * [Radio/checkbox](./examples/radio-checkbox/): radio/checkbox filtering.
 * [Aggregate](./examples/aggregate/): aggregate filtering.
 
+-->
+
 # Setup
 
-Check out our [examples](./examples) for the best way to get started.
-
-If you want to add the SDK to an existing project, or want to start from scratch, then you can get `sajari-react` using NPM.
+If you want to add the SDK to an existing project, or want to start from scratch, then you can get `@sajari/sdk-react` using NPM.
 
 ### NPM
 
-We currently distribute the `sajari-react` library through NPM. NPM is only required for downloading the library. The SDK is made to be used from the browser.
+We currently distribute the `@sajari/sdk-react` library through NPM. NPM is only required for downloading the library. The SDK is made to be used from the browser.
 
 ```shell
-$ npm install --save sajari sajari-react
+$ npm install --save @sajari/sdk-react
 ```
+
+# Documentation
+To read the documentation, go here [sajari-sdk-react.netlify.com](https://sajari-sdk-react.netlify.com)
 
 # Quick reference
 
@@ -53,10 +63,16 @@ This library includes a standard set of components for building search interface
 Before you can use any components, you'll need to initialise a [`Pipeline`](#using-pipeline) for handling search requests to the API:
 
 ```javascript
-import { Pipeline } from "sajari-react/controllers";
+import { Pipeline } from "@sajari/sdk-react";
 
 // Create a pipeline for running searches.
-const pipeline = new Pipeline("<your-project>", "<your-collection>", "website");
+const pipeline = new Pipeline(
+  {
+    project: "<your-project>", 
+    collection: "<your-collection>"
+  },
+  "website"
+);
 
 // Now you're ready to perform a search.
 pipeline.search({
@@ -64,38 +80,49 @@ pipeline.search({
 });
 ```
 
-## AutocompleteInput
-
-![autocomplete](https://media.giphy.com/media/26zyVB5UcumOfOInu/giphy.gif)
-
-`AutocompleteInput` provides a text-box which performs searches as the user types and renders appropraite autocomplete suggestions back in the input box.
+## [Provider](https://sajari-sdk-react.netlify.com/components/provider)
+`<Provider />` is the component that maintains the state of the search, does the queries, and provides the response to the other components so that they can update themselves when needed.
 
 ```javascript
-import { AutocompleteInput } from "sajari-react/ui/text";
+import { Provider, Pipeline, Values } from "@sajari/sdk-react";
 
-<AutocompleteInput values={values} pipeline={pipeline} />
+const pipeline = new Pipeline(
+  {
+    project: "<your-project>", 
+    collection: "<your-collection>"
+  },
+  "website"
+);
+
+const values = new Values();
+
+
+ReactDOM.render(
+  <Provider search={{pipeline, values}}>
+    {/* Your application code here */}
+  </Provider>,
+  document.getElementById("root")
+)
 ```
 
-## Input
+## [Input](https://sajari-sdk-react.netlify.com/components/input)
 
-`Input` is a plain search box which does not show autocomplete suggestions.
-
-```javascript
-import { Input } from "sajari-react/ui/text";
-
-<Input values={values} pipeline={pipeline} />
-```
-
-## AutocompleteDropdown
-
-`AutocompleteDropdown` is a text box which performs autocomplete as the user types and renders autocomplete suggestions in a list underneath.
-
-![autocomplete-suggest](https://media.giphy.com/media/xT39DnBWdmrxJ1Xd1S/giphy.gif)
+The `Input` component provides a text-box which performs searches as the user types.
+It is customizable through the use of props, to render appropraite autocomplete
+suggestions back in the input box, and to also render autocomplete suggestions in
+a list underneath.
 
 ```javascript
-import { AutocompleteDropdown } from "sajari-react/ui/text";
+import { Input } from "@sajari/sdk-react";
 
-<AutocompleteDropdown values={values} pipeline={pipeline} />
+/* default props */
+<Input />
+
+/* typeahead */
+<Input inputMode="typeahead" />
+
+/* suggestions */
+<Input inputMode="typeahead" dropdownMode="suggestions" />
 ```
 
 ## Handling results
@@ -105,10 +132,10 @@ A typical search result UI could includes a summary of the search, maybe with op
 A standard search response handler would look something like this:
 
 ```javascript
-<Response pipeline={pipeline}>
-  <Summary values={values} pipeline={pipeline} />
-  <Results pipeline={pipeline} />
-  <Paginator values={values} pipeline={pipeline} />
+<Response>
+  <Summary />
+  <Results />
+  <Paginator />
 </Response>
 ```
 #### `<Response/>`
@@ -119,266 +146,8 @@ The `<Response />` component doesn't render its children if the pipeline `Respon
 
 The `<Results />` component can also take a custom renderer which will be used to render its individual results.  See the [custom result renderer example](./examples/custom-result-renderer) for more details.
 
-## Building facets
-
-Use the `Filter` helper-class from `sajari-react/controllers` to integrate facets into UI.  The library provides a standard set of components under `sajari-react/ui/facets` which can automatically bind state to `Filter` instances.  For more details, see the [full documentation](./src/controllers/filter.js).
-
-### Single-select filters
-
-A single-select filter is used to handle state for components that offer multiple filtering options but only allow one option to be enabled at any one time. For example: a drop-down box or group of radio buttons.
-
-```javascript
-import { Filter } from "sajari-react/controllers";
-
-const categories = new Filter(
-  {
-    // Options: Name -> Filter
-    "all":      "",
-    "blog":     "dir1='blog'",     // limit to results with dir1='blog'
-    "articles": "dir1='articles'"  // limit to results with dir1='articles'
-  },
-  // The default option.
-  "all"
-);
-```
-
-Each filter is given a name (in this example: `all`, `blog`, `articles`) which can then be used to bind them to UI components:
-
-<img width="136" alt="screen shot 2017-07-31 at 11 44 33 am" src="https://user-images.githubusercontent.com/2822/28759899-b1da1c36-75e5-11e7-969c-ab865642ea78.png">
-
-```javascript
-import { RadioFacet } from "sajari-react/ui/facets";
-
-<div>
-  <h3>Categories</h3>
-  <RadioFacet filter={categories} name="all" /><label>All</label>
-  <RadioFacet filter={categories} name="blog" /><label>Blog</label>
-  <RadioFacet filter={categories} name="articles" /><label>Articles</label>
-</div>
-```
-
-Or a drop-down select box:
-
-<img width="90" alt="screen shot 2017-07-31 at 11 46 57 am" src="https://user-images.githubusercontent.com/2822/28759924-03bbcff4-75e6-11e7-95eb-770bf36ee2f1.png">
-
-```javascript
-import { SelectFacet } from "sajari-react/ui/facets";
-
-<SelectFacet
-  filter={categories}
-  options={{
-    // Options: Name -> Display Name
-    all: "All",
-    blog: "Blog",
-    articles: "Articles"
-  }}
-/>
-```
-
-To include the filter in a search it needs to be attached to the `Values` instance used by `Pipeline`:
-
-```javascript
-import { selectionUpdatedEvent } from "sajari-react/controllers";
-
-// Add the filter to `values`.  Note: category.filter() will be
-// evaluated in `values.get()`.
-values.set({ filter: () => categories.filter() }); 
-
-// Trigger a search every time the filter selection changes.
-categories.listen(selectionUpdatedEvent, () => pipeline.search(values.get()));
-```
-
-## Multi-select filters
-
-A multi-select filter is used to represent state for UI components that can have multiple options selected at once, i.e. a list of check boxes or a multi-select list.
-
-```javascript
-const categories = new Filter(
-  {
-    // Options: Name -> Filter
-    "blog":     "dir1='blog'",     // limit to dir1='blog'
-    "articles": "dir1='articles'", // limit to dir1='articles'
-    "other":    "dir1!='blog' AND dir1!='articles'", // everything else
-  },
-  // The default filters to be enabled
-  ["blog", "articles"], // default filter will be "dir1='blog' OR dir1='articles'"
-  true, // Allow multiple selections
-);
-```
-
-This can be hooked up to a list of checkboxes:
-
-<img width="140" alt="screen shot 2017-07-31 at 11 42 16 am" src="https://user-images.githubusercontent.com/2822/28759868-5bf0ac7c-75e5-11e7-8a52-ceb190be7279.png">
-
-```javascript
-import { CheckboxFacet } from "sajari-react/ui/facets";
-
-<div>
-  <h3>Categories</h3>
-  <CheckboxFacet filter={categories} name="blog" /><label>Blog</label>
-  <CheckboxFacet filter={categories} name="articles" /><label>Articles</label>
-  <CheckboxFacet filter={categories} name="other" /><label>Other</label>
-</div>
-```
-
-The default operator used to combine selected filters is `OR`, but this can be overriden by the last argument in the `Filter` construtor.  See the full class docs for more details.
-
-To include the filter in a search it needs to be attached to the `Values` instance used by `Pipeline`:
-
-```javascript
-import { selectionUpdatedEvent } from "sajari-react/controllers";
-
-// Add the filter to `values`.  Note: category.filter() will be
-// evaluated in `values.get()`.
-values.set({ filter: () => categories.filter() }); 
-
-// Trigger a search every time the filter selection changes.
-categories.listen(selectionUpdatedEvent, () => pipeline.search(values.get()));
-```
-
-### Tidying up filter listeners
-
-The `listen` method returns a closure that will unregister the new listener:
-
-```javascript
-const unregister = filter.listen(selectionUpdatedEvent, () => {
-  console.log("filter changed:", filter.filter());
-});
-
-// sometime later...
-unregister();
-```
-
-### Combining multiple filters
-
-To combine multiple `Filter` instances into one, use the `CombineFilters` function.
-
-```javascript
-import { selectionUpdatedEvent } from "sajari-react/controllers";
-
-// Define recency filter...
-const recencyFilter = new Filter(...);
-
-// Define category Filter...
-const categoryFilter = new Filter(...);
-
-// Combine both recency and category filters.
-const filter = CombineFilters([recencyFilter, categoryFilter])
-
-// Add the filter to `values`.  Note: filter.filter() will be
-// evaluated in `values.get()`.
-values.set({ filter: () => filter.filter() })
-
-// When either recencyFilter or categoryFilter is updated, they trigger
-// an event on the combined filter.
-const unregister = filter.listen(selectionUpdatedEvent, () => {
-  pipeline.search(values.get());
-});
-
-// Sometime later...
-unregister();
-```
-
-## Using `Values`
-
-The `Values` convenience class used to manage parameters for running searches.
-
-```javascript
-import { Values } from "sajari-react/controllers";
-
-// Initialise with resultsPerPage parameter.
-const values = new Values({ resultsPerPage: "5" });
-```
-
-### Setting values
-
-Use to the `set` method to set values in an instance of `Values`:
-
-```javascript
-values.set({ "q": "search query" });
-```
-
-It's also possible to assign closures to value keys, these will be evaluated whenever `Values.get()` is called (i.e. `pipeline.search(values.get())`).
-
-```javascript
-values.set({ hello: () => "Hello" })
-```
-
-### Listening for changes
-
-Register listeners to be notified of changes to a `Values` instance (via `valuesUpdatedEvent`).  All listeners are passed the dictionary of values that were updated and a set function will set a new value without triggering another `valuesUpdatedEvent`.
-
-```javascript
-import { valuesUpdatedEvent } from "sajari-react/controllers";
-
-const unregister = values.listen(valuesUpdatedEvent, (updated, set) => {
-  // If any values were updated, and `page` wasn't, then reset `page` to 1
-  if (!updated.page) {
-    set({ page: "1" });
-  }
-  console.log("values: ", values.get());
-});
-
-// Sometime later...
-unregister();
-```
-
-## Using `Pipeline`
-
-The `Pipeline` controller handles all the search request/response lifecycle.
-
-```javascript
-import { Pipeline } from "sajari-react/controllers";
-
-const pipeline = new Pipeline("<your-project>", "<your-collection>", "website");
-```
-
-### Performing searches
-
-To perform a search you need a dictionary of parameter key-value pairs.
-
-```javascript
-pipeline.search({
-  q: "search keywords",
-  filter: "dir1='articles'"
-});
-```
-
-### Listening for responses
-
-Register listeners to be notified when search responses come back from the server, or are cleared by UI events.  Every listener is passed a `Response` which wraps the server response with convenience methods:
-
-* `isEmpty()`: returns `true` if the response is empty (i.e. as a result of a call to `Pipeline.clearResponse()`)
-* `isError()`: returns `true` if the response is an error response.
-* `getError()`: returns the underlying error.
-* `getResponse()`: returns the full search response.
-* `getResults()`: returns the search results from the response.
-* `getTotalResults()`: returns the total results found.
-* `getTime()`: returns the total query time.
-* `getAggregates()`: returns aggregate data attached to response.
-
-```javascript
-import { responseUpdatedEvent } from "sajari-react/controllers";
-
-const unregister = pipeline.listen(responseUpdatedEvent, (response) => {
-  if (response.isEmpty()) {
-    // Empty response, could have been cleared via pipeline.clearResponse()
-    console.log("empty response");
-    return;
-  }
-
-  if (response.isError()) {
-    // Error response, normally due to incorrect project/collection/pipeline
-    // or transient errors contacting the server.
-    console.error("error response:", response.getError());
-    return;
-  }
-
-  response.getResults().forEach((result) => {
-    console.log(result);
-  })
-});
-```
+## Facets & Filtering
+For documentaion on Facets & Filtering, go here [sajari-sdk-react.netlify.com/facets-and-filtering](https://sajari-sdk-react.netlify.com/facets-and-filtering)
 
 # License
 
