@@ -114,7 +114,10 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
             ) : null}
           </InputInnerContainer>
           <ButtonContainer>
-            <VoiceInputButton onVoiceInput={onVoiceInput} />
+            <VoiceInputButton
+              onVoiceInput={onVoiceInput}
+              styles={styles.button}
+            />
             <SearchButton
               onClick={this.handleSearchButtonOnClick}
               aria-label="Do search"

@@ -5,6 +5,7 @@ import { SearchButton } from "./styled";
 import { VoiceInputIcon } from "./VoiceInputIcon";
 
 export interface VoiceInputProps {
+  styles?: any;
   onVoiceInput?: (result: string) => void;
 }
 
@@ -31,6 +32,7 @@ export class VoiceInputButton extends React.Component<
   }
 
   public render() {
+    const { styles = {} } = this.props;
     const { avaliable, listening } = this.state;
 
     if (!avaliable) {
@@ -40,6 +42,7 @@ export class VoiceInputButton extends React.Component<
     return (
       <SearchButton
         className={css({ marginRight: "0.25em" })}
+        styles={styles}
         onClick={this.handleClick}
         aria-label="Search by Voice"
         value="Voice Search"
