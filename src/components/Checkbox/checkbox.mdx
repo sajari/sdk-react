@@ -4,7 +4,8 @@ menu: Components
 route: /components/checkbox
 ---
 
-import { Playground, PropsTable } from "docz";
+import { PropsTable } from "docz";
+import { ExampleContainer, categoryMultiFilter } from "../../docs/helpers.ts"
 import { Filter } from "../../controllers"
 import { FilterProvider } from "../context/filter"
 import { Checkbox } from "./Checkbox.tsx"
@@ -15,21 +16,30 @@ import { Checkbox } from "./Checkbox.tsx"
 <PropsTable of={Checkbox} />
 
 ## Usage
-<Playground>
-{() => {
-    const filter = new Filter({
+<ExampleContainer>
+    <FilterProvider filter={categoryMultiFilter()}>
+        <ul>
+            <li><Checkbox name="All" /> <label>All</label></li>
+            <li><Checkbox name="Blog" /> <label>Blog</label></li>
+        </ul>
+    </FilterProvider>
+</ExampleContainer>
+
+```javascript
+import { Filter, FilterProvider, Checkbox } from "@sajari/sdk-react";
+
+const filter = new Filter({
         "All": "",
         "Blog": "dir1='blog'",
-    }, ["All"], true)
+    }, 
+    ["All"], 
+    true
+)
 
-    return (
-        <FilterProvider filter={filter}>
-            <ul>
-                <li><Checkbox name="All" /> <label>All</label></li>
-                <li><Checkbox name="Blog" /> <label>Blog</label></li>
-            </ul>
-        </FilterProvider>
-    )
-}}
-</Playground>
-
+<FilterProvider filter={filter}>
+    <ul>
+        <li><Checkbox name="All" /> <label>All</label></li>
+        <li><Checkbox name="Blog" /> <label>Blog</label></li>
+    </ul>
+</FilterProvider>
+```
