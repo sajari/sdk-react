@@ -1,15 +1,19 @@
 import * as React from "react";
 import { FilterConsumer } from "../context/filter";
-import { CheckedIcon, EmptyIcon } from "./icons";
-import { Container, HiddenInput, icon as iconStyles } from "./styled";
+import { Container, HiddenInput, NativeInput } from "./styled";
 
 export interface CheckboxProps {
   name: string;
+  CheckboxRenderer?: React.ComponentType<CheckboxRendererProps>;
+}
+
+export interface CheckboxRendererProps {
+  isChecked: boolean;
 }
 
 export class Checkbox extends React.Component<CheckboxProps> {
   public render() {
-    const { name } = this.props;
+    const { name, CheckboxRenderer = NativeCheckbox } = this.props;
 
     return (
       <FilterConsumer>
@@ -21,7 +25,7 @@ export class Checkbox extends React.Component<CheckboxProps> {
               onClick={this.onClick(name, isSelected, set)}
             >
               <HiddenInput type="checkbox" value={name} checked={isSelected} />
-              <CheckboxIcon isChecked={isSelected} />
+              <CheckboxRenderer isChecked={isSelected} />
             </Container>
           );
         }}
@@ -36,20 +40,6 @@ export class Checkbox extends React.Component<CheckboxProps> {
   ) => (event: any) => set(name, !isSelected);
 }
 
-const CheckboxIcon: React.SFC<{ isChecked: boolean }> = ({ isChecked }) => (
-  <React.Fragment>
-    {isChecked ? (
-      <CheckedIcon
-        fill="currentcolor"
-        shapeRendering="geometricPrecision"
-        className={iconStyles}
-      />
-    ) : (
-      <EmptyIcon
-        fill="currentcolor"
-        shapeRendering="crispEdges"
-        className={iconStyles}
-      />
-    )}
-  </React.Fragment>
+const NativeCheckbox: React.SFC<CheckboxRendererProps> = ({ isChecked }) => (
+  <NativeInput type="checkbox" checked={isChecked} />
 );

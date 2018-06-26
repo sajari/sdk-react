@@ -1,0 +1,33 @@
+---
+name: Checkbox
+menu: Components
+route: /components/checkbox
+---
+
+import { Playground, PropsTable } from "docz";
+import { Filter } from "../../controllers"
+import { FilterProvider } from "../context/filter"
+import { Checkbox } from "./Checkbox.tsx"
+
+# Checkbox
+
+## Props
+<PropsTable of={Checkbox} />
+
+## Usage
+<Playground>
+{() => {
+    const filter = new Filter({
+        "All": "",
+        "Blog": "dir1='blog'",
+    }, ["All"], true)
+
+    return (
+        <FilterProvider filter={filter}>
+            <Checkbox name="All" />
+            <Checkbox name="Blog" />
+        </FilterProvider>
+    )
+}}
+</Playground>
+

@@ -8,17 +8,6 @@ import {
   Theme
 } from "../styles";
 
-const iconSize = "1em";
-
-const size = {
-  height: iconSize,
-  minHeight: iconSize,
-  minWidth: iconSize,
-  width: iconSize
-};
-
-export const icon = css(size);
-
 export interface ContainerProps extends StyledProps<HTMLDivElement> {
   isSelected: boolean;
 }
@@ -29,10 +18,8 @@ export const Container = styled("div")<ContainerProps>(
       color: "#333"
     },
     cursor: "pointer",
-    display: "inline-block"
+    display: ["inline-block", "-moz-inline-stack"]
   },
-  ({ isSelected }) => ({ color: isSelected ? "blue" : "#999" }),
-  size,
   override
 );
 
@@ -46,4 +33,8 @@ export const HiddenInput = styled("input")({
   position: "absolute",
   whiteSpace: "nowrap",
   width: 1
+});
+
+export const NativeInput = styled("input")({
+  cursor: "pointer"
 });
