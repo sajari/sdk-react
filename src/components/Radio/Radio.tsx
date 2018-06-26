@@ -1,15 +1,19 @@
 import * as React from "react";
 import { FilterConsumer } from "../context/filter";
-import { CheckedIcon, EmptyIcon } from "./icons";
-import { Container, HiddenInput, iconStyles } from "./styled";
+import { Container, HiddenInput, NativeInput } from "./styled";
 
 export interface RadioProps {
   name: string;
+  RadioRenderer?: React.ComponentType<RadioRendererProps>;
+}
+
+export interface RadioRendererProps {
+  isChecked: boolean;
 }
 
 export class Radio extends React.Component<RadioProps> {
   public render() {
-    const { name } = this.props;
+    const { name, RadioRenderer = NativeRadio } = this.props;
 
     return (
       <FilterConsumer>
@@ -21,7 +25,7 @@ export class Radio extends React.Component<RadioProps> {
               onClick={this.onClick(name, isSelected, set)}
             >
               <HiddenInput type="radio" value={name} checked={isSelected} />
-              <CheckboxIcon isChecked={isSelected} />
+              <RadioRenderer isChecked={isSelected} />
             </Container>
           );
         }}
@@ -36,12 +40,6 @@ export class Radio extends React.Component<RadioProps> {
   ) => (event: any) => set(name, !isSelected);
 }
 
-const CheckboxIcon: React.SFC<{ isChecked: boolean }> = ({ isChecked }) => (
-  <React.Fragment>
-    {isChecked ? (
-      <CheckedIcon className={iconStyles} />
-    ) : (
-      <EmptyIcon className={iconStyles} />
-    )}
-  </React.Fragment>
+const NativeRadio: React.SFC<RadioRendererProps> = ({ isChecked }) => (
+  <NativeInput type="radio" checked={isChecked} />
 );

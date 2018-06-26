@@ -1,0 +1,35 @@
+---
+name: Radio
+menu: Components
+route: /components/radio
+---
+
+import { Playground, PropsTable } from "docz";
+import { Filter } from "../../controllers"
+import { FilterProvider } from "../context/filter"
+import { Radio } from "./Radio.tsx"
+
+# Radio
+
+## Props
+<PropsTable of={Radio} />
+
+## Usage
+<Playground>
+{() => {
+    const filter = new Filter({
+        "All": "",
+        "Blog": "dir1='blog'",
+    }, ["All"])
+
+    return (
+        <FilterProvider filter={filter}>
+            <ul>
+                <li><Radio name="All" /> <label>All</label></li>
+                <li><Radio name="Blog" /> <label>Blog</label></li>
+            </ul>
+        </FilterProvider>
+    )
+}}
+</Playground>
+
