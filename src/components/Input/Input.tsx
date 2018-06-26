@@ -49,6 +49,7 @@ export interface InputProps {
   onKeyDown?: (event: InputKeyboardEvent) => void;
   onFocus?: (event: InputFocusEvent) => void;
   onBlur?: (event: InputFocusEvent) => void;
+  onDropdownClose?: () => void;
   onSearchButtonClick?: (
     event: ButtonMouseEvent,
     search: SearchFn,
@@ -79,11 +80,16 @@ export class Input extends React.Component<InputProps> {
       ResultsDropdownRenderer,
       onFocus,
       onBlur,
+      onDropdownClose,
       styles = {}
     } = this.props;
 
     return (
-      <Provider dropdownMode={dropdownMode} defaultInputValue={defaultValue}>
+      <Provider
+        dropdownMode={dropdownMode}
+        onDropdownClose={onDropdownClose}
+        defaultInputValue={defaultValue}
+      >
         {({
           inputValue,
           highlightedIndex,

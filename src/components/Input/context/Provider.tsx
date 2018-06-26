@@ -45,6 +45,7 @@ export interface ProviderProps {
 
   defaultInputValue?: string;
   dropdownMode?: DropdownMode;
+  onDropdownClose?: () => void;
   children: (props: InputContext) => React.ReactNode;
 }
 
@@ -162,7 +163,10 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
     (this.container = element);
 
   private setHighlightedIndex = (index: number) =>
-    this.setState(state => ({ ...state, highlightedIndex: index }));
+    // @ts-ignore: partial state update
+    this.handleSetState({
+      highlightedIndex: index
+    });
 
   private getContainerProps = ({ refKey }: { [k: string]: string }) => {
     return {
@@ -174,7 +178,10 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
     return {
       onBlur: (event: React.FocusEvent<HTMLInputElement>) => {
         if (this.props.dropdownMode !== "results") {
-          this.setState(state => ({ ...state, isDropdownOpen: false }));
+          // @ts-ignore: partial state update
+          this.handleSetState({
+            isDropdownOpen: false
+          });
         }
         if (typeof props.onBlur === "function") {
           props.onBlur(event);
@@ -182,13 +189,19 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
       },
       onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
-        this.setState(state => ({ ...state, inputValue: value }));
+        // @ts-ignore: partial state update
+        this.handleSetState({
+          inputValue: value
+        });
         if (typeof props.onChange === "function") {
           props.onChange(event);
         }
       },
       onFocus: (event: React.FocusEvent<HTMLInputElement>) => {
-        this.setState(state => ({ ...state, isDropdownOpen: true }));
+        // @ts-ignore: partial state update
+        this.handleSetState({
+          isDropdownOpen: true
+        });
         if (typeof props.onFocus === "function") {
           props.onFocus(event);
         }
@@ -197,15 +210,12 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
         const { keyCode } = event;
 
         if (keyCode === InputKeyCodes.Escape) {
-          this.setState(
-            state =>
-              ({
-                ...state,
-                inputValue: "",
-                isDropdownOpen: false,
-                highlightedIndex: 0
-              } as ProviderState)
-          );
+          // @ts-ignore: partial state update
+          this.handleSetState({
+            inputValue: "",
+            isDropdownOpen: false,
+            highlightedIndex: 0
+          });
         }
 
         if (typeof props.onKeyDown === "function") {
@@ -222,6 +232,13 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
     this.setState(
       state => ({ ...state, ...newState }),
       () => {
+        if (
+          !this.state.isDropdownOpen &&
+          typeof this.props.onDropdownClose === "function"
+        ) {
+          this.props.onDropdownClose();
+        }
+
         if (typeof callback === "function") {
           callback(this.state);
         }
@@ -257,12 +274,14 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
 export interface InputProviderProps {
   defaultInputValue?: string;
   dropdownMode?: DropdownMode;
+  onDropdownClose?: () => void;
   children: (props: InputContext) => React.ReactNode;
 }
 
 export const InputProvider: React.SFC<InputProviderProps> = ({
   defaultInputValue,
   dropdownMode,
+  onDropdownClose,
   children
 }: InputProviderProps) => (
   <PipelineConsumer>
@@ -272,6 +291,7 @@ export const InputProvider: React.SFC<InputProviderProps> = ({
         aria={{ announceAssertive, announcePolite }}
         defaultInputValue={defaultInputValue}
         dropdownMode={dropdownMode}
+        onDropdownClose={onDropdownClose}
       >
         {children}
       </Provider>
