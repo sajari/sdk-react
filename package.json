@@ -24,7 +24,7 @@
     "dev:build": "cross-env NODE_ENV=development rollup -c -w",
     "dev:webpack": "webpack-serve --config dev/webpack.config.js",
     "docs:dev": "docz dev",
-    "docs": "docz build",
+    "docs": "docz build && echo \"/* /index.html 200\" > .docz/dist/_redirects ",
     "preexamples": "cross-env NODE_ENV=development rollup -c",
     "examples": "webpack-serve --config examples/webpack.config.js",
     "fmt": "prettier --write --config .prettierrc.js \"src/**/*.{ts,tsx}\"",
