@@ -1,0 +1,28 @@
+---
+name: Tabs
+menu: Components
+route: /components/tabs
+---
+
+import { Playground, PropsTable } from "docz"
+import { Filter } from "../../controllers"
+import { Tabs } from "./Tabs.tsx"
+
+# Tabs
+
+## Props
+
+<PropsTable of={Tabs} />
+
+## Usage
+
+<Playground>
+{() => {
+    const filter = new Filter({
+        "All": "",
+        "Blog": "dir1='blog'",
+    }, ["All"])
+
+    return <Tabs filter={filter} tabs={[{name: "All", display: "All"}, {name: "Blog", display: "Blog"}]} />
+}}
+</Playground>

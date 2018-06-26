@@ -10,7 +10,7 @@ export default {
     },
     styles: {
       h1: {
-        fontSize: "5rem"
+        fontSize: "4rem"
       }
     }
   }
