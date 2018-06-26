@@ -5,4 +5,30 @@ route: /styling
 
 # Styling
 
-Under the hood we [emotion](https://emotion.sh/) for all our styling.
+Under the hood we use [emotion](https://emotion.sh/) for all our styling, and provide a `styles` prop on most components
+to override the default styling.
+
+## `styles` prop
+The `styles` prop on a component takes an object that mirrors the underlaying component structure.
+
+For Example the `<Results />` component `styles` prop takes an object that matches the following shape.
+
+```typescript
+type ResultsStyles = {
+    container?: React.CSSProperties,
+    item?: React.CSSProperties,
+    result?: {
+        container?: React.CSSProperties;
+        title?: React.CSSProperties;
+        description?: React.CSSProperties;
+        url?: React.CSSProperties;
+    }
+}
+```
+
+## Components with `styles` prop
+* [Input](/components/input#styles)
+* [Results](/components/results#styles)
+* [Tabs](/components/tabs#styles)
+* [Summary](/components/summary#styles)
+* [Paginator](/components/paginator#styles)
