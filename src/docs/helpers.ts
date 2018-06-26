@@ -21,7 +21,7 @@ export const categoryFilter = () =>
 export const categoryMultiFilter = () =>
   new Filter(
     {
-      All: "",
+      Other: "dir1!='blog' AND dir1!='articles'",
       Blog: "dir1='blog'",
       Articles: "dir1='articles'"
     },
