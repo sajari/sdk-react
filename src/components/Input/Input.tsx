@@ -83,7 +83,7 @@ export class Input extends React.Component<InputProps> {
     } = this.props;
 
     return (
-      <Provider defaultInputValue={defaultValue}>
+      <Provider dropdownMode={dropdownMode} defaultInputValue={defaultValue}>
         {({
           inputValue,
           highlightedIndex,
@@ -91,13 +91,17 @@ export class Input extends React.Component<InputProps> {
           suggestions,
           results,
 
+          getRootProps,
           getInputProps,
           setState,
           setHighlightedIndex,
           pipelines
         }: InputContext) => {
           return (
-            <Container styles={styles.container}>
+            <Container
+              {...getRootProps({ refKey: "innerRef" })}
+              styles={styles.container}
+            >
               <InputBox
                 inputRef={this.inputRef}
                 inputContainerRef={this.inputContainerRef}

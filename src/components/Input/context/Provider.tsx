@@ -4,6 +4,7 @@ import * as React from "react";
 import { Response } from "../../../controllers";
 import { Consumer as PipelineConsumer } from "../../context/Consumer";
 import { ClearFn, SearchFn } from "../../context/pipeline/context";
+import { DropdownMode } from "../Input";
 import { isNotEmptyArray, isNotEmptyString } from "../utils";
 import { Context, InputContext } from "./context";
 
@@ -43,6 +44,7 @@ export interface ProviderProps {
   };
 
   defaultInputValue?: string;
+  dropdownMode?: DropdownMode;
   children: (props: InputContext) => React.ReactNode;
 }
 
@@ -104,6 +106,21 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
     results: []
   } as ProviderState;
 
+  private container?: HTMLDivElement;
+
+  public componentDidMount() {
+    const { dropdownMode } = this.props;
+    if (dropdownMode === undefined || dropdownMode !== "results") {
+      return;
+    }
+
+    window.addEventListener("click", this.windowClickHandler);
+  }
+
+  public componentWillUnmount() {
+    window.removeEventListener("click", this.windowClickHandler);
+  }
+
   public render() {
     const { pipelines, aria, children } = this.props;
 
@@ -129,6 +146,7 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
       // tslint:disable:object-literal-sort-keys
       setHighlightedIndex: this.setHighlightedIndex,
       getInputProps: this.getInputProps,
+      getRootProps: this.getContainerProps,
       setState: this.handleSetState
       // tslint:enable:object-literal-sort-keys
     };
@@ -140,13 +158,24 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
     );
   }
 
+  private containerRef = (element: HTMLDivElement) =>
+    (this.container = element);
+
   private setHighlightedIndex = (index: number) =>
     this.setState(state => ({ ...state, highlightedIndex: index }));
+
+  private getContainerProps = ({ refKey }: { [k: string]: string }) => {
+    return {
+      [refKey]: this.containerRef
+    };
+  };
 
   private getInputProps = (props: { [k: string]: any }) => {
     return {
       onBlur: (event: React.FocusEvent<HTMLInputElement>) => {
-        this.setState(state => ({ ...state, isDropdownOpen: false }));
+        if (this.props.dropdownMode !== "results") {
+          this.setState(state => ({ ...state, isDropdownOpen: false }));
+        }
         if (typeof props.onBlur === "function") {
           props.onBlur(event);
         }
@@ -199,15 +228,41 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
       }
     );
   };
+
+  private windowClickHandler = (event: any) => {
+    if (this.container === undefined) {
+      return;
+    }
+
+    const target = event.target;
+    if (target === document.body) {
+      // @ts-ignore: partial state update
+      this.handleSetState({ isDropdownOpen: false });
+      return;
+    }
+
+    let targetParent = target.parentElement;
+    while (targetParent !== document.body) {
+      if (targetParent === this.container) {
+        return;
+      }
+      targetParent = targetParent.parentElement;
+    }
+
+    // @ts-ignore: partial state update
+    this.handleSetState({ isDropdownOpen: false });
+  };
 }
 
 export interface InputProviderProps {
   defaultInputValue?: string;
+  dropdownMode?: DropdownMode;
   children: (props: InputContext) => React.ReactNode;
 }
 
 export const InputProvider: React.SFC<InputProviderProps> = ({
   defaultInputValue,
+  dropdownMode,
   children
 }: InputProviderProps) => (
   <PipelineConsumer>
@@ -216,6 +271,7 @@ export const InputProvider: React.SFC<InputProviderProps> = ({
         pipelines={{ search, instant }}
         aria={{ announceAssertive, announcePolite }}
         defaultInputValue={defaultInputValue}
+        dropdownMode={dropdownMode}
       >
         {children}
       </Provider>

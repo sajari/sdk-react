@@ -16,6 +16,7 @@ export interface InputContext {
   isDropdownOpen: boolean; // whether the dropdown should be open;
 
   getInputProps: (props: { [k: string]: any }) => { [k: string]: any };
+  getRootProps: (props: { [k: string]: string }) => { [k: string]: any };
   setHighlightedIndex: (index: number) => void;
   setState: SetStateFn;
 

@@ -109,7 +109,8 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
               onFocus={this.handleInputOnFocus}
               onBlur={this.handleInputOnBlur}
             />
-            {mode === "typeahead" || mode === "suggestions" ? (
+            {isDropdownOpen &&
+            (mode === "typeahead" || mode === "suggestions") ? (
               <Typeahead mode={mode} styles={styles.typeahead} />
             ) : null}
           </InputInnerContainer>
