@@ -24,8 +24,10 @@ import { Checkbox } from "./Checkbox.tsx"
 
     return (
         <FilterProvider filter={filter}>
-            <Checkbox name="All" />
-            <Checkbox name="Blog" />
+            <ul>
+                <li><Checkbox name="All" /> <label>All</label></li>
+                <li><Checkbox name="Blog" /> <label>Blog</label></li>
+            </ul>
         </FilterProvider>
     )
 }}

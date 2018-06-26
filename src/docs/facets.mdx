@@ -3,6 +3,10 @@ name: Facets & Filtering
 route: /facets-and-filtering
 ---
 
+import { ExampleContainer, categoryFilter, categoryMultiFilter } from "./helpers.ts"
+import { Filter } from "../controllers"
+import { FilterProvider } from "../components"
+
 # Facets & Filtering
 
 Use the `Filter` helper-class from `@sajari/sdk-react` to integrate facets into UI.
@@ -19,18 +23,29 @@ import { Filter } from "@sajari/sdk-react";
 const categories = new Filter(
   {
     // Options: Name -> Filter
-    "all":      "",
-    "blog":     "dir1='blog'",     // limit to results with dir1='blog'
-    "articles": "dir1='articles'"  // limit to results with dir1='articles'
+    "All":      "",
+    "Blog":     "dir1='blog'",     // limit to results with dir1='blog'
+    "Articles": "dir1='articles'"  // limit to results with dir1='articles'
   },
   // The default option.
-  "all"
+  "All"
 );
 ```
 
 Each filter is given a name (in this example: `all`, `blog`, `articles`) which can then be used to bind them to UI components:
 
-<img width="136" alt="screen shot 2017-07-31 at 11 44 33 am" src="https://user-images.githubusercontent.com/2822/28759899-b1da1c36-75e5-11e7-969c-ab865642ea78.png" />
+import { Radio } from "../components"
+
+<ExampleContainer>
+  <h3 style={{marginTop: 0}}>Categories</h3>
+  <FilterProvider filter={categoryFilter()}>
+    <ul>
+      <li><Radio name="All" /> <label>All</label></li>
+      <li><Radio name="Blog" /> <label>Blog</label></li>
+      <li><Radio name="Articles" /> <label>Articles</label></li>
+    </ul>
+  </FilterProvider>
+</ExampleContainer>
 
 ```javascript
 import { FilterProvider, Radio } from "@sajari/sdk-react";
@@ -38,29 +53,27 @@ import { FilterProvider, Radio } from "@sajari/sdk-react";
 <div>
   <h3>Categories</h3>
   <FilterProvider filter={categories}>
-    <Radio name="all" /><label>All</label>
-    <Radio name="blog" /><label>Blog</label>
-    <Radio name="articles" /><label>Articles</label>
+    <ul>
+      <li><Radio name="All" /> <label>All</label></li>
+      <li><Radio name="Blog" /> <label>Blog</label></li>
+      <li><Radio name="Articles" /> <label>Articles</label></li>
+    </ul>
   </FilterProvider>
 </div>
 ```
 
 Or a drop-down select box:
 
-<img width="90" alt="screen shot 2017-07-31 at 11 46 57 am" src="https://user-images.githubusercontent.com/2822/28759924-03bbcff4-75e6-11e7-95eb-770bf36ee2f1.png" />
+import {Select} from "../components"
+
+<ExampleContainer>
+  <Select filter={categoryFilter()} />
+</ExampleContainer>
 
 ```javascript
 import { Select } from "@sajari/sdk-react";
 
-<Select
-  filter={categories}
-  options={{
-    // Options: Name -> Display Name
-    all: "All",
-    blog: "Blog",
-    articles: "Articles"
-  }}
-/>
+<Select filter={categories} />
 ```
 
 To include the filter in a search it needs to be attached to the `Values` instance used by `Pipeline`:
@@ -84,19 +97,30 @@ A multi-select filter is used to represent state for UI components that can have
 const categories = new Filter(
   {
     // Options: Name -> Filter
-    "blog":     "dir1='blog'",     // limit to dir1='blog'
-    "articles": "dir1='articles'", // limit to dir1='articles'
-    "other":    "dir1!='blog' AND dir1!='articles'", // everything else
+    "Blog":     "dir1='blog'",     // limit to dir1='blog'
+    "Articles": "dir1='articles'", // limit to dir1='articles'
+    "Other":    "dir1!='blog' AND dir1!='articles'", // everything else
   },
   // The default filters to be enabled
-  ["blog", "articles"], // default filter will be "dir1='blog' OR dir1='articles'"
+  ["Blog", "Articles"], // default filter will be "dir1='blog' OR dir1='articles'"
   true, // Allow multiple selections
 );
 ```
 
 This can be hooked up to a list of checkboxes:
 
-<img width="140" alt="screen shot 2017-07-31 at 11 42 16 am" src="https://user-images.githubusercontent.com/2822/28759868-5bf0ac7c-75e5-11e7-8a52-ceb190be7279.png" />
+import { Checkbox } from "../components"
+
+<ExampleContainer>
+  <h3 style={{marginTop: 0}}>Categories</h3>
+  <FilterProvider filter={categoryMultiFilter()}>
+    <ul>
+      <li><Checkbox name="Blog" /> <label>Blog</label></li>
+      <li><Checkbox name="Articles" /> <label>Articles</label></li>
+      <li><Checkbox name="Other" /> <label>Other</label></li>
+    </ul>
+  </FilterProvider>
+</ExampleContainer>
 
 ```javascript
 import { FilterProvider, Checkbox } from "@sajari/sdk-react";
@@ -104,9 +128,11 @@ import { FilterProvider, Checkbox } from "@sajari/sdk-react";
 <div>
   <h3>Categories</h3>
   <FilterProvider filter={categories}>
-    <Checkbox name="blog" /><label>Blog</label>
-    <Checkbox name="articles" /><label>Articles</label>
-    <Checkbox name="other" /><label>Other</label>
+    <ul>
+      <li><Checkbox name="Blog" /> <label>Blog</label></li>
+      <li><Checkbox name="Articles" /> <label>Articles</label></li>
+      <li><Checkbox name="Other" /> <label>Other</label></li>
+    </ul>
   </FilterProvider>
 </div>
 ```
