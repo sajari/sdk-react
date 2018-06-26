@@ -49,7 +49,8 @@ const searchIconSize = "1.5em";
 
 export const InputInnerContainer = styled("div")<StyledProps<HTMLDivElement>>(
   {
-    overflow: "auto"
+    overflow: "auto",
+    padding: ".3em 0"
   },
   override
 );
@@ -67,9 +68,11 @@ export const inputResetStyles = {
       // fixes sizing bug in firefox
       overflow: "unset !important"
     },
+    "&[style]": {
+      display: ["inline-block !important", "-moz-inline-stack !important"]
+    },
     background: "none",
-    maxWidth: "100%",
-    padding: ".3em 0"
+    maxWidth: "100%"
   },
   input: {
     background: 0,

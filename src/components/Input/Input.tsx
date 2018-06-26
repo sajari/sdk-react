@@ -244,7 +244,12 @@ export class Input extends React.Component<InputProps> {
 
     if (keyCode === InputKeyCodes.RightArrow) {
       if (inputMode === "typeahead") {
-        setState({ inputValue: suggestions[0] }, (state: any) => {
+        const value = suggestions[0];
+        if (value === undefined) {
+          return;
+        }
+
+        setState({ inputValue: value }, (state: any) => {
           pipelines.instant.search(state.inputValue, false);
         });
         return;
