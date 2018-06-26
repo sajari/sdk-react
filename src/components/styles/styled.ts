@@ -1,13 +1,10 @@
 import * as React from "react";
-import styled, {
-  StyledComponent,
-  ThemedReactEmotionInterface
-} from "react-emotion";
+import styled, { CreateStyled, StyledComponent } from "react-emotion";
 
 import { Theme } from "./theme";
 
 export { StyledComponent };
-export default styled as ThemedReactEmotionInterface<Theme>;
+export default styled as CreateStyled<Theme>;
 
 export interface StyledProps<T>
   extends React.HTMLAttributes<T>,

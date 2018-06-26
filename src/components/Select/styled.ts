@@ -5,7 +5,7 @@ export const styles = {
       ...base,
       borderBottom: "1px solid",
       borderBottomColor: isFocused ? "currentcolor" : "#ccc",
-      display: "inline-block",
+      display: ["inline-block", "-moz-inline-stack"],
       padding: "0.25em 0",
       width: "auto"
     };

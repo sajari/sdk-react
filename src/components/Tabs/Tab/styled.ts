@@ -16,7 +16,7 @@ export const Container = styled("div")<ContainerProps>(
   {
     boxSizing: "border-box",
     cursor: "pointer",
-    display: "inline-block",
+    display: ["inline-block", "-moz-inline-stack"],
     fontSize: 16,
     margin: 0,
     padding: ".45em .9em .5em",

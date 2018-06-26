@@ -23,7 +23,7 @@ export interface PageNumberProps extends StyledProps<HTMLAnchorElement> {
 export const PageNumber = styled("a")<PageNumberProps>(
   {
     cursor: "pointer",
-    display: "inline-block",
+    display: ["inline-block", "-moz-inline-stack"],
     fontWeight: "bold",
     padding: 10,
     userSelect: "none"
@@ -47,7 +47,7 @@ export const PageButton = styled("button")<PageButtonProps>(
     backgroundColor: "transparent",
     border: "none",
     cursor: "pointer",
-    display: "inline-block",
+    display: ["inline-block", "-moz-inline-stack"],
     fontSize: "1em",
     fontWeight: "bold",
     padding: 10,
