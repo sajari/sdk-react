@@ -35,7 +35,15 @@ export interface InputProps {
   defaultValue?: string;
   placeholder?: string;
 
-  styles?: any;
+  styles?: {
+    container?: React.CSSProperties;
+    input?: {
+      container?: React.CSSProperties;
+      input?: React.CSSProperties;
+      typeahead?: React.CSSProperties;
+      button?: React.CSSProperties;
+    };
+  };
 
   inputRef?: (element: HTMLInputElement) => void;
   onKeyDown?: (event: InputKeyboardEvent) => void;
