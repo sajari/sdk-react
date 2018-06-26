@@ -15,7 +15,7 @@ export const Tab: React.SFC<TabProps> = ({ title, styles = {} }) => (
       return (
         <Container
           isSelected={isSelected}
-          onClick={setFilter(set)(title, !isSelected)}
+          onClick={setFilter(set, title, !isSelected)}
           style={styles}
         >
           {title}
@@ -25,7 +25,14 @@ export const Tab: React.SFC<TabProps> = ({ title, styles = {} }) => (
   </FilterConsumer>
 );
 
-const setFilter = (set: (name: string, value: boolean) => void) => (
-  name: string,
-  value: boolean
-) => (event: any) => set(name, value);
+type SetFn = (name: string, value: boolean) => void;
+const setFilter = (set: SetFn, name: string, value: boolean) => (
+  event: React.MouseEvent<HTMLDivElement>
+) => {
+  if (!value) {
+    // make tab act like radio button
+    return;
+  }
+
+  set(name, value);
+};
