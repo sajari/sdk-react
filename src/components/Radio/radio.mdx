@@ -4,7 +4,8 @@ menu: Components
 route: /components/radio
 ---
 
-import { Playground, PropsTable } from "docz";
+import { PropsTable } from "docz";
+import { ExampleContainer, categoryFilter } from "../../docs/helpers.ts"
 import { Filter } from "../../controllers"
 import { FilterProvider } from "../context/filter"
 import { Radio } from "./Radio.tsx"
@@ -15,21 +16,30 @@ import { Radio } from "./Radio.tsx"
 <PropsTable of={Radio} />
 
 ## Usage
-<Playground>
-{() => {
-    const filter = new Filter({
+<ExampleContainer>
+    <FilterProvider filter={categoryFilter()}>
+        <ul>
+            <li><Radio name="All" /> <label>All</label></li>
+            <li><Radio name="Blog" /> <label>Blog</label></li>
+        </ul>
+    </FilterProvider>
+</ExampleContainer>
+
+```javascript
+import { Filter, FilterProvider, Radio } from "@sajari/sdk-react";
+
+const filter = new Filter({
         "All": "",
         "Blog": "dir1='blog'",
-    }, ["All"])
+    }, 
+    ["All"]
+)
 
-    return (
-        <FilterProvider filter={filter}>
-            <ul>
-                <li><Radio name="All" /> <label>All</label></li>
-                <li><Radio name="Blog" /> <label>Blog</label></li>
-            </ul>
-        </FilterProvider>
-    )
-}}
-</Playground>
+<FilterProvider filter={filter}>
+    <ul>
+        <li><Radio name="All" /> <label>All</label></li>
+        <li><Radio name="Blog" /> <label>Blog</label></li>
+    </ul>
+</FilterProvider>
+```
 
