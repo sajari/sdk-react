@@ -1,0 +1,38 @@
+---
+name: Paginator
+menu: Components
+route: /components/paginator
+---
+
+import { PropsTable } from "docz"
+import { ExampleContainer } from "../../docs/helpers.ts"
+import { Paginator } from "./Paginator.tsx"
+
+# Paginator
+
+## Props
+<PropsTable of={Paginator} />
+
+## Styles
+```typescript
+type PaginatorStyles = {
+    container?: React.CSSProperties;
+    controls?: React.CSSProperties;
+    number?: React.CSSProperties;
+};  
+```
+
+## Usage
+<ExampleContainer>
+    <Paginator  styles={{
+        container: {
+            marginBottom: 0
+        }
+    }}/>
+</ExampleContainer>
+
+```javascript
+import { Paginator } from "@sajari/sdk-react"
+
+<Paginator />
+```

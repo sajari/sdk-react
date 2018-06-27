@@ -9,6 +9,7 @@ import { Container, PageButton, PageNumber } from "./styled";
 
 export interface PaginatorProps {
   styles?: {
+    container?: React.CSSProperties;
     controls?: React.CSSProperties;
     number?: React.CSSProperties;
   };
@@ -55,7 +56,10 @@ export class Paginator extends React.Component<PaginatorProps> {
           }
 
           return (
-            <Container aria-label="Pagination Navigation">
+            <Container
+              aria-label="Pagination Navigation"
+              styles={styles.container}
+            >
               {page !== 1 && (
                 <PageButton
                   isDisabled={page === 1}
