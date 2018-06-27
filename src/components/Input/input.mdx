@@ -4,9 +4,8 @@ menu: Components
 route: /components/input
 ---
 
-import { Playground, PropsTable } from "docz"
-import { Provider } from "../context/Provider.tsx"
-import { Pipeline, Values, NoTracking } from "../../controllers"
+import { PropsTable } from "docz"
+import { ExampleContainer } from "../../docs/helpers.ts"
 import { Input } from "./Input.tsx"
 
 # Input
@@ -36,21 +35,42 @@ type InputStyles = {
 ## Usage
 
 ### With default props
-<Playground>
-    <Input />
-</Playground>
+<ExampleContainer>
+    <Input styles={{container: {marginBottom: 0}}} />
+</ExampleContainer>
+
+```javascript
+import { Input } from "@sajari/sdk-react"
+
+<Input />
+```
 
 ### With suggestions dropdown
-<Playground>
-    <Input inputMode="typeahead" dropdownMode="suggestions" />
-</Playground>
+<ExampleContainer>
+    <Input
+        inputMode="typeahead"
+        dropdownMode="suggestions"
+        styles={{
+            container: {
+                marginBottom: 0
+                }
+            }}
+    />
+</ExampleContainer>
+
+```javascript
+import { Input } from "@sajari/sdk-react"
+
+<Input inputMode="typeahead" dropdownMode="suggestions" />
+```
 
 
 ### With custom styles
-<Playground>
+<ExampleContainer>
     <Input inputMode="typeahead" dropdownMode="suggestions" styles={{
         container: {
-            width: "300px"
+            width: "300px",
+            marginBottom: 0
         },
         input: {
             container: {
@@ -64,6 +84,25 @@ type InputStyles = {
             }
         }
     }} />
-</Playground>
+</ExampleContainer>
 
+```javascript
+import { Input } from "@sajari/sdk-react"
 
+<Input inputMode="typeahead" dropdownMode="suggestions" styles={{
+    container: {
+        width: "300px"
+    },
+    input: {
+        container: {
+            backgroundColor: "#999",
+            color: "#fff",
+            border: "1px solid #999",
+            boxShadow: "none"
+        },
+        button: {
+            color: "#eee"
+        }
+    }
+}} />
+```

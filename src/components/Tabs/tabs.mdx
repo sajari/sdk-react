@@ -4,8 +4,8 @@ menu: Components
 route: /components/tabs
 ---
 
-import { Playground, PropsTable } from "docz"
-import { Filter } from "../../controllers"
+import { PropsTable } from "docz"
+import { ExampleContainer, categoryFilter } from "../../docs/helpers.ts"
 import { Tabs } from "./Tabs.tsx"
 
 # Tabs
@@ -15,14 +15,25 @@ import { Tabs } from "./Tabs.tsx"
 <PropsTable of={Tabs} />
 
 ## Usage
+<ExampleContainer>
+    <Tabs filter={categoryFilter()} tabs={[{name: "All", display: "All"}, {name: "Blog", display: "Blog"}]} />
+</ExampleContainer>
 
-<Playground>
-{() => {
-    const filter = new Filter({
+```javascript
+import { Filter, Tabs } from "@sajari/sdk-react"
+
+const filter = new Filter({
         "All": "",
         "Blog": "dir1='blog'",
-    }, ["All"])
+    },
+    ["All"]
+);
 
-    return <Tabs filter={filter} tabs={[{name: "All", display: "All"}, {name: "Blog", display: "Blog"}]} />
-}}
-</Playground>
+<Tabs
+    filter={filter}
+    tabs={[
+        {name: "All", display: "All"},
+        {name: "Blog", display: "Blog"}
+    ]}
+/>
+```
