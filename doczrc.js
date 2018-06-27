@@ -1,5 +1,6 @@
 export default {
   title: "Sajari React SDK",
+  description: "Sajari React SDK Documentation",
   source: "./src",
   typescript: true,
   wrapper: "src/docs/wrapper.tsx",

@@ -12,7 +12,7 @@ import { FilterProvider } from "../components"
 Use the `Filter` helper-class from `@sajari/sdk-react` to integrate facets into UI.
 The library provides a standard set of components which can automatically bind state to `Filter` instances.
 
-### Single-select filters
+## Single-select filters
 
 A single-select filter is used to handle state for components that offer multiple filtering options
 but only allow one option to be enabled at any one time. For example: a drop-down box or group of radio buttons.
@@ -33,6 +33,8 @@ const categories = new Filter(
 ```
 
 Each filter is given a name (in this example: `all`, `blog`, `articles`) which can then be used to bind them to UI components:
+
+### Radio buttons
 
 import { Radio } from "../components"
 
@@ -62,9 +64,9 @@ import { FilterProvider, Radio } from "@sajari/sdk-react";
 </div>
 ```
 
-Or a drop-down select box:
+### Select box
 
-import {Select} from "../components"
+import { Select } from "../components"
 
 <ExampleContainer>
   <Select filter={categoryFilter()} />
@@ -108,6 +110,8 @@ const categories = new Filter(
 ```
 
 This can be hooked up to a list of checkboxes:
+
+### Checkboxes
 
 import { Checkbox } from "../components"
 
@@ -181,6 +185,10 @@ const categoryFilter = new Filter(...);
 
 // Combine both recency and category filters.
 const filter = CombineFilters([recencyFilter, categoryFilter])
+
+// by default CombineFilters does an AND combination,
+// you can make it an OR combination like so
+// const filter = CombineFilters([recencyFilter, categoryFilter], "OR")
 
 // Add the filter to `values`.  Note: filter.filter() will be
 // evaluated in `values.get()`.
