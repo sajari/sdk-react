@@ -6,6 +6,10 @@ export interface DropdownProps {
 }
 
 export class Dropdown extends React.Component<DropdownProps> {
+  public shouldComponentUpdate(nextProps: DropdownProps) {
+    return this.props.isOpen !== nextProps.isOpen
+  }
+
   public render() {
     const { isOpen, children } = this.props;
     return isOpen ? (
