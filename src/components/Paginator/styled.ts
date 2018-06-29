@@ -41,9 +41,6 @@ export interface PageButtonProps extends StyledProps<HTMLButtonElement> {
 
 export const PageButton = styled("button")<PageButtonProps>(
   {
-    "&:active, &:focus": {
-      outline: "none"
-    },
     backgroundColor: "transparent",
     border: "none",
     cursor: "pointer",

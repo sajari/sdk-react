@@ -62,6 +62,14 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
   private input?: HTMLInputElement;
   private inputContainer?: HTMLFormElement;
 
+  public componentDidMount() {
+    if (!this.state.focused) {
+      if (this.props.autoFocus && this.input != null) {
+        this.input.focus();
+      }
+    }
+  }
+
   public render() {
     const {
       value,
@@ -76,16 +84,11 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
     } = this.props;
     const { focused } = this.state;
 
-    // autofocus implementation
-    // ts-lint:disable-next-line:triple-equals
-    if (autoFocus && this.input != null) {
-      this.input.focus();
-    }
-
     return (
       <InputContainer
         innerRef={this.inputContainerRef}
         isDropdownOpen={isDropdownOpen === undefined ? false : isDropdownOpen}
+        isFocused={focused}
         onClick={this.positionCaret}
         styles={styles.container}
       >

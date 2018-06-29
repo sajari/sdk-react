@@ -14,6 +14,7 @@ import { SearchIcon as Icon } from "./SeachIcon";
 
 export interface InputContainerProps extends StyledProps<HTMLFormElement> {
   isDropdownOpen: boolean;
+  isFocused: boolean;
 }
 
 export const InputContainer = styled("form")<InputContainerProps>(
@@ -32,6 +33,10 @@ export const InputContainer = styled("form")<InputContainerProps>(
           borderBottomLeftRadius: 0,
           borderBottomRightRadius: 0
         }
+      : {},
+  ({ isFocused }) =>
+    isFocused
+      ? { outline: ["#5E9ED6 auto 5px", "-webkit-focus-ring-color auto 5px"] }
       : {},
   override
 );
@@ -90,9 +95,6 @@ export interface SearchButtonProps extends StyledProps<HTMLButtonElement> {}
 
 export const SearchButton = styled("button")<SearchButtonProps>(
   {
-    "&:focus, &:active": {
-      outline: "none"
-    },
     background: "transparent",
     border: "none",
     color: "#808080",
