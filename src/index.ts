@@ -3,6 +3,7 @@ export { RequestError } from "@sajari/sdk-js";
 export {
   Pipeline,
   Values,
+  ValuesCallbackFn,
   Filter,
   CombineFilters,
   ClickTracking,

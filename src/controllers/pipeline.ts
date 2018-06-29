@@ -183,7 +183,7 @@ export class Pipeline {
   /**
    * The analytics adaptor connected to this pipeline.
    */
-  public getAnalytics(): Analytics | GoogleAnalytics | DebugAnalytics {
+  public getAnalytics(): Analytics {
     return this.analytics;
   }
 }

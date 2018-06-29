@@ -6,9 +6,12 @@ export type ValuesMap = Map<
   string,
   string | string[] | number | boolean | ValueFn
 >;
+export type ValuesObject = {
+  [k: string]: string | string[] | number | boolean | ValueFn | undefined;
+};
 export type CallbackFn = (
-  values: { [k: string]: string },
-  set: (values: { [k: string]: string }) => void
+  values: ValuesObject,
+  set: (values: ValuesObject) => void
 ) => void;
 
 export class Values {
@@ -43,7 +46,7 @@ export class Values {
    *
    * Set a value to undefined to remove it.
    */
-  public set(values: { [k: string]: string | ValueFn | undefined }) {
+  public set(values: ValuesObject) {
     this._set(values);
     this._emitUpdated(values);
   }
@@ -71,16 +74,16 @@ export class Values {
    *
    * @private
    */
-  private _emitUpdated(changes: { [k: string]: string | ValueFn | undefined }) {
+  private _emitUpdated(changes: ValuesObject) {
     (this.listeners.get(EVENT_VALUES_UPDATED) as Listener).notify(listener =>
-      listener(changes, (values: { [k: string]: string }) => this._set(values))
+      listener(changes, (values: ValuesObject) => this._set(values))
     );
   }
 
   /**
    * Sets values without triggering an event, internal use only.
    */
-  private _set(values: { [k: string]: string | ValueFn | undefined }) {
+  private _set(values: ValuesObject) {
     Object.keys(values).forEach(key => {
       if (values[key] === undefined) {
         this.values.delete(key);
