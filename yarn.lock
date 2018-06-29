@@ -7390,12 +7390,6 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-a11y@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/react-a11y/-/react-a11y-1.0.0.tgz#80c7e9a08bc8bd8f98949c8ae57bc7c191eac29c"
-  dependencies:
-    babel-register "^6.26.0"
-
 react-aria-live@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/react-aria-live/-/react-aria-live-2.0.2.tgz#9cfc2352544275586f74b66d18c54a8b3b00398a"
