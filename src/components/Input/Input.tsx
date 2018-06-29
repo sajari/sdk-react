@@ -34,6 +34,7 @@ export interface InputProps {
 
   defaultValue?: string;
   placeholder?: string;
+  autoFocus?: boolean;
 
   styles?: {
     container?: React.CSSProperties;
@@ -77,6 +78,7 @@ export class Input extends React.Component<InputProps> {
       dropdownMode,
       defaultValue,
       placeholder,
+      autoFocus,
       ResultsDropdownRenderer,
       onFocus,
       onBlur,
@@ -113,6 +115,7 @@ export class Input extends React.Component<InputProps> {
                 inputContainerRef={this.inputContainerRef}
                 value={inputValue}
                 placeholder={placeholder}
+                autoFocus={autoFocus}
                 isDropdownOpen={isDropdownOpen}
                 suggestions={
                   dropdownMode === "suggestions" ? suggestions : undefined

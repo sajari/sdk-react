@@ -27,6 +27,7 @@ export interface InputBoxProps {
   isDropdownOpen?: boolean;
   mode?: "standard" | "typeahead" | "suggestions";
   suggestions?: string[];
+  autoFocus?: boolean;
 
   styles?: {
     container?: React.CSSProperties;
@@ -53,7 +54,8 @@ export interface InputBoxState {
 export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
   public static defaultProps = {
     mode: "standard",
-    suggestions: []
+    suggestions: [],
+    autoFocus: false
   };
 
   public state = { focused: false };
@@ -66,12 +68,19 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
       placeholder,
       isDropdownOpen,
       suggestions,
+      autoFocus,
       mode,
       onChange,
       onVoiceInput,
       styles = {}
     } = this.props;
     const { focused } = this.state;
+
+    // autofocus implementation
+    // ts-lint:disable-next-line:triple-equals
+    if (autoFocus && this.input != null) {
+      this.input.focus();
+    }
 
     return (
       <InputContainer
