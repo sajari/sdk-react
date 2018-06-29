@@ -85,14 +85,21 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
         ? pipelines.search.response.getResults() || []
         : [];
 
+    let inputValue = state.inputValue;
+    if (defaultInputValue !== undefined) {
+      inputValue = defaultInputValue;
+    }
+    if (inputValue === "" && query !== "") {
+      inputValue = query;
+    }
+
     return {
       ...state,
       completion,
       query,
       results,
       suggestions,
-      inputValue:
-        defaultInputValue === undefined ? state.inputValue : defaultInputValue
+      inputValue
     };
   }
 
@@ -111,6 +118,7 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
 
   public componentDidMount() {
     const { dropdownMode } = this.props;
+
     if (dropdownMode === undefined || dropdownMode !== "results") {
       return;
     }
