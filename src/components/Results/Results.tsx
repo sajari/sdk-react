@@ -11,6 +11,12 @@ const STATUS_UNAUTHORISED = 403;
 
 export interface ResultsProps {
   ResultRenderer?: React.ComponentType<ResultProps>;
+  fields?: {
+    title?: string;
+    description?: string;
+    url?: string;
+    image?: string;
+  };
   showImages?: boolean;
   styles?: {
     container?: React.CSSProperties;
@@ -21,7 +27,12 @@ export interface ResultsProps {
 
 export class Results extends React.Component<ResultsProps, {}> {
   public render() {
-    const { ResultRenderer = Result, showImages, styles = {} } = this.props;
+    const {
+      ResultRenderer = Result,
+      showImages,
+      fields,
+      styles = {}
+    } = this.props;
 
     return (
       <Consumer>
@@ -58,12 +69,27 @@ export class Results extends React.Component<ResultsProps, {}> {
                 const token =
                   result.token && (result.token as ClickToken).click;
 
+                let values = {
+                  ...result.values,
+                  // @ts-ignore: idx
+                  title: result.values[idx(fields, _ => _.title) || "title"],
+                  description:
+                    result.values[
+                      // @ts-ignore: idx
+                      idx(fields, _ => _.description) || "description"
+                    ],
+                  // @ts-ignore: idx
+                  url: result.values[idx(fields, _ => _.url) || "url"],
+                  // @ts-ignore: idx
+                  image: result.values[idx(fields, _ => _.image) || "image"]
+                };
+
                 return (
                   <ResultItem key={key} styles={idx(styles, _ => _.item)}>
                     <ResultRenderer
                       token={token}
                       itemIndex={index}
-                      values={result.values}
+                      values={values}
                       resultClicked={resultClicked}
                       showImage={showImages}
                       styles={idx(styles, _ => _.result)}
