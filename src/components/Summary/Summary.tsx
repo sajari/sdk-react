@@ -4,6 +4,7 @@ import * as React from "react";
 import { Consumer } from "../context";
 import { SearchFn } from "../context/pipeline/context";
 import { formatQueryTime } from "./utils";
+import { i18n } from "../../i18n";
 
 import { Container, Emphasis, OverrideContainer } from "./styled";
 
@@ -34,7 +35,11 @@ export class Summary extends React.Component<SummaryProps> {
 
           const text = responseValues.get(config.qParam) || query;
           const page = parseInt(queryValues.get("page") as string, 10);
-          const pageNumber = page && page > 1 ? `Page ${page} of ` : "";
+
+          const pageNumber =
+            page && page > 1
+              ? i18n.t("summary:page", { replace: { pageNumber: page } })
+              : "";
           const totalResults = (response.getTotalResults() as number).toLocaleString();
 
           const responseTime = formatQueryTime(response.getTime() as number);
@@ -42,7 +47,9 @@ export class Summary extends React.Component<SummaryProps> {
           return (
             <Container styles={idx(styles, _ => _.container)}>
               <span>
-                {`${pageNumber}${totalResults} results for `}
+                {`${pageNumber} ${totalResults} ${i18n.t(
+                  "summary:resultsFor"
+                )} `}
                 "<Emphasis>{text}</Emphasis>"{" "}
               </span>
               <span>{`(${responseTime}) `}</span>
@@ -88,7 +95,7 @@ const Override: React.SFC<OverrideProps> = ({
 
   return (
     <OverrideContainer styles={idx(styles, _ => _.container)}>
-      {`search instead for `}
+      {`${i18n.t("summary:searchInsteadFor")} `}
       <a onClick={click({ search, query })} href="">
         {query}
       </a>

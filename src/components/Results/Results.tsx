@@ -1,9 +1,15 @@
-import { ClickToken, RequestError, Result as SDKResult } from "@sajari/sdk-js";
+import {
+  ClickToken,
+  RequestError,
+  TransportError,
+  Result as SDKResult
+} from "@sajari/sdk-js";
 import idx from "idx";
 import * as React from "react";
 
 import { Consumer } from "../context";
 import { Result, ResultProps, ResultStyles } from "../Result";
+import { i18n } from "../../i18n";
 
 import { Container, Error, ResultItem } from "./styled";
 
@@ -48,11 +54,14 @@ export class Results extends React.Component<ResultsProps, {}> {
           if (response.isError()) {
             const error = response.getError() as RequestError;
             if (error.httpStatusCode === STATUS_UNAUTHORISED) {
-              return (
-                <Error>
-                  Authorisation for this request failed. Check your credentials.
-                </Error>
-              );
+              return <Error>{i18n.t("errors:authorization")}</Error>;
+            }
+            if (error.transportErrorCode === TransportError.Connection) {
+              return <Error>{i18n.t("errors:connection")}</Error>;
+            } else if (
+              error.transportErrorCode === TransportError.ParseResponse
+            ) {
+              return <Error>{i18n.t("errors:parseResponse")}</Error>;
             }
             return <Error>{error.message}</Error>;
           }

@@ -43,3 +43,5 @@ export {
   EVENT_VALUES_UPDATED,
   EVENT_TRACKING_RESET
 } from "./events";
+
+export { i18n } from "./i18n";
