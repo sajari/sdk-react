@@ -29,7 +29,7 @@ export class Image extends React.PureComponent<ImageProps, { error: boolean }> {
     ) : (
       <img
         className={cx(
-          "sj-result-image",
+          "sj-result__image__img",
           css({ maxWidth: 90, maxHeight: 90, paddingRight: "1em" })
         )}
         onError={this.onError}

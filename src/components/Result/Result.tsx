@@ -37,7 +37,10 @@ export class Result extends React.Component<ResultProps> {
 
     const Body = (
       <React.Fragment>
-        <Title styles={idx(styles, _ => _.title)}>
+        <Title
+          className={"sj-result__title"}
+          styles={idx(styles, _ => _.title)}
+        >
           <TokenLink
             token={token}
             url={values.url as string}
@@ -45,10 +48,13 @@ export class Result extends React.Component<ResultProps> {
             resultClicked={resultClicked}
           />
         </Title>
-        <Description styles={idx(styles, _ => _.description)}>
+        <Description
+          className={"sj-result__description"}
+          styles={idx(styles, _ => _.description)}
+        >
           {values.description as string}
         </Description>
-        <URL styles={idx(styles, _ => _.url)}>
+        <URL className={"sj-result__url"} styles={idx(styles, _ => _.url)}>
           <TokenLink
             token={token}
             url={values.url as string}
