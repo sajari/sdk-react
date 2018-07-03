@@ -18,7 +18,8 @@ export class Consumer extends React.Component<{ children?: RenderFn }> {
     const { children } = this.props;
 
     if (typeof children !== "function") {
-      throw new Error("Consumer requires a render function as a child");
+      // https://reactpatterns.com/#function-as-children
+      throw new Error("Consumer requires a function as children");
     }
 
     return (

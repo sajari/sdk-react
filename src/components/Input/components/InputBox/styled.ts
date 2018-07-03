@@ -70,7 +70,7 @@ export const inputResetStyles = {
   container: {
     "& > div[style]": {
       display: "inline",
-      // fixes sizing bug in firefox
+      // fixes sizing bug in firefox v60.0.2
       overflow: "unset !important"
     },
     "&[style]": {

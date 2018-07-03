@@ -134,7 +134,8 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
     const { pipelines, aria, children } = this.props;
 
     if (typeof children !== "function") {
-      throw new Error("Provider requires children to be a render function");
+      // https://reactpatterns.com/#function-as-children
+      throw new Error("Provider requires a function as children");
     }
 
     const value = {
@@ -245,10 +246,22 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
           typeof this.props.onDropdownClose === "function"
         ) {
           this.props.onDropdownClose();
+        } else if (
+          !this.state.isDropdownOpen &&
+          this.props.onDropdownClose !== undefined
+        ) {
+          throw new Error(
+            `Expected \`onDropdownClose\` listener to be a function, instead got a value of \`${typeof this
+              .props.onDropdownClose}\` type`
+          );
         }
 
         if (typeof callback === "function") {
           callback(this.state);
+        } else if (callback !== undefined) {
+          throw new Error(
+            `Expected \`callback\` to be a function, instead got a value of \`${typeof callback}\` type`
+          );
         }
       }
     );

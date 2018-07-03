@@ -150,6 +150,10 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
     event.preventDefault();
     if (typeof onSearchButtonClick === "function") {
       onSearchButtonClick(event);
+    } else if (onSearchButtonClick !== undefined) {
+      throw new Error(
+        `Expected \`onSearchButtonClick\` listener to be a function, instead got a value of \`${typeof onSearchButtonClick}\` type`
+      );
     }
   };
 
@@ -159,6 +163,10 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
 
     if (typeof onFocus === "function") {
       onFocus(event);
+    } else if (onFocus !== undefined) {
+      throw new Error(
+        `Expected \`onFocus\` listener to be a function, instead got a value of \`${typeof onFocus}\` type`
+      );
     }
   };
 
@@ -168,6 +176,10 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
 
     if (typeof onBlur === "function") {
       onBlur(event);
+    } else if (onBlur !== undefined) {
+      throw new Error(
+        `Expected \`onBlur\` listener to be a function, instead got a value of \`${typeof onBlur}\` type`
+      );
     }
   };
 
@@ -180,6 +192,10 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
 
     if (typeof onKeyDown === "function") {
       onKeyDown(event);
+    } else if (onKeyDown !== undefined) {
+      throw new Error(
+        `Expected \`onKeyDown\` listener to be a function, instead got a value of \`${typeof onKeyDown}\` type`
+      );
     }
   };
 
