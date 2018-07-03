@@ -7,7 +7,7 @@ export interface DropdownProps {
 
 export class Dropdown extends React.Component<DropdownProps> {
   public shouldComponentUpdate(nextProps: DropdownProps) {
-    return this.props.isOpen !== nextProps.isOpen
+    return this.props.isOpen !== nextProps.isOpen;
   }
 
   public render() {
