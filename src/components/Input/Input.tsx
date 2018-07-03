@@ -15,6 +15,7 @@ import { Suggestions } from "./components/Suggestions";
 import { Dropdown } from "./containers/Dropdown";
 import { InputContext } from "./context/context";
 import { Container } from "./styled";
+import { Config } from "../../config";
 
 enum InputKeyCodes {
   Return = 13,
@@ -195,8 +196,8 @@ export class Input extends React.Component<InputProps> {
     results: Result[],
     setState: any,
     pipelines: {
-      search: { search: SearchFn; clear: ClearFn };
-      instant: { search: SearchFn; clear: ClearFn };
+      search: { search: SearchFn; clear: ClearFn; config: Config };
+      instant: { search: SearchFn; clear: ClearFn; config: Config };
     }
   ) => (event: InputKeyboardEvent) => {
     const { inputMode, dropdownMode } = this.props;
@@ -223,8 +224,8 @@ export class Input extends React.Component<InputProps> {
     }
 
     if (keyCode === InputKeyCodes.Escape) {
-      pipelines.search.clear({ q: "" });
-      pipelines.instant.clear({ q: "" });
+      pipelines.search.clear({ [pipelines.search.config.qParam]: "" });
+      pipelines.instant.clear({ [pipelines.instant.config.qParam]: "" });
 
       if (this.input !== undefined) {
         this.input.blur();

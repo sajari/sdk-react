@@ -3,7 +3,7 @@ import isEqual from "deep-is";
 // @ts-ignore: module missing defintion file
 import memoize from "memoize-one";
 import * as React from "react";
-// @ts-ignore: module missing defintions file
+// @ts-ignore: module missing defintion file
 import ReactSelect from "react-select";
 
 import { Filter, Options } from "../../controllers/filter";
@@ -44,18 +44,22 @@ const mapOptions = memoize(
   isEqual
 );
 
+const ActionSelect = "select-option";
+const ActionPop = "pop-value";
+const ActionClear = "clear";
+
 const handleChange = (
   selected: string[],
   set: (name: string, value: boolean) => void
 ) => (value: any, { action }: any) => {
   switch (action) {
-    case "select-option":
+    case ActionSelect:
       set(value.label, true);
       break;
-    case "pop-value":
+    case ActionPop:
       set(selected[0], false);
       break;
-    case "clear":
+    case ActionClear:
       selected.forEach(option => {
         set(option, false);
       });

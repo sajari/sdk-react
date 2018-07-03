@@ -60,6 +60,7 @@ export class Provider extends React.PureComponent<
   public componentDidMount() {
     const { search, instant } = this.props;
 
+    const mergedConfig = { ...defaultConfig, ...search.config };
     this.setState(
       state =>
         ({
@@ -67,8 +68,8 @@ export class Provider extends React.PureComponent<
           search: {
             ...state.search,
             response: search.pipeline.getResponse(),
-            query: search.values.get().q || "",
-            config: { ...defaultConfig, ...search.config }
+            query: search.values.get()[mergedConfig.qParam] || "",
+            config: mergedConfig
           },
           instant: {
             ...state.instant,

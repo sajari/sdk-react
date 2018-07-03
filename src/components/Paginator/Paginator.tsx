@@ -20,7 +20,7 @@ export class Paginator extends React.Component<PaginatorProps> {
     const { styles = {} } = this.props;
     return (
       <Consumer>
-        {({ search: { response }, paginate }) => {
+        {({ search: { response, config }, paginate }) => {
           if (
             response === null ||
             response === undefined ||
@@ -35,11 +35,14 @@ export class Paginator extends React.Component<PaginatorProps> {
             return;
           }
 
-          const page = queryValues.get("page")
-            ? parseInt(queryValues.get("page") as string, 10)
+          const page = queryValues.get(config.pageParam)
+            ? parseInt(queryValues.get(config.pageParam) as string, 10)
             : 1;
-          const resultsPerPage = queryValues.get("resultsPerPage")
-            ? parseInt(queryValues.get("resultsPerPage") as string, 10)
+          const resultsPerPage = queryValues.get(config.resultsPerPageParam)
+            ? parseInt(
+                queryValues.get(config.resultsPerPageParam) as string,
+                10
+              )
             : 10;
           const totalResults = response.getTotalResults();
           if (totalResults === undefined) {
@@ -78,7 +81,7 @@ export class Paginator extends React.Component<PaginatorProps> {
                   padding: 0
                 })}
               >
-                {pageNumbers(page, totalPages).map(pageNumber => (
+                {pageNumbers(page, totalPages).map((pageNumber: number) => (
                   <li key={pageNumber}>
                     <PageNumber
                       isCurrent={page === pageNumber}

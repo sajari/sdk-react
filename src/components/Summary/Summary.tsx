@@ -34,7 +34,10 @@ export class Summary extends React.Component<SummaryProps> {
           const queryValues = response.getQueryValues() as Map<string, string>;
 
           const text = responseValues.get(config.qParam) || query;
-          const page = parseInt(queryValues.get("page") as string, 10);
+          const page = parseInt(
+            queryValues.get(config.pageParam) as string,
+            10
+          );
 
           const pageNumber =
             page && page > 1

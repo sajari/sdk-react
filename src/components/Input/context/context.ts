@@ -4,6 +4,7 @@ import * as React from "react";
 
 import { ClearFn, SearchFn } from "../../context/pipeline/context";
 import { ProviderState } from "./Provider";
+import { Config } from "../../../config";
 
 export type SetStateFn = (
   newState: ProviderState,
@@ -26,14 +27,8 @@ export interface InputContext {
   results: Result[];
 
   pipelines: {
-    search: {
-      search: SearchFn;
-      clear: ClearFn;
-    };
-    instant: {
-      search: SearchFn;
-      clear: ClearFn;
-    };
+    search: { search: SearchFn; clear: ClearFn; config: Config };
+    instant: { search: SearchFn; clear: ClearFn; config: Config };
   };
 
   aria: {

@@ -3,11 +3,15 @@ export interface Config {
   qOverrideParam: string;
   qSuggestionsParam: string;
   maxSuggestions: number;
+  resultsPerPageParam: string;
+  pageParam: string;
 }
 
-export const defaultConfig = {
+export const defaultConfig: Config = {
   maxSuggestions: 5,
   qOverrideParam: "q.override",
   qParam: "q",
-  qSuggestionsParam: "q.suggestions"
+  qSuggestionsParam: "q.suggestions",
+  resultsPerPageParam: "resultsPerPage",
+  pageParam: "page"
 };
