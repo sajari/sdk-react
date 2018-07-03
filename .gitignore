@@ -66,6 +66,9 @@ lib/
 dist/
 .docz/
 
+# dev
+dev/
+
 # cache files
 .rpt2_cache/
 
