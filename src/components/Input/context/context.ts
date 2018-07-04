@@ -2,9 +2,9 @@ import { Result } from "@sajari/sdk-js";
 import createReactContext from "create-react-context";
 import * as React from "react";
 
+import { Config } from "../../../config";
 import { ClearFn, SearchFn } from "../../context/pipeline/context";
 import { ProviderState } from "./Provider";
-import { Config } from "../../../config";
 
 export type SetStateFn = (
   newState: ProviderState,

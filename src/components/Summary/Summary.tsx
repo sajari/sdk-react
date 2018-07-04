@@ -1,10 +1,10 @@
 import idx from "idx";
 import * as React from "react";
 
+import { i18n } from "../../i18n";
 import { Consumer } from "../context";
 import { SearchFn } from "../context/pipeline/context";
 import { formatQueryTime } from "./utils";
-import { i18n } from "../../i18n";
 
 import { Container, Emphasis, OverrideContainer } from "./styled";
 

@@ -6,9 +6,9 @@ export type ValuesMap = Map<
   string,
   string | string[] | number | boolean | ValueFn
 >;
-export type ValuesObject = {
+export interface ValuesObject {
   [k: string]: string | string[] | number | boolean | ValueFn | undefined;
-};
+}
 export type CallbackFn = (
   values: ValuesObject,
   set: (values: ValuesObject) => void

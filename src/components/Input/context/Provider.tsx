@@ -3,7 +3,11 @@ import * as React from "react";
 
 import { Response } from "../../../controllers";
 import { Consumer as PipelineConsumer } from "../../context/Consumer";
-import { ClearFn, SearchFn } from "../../context/pipeline/context";
+import {
+  ClearFn,
+  PipelineContextState,
+  SearchFn
+} from "../../context/pipeline/context";
 import { DropdownMode } from "../Input";
 import { isNotEmptyArray, isNotEmptyString } from "../utils";
 import { Context, InputContext } from "./context";
@@ -18,24 +22,8 @@ enum InputKeyCodes {
 
 export interface ProviderProps {
   pipelines: {
-    search: {
-      query: string;
-      completion: string;
-      suggestions: string[];
-      response: Response | null;
-
-      search: SearchFn;
-      clear: ClearFn;
-    };
-    instant: {
-      query: string;
-      completion: string;
-      suggestions: string[];
-      response: Response | null;
-
-      search: SearchFn;
-      clear: ClearFn;
-    };
+    search: PipelineContextState;
+    instant: PipelineContextState;
   };
 
   aria: {
@@ -96,10 +84,10 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
     return {
       ...state,
       completion,
+      inputValue,
       query,
       results,
-      suggestions,
-      inputValue
+      suggestions
     };
   }
 
@@ -145,10 +133,12 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
       pipelines: {
         instant: {
           clear: pipelines.instant.clear,
+          config: pipelines.instant.config,
           search: pipelines.instant.search
         },
         search: {
           clear: pipelines.search.clear,
+          config: pipelines.search.config,
           search: pipelines.search.search
         }
       },

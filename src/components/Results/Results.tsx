@@ -1,15 +1,15 @@
 import {
   ClickToken,
   RequestError,
-  TransportError,
-  Result as SDKResult
+  Result as SDKResult,
+  TransportError
 } from "@sajari/sdk-js";
 import idx from "idx";
 import * as React from "react";
 
+import { i18n } from "../../i18n";
 import { Consumer } from "../context";
 import { Result, ResultProps, ResultStyles } from "../Result";
-import { i18n } from "../../i18n";
 
 import { Container, Error, ResultItem } from "./styled";
 
@@ -78,7 +78,8 @@ export class Results extends React.Component<ResultsProps, {}> {
                 const token =
                   result.token && (result.token as ClickToken).click;
 
-                let values = {
+                // tslint:disable:object-literal-sort-keys
+                const values = {
                   ...result.values,
                   // @ts-ignore: idx
                   title: result.values[idx(fields, _ => _.title) || "title"],
@@ -92,6 +93,7 @@ export class Results extends React.Component<ResultsProps, {}> {
                   // @ts-ignore: idx
                   image: result.values[idx(fields, _ => _.image) || "image"]
                 };
+                // tslint:enable:object-literal-sort-keys
 
                 return (
                   <ResultItem key={key} styles={idx(styles, _ => _.item)}>

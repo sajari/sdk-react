@@ -3,6 +3,7 @@ import * as React from "react";
 
 import { Provider } from "./context";
 
+import { Config } from "../../config";
 import { ClearFn, SearchFn } from "../context/pipeline/context";
 import {
   ButtonMouseEvent,
@@ -15,7 +16,6 @@ import { Suggestions } from "./components/Suggestions";
 import { Dropdown } from "./containers/Dropdown";
 import { InputContext } from "./context/context";
 import { Container } from "./styled";
-import { Config } from "../../config";
 
 enum InputKeyCodes {
   Return = 13,
@@ -29,13 +29,14 @@ export type InputMode = "standard" | "typeahead";
 export type DropdownMode = "none" | "suggestions" | "results";
 
 export interface InputProps {
-  inputMode?: InputMode;
+  mode?: InputMode;
   dropdownMode?: DropdownMode;
   instantSearch?: boolean;
 
   defaultValue?: string;
   placeholder?: string;
   autoFocus?: boolean;
+  enableVoiceSearch?: boolean;
 
   styles?: {
     container?: React.CSSProperties;
@@ -75,11 +76,12 @@ export class Input extends React.Component<InputProps> {
 
   public render() {
     const {
-      inputMode,
+      mode,
       dropdownMode,
       defaultValue,
       placeholder,
       autoFocus,
+      enableVoiceSearch,
       ResultsDropdownRenderer,
       onFocus,
       onBlur,
@@ -117,11 +119,12 @@ export class Input extends React.Component<InputProps> {
                 value={inputValue}
                 placeholder={placeholder}
                 autoFocus={autoFocus}
+                enableVoiceInput={enableVoiceSearch}
                 isDropdownOpen={isDropdownOpen}
                 suggestions={
                   dropdownMode === "suggestions" ? suggestions : undefined
                 }
-                mode={dropdownMode === "suggestions" ? dropdownMode : inputMode}
+                mode={dropdownMode === "suggestions" ? dropdownMode : mode}
                 styles={styles.input}
                 {...getInputProps({
                   onBlur,
@@ -179,11 +182,11 @@ export class Input extends React.Component<InputProps> {
     search: { search: SearchFn },
     instant: { search: SearchFn }
   ) => (event: InputChangeEvent) => {
-    const { inputMode, dropdownMode, instantSearch } = this.props;
+    const { mode, dropdownMode, instantSearch } = this.props;
     if (instantSearch || dropdownMode === "results") {
       const value = event.target.value;
       search.search(value, false);
-    } else if (inputMode === "typeahead") {
+    } else if (mode === "typeahead") {
       const value = event.target.value;
       instant.search(value, false);
     }
@@ -200,7 +203,7 @@ export class Input extends React.Component<InputProps> {
       instant: { search: SearchFn; clear: ClearFn; config: Config };
     }
   ) => (event: InputKeyboardEvent) => {
-    const { inputMode, dropdownMode } = this.props;
+    const { mode, dropdownMode } = this.props;
     const { keyCode } = event;
 
     if (typeof this.props.onKeyDown === "function") {
@@ -265,7 +268,7 @@ export class Input extends React.Component<InputProps> {
     }
 
     if (keyCode === InputKeyCodes.RightArrow) {
-      if (inputMode === "typeahead") {
+      if (mode === "typeahead") {
         const value = suggestions[0];
         if (value === undefined) {
           return;

@@ -44,6 +44,8 @@ export interface InputBoxProps {
   onKeyDown?: (event: InputKeyboardEvent) => void;
 
   onSearchButtonClick?: (event: ButtonMouseEvent) => void;
+
+  enableVoiceInput?: boolean;
   onVoiceInput?: (result: string) => void;
 }
 
@@ -53,9 +55,10 @@ export interface InputBoxState {
 
 export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
   public static defaultProps = {
+    autoFocus: false,
     mode: "standard",
     suggestions: [],
-    autoFocus: false
+    enableVoiceInput: false
   };
 
   public state = { focused: false };
@@ -76,10 +79,10 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
       placeholder,
       isDropdownOpen,
       suggestions,
-      autoFocus,
       mode,
       onChange,
       onVoiceInput,
+      enableVoiceInput,
       styles = {}
     } = this.props;
     const { focused } = this.state;
@@ -127,10 +130,12 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
             ) : null}
           </InputInnerContainer>
           <ButtonContainer>
-            <VoiceInputButton
-              onVoiceInput={onVoiceInput}
-              styles={styles.button}
-            />
+            {enableVoiceInput && (
+              <VoiceInputButton
+                onVoiceInput={onVoiceInput}
+                styles={styles.button}
+              />
+            )}
             <SearchButton
               onClick={this.handleSearchButtonOnClick}
               aria-label="Do search"
