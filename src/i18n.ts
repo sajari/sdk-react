@@ -1,4 +1,4 @@
-import i18next from "i18next";
+import * as i18next from "i18next";
 // @ts-ignore: module missing defs file
 import LngDetector from "i18next-browser-languagedetector";
 
