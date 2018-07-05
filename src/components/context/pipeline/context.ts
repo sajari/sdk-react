@@ -1,4 +1,3 @@
-import createReactContext from "create-react-context";
 import * as React from "react";
 import { Config } from "../../../config";
 import { Response } from "../../../controllers";
@@ -26,4 +25,4 @@ export interface Context {
   paginate: PaginateFn;
 }
 
-export const PipelineContext = createReactContext({} as Context);
+export const PipelineContext = React.createContext({} as Context);

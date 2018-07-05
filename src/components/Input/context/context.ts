@@ -1,5 +1,4 @@
 import { Result } from "@sajari/sdk-js";
-import createReactContext from "create-react-context";
 import * as React from "react";
 
 import { Config } from "../../../config";
@@ -37,4 +36,4 @@ export interface InputContext {
   };
 }
 
-export const Context = createReactContext({} as InputContext);
+export const Context = React.createContext({} as InputContext);
