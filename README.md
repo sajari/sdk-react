@@ -21,20 +21,21 @@ We also provide a vanilla Sajari JS library [here](https://github.com/sajari/saj
 * [License](#license)
 * [Browser support](#browser-support)
 
-<!-- 
 # Examples
 
 It's easy to get up and running using one of our examples as a starting point.  They're pre-configured with all the correct dependencies, so all you need to do is copy the example directory into your own workspace and you're on your way!
 
-TODO(@benhinchley): build examples in codesandbox
+* [Typeahead](https://5zz60m4l0p.codesandbox.io/): search box with autocomplete. [Edit](https://codesandbox.io/s/5zz60m4l0p)
+* [Suggestions Dropdown](https://pvo0pxojx.codesandbox.io/): search box with autocomplete + suggestions. [Edit](https://codesandbox.io/s/pvo0pxojx)
+* [Radio/checkbox](https://w64pm94vn8.codesandbox.io/): radio/checkbox filtering [Edit](https://codesandbox.io/s/w64pm94vn8)
 
-* [Autocomplete](./examples/autocomplete-only/): search box with autocomplete.
-* [Autocomplete with suggestions](./examples/autocomplete-suggest/): search box with autocomplete + suggestions.
+
+<!-- TODO(@benhinchley): build examples in codesandbox
+
 * [Sliding autocomplete dropdown](./examples/sliding-autocomplete-dropdown): search box enabled by clicking search icon.
 * [Simple search](./examples/simple-search/): instant search with autocomplete.
 * [Standard search](./examples/standard-search/): instant search with autocomplete + tab filtering.
 * [Custom result renderer](./examples/custom-result-renderer/): instant search with autocomplete + custom result renderers.
-* [Radio/checkbox](./examples/radio-checkbox/): radio/checkbox filtering.
 * [Aggregate](./examples/aggregate/): aggregate filtering.
 
 -->
