@@ -48,8 +48,6 @@ export interface ProviderState {
   results: Result[];
 }
 
-let prevInputValLengthWasOne = false;
-
 export class Provider extends React.Component<ProviderProps, ProviderState> {
   public static getDerivedStateFromProps(
     props: ProviderProps,
@@ -76,15 +74,8 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
         : [];
 
     let inputValue = state.inputValue;
-    if (inputValue.length === 1) {
-      prevInputValLengthWasOne = true;
-    }
-
     if (defaultInputValue !== undefined) {
       inputValue = defaultInputValue;
-    } else if (inputValue === "" && query !== "" && !prevInputValLengthWasOne) {
-      prevInputValLengthWasOne = false;
-      inputValue = query;
     }
 
     return {
@@ -95,6 +86,24 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
       results,
       suggestions
     };
+  }
+
+  prevInputValLengthWasOne = false;
+  componentDidUpdate(prevProps: ProviderProps, prevState: ProviderState) {
+    const { inputValue } = prevState;
+
+    if (inputValue.length === 1) {
+      this.prevInputValLengthWasOne = true;
+    }
+
+    if (
+      this.state.inputValue === "" &&
+      this.state.query !== "" &&
+      !this.prevInputValLengthWasOne
+    ) {
+      this.prevInputValLengthWasOne = false;
+      this.setState(state => ({ ...state, inputValue: this.state.query }));
+    }
   }
 
   public state = {
