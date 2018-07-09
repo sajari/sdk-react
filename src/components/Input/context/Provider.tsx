@@ -88,8 +88,47 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
     };
   }
 
-  prevInputValLengthWasOne = false;
-  componentDidUpdate(prevProps: ProviderProps, prevState: ProviderState) {
+  public state = {
+    inputValue: "",
+    isDropdownOpen: false,
+    highlightedIndex: 0,
+
+    query: "",
+    completion: "",
+    suggestions: [],
+    results: []
+  } as ProviderState;
+
+  private container?: HTMLDivElement;
+  private prevInputValLengthWasOne = false;
+
+  public componentDidMount() {
+    const { dropdownMode, defaultInputValue } = this.props;
+
+    let inputValue = this.state.inputValue;
+    if (defaultInputValue !== undefined) {
+      inputValue = defaultInputValue;
+    }
+    if (inputValue === "") {
+      const query = isNotEmptyString(
+        this.props.pipelines.search.query,
+        this.props.pipelines.instant.query
+      );
+      inputValue = query;
+    }
+    this.setState(state => ({ ...state, inputValue }));
+
+    if (dropdownMode === undefined || dropdownMode !== "results") {
+      return;
+    }
+
+    window.addEventListener("click", this.windowClickHandler);
+  }
+
+  public componentDidUpdate(
+    prevProps: ProviderProps,
+    prevState: ProviderState
+  ) {
     const { inputValue } = prevState;
 
     if (inputValue.length === 1) {
@@ -104,29 +143,6 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
       this.prevInputValLengthWasOne = false;
       this.setState(state => ({ ...state, inputValue: this.state.query }));
     }
-  }
-
-  public state = {
-    inputValue: "",
-    isDropdownOpen: false,
-    highlightedIndex: 0,
-
-    query: "",
-    completion: "",
-    suggestions: [],
-    results: []
-  } as ProviderState;
-
-  private container?: HTMLDivElement;
-
-  public componentDidMount() {
-    const { dropdownMode } = this.props;
-
-    if (dropdownMode === undefined || dropdownMode !== "results") {
-      return;
-    }
-
-    window.addEventListener("click", this.windowClickHandler);
   }
 
   public componentWillUnmount() {

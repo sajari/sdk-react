@@ -56,9 +56,9 @@ export interface InputBoxState {
 export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
   public static defaultProps = {
     autoFocus: false,
+    enableVoiceInput: false,
     mode: "standard",
-    suggestions: [],
-    enableVoiceInput: false
+    suggestions: []
   };
 
   public state = { focused: false };
