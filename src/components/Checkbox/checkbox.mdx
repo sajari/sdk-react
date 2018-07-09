@@ -1,0 +1,45 @@
+---
+name: Checkbox
+menu: Components
+route: /components/checkbox
+---
+
+import { PropsTable } from "docz";
+import { ExampleContainer, categoryMultiFilter } from "../../docs/helpers.ts"
+import { Filter } from "../../controllers"
+import { FilterProvider } from "../context/filter"
+import { Checkbox } from "./Checkbox.tsx"
+
+# Checkbox
+
+## Props
+<PropsTable of={Checkbox} />
+
+## Usage
+<ExampleContainer>
+    <FilterProvider filter={categoryMultiFilter()}>
+        <ul>
+            <li><Checkbox name="All" /> <label>All</label></li>
+            <li><Checkbox name="Blog" /> <label>Blog</label></li>
+        </ul>
+    </FilterProvider>
+</ExampleContainer>
+
+```javascript
+import { Filter, FilterProvider, Checkbox } from "@sajari/sdk-react";
+
+const filter = new Filter({
+        "All": "",
+        "Blog": "dir1='blog'",
+    }, 
+    ["All"], 
+    true
+)
+
+<FilterProvider filter={filter}>
+    <ul>
+        <li><Checkbox name="All" /> <label>All</label></li>
+        <li><Checkbox name="Blog" /> <label>Blog</label></li>
+    </ul>
+</FilterProvider>
+```

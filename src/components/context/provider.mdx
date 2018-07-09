@@ -1,0 +1,42 @@
+---
+name: Provider
+menu: Components
+route: /components/provider
+order: 1
+---
+import {Playground, PropsTable} from "docz"
+import { Provider } from "./Provider.tsx"
+import { Pipeline, Values, NoTracking } from "../../controllers"
+
+# Provider
+`<Provider />` is the component that maintains the state of the search,
+does the queries, and provides the response to the other components so
+that they can update themselves when needed.
+
+## Props
+
+<PropsTable of={Provider} />
+
+## Usage
+
+```javascript
+import { Provider, Pipeline, Values } from "@sajari/sdk-react";
+
+const pipeline = new Pipeline(
+  {
+    project: "<your-project>",
+    collection: "<your-collection>"
+  },
+  "website"
+);
+
+const values = new Values();
+
+
+ReactDOM.render(
+  <Provider search={{pipeline, values}}>
+    {/* Your application code here */}
+  </Provider>,
+  document.getElementById("root")
+)
+```

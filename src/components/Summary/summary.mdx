@@ -1,0 +1,39 @@
+---
+name: Summary
+menu: Components
+route: /components/summary
+---
+
+import { PropsTable } from "docz"
+import { ExampleContainer } from "../../docs/helpers.ts"
+import { Summary } from "./Summary.tsx"
+
+# Summary
+
+## Props
+<PropsTable of={Summary} />
+
+## Styles
+```typescript
+type SummaryStyles = {
+    container?: React.CSSProperties;
+    override?: {
+        container?: React.CSSProperties;
+    };
+};  
+```
+
+## Usage
+<ExampleContainer>
+    <Summary  styles={{
+        container: {
+            marginBottom: 0
+        }
+    }}/>
+</ExampleContainer>
+
+```javascript
+import { Summary } from "@sajari/sdk-react"
+
+<Summary />
+```

@@ -1,3 +1,20 @@
 {
-  "presets": ["es2015", "stage-0", "react"]		
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "modules": false,
+        "targets": {
+          "browsers": [">0.25%", "ie > 9", "not op_mini all"]
+        }
+      }
+    ],
+    "@babel/react"
+  ],
+  "plugins": [
+    "@babel/proposal-class-properties",
+    "@babel/proposal-object-rest-spread",
+    ["emotion", { "hoist": true }],
+    "idx"
+  ]
 }

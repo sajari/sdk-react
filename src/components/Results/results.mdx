@@ -1,0 +1,161 @@
+---
+name: Results
+menu: Components
+route: /components/results
+---
+
+import { PropsTable } from "docz"
+import { ExampleContainer } from "../../docs/helpers.ts"
+import { Results } from "./Results.tsx"
+
+
+# Results
+
+`<Results />` renders the list of results using the component passed to the `ResultRenderer` prop, defaulting
+to a standard `Result` component if nothing is provided.
+
+## Props
+
+<PropsTable of={Results} />
+
+#### ResultRenderer propTypes
+```typescript
+type ResultClickedFn = (url: string) => void;
+type ResultRendererProps = {
+    token: string;
+    values: { [k: string]: string | string[] };
+    resultClicked: ResultClickedFn;
+    score?: number;
+    indexScore?: number;
+    itemIndex?: number;
+}
+```
+
+## Styles
+
+```typescript
+type ResultsStyles = {
+    container?: React.CSSProperties,
+    item?: React.CSSProperties,
+    result?: {
+        container?: React.CSSProperties;
+        title?: React.CSSProperties;
+        description?: React.CSSProperties;
+        url?: React.CSSProperties;
+    }
+}
+```
+
+## Usage
+
+### Basic
+<ExampleContainer>
+    <Results styles={{
+        item: {
+            "&:last-of-type": {
+                marginBottom: 0
+            }
+        }
+    }} />
+</ExampleContainer>
+
+```javascript
+import { Results } from "@sajari/sdk-react"
+
+<Results />
+```
+
+### With images
+<ExampleContainer>
+    <Results showImages styles={{
+        item: {
+            "&:last-of-type": {
+                marginBottom: 0
+            }
+        }
+    }} />
+</ExampleContainer>
+
+```javascript
+import { Results } from "@sajari/sdk-react"
+
+<Results showImages />
+```
+
+
+### With custom styles
+<ExampleContainer>
+    <Results styles={{
+        container: {
+            flexWrap: "nowrap",
+            justifyContent: "space-between"
+        },
+        item: {
+            width: "32%",
+            padding: "0.5rem",
+            boxShadow: "0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)",
+            marginBottom: 0
+        },
+        result: {
+            container: {
+                height: "100%",
+                justifyContent: "space-between"
+            }
+        }
+    }} />
+</ExampleContainer>
+
+```javascript
+import { Results } from "@sajari/sdk-react"
+
+<Results styles={{
+    container: {
+        flexWrap: "nowrap",
+        justifyContent: "space-between"
+    },
+    item: {
+        width: "32%",
+        padding: "0.5rem",
+        boxShadow: "0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)"
+    },
+    result: {
+        container: {
+            height: "100%",
+            justifyContent: "space-between"
+        }
+    }
+}} />
+```
+
+### With custom result renderer
+<ExampleContainer>
+    <Results
+        ResultRenderer={({values, token}) => <a href={token || "#"}>{values.title}</a>}
+        styles={{
+            item: {
+                marginBottom: "0.25rem",
+                "&:last-of-type": {
+                    marginBottom: 0
+                }
+            }
+        }}
+    />
+</ExampleContainer>
+
+```javascript
+import { Results } from "@sajari/sdk-react"
+
+const CustomRenderer = ({values, token}) => <a href={token || "#"}>{values.title}</a>
+
+<Results
+    ResultRenderer={CustomRenderer}
+    styles={{
+        item: {
+            marginBottom: "0.25rem"
+            "&:last-of-type": {
+                marginBottom: 0
+            }
+        }
+    }}
+/>
+```

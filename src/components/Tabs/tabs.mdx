@@ -1,0 +1,39 @@
+---
+name: Tabs
+menu: Components
+route: /components/tabs
+---
+
+import { PropsTable } from "docz"
+import { ExampleContainer, categoryFilter } from "../../docs/helpers.ts"
+import { Tabs } from "./Tabs.tsx"
+
+# Tabs
+
+## Props
+
+<PropsTable of={Tabs} />
+
+## Usage
+<ExampleContainer>
+    <Tabs filter={categoryFilter()} tabs={[{name: "All", display: "All"}, {name: "Blog", display: "Blog"}]} />
+</ExampleContainer>
+
+```javascript
+import { Filter, Tabs } from "@sajari/sdk-react"
+
+const filter = new Filter({
+        "All": "",
+        "Blog": "dir1='blog'",
+    },
+    ["All"]
+);
+
+<Tabs
+    filter={filter}
+    tabs={[
+        {name: "All", display: "All"},
+        {name: "Blog", display: "Blog"}
+    ]}
+/>
+```

@@ -1,0 +1,119 @@
+---
+name: Input
+menu: Components
+route: /components/input
+---
+
+import { PropsTable } from "docz"
+import { ExampleContainer } from "../../docs/helpers.ts"
+import { Input } from "./Input.tsx"
+
+# Input
+
+The `Input` component provides a text-box which performs searches as the user types.
+It is customizable through the use of props, options include rendering autocomplete
+suggestions directly in the input box, or alternatively in
+a drop-down list underneath.
+
+## Props
+<PropsTable of={Input} />
+
+## Styles
+
+```typescript
+type InputStyles = {
+    container?: React.CSSProperties;
+    input?: {
+        container?: React.CSSProperties;
+        input?: React.CSSProperties;
+        typeahead?: React.CSSProperties;
+        button?: React.CSSProperties;
+    };
+};
+```
+
+## Usage
+
+### With default props
+<ExampleContainer>
+    <Input styles={{container: {marginBottom: 0}}} />
+</ExampleContainer>
+
+```javascript
+import { Input } from "@sajari/sdk-react"
+
+<Input />
+```
+
+### With instant search and typeahead
+<ExampleContainer>
+    <Input mode="typeahead" instantSearch styles={{container: {marginBottom: 0}}} />
+</ExampleContainer>
+
+```javascript
+import { Input } from "@sajari/sdk-react"
+
+<Input mode="typeahead" instantSearch />
+```
+
+### With suggestions dropdown
+<ExampleContainer>
+    <Input
+        mode="typeahead"
+        dropdownMode="suggestions"
+        styles={{
+            container: {
+                marginBottom: 0
+                }
+            }}
+    />
+</ExampleContainer>
+
+```javascript
+import { Input } from "@sajari/sdk-react"
+
+<Input mode="typeahead" dropdownMode="suggestions" />
+```
+
+
+### With custom styles
+<ExampleContainer>
+    <Input mode="typeahead" dropdownMode="suggestions" styles={{
+        container: {
+            width: "300px",
+            marginBottom: 0
+        },
+        input: {
+            container: {
+                backgroundColor: "#999",
+                color: "#fff",
+                border: "1px solid #999",
+                boxShadow: "none"
+            },
+            button: {
+                color: "#eee"
+            }
+        }
+    }} />
+</ExampleContainer>
+
+```javascript
+import { Input } from "@sajari/sdk-react"
+
+<Input mode="typeahead" dropdownMode="suggestions" styles={{
+    container: {
+        width: "300px"
+    },
+    input: {
+        container: {
+            backgroundColor: "#999",
+            color: "#fff",
+            border: "1px solid #999",
+            boxShadow: "none"
+        },
+        button: {
+            color: "#eee"
+        }
+    }
+}} />
+```

@@ -1,0 +1,71 @@
+// @ts-ignore: module missing defintion file
+import isEqual from "deep-is";
+// @ts-ignore: module missing defintion file
+import memoize from "memoize-one";
+import * as React from "react";
+// @ts-ignore: module missing defintion file
+import ReactSelect from "react-select";
+
+import { Filter, Options } from "../../controllers/filter";
+import {
+  FilterConsumer,
+  FilterContext,
+  FilterProvider
+} from "../context/filter";
+import { styles as defaultStyles } from "./styled";
+
+export interface SelectProps {
+  filter: Filter;
+}
+
+export const Select: React.SFC<SelectProps> = ({ filter }) => (
+  <FilterProvider filter={filter}>
+    <FilterConsumer>
+      {({ options, selected, set }) => {
+        return (
+          <ReactSelect
+            styles={defaultStyles}
+            isClearable={true}
+            options={mapOptions(options)}
+            onChange={handleChange(selected, set)}
+          />
+        );
+      }}
+    </FilterConsumer>
+  </FilterProvider>
+);
+
+const mapOptions = memoize(
+  (options: Options) =>
+    Object.entries(options).map(([label, value]) => ({
+      label,
+      value
+    })),
+  isEqual
+);
+
+const ActionSelect = "select-option";
+const ActionPop = "pop-value";
+const ActionClear = "clear";
+
+const handleChange = (
+  selected: string[],
+  set: (name: string, value: boolean) => void
+) => (value: any, { action }: any) => {
+  switch (action) {
+    case ActionSelect:
+      set(value.label, true);
+      break;
+    case ActionPop:
+      set(selected[0], false);
+      break;
+    case ActionClear:
+      selected.forEach(option => {
+        set(option, false);
+      });
+      break;
+
+    default:
+      break;
+  }
+};

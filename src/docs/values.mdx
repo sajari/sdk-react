@@ -1,0 +1,59 @@
+---
+name: Values
+menu: Controllers
+route: /controllers/values
+---
+
+# Values
+
+The `Values` controller is used to manage parameters for running searches.
+
+## Constructor Type Definition
+```typescript
+type ValueFn = () => string;
+type ValuesConstructor = (
+    values?: {[k: string]: string | string[] | number | boolean | ValueFn }
+    ) => Values;
+```
+
+## Usage
+
+```javascript
+import { Values } from "@sajari/sdk-react";
+
+// Initialise with resultsPerPage parameter.
+const values = new Values({ resultsPerPage: 5 });
+```
+
+### Setting values
+
+Use to the `set` method to set values in an instance of `Values`:
+
+```javascript
+values.set({ "q": "search query" });
+```
+
+It's also possible to assign closures to value keys, these will be evaluated whenever `Values.get()` is called (i.e. `pipeline.search(values.get())`).
+
+```javascript
+values.set({ hello: () => "Hello" })
+```
+
+### Listening for changes
+
+Register listeners to be notified of changes to a `Values` instance (via `valuesUpdatedEvent`).  All listeners are passed the dictionary of values that were updated and a set function will set a new value without triggering another `valuesUpdatedEvent`.
+
+```javascript
+import { EVENT_VALUES_UPDATED } from "@sajari/sdk-react";
+
+const unregister = values.listen(EVENT_VALUES_UPDATED, (updated, set) => {
+  // If any values were updated, and `page` wasn't, then reset `page` to 1
+  if (!updated.page) {
+    set({ page: "1" });
+  }
+  console.log("values: ", values.get());
+});
+
+// Sometime later...
+unregister();
+```
