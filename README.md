@@ -9,11 +9,11 @@ React provides a simple and elegant way to structure user interfaces. The Sajari
 
 We also provide a vanilla Sajari JS library [here](https://github.com/sajari/sajari-sdk-js/).
 
-<!-- TODO(@benhinchley): take new screenshot -->
+<!-- TODO(@benhinchley): take new screenshot of sajari search interface -->
 
 # Table of contents
 
-<!-- * [Examples](#examples) -->
+* [Examples](#examples)
 * [Setup](#setup)
   * [NPM](#npm)
 * [Documentation](#documentation)
@@ -25,17 +25,16 @@ We also provide a vanilla Sajari JS library [here](https://github.com/sajari/saj
 
 It's easy to get up and running using one of our examples as a starting point.  They're pre-configured with all the correct dependencies, so all you need to do is copy the example directory into your own workspace and you're on your way!
 
-* [Typeahead](https://5zz60m4l0p.codesandbox.io/): search box with autocomplete. [Edit](https://codesandbox.io/s/5zz60m4l0p)
+* [Basic](https://3vy8p6k7z1.codesandbox.io/): basic search box. [Edit](https://codesandbox.io/s/3vy8p6k7z1)
+* [Typeahead and Instant Search](https://5zz60m4l0p.codesandbox.io/): search box with autocomplete and instant search. [Edit](https://codesandbox.io/s/5zz60m4l0p)
 * [Suggestions Dropdown](https://pvo0pxojx.codesandbox.io/): search box with autocomplete + suggestions. [Edit](https://codesandbox.io/s/pvo0pxojx)
-* [Radio/checkbox](https://w64pm94vn8.codesandbox.io/): radio/checkbox filtering [Edit](https://codesandbox.io/s/w64pm94vn8)
+* [Radio/checkbox](https://w64pm94vn8.codesandbox.io/): radio/checkbox filtering. [Edit](https://codesandbox.io/s/w64pm94vn8)
 
 
 <!-- TODO(@benhinchley): build examples in codesandbox
 
 * [Sliding autocomplete dropdown](./examples/sliding-autocomplete-dropdown): search box enabled by clicking search icon.
-* [Simple search](./examples/simple-search/): instant search with autocomplete.
 * [Standard search](./examples/standard-search/): instant search with autocomplete + tab filtering.
-* [Custom result renderer](./examples/custom-result-renderer/): instant search with autocomplete + custom result renderers.
 * [Aggregate](./examples/aggregate/): aggregate filtering.
 
 -->
@@ -143,7 +142,7 @@ The `<Response />` component acts as a wrapper for components that render respon
 
 ### `<Results />`
 
-The `<Results />` component can also take a custom renderer which will be used to render its individual results.  See the [custom result renderer example](./examples/custom-result-renderer) for more details.
+The `<Results />` component can also take a custom renderer which will be used to render its individual results.  See the [custom result renderer example](https://sajari-sdk-react.netlify.com/components/results#with-custom-result-renderer) for more details.
 
 ## Facets & Filtering
 For documentaion on Facets & Filtering, see [sajari-sdk-react.netlify.com/facets-and-filtering](https://sajari-sdk-react.netlify.com/facets-and-filtering)
