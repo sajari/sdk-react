@@ -25,10 +25,10 @@ We also provide a vanilla Sajari JS library [here](https://github.com/sajari/saj
 
 It's easy to get up and running using one of our examples as a starting point.  They're pre-configured with all the correct dependencies, so all you need to do is copy the example directory into your own workspace and you're on your way!
 
-* [Basic](https://3vy8p6k7z1.codesandbox.io/): basic search box. [Edit](https://codesandbox.io/s/3vy8p6k7z1)
-* [Typeahead and Instant Search](https://5zz60m4l0p.codesandbox.io/): search box with autocomplete and instant search. [Edit](https://codesandbox.io/s/5zz60m4l0p)
-* [Suggestions Dropdown](https://pvo0pxojx.codesandbox.io/): search box with autocomplete + suggestions. [Edit](https://codesandbox.io/s/pvo0pxojx)
-* [Radio/checkbox](https://w64pm94vn8.codesandbox.io/): radio/checkbox filtering. [Edit](https://codesandbox.io/s/w64pm94vn8)
+* **Basic**: basic search box, hit enter to search (<a href="https://3vy8p6k7z1.codesandbox.io/" target="_blank">View</a>, <a href="https://codesandbox.io/s/3vy8p6k7z1" target="_blank">Edit</a>).
+* **Typeahead with Instant Search**: search box with typeahead autocomplete and instant search enabled (<a href="https://5zz60m4l0p.codesandbox.io/" target="_blank">View</a>, <a href="https://codesandbox.io/s/5zz60m4l0p" target="_blank">Edit</a>).
+* **Suggestions Dropdown**: search box with drop-down autocomplete suggestions (<a href="https://pvo0pxojx.codesandbox.io/" target="_blank">View</a>, <a href="https://codesandbox.io/s/pvo0pxojx" target="_blank">Edit</a>).
+* **Radio/checkbox**: radio/checkbox filtering (<a href="https://w64pm94vn8.codesandbox.io/" target="_blank">View</a>, <a href="https://codesandbox.io/s/w64pm94vn8" target="_blank">Edit</a>).
 
 
 <!-- TODO(@benhinchley): build examples in codesandbox
