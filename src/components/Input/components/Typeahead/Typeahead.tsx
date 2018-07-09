@@ -4,8 +4,10 @@ import { Consumer } from "../../context";
 import { trimPrefix } from "../../utils";
 import { Container } from "./styled";
 
+export type TypeaheadMode = "typeahead" | "suggestions";
+
 export interface TypeaheadProps {
-  mode: "typeahead" | "suggestions";
+  mode: TypeaheadMode;
   highlightedIndex: number;
   inputValue: string;
   completion: string;
@@ -35,7 +37,7 @@ export const Typeahead: React.SFC<TypeaheadProps> = ({
 };
 
 const getTypeaheadValue = (
-  mode: "typeahead" | "suggestions",
+  mode: TypeaheadMode,
   completion: string,
   suggestions: string[],
   index: number,
@@ -46,13 +48,7 @@ const getTypeaheadValue = (
   return trimPrefix(suggestion, value);
 };
 
-export default ({
-  mode,
-  styles
-}: {
-  mode: "typeahead" | "suggestions";
-  styles?: any;
-}) => (
+export default ({ mode, styles }: { mode: TypeaheadMode; styles?: any }) => (
   <Consumer>
     {({ completion, suggestions, highlightedIndex, inputValue }) => (
       <Typeahead
