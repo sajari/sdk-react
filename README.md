@@ -42,26 +42,24 @@ It's easy to get up and running using one of our examples as a starting point.  
 
 # Setup
 
-If you want to add the SDK to an existing project, or want to start from scratch, then you can get `@sajari/sdk-react` using NPM.
-
 ### NPM
 
-We currently distribute the `@sajari/sdk-react` library through NPM. NPM is only required for downloading the library. The SDK is made to be used from the browser.
+We distribute the `@sajari/sdk-react` library through NPM (note: NPM is only required for downloading the library). The SDK is made to be used from the browser.
 
 ```shell
 $ npm install --save @sajari/sdk-react
 ```
 
 # Documentation
-To read the documentation, go here [sajari-sdk-react.netlify.com](https://sajari-sdk-react.netlify.com)
+For full documentation, see [sajari-sdk-react.netlify.com](https://sajari-sdk-react.netlify.com).
 
 # Quick reference
 
 This library includes a standard set of components for building search interfaces.
 
-### Setting up API calls
+## Setting up API calls
 
-Before you can use any components, you'll need to initialise a [`Pipeline`](#using-pipeline) for handling search requests to the API:
+Before you can use any components, you'll need to initialise a `Pipeline` for handling search requests to the API:
 
 ```javascript
 import { Pipeline } from "@sajari/sdk-react";
@@ -72,7 +70,7 @@ const pipeline = new Pipeline(
     project: "<your-project>", 
     collection: "<your-collection>"
   },
-  "website"
+  "<pipeline-name>" // typically "website"
 );
 
 // Now you're ready to perform a search.
@@ -82,7 +80,7 @@ pipeline.search({
 ```
 
 ## [Provider](https://sajari-sdk-react.netlify.com/components/provider)
-`<Provider />` is the component that maintains the state of the search, does the queries, and provides the response to the other components so that they can update themselves when needed.
+`<Provider />` handles the request-response lifecycle for searches.  It performs queries and passes the response to UI components so that they can be updated.
 
 ```javascript
 import { Provider, Pipeline, Values } from "@sajari/sdk-react";
@@ -92,7 +90,7 @@ const pipeline = new Pipeline(
     project: "<your-project>", 
     collection: "<your-collection>"
   },
-  "website"
+  "<your-pipeline>"
 );
 
 const values = new Values();
@@ -108,10 +106,10 @@ ReactDOM.render(
 
 ## [Input](https://sajari-sdk-react.netlify.com/components/input)
 
-The `Input` component provides a text-box which performs searches as the user types.
-It is customizable through the use of props, to render appropraite autocomplete
-suggestions back in the input box, and to also render autocomplete suggestions in
-a list underneath.
+The `Input` component creates a text-box which performs searches as the user types.
+It is customizable through the use of props, options include rendering autocomplete
+suggestions back in the input box, or rendering autocomplete suggestions in
+a drop-down list.
 
 ```javascript
 import { Input } from "@sajari/sdk-react";
@@ -128,7 +126,7 @@ import { Input } from "@sajari/sdk-react";
 
 ## Handling results
 
-A typical search result UI could includes a summary of the search, maybe with options to change spellings or search for alternatives, and a list of the paginated results.  We include components for all of these pieces so it's easy to get started.
+A typical search result UI panel includes a summary of the search (i.e. "10 results found for X"), including options to fix spellings or suggested alternatives, and a paginated list of results.  We include components for all of these pieces so it's easy to get started.
 
 A standard search response handler would look something like this:
 
@@ -139,16 +137,16 @@ A standard search response handler would look something like this:
   <Paginator />
 </Response>
 ```
-#### `<Response/>`
+### `<Response/>`
 
-The `<Response />` component doesn't render its children if the pipeline `Response` is empty (i.e. the initial pre-search state, or after `pipeline.clearResponse()` has been called).
+The `<Response />` component acts as a wrapper for components that render response information.  It doesn't render its children if the pipeline `Response` is empty (i.e. the initial pre-search state, or after `pipeline.clearResponse()` has been called).
 
-#### `<Results />`
+### `<Results />`
 
 The `<Results />` component can also take a custom renderer which will be used to render its individual results.  See the [custom result renderer example](./examples/custom-result-renderer) for more details.
 
 ## Facets & Filtering
-For documentaion on Facets & Filtering, go here [sajari-sdk-react.netlify.com/facets-and-filtering](https://sajari-sdk-react.netlify.com/facets-and-filtering)
+For documentaion on Facets & Filtering, see [sajari-sdk-react.netlify.com/facets-and-filtering](https://sajari-sdk-react.netlify.com/facets-and-filtering)
 
 # License
 
