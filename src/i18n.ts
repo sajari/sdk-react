@@ -14,7 +14,7 @@ export const i18n = i18next.use(LngDetector).init({
       summary: {
         page: "Page {{pageNumber}} of",
         resultsFor: "results for",
-        searchInstead: "search instead for"
+        searchInsteadFor: "search instead for"
       }
     }
   },
