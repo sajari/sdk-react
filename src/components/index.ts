@@ -8,7 +8,7 @@ export {
 export { Input } from "./Input";
 
 export { Response } from "./Response";
-export { Results } from "./Results";
+export { ResultsContainer, Results } from "./Results";
 export { Result, TokenLink } from "./Result";
 
 export { Summary } from "./Summary";

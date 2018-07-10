@@ -19,6 +19,7 @@ export {
   FilterProvider,
   Input,
   Response,
+  ResultsContainer,
   Results,
   TokenLink,
   Summary,

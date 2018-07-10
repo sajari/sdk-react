@@ -3,7 +3,7 @@ import isEqual from "deep-is";
 import * as React from "react";
 
 import { Consumer } from "../../context";
-import { SetStateFn } from "../../context/context";
+import { InputContext, SetStateFn } from "../../context/context";
 import { trimPrefix } from "../../utils";
 import { Suggestion, SuggestionsContainer } from "./styled";
 
@@ -120,7 +120,7 @@ export default () => (
       setHighlightedIndex,
       setState,
       pipelines
-    }) => (
+    }: InputContext) => (
       <Suggestions
         inputValue={inputValue}
         isDropdownOpen={isDropdownOpen}

@@ -118,7 +118,7 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
     }
     this.setState(state => ({ ...state, inputValue }));
 
-    if (dropdownMode === undefined || dropdownMode !== "results") {
+    if (dropdownMode === undefined || dropdownMode !== "custom") {
       return;
     }
 
@@ -184,7 +184,9 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
 
     return (
       <Context.Provider value={value as InputContext}>
-        <Context.Consumer>{context => children(context)}</Context.Consumer>
+        <Context.Consumer>
+          {(context: InputContext) => children(context)}
+        </Context.Consumer>
       </Context.Provider>
     );
   }
@@ -207,7 +209,7 @@ export class Provider extends React.Component<ProviderProps, ProviderState> {
   private getInputProps = (props: { [k: string]: any }) => {
     return {
       onBlur: (event: React.FocusEvent<HTMLInputElement>) => {
-        if (this.props.dropdownMode !== "results") {
+        if (this.props.dropdownMode !== "custom") {
           // @ts-ignore: partial state update
           this.handleSetState({
             isDropdownOpen: false

@@ -1,7 +1,7 @@
 import { Result } from "@sajari/sdk-js";
 import * as React from "react";
 
-import { Provider } from "./context";
+import { Consumer, Provider } from "./context";
 
 import { Config } from "../../config";
 import { ClearFn, SearchFn } from "../context/pipeline/context";
@@ -26,7 +26,7 @@ enum InputKeyCodes {
 }
 
 export type InputMode = "standard" | "typeahead";
-export type DropdownMode = "none" | "suggestions" | "results";
+export type DropdownMode = "none" | "suggestions" | "custom";
 
 export interface InputProps {
   mode?: InputMode;
@@ -58,10 +58,7 @@ export interface InputProps {
     search: SearchFn,
     value: string
   ) => void;
-  ResultsDropdownRenderer?: React.ComponentType<{
-    highlightedIndex: number;
-    setHighlightedIndex: (index: number) => void;
-  }>;
+  DropdownRenderer?: React.ComponentType<InputContext>;
 }
 
 export class Input extends React.Component<InputProps> {
@@ -82,7 +79,7 @@ export class Input extends React.Component<InputProps> {
       placeholder,
       autoFocus,
       enableVoiceSearch,
-      ResultsDropdownRenderer,
+      DropdownRenderer,
       onFocus,
       onBlur,
       onDropdownClose,
@@ -105,7 +102,6 @@ export class Input extends React.Component<InputProps> {
           getRootProps,
           getInputProps,
           setState,
-          setHighlightedIndex,
           pipelines
         }: InputContext) => {
           return (
@@ -153,12 +149,12 @@ export class Input extends React.Component<InputProps> {
               />
               <Dropdown isOpen={isDropdownOpen}>
                 {dropdownMode === "suggestions" ? <Suggestions /> : null}
-                {dropdownMode === "results" &&
-                ResultsDropdownRenderer !== undefined ? (
-                  <ResultsDropdownRenderer
-                    highlightedIndex={highlightedIndex}
-                    setHighlightedIndex={setHighlightedIndex}
-                  />
+                {dropdownMode === "custom" && DropdownRenderer !== undefined ? (
+                  <Consumer>
+                    {(context: InputContext) => (
+                      <DropdownRenderer {...context} />
+                    )}
+                  </Consumer>
                 ) : null}
               </Dropdown>
             </Container>
@@ -182,8 +178,8 @@ export class Input extends React.Component<InputProps> {
     search: { search: SearchFn },
     instant: { search: SearchFn }
   ) => (event: InputChangeEvent) => {
-    const { mode, dropdownMode, instantSearch } = this.props;
-    if (instantSearch || dropdownMode === "results") {
+    const { mode, instantSearch } = this.props;
+    if (instantSearch) {
       const value = event.target.value;
       search.search(value, false);
     } else if (mode === "typeahead") {
@@ -210,7 +206,7 @@ export class Input extends React.Component<InputProps> {
       this.props.onKeyDown(event);
     }
 
-    if (dropdownMode !== "results" && keyCode === InputKeyCodes.Return) {
+    if (dropdownMode !== "custom" && keyCode === InputKeyCodes.Return) {
       const suggestion = suggestions[highlightedIndex - 1];
 
       if (suggestion === undefined) {
@@ -240,7 +236,7 @@ export class Input extends React.Component<InputProps> {
       event.preventDefault();
       if (highlightedIndex === 0) {
         let length = suggestions.length;
-        if (dropdownMode === "results") {
+        if (dropdownMode === "custom") {
           length = results.length;
         }
 
@@ -254,7 +250,7 @@ export class Input extends React.Component<InputProps> {
 
     if (keyCode === InputKeyCodes.DownArrow) {
       let length = suggestions.length;
-      if (dropdownMode === "results") {
+      if (dropdownMode === "custom") {
         length = results.length;
       }
 
