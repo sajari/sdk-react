@@ -163,11 +163,7 @@ export class Provider extends React.PureComponent<
     );
 
     if (searchOnLoad) {
-      // If q is set when component loads, trigger a search
-      const values = search.values.get();
-      if (values[mergedConfig.qParam]) {
-        search.pipeline.search(search.values.get());
-      }
+      search.pipeline.search(search.values.get());
     }
   }
 
