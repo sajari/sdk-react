@@ -16,7 +16,7 @@ type PipelineConstructor = (
         collection: string
     },
     pipeline: string,
-    tracking: ClickTracking | NoTracking = new ClickTracking(),
+    tracking: ClickTracking | NoTracking = new NoTracking(),
     analytics?: GoogleAnalytics | DebugAnalytics
     ) => Pipeline;
 ```
