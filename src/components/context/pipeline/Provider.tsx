@@ -24,6 +24,7 @@ export interface PipelineProviderProps {
   instant?: ProviderPipelineConfig;
 
   theme?: any;
+  searchOnLoad?: boolean;
 }
 
 export interface PipelineProviderState {
@@ -162,7 +163,8 @@ export class Provider extends React.PureComponent<
     );
 
     // If q is set when component loads, trigger a search
-    if (search.values.get().q) {
+    const values = search.values.get();
+    if (values[mergedConfig.qParam]) {
       search.pipeline.search(search.values.get());
     }
   }

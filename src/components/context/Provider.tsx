@@ -13,14 +13,19 @@ export interface ProviderProps {
   instant?: ProviderPipelineConfig;
 
   theme?: { [k: string]: any };
+  searchOnLoad?: boolean;
 }
 
 export class Provider extends React.PureComponent<ProviderProps> {
   public render() {
-    const { search, instant, theme, children } = this.props;
+    const { search, instant, theme, searchOnLoad, children } = this.props;
 
     return (
-      <PipelineProvider search={search} instant={instant}>
+      <PipelineProvider
+        search={search}
+        instant={instant}
+        searchOnLoad={searchOnLoad}
+      >
         <ThemeProvider theme={theme || {}}>
           <React.Fragment>
             <LiveAnnouncer>{children}</LiveAnnouncer>
