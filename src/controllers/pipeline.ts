@@ -53,7 +53,7 @@ export class Pipeline {
       endpoint?: string;
     },
     name: string,
-    tracking: ClickTracking | NoTracking = new ClickTracking(),
+    tracking: ClickTracking | NoTracking = new NoTracking(),
     analyticsAdapters = [GoogleAnalytics]
   ) {
     const { project, collection, endpoint } = config;
