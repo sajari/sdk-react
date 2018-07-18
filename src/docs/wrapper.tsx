@@ -13,7 +13,9 @@ const pipeline = new Pipeline(
 const values = new Values({ q: "api", resultsPerPage: 3 });
 
 export const Wrapper = ({ children }: { [k: string]: any }) => (
-  <Provider search={{ pipeline, values }}>{children}</Provider>
+  <Provider search={{ pipeline, values }} searchOnLoad>
+    {children}
+  </Provider>
 );
 
 export default Wrapper;
