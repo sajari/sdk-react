@@ -1,7 +1,4 @@
-// @ts-ignore: module missing defintion file
-import isEqual from "deep-is";
-// @ts-ignore: module missing defintion file
-import memoize from "memoize-one";
+import memoize from "fast-memoize";
 import * as React from "react";
 import { Filter } from "../../../controllers";
 import { Options } from "../../../controllers/filter";
@@ -28,13 +25,10 @@ export class FilterProvider extends React.PureComponent<
   public state = { options: {}, selected: [] };
   private unregisterFuntions: UnlistenFn[] = [];
 
-  private getContext = memoize(
-    (state: FilterProviderState) => ({
-      ...state,
-      set: (name: string, value: boolean) => this.props.filter.set(name, value)
-    }),
-    isEqual
-  );
+  private getContext = memoize((state: FilterProviderState) => ({
+    ...state,
+    set: (name: string, value: boolean) => this.props.filter.set(name, value)
+  }));
 
   public componentDidMount() {
     const { filter } = this.props;

@@ -1,7 +1,4 @@
-// @ts-ignore: module missing defintion file
-import isEqual from "deep-is";
-// @ts-ignore: module missing defintion file
-import memoize from "memoize-one";
+import memoize from "fast-memoize";
 import * as React from "react";
 // @ts-ignore: module missing defintion file
 import ReactSelect from "react-select";
@@ -35,13 +32,11 @@ export const Select: React.SFC<SelectProps> = ({ filter }) => (
   </FilterProvider>
 );
 
-const mapOptions = memoize(
-  (options: Options) =>
-    Object.entries(options).map(([label, value]) => ({
-      label,
-      value
-    })),
-  isEqual
+const mapOptions = memoize((options: Options) =>
+  Object.entries(options).map(([label, value]) => ({
+    label,
+    value
+  }))
 );
 
 const ActionSelect = "select-option";
