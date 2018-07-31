@@ -28,7 +28,9 @@ const plugins = [
       "react-dom": ["findDOMNode", "createPortal"]
     }
   }),
-  typescript(),
+  typescript({
+    typescript: require("typescript")
+  }),
   babel({
     exclude: "node_modules/**" // only transpile our source code
   })
