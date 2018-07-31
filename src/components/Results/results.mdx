@@ -14,38 +14,6 @@ import { Results } from "./Results.tsx"
 `<Results />` renders the list of results using the component passed to the `ResultRenderer` prop, defaulting
 to a standard `Result` component if nothing is provided.
 
-## Props
-
-<PropsTable of={Results} />
-
-#### ResultRenderer propTypes
-```typescript
-type ResultClickedFn = (url: string) => void;
-type ResultRendererProps = {
-    token: string;
-    values: { [k: string]: string | string[] };
-    resultClicked: ResultClickedFn;
-    score?: number;
-    indexScore?: number;
-    itemIndex?: number;
-}
-```
-
-## Styles
-
-```typescript
-type ResultsStyles = {
-    container?: React.CSSProperties,
-    item?: React.CSSProperties,
-    result?: {
-        container?: React.CSSProperties;
-        title?: React.CSSProperties;
-        description?: React.CSSProperties;
-        url?: React.CSSProperties;
-    }
-}
-```
-
 ## Usage
 
 ### Basic
@@ -158,4 +126,35 @@ const CustomRenderer = ({values, token}) => <a href={token || "#"}>{values.title
         }
     }}
 />
+```
+
+## Props
+<PropsTable of={Results} />
+
+#### ResultRenderer propTypes
+```typescript
+type ResultClickedFn = (url: string) => void;
+type ResultRendererProps = {
+    token: string;
+    values: { [k: string]: string | string[] };
+    resultClicked: ResultClickedFn;
+    score?: number;
+    indexScore?: number;
+    itemIndex?: number;
+}
+```
+
+## Styles
+
+```typescript
+type ResultsStyles = {
+    container?: React.CSSProperties,
+    item?: React.CSSProperties,
+    result?: {
+        container?: React.CSSProperties;
+        title?: React.CSSProperties;
+        description?: React.CSSProperties;
+        url?: React.CSSProperties;
+    }
+}
 ```

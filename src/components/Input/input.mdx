@@ -15,23 +15,6 @@ It is customizable through the use of props, options include rendering autocompl
 suggestions directly in the input box, or alternatively in
 a drop-down list underneath.
 
-## Props
-<PropsTable of={Input} />
-
-## Styles
-
-```typescript
-type InputStyles = {
-    container?: React.CSSProperties;
-    input?: {
-        container?: React.CSSProperties;
-        input?: React.CSSProperties;
-        typeahead?: React.CSSProperties;
-        button?: React.CSSProperties;
-    };
-};
-```
-
 ## Usage
 
 ### With default props
@@ -116,4 +99,21 @@ import { Input } from "@sajari/sdk-react"
         }
     }
 }} />
+```
+
+## Props
+<PropsTable of={Input} />
+
+## Styles
+
+```typescript
+type InputStyles = {
+    container?: React.CSSProperties;
+    input?: {
+        container?: React.CSSProperties;
+        input?: React.CSSProperties;
+        typeahead?: React.CSSProperties;
+        button?: React.CSSProperties;
+    };
+};
 ```
