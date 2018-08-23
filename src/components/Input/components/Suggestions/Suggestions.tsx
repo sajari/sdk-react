@@ -60,8 +60,8 @@ export class Suggestions extends React.Component<SuggestionsProps> {
           <Suggestion
             key={item}
             isHighlighted={highlightedIndex === index + 1}
-            onMouseMove={this.handleSuggestionMouseMove}
-            onMouseDown={this.handleSuggestionMouseDown}
+            onMouseMove={this.handleSuggestionMouseMove(item)}
+            onMouseDown={this.handleSuggestionMouseDown(item)}
           >
             {this.getItemText(item, inputValue)}
           </Suggestion>
@@ -77,22 +77,19 @@ export class Suggestions extends React.Component<SuggestionsProps> {
     setHighlightedIndex(0);
   };
 
-  private handleSuggestionMouseMove = (
-    event: React.MouseEvent<HTMLDivElement>
+  private handleSuggestionMouseMove = (key: string) => (
+    _: React.MouseEvent<HTMLDivElement>
   ) => {
     const { suggestions, setHighlightedIndex } = this.props;
-    // @ts-ignore: innerText is a member of event.target
-    setHighlightedIndex(suggestions.indexOf(event.target.innerText) + 1);
+    setHighlightedIndex(suggestions.indexOf(key) + 1);
   };
 
-  private handleSuggestionMouseDown = (
-    event: React.MouseEvent<HTMLDivElement>
+  private handleSuggestionMouseDown = (key: string) => (
+    _: React.MouseEvent<HTMLDivElement>
   ) => {
     const { setState, pipelines } = this.props;
-    // @ts-ignore: innerText is a member of event.target
-    const value = event.target.innerText;
     // @ts-ignore: partial state update
-    setState({ inputValue: value, highlightedIndex: 0 }, (state: any) => {
+    setState({ inputValue: key, highlightedIndex: 0 }, (state: any) => {
       pipelines.search.search(state.inputValue, true);
     });
   };
