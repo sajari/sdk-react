@@ -4,7 +4,7 @@ menu: Components
 route: /components/results
 ---
 
-import { PropsTable } from "docz"
+import { PropsTable, Playground } from "docz"
 import { ExampleContainer } from "../../docs/helpers.ts"
 import { Results } from "./Results.tsx"
 
@@ -14,45 +14,26 @@ import { Results } from "./Results.tsx"
 `<Results />` renders the list of results using the component passed to the `ResultRenderer` prop, defaulting
 to a standard `Result` component if nothing is provided.
 
+```javascript
+// Import the Results component
+import { Results } from "@sajari/sdk-react"
+```
+
 ## Usage
 
 ### Basic
-<ExampleContainer>
-    <Results styles={{
-        item: {
-            "&:last-of-type": {
-                marginBottom: 0
-            }
-        }
-    }} />
-</ExampleContainer>
-
-```javascript
-import { Results } from "@sajari/sdk-react"
-
-<Results />
-```
+<Playground>
+    <Results />
+</Playground>
 
 ### With images
-<ExampleContainer>
-    <Results showImages styles={{
-        item: {
-            "&:last-of-type": {
-                marginBottom: 0
-            }
-        }
-    }} />
-</ExampleContainer>
-
-```javascript
-import { Results } from "@sajari/sdk-react"
-
-<Results showImages />
-```
+<Playground>
+    <Results showImages />
+</Playground>
 
 
 ### With custom styles
-<ExampleContainer>
+<Playground>
     <Results styles={{
         container: {
             flexWrap: "nowrap",
@@ -71,29 +52,7 @@ import { Results } from "@sajari/sdk-react"
             }
         }
     }} />
-</ExampleContainer>
-
-```javascript
-import { Results } from "@sajari/sdk-react"
-
-<Results styles={{
-    container: {
-        flexWrap: "nowrap",
-        justifyContent: "space-between"
-    },
-    item: {
-        width: "32%",
-        padding: "0.5rem",
-        boxShadow: "0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)"
-    },
-    result: {
-        container: {
-            height: "100%",
-            justifyContent: "space-between"
-        }
-    }
-}} />
-```
+</Playground>
 
 ### With custom result renderer
 <ExampleContainer>

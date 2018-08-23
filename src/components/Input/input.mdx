@@ -4,8 +4,7 @@ menu: Components
 route: /components/input
 ---
 
-import { PropsTable } from "docz"
-import { ExampleContainer } from "../../docs/helpers.ts"
+import { PropsTable, Playground } from "docz"
 import { Input } from "./Input.tsx"
 
 # Input
@@ -15,52 +14,34 @@ It is customizable through the use of props, options include rendering autocompl
 suggestions directly in the input box, or alternatively in
 a drop-down list underneath.
 
+```javascript
+// Import the Input component
+import { Input } from "@sajari/sdk-react"
+```
+
 ## Usage
 
 ### With default props
-<ExampleContainer>
-    <Input styles={{container: {marginBottom: 0}}} />
-</ExampleContainer>
+<Playground>
+    <Input />
+</Playground>
 
-```javascript
-import { Input } from "@sajari/sdk-react"
-
-<Input />
-```
 
 ### With instant search and typeahead
-<ExampleContainer>
-    <Input mode="typeahead" instantSearch styles={{container: {marginBottom: 0}}} />
-</ExampleContainer>
+<Playground>
+    <Input mode="typeahead" instantSearch />
+</Playground>
 
-```javascript
-import { Input } from "@sajari/sdk-react"
-
-<Input mode="typeahead" instantSearch />
-```
 
 ### With suggestions dropdown
-<ExampleContainer>
-    <Input
-        mode="typeahead"
-        dropdownMode="suggestions"
-        styles={{
-            container: {
-                marginBottom: 0
-                }
-            }}
-    />
-</ExampleContainer>
+<Playground>
+    <Input mode="typeahead" dropdownMode="suggestions" />
+</Playground>
 
-```javascript
-import { Input } from "@sajari/sdk-react"
-
-<Input mode="typeahead" dropdownMode="suggestions" />
-```
 
 
 ### With custom styles
-<ExampleContainer>
+<Playground>
     <Input mode="typeahead" dropdownMode="suggestions" styles={{
         container: {
             width: "300px",
@@ -78,28 +59,8 @@ import { Input } from "@sajari/sdk-react"
             }
         }
     }} />
-</ExampleContainer>
+</Playground>
 
-```javascript
-import { Input } from "@sajari/sdk-react"
-
-<Input mode="typeahead" dropdownMode="suggestions" styles={{
-    container: {
-        width: "300px"
-    },
-    input: {
-        container: {
-            backgroundColor: "#999",
-            color: "#fff",
-            border: "1px solid #999",
-            boxShadow: "none"
-        },
-        button: {
-            color: "#eee"
-        }
-    }
-}} />
-```
 
 ## Props
 <PropsTable of={Input} />

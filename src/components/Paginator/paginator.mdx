@@ -4,26 +4,20 @@ menu: Components
 route: /components/paginator
 ---
 
-import { PropsTable } from "docz"
-import { ExampleContainer } from "../../docs/helpers.ts"
+import { PropsTable, Playground } from "docz"
 import { Paginator } from "./Paginator.tsx"
 
 # Paginator
 
-## Usage
-<ExampleContainer>
-    <Paginator  styles={{
-        container: {
-            marginBottom: 0
-        }
-    }}/>
-</ExampleContainer>
-
 ```javascript
+// Import the Paginator component
 import { Paginator } from "@sajari/sdk-react"
-
-<Paginator />
 ```
+
+## Usage
+<Playground>
+    <Paginator />
+</Playground>
 
 ## Props
 <PropsTable of={Paginator} />
