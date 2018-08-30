@@ -7,6 +7,12 @@ import {
   EVENT_ANALYTICS_RESULT_CLICKED
 } from "../../events";
 
+enum GoogleAnalyticsObjects {
+  UniversalAnalytics = "_ua",
+  AnalyticsJS = "ga",
+  GTag = "gtag"
+}
+
 export class GoogleAnalytics {
   private id: string | null;
   private param: string;
@@ -32,14 +38,12 @@ export class GoogleAnalytics {
 
     if (id !== undefined) {
       this.id = id;
-
-      // @ts-ignore: checking for the presense of ga
-    } else if (isFunction(window.ga)) {
-      this.id = "ga";
-
-      // @ts-ignore: checking for the presense of _ua
-    } else if (isFunction(window._ua)) {
-      this.id = "_ua";
+    } else if (isFunction(window[GoogleAnalyticsObjects.AnalyticsJS])) {
+      this.id = GoogleAnalyticsObjects.AnalyticsJS;
+    } else if (isFunction(window[GoogleAnalyticsObjects.UniversalAnalytics])) {
+      this.id = GoogleAnalyticsObjects.UniversalAnalytics;
+    } else if (isFunction(window[GoogleAnalyticsObjects.GTag])) {
+      this.id = GoogleAnalyticsObjects.GTag;
     } else {
       this.id = null;
     }
@@ -64,8 +68,13 @@ export class GoogleAnalytics {
         { [this.param]: body }
       );
 
-      // @ts-ignore: window is an object
-      window[this.id]("send", "pageview", pageAddress);
+      if (this.id === GoogleAnalyticsObjects.GTag) {
+        window[this.id]("event", "page_view", {
+          page_location: pageAddress
+        });
+      } else {
+        window[this.id]("send", "pageview", pageAddress);
+      }
     }
   }
 
