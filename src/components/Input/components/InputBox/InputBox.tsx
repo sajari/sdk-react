@@ -92,7 +92,6 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
         innerRef={this.inputContainerRef}
         isDropdownOpen={isDropdownOpen === undefined ? false : isDropdownOpen}
         isFocused={focused}
-        onClick={this.positionCaret}
         styles={styles.container}
       >
         <SearchContainer role="search">
@@ -137,6 +136,7 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
               />
             )}
             <SearchButton
+              id="sj-search-button"
               onClick={this.handleSearchButtonOnClick}
               aria-label="Do search"
               value="Search"
@@ -215,17 +215,5 @@ export class InputBox extends React.Component<InputBoxProps, InputBoxState> {
     if (typeof this.props.inputRef === "function") {
       this.props.inputRef(element);
     }
-  };
-  private positionCaret = (event: React.MouseEvent<HTMLElement>) => {
-    if (this.input === undefined) {
-      return;
-    }
-    // @ts-ignore: tagName is a member of event.target
-    if (event.target.tagName !== "DIV") {
-      // only focus the input if pressing on the div
-      return;
-    }
-
-    this.input.focus();
   };
 }

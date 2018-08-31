@@ -108,6 +108,7 @@ export class Input extends React.Component<InputProps> {
             <Container
               {...getRootProps({ refKey: "innerRef" })}
               styles={styles.container}
+              onClick={this.focusInput}
             >
               <InputBox
                 inputRef={this.inputRef}
@@ -172,6 +173,18 @@ export class Input extends React.Component<InputProps> {
     if (typeof this.props.inputRef === "function") {
       this.props.inputRef(element);
     }
+  };
+
+  private focusInput = (event: React.MouseEvent<HTMLDivElement>) => {
+    // @ts-ignore: parentElement is a member of event.target
+    if (event.target.parentElement.id === "sj-search-button") {
+      // don't focus the input if the search button has been pressed
+      return;
+    }
+    if (this.input === undefined) {
+      return;
+    }
+    this.input.focus();
   };
 
   private handleInputOnChange = (
