@@ -1,11 +1,4 @@
-import * as React from "react";
-import {
-  override,
-  styled,
-  StyledComponent,
-  StyledProps,
-  Theme
-} from "../../components/styles";
+import { styled } from "../../components/styles";
 
 export const BlurContainer = styled("div")({
   alignItems: "center",
@@ -16,7 +9,8 @@ export const BlurContainer = styled("div")({
   left: 0,
   position: "absolute",
   right: 0,
-  top: 0
+  top: 0,
+  zIndex: 1000
 });
 
 export const Container = styled("div")({

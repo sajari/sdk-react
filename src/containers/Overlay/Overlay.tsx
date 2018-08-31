@@ -25,8 +25,13 @@ export class Overlay extends React.Component<OverlayProps> {
   }
 
   private onClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    let target = event.target;
+    // @ts-ignore: nodeName is a property of event.target
+    if (target.nodeName !== "DIV") {
+      return;
+    }
     // @ts-ignore: className is a property of event.target
-    if (event.target.className.split(" ").includes("sj-overlay")) {
+    if ((target.className || "").split(" ").includes("sj-overlay")) {
       this.props.onOuterClick(event);
     }
   };
