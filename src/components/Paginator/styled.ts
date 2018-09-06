@@ -10,8 +10,10 @@ import {
 
 export const Container = styled("nav")<StyledProps<HTMLElement>>(
   {
-    marginBottom: "1em",
-    textAlign: "center"
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: "1em"
   },
   override
 );
