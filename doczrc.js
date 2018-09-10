@@ -3,7 +3,6 @@ export default {
   description: "Sajari React SDK Documentation",
   source: "./src",
   typescript: true,
-  wrapper: "src/docs/wrapper.tsx",
   port: 5000,
   themeConfig: {
     colors: {

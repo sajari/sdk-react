@@ -1,21 +1,58 @@
 import * as React from "react";
 import { Provider } from "../components";
-import { NoTracking, Pipeline, Values } from "../controllers";
+import { Pipeline, Values } from "../controllers";
 
-const pipeline = new Pipeline(
-  {
-    project: "sajariptyltd",
-    collection: "sajari-com"
-  },
-  "website",
-  new NoTracking()
-);
-const values = new Values({ q: "api", resultsPerPage: 3 });
+export const GeneralWrapper: React.SFC = ({ children }) => {
+  let pipeline = new Pipeline(
+    {
+      project: "sajariptyltd",
+      collection: "sajari-com"
+    },
+    "website"
+  );
+  let values = new Values({ q: "api", resultsPerPage: 5 });
 
-export const Wrapper = ({ children }: { [k: string]: any }) => (
-  <Provider search={{ pipeline, values }} searchOnLoad>
-    {children}
-  </Provider>
-);
+  return (
+    <Provider search={{ pipeline, values }} searchOnLoad>
+      {children}
+    </Provider>
+  );
+};
 
-export default Wrapper;
+export const ExampleWrapper: React.SFC = ({ children }) => {
+  let pipeline = new Pipeline(
+    {
+      project: "sajariptyltd",
+      collection: "sajari-com"
+    },
+    "website"
+  );
+  let values = new Values({ resultsPerPage: 5 });
+
+  return (
+    <Provider search={{ pipeline, values }}>
+      <div style={{ minHeight: 500 }}>{children}</div>
+    </Provider>
+  );
+};
+
+export interface InputWrapperProps {
+  style?: React.CSSProperties;
+}
+
+export const InputWrapper: React.SFC<InputWrapperProps> = ({
+  children,
+  style
+}) => {
+  let pipeline = new Pipeline(
+    { project: "sajariptyltd", collection: "sajari-com" },
+    "website"
+  );
+  let values = new Values({ resultsPerPage: 3 });
+
+  return (
+    <Provider search={{ pipeline, values }}>
+      <div style={style}>{children}</div>
+    </Provider>
+  );
+};

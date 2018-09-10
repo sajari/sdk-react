@@ -5,6 +5,7 @@ route: /components/input
 ---
 
 import { PropsTable, Playground } from "docz"
+import { InputWrapper } from "../../docs/wrapper.tsx"
 import { Input } from "./Input.tsx"
 
 # Input
@@ -22,25 +23,37 @@ import { Input } from "@sajari/sdk-react"
 ## Usage
 
 ### With default props
+With the `default` props, the `<Input />` acts like a regular `<input type="text" />` html element.
 <Playground>
-    <Input />
+    <InputWrapper>
+        <Input />
+    </InputWrapper>
 </Playground>
-
 
 ### With instant search and typeahead
 <Playground>
-    <Input mode="typeahead" instantSearch />
+    <InputWrapper>
+        <Input mode="typeahead" instantSearch />
+    </InputWrapper>
 </Playground>
-
 
 ### With suggestions dropdown
 <Playground>
-    <Input mode="typeahead" dropdownMode="suggestions" />
+    <InputWrapper style={{height: 300}}>
+        <Input mode="typeahead" dropdownMode="suggestions" />
+    </InputWrapper>
+</Playground>
+
+### With results dropdown
+<Playground>
+    <InputWrapper style={{height: 300}}>
+        <Input mode="typeahead" dropdownMode="results" instantSearch />
+    </InputWrapper>
 </Playground>
 
 
 
-### With custom styles
+<!-- ### With custom styles
 <Playground>
     <Input mode="typeahead" dropdownMode="suggestions" styles={{
         container: {
@@ -59,7 +72,7 @@ import { Input } from "@sajari/sdk-react"
             }
         }
     }} />
-</Playground>
+</Playground> -->
 
 
 ## Props
@@ -70,11 +83,8 @@ import { Input } from "@sajari/sdk-react"
 ```typescript
 type InputStyles = {
     container?: React.CSSProperties;
-    input?: {
-        container?: React.CSSProperties;
-        input?: React.CSSProperties;
-        typeahead?: React.CSSProperties;
-        button?: React.CSSProperties;
-    };
+    input?: React.CSSProperties;
+    typeahead?: React.CSSProperties;
+    button?: React.CSSProperties;
 };
 ```

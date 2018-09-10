@@ -1,4 +1,4 @@
-import { isNotEmptyString, isNotEmptyArray, trimPrefix } from "./utils";
+import { isNotEmptyString, isNotEmptyArray } from "./utils";
 
 // @ts-ignore: https://facebook.github.io/jest/docs/en/api.html#testeachtable-name-fn
 test.each([["", "a", "a"], ["b", "a", "b"], ["b", "", "b"]])(
@@ -15,8 +15,3 @@ test.each([[[], ["a"], ["a"]], [["b"], ["a"], ["b"]], [["b"], [], ["b"]]])(
     expect(isNotEmptyArray(a, b)).toEqual(expected);
   }
 );
-
-// @ts-ignore: https://facebook.github.io/jest/docs/en/api.html#testeachtable-name-fn
-test.each([["hello", "he", "llo"]])("trimPrefix(%s, %s)", (a, b, expected) => {
-  expect(trimPrefix(a, b)).toBe(expected);
-});

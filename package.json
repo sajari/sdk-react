@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@sajari/sdk-js": "^1.0.3",
+    "downshift": "^2.2.2",
     "emotion": "^9.2.6",
     "emotion-theming": "^9.2.6",
     "fast-memoize": "^2.5.1",
