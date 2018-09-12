@@ -4,17 +4,22 @@ import { ControllerStateAndHelpers } from "downshift";
 
 export interface DropdownProps {
   downshift: ControllerStateAndHelpers<any>;
+  styles?: React.CSSProperties;
 }
 
 export class Dropdown extends React.Component<DropdownProps> {
   public render() {
-    const { downshift, children } = this.props;
+    const { downshift, styles, children } = this.props;
     return (
       <div className={container}>
         <div className={content}>
           <ul
             {...downshift.getMenuProps({
-              className: cx(listStyles, downshift.isOpen && listIsOpen)
+              className: cx(
+                listStyles,
+                downshift.isOpen && listIsOpen,
+                styles && css(styles as any)
+              )
             })}
           >
             {children}
@@ -45,7 +50,8 @@ const content = css({
 const listStyles = css({
   marginTop: 0,
   marginBottom: 0,
-  paddingLeft: 0
+  paddingLeft: 0,
+  backgroundColor: "#fff"
 });
 
 const listIsOpen = css({

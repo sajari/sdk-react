@@ -8,29 +8,20 @@ export interface SuggestionsProps {
   downshift: ControllerStateAndHelpers<any>;
   typedInputValue: string;
   suggestions?: string[];
+  styles?: {
+    container?: React.CSSProperties;
+    item?: (isHighlighted: boolean) => React.CSSProperties;
+  };
 }
-
-const suggestionItem = css({
-  listStyle: "none",
-  paddingLeft: 0,
-  marginLeft: 0,
-  backgroundColor: "#fff",
-  color: "#222",
-  cursor: "auto"
-});
-
-const suggestionItemHighlighted = css({
-  backgroundColor: "#eee",
-  cursor: "default"
-});
 
 export function Suggestions({
   downshift,
   typedInputValue,
-  suggestions = []
+  suggestions = [],
+  styles
 }: SuggestionsProps) {
   return (
-    <Dropdown downshift={downshift}>
+    <Dropdown downshift={downshift} styles={styles && styles.container}>
       {downshift.isOpen &&
         suggestions.length > 0 &&
         suggestions.map((suggestion, idx) => (
@@ -40,8 +31,10 @@ export function Suggestions({
               item: suggestion,
               index: idx,
               className: cx(
-                suggestionItem,
-                downshift.highlightedIndex === idx && suggestionItemHighlighted
+                css(suggestionItemStyles(downshift.highlightedIndex === idx)),
+                styles &&
+                  styles.item &&
+                  css(styles.item(downshift.highlightedIndex === idx) as any)
               )
             })}
           >
@@ -52,11 +45,9 @@ export function Suggestions({
   );
 }
 
-const suggestionPadding = css({ padding: "0.25em 0.5em" });
-
 function suggestionText(inputValue: string, suggestion: string) {
   return (
-    <span className={suggestionPadding}>
+    <React.Fragment>
       {inputValue === "" || !suggestion.startsWith(inputValue) ? (
         suggestion
       ) : (
@@ -65,6 +56,15 @@ function suggestionText(inputValue: string, suggestion: string) {
           <strong>{trimPrefix(suggestion, inputValue)}</strong>
         </React.Fragment>
       )}
-    </span>
+    </React.Fragment>
   );
 }
+
+const suggestionItemStyles = (isHighlighted: boolean) => ({
+  listStyle: "none",
+  marginLeft: 0,
+  padding: "0.25em 0.5em",
+  color: isHighlighted ? "#222" : "inherit",
+  backgroundColor: isHighlighted ? "#eee" : "inherit",
+  cursor: isHighlighted ? "default" : "auto"
+});

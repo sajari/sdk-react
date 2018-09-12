@@ -57,12 +57,12 @@ With the `default` props, the `<Input />` acts like a regular `<input type="text
 <Playground>
     <InputWrapper style={{height: 300}}>
         <Input mode="typeahead" dropdownMode="suggestions" styles={{
-            container: {
+            container: () => ({
                 backgroundColor: "#999",
                 color: "#fff",
                 border: "1px solid #999",
                 boxShadow: "none"
-            },
+            }),
             input: {
                 "input::placeholder": {
                     color: "#eee"
@@ -70,6 +70,15 @@ With the `default` props, the `<Input />` acts like a regular `<input type="text
             },
             button: {
                 color: "#eee"
+            },
+            suggestions: {
+                container: {
+                    backgroundColor: "#999",
+                    color: "#eee"
+                },
+                item: (isHighlighted) => ({
+                    color: isHighlighted ? "#222" : "inherit"
+                })
             }
         }} />
     </InputWrapper>
@@ -83,9 +92,13 @@ With the `default` props, the `<Input />` acts like a regular `<input type="text
 
 ```typescript
 type InputStyles = {
-    container?: React.CSSProperties;
+    container?: (isFocused: boolean) => React.CSSProperties;
     input?: React.CSSProperties;
     typeahead?: React.CSSProperties;
     button?: React.CSSProperties;
+    suggestions?: {
+      container?: React.CSSProperties;
+      item?: (isHighlighted: boolean) => React.CSSProperties;
+    };
 };
 ```

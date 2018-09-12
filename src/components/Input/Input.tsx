@@ -39,10 +39,14 @@ export interface InputProps {
   ResultRenderer?: React.ComponentType<ResultRendererProps>;
 
   styles?: {
-    container?: React.CSSProperties;
+    container?: (isFocused: boolean) => React.CSSProperties;
     input?: React.CSSProperties;
     typeahead?: React.CSSProperties;
     button?: React.CSSProperties;
+    suggestions?: {
+      container?: React.CSSProperties;
+      item?: (isHighlighted: boolean) => React.CSSProperties;
+    };
   };
 }
 
@@ -140,6 +144,8 @@ export class Input extends React.PureComponent<InputProps, InputState> {
             return { ...changes, selectedItem: null };
           }
           return { ...changes, selectedItem: changes.inputValue };
+        } else if (this.props.dropdownMode === "results") {
+          return { ...changes, highlightedIndex: null };
         }
         return changes;
 
@@ -254,6 +260,7 @@ interface InnerProps {
   downshift: ControllerStateAndHelpers<any>;
   rootRef?: (el: HTMLFormElement) => void;
 
+  autoFocus?: boolean;
   inputRef?: (element: HTMLInputElement) => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -266,10 +273,14 @@ interface InnerProps {
   ResultRenderer?: React.ComponentType<ResultRendererProps>;
 
   styles?: {
-    container?: React.CSSProperties;
+    container?: (isFocused: boolean) => React.CSSProperties;
     input?: React.CSSProperties;
-    typeahead?: React.CSSProperties;
     button?: React.CSSProperties;
+    typeahead?: React.CSSProperties;
+    suggestions?: {
+      container?: React.CSSProperties;
+      item?: (isHighlighted: boolean) => React.CSSProperties;
+    };
   };
 }
 
@@ -304,179 +315,191 @@ class Inner extends React.Component<InnerProps, InnerState> {
     }
   };
 
+  componentDidMount() {
+    if (!this.state.focused) {
+      if (this.props.autoFocus && this.input != null) {
+        this.input.focus();
+      }
+    }
+  }
+
   render() {
     const { downshift, items = [] } = this.props;
     return (
       <div>
-        <form
-          ref={this.rootRef}
-          onClick={this.focusInput}
+        <div
           className={cx(
-            containerStyles,
-            this.state.focused && containerFocusedStyles,
+            css(containerStyles(this.state.focused)),
             this.props.styles &&
               this.props.styles.container &&
-              css(this.props.styles.container as any)
+              css(this.props.styles.container(this.state.focused) as any)
           )}
         >
-          <div
-            role="search"
-            className={cx(
-              innerContainerStyles,
-              this.props.styles &&
-                this.props.styles.input &&
-                css(this.props.styles.input as any)
-            )}
+          <form
+            ref={this.rootRef}
+            onClick={this.focusInput}
+            className={formStyles}
           >
-            <AutosizeInput
-              inputRef={this.inputRef}
-              className={css(inputResetStyles.container)}
-              inputStyle={inputResetStyles.input}
-              minWidth={5}
-              {...downshift.getInputProps({
-                "aria-label": this.props.ariaLabel,
-                placeholder: this.props.placeHolder,
-                autoComplete: "off",
-                spellCheck: false,
-                autoCapitalize: "off",
-                autoCorrect: "off",
-                maxLength: 2048,
-                onFocus: event => {
-                  downshift.openMenu();
-                  this.setState(state => ({ ...state, focused: true }));
+            <div
+              role="search"
+              className={cx(
+                innerContainerStyles,
+                this.props.styles &&
+                  this.props.styles.input &&
+                  css(this.props.styles.input as any)
+              )}
+            >
+              <AutosizeInput
+                inputRef={this.inputRef}
+                className={css(inputResetStyles.container)}
+                inputStyle={inputResetStyles.input}
+                minWidth={5}
+                {...downshift.getInputProps({
+                  "aria-label": this.props.ariaLabel,
+                  placeholder: this.props.placeHolder,
+                  autoComplete: "off",
+                  spellCheck: false,
+                  autoCapitalize: "off",
+                  autoCorrect: "off",
+                  maxLength: 2048,
+                  onFocus: event => {
+                    downshift.openMenu();
+                    this.setState(state => ({ ...state, focused: true }));
 
-                  if (typeof this.props.onFocus === "function") {
-                    this.props.onFocus(event);
-                  }
-                },
-                onBlur: event => {
-                  downshift.closeMenu();
-                  downshift.setState({ highlightedIndex: null });
-                  this.setState(state => ({ ...state, focused: false }));
-
-                  if (typeof this.props.onBlur === "function") {
-                    this.props.onBlur(event);
-                  }
-                },
-                onChange: event => {
-                  this.props.onChange(event);
-                  // @ts-ignore: value is a member of event.target
-                  let typedInputValue = event.target.value;
-                  this.setState(state => ({ ...state, typedInputValue }));
-                },
-                onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => {
-                  if (event.keyCode === ReturnKeyCode) {
-                    event.preventDefault();
-                    // @ts-ignore: Prevent Downshift's default 'Enter' behavior.
-                    event.nativeEvent.preventDownshiftDefault = true;
-                    if (this.input) {
-                      this.input.blur();
+                    if (typeof this.props.onFocus === "function") {
+                      this.props.onFocus(event);
                     }
+                  },
+                  onBlur: event => {
+                    downshift.closeMenu();
+                    downshift.setState({ highlightedIndex: null });
+                    this.setState(state => ({ ...state, focused: false }));
 
-                    if (this.props.dropdownMode === "results") {
-                      let item = (this.props.items || [])[
-                        downshift.highlightedIndex || -1
-                      ] as any; // TODO(@benhinchley): remove cast to any
-                      if (item === undefined) {
+                    if (typeof this.props.onBlur === "function") {
+                      this.props.onBlur(event);
+                    }
+                  },
+                  onChange: event => {
+                    this.props.onChange(event);
+                    // @ts-ignore: value is a member of event.target
+                    let typedInputValue = event.target.value;
+                    this.setState(state => ({ ...state, typedInputValue }));
+                  },
+                  onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => {
+                    if (event.keyCode === ReturnKeyCode) {
+                      event.preventDefault();
+                      // @ts-ignore: Prevent Downshift's default 'Enter' behavior.
+                      event.nativeEvent.preventDownshiftDefault = true;
+                      if (this.input) {
+                        this.input.blur();
+                      }
+
+                      if (this.props.dropdownMode === "results") {
+                        let item = (this.props.items || [])[
+                          downshift.highlightedIndex || -1
+                        ] as any; // TODO(@benhinchley): remove cast to any
+                        if (item === undefined) {
+                          return;
+                        }
+                        let url =
+                          Object.getOwnPropertyNames(item.token).length > 0
+                            ? item.token
+                            : item.values["url"];
+                        window.location.href = url;
                         return;
                       }
-                      let url =
-                        Object.getOwnPropertyNames(item.token).length > 0
-                          ? item.token
-                          : item.values["url"];
-                      window.location.href = url;
-                      return;
-                    }
 
-                    let item = downshift.selectedItem;
-                    if (downshift.highlightedIndex !== null) {
-                      downshift.selectHighlightedItem();
-                      item = (this.props.items || [])[
-                        downshift.highlightedIndex
-                      ];
-                    }
-                    this.props.pipelines.search.search(item, true);
-                  }
-
-                  if (event.keyCode === RightArrowKeyCode) {
-                    if (this.props.dropdownMode !== "results") {
-                      if (
-                        downshift.highlightedIndex !== null &&
-                        // @ts-ignore: selectionStart is a member of event.target
-                        event.target.selectionStart ===
-                          (downshift.inputValue || "").length
-                      ) {
-                        // if the user presses the right arrow key and there is
-                        // a highlighted item, select the currently highlighted item
-                        // Though make sure we only select the item if we are at the
-                        // end of the input element
+                      let item = downshift.selectedItem;
+                      if (downshift.highlightedIndex !== null) {
                         downshift.selectHighlightedItem();
-                      } else if (
-                        downshift.highlightedIndex === null &&
-                        // @ts-ignore: selectionStart is a member of event.target
-                        event.target.selectionStart ===
-                          (downshift.inputValue || "").length
-                      ) {
-                        downshift.selectItem(
-                          isNotEmptyString(
+                        item = (this.props.items || [])[
+                          downshift.highlightedIndex
+                        ];
+                      }
+                      this.props.pipelines.search.search(item, true);
+                    }
+
+                    if (event.keyCode === RightArrowKeyCode) {
+                      if (this.props.dropdownMode !== "results") {
+                        if (
+                          downshift.highlightedIndex !== null &&
+                          // @ts-ignore: selectionStart is a member of event.target
+                          event.target.selectionStart ===
+                            (downshift.inputValue || "").length
+                        ) {
+                          // if the user presses the right arrow key and there is
+                          // a highlighted item, select the currently highlighted item
+                          // Though make sure we only select the item if we are at the
+                          // end of the input element
+                          downshift.selectHighlightedItem();
+                        } else if (
+                          downshift.highlightedIndex === null &&
+                          // @ts-ignore: selectionStart is a member of event.target
+                          event.target.selectionStart ===
+                            (downshift.inputValue || "").length
+                        ) {
+                          downshift.selectItem(
+                            isNotEmptyString(
+                              this.props.pipelines.search.completion,
+                              this.props.pipelines.instant.completion
+                            )
+                          );
+                        }
+                      } else {
+                        this.props.downshift.setState({
+                          inputValue: isNotEmptyString(
                             this.props.pipelines.search.completion,
                             this.props.pipelines.instant.completion
                           )
-                        );
+                        });
                       }
-                    } else {
-                      this.props.downshift.setState({
-                        inputValue: isNotEmptyString(
+                    }
+
+                    if (typeof this.props.onKeyDown === "function") {
+                      this.props.onKeyDown(event);
+                    }
+                  }
+                })}
+              />
+              {this.props.mode === "typeahead" && (
+                <Typeahead
+                  inputValue={downshift.inputValue || ""}
+                  completion={
+                    this.props.dropdownMode !== "suggestions"
+                      ? isNotEmptyString(
                           this.props.pipelines.search.completion,
                           this.props.pipelines.instant.completion
                         )
-                      });
-                    }
+                      : undefined
                   }
-
-                  if (typeof this.props.onKeyDown === "function") {
-                    this.props.onKeyDown(event);
-                  }
-                }
-              })}
+                  styles={this.props.styles && this.props.styles.typeahead}
+                />
+              )}
+            </div>
+            <button
+              className={cx(
+                buttonStyles,
+                this.props.styles &&
+                  this.props.styles.button &&
+                  css(this.props.styles.button as any)
+              )}
+              onClick={this.onSearchButtonClick}
+            >
+              <SearchIcon />
+            </button>
+          </form>
+          {this.props.dropdownMode === "suggestions" && (
+            <Suggestions
+              downshift={downshift}
+              typedInputValue={this.state.typedInputValue}
+              suggestions={items as string[]}
+              styles={this.props.styles && this.props.styles.suggestions}
             />
-            {this.props.mode === "typeahead" && (
-              <Typeahead
-                inputValue={downshift.inputValue || ""}
-                completion={
-                  this.props.dropdownMode !== "suggestions"
-                    ? isNotEmptyString(
-                        this.props.pipelines.search.completion,
-                        this.props.pipelines.instant.completion
-                      )
-                    : undefined
-                }
-                styles={this.props.styles && this.props.styles.typeahead}
-              />
-            )}
-          </div>
-          <button
-            className={cx(
-              buttonStyles,
-              this.props.styles &&
-                this.props.styles.button &&
-                css(this.props.styles.button as any)
-            )}
-            onClick={this.onSearchButtonClick}
-          >
-            <SearchIcon />
-          </button>
-        </form>
-        {this.props.dropdownMode === "suggestions" && (
-          <Suggestions
-            downshift={downshift}
-            typedInputValue={this.state.typedInputValue}
-            suggestions={items as string[]}
-          />
-        )}
-        {this.props.dropdownMode === "results" && (
-          <Results downshift={downshift} />
-        )}
+          )}
+          {this.props.dropdownMode === "results" && (
+            <Results downshift={downshift} />
+          )}
+        </div>
       </div>
     );
   }
@@ -503,23 +526,23 @@ const innerContainerStyles = css({
   alignItems: "baseline"
 });
 
-const containerStyles = css({
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-
+const containerStyles = (isFocused: boolean) => ({
   "&:hover": {
     boxShadow: "0 3px 8px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)"
   },
   borderRadius: 2,
   boxShadow: "0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)",
-  padding: "3px 9px",
   transition: "box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1)",
-  outline: 0
+  outline: isFocused
+    ? ["#5E9ED6 auto 5px", "-webkit-focus-ring-color auto 5px"]
+    : 0
 });
 
-const containerFocusedStyles = css({
-  outline: ["#5E9ED6 auto 5px", "-webkit-focus-ring-color auto 5px"]
+const formStyles = css({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: "3px 9px"
 });
 
 const inputResetStyles = {

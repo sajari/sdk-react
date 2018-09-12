@@ -4,17 +4,8 @@ import { ControllerStateAndHelpers } from "downshift";
 import { ResultsContainer } from "../Results/Results";
 import { Dropdown } from "./shared/Dropdown";
 
-const listItem = css({
-  listStyle: "none",
-  paddingLeft: 0,
-  marginLeft: 0,
-  backgroundColor: "#fff",
-  cursor: "auto"
-});
-
 export interface ResultsProps {
   downshift: ControllerStateAndHelpers<any>;
-
   ResultRenderer: React.ComponentType<ResultRendererProps>;
 }
 
@@ -49,7 +40,7 @@ export class Results extends React.Component<ResultsProps> {
                       key: result.key,
                       item: result,
                       index: idx,
-                      className: cx(listItem)
+                      className: listItem
                     })}
                   >
                     <ResultRenderer
@@ -82,6 +73,15 @@ function ResultItem({ values, isHighlighted }: ResultRendererProps) {
     </div>
   );
 }
+
+const listItem = css({
+  listStyle: "none",
+  paddingLeft: 0,
+  marginLeft: 0,
+  backgroundColor: "#fff",
+  cursor: "auto"
+});
+
 const resultHighlighted = css({
   backgroundColor: "#eee",
   cursor: "default"
