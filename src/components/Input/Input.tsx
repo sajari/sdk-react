@@ -39,8 +39,8 @@ export interface InputProps {
   ResultRenderer?: React.ComponentType<ResultRendererProps>;
 
   styles?: {
-    container?: (isFocused: boolean) => React.CSSProperties;
-    input?: React.CSSProperties;
+    container?: React.CSSProperties;
+    input?: (isFocused: boolean) => React.CSSProperties;
     typeahead?: React.CSSProperties;
     button?: React.CSSProperties;
     suggestions?: {
@@ -273,8 +273,8 @@ interface InnerProps {
   ResultRenderer?: React.ComponentType<ResultRendererProps>;
 
   styles?: {
-    container?: (isFocused: boolean) => React.CSSProperties;
-    input?: React.CSSProperties;
+    container?: React.CSSProperties;
+    input?: (isFocused: boolean) => React.CSSProperties;
     button?: React.CSSProperties;
     typeahead?: React.CSSProperties;
     suggestions?: {
@@ -329,26 +329,22 @@ class Inner extends React.Component<InnerProps, InnerState> {
       <div>
         <div
           className={cx(
-            css(containerStyles(this.state.focused)),
             this.props.styles &&
               this.props.styles.container &&
-              css(this.props.styles.container(this.state.focused) as any)
+              css(this.props.styles.container as any)
           )}
         >
           <form
             ref={this.rootRef}
             onClick={this.focusInput}
-            className={formStyles}
+            className={cx(
+              css(inputContainerStyles(this.state.focused)),
+              this.props.styles &&
+                this.props.styles.input &&
+                css(this.props.styles.input(this.state.focused) as any)
+            )}
           >
-            <div
-              role="search"
-              className={cx(
-                innerContainerStyles,
-                this.props.styles &&
-                  this.props.styles.input &&
-                  css(this.props.styles.input as any)
-              )}
-            >
+            <div role="search" className={innerContainerStyles}>
               <AutosizeInput
                 inputRef={this.inputRef}
                 className={css(inputResetStyles.container)}
@@ -519,14 +515,12 @@ const SearchIcon = (props: any) => (
   </svg>
 );
 
-const innerContainerStyles = css({
+const inputContainerStyles = (isFocused: boolean) => ({
   display: "flex",
-  flexDirection: "row",
-  justifyContent: "start",
-  alignItems: "baseline"
-});
+  justifyContent: "space-between",
+  alignItems: "center",
+  padding: "3px 9px",
 
-const containerStyles = (isFocused: boolean) => ({
   "&:hover": {
     boxShadow: "0 3px 8px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)"
   },
@@ -538,11 +532,11 @@ const containerStyles = (isFocused: boolean) => ({
     : 0
 });
 
-const formStyles = css({
+const innerContainerStyles = css({
   display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  padding: "3px 9px"
+  flexDirection: "row",
+  justifyContent: "start",
+  alignItems: "baseline"
 });
 
 const inputResetStyles = {
