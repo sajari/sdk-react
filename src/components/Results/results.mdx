@@ -6,8 +6,10 @@ route: /components/results
 
 import { PropsTable, Playground } from "docz"
 import { ExampleContainer } from "../../docs/helpers.ts"
+import { GeneralWrapper } from "../../docs/wrapper.tsx"
 import { Results } from "./Results.tsx"
 
+export default ({children}) => <GeneralWrapper>{children}</GeneralWrapper>
 
 # Results
 

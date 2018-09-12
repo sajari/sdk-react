@@ -3,9 +3,7 @@ import * as React from "react";
 // @ts-ignore: module missing definintions file
 import { LiveAnnouncer } from "react-aria-live";
 
-import { Config } from "../../config";
-import { Pipeline, Values } from "../../controllers";
-import { PipelineContext, PipelineProvider } from "./pipeline";
+import { PipelineProvider } from "./pipeline";
 import { ProviderPipelineConfig } from "./pipeline/Provider";
 
 export interface ProviderProps {

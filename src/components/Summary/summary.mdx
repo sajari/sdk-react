@@ -4,11 +4,25 @@ menu: Components
 route: /components/summary
 ---
 
-import { PropsTable } from "docz"
-import { ExampleContainer } from "../../docs/helpers.ts"
+import { Playground, PropsTable } from "docz"
+import { GeneralWrapper } from "../../docs/wrapper.tsx"
 import { Summary } from "./Summary.tsx"
 
+export default ({ children }) => <GeneralWrapper>{children}</GeneralWrapper>
+
 # Summary
+
+```javascript
+import { Summary } from "@sajari/sdk-react"
+```
+
+## Usage
+<Playground>
+    <Summary />
+</Playground>
+
+## Props
+<PropsTable of={Summary} />
 
 ## Styles
 ```typescript
@@ -19,21 +33,3 @@ type SummaryStyles = {
     };
 };  
 ```
-
-## Usage
-<ExampleContainer>
-    <Summary  styles={{
-        container: {
-            marginBottom: 0
-        }
-    }}/>
-</ExampleContainer>
-
-```javascript
-import { Summary } from "@sajari/sdk-react"
-
-<Summary />
-```
-
-## Props
-<PropsTable of={Summary} />
