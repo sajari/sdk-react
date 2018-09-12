@@ -11,7 +11,7 @@ export interface PaginatorProps {
   styles?: {
     container?: React.CSSProperties;
     controls?: React.CSSProperties;
-    number?: React.CSSProperties;
+    number?: (isCurrent: boolean) => React.CSSProperties;
   };
 }
 
@@ -84,6 +84,10 @@ export class Paginator extends React.Component<PaginatorProps> {
                 {pageNumbers(page, totalPages).map((pageNumber: number) => (
                   <li key={pageNumber}>
                     <PageNumber
+                      className={
+                        styles.number &&
+                        css(styles.number(page === pageNumber) as any)
+                      }
                       isCurrent={page === pageNumber}
                       onClick={this.setPage(paginate, pageNumber)}
                       aria-label={
@@ -92,7 +96,6 @@ export class Paginator extends React.Component<PaginatorProps> {
                           : `Page ${pageNumber}`
                       }
                       aria-current={page === pageNumber ? true : undefined}
-                      styles={styles.number}
                     >
                       {pageNumber}
                     </PageNumber>

@@ -30,6 +30,6 @@ import { Paginator } from "@sajari/sdk-react"
 type PaginatorStyles = {
     container?: React.CSSProperties;
     controls?: React.CSSProperties;
-    number?: React.CSSProperties;
+    number?: (isCurrent: boolean) => React.CSSProperties;
 };  
 ```
