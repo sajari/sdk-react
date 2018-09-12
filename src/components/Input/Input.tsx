@@ -85,11 +85,8 @@ export class Input extends React.PureComponent<InputProps, InputState> {
 
           return (
             <Downshift
-              key={`sj-downshift-${pipelines.search.query ||
-                this.props.defaultValue}`}
-              defaultInputValue={
-                pipelines.search.query || this.props.defaultValue
-              }
+              key={`sj-downshift-${this.props.defaultValue}`}
+              defaultInputValue={this.props.defaultValue}
               stateReducer={this.stateReducer(pipelines, items)}
               itemToString={
                 this.props.dropdownMode === "results"
