@@ -1,8 +1,8 @@
 import * as React from "react";
 import { cx, css } from "emotion";
 import { ControllerStateAndHelpers } from "downshift";
-import { Dropdown } from "../shared/Dropdown";
-import { trimPrefix } from "../shared/utils";
+import { Dropdown } from "./shared/Dropdown";
+import { trimPrefix } from "./shared/utils";
 
 export interface SuggestionsProps {
   downshift: ControllerStateAndHelpers<any>;

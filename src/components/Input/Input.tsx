@@ -10,8 +10,8 @@ import AutosizeInput from "react-input-autosize";
 import { Result } from "@sajari/sdk-js";
 import { PipelineConsumer, PipelineContext } from "../context/pipeline";
 import { Typeahead } from "./Typeahead";
-import { Suggestions } from "./SuggestionsInner/Suggestions";
-import { Results } from "./ResultsInner/Results";
+import { Suggestions } from "./Suggestions";
+import { Results, ResultRendererProps } from "./Results";
 import { isNotEmptyArray, isNotEmptyString } from "./shared/utils";
 
 const ReturnKeyCode = 13;
@@ -36,9 +36,7 @@ export interface InputProps {
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
 
   // The result render is only used when dropdownMode === "results"
-  ResultRenderer?: React.ComponentType<{
-    values: { [k: string]: string | string[] };
-  }>;
+  ResultRenderer?: React.ComponentType<ResultRendererProps>;
 
   styles?: {
     container?: React.CSSProperties;
@@ -265,9 +263,7 @@ interface InnerProps {
   onChange: (event: React.FormEvent<HTMLInputElement>) => void;
 
   // The result render is only used when dropdownMode === "results"
-  ResultRenderer?: React.ComponentType<{
-    values: { [k: string]: string | string[] };
-  }>;
+  ResultRenderer?: React.ComponentType<ResultRendererProps>;
 
   styles?: {
     container?: React.CSSProperties;
@@ -317,10 +313,21 @@ class Inner extends React.Component<InnerProps, InnerState> {
           onClick={this.focusInput}
           className={cx(
             containerStyles,
-            this.state.focused && containerFocusedStyles
+            this.state.focused && containerFocusedStyles,
+            this.props.styles &&
+              this.props.styles.container &&
+              css(this.props.styles.container as any)
           )}
         >
-          <div role="search" className={innerContainerStyles}>
+          <div
+            role="search"
+            className={cx(
+              innerContainerStyles,
+              this.props.styles &&
+                this.props.styles.input &&
+                css(this.props.styles.input as any)
+            )}
+          >
             <AutosizeInput
               inputRef={this.inputRef}
               className={css(inputResetStyles.container)}
@@ -448,7 +455,15 @@ class Inner extends React.Component<InnerProps, InnerState> {
               />
             )}
           </div>
-          <button className={buttonStyles} onClick={this.onSearchButtonClick}>
+          <button
+            className={cx(
+              buttonStyles,
+              this.props.styles &&
+                this.props.styles.button &&
+                css(this.props.styles.button as any)
+            )}
+            onClick={this.onSearchButtonClick}
+          >
             <SearchIcon />
           </button>
         </form>

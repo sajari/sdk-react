@@ -1,8 +1,8 @@
 import * as React from "react";
 import { cx, css } from "emotion";
 import { ControllerStateAndHelpers } from "downshift";
-import { ResultsContainer } from "../../Results/Results";
-import { Dropdown } from "../shared/Dropdown";
+import { ResultsContainer } from "../Results/Results";
+import { Dropdown } from "./shared/Dropdown";
 
 const listItem = css({
   listStyle: "none",
@@ -12,17 +12,15 @@ const listItem = css({
   cursor: "auto"
 });
 
-const listItemHighlighted = css({
-  backgroundColor: "#eee",
-  cursor: "default"
-});
-
 export interface ResultsProps {
   downshift: ControllerStateAndHelpers<any>;
 
-  ResultRenderer: React.ComponentType<{
-    values: { [k: string]: string | string[] };
-  }>;
+  ResultRenderer: React.ComponentType<ResultRendererProps>;
+}
+
+export interface ResultRendererProps {
+  values: { [k: string]: string | string[] };
+  isHighlighted: boolean;
 }
 
 export class Results extends React.Component<ResultsProps> {
@@ -51,14 +49,13 @@ export class Results extends React.Component<ResultsProps> {
                       key: result.key,
                       item: result,
                       index: idx,
-                      className: cx(
-                        listItem,
-                        downshift.highlightedIndex === idx &&
-                          listItemHighlighted
-                      )
+                      className: cx(listItem)
                     })}
                   >
-                    <ResultRenderer values={result.values} />
+                    <ResultRenderer
+                      values={result.values}
+                      isHighlighted={downshift.highlightedIndex === idx}
+                    />
                   </li>
                 ))}
             </Dropdown>
@@ -69,21 +66,26 @@ export class Results extends React.Component<ResultsProps> {
   }
 }
 
-interface ResultItemProps {
-  values: { [k: string]: string | string[] };
-}
-
-function ResultItem({ values }: ResultItemProps) {
+function ResultItem({ values, isHighlighted }: ResultRendererProps) {
   let title = values["title"];
   let description = values["description"];
 
   return (
-    <div className={css({ padding: "0.5em 1em" })}>
+    <div
+      className={cx(
+        css({ padding: "0.5em 1em" }),
+        isHighlighted && resultHighlighted
+      )}
+    >
       <h3 className={titleCSS}>{title}</h3>
       <p className={descriptionCSS}>{description}</p>
     </div>
   );
 }
+const resultHighlighted = css({
+  backgroundColor: "#eee",
+  cursor: "default"
+});
 
 const titleCSS = css({
   fontSize: "1.1em",

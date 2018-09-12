@@ -53,26 +53,27 @@ With the `default` props, the `<Input />` acts like a regular `<input type="text
 
 
 
-<!-- ### With custom styles
+### With custom styles
 <Playground>
-    <Input mode="typeahead" dropdownMode="suggestions" styles={{
-        container: {
-            width: "300px",
-            marginBottom: 0
-        },
-        input: {
+    <InputWrapper style={{height: 300}}>
+        <Input mode="typeahead" dropdownMode="suggestions" styles={{
             container: {
                 backgroundColor: "#999",
                 color: "#fff",
                 border: "1px solid #999",
                 boxShadow: "none"
             },
+            input: {
+                "input::placeholder": {
+                    color: "#eee"
+                }
+            },
             button: {
                 color: "#eee"
             }
-        }
-    }} />
-</Playground> -->
+        }} />
+    </InputWrapper>
+</Playground>
 
 
 ## Props
