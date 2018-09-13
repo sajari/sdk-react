@@ -64,6 +64,8 @@ export class Input extends React.PureComponent<InputProps, InputState> {
 
   state = { typedInputValue: "" };
 
+  input?: HTMLInputElement;
+
   render() {
     return (
       <PipelineConsumer>
@@ -110,6 +112,7 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                   placeHolder={this.props.placeHolder}
                   styles={this.props.styles}
                   onChange={this.handleInputOnChange}
+                  inputRef={this.inputRef}
                 />
               )}
             </Downshift>
@@ -123,6 +126,13 @@ export class Input extends React.PureComponent<InputProps, InputState> {
     // @ts-ignore: value is a member of event.target
     let typedInputValue = event.target.value;
     this.setState(state => ({ ...state, typedInputValue }));
+  };
+
+  inputRef = (element: HTMLInputElement) => {
+    this.input = element;
+    if (typeof this.props.inputRef === "function") {
+      this.props.inputRef(element);
+    }
   };
 
   // use the stateReducer to trigger the searches
@@ -200,6 +210,10 @@ export class Input extends React.PureComponent<InputProps, InputState> {
         return changes;
 
       case Downshift.stateChangeTypes.clickItem:
+        if (this.input) {
+          this.input.blur();
+        }
+
         if (this.props.dropdownMode === "results") {
           let url =
             changes.selectedItem !== undefined &&
