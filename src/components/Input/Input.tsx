@@ -113,6 +113,7 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                   styles={this.props.styles}
                   onChange={this.handleInputOnChange}
                   inputRef={this.inputRef}
+                  ResultRenderer={this.props.ResultRenderer}
                 />
               )}
             </Downshift>
@@ -398,7 +399,6 @@ class Inner extends React.Component<InnerProps, InnerState> {
                       return;
                     }
 
-                    item = downshift.selectedItem;
                     if (downshift.highlightedIndex !== null) {
                       downshift.selectHighlightedItem();
                       item = (this.props.items || [])[
@@ -486,7 +486,10 @@ class Inner extends React.Component<InnerProps, InnerState> {
           />
         )}
         {this.props.dropdownMode === "results" && (
-          <Results downshift={downshift} />
+          <Results
+            downshift={downshift}
+            ResultRenderer={this.props.ResultRenderer}
+          />
         )}
       </div>
     );
