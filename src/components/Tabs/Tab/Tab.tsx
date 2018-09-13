@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FilterConsumer, FilterContext } from "../../context/filter";
+import { FilterConsumer } from "../../context/filter";
 
 import { Container } from "./styled";
 
@@ -26,9 +26,7 @@ export const Tab: React.SFC<TabProps> = ({ title, styles = {} }) => (
 );
 
 type SetFn = (name: string, value: boolean) => void;
-const setFilter = (set: SetFn, name: string, value: boolean) => (
-  event: React.MouseEvent<HTMLDivElement>
-) => {
+const setFilter = (set: SetFn, name: string, value: boolean) => () => {
   if (!value) {
     // make tab act like radio button
     return;

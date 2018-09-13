@@ -1,5 +1,5 @@
+import { css, cx } from "emotion";
 import * as React from "react";
-import { cx, css } from "emotion";
 import { trimPrefix } from "./shared/utils";
 
 interface TypeaheadProps {

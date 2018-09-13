@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Filter } from "../../controllers";
-import { FilterContext, FilterProvider } from "../context/filter";
+import { FilterProvider } from "../context/filter";
 
 import { Container, TabsContainer } from "./styled";
 import { Tab } from "./Tab";

@@ -1,14 +1,5 @@
-import * as React from "react";
-import {
-  override,
-  styled,
-  StyledComponent,
-  StyledProps,
-  Theme
-} from "../styles";
-
-import { Container as BaseContainer, ContainerProps } from "../Checkbox/styled";
+import { Container as BaseContainer } from "../Checkbox/styled";
+import { styled } from "../styles";
 
 export { HiddenInput, NativeInput } from "../Checkbox/styled";
-
 export const Container = styled(BaseContainer)({});

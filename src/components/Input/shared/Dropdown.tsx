@@ -1,6 +1,6 @@
-import * as React from "react";
-import { cx, css } from "emotion";
 import { ControllerStateAndHelpers } from "downshift";
+import { css, cx } from "emotion";
+import * as React from "react";
 
 export interface DropdownProps {
   downshift: ControllerStateAndHelpers<any>;

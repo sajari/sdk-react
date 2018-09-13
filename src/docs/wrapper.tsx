@@ -10,7 +10,7 @@ export const GeneralWrapper: React.SFC = ({ children }) => {
     },
     "website"
   );
-  let values = new Values({ q: "api", resultsPerPage: 5 });
+  let values = new Values({ q: "api", resultsPerPage: 3 });
 
   return (
     <Provider search={{ pipeline, values }} searchOnLoad>

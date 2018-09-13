@@ -3,7 +3,6 @@ import {
   Pipeline as SDKPipeline,
   RequestError,
   Response as SDKResponse,
-  Session,
   withEndpoint
 } from "@sajari/sdk-js";
 
@@ -13,7 +12,7 @@ import {
   EVENT_SEARCH_SENT
 } from "../events";
 
-import { Analytics, DebugAnalytics, GoogleAnalytics } from "./analytics";
+import { Analytics, GoogleAnalytics } from "./analytics";
 import { CallbackFn, Listener, ListenerMap } from "./listener";
 import { Response } from "./response";
 import { ClickTracking, NoTracking } from "./tracking";

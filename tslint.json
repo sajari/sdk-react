@@ -4,8 +4,9 @@
   "jsRules": {},
   "rules": {
     "trailing-comma": [true, { "esSpecCompliant": true }],
-    "object-literal-sort-keys": [true, "ignore-case", "match-declaration-order", "shorthand-first"],
-    "interface-name": [true, "never-prefix"]
+    "object-literal-sort-keys": [false],
+    "interface-name": [true, "never-prefix"],
+    "triple-equals": [true, "allow-undefined-check", "allow-null-check"]
   },
   "rulesDirectory": []
 }

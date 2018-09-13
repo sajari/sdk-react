@@ -1,12 +1,5 @@
 import idx from "idx";
-import * as React from "react";
-import {
-  override,
-  styled,
-  StyledComponent,
-  StyledProps,
-  Theme
-} from "../../styles";
+import { override, styled } from "../../styles";
 
 export interface ContainerProps {
   isSelected: boolean;

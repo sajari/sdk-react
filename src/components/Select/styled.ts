@@ -10,7 +10,7 @@ export const styles = {
       width: "auto"
     };
   },
-  control: (base: any, { isFocused }: { [k: string]: boolean }) => {
+  control: (base: any) => {
     return {
       ...base,
       backgroundColor: "transparent",
@@ -42,7 +42,8 @@ export const styles = {
     ...base,
     borderRadius: 0,
     fontSize: "0.8em",
-    width: "100%"
+    width: "100%",
+    zIndex: 1000
   }),
   menuList: (base: any) => ({
     ...base,
@@ -63,7 +64,7 @@ export const styles = {
     fontWeight: "bold",
     padding: 0
   }),
-  placeholder: (base: any) => ({
+  placeholder: () => ({
     padding: 0
   }),
   input: () => ({

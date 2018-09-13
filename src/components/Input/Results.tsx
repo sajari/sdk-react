@@ -1,6 +1,6 @@
-import * as React from "react";
-import { cx, css } from "emotion";
 import { ControllerStateAndHelpers } from "downshift";
+import { css, cx } from "emotion";
+import * as React from "react";
 import { ResultsContainer } from "../Results/Results";
 import { Dropdown } from "./shared/Dropdown";
 
@@ -15,11 +15,11 @@ export interface ResultRendererProps {
 }
 
 export class Results extends React.Component<ResultsProps> {
-  static defaultProps = {
+  public static defaultProps = {
     ResultRenderer: ResultItem
   };
 
-  render() {
+  public render() {
     const { downshift, ResultRenderer } = this.props;
     return (
       <ResultsContainer>
@@ -58,8 +58,8 @@ export class Results extends React.Component<ResultsProps> {
 }
 
 function ResultItem({ values, isHighlighted }: ResultRendererProps) {
-  let title = values["title"];
-  let description = values["description"];
+  const title = values.title;
+  const description = values.description;
 
   return (
     <div

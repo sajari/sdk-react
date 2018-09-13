@@ -2,7 +2,6 @@ import {
   DefaultSession,
   InteractiveSession,
   Session,
-  Tracking as SDKTracking,
   TrackingType
 } from "@sajari/sdk-js";
 

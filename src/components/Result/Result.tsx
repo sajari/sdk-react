@@ -1,7 +1,6 @@
 import idx from "idx";
 import * as React from "react";
 
-import { Consumer } from "../context";
 import { ResultClickedFn } from "../context/pipeline/context";
 import { TokenLink } from "./TokenLink";
 
