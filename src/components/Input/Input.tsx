@@ -103,17 +103,21 @@ export class Input extends React.PureComponent<InputProps, InputState> {
               {downshift => (
                 <Inner
                   {...downshift.getRootProps({ refKey: "rootRef" })}
-                  downshift={downshift}
-                  items={items}
                   mode={this.props.mode}
-                  pipelines={pipelines}
                   dropdownMode={this.props.dropdownMode}
                   ariaLabel={this.props.ariaLabel}
                   placeHolder={this.props.placeHolder}
-                  styles={this.props.styles}
-                  onChange={this.handleInputOnChange}
+                  pipelines={pipelines}
+                  items={items}
+                  downshift={downshift}
+                  autoFocus={this.props.autoFocus}
                   inputRef={this.inputRef}
+                  onKeyDown={this.props.onKeyDown}
+                  onFocus={this.props.onFocus}
+                  onBlur={this.props.onBlur}
+                  onChange={this.handleInputOnChange}
                   ResultRenderer={this.props.ResultRenderer}
+                  styles={this.props.styles}
                 />
               )}
             </Downshift>
