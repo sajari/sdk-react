@@ -6,7 +6,8 @@ route: /components/input
 
 import { PropsTable, Playground } from "docz"
 import { InputWrapper } from "../../docs/wrapper.tsx"
-import { Input } from "./Input.tsx"
+import Input from "./Input.tsx"
+import { Input as PropsInput } from "./Input.tsx"
 
 # Input
 
@@ -51,34 +52,32 @@ With the `default` props, the `<Input />` acts like a regular `<input type="text
     </InputWrapper>
 </Playground>
 
-
-
 ### With custom styles
 <Playground>
     <InputWrapper style={{height: 300}}>
         <Input mode="typeahead" dropdownMode="suggestions" styles={{
             container: {
                 width: 300,
-                backgroundColor: "#999",
-                color: "#fff",
-                border: "1px solid #999",
-                boxShadow: "none"
             },
-            input: () => ({
-                "input::placeholder": {
-                    color: "#eee"
-                }
+            input: (isFocused) => ({
+                boxShadow: "none",
+                borderRadius: 0,
+                "&:hover": {
+                    boxShadow: "none"
+                },
+                borderBottom: isFocused ?"2px solid #3B5998" : "1px solid #737373",
+                outline: 0
             }),
             button: {
-                color: "#eee"
+                "&:hover": {
+                    color: "#3B5998"
+                }
             },
             suggestions: {
-                container: {
-                    backgroundColor: "#999",
-                    color: "#eee"
-                },
+                container: {},
                 item: (isHighlighted) => ({
-                    color: isHighlighted ? "#222" : "inherit"
+                    color: isHighlighted ? "#fff" : "inherit",
+                    backgroundColor: isHighlighted ? "#3B5998" : "inherit"
                 })
             }
         }} />
@@ -87,7 +86,7 @@ With the `default` props, the `<Input />` acts like a regular `<input type="text
 
 
 ## Props
-<PropsTable of={Input} />
+<PropsTable of={PropsInput} />
 
 ## Styles
 

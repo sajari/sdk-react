@@ -40,6 +40,7 @@ export class Results extends React.Component<ResultsProps> {
                       key: result.key,
                       item: result,
                       index: idx,
+                      role: "option",
                       className: listItem
                     })}
                   >

@@ -1,6 +1,8 @@
 import * as React from "react";
+import * as ReactDOM from "react-dom";
 import { Provider } from "../components";
 import { Pipeline, Values } from "../controllers";
+import { Theme } from "../components/styles";
 
 export const GeneralWrapper: React.SFC = ({ children }) => {
   let pipeline = new Pipeline(
@@ -20,6 +22,11 @@ export const GeneralWrapper: React.SFC = ({ children }) => {
 };
 
 export const ExampleWrapper: React.SFC = ({ children }) => {
+  if (process.env.NODE_ENV !== "production") {
+    var axe = require("react-axe");
+    axe(React, ReactDOM, 1000);
+  }
+
   let pipeline = new Pipeline(
     {
       project: "sajariptyltd",
@@ -38,11 +45,13 @@ export const ExampleWrapper: React.SFC = ({ children }) => {
 
 export interface InputWrapperProps {
   style?: React.CSSProperties;
+  theme?: Theme;
 }
 
 export const InputWrapper: React.SFC<InputWrapperProps> = ({
   children,
-  style
+  style,
+  theme
 }) => {
   let pipeline = new Pipeline(
     { project: "sajariptyltd", collection: "sajari-com" },
@@ -51,7 +60,7 @@ export const InputWrapper: React.SFC<InputWrapperProps> = ({
   let values = new Values({ resultsPerPage: 3 });
 
   return (
-    <Provider search={{ pipeline, values }}>
+    <Provider search={{ pipeline, values }} theme={theme}>
       <div style={style}>{children}</div>
     </Provider>
   );

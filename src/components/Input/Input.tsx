@@ -7,6 +7,7 @@ import Downshift, {
   StateChangeOptions
 } from "downshift";
 import { css, cx } from "emotion";
+import { withTheme } from "emotion-theming";
 import * as React from "react";
 // @ts-ignore: component missing type defs
 import AutosizeInput from "react-input-autosize";
@@ -15,6 +16,7 @@ import { ResultRendererProps, Results } from "./Results";
 import { isNotEmptyArray, isNotEmptyString } from "./shared/utils";
 import { Suggestions } from "./Suggestions";
 import { Typeahead } from "./Typeahead";
+import { Theme } from "../styles";
 
 const ReturnKeyCode = 13;
 const RightArrowKeyCode = 39;
@@ -31,6 +33,7 @@ export interface InputProps {
   ariaLabel?: string;
   placeHolder?: string;
   autoFocus?: boolean;
+  buttonText?: string;
 
   inputRef?: (element: HTMLInputElement) => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
@@ -40,6 +43,7 @@ export interface InputProps {
   // The result render is only used when dropdownMode === "results"
   ResultRenderer?: React.ComponentType<ResultRendererProps>;
 
+  theme?: Theme;
   styles?: {
     container?: React.CSSProperties;
     input?: (isFocused: boolean) => React.CSSProperties;
@@ -111,12 +115,14 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                   items={items}
                   downshift={downshift}
                   autoFocus={this.props.autoFocus}
+                  buttonText={this.props.buttonText}
                   inputRef={this.inputRef}
                   onKeyDown={this.props.onKeyDown}
                   onFocus={this.props.onFocus}
                   onBlur={this.props.onBlur}
                   onChange={this.handleInputOnChange}
                   ResultRenderer={this.props.ResultRenderer}
+                  theme={this.props.theme}
                   styles={this.props.styles}
                 />
               )}
@@ -266,6 +272,9 @@ export class Input extends React.PureComponent<InputProps, InputState> {
   };
 }
 
+// connect input to theme
+export default withTheme(Input);
+
 interface InnerProps {
   mode: InputMode;
   dropdownMode: DropdownMode;
@@ -279,6 +288,7 @@ interface InnerProps {
   rootRef?: (el: HTMLFormElement) => void;
 
   autoFocus?: boolean;
+  buttonText?: string;
   inputRef?: (element: HTMLInputElement) => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -290,6 +300,7 @@ interface InnerProps {
   // The result render is only used when dropdownMode === "results"
   ResultRenderer?: React.ComponentType<ResultRendererProps>;
 
+  theme?: Theme;
   styles?: {
     container?: React.CSSProperties;
     input?: (isFocused: boolean) => React.CSSProperties;
@@ -309,8 +320,9 @@ interface InnerState {
 
 class Inner extends React.Component<InnerProps, InnerState> {
   public state = { focused: false, typedInputValue: "" };
-  public root?: HTMLFormElement;
-  public input?: HTMLInputElement;
+  private root?: HTMLFormElement;
+  private input?: HTMLInputElement;
+  private searchButton?: HTMLButtonElement;
 
   public componentDidMount() {
     if (!this.state.focused) {
@@ -340,7 +352,10 @@ class Inner extends React.Component<InnerProps, InnerState> {
               css(this.props.styles.input(this.state.focused) as any)
           )}
         >
-          <div role="search" className={innerContainerStyles}>
+          <div
+            role="search"
+            className={innerContainerStyles(this.getButtonWidth())}
+          >
             <AutosizeInput
               inputRef={this.inputRef}
               className={css(inputResetStyles.container)}
@@ -469,8 +484,14 @@ class Inner extends React.Component<InnerProps, InnerState> {
             )}
           </div>
           <button
+            ref={this.buttonRef}
             className={cx(
-              buttonStyles,
+              buttonStyles(
+                this.props.theme &&
+                  this.props.theme.colors &&
+                  this.props.theme.colors.brand &&
+                  this.props.theme.colors.brand.primary
+              ),
               this.props.styles &&
                 this.props.styles.button &&
                 css(this.props.styles.button as any)
@@ -481,6 +502,9 @@ class Inner extends React.Component<InnerProps, InnerState> {
             value="Search"
           >
             <SearchIcon />
+            {this.props.buttonText && (
+              <span className={buttonTextStyles}>{this.props.buttonText}</span>
+            )}
           </button>
         </form>
         {this.props.dropdownMode === "suggestions" && (
@@ -520,6 +544,16 @@ class Inner extends React.Component<InnerProps, InnerState> {
       this.props.inputRef(element);
     }
   };
+  private buttonRef = (element: HTMLButtonElement) => {
+    this.searchButton = element;
+  };
+
+  private getButtonWidth = () => {
+    if (this.searchButton) {
+      return this.searchButton.offsetWidth;
+    }
+    return 0;
+  };
 
   private focusInput = (_: React.MouseEvent<HTMLFormElement>) => {
     if (this.input) {
@@ -555,12 +589,15 @@ const inputContainerStyles = (isFocused: boolean) => ({
     : 0
 });
 
-const innerContainerStyles = css({
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "start",
-  alignItems: "baseline"
-});
+const innerContainerStyles = (buttonWidth: number) =>
+  css({
+    display: "flex",
+    flex: "1 1 auto",
+    flexDirection: "row",
+    justifyContent: "start",
+    alignItems: "baseline",
+    maxWidth: `calc(100% - ${buttonWidth}px)`
+  });
 
 const inputResetStyles = {
   container: {
@@ -573,7 +610,7 @@ const inputResetStyles = {
       display: ["inline-block !important", "-moz-inline-stack !important"]
     },
     background: "none",
-    maxWidth: "100%"
+    overflow: "auto"
   },
   input: {
     background: 0,
@@ -587,12 +624,21 @@ const inputResetStyles = {
   }
 };
 
-const buttonStyles = css({
-  padding: 0,
-  border: 0,
-  backgroundColor: "transparent",
-  width: "1em",
-  height: "1em",
-  cursor: "pointer",
-  color: "#737373"
+const buttonStyles = (primary?: string) =>
+  css({
+    boxSizing: "content-box",
+    padding: 8,
+    border: 0,
+    backgroundColor: "transparent",
+    display: "flex",
+    alignItems: "center",
+    cursor: "pointer",
+    color: "#737373",
+    "&:hover": {
+      color: primary != undefined ? primary : "#222"
+    }
+  });
+
+const buttonTextStyles = css({
+  paddingLeft: 8
 });
