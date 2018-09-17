@@ -3,6 +3,7 @@ import { css, cx } from "emotion";
 import * as React from "react";
 import { ResultsContainer } from "../Results/Results";
 import { Dropdown } from "./shared/Dropdown";
+import { Summary } from "../Summary";
 
 export interface ResultsProps {
   downshift: ControllerStateAndHelpers<any>;
@@ -33,23 +34,36 @@ export class Results extends React.Component<ResultsProps> {
           return (
             <Dropdown downshift={downshift}>
               {downshift.isOpen &&
-                downshift.inputValue !== "" &&
-                results.map((result, idx) => (
-                  <li
-                    {...downshift.getItemProps({
-                      key: result.key,
-                      item: result,
-                      index: idx,
-                      role: "option",
-                      className: listItem
-                    })}
-                  >
-                    <ResultRenderer
-                      values={result.values}
-                      isHighlighted={downshift.highlightedIndex === idx}
-                    />
-                  </li>
-                ))}
+                downshift.inputValue !== "" && (
+                  <React.Fragment>
+                    <li className={cx(listItem, resultPadding)}>
+                      <Summary styles={{ container: { marginBottom: 0 } }} />
+                    </li>
+
+                    {results.map((result, idx) => (
+                      <li
+                        {...downshift.getItemProps({
+                          key: result.key,
+                          item: result,
+                          index: idx,
+                          role: "option",
+                          className: listItem
+                        })}
+                      >
+                        <ResultRenderer
+                          values={result.values}
+                          isHighlighted={downshift.highlightedIndex === idx}
+                        />
+                      </li>
+                    ))}
+
+                    <li className={cx(listItem, resultPadding)}>
+                      <a href={`/search?q=${downshift.inputValue}`}>
+                        Show more results
+                      </a>
+                    </li>
+                  </React.Fragment>
+                )}
             </Dropdown>
           );
         }}
@@ -63,12 +77,7 @@ function ResultItem({ values, isHighlighted }: ResultRendererProps) {
   const description = values.description;
 
   return (
-    <div
-      className={cx(
-        css({ padding: "0.5em 1em" }),
-        isHighlighted && resultHighlighted
-      )}
-    >
+    <div className={cx(resultPadding, isHighlighted && resultHighlighted)}>
       <h3 className={titleCSS}>{title}</h3>
       <p className={descriptionCSS}>{description}</p>
     </div>
@@ -82,6 +91,8 @@ const listItem = css({
   backgroundColor: "#fff",
   cursor: "auto"
 });
+
+const resultPadding = css({ padding: "0.5em 1em" });
 
 const resultHighlighted = css({
   backgroundColor: "#eee",
