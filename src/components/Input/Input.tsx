@@ -140,7 +140,6 @@ export class Input extends React.PureComponent<InputProps, InputState> {
     }
   };
 
-  // use the stateReducer to trigger the searches
   private stateReducer = (
     pipelines: PipelineContext,
     items?: string[] | Result[]
@@ -274,7 +273,7 @@ interface InnerProps {
   placeHolder: string;
   pipelines: PipelineContext;
 
-  items?: string[] | Result[]; // could be results or suggestions
+  items?: string[] | any[]; // could be suggestions or results
 
   downshift: ControllerStateAndHelpers<any>;
   rootRef?: (el: HTMLFormElement) => void;
@@ -391,7 +390,7 @@ class Inner extends React.Component<InnerProps, InnerState> {
                     if (this.props.dropdownMode === "results") {
                       item = (this.props.items || [])[
                         downshift.highlightedIndex || -1
-                      ] as any; // TODO(@benhinchley): remove cast to any
+                      ];
                       if (item === undefined) {
                         return;
                       }
@@ -477,6 +476,9 @@ class Inner extends React.Component<InnerProps, InnerState> {
                 css(this.props.styles.button as any)
             )}
             onClick={this.onSearchButtonClick}
+            aria-label="Do search"
+            title="Search"
+            value="Search"
           >
             <SearchIcon />
           </button>
