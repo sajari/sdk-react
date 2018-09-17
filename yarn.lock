@@ -1415,6 +1415,10 @@ aws4@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.8.0.tgz#f0e003d9ca9e7f59c7a508945d7b2ef9a04a542f"
 
+axe-core@^3.0.0:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-3.1.1.tgz#c00515481b2abc47a87a3cbcd6ba2ae2d78d027f"
+
 babel-code-frame@6.26.0, babel-code-frame@^6.22.0, babel-code-frame@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-code-frame/-/babel-code-frame-6.26.0.tgz#63fd43f7dc1e3bb7ce35947db8fe369a3f58c74b"
@@ -6823,11 +6827,11 @@ re-resizable@^4.8.1:
   version "4.8.1"
   resolved "https://registry.yarnpkg.com/re-resizable/-/re-resizable-4.8.1.tgz#1edc294e7ba9effcd31c2a134d9f825d62c1ec6c"
 
-react-aria-live@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/react-aria-live/-/react-aria-live-2.0.2.tgz#9cfc2352544275586f74b66d18c54a8b3b00398a"
+react-axe@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-axe/-/react-axe-3.0.1.tgz#cda4e53cef5731d93427f721427783f5caf66050"
   dependencies:
-    uuid "^3.2.1"
+    axe-core "^3.0.0"
 
 react-codemirror2@^5.1.0:
   version "5.1.0"
@@ -8728,7 +8732,7 @@ utila@~0.4:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/utila/-/utila-0.4.0.tgz#8a16a05d445657a3aea5eecc5b12a4fa5379772c"
 
-uuid@^3.1.0, uuid@^3.2.1, uuid@^3.3.2:
+uuid@^3.1.0, uuid@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
 
