@@ -30,6 +30,7 @@ export function Suggestions({
               key: suggestion,
               item: suggestion,
               index: idx,
+              role: "option",
               className: cx(
                 css(suggestionItemStyles(downshift.highlightedIndex === idx)),
                 styles &&
