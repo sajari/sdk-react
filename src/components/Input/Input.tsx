@@ -631,6 +631,7 @@ const buttonStyles = (primary?: string) =>
     boxSizing: "content-box",
     padding: 8,
     border: 0,
+    fontSize: 18,
     backgroundColor: "transparent",
     display: "flex",
     alignItems: "center",
