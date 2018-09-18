@@ -467,6 +467,8 @@ class Inner extends React.Component<InnerProps, InnerState> {
                   }
                 }
               })}
+              // an explicit aria-label is defined
+              aria-labelledby={undefined}
             />
             {this.props.mode === "typeahead" && (
               <Typeahead
@@ -525,13 +527,6 @@ class Inner extends React.Component<InnerProps, InnerState> {
     );
   }
 
-  private onSearchButtonClick = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-    this.props.pipelines.search.search(this.props.downshift.selectedItem, true);
-  };
-
   private rootRef = (element: HTMLFormElement) => {
     this.root = element;
     if (typeof this.props.rootRef === "function") {
@@ -560,6 +555,13 @@ class Inner extends React.Component<InnerProps, InnerState> {
       this.input.focus();
       this.setState(state => ({ ...state, focused: true }));
     }
+  };
+
+  private onSearchButtonClick = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+    this.props.pipelines.search.search(this.props.downshift.selectedItem, true);
   };
 }
 

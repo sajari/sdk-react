@@ -21,6 +21,8 @@ export class Dropdown extends React.Component<DropdownProps> {
                 styles && css(styles as any)
               )
             })}
+            // an explicit aria-label is defined
+            aria-labelledby={undefined}
           >
             {children}
           </ul>
