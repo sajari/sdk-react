@@ -16,14 +16,15 @@ that they can update themselves when needed.
 ## Usage
 
 ```javascript
-import { Provider, Pipeline, Values } from "@sajari/sdk-react";
+import { Provider, Pipeline, Values, ClickTracking } from "@sajari/sdk-react";
 
 const pipeline = new Pipeline(
   {
     project: "<your-project>",
     collection: "<your-collection>"
   },
-  "website"
+  "website",
+  new ClickTracking()
 );
 
 const values = new Values();

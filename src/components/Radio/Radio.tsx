@@ -37,7 +37,7 @@ export class Radio extends React.Component<RadioProps> {
     name: string,
     isSelected: boolean,
     set: (name: string, value: boolean) => void
-  ) => (event: any) => {
+  ) => () => {
     if (isSelected) {
       return;
     }

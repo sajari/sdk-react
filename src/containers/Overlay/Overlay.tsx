@@ -18,14 +18,14 @@ export class Overlay extends React.Component<OverlayProps> {
     const { children } = this.props;
 
     return (
-      <BlurContainer className="sj-overlay" onClick={this.onClick}>
-        <Container className="sj-overlay-interface">{children}</Container>
+      <BlurContainer className="sj-overlay__shade" onClick={this.onClick}>
+        <Container className="sj-overlay__container">{children}</Container>
       </BlurContainer>
     );
   }
 
   private onClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    let target = event.target;
+    const target = event.target;
     // @ts-ignore: nodeName is a property of event.target
     if (target.nodeName !== "DIV") {
       return;

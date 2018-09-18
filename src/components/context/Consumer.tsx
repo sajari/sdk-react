@@ -1,17 +1,8 @@
 import * as React from "react";
 
-// @ts-ignore: module missing definintions file
-import { LiveMessenger } from "react-aria-live";
 import { PipelineConsumer, PipelineContext } from "./pipeline";
 
-export interface AriaMessengerValue {
-  announcePolite: (message: string) => void;
-  announceAssertive: (message: string) => void;
-}
-
-export type RenderFn = (
-  props: PipelineContext & AriaMessengerValue
-) => React.ReactNode;
+export type RenderFn = (props: PipelineContext) => React.ReactNode;
 
 export class Consumer extends React.Component<{ children?: RenderFn }> {
   public render() {
@@ -24,13 +15,7 @@ export class Consumer extends React.Component<{ children?: RenderFn }> {
 
     return (
       <PipelineConsumer>
-        {searchValue => (
-          <LiveMessenger>
-            {(ariaValue: AriaMessengerValue) =>
-              children({ ...searchValue, ...ariaValue })
-            }
-          </LiveMessenger>
-        )}
+        {searchValue => children({ ...searchValue })}
       </PipelineConsumer>
     );
   }

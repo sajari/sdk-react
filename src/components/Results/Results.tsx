@@ -31,13 +31,6 @@ export interface ResultsProps {
   };
 }
 
-export interface ResultsRenderFnProps {
-  error: RequestError | null;
-  results?: Array<{ key: string } & ResultProps>;
-}
-
-export type ResultsRenderFn = (props: ResultsRenderFnProps) => React.ReactNode;
-
 export interface ResultsContainerProps {
   children: ResultsRenderFn;
 
@@ -47,6 +40,13 @@ export interface ResultsContainerProps {
     url?: string;
     image?: string;
   };
+}
+
+export type ResultsRenderFn = (props: ResultsRenderFnProps) => React.ReactNode;
+
+export interface ResultsRenderFnProps {
+  error: RequestError | null;
+  results?: Array<{ key: string } & ResultProps>;
 }
 
 export const ResultsContainer: React.SFC<ResultsContainerProps> = ({

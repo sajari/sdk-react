@@ -1,15 +1,6 @@
 import { css } from "emotion";
 import idx from "idx";
-import * as React from "react";
-import {
-  override,
-  styled,
-  StyledComponent,
-  StyledProps,
-  Theme
-} from "../styles";
-
-import { Container as ResultContainer } from "../Result/styled";
+import { override, styled, StyledProps } from "../styles";
 
 export const Error = styled("div")({ color: "red" }, override);
 

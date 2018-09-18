@@ -1,9 +1,4 @@
-import {
-  DefaultSession,
-  Session,
-  Tracking as SDKTracking,
-  TrackingType
-} from "@sajari/sdk-js";
+import { DefaultSession, Session, TrackingType } from "@sajari/sdk-js";
 
 import { Tracking } from "./Tracking";
 import { getTrackingData } from "./utils";

@@ -5,7 +5,9 @@ route: /components/input
 ---
 
 import { PropsTable, Playground } from "docz"
-import { Input } from "./Input.tsx"
+import { InputWrapper } from "../../docs/wrapper.tsx"
+import Input from "./Input.tsx"
+import { Input as PropsInput } from "./Input.tsx"
 
 # Input
 
@@ -22,59 +24,81 @@ import { Input } from "@sajari/sdk-react"
 ## Usage
 
 ### With default props
+With the `default` props, the `<Input />` acts like a regular `<input type="text" />` html element.
 <Playground>
-    <Input />
+    <InputWrapper>
+        <Input />
+    </InputWrapper>
 </Playground>
-
 
 ### With instant search and typeahead
 <Playground>
-    <Input mode="typeahead" instantSearch />
+    <InputWrapper>
+        <Input mode="typeahead" instantSearch />
+    </InputWrapper>
 </Playground>
-
 
 ### With suggestions dropdown
 <Playground>
-    <Input mode="typeahead" dropdownMode="suggestions" />
+    <InputWrapper style={{height: 300}}>
+        <Input mode="typeahead" dropdownMode="suggestions" />
+    </InputWrapper>
 </Playground>
 
-
+### With results dropdown
+<Playground>
+    <InputWrapper style={{height: 400}}>
+        <Input mode="typeahead" dropdownMode="results" instantSearch />
+    </InputWrapper>
+</Playground>
 
 ### With custom styles
 <Playground>
-    <Input mode="typeahead" dropdownMode="suggestions" styles={{
-        container: {
-            width: "300px",
-            marginBottom: 0
-        },
-        input: {
+    <InputWrapper style={{height: 300}}>
+        <Input mode="typeahead" dropdownMode="suggestions" styles={{
             container: {
-                backgroundColor: "#999",
-                color: "#fff",
-                border: "1px solid #999",
-                boxShadow: "none"
+                width: 300,
             },
+            input: (isFocused) => ({
+                boxShadow: "none",
+                borderRadius: 0,
+                "&:hover": {
+                    boxShadow: "none"
+                },
+                borderBottom: isFocused ?"2px solid #3B5998" : "1px solid #737373",
+                outline: 0
+            }),
             button: {
-                color: "#eee"
+                "&:hover": {
+                    color: "#3B5998"
+                }
+            },
+            suggestions: {
+                container: {},
+                item: (isHighlighted) => ({
+                    color: isHighlighted ? "#fff" : "inherit",
+                    backgroundColor: isHighlighted ? "#3B5998" : "inherit"
+                })
             }
-        }
-    }} />
+        }} />
+    </InputWrapper>
 </Playground>
 
 
 ## Props
-<PropsTable of={Input} />
+<PropsTable of={PropsInput} />
 
 ## Styles
 
 ```typescript
 type InputStyles = {
     container?: React.CSSProperties;
-    input?: {
-        container?: React.CSSProperties;
-        input?: React.CSSProperties;
-        typeahead?: React.CSSProperties;
-        button?: React.CSSProperties;
+    input?: (isFocused: boolean) => React.CSSProperties;
+    typeahead?: React.CSSProperties;
+    button?: React.CSSProperties;
+    suggestions?: {
+      container?: React.CSSProperties;
+      item?: (isHighlighted: boolean) => React.CSSProperties;
     };
 };
 ```

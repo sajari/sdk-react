@@ -4,11 +4,7 @@ import * as React from "react";
 import ReactSelect from "react-select";
 
 import { Filter, Options } from "../../controllers/filter";
-import {
-  FilterConsumer,
-  FilterContext,
-  FilterProvider
-} from "../context/filter";
+import { FilterConsumer, FilterProvider } from "../context/filter";
 import { styles as defaultStyles } from "./styled";
 
 export interface SelectProps {

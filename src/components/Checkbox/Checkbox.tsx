@@ -37,7 +37,7 @@ export class Checkbox extends React.Component<CheckboxProps> {
     name: string,
     isSelected: boolean,
     set: (name: string, value: boolean) => void
-  ) => (event: any) => set(name, !isSelected);
+  ) => () => set(name, !isSelected);
 }
 
 const NativeCheckbox: React.SFC<CheckboxRendererProps> = ({ isChecked }) => (
