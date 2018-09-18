@@ -1,6 +1,7 @@
 import { ControllerStateAndHelpers } from "downshift";
 import { css, cx } from "emotion";
 import * as React from "react";
+import { Config, defaultConfig } from "../../config";
 import { ResultsContainer } from "../Results/Results";
 import { Dropdown } from "./shared/Dropdown";
 import { Summary } from "../Summary";
@@ -8,6 +9,8 @@ import { Summary } from "../Summary";
 export interface ResultsProps {
   downshift: ControllerStateAndHelpers<any>;
   ResultRenderer: React.ComponentType<ResultRendererProps>;
+  config: Config;
+  showSummary: boolean;
 }
 
 export interface ResultRendererProps {
@@ -17,11 +20,13 @@ export interface ResultRendererProps {
 
 export class Results extends React.Component<ResultsProps> {
   public static defaultProps = {
-    ResultRenderer: ResultItem
+    ResultRenderer: ResultItem,
+    config: defaultConfig,
+    showSummary: false
   };
 
   public render() {
-    const { downshift, ResultRenderer } = this.props;
+    const { downshift, showSummary, ResultRenderer } = this.props;
     return (
       <ResultsContainer>
         {({ error, results }) => {
@@ -36,9 +41,14 @@ export class Results extends React.Component<ResultsProps> {
               {downshift.isOpen &&
                 downshift.inputValue !== "" && (
                   <React.Fragment>
-                    <li className={cx(listItem, resultPadding)}>
-                      <Summary styles={{ container: { marginBottom: 0 } }} />
-                    </li>
+                    {showSummary && (
+                      <li className={cx(listItem, resultPadding)}>
+                        <Summary
+                          showQueryOverride={false}
+                          styles={summaryStyles}
+                        />
+                      </li>
+                    )}
 
                     {results.map((result, idx) => (
                       <li
@@ -57,11 +67,15 @@ export class Results extends React.Component<ResultsProps> {
                       </li>
                     ))}
 
-                    <li className={cx(listItem, resultPadding)}>
-                      <a href={`/search?q=${downshift.inputValue}`}>
+                    {/* <li className={cx(listItem, resultPadding)}>
+                      <a
+                        href={`/search?${config.qParam}=${
+                          downshift.inputValue
+                        }`}
+                      >
                         Show more results
                       </a>
-                    </li>
+                    </li> */}
                   </React.Fragment>
                 )}
             </Dropdown>
@@ -119,3 +133,9 @@ const descriptionCSS = css({
   overflowWrap: "break-word",
   wordWrap: "break-word"
 });
+
+const summaryStyles = {
+  container: {
+    marginBottom: 0
+  }
+};
