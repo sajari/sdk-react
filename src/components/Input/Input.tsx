@@ -12,11 +12,11 @@ import * as React from "react";
 // @ts-ignore: component missing type defs
 import AutosizeInput from "react-input-autosize";
 import { PipelineConsumer, PipelineContext } from "../context/pipeline";
+import { Theme } from "../styles";
 import { ResultRendererProps, Results } from "./Results";
 import { isNotEmptyArray, isNotEmptyString } from "./shared/utils";
 import { Suggestions } from "./Suggestions";
 import { Typeahead } from "./Typeahead";
-import { Theme } from "../styles";
 
 const ReturnKeyCode = 13;
 const RightArrowKeyCode = 39;

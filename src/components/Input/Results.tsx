@@ -3,8 +3,8 @@ import { css, cx } from "emotion";
 import * as React from "react";
 import { Config, defaultConfig } from "../../config";
 import { ResultsContainer } from "../Results/Results";
-import { Dropdown } from "./shared/Dropdown";
 import { Summary } from "../Summary";
+import { Dropdown } from "./shared/Dropdown";
 
 export interface ResultsProps {
   downshift: ControllerStateAndHelpers<any>;
