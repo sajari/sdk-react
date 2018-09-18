@@ -9,15 +9,22 @@ import { formatQueryTime } from "./utils";
 import { Container, Emphasis, OverrideContainer } from "./styled";
 
 export interface SummaryProps {
+  showQueryTime?: boolean;
+  showQueryOverride?: boolean;
   styles?: {
     container?: React.CSSProperties;
+    searchTerm?: React.CSSProperties;
     override?: OverrideStyles;
   };
 }
 
 export class Summary extends React.Component<SummaryProps> {
   public render() {
-    const { styles = {} } = this.props;
+    const {
+      showQueryTime = true,
+      showQueryOverride = true,
+      styles = {}
+    } = this.props;
 
     return (
       <Consumer>
@@ -53,15 +60,17 @@ export class Summary extends React.Component<SummaryProps> {
                 {`${pageNumber} ${totalResults} ${i18n.t(
                   "summary:resultsFor"
                 )} `}
-                "<Emphasis>{text}</Emphasis>"{" "}
+                "<Emphasis styles={styles.searchTerm}>{text}</Emphasis>"{" "}
               </span>
-              <span>{`(${responseTime}) `}</span>
-              <Override
-                responseQuery={responseValues.get(config.qParam) as string}
-                query={query}
-                search={search}
-                styles={idx(styles, _ => _.override)}
-              />
+              {showQueryTime && <span>{`(${responseTime}) `}</span>}
+              {showQueryOverride && (
+                <Override
+                  responseQuery={responseValues.get(config.qParam) as string}
+                  query={query}
+                  search={search}
+                  styles={idx(styles, _ => _.override)}
+                />
+              )}
             </Container>
           );
         }}
