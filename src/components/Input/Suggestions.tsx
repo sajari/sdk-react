@@ -21,7 +21,11 @@ export function Suggestions({
   styles
 }: SuggestionsProps) {
   return (
-    <Dropdown downshift={downshift} styles={styles && styles.container}>
+    <Dropdown
+      downshift={downshift}
+      className="sj-input__suggestions"
+      styles={styles && styles.container}
+    >
       {downshift.isOpen &&
         suggestions.length > 0 &&
         suggestions.map((suggestion, idx) => (
@@ -32,6 +36,9 @@ export function Suggestions({
               index: idx,
               role: "option",
               className: cx(
+                "sj-input__suggestions__item",
+                downshift.highlightedIndex === idx &&
+                  "sj-input__suggestions__item--highlighted",
                 css(suggestionItemStyles(downshift.highlightedIndex === idx)),
                 styles &&
                   styles.item &&

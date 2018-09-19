@@ -37,7 +37,7 @@ export class Results extends React.Component<ResultsProps> {
             return "no results";
           }
           return (
-            <Dropdown downshift={downshift}>
+            <Dropdown downshift={downshift} className="sj-input__results">
               {downshift.isOpen &&
                 downshift.inputValue !== "" && (
                   <React.Fragment>

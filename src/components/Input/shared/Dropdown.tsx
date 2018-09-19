@@ -4,18 +4,20 @@ import * as React from "react";
 
 export interface DropdownProps {
   downshift: ControllerStateAndHelpers<any>;
+  className?: string;
   styles?: React.CSSProperties;
 }
 
 export class Dropdown extends React.Component<DropdownProps> {
   public render() {
-    const { downshift, styles, children } = this.props;
+    const { downshift, className, styles, children } = this.props;
     return (
       <div className={container}>
         <div className={content}>
           <ul
             {...downshift.getMenuProps({
               className: cx(
+                className,
                 listStyles,
                 downshift.isOpen && listIsOpen,
                 styles && css(styles as any)

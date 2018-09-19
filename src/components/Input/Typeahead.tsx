@@ -15,7 +15,13 @@ export function Typeahead({ inputValue, completion, styles }: TypeaheadProps) {
   }
 
   return (
-    <div className={cx(typeaheadStyles, styles && css(styles as any))}>
+    <div
+      className={cx(
+        "sj-input__typeahead",
+        typeaheadStyles,
+        styles && css(styles as any)
+      )}
+    >
       {typeaheadValue}
     </div>
   );

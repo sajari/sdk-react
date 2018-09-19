@@ -31,7 +31,7 @@ export interface InputProps {
 
   defaultValue?: string;
   ariaLabel?: string;
-  placeHolder?: string;
+  placeholder?: string;
   autoFocus?: boolean;
   buttonText?: string;
 
@@ -65,7 +65,7 @@ export class Input extends React.PureComponent<InputProps, InputState> {
     mode: "standard",
     dropdownMode: "none",
     ariaLabel: "Search through the site content",
-    placeHolder: "Search"
+    placeholder: "Search"
   } as InputProps;
 
   public state = { typedInputValue: "" };
@@ -110,7 +110,7 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                   mode={this.props.mode}
                   dropdownMode={this.props.dropdownMode}
                   ariaLabel={this.props.ariaLabel}
-                  placeHolder={this.props.placeHolder}
+                  placeholder={this.props.placeholder}
                   pipelines={pipelines}
                   items={items}
                   downshift={downshift}
@@ -279,7 +279,7 @@ interface InnerProps {
   mode: InputMode;
   dropdownMode: DropdownMode;
   ariaLabel: string;
-  placeHolder: string;
+  placeholder: string;
   pipelines: PipelineContext;
 
   items?: string[] | any[]; // could be suggestions or results
@@ -346,6 +346,8 @@ class Inner extends React.Component<InnerProps, InnerState> {
           ref={this.rootRef}
           onClick={this.focusInput}
           className={cx(
+            "sj-input__input",
+            this.state.focused && "sj-input__input--focused",
             css(inputContainerStyles(this.state.focused)),
             this.props.styles &&
               this.props.styles.input &&
@@ -363,7 +365,7 @@ class Inner extends React.Component<InnerProps, InnerState> {
               minWidth={5}
               {...downshift.getInputProps({
                 "aria-label": this.props.ariaLabel,
-                placeholder: this.props.placeHolder,
+                placeholder: this.props.placeholder,
                 autoComplete: "off",
                 spellCheck: false,
                 autoCapitalize: "off",
@@ -488,6 +490,7 @@ class Inner extends React.Component<InnerProps, InnerState> {
           <button
             ref={this.buttonRef}
             className={cx(
+              "sj-input__button",
               buttonStyles(
                 this.props.theme &&
                   this.props.theme.colors &&
