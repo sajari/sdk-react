@@ -25,11 +25,16 @@ export class Image extends React.PureComponent<ImageProps, { error: boolean }> {
     const { error } = this.state;
 
     return error ? (
-      <div className={css({ width: 90, paddingRight: "1em" })} />
+      <div
+        className={cx(
+          "sj-result__image",
+          css({ width: 90, paddingRight: "1em" })
+        )}
+      />
     ) : (
       <img
         className={cx(
-          "sj-result__image__img",
+          "sj-result__image",
           css({ maxWidth: 90, maxHeight: 90, paddingRight: "1em" })
         )}
         onError={this.onError}
