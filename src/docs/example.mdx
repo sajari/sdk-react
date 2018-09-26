@@ -1,0 +1,23 @@
+---
+name: Example
+route: /example
+---
+
+import { Playground } from 'docz'
+import { ExampleWrapper } from "./wrapper.tsx"
+import { Input, Response, Summary, Results, Paginator } from "../components"
+
+# Example
+
+<Playground>
+    <ExampleWrapper>
+        <Input mode="typeahead" dropdownMode="suggestions" />
+        <Response>
+            <div style={{marginTop: "1.5rem"}}>
+                <Summary />
+                <Results />
+                <Paginator />
+            </div>
+        </Response>
+    </ExampleWrapper>
+</Playground>
