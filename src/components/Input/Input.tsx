@@ -43,6 +43,7 @@ export interface InputProps {
   // The result render is only used when dropdownMode === "results"
   ResultRenderer?: React.ComponentType<ResultRendererProps>;
 
+  className?: string;
   theme?: Theme;
   styles?: {
     container?: React.CSSProperties;
@@ -51,7 +52,7 @@ export interface InputProps {
     button?: React.CSSProperties;
     suggestions?: {
       container?: React.CSSProperties;
-      item?: (isHighlighted: boolean) => React.CSSProperties;
+      item?: (isFocused: boolean) => React.CSSProperties;
     };
   };
 }
@@ -122,6 +123,7 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                   onBlur={this.props.onBlur}
                   onChange={this.handleInputOnChange}
                   ResultRenderer={this.props.ResultRenderer}
+                  className={this.props.className}
                   theme={this.props.theme}
                   styles={this.props.styles}
                 />
@@ -300,6 +302,7 @@ interface InnerProps {
   // The result render is only used when dropdownMode === "results"
   ResultRenderer?: React.ComponentType<ResultRendererProps>;
 
+  className?: string;
   theme?: Theme;
   styles?: {
     container?: React.CSSProperties;
@@ -308,7 +311,7 @@ interface InnerProps {
     typeahead?: React.CSSProperties;
     suggestions?: {
       container?: React.CSSProperties;
-      item?: (isHighlighted: boolean) => React.CSSProperties;
+      item?: (isFocused: boolean) => React.CSSProperties;
     };
   };
 }
@@ -337,6 +340,8 @@ class Inner extends React.Component<InnerProps, InnerState> {
     return (
       <div
         className={cx(
+          "sj-input",
+          this.props.className,
           this.props.styles &&
             this.props.styles.container &&
             css(this.props.styles.container as any)
