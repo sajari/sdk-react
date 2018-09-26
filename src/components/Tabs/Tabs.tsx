@@ -16,7 +16,7 @@ export interface TabsProps {
 
 export const Tabs: React.SFC<TabsProps> = ({ filter, tabs, styles = {} }) => (
   <FilterProvider filter={filter}>
-    <Container styles={styles.container}>
+    <Container className="sj-tabs" styles={styles.container}>
       <TabsContainer>
         {tabs.map(tab => (
           <Tab key={tab.name} title={tab.display} styles={styles.tab} />
