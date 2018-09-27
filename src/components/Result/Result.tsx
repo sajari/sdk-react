@@ -1,12 +1,12 @@
-import * as React from "react";
-import idx from "idx";
-import { cx, css } from "emotion";
+import { css, cx } from "emotion";
 import { withTheme } from "emotion-theming";
+import idx from "idx";
+import * as React from "react";
 
-import { Theme } from "../styles";
 import { ResultClickedFn } from "../context/pipeline/context";
-import { TokenLink } from "./TokenLink";
+import { Theme } from "../styles";
 import { Image } from "./Image";
+import { TokenLink } from "./TokenLink";
 
 export interface ResultProps {
   token: string;
@@ -43,12 +43,12 @@ export class Result extends React.Component<ResultProps> {
       styles = {};
     }
 
-    let title = values["title"];
-    let description = values["description"];
-    let url = values["url"];
-    let img = values["image"];
+    const title = values.title;
+    const description = values.description;
+    const url = values.url;
+    const img = values.image;
 
-    let classNames = {
+    const classNames = {
       container: cx(
         "sj-results__result",
         this.props.className,
@@ -115,7 +115,7 @@ export class Result extends React.Component<ResultProps> {
 
 export default withTheme(Result);
 
-let resultStyles = {
+const resultStyles = {
   container: {
     display: "flex",
     flexDirection: "column"

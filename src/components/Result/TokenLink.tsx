@@ -1,6 +1,6 @@
+import { css, cx } from "emotion";
 import * as React from "react";
 import { ResultClickedFn } from "../context/pipeline/context";
-import { cx, css } from "emotion";
 
 export interface TokenLinkProps {
   token: string;
@@ -51,7 +51,7 @@ export class TokenLink extends React.PureComponent<
       renderChildren = decodedText;
     }
 
-    let className = cx(this.props.className, css(linkStyles));
+    const className = cx(this.props.className, css(linkStyles));
 
     return (
       <a href={url} {...rest} className={className} onMouseDown={this.click}>
@@ -67,7 +67,7 @@ export class TokenLink extends React.PureComponent<
   };
 }
 
-let linkStyles = {
+const linkStyles = {
   textDecoration: "none",
   "&:hover": {
     cursor: "pointer",

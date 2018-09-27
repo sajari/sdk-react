@@ -1,5 +1,5 @@
-import * as React from "react";
 import { cx } from "emotion";
+import * as React from "react";
 import { FilterConsumer } from "../../context/filter";
 
 import { Container } from "./styled";
