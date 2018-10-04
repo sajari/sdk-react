@@ -20,7 +20,7 @@ export class TokenLink extends React.PureComponent<
   TokenLinkProps,
   TokenLinkState
 > {
-  private anchor?: HTMLAnchorElement;
+  public state = { clicked: false };
 
   public render() {
     const { token, url, text, styles = {}, children, ...rest } = this.props;
@@ -43,8 +43,7 @@ export class TokenLink extends React.PureComponent<
 
     return (
       <Link
-        innerRef={this.anchorRef}
-        href={url}
+        href={this.state.clicked && token ? token : url}
         styles={styles}
         {...rest}
         onMouseDown={this.click}
@@ -54,25 +53,9 @@ export class TokenLink extends React.PureComponent<
     );
   }
 
-  private anchorRef = (element: HTMLAnchorElement) => (this.anchor = element);
-
-  private click = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    const { url, token, resultClicked } = this.props;
-
+  private click = (_: React.MouseEvent<HTMLAnchorElement>) => {
+    const { url, resultClicked } = this.props;
     resultClicked(url);
-
-    if (this.anchor !== undefined) {
-      this.anchor.href = token ? token : url;
-
-      if (event.target !== this.anchor) {
-        this.anchor.click();
-      }
-
-      setTimeout(() => {
-        if (this.anchor !== undefined) {
-          this.anchor.href = url;
-        }
-      }, 25);
-    }
+    this.setState(state => ({ ...state, clicked: true }));
   };
 }
