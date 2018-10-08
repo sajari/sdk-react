@@ -279,12 +279,13 @@ const updateState = (
   const completion =
     query && responseValues ? responseValues.get(config.qParam) || "" : "";
 
-  const suggestions = responseValues
-    ? (responseValues.get(config.qSuggestionsParam) || "")
-        .split(",")
-        .filter((suggestion: string) => suggestion.length > 0)
-        .slice(0, config.maxSuggestions)
-    : [];
+  let suggestions: string[] = [];
+  if (responseValues) {
+    suggestions = (responseValues.get("q.suggestions") || "")
+      .split(",")
+      .filter(s => s.length > 0)
+      .slice(0, config.maxSuggestions);
+  }
 
   return {
     completion,
