@@ -10,6 +10,7 @@ export interface TokenLinkProps {
   children?: React.ReactNode;
 
   styles?: React.CSSProperties;
+  className?: string;
 
   [k: string]: any;
 }
