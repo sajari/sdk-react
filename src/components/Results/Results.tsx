@@ -109,7 +109,6 @@ export const ResultsContainer: React.SFC<ResultsContainerProps> = ({
               token,
               values,
               indexScore: result.indexScore,
-              itemIndex: index,
               score: result.score
             } as { key: string } & ResultProps;
           }

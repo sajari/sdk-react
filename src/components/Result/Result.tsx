@@ -15,7 +15,6 @@ export interface ResultProps {
   score?: number;
   indexScore?: number;
   showImage?: boolean;
-  itemIndex?: number;
 
   theme?: Theme;
   styles?: ResultStyles | null;
