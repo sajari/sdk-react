@@ -56,6 +56,7 @@ export class Result extends React.Component<ResultProps> {
         styles && styles.container && css(styles.container as any)
       ),
       imgLink: css({ display: "inline-block" }),
+      textContainer: cx("sj-result__text", css({ minWidth: 0 })),
       title: cx(
         "sj-results__result__title",
         css(resultStyles.title),
@@ -88,7 +89,7 @@ export class Result extends React.Component<ResultProps> {
             <Image src={img as string} alt={""} />
           </TokenLink>
         )}
-        <div className="sj-result__text">
+        <div className={classNames.textContainer}>
           <TokenLink
             url={url as string}
             token={token}
@@ -117,7 +118,8 @@ export default withTheme(Result);
 const resultStyles = {
   container: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    minWidth: 0
   },
   title: {
     display: "inline-block",
