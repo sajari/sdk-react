@@ -15,12 +15,17 @@ export const Select: React.SFC<SelectProps> = ({ filter }) => (
   <FilterProvider filter={filter}>
     <FilterConsumer>
       {({ options, selected, set }) => {
+        const opts = mapOptions(options);
+        const defaultValue = opts.filter(x => x.label === selected[0]).pop();
+
         return (
           <ReactSelect
-            styles={defaultStyles}
+            key={"1" + defaultValue}
+            defaultValue={defaultValue}
             isClearable={true}
             options={mapOptions(options)}
             onChange={handleChange(selected, set)}
+            styles={defaultStyles}
           />
         );
       }}
