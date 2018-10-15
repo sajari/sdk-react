@@ -5,8 +5,8 @@ import { Consumer } from "../context";
 import { PaginateFn } from "../context/pipeline/context";
 import { pageNumbers } from "./utils";
 
+import { LeftChevron, RightChevron } from "./icons";
 import { Container, PageButton, PageNumber } from "./styled";
-import { RightChevron, LeftChevron } from "./icons";
 
 export interface PaginatorProps {
   styles?: {

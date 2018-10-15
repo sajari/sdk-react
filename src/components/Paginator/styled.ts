@@ -1,7 +1,7 @@
-import idx from "idx";
-import { override, styled, StyledProps } from "../styles";
 // @ts-ignore: module missing definitions
 import chroma from "chroma-js";
+import idx from "idx";
+import { override, styled, StyledProps } from "../styles";
 
 export const Container = styled("nav")<StyledProps<HTMLElement>>(
   {
