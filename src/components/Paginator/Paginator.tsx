@@ -6,6 +6,7 @@ import { PaginateFn } from "../context/pipeline/context";
 import { pageNumbers } from "./utils";
 
 import { Container, PageButton, PageNumber } from "./styled";
+import { RightChevron, LeftChevron } from "./icons";
 
 export interface PaginatorProps {
   styles?: {
@@ -70,7 +71,7 @@ export class Paginator extends React.Component<PaginatorProps> {
                   aria-label="Goto Previous Page"
                   styles={styles.controls}
                 >
-                  &lt;
+                  <LeftChevron />
                 </PageButton>
               )}
               <ul
@@ -109,7 +110,7 @@ export class Paginator extends React.Component<PaginatorProps> {
                   aria-label="Goto Next Page"
                   styles={styles.controls}
                 >
-                  &gt;
+                  <RightChevron />
                 </PageButton>
               )}
             </Container>

@@ -1,5 +1,7 @@
 import idx from "idx";
 import * as React from "react";
+// @ts-ignore: module missing defintions
+import { LiveMessage } from "react-aria-live";
 
 import { i18n } from "../../i18n";
 import { Consumer } from "../context";
@@ -51,11 +53,15 @@ export class Summary extends React.Component<SummaryProps> {
               ? i18n.t("summary:page", { replace: { pageNumber: page } })
               : "";
           const totalResults = (response.getTotalResults() as number).toLocaleString();
-
           const responseTime = formatQueryTime(response.getTime() as number);
+
+          const ariaMessage = `${pageNumber} ${totalResults} ${i18n.t(
+            "summary:resultsFor"
+          )} "${text}"`;
 
           return (
             <Container styles={idx(styles, _ => _.container)}>
+              <LiveMessage message={ariaMessage} aria-live="polite" />
               <span>
                 {`${pageNumber} ${totalResults} ${i18n.t(
                   "summary:resultsFor"

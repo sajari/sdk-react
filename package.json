@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "@sajari/sdk-js": "^1.0.3",
+    "chroma-js": "^1.4.0",
     "downshift": "^2.2.2",
     "emotion": "^9.2.8",
     "emotion-theming": "^9.2.6",
@@ -37,6 +38,7 @@
     "i18next": "^11.9.0",
     "i18next-browser-languagedetector": "^2.2.3",
     "js-cookie": "^2.2.0",
+    "react-aria-live": "^2.0.2",
     "react-emotion": "^9.2.8",
     "react-input-autosize": "^2.2.1",
     "react-select": "^2.0.0"
