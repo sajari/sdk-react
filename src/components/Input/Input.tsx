@@ -507,7 +507,7 @@ class Inner extends React.Component<InnerProps, InnerState> {
                 css(this.props.styles.button as any)
             )}
             onClick={this.onSearchButtonClick}
-            aria-label="Do search"
+            aria-label="Search"
             title="Search"
             value="Search"
           >
