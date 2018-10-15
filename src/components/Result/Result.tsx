@@ -55,7 +55,7 @@ export class Result extends React.Component<ResultProps> {
         showImage && css({ flexDirection: "row" }),
         styles && styles.container && css(styles.container as any)
       ),
-      imgLink: css({ display: "inline-block" }),
+      img: css({ display: "inline-block" }),
       textContainer: cx("sj-result__text", css({ minWidth: 0 })),
       title: cx(
         "sj-results__result__title",
@@ -80,14 +80,7 @@ export class Result extends React.Component<ResultProps> {
     return (
       <div className={classNames.container}>
         {showImage && (
-          <TokenLink
-            url={url as string}
-            token={token}
-            resultClicked={resultClicked}
-            className={classNames.imgLink}
-          >
-            <Image src={img as string} alt={""} />
-          </TokenLink>
+          <Image className={classNames.img} src={img as string} alt={""} />
         )}
         <div className={classNames.textContainer}>
           <TokenLink
