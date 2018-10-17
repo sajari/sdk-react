@@ -90,6 +90,8 @@ export class Paginator extends React.Component<PaginatorProps> {
                     <PageNumber
                       className={cx(
                         "sj-paginator__page-number",
+                        page === pageNumber &&
+                          "sj-paginator__page-number--current",
                         styles.number &&
                           css(styles.number(page === pageNumber) as any)
                       )}
