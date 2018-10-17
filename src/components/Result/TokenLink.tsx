@@ -55,7 +55,12 @@ export class TokenLink extends React.PureComponent<
     const className = cx(this.props.className, css(linkStyles));
 
     return (
-      <a href={url} {...rest} className={className} onMouseDown={this.click}>
+      <a
+        href={this.state.clicked && token ? token : url}
+        {...rest}
+        className={className}
+        onMouseDown={this.click}
+      >
         {renderChildren}
       </a>
     );
