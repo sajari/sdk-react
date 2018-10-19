@@ -1,6 +1,6 @@
+import { css, cx } from "emotion";
 import * as React from "react";
 import { ResultClickedFn } from "../context/pipeline/context";
-import { Link } from "./styled";
 
 export interface TokenLinkProps {
   token: string;
@@ -10,6 +10,9 @@ export interface TokenLinkProps {
   children?: React.ReactNode;
 
   styles?: React.CSSProperties;
+  className?: string;
+
+  [k: string]: any;
 }
 
 export interface TokenLinkState {
@@ -23,7 +26,15 @@ export class TokenLink extends React.PureComponent<
   public state = { clicked: false };
 
   public render() {
-    const { token, url, text, styles = {}, children, ...rest } = this.props;
+    const {
+      token,
+      url,
+      text,
+      styles = {},
+      resultClicked,
+      children,
+      ...rest
+    } = this.props;
 
     let decodedText;
     try {
@@ -41,15 +52,17 @@ export class TokenLink extends React.PureComponent<
       renderChildren = decodedText;
     }
 
+    const className = cx(this.props.className, css(linkStyles));
+
     return (
-      <Link
+      <a
         href={this.state.clicked && token ? token : url}
-        styles={styles}
         {...rest}
+        className={className}
         onMouseDown={this.click}
       >
         {renderChildren}
-      </Link>
+      </a>
     );
   }
 
@@ -59,3 +72,11 @@ export class TokenLink extends React.PureComponent<
     this.setState(state => ({ ...state, clicked: true }));
   };
 }
+
+const linkStyles = {
+  textDecoration: "none",
+  "&:hover": {
+    cursor: "pointer",
+    textDecoration: "underline"
+  }
+};

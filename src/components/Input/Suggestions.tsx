@@ -10,7 +10,7 @@ export interface SuggestionsProps {
   suggestions?: string[];
   styles?: {
     container?: React.CSSProperties;
-    item?: (isHighlighted: boolean) => React.CSSProperties;
+    item?: (isFocused: boolean) => React.CSSProperties;
   };
 }
 
@@ -68,11 +68,11 @@ function suggestionText(inputValue: string, suggestion: string) {
   );
 }
 
-const suggestionItemStyles = (isHighlighted: boolean) => ({
+const suggestionItemStyles = (isFocused: boolean) => ({
   listStyle: "none",
   marginLeft: 0,
   padding: "0.25em 0.5em",
-  color: isHighlighted ? "#222" : "inherit",
-  backgroundColor: isHighlighted ? "#eee" : "inherit",
-  cursor: isHighlighted ? "default" : "auto"
+  color: isFocused ? "#222" : "inherit",
+  backgroundColor: isFocused ? "#eee" : "inherit",
+  cursor: isFocused ? "default" : "auto"
 });

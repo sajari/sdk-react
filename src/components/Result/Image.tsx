@@ -4,6 +4,8 @@ import * as React from "react";
 export interface ImageProps {
   alt: string;
   src: string;
+
+  className?: string;
 }
 
 export class Image extends React.PureComponent<ImageProps, { error: boolean }> {
@@ -25,11 +27,18 @@ export class Image extends React.PureComponent<ImageProps, { error: boolean }> {
     const { error } = this.state;
 
     return error ? (
-      <div className={css({ width: 90, paddingRight: "1em" })} />
+      <div
+        className={cx(
+          "sj-results__result__image",
+          this.props.className,
+          css({ width: 90, paddingRight: "1em" })
+        )}
+      />
     ) : (
       <img
         className={cx(
-          "sj-result__image__img",
+          "sj-results__result__image",
+          this.props.className,
           css({ maxWidth: 90, maxHeight: 90, paddingRight: "1em" })
         )}
         onError={this.onError}

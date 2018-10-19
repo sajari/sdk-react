@@ -1,13 +1,15 @@
-import { css } from "emotion";
+import { css, cx } from "emotion";
 import * as React from "react";
 
 import { Consumer } from "../context";
 import { PaginateFn } from "../context/pipeline/context";
 import { pageNumbers } from "./utils";
 
+import { LeftChevron, RightChevron } from "./icons";
 import { Container, PageButton, PageNumber } from "./styled";
 
 export interface PaginatorProps {
+  className?: string;
   styles?: {
     container?: React.CSSProperties;
     controls?: React.CSSProperties;
@@ -60,6 +62,7 @@ export class Paginator extends React.Component<PaginatorProps> {
 
           return (
             <Container
+              className={cx("sj-paginator", this.props.className)}
               aria-label="Pagination Navigation"
               styles={styles.container}
             >
@@ -68,9 +71,10 @@ export class Paginator extends React.Component<PaginatorProps> {
                   isDisabled={page === 1}
                   onClick={this.prevPage(paginate, page)}
                   aria-label="Goto Previous Page"
+                  className="sj-paginator__page-button"
                   styles={styles.controls}
                 >
-                  &lt;
+                  <LeftChevron />
                 </PageButton>
               )}
               <ul
@@ -84,10 +88,13 @@ export class Paginator extends React.Component<PaginatorProps> {
                 {pageNumbers(page, totalPages).map((pageNumber: number) => (
                   <li key={pageNumber}>
                     <PageNumber
-                      className={
+                      className={cx(
+                        "sj-paginator__page-number",
+                        page === pageNumber &&
+                          "sj-paginator__page-number--current",
                         styles.number &&
-                        css(styles.number(page === pageNumber) as any)
-                      }
+                          css(styles.number(page === pageNumber) as any)
+                      )}
                       isCurrent={page === pageNumber}
                       onClick={this.setPage(paginate, pageNumber)}
                       aria-label={
@@ -107,9 +114,10 @@ export class Paginator extends React.Component<PaginatorProps> {
                   isDisabled={page === totalPages}
                   onClick={this.nextPage(paginate, page, totalPages)}
                   aria-label="Goto Next Page"
+                  className="sj-paginator__page-button"
                   styles={styles.controls}
                 >
-                  &gt;
+                  <RightChevron />
                 </PageButton>
               )}
             </Container>

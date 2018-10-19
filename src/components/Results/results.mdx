@@ -101,12 +101,21 @@ type ResultRendererProps = {
     resultClicked: ResultClickedFn;
     score?: number;
     indexScore?: number;
-    itemIndex?: number;
 }
 ```
 
 ## Styles
 
+### `css` classes
+```css
+.sj-results__result {}
+.sj-results__result__title {}
+.sj-results__result__description {}
+.sj-results__result__link {}
+.sj-results__result__image {}
+```
+
+### `styles` prop
 ```typescript
 type ResultsStyles = {
     container?: React.CSSProperties,

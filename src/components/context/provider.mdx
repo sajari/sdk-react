@@ -6,7 +6,6 @@ order: 1
 ---
 import {Playground, PropsTable} from "docz"
 import { Provider } from "./Provider.tsx"
-import { Pipeline, Values, NoTracking } from "../../controllers"
 
 # Provider
 `<Provider />` is the component that maintains the state of the search,
@@ -24,7 +23,7 @@ const pipeline = new Pipeline(
     collection: "<your-collection>"
   },
   "website",
-  new ClickTracking()
+  new ClickTracking("url", "q")
 );
 
 const values = new Values();

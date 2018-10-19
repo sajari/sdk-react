@@ -1,11 +1,12 @@
+import { css, cx } from "emotion";
+import { withTheme } from "emotion-theming";
 import idx from "idx";
 import * as React from "react";
 
 import { ResultClickedFn } from "../context/pipeline/context";
-import { TokenLink } from "./TokenLink";
-
+import { Theme } from "../styles";
 import { Image } from "./Image";
-import { Container, Description, Title, URL } from "./styled";
+import { TokenLink } from "./TokenLink";
 
 export interface ResultProps {
   token: string;
@@ -14,9 +15,10 @@ export interface ResultProps {
   score?: number;
   indexScore?: number;
   showImage?: boolean;
-  itemIndex?: number;
 
+  theme?: Theme;
   styles?: ResultStyles | null;
+  className?: string;
 }
 
 export interface ResultStyles {
@@ -28,66 +30,133 @@ export interface ResultStyles {
 
 export class Result extends React.Component<ResultProps> {
   public render() {
-    const { token, values, resultClicked, showImage = false } = this.props;
+    const {
+      token,
+      values,
+      resultClicked,
+      showImage = false,
+      theme
+    } = this.props;
     let styles = this.props.styles;
     if (styles === null || styles === undefined) {
       styles = {};
     }
 
-    const Body = (
-      <React.Fragment>
-        <Title
-          className={"sj-result__title"}
-          styles={idx(styles, _ => _.title)}
-        >
-          <TokenLink
-            token={token}
-            url={values.url as string}
-            text={values.title as string}
-            resultClicked={resultClicked}
-          />
-        </Title>
-        <Description
-          className={"sj-result__description"}
-          styles={idx(styles, _ => _.description)}
-        >
-          {values.description as string}
-        </Description>
-        <URL className={"sj-result__url"} styles={idx(styles, _ => _.url)}>
-          <TokenLink
-            token={token}
-            url={values.url as string}
-            resultClicked={resultClicked}
-          />
-        </URL>
-      </React.Fragment>
-    );
+    const title = values.title;
+    const description = values.description;
+    const url = values.url;
+    const img = values.image;
+
+    const classNames = {
+      container: cx(
+        "sj-results__result",
+        this.props.className,
+        css(resultStyles.container),
+        showImage && css({ flexDirection: "row" }),
+        styles && styles.container && css(styles.container as any)
+      ),
+      img: css({ display: "inline-block" }),
+      textContainer: cx("sj-result__text", css({ minWidth: 0 })),
+      title: cx(
+        "sj-results__result__title",
+        css(resultStyles.title),
+        styles && styles.title && css(styles.title as any),
+        themeColor(theme),
+        css({ "&:hover": themeColor(theme) })
+      ),
+      description: cx(
+        "sj-results__result__description",
+        css(resultStyles.description),
+        styles && styles.description && css(styles.description as any)
+      ),
+      url: cx(
+        "sj-result__result__link",
+        css(resultStyles.link),
+        styles && styles.url && css(styles.url as any),
+        css({ "&:hover": themeColor(theme) })
+      )
+    };
 
     return (
-      <Container
-        className="sj-result"
-        showImage={showImage}
-        styles={idx(styles, _ => _.container)}
-      >
+      <div className={classNames.container}>
         {showImage && (
-          <React.Fragment>
-            <div className="sj-result__image">
-              <TokenLink
-                token={token}
-                url={values.url as string}
-                resultClicked={resultClicked}
-              >
-                <Image
-                  src={values.image as string}
-                  alt={values.title as string}
-                />
-              </TokenLink>
-            </div>
-            <div className="sj-result__text">{Body}</div>
-          </React.Fragment>
+          <Image className={classNames.img} src={img as string} alt={""} />
         )}
-        {!showImage && Body}
-      </Container>
+        <div className={classNames.textContainer}>
+          <TokenLink
+            url={url as string}
+            token={token}
+            resultClicked={resultClicked}
+            className={classNames.title}
+          >
+            <h3>{title}</h3>
+          </TokenLink>
+          <p className={classNames.description}>{description}</p>
+          <TokenLink
+            url={url as string}
+            token={token}
+            resultClicked={resultClicked}
+            className={classNames.url}
+          >
+            {url}
+          </TokenLink>
+        </div>
+      </div>
     );
   }
+}
+
+export default withTheme(Result);
+
+const resultStyles = {
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    minWidth: 0
+  },
+  title: {
+    display: "inline-block",
+    width: "100%",
+    color: "#383b48",
+    "&:hover": {
+      color: "#383b48"
+    },
+    "& > h3": {
+      fontSize: "1.1em",
+      lineHeight: 1.1,
+      fontWeight: 400,
+      marginBottom: 0,
+      marginTop: 0,
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      whiteSpace: "nowrap"
+    }
+  },
+  description: {
+    fontSize: "0.85em",
+    lineHeight: 1.69,
+    marginBottom: 0,
+    marginTop: 0,
+    overflowWrap: "break-word",
+    wordWrap: "break-word"
+  },
+  link: {
+    display: "inline-block",
+    width: "100%",
+    fontSize: "0.75em",
+    color: "#888991",
+    margin: 0,
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+
+    "&:hover": {
+      color: "#22232b"
+    }
+  }
+} as { [k: string]: any };
+
+function themeColor(theme?: Theme): string {
+  // @ts-ignore: idx
+  return css({ color: idx(theme, _ => _.colors.brand.primary) || "inherit" });
 }

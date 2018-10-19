@@ -1,3 +1,5 @@
+// @ts-ignore: module missing definitions
+import chroma from "chroma-js";
 import idx from "idx";
 import { override, styled, StyledProps } from "../styles";
 
@@ -5,8 +7,8 @@ export const Container = styled("nav")<StyledProps<HTMLElement>>(
   {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
-    marginBottom: "1em"
+    alignItems: "center"
+    // marginBottom: "1em"
   },
   override
 );
@@ -21,12 +23,24 @@ export const PageNumber = styled("a")<PageNumberProps>(
     display: ["inline-block", "-moz-inline-stack"],
     fontWeight: "bold",
     padding: 10,
-    userSelect: "none"
+    userSelect: "none",
+    width: 44,
+    height: 44,
+    textAlign: "center"
   },
-  ({ isCurrent: curr, theme }) => ({
+  ({ isCurrent: curr, theme }) => {
     // @ts-ignore: idx
-    color: curr ? idx(theme, _ => _.colors.brand.primary) || "#333" : "#777"
-  }),
+    const themeColor = idx(theme, _ => _.colors.brand.primary);
+
+    const textColor =
+      chroma.contrast("#fff", themeColor || "#333") > 4.5 ? "#fff" : "#000";
+
+    return {
+      borderRadius: 5,
+      backgroundColor: curr ? themeColor || "#333" : "inherit",
+      color: curr ? textColor : "#585858"
+    };
+  },
   override
 );
 
@@ -43,7 +57,11 @@ export const PageButton = styled("button")<PageButtonProps>(
     fontSize: "1em",
     fontWeight: "bold",
     padding: 10,
-    userSelect: "none"
+    userSelect: "none",
+    width: 44,
+    height: 44,
+    textAlign: "center",
+    lineHeight: 0
   },
   props => ({ color: props.isDisabled ? "#aaa" : "#777" }),
   override

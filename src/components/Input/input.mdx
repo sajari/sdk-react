@@ -74,10 +74,9 @@ With the `default` props, the `<Input />` acts like a regular `<input type="text
                 }
             },
             suggestions: {
-                container: {},
-                item: (isHighlighted) => ({
-                    color: isHighlighted ? "#fff" : "inherit",
-                    backgroundColor: isHighlighted ? "#3B5998" : "inherit"
+                item: (isFocused) => ({
+                    color: isFocused ? "#fff" : "inherit",
+                    backgroundColor: isFocused ? "#3B5998" : "inherit"
                 })
             }
         }} />
@@ -90,6 +89,26 @@ With the `default` props, the `<Input />` acts like a regular `<input type="text
 
 ## Styles
 
+### `css` classes
+```css
+/* input */
+.sj-input {}
+.sj-input__input {}
+.sj-input__input.sj-input__input--focused {}
+
+/* button */
+.sj-input__button {}
+
+/* typeahead */
+.sj-input__typeahead {}
+
+/* suggestions */
+.sj-input__suggestions {}
+.sj-input__suggestions__item
+.sj-input__suggestions__item.sj-input__suggestions__item--highlighted {}
+```
+
+### `styles` prop
 ```typescript
 type InputStyles = {
     container?: React.CSSProperties;
@@ -98,7 +117,7 @@ type InputStyles = {
     button?: React.CSSProperties;
     suggestions?: {
       container?: React.CSSProperties;
-      item?: (isHighlighted: boolean) => React.CSSProperties;
+      item?: (isFocused: boolean) => React.CSSProperties;
     };
 };
 ```

@@ -1,3 +1,4 @@
+import { cx } from "emotion";
 import * as React from "react";
 import { FilterConsumer } from "../../context/filter";
 
@@ -14,6 +15,7 @@ export const Tab: React.SFC<TabProps> = ({ title, styles = {} }) => (
       const isSelected = selected.includes(title);
       return (
         <Container
+          className={cx("sj-tabs__tab", isSelected && "sj-tabs__tab--selected")}
           isSelected={isSelected}
           onClick={setFilter(set, title, !isSelected)}
           style={styles}
