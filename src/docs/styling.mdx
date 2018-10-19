@@ -6,7 +6,20 @@ route: /styling
 # Styling
 
 Under the hood we use [emotion](https://emotion.sh/) for all our styling, and provide a `styles` prop on most components
-to override the default styling.
+to override the default styling. It is also possible to override the default styling through `css`.
+
+## `css`
+Each component that has styling attached to it, also has a series of classes attached to them as well
+to allow you to override the default styling via `css`.
+
+For an overview of what classes are on each component please refer to the individual component documentation.
+
+### Components with `css` classes
+* [Input](/components/input#styles)
+* [Results](/components/results#styles)
+* [Tabs](/components/tabs#styles)
+* [Summary](/components/summary#styles)
+* [Paginator](/components/paginator#styles)
 
 ## `styles` prop
 The `styles` prop on a component takes an object that mirrors the underlaying component structure.
@@ -26,7 +39,7 @@ type ResultsStyles = {
 }
 ```
 
-## Components with `styles` prop
+### Components with `styles` prop
 * [Input](/components/input#styles)
 * [Results](/components/results#styles)
 * [Tabs](/components/tabs#styles)

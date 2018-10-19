@@ -29,7 +29,7 @@ export class Image extends React.PureComponent<ImageProps, { error: boolean }> {
     return error ? (
       <div
         className={cx(
-          "sj-result__image",
+          "sj-results__result__image",
           this.props.className,
           css({ width: 90, paddingRight: "1em" })
         )}
@@ -37,7 +37,7 @@ export class Image extends React.PureComponent<ImageProps, { error: boolean }> {
     ) : (
       <img
         className={cx(
-          "sj-result__image",
+          "sj-results__result__image",
           this.props.className,
           css({ maxWidth: 90, maxHeight: 90, paddingRight: "1em" })
         )}
