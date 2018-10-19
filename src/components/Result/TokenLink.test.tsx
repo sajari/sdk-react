@@ -3,7 +3,7 @@ import * as React from "react";
 
 import { TokenLink } from "./TokenLink";
 
-test("Image default render", () => {
+test("TokenLink default render", () => {
   const resultClickFn = jest.fn();
   const wrapper = mount(
     <TokenLink url={"test"} token={"token"} resultClicked={resultClickFn} />
@@ -12,7 +12,7 @@ test("Image default render", () => {
   expect(wrapper.state()).toEqual({ clicked: false });
 });
 
-test("Image onClick handler", () => {
+test("TokenLink onMouseDown handler", () => {
   const resultClickFn = jest.fn();
   const wrapper = mount(
     <TokenLink url={"test"} token={"token"} resultClicked={resultClickFn} />
