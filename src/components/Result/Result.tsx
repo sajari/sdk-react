@@ -70,7 +70,7 @@ export class Result extends React.Component<ResultProps> {
         styles && styles.description && css(styles.description as any)
       ),
       url: cx(
-        "sj-result__result__link",
+        "sj-results__result__link",
         css(resultStyles.link),
         styles && styles.url && css(styles.url as any),
         css({ "&:hover": themeColor(theme) })
