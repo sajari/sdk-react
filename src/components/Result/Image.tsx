@@ -8,45 +8,29 @@ export interface ImageProps {
   className?: string;
 }
 
-export class Image extends React.PureComponent<ImageProps, { error: boolean }> {
-  public static getDerivedStateFromProps(
-    nextProps: ImageProps,
-    prevState: { error: boolean }
-  ) {
-    const { src } = nextProps;
-    if (src === undefined) {
-      return { error: true };
-    }
-    return prevState;
-  }
+const imageStyles = css({
+  minWidth: 90,
+  minHeight: 90,
+  width: 90,
+  height: 90,
+  marginRight: "1em",
+  backgroundPosition: "center",
+  backgroundSize: "contain",
+  backgroundRepeat: "no-repeat"
+});
 
-  public state = { error: false };
+export function Image(props: ImageProps) {
+  const { src } = props;
 
-  public render() {
-    const { alt, src } = this.props;
-    const { error } = this.state;
-
-    return error ? (
-      <div
-        className={cx(
-          "sj-results__result__image",
-          this.props.className,
-          css({ width: 90, paddingRight: "1em" })
-        )}
-      />
-    ) : (
-      <img
-        className={cx(
-          "sj-results__result__image",
-          this.props.className,
-          css({ maxWidth: 90, maxHeight: 90, paddingRight: "1em" })
-        )}
-        onError={this.onError}
-        src={src}
-        alt={alt}
-      />
-    );
-  }
-
-  private onError = () => this.setState(state => ({ ...state, error: true }));
+  return (
+    <div
+      role="presentation"
+      className={cx(
+        "sj-results__result__image",
+        props.className,
+        imageStyles,
+        css({ backgroundImage: `url(${src})` })
+      )}
+    />
+  );
 }
