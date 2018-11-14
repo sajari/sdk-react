@@ -7,9 +7,10 @@ import { ResultClickedFn } from "../context/pipeline/context";
 import { Theme } from "../styles";
 import { Image } from "./Image";
 import { TokenLink } from "./TokenLink";
+import { ClickToken, PosNegToken } from "@sajari/sdk-js";
 
 export interface ResultProps {
-  token: string;
+  token: ClickToken | PosNegToken | undefined;
   values: { [k: string]: string | string[] };
   resultClicked: ResultClickedFn;
   score?: number;
@@ -77,6 +78,11 @@ export class Result extends React.Component<ResultProps> {
       )
     };
 
+    let clickToken = undefined;
+    if (token !== undefined && "click" in token) {
+      clickToken = token.click;
+    }
+
     return (
       <div className={classNames.container}>
         {showImage && (
@@ -85,7 +91,7 @@ export class Result extends React.Component<ResultProps> {
         <div className={classNames.textContainer}>
           <TokenLink
             url={url as string}
-            token={token}
+            token={clickToken}
             resultClicked={resultClicked}
             className={classNames.title}
           >
@@ -94,7 +100,7 @@ export class Result extends React.Component<ResultProps> {
           <p className={classNames.description}>{description}</p>
           <TokenLink
             url={url as string}
-            token={token}
+            token={clickToken}
             resultClicked={resultClicked}
             className={classNames.url}
           >

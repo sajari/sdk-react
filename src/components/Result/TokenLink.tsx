@@ -3,7 +3,7 @@ import * as React from "react";
 import { ResultClickedFn } from "../context/pipeline/context";
 
 export interface TokenLinkProps {
-  token: string;
+  token?: string;
   url: string;
   resultClicked: ResultClickedFn;
   text?: string;
