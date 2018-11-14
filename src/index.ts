@@ -8,6 +8,7 @@ export {
   CombineFilters,
   ClickTracking,
   NoTracking,
+  PosNegTracking,
   GoogleAnalytics,
   DebugAnalytics
 } from "./controllers";

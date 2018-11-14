@@ -6,4 +6,4 @@ export { Values, CallbackFn as ValuesCallbackFn } from "./values";
 
 export { Analytics, GoogleAnalytics, DebugAnalytics } from "./analytics";
 export { Filter, CombineFilters } from "./filter";
-export { ClickTracking, NoTracking } from "./tracking";
+export { ClickTracking, NoTracking, PosNegTracking } from "./tracking";
