@@ -84,7 +84,7 @@ export const ResultsContainer: React.SFC<ResultsContainerProps> = ({
             const key =
               (result.values._id as string) ||
               (("" + index + result.values.url) as string);
-            const token = result.token && (result.token as ClickToken).click;
+            const token = result.token;
 
             // tslint:disable:object-literal-sort-keys
             const values = {
