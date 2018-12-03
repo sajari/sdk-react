@@ -281,7 +281,7 @@ const updateState = (
 
   let suggestions: string[] = [];
   if (responseValues) {
-    suggestions = (responseValues.get("q.suggestions") || "")
+    suggestions = (responseValues.get(config.qSuggestionsParam) || "")
       .split(",")
       .filter(s => s.length > 0)
       .slice(0, config.maxSuggestions);
