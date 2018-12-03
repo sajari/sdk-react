@@ -1,7 +1,7 @@
 import {
-  ClickToken,
   RequestError,
   Result as SDKResult,
+  Token,
   TransportError
 } from "@sajari/sdk-js";
 import idx from "idx";
@@ -84,7 +84,11 @@ export const ResultsContainer: React.SFC<ResultsContainerProps> = ({
             const key =
               (result.values._id as string) ||
               (("" + index + result.values.url) as string);
-            const token = result.token;
+
+            let token: Token | undefined = result.token;
+            if (Object.getOwnPropertyNames(token).length === 0) {
+              token = undefined;
+            }
 
             // tslint:disable:object-literal-sort-keys
             const values = {
