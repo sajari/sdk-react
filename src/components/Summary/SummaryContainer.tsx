@@ -2,8 +2,8 @@ import * as React from "react";
 
 import { i18n } from "../../i18n";
 import { Consumer } from "../context";
-import { formatQueryTime } from "./utils";
 import { SearchFn } from "../context/pipeline/context";
+import { formatQueryTime } from "./utils";
 
 export interface SummaryContext {
   query: string;

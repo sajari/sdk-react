@@ -7,8 +7,8 @@ import { LiveMessage } from "react-aria-live";
 import { i18n } from "../../i18n";
 import { SearchFn } from "../context/pipeline/context";
 
-import { SummaryContainer, SummaryContext } from "./SummaryContainer";
 import { Container, Emphasis, OverrideContainer } from "./styled";
+import { SummaryContainer, SummaryContext } from "./SummaryContainer";
 
 export interface SummaryProps {
   showQueryTime?: boolean;

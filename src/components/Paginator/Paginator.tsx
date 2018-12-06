@@ -4,9 +4,9 @@ import * as React from "react";
 import { PaginateFn } from "../context/pipeline/context";
 import { pageNumbers } from "./utils";
 
+import { PaginatorContainer } from "./Container";
 import { LeftChevron, RightChevron } from "./icons";
 import { Container, PageButton, PageNumber } from "./styled";
-import { PaginatorContainer } from "./Container";
 
 export interface PaginatorProps {
   className?: string;
