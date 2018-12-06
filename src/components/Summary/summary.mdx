@@ -17,8 +17,15 @@ import { Summary } from "@sajari/sdk-react"
 ```
 
 ## Usage
+
+### Default
 <Playground>
     <Summary />
+</Playground>
+
+### With custom renderer
+<Playground>
+    <Summary Renderer={props => JSON.stringify(props)} />
 </Playground>
 
 ## Props

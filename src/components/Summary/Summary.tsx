@@ -5,10 +5,9 @@ import * as React from "react";
 import { LiveMessage } from "react-aria-live";
 
 import { i18n } from "../../i18n";
-import { Consumer } from "../context";
 import { SearchFn } from "../context/pipeline/context";
-import { formatQueryTime } from "./utils";
 
+import { SummaryContainer, SummaryContext } from "./SummaryContainer";
 import { Container, Emphasis, OverrideContainer } from "./styled";
 
 export interface SummaryProps {
@@ -20,84 +19,62 @@ export interface SummaryProps {
     searchTerm?: React.CSSProperties;
     override?: OverrideStyles;
   };
+
+  Renderer?: React.ComponentType<SummaryContext>;
 }
 
-export class Summary extends React.Component<SummaryProps> {
-  public render() {
-    const {
-      showQueryTime = true,
-      showQueryOverride = true,
-      styles = {}
-    } = this.props;
+export function Summary(props: SummaryProps) {
+  const { Renderer = DefaultSummaryRenderer, ...rest } = props;
 
-    return (
-      <Consumer>
-        {({ search: { response, query, config, search } }) => {
-          if (
-            response === null ||
-            response === undefined ||
-            response.isEmpty() ||
-            response.isError()
-          ) {
-            return null;
-          }
-          const responseValues = response.getValues() as Map<string, string>;
-          const queryValues = response.getQueryValues() as Map<string, string>;
+  return (
+    <SummaryContainer>
+      {ctx => <Renderer {...ctx} {...rest} />}
+    </SummaryContainer>
+  );
+}
 
-          const text = responseValues.get(config.qParam) || query;
-          const page = parseInt(
-            queryValues.get(config.pageParam) as string,
-            10
-          );
+function DefaultSummaryRenderer(props: SummaryContext & SummaryProps) {
+  const { showQueryTime = true, showQueryOverride = true, styles = {} } = props;
 
-          const pageNumber =
-            page && page > 1
-              ? i18n.t("summary:page", { replace: { pageNumber: page } })
-              : "";
-          const totalResults = (response.getTotalResults() as number).toLocaleString();
-          const responseTime = formatQueryTime(response.getTime() as number);
+  const ariaMessage = `${props.pageNumber} ${props.totalResults} ${i18n.t(
+    "summary:resultsFor"
+  )} "${props.query}"`;
 
-          const ariaMessage = `${pageNumber} ${totalResults} ${i18n.t(
-            "summary:resultsFor"
-          )} "${text}"`;
-
-          return (
-            <Container
-              className={cx("sj-summary", this.props.className)}
-              styles={idx(styles, _ => _.container)}
-            >
-              <LiveMessage message={ariaMessage} aria-live="polite" />
-              <span className="sj-summary__results-text">
-                {`${pageNumber} ${totalResults} ${i18n.t(
-                  "summary:resultsFor"
-                )} `}
-                "
-                <Emphasis
-                  className="sj-summary__search-term"
-                  styles={styles.searchTerm}
-                >
-                  {text}
-                </Emphasis>
-                "{" "}
-              </span>
-              {showQueryTime && (
-                <span className="sj-summary__query-time">{`(${responseTime}) `}</span>
-              )}
-              {showQueryOverride && (
-                <Override
-                  className="sj-summary__query-override"
-                  responseQuery={responseValues.get(config.qParam) as string}
-                  query={query}
-                  search={search}
-                  styles={idx(styles, _ => _.override)}
-                />
-              )}
-            </Container>
-          );
-        }}
-      </Consumer>
-    );
-  }
+  return (
+    <Container
+      className={cx("sj-summary", props.className)}
+      styles={idx(styles, _ => _.container)}
+    >
+      <LiveMessage message={ariaMessage} aria-live="polite" />
+      <span className="sj-summary__results-text">
+        {`${props.pageNumber} ${props.totalResults} ${i18n.t(
+          "summary:resultsFor"
+        )} `}
+        "
+        <Emphasis
+          className="sj-summary__search-term"
+          styles={styles.searchTerm}
+        >
+          {props.query}
+        </Emphasis>
+        "{" "}
+      </span>
+      {showQueryTime && (
+        <span className="sj-summary__query-time">{`(${
+          props.responseTime
+        }) `}</span>
+      )}
+      {showQueryOverride && (
+        <Override
+          className="sj-summary__query-override"
+          responseQuery={props.responseQuery}
+          query={props.query}
+          search={props.search}
+          styles={idx(styles, _ => _.override)}
+        />
+      )}
+    </Container>
+  );
 }
 
 export interface OverrideProps {
