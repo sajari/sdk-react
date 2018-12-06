@@ -162,7 +162,6 @@ function nextPage(paginate: PaginateFn, page: number, totalPages: number) {
 
 function setPage(paginate: PaginateFn, page: number) {
   return function closure() {
-    window.scrollTo(0, 0);
     paginate(page);
   };
 }
