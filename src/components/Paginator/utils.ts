@@ -1,7 +1,10 @@
-const windowSize = 5;
 const minPage = 1;
 
-export const pageNumbers = (page: number, totalPages: number) => {
+export const pageNumbers = (
+  page: number,
+  totalPages: number,
+  windowSize: number
+) => {
   let pages = [page];
   for (let i = 1; i < windowSize; i++) {
     pages.unshift(page - i);

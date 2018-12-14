@@ -9,6 +9,8 @@ import { LeftChevron, RightChevron } from "./icons";
 import { Container, PageButton, PageNumber } from "./styled";
 
 export interface PaginatorProps {
+  windowSize?: number;
+
   className?: string;
   styles?: {
     container?: React.CSSProperties;
@@ -23,6 +25,7 @@ export interface PaginatorProps {
 
 export function Paginator(props: PaginatorProps) {
   const {
+    windowSize = 5,
     styles = {},
     PreviousButtonRenderer = PreviousPageButton,
     NextButtonRenderer = NextPageButton,
@@ -52,16 +55,18 @@ export function Paginator(props: PaginatorProps) {
                 padding: 0
               })}
             >
-              {pageNumbers(page, totalPages).map((pageNumber: number) => (
-                <li key={pageNumber}>
-                  <PageNumberRenderer
-                    pageNumber={pageNumber}
-                    isCurrent={page === pageNumber}
-                    onClick={setPage(paginate, pageNumber)}
-                    styles={styles.number}
-                  />
-                </li>
-              ))}
+              {pageNumbers(page, totalPages, windowSize).map(
+                (pageNumber: number) => (
+                  <li key={pageNumber}>
+                    <PageNumberRenderer
+                      pageNumber={pageNumber}
+                      isCurrent={page === pageNumber}
+                      onClick={setPage(paginate, pageNumber)}
+                      styles={styles.number}
+                    />
+                  </li>
+                )
+              )}
             </ul>
             {page !== totalPages && (
               <NextButtonRenderer
