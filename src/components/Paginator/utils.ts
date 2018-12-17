@@ -31,8 +31,8 @@ const windowFn = (
     size = max;
   }
 
-  let start = centerIdx - 2;
-  let end = centerIdx + 3;
+  let start = centerIdx - Math.floor(size / 2);
+  let end = centerIdx + Math.ceil(size / 2);
 
   // If the center of the window is less than half,
   // just show the first window
