@@ -10,7 +10,8 @@ export {
   NoTracking,
   PosNegTracking,
   GoogleAnalytics,
-  DebugAnalytics
+  DebugAnalytics,
+  CountAggregateFilter
 } from "./controllers";
 
 export {
