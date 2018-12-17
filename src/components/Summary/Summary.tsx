@@ -20,7 +20,7 @@ export interface SummaryProps {
     override?: OverrideStyles;
   };
 
-  Renderer?: React.ComponentType<SummaryContext>;
+  Renderer?: React.ComponentType<SummaryContext & SummaryProps>;
 }
 
 export function Summary(props: SummaryProps) {
