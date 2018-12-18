@@ -1,4 +1,5 @@
 import { Filter } from "./filter";
+import { Values } from "./values";
 import { EVENT_RESPONSE_UPDATED } from "../events";
 import { AggregateResponse, CountResponse } from "@sajari/sdk-js";
 import { Pipeline } from "./pipeline";
@@ -10,12 +11,14 @@ export class CountAggregateFilter extends Filter {
   constructor(
     field: string,
     pipeline: Pipeline,
+    values: Values,
     multi: boolean = false,
     type: string = "~"
   ) {
     super({}, [], multi);
 
     this._field = field;
+    this._addCountToValues(values);
 
     pipeline.listen(EVENT_RESPONSE_UPDATED, response => {
       const current = this.get();
@@ -29,6 +32,15 @@ export class CountAggregateFilter extends Filter {
 
   public getCounts() {
     return this._counts;
+  }
+
+  private _addCountToValues(values: Values) {
+    const count = values.get()["count"];
+    const fields = typeof count === "string" ? count.split(",") : [];
+    if (!fields.includes(this._field)) {
+      fields.push(this._field);
+      values.set({ count: fields.join(",") });
+    }
   }
 
   private _getCounts(aggregates: AggregateResponse) {
