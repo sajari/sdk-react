@@ -1,10 +1,8 @@
-const minPage = 1;
-
-export const pageNumbers = (
+export function pageNumbers(
   page: number,
   totalPages: number,
   windowSize: number
-) => {
+) {
   let pages = [page];
   for (let i = 1; i < windowSize; i++) {
     pages.unshift(page - i);
@@ -14,16 +12,10 @@ export const pageNumbers = (
   // filter out negative values
   pages = pages.filter(v => v > 0);
 
-  return windowFn(page, pages, minPage, totalPages, windowSize);
-};
+  return windowFn(page, pages, totalPages, windowSize);
+}
 
-const windowFn = (
-  center: number,
-  arr: number[],
-  min: number,
-  max: number,
-  size: number
-) => {
+function windowFn(center: number, arr: number[], max: number, size: number) {
   const centerIdx = arr.indexOf(center);
   const maxIdx = arr.indexOf(max);
 
@@ -43,10 +35,10 @@ const windowFn = (
   }
 
   if (maxIdx !== -1 && maxIdx - centerIdx < 2) {
-    start = maxIdx - 4;
+    start = maxIdx - (size - 1);
     end = maxIdx + 1;
     return arr.slice(start > 0 ? start : 0, end);
   }
 
   return arr.slice(start > 0 ? start : 0, end);
-};
+}
