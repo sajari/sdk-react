@@ -29,7 +29,8 @@ export {
   Tabs,
   Select,
   Checkbox,
-  Radio
+  Radio,
+  Search
 } from "./components";
 
 export { Overlay } from "./containers";
