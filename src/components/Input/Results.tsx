@@ -1,4 +1,4 @@
-import { ControllerStateAndHelpers } from "downshift";
+import { SearchStateAndHelpers } from "../Search/Search";
 import { css, cx } from "emotion";
 import * as React from "react";
 import { Config, defaultConfig } from "../../config";
@@ -7,7 +7,7 @@ import { Summary } from "../Summary";
 import { Dropdown } from "./shared/Dropdown";
 
 export interface ResultsProps {
-  downshift: ControllerStateAndHelpers<any>;
+  searchProps: SearchStateAndHelpers;
   ResultRenderer: React.ComponentType<ResultRendererProps>;
   config: Config;
   showSummary: boolean;
@@ -26,7 +26,7 @@ export class Results extends React.Component<ResultsProps> {
   };
 
   public render() {
-    const { downshift, showSummary, ResultRenderer } = this.props;
+    const { searchProps, showSummary, ResultRenderer } = this.props;
     return (
       <ResultsContainer>
         {({ error, results }) => {
@@ -37,9 +37,9 @@ export class Results extends React.Component<ResultsProps> {
             return "no results";
           }
           return (
-            <Dropdown downshift={downshift} className="sj-input__results">
-              {downshift.isOpen &&
-                downshift.inputValue !== "" && (
+            <Dropdown searchProps={searchProps} className="sj-input__results">
+              {searchProps.isOpen &&
+                searchProps.inputValue !== "" && (
                   <React.Fragment>
                     {showSummary && (
                       <li className={cx(listItem, resultPadding)}>
@@ -52,7 +52,7 @@ export class Results extends React.Component<ResultsProps> {
 
                     {results.map((result, idx) => (
                       <li
-                        {...downshift.getItemProps({
+                        {...searchProps.getItemProps({
                           key: result.key,
                           item: result,
                           index: idx,
@@ -62,7 +62,7 @@ export class Results extends React.Component<ResultsProps> {
                       >
                         <ResultRenderer
                           values={result.values}
-                          isHighlighted={downshift.highlightedIndex === idx}
+                          isHighlighted={searchProps.highlightedIndex === idx}
                         />
                       </li>
                     ))}
@@ -70,7 +70,7 @@ export class Results extends React.Component<ResultsProps> {
                     {/* <li className={cx(listItem, resultPadding)}>
                       <a
                         href={`/search?${config.qParam}=${
-                          downshift.inputValue
+                          searchProps.inputValue
                         }`}
                       >
                         Show more results

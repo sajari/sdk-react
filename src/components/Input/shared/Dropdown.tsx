@@ -1,25 +1,25 @@
-import { ControllerStateAndHelpers } from "downshift";
+import { SearchStateAndHelpers } from "../../Search/Search";
 import { css, cx } from "emotion";
 import * as React from "react";
 
 export interface DropdownProps {
-  downshift: ControllerStateAndHelpers<any>;
+  searchProps: SearchStateAndHelpers;
   className?: string;
   styles?: React.CSSProperties;
 }
 
 export class Dropdown extends React.Component<DropdownProps> {
   public render() {
-    const { downshift, className, styles, children } = this.props;
+    const { searchProps, className, styles, children } = this.props;
     return (
       <div className={container}>
         <div className={content}>
           <ul
-            {...downshift.getMenuProps({
+            {...searchProps.getMenuProps({
               className: cx(
                 className,
                 listStyles,
-                downshift.isOpen && listIsOpen,
+                searchProps.isOpen && listIsOpen,
                 styles && css(styles as any)
               )
             })}

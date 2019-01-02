@@ -1,11 +1,11 @@
-import { ControllerStateAndHelpers } from "downshift";
 import { css, cx } from "emotion";
 import * as React from "react";
 import { Dropdown } from "./shared/Dropdown";
 import { trimPrefix } from "./shared/utils";
+import { SearchStateAndHelpers } from "../Search/Search";
 
 export interface SuggestionsProps {
-  downshift: ControllerStateAndHelpers<any>;
+  searchProps: SearchStateAndHelpers;
   typedInputValue: string;
   suggestions?: string[];
   styles?: {
@@ -15,34 +15,34 @@ export interface SuggestionsProps {
 }
 
 export function Suggestions({
-  downshift,
+  searchProps,
   typedInputValue,
   suggestions = [],
   styles
 }: SuggestionsProps) {
   return (
     <Dropdown
-      downshift={downshift}
+      searchProps={searchProps}
       className="sj-input__suggestions"
       styles={styles && styles.container}
     >
-      {downshift.isOpen &&
+      {searchProps.isOpen &&
         suggestions.length > 0 &&
         suggestions.map((suggestion, idx) => (
           <li
-            {...downshift.getItemProps({
+            {...searchProps.getItemProps({
               key: suggestion,
               item: suggestion,
               index: idx,
               role: "option",
               className: cx(
                 "sj-input__suggestions__item",
-                downshift.highlightedIndex === idx &&
+                searchProps.highlightedIndex === idx &&
                   "sj-input__suggestions__item--highlighted",
-                css(suggestionItemStyles(downshift.highlightedIndex === idx)),
+                css(suggestionItemStyles(searchProps.highlightedIndex === idx)),
                 styles &&
                   styles.item &&
-                  css(styles.item(downshift.highlightedIndex === idx) as any)
+                  css(styles.item(searchProps.highlightedIndex === idx) as any)
               )
             })}
           >
