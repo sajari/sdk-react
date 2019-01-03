@@ -1,0 +1,235 @@
+---
+name: Search
+menu: Components
+route: /components/search
+---
+
+import { PropsTable, Playground } from "docz";
+import { InputWrapper } from "../../docs/wrapper.tsx";
+import Search from "./Search.tsx";
+// import { Search as PropsSearch } from "./Search.tsx";
+
+# Search
+
+Although the sdk provides its own `Input` component, a pre-built component like the `Input` will not be flexible enought to cover all cases when building search interfaces. The `Search` component, thus, provides a solution to address the issue by using the render prop technique.
+
+```javascript
+// Import the Search component
+import { Search } from "@sajari/sdk-react";
+```
+
+The component was built on top of [downshift](https://github.com/paypal/downshift), providing all of the library funtionalities along with `pipeline` methods & responses.
+
+#### Pipleline methods & responses
+
+- `suggestions`: `string[]`
+- `results`: `Result[]`
+- `completion`: `string`
+- `paginate`: `(page: number) => void`
+- `search`: `(query: string, override: boolean) => void`
+- `instantSearch`: `(query: string, override: boolean) => void`
+
+They are available to use when call:
+
+- Render function: `<Search>{searchProps => <div>/* your JSX here! */</div>}</Search>`
+- Props: `stateReduder` or `onChange`.
+
+## Usage
+
+### Add custom clear button
+
+<Playground>
+  <InputWrapper style={{ height: 250 }}>
+    <Search>
+      {({
+        getInputProps,
+        inputValue,
+        isOpen,
+        getMenuProps,
+        results,
+        reset,
+        search
+      }) => (
+        <div>
+          <div style={{ textAlign: "center" }}>
+            <input
+              type="text"
+              {...getInputProps({
+                onChange: v => {
+                  search(v.target.value);
+                }
+              })}
+            />
+            {inputValue && (
+              <button
+                onClick={() => {
+                  reset();
+                }}
+              >
+                x
+              </button>
+            )}
+          </div>
+          {isOpen && (
+            <div>
+              {results.length ? (
+                <div>
+                  <h4>Results:</h4>
+                  <ol>
+                    {results.map(({ values: { url, title } }) => (
+                      <li>
+                        <a href={url} target="__blank" noopener="true">
+                          {title}
+                        </a>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              ) : (
+                <div>No result</div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+    </Search>
+  </InputWrapper>
+</Playground>
+
+### Search when hit enter or click on button
+
+<Playground>
+  <InputWrapper style={{ height: 250 }}>
+    <Search>
+      {({ getInputProps, inputValue, search, results }) => (
+        <div>
+          <div style={{ textAlign: "center" }}>
+            <input
+              type="text"
+              {...getInputProps({
+                onKeyDown: e => {
+                  if (e.key === "Enter" && inputValue) {
+                    search(inputValue, false);
+                  }
+                }
+              })}
+            />
+            <button
+              onClick={e => {
+                e.preventDefault();
+                if (inputValue) {
+                  search(inputValue, false);
+                }
+              }}
+            >
+              Search
+            </button>
+          </div>
+          {results.length ? (
+            <div>
+              <h4>Results:</h4>
+              <ol>
+                {results.map(({ values: { url, title } }) => (
+                  <li>
+                    <a href={url} target="__blank" noopener="true">
+                      {title}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ) : (
+            <div>No result</div>
+          )}
+        </div>
+      )}
+    </Search>
+  </InputWrapper>
+</Playground>
+
+### Search with suggestions
+
+<Playground>
+  <InputWrapper style={{ height: 350 }}>
+    <Search 
+        itemToString={(item) => item || ""} 
+        stateReducer={(state, changes, { search }) => {
+            const { type } = changes;
+            if(type === Search.stateChangeTypes.keyDownEnter){
+                search(changes.inputValue, false);
+            }
+            return changes;
+        }}
+    >
+      {({
+        getInputProps,
+        inputValue,
+        isOpen,
+        getMenuProps,
+        suggestions,
+        highlightedIndex,
+        getItemProps,
+        selectedItem,
+        reset,
+        instantSearch,
+        results
+      }) => (
+        <div>
+          <div style={{ textAlign: "center" }}>
+            <input
+              type="text"
+              {...getInputProps({
+                onChange: v => {
+                  instantSearch(v.target.value);
+                }
+              })}
+            />
+          </div>
+          {isOpen && (
+            <ul {...getMenuProps()}>
+              {suggestions.map((item, index) => (
+                <li
+                  highlighted={highlightedIndex === index}
+                  selected={selectedItem === item}
+                  style={{
+                    backgroundColor:
+                      highlightedIndex === index
+                        ? "red"
+                        : selectedItem === item
+                        ? "yellow"
+                        : "transparent"
+                  }}
+                  {...getItemProps({
+                    key: item,
+                    index,
+                    item
+                  })}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {results.length ? (
+            <div>
+              <h4>Results:</h4>
+              <ol>
+                {results.map(({ values: { url, title } }) => (
+                  <li>
+                    <a href={url} target="__blank" noopener="true">
+                      {title}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ) : (
+            <div>No result</div>
+          )}
+        </div>
+      )}
+    </Search>
+
+  </InputWrapper>
+</Playground>
