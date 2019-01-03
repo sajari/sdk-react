@@ -32,7 +32,7 @@ type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export interface SearchProps<Item>
   extends Omit<DownshiftProps<Item>, "onChange" | "stateReducer" | "children"> {
   children: (args: SearchStateAndHelpers) => JSX.Element;
-  stateReducer: (
+  stateReducer?: (
     state: SearchState<Item>,
     changes: StateChangeOptions<Item>,
     pipeline: PipelineProps
@@ -44,13 +44,6 @@ export interface SearchProps<Item>
 }
 
 export class Search extends React.PureComponent<SearchProps<any>, {}> {
-  public static defaultProps = {
-    stateReducer: (
-      state: DownshiftState<any>,
-      changes: StateChangeOptions<any>,
-      pipeline: PipelineProps
-    ) => changes
-  };
   public static stateChangeTypes = { ...Downshift.stateChangeTypes };
   public state = {};
 
@@ -58,7 +51,11 @@ export class Search extends React.PureComponent<SearchProps<any>, {}> {
     state: DownshiftState<any>,
     changes: StateChangeOptions<any>
   ) => {
-    return this.props.stateReducer(state, changes, pipeline);
+    if (typeof this.props.stateReducer === "function") {
+      return this.props.stateReducer(state, changes, pipeline);
+    }
+
+    return changes;
   };
 
   private onChange = (pipeline: PipelineProps) => (
@@ -123,8 +120,8 @@ export class Search extends React.PureComponent<SearchProps<any>, {}> {
 
           return (
             <Downshift
-              onChange={this.onChange(pipeline)}
               stateReducer={this.stateReducer(pipeline)}
+              onChange={this.onChange(pipeline)}
               {...rest}
             >
               {downshift =>
