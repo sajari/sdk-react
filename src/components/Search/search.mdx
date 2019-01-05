@@ -102,7 +102,7 @@ They are available to use when call:
             <ol style={{ margin: "20px 0 0 0", padding: "0" }}>
               {results.map(({ values: { url, title } }, index) => (
                 <li key={index}>
-                  <a href={url} target="__blank" noopener="true">
+                  <a href={url} target="__blank" rel="noopener">
                     {title}
                   </a>
                 </li>
@@ -172,7 +172,7 @@ They are available to use when call:
             <ol style={{ margin: "0", padding: "0" }}>
               {results.map(({ values: { url, title } }, index) => (
                 <li key={index}>
-                  <a href={url} target="__blank" noopener="true">
+                  <a href={url} target="__blank" rel="noopener">
                     {title}
                   </a>
                 </li>
