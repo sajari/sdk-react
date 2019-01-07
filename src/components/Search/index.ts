@@ -1,1 +1,6 @@
-export { default as Search } from "./Search";
+export {
+  Search,
+  PipelineProps,
+  SearchState,
+  StateChangeOptions
+} from "./Search";
