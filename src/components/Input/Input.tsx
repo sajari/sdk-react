@@ -9,12 +9,12 @@ import { Theme } from "../styles";
 import { ResultRendererProps, Results } from "./Results";
 import { Suggestions } from "./Suggestions";
 import { Typeahead } from "./Typeahead";
-import { Search } from "../Search";
 import {
+  Search,
   PipelineProps,
   SearchState,
   StateChangeOptions
-} from "../Search/Search";
+} from "../Search";
 
 export type InputMode = "standard" | "typeahead";
 export type DropdownMode = "none" | "suggestions" | "results";
