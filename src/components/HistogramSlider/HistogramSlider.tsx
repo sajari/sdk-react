@@ -4,21 +4,34 @@ import { RangeSlider } from "./RangeSlider";
 import { css } from "emotion";
 
 interface HistogramSliderProps {
+  /** Array of numbers used to render graph */
   data: number[];
+  /** Default value [start, end] */
   value: [number, number];
   min: number;
   max: number;
   step: number;
+  /** Minimum range between `start` and `end` */
   distance: number;
-  debounceDelay?: number;
   widthPx?: number;
   heightPx?: number;
-  colors: {
+  /** `in` color for the selected part */
+  colors?: {
     in: string;
     out: string;
   };
+  /** Custom component for render UI to reflect [start, end], pass `null` if you don't want to show the part */
+  InfoRenderComponent?:
+    | null
+    | ((
+        props: { value: [number, number]; min: number; max: number }
+      ) => JSX.Element);
+  /** Showing an `apply` & `reset` button if a function was passed to the prop*/
   onApply?: (value: [number, number]) => void;
+  /** Callback function while the range changed */
   onChange?: (value: [number, number]) => void;
+  /** The delay time for `onChange` get called from the last */
+  debounceDelay?: number;
 }
 
 interface HistogramSliderState {
@@ -31,12 +44,43 @@ export class HistogramSlider extends Component<
 > {
   static defaultProps = {
     widthPx: 300,
-    heightPx: 70
+    heightPx: 70,
+    colors: {
+      in: "#D7D8D8",
+      out: "#EEEEEE"
+    },
+    InfoRenderComponent: ({ value }: { value: [number, number] }) => (
+      <div
+        className={css({
+          marginBottom: "10px",
+          fontSize: "16px",
+          color: "#666666"
+        })}
+      >
+        ${value[0]} AUD - ${value[1]} AUD
+      </div>
+    )
   };
 
-  state: HistogramSliderState = {
-    value: [this.props.value[0], this.props.value[1]]
-  };
+  constructor(props: HistogramSliderProps) {
+    super(props);
+
+    if (this.props.min >= this.props.max) {
+      console.error(
+        `The prop "min" should not be greater than the props "max".`
+      );
+    }
+
+    if (this.props.value[0] >= this.props.value[1]) {
+      console.error(
+        `The [0] of the prop "value" should not be greater than the [1].`
+      );
+    }
+
+    this.state = {
+      value: [this.props.value[0], this.props.value[1]]
+    };
+  }
 
   timeout: number | undefined;
 
@@ -87,20 +131,13 @@ export class HistogramSlider extends Component<
   };
 
   render() {
-    if (this.props.min >= this.props.max) {
-      console.error(
-        `The prop "min" should not be greater than the props "max".`
-      );
-    }
-
-    if (this.props.value[0] >= this.props.value[1]) {
-      console.error(
-        `The [0] of the prop "value" should not be greater than the [1].`
-      );
-    }
-
     const isDisabled = this.isDisabled();
-    const { data, widthPx, ...rangeSliderProps } = this.props;
+    const {
+      data,
+      widthPx,
+      InfoRenderComponent,
+      ...rangeSliderProps
+    } = this.props;
 
     return (
       <div
@@ -112,7 +149,7 @@ export class HistogramSlider extends Component<
         })}
       >
         <Histogram
-          colors={this.props.colors}
+          colors={this.props.colors!}
           data={this.props.data}
           value={this.state.value}
           min={this.props.min}
@@ -122,19 +159,19 @@ export class HistogramSlider extends Component<
         />
         <RangeSlider
           {...rangeSliderProps}
+          colors={this.props.colors!}
           value={this.state.value}
           onChange={this.handleSliderChange}
         />
+
         <div className={css({ marginTop: "20px" })}>
-          <div
-            className={css({
-              marginBottom: "10px",
-              fontSize: "12px",
-              color: "#666666"
-            })}
-          >
-            ${this.state.value[0]} AUD - ${this.state.value[1]} AUD
-          </div>
+          {InfoRenderComponent && (
+            <InfoRenderComponent
+              value={this.state.value}
+              min={this.props.min}
+              max={this.props.max}
+            />
+          )}
 
           {typeof this.props.onApply === "function" && (
             <div
