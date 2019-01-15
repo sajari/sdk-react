@@ -29,7 +29,7 @@
     "prepublishOnly": "npm-run-all test build"
   },
   "dependencies": {
-    "@sajari/sdk-js": "^1.0.3",
+    "@sajari/sdk-js": "^1.0.5",
     "chroma-js": "^1.4.0",
     "downshift": "^2.2.2",
     "emotion": "^9.2.8",
