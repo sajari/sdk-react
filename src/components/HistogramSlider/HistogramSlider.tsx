@@ -11,6 +11,8 @@ interface HistogramSliderProps {
   step: number;
   distance: number;
   debounceDelay?: number;
+  widthPx?: number;
+  heightPx?: number;
   colors: {
     in: string;
     out: string;
@@ -27,6 +29,11 @@ export class HistogramSlider extends Component<
   HistogramSliderProps,
   HistogramSliderState
 > {
+  static defaultProps = {
+    widthPx: 300,
+    heightPx: 70
+  };
+
   state: HistogramSliderState = {
     value: [this.props.value[0], this.props.value[1]]
   };
@@ -93,15 +100,15 @@ export class HistogramSlider extends Component<
     }
 
     const isDisabled = this.isDisabled();
-    const { data, ...rangeSliderProps } = this.props;
+    const { data, widthPx, ...rangeSliderProps } = this.props;
 
     return (
       <div
         className={css({
-          maxWidth: "240px",
-          minWidth: "240px",
+          maxWidth: `${widthPx}px`,
+          width: "100%",
           padding: "10px",
-          boxSizing: "border-box"
+          boxSizing: "content-box"
         })}
       >
         <Histogram
@@ -110,14 +117,14 @@ export class HistogramSlider extends Component<
           value={this.state.value}
           min={this.props.min}
           max={this.props.max}
+          widthPx={this.props.widthPx!}
+          heightPx={this.props.heightPx!}
         />
-        <div className={css({ marginTop: "-5px" })}>
-          <RangeSlider
-            {...rangeSliderProps}
-            value={this.state.value}
-            onChange={this.handleSliderChange}
-          />
-        </div>
+        <RangeSlider
+          {...rangeSliderProps}
+          value={this.state.value}
+          onChange={this.handleSliderChange}
+        />
         <div className={css({ marginTop: "20px" })}>
           <div
             className={css({

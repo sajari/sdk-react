@@ -252,13 +252,17 @@ export class RangeSlider extends Component<RangeSliderProps, RangeSliderState> {
 
     return (
       <div
-        className={css({ width: "100%", position: "relative" })}
+        className={css({
+          width: "100%",
+          position: "relative",
+          marginTop: "-1px"
+        })}
         ref={this.ref}
       >
         <div
           className={css({
             width: "100%",
-            height: "4px",
+            height: "5px",
             borderRadius: "999px",
             backgroundColor: colors.out
           })}
@@ -268,7 +272,7 @@ export class RangeSlider extends Component<RangeSliderProps, RangeSliderState> {
           className={css({
             position: "absolute",
             top: "0px",
-            height: "4px",
+            height: "5px",
             borderRadius: "999px",
             backgroundColor: colors.in
           })}

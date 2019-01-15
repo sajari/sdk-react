@@ -2,8 +2,9 @@ import React, { Component } from "react";
 
 interface HistogramProps {
   data: number[];
-  maxHeightPx?: number;
   value: [number, number];
+  widthPx: number;
+  heightPx: number;
   min: number;
   max: number;
   colors: {
@@ -19,34 +20,42 @@ interface HistogramState {
 let maskCount = 0;
 
 export class Histogram extends Component<HistogramProps, HistogramState> {
-  static defaultProps = {
-    maxHeightPx: 20
-  };
+  maskHighlightID: string = `sf-histogram-mask-${maskCount++}`;
+  maskID: string = `sf-histogram-mask-${maskCount++}`;
+  viewBoxWidth: number = this.props.data.length;
+  viewBoxHeight: number =
+    (this.props.heightPx * this.viewBoxWidth) / this.props.widthPx;
 
   constructor(props: HistogramProps) {
     super(props);
 
-    const { data, maxHeightPx } = this.props;
+    const { data } = this.props;
     const max = Math.max(...data);
-    const heightPxPerUnit = maxHeightPx! / max;
-    const heightData = data.map(v => Math.round(heightPxPerUnit * v));
+    const heightPxPerUnit = this.viewBoxHeight / max;
+    const heightData = data.map(v =>
+      parseFloat((heightPxPerUnit * v).toFixed(2))
+    );
 
     this.state = {
       data: heightData
     };
   }
 
-  maskHighlightID: string = `sf-histogram-mask-${maskCount++}`;
-  maskID: string = `sf-histogram-mask-${maskCount++}`;
-  numOfColumn: number = this.props.data.length;
-
   componentWillReceiveProps({ data }: HistogramProps) {
     if (data !== this.props.data) {
       const max = Math.max(...data);
-      const heightPxPerUnit = this.props.maxHeightPx! / max;
-      const heightData = data.map(v => Math.round(heightPxPerUnit * v));
+      this.viewBoxWidth = data.length;
+      this.viewBoxHeight = parseFloat(
+        (
+          (this.props.heightPx * this.viewBoxWidth) /
+          this.props.widthPx
+        ).toFixed(2)
+      );
 
-      this.numOfColumn = data.length;
+      const heightPxPerUnit = this.viewBoxHeight / max;
+      const heightData = data.map(v =>
+        parseFloat((heightPxPerUnit * v).toFixed(2))
+      );
 
       this.setState({
         data: heightData
@@ -55,26 +64,27 @@ export class Histogram extends Component<HistogramProps, HistogramState> {
   }
 
   render() {
-    const { min, max, value, colors, maxHeightPx } = this.props;
+    const { min, max, value, colors } = this.props;
     const [vMin, vMax] = value;
     const range = max - min;
-    const start = ((vMin - min) * this.numOfColumn) / range;
-    const end = start + ((vMax - vMin) * this.numOfColumn) / range;
+    const start = ((vMin - min) * this.viewBoxWidth) / range;
+    const end = start + ((vMax - vMin) * this.viewBoxWidth) / range;
 
     return (
       <React.Fragment>
         <svg
+          display="block"
           width="100%"
           xmlns="http://www.w3.org/2000/svg"
-          viewBox={`0 0 ${this.numOfColumn} ${maxHeightPx}`}
+          viewBox={`0 0 ${this.viewBoxWidth} ${this.viewBoxHeight}`}
         >
           <defs>
             <mask
               id={this.maskID}
               x="0"
               y="0"
-              width={this.numOfColumn}
-              height={maxHeightPx}
+              width={this.viewBoxWidth}
+              height={this.viewBoxHeight}
             >
               >
               <rect
@@ -82,21 +92,21 @@ export class Histogram extends Component<HistogramProps, HistogramState> {
                 y="0"
                 fill="white"
                 width={start}
-                height={maxHeightPx}
+                height={this.viewBoxHeight}
               />
               <rect
                 x={start}
                 y="0"
                 fill="black"
                 width={end - start}
-                height={maxHeightPx}
+                height={this.viewBoxHeight}
               />
               <rect
                 x={end}
                 y="0"
                 fill="white"
-                width={this.numOfColumn - end}
-                height={maxHeightPx}
+                width={this.viewBoxWidth - end}
+                height={this.viewBoxHeight}
               />
             </mask>
 
@@ -104,8 +114,8 @@ export class Histogram extends Component<HistogramProps, HistogramState> {
               id={this.maskHighlightID}
               x="0"
               y="0"
-              width={this.numOfColumn}
-              height={maxHeightPx}
+              width={this.viewBoxWidth}
+              height={this.viewBoxHeight}
             >
               >
               <rect
@@ -113,7 +123,7 @@ export class Histogram extends Component<HistogramProps, HistogramState> {
                 y="0"
                 fill="white"
                 width={end - start}
-                height={maxHeightPx}
+                height={this.viewBoxHeight}
               />
             </mask>
           </defs>
@@ -122,18 +132,16 @@ export class Histogram extends Component<HistogramProps, HistogramState> {
               <rect
                 mask={`url(#${this.maskID})`}
                 x={index}
-                y={maxHeightPx! - height}
-                width="1.2"
-                stroke-width="0"
+                y={this.viewBoxHeight! - height}
+                width="1"
                 height={height}
                 fill={colors.out}
               />
               <rect
                 mask={`url(#${this.maskHighlightID})`}
                 x={index}
-                y={maxHeightPx! - height}
-                width="1.2"
-                stroke-width="0"
+                y={this.viewBoxHeight! - height}
+                width="1"
                 fill={colors.in}
                 height={height}
               />
