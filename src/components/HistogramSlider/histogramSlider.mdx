@@ -6,6 +6,8 @@ route: /components/histogram-slider
 
 import { PropsTable, Playground } from "docz";
 import { HistogramSlider } from "./HistogramSlider.tsx";
+import { HistogramSlider as PropsHistogramSlider } from "./HistogramSlider.tsx";
+import sampleData from "./sampleData.ts";
 
 # Histogram Slider
 
@@ -16,72 +18,63 @@ import { HistogramSlider } from "@sajari/sdk-react";
 
 ## Usage
 
-### With default props
-
-With the `default` props, the `<HistogramSlider />`.
+### With default width & height
 
 <Playground>
   <HistogramSlider
-    colors={{
-      in: "#D7D8D8",
-      out: "#EEEEEE"
-    }}
     min={0}
     max={1000}
     step={1}
     value={[0, 1000]}
     distance={50}
-    data={[
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      1,
-      0,
-      4,
-      9,
-      16,
-      44,
-      31,
-      40,
-      42,
-      32,
-      23,
-      17,
-      26,
-      39,
-      14,
-      23,
-      14,
-      17,
-      14,
-      13,
-      18,
-      18,
-      20,
-      11,
-      7,
-      15,
-      11,
-      8,
-      8,
-      8,
-      8,
-      8,
-      5,
-      6,
-      6,
-      3,
-      5,
-      3,
-      6,
-      2,
-      4,
-      0,
-      5,
-      63
-    ]}
+    data={sampleData}
   />
 </Playground>
+
+### Custom width, height & colors
+
+<Playground>
+  <HistogramSlider
+    colors={{
+      in: "#2d8be8",
+      out: "#b6d2ef"
+    }}
+    min={162}
+    max={14000}
+    step={2}
+    value={[162, 14000]}
+    distance={1000}
+    widthPx={200}
+    heightPx={100}
+    data={sampleData}
+  />
+</Playground>
+
+### Custom Info Render & opApply call
+
+<Playground>
+  <HistogramSlider    
+    min={0}
+    max={1000}
+    step={1}
+    value={[0, 1000]}
+    distance={50}
+    data={sampleData}
+    InfoRenderComponent={({ value }) => (
+      <div style={{ marginBottom: "10px" }}>
+        From <b>{value[0]}</b> to <b>{value[1]}</b>
+      </div>
+    )}
+    onApply={value => {
+      if(value[0] !== 0 || value[1] !== 1000){
+        alert(value);
+      }
+    }}
+
+/>
+
+</Playground>
+
+## Props
+
+<PropsTable of={PropsHistogramSlider} />
