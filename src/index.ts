@@ -30,7 +30,8 @@ export {
   Select,
   Checkbox,
   Radio,
-  Search
+  Search,
+  HistogramSlider
 } from "./components";
 
 export { Overlay } from "./containers";
