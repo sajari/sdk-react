@@ -56,6 +56,16 @@ import { Results } from "@sajari/sdk-react"
     }} />
 </Playground>
 
+### With re-mapped fields
+<Playground>
+    <Results fields={{
+        title: "description",
+        description: "title",
+        url: "url",
+        image: "image"
+    }} />
+</Playground>
+
 ### With custom result renderer
 <ExampleContainer>
     <Results
