@@ -36,6 +36,7 @@ interface HistogramSliderProps {
 
 interface HistogramSliderState {
   value: [number, number];
+  prevPropValue: [number, number];
 }
 
 const DefaultInfoRenderComponent = ({ value }: { value: [number, number] }) => (
@@ -80,17 +81,28 @@ export class HistogramSlider extends Component<
     }
 
     this.state = {
-      value: [this.props.value[0], this.props.value[1]]
+      value: [this.props.value[0], this.props.value[1]],
+      prevPropValue: [this.props.value[0], this.props.value[1]]
     };
   }
 
   timeout: number | undefined;
 
-  componentWillReceiveProps(nextProps: HistogramSliderProps) {
-    const { value } = nextProps;
-    if (value !== this.props.value) {
-      this.setState({ value });
+  static getDerivedStateFromProps(
+    nextProps: HistogramSliderProps,
+    prevState: HistogramSliderState
+  ) {
+    if (
+      nextProps.value[0] !== prevState.prevPropValue[0] ||
+      nextProps.value[1] !== prevState.prevPropValue[1]
+    ) {
+      return {
+        value: [nextProps.value[0], nextProps.value[1]],
+        prevPropValue: [nextProps.value[0], nextProps.value[1]]
+      };
     }
+
+    return null;
   }
 
   reset = (e: React.MouseEvent) => {
@@ -119,7 +131,7 @@ export class HistogramSlider extends Component<
         }
         this.timeout = window.setTimeout(() => {
           //@ts-ignore: has been checked outsite
-          this.props.onChange(this.state.value);
+          this.props.onChange(value);
         }, this.props.debounceDelay || 500);
       }
     });

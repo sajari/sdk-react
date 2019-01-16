@@ -15,6 +15,7 @@ interface HistogramProps {
 
 interface HistogramState {
   data: number[];
+  prevPropData: number[];
 }
 
 let maskCount = 0;
@@ -22,53 +23,47 @@ let maskCount = 0;
 export class Histogram extends Component<HistogramProps, HistogramState> {
   maskHighlightID: string = `sf-histogram-mask-${maskCount++}`;
   maskID: string = `sf-histogram-mask-${maskCount++}`;
-  viewBoxWidth: number = this.props.data.length;
-  viewBoxHeight: number =
-    (this.props.heightPx * this.viewBoxWidth) / this.props.widthPx;
 
-  constructor(props: HistogramProps) {
-    super(props);
+  state: HistogramState = {
+    prevPropData: [],
+    data: []
+  };
 
-    const { data } = this.props;
-    const max = Math.max(...data);
-    const heightPxPerUnit = this.viewBoxHeight / max;
-    const heightData = data.map(v =>
-      parseFloat((heightPxPerUnit * v).toFixed(2))
-    );
+  static getDerivedStateFromProps(
+    nextProps: HistogramProps,
+    prevState: HistogramState
+  ) {
+    if (nextProps.data !== prevState.prevPropData) {
+      const viewBoxWidth = nextProps.data.length;
+      const viewBoxHeight =
+        (nextProps.heightPx * viewBoxWidth) / nextProps.widthPx;
+      const max = Math.max(...nextProps.data);
+      const heightPxPerUnit = viewBoxHeight / max;
 
-    this.state = {
-      data: heightData
-    };
-  }
-
-  componentWillReceiveProps({ data }: HistogramProps) {
-    if (data !== this.props.data) {
-      const max = Math.max(...data);
-      this.viewBoxWidth = data.length;
-      this.viewBoxHeight = parseFloat(
-        (
-          (this.props.heightPx * this.viewBoxWidth) /
-          this.props.widthPx
-        ).toFixed(2)
-      );
-
-      const heightPxPerUnit = this.viewBoxHeight / max;
-      const heightData = data.map(v =>
-        parseFloat((heightPxPerUnit * v).toFixed(2))
-      );
-
-      this.setState({
-        data: heightData
-      });
+      return {
+        data: nextProps.data.map(v =>
+          parseFloat((heightPxPerUnit * v).toFixed(2))
+        )
+      };
     }
+
+    return null;
   }
+
+  getViewboxSize = () => {
+    const viewBoxWidth = this.props.data.length;
+    const viewBoxHeight =
+      (this.props.heightPx * viewBoxWidth) / this.props.widthPx;
+    return { viewBoxHeight, viewBoxWidth };
+  };
 
   render() {
     const { min, max, value, colors } = this.props;
     const [vMin, vMax] = value;
     const range = max - min;
-    const start = ((vMin - min) * this.viewBoxWidth) / range;
-    const end = start + ((vMax - vMin) * this.viewBoxWidth) / range;
+    const { viewBoxWidth, viewBoxHeight } = this.getViewboxSize();
+    const start = ((vMin - min) * viewBoxWidth) / range;
+    const end = start + ((vMax - vMin) * viewBoxWidth) / range;
 
     return (
       <React.Fragment>
@@ -76,15 +71,15 @@ export class Histogram extends Component<HistogramProps, HistogramState> {
           display="block"
           width="100%"
           xmlns="http://www.w3.org/2000/svg"
-          viewBox={`0 0 ${this.viewBoxWidth} ${this.viewBoxHeight}`}
+          viewBox={`0 0 ${viewBoxWidth} ${viewBoxHeight}`}
         >
           <defs>
             <mask
               id={this.maskID}
               x="0"
               y="0"
-              width={this.viewBoxWidth}
-              height={this.viewBoxHeight}
+              width={viewBoxWidth}
+              height={viewBoxHeight}
             >
               >
               <rect
@@ -92,21 +87,21 @@ export class Histogram extends Component<HistogramProps, HistogramState> {
                 y="0"
                 fill="white"
                 width={start}
-                height={this.viewBoxHeight}
+                height={viewBoxHeight}
               />
               <rect
                 x={start}
                 y="0"
                 fill="black"
                 width={end - start}
-                height={this.viewBoxHeight}
+                height={viewBoxHeight}
               />
               <rect
                 x={end}
                 y="0"
                 fill="white"
-                width={this.viewBoxWidth - end}
-                height={this.viewBoxHeight}
+                width={viewBoxWidth - end}
+                height={viewBoxHeight}
               />
             </mask>
 
@@ -114,8 +109,8 @@ export class Histogram extends Component<HistogramProps, HistogramState> {
               id={this.maskHighlightID}
               x="0"
               y="0"
-              width={this.viewBoxWidth}
-              height={this.viewBoxHeight}
+              width={viewBoxWidth}
+              height={viewBoxHeight}
             >
               >
               <rect
@@ -123,7 +118,7 @@ export class Histogram extends Component<HistogramProps, HistogramState> {
                 y="0"
                 fill="white"
                 width={end - start}
-                height={this.viewBoxHeight}
+                height={viewBoxHeight}
               />
             </mask>
           </defs>
@@ -132,7 +127,7 @@ export class Histogram extends Component<HistogramProps, HistogramState> {
               <rect
                 mask={`url(#${this.maskID})`}
                 x={index}
-                y={this.viewBoxHeight! - height}
+                y={viewBoxHeight! - height}
                 width="1"
                 height={height}
                 fill={colors.out}
@@ -140,7 +135,7 @@ export class Histogram extends Component<HistogramProps, HistogramState> {
               <rect
                 mask={`url(#${this.maskHighlightID})`}
                 x={index}
-                y={this.viewBoxHeight! - height}
+                y={viewBoxHeight! - height}
                 width="1"
                 fill={colors.in}
                 height={height}
