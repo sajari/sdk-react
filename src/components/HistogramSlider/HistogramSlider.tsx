@@ -38,6 +38,18 @@ interface HistogramSliderState {
   value: [number, number];
 }
 
+const DefaultInfoRenderComponent = ({ value }: { value: [number, number] }) => (
+  <div
+    className={css({
+      marginBottom: "10px",
+      fontSize: "16px",
+      color: "#666666"
+    })}
+  >
+    ${value[0]} AUD - ${value[1]} AUD
+  </div>
+);
+
 export class HistogramSlider extends Component<
   HistogramSliderProps,
   HistogramSliderState
@@ -49,17 +61,7 @@ export class HistogramSlider extends Component<
       in: "#D7D8D8",
       out: "#EEEEEE"
     },
-    InfoRenderComponent: ({ value }: { value: [number, number] }) => (
-      <div
-        className={css({
-          marginBottom: "10px",
-          fontSize: "16px",
-          color: "#666666"
-        })}
-      >
-        ${value[0]} AUD - ${value[1]} AUD
-      </div>
-    )
+    InfoRenderComponent: DefaultInfoRenderComponent
   };
 
   constructor(props: HistogramSliderProps) {
