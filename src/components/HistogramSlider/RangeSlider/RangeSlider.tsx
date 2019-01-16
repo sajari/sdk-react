@@ -7,24 +7,19 @@ interface RangeSliderProps {
   step: number;
   value: [number, number];
   distance: number;
-  onChange?: (value: [number, number]) => void;
+  onChange: (value: [number, number]) => void;
   colors: {
     in: string;
     out: string;
   };
 }
 
-interface RangeSliderState {
-  value: [number, number];
-}
-
-export class RangeSlider extends Component<RangeSliderProps, RangeSliderState> {
-  state: RangeSliderState = {
-    value: [this.props.value[0], this.props.value[1]]
-  };
-
+export class RangeSlider extends Component<RangeSliderProps> {
   ref = React.createRef<HTMLDivElement>();
-  range = this.props.max - this.props.min;
+
+  getRange = () => {
+    return this.props.max - this.props.min;
+  };
 
   getKeyboardStep = () => {
     let step = Math.floor(this.props.max / 100);
@@ -82,49 +77,69 @@ export class RangeSlider extends Component<RangeSliderProps, RangeSliderState> {
   dragMin = (clientX: number) => {
     const { minX, width } = this.getCordsProperties();
     const percent = clientX < minX ? 0 : (clientX - minX) / width;
-    let min = percent * this.range;
+    const {
+      onChange,
+      value: [prevStateMin, prevStateMax],
+      min,
+      step,
+      distance
+    } = this.props;
+    let nextStateMin = percent * this.getRange();
+    let value: [number, number];
 
-    this.setState(prevState => {
-      const [prevStateMin, prevStateMax] = prevState.value;
-      if (clientX <= minX) {
-        return { value: [this.props.min, prevStateMax] };
-      }
-
-      const delta = (min - prevStateMin + this.props.min) / this.props.step;
+    if (clientX <= minX) {
+      value = [min, prevStateMax];
+    } else {
+      const delta = (nextStateMin - prevStateMin + min) / step;
       let addition = 0;
       if (Math.abs(delta) >= 1) {
-        addition = Math.floor(delta / this.props.step) * this.props.step;
+        addition = Math.floor(delta / step) * step;
       }
-      min = prevStateMin + addition;
-      if (min + this.props.distance > prevStateMax) {
-        min = prevStateMax - this.props.distance;
+      nextStateMin = prevStateMin + addition;
+      if (nextStateMin + distance > prevStateMax) {
+        nextStateMin = prevStateMax - distance;
       }
-      return { value: [min, prevStateMax] };
-    }, this.callback);
+      value = [nextStateMin, prevStateMax];
+    }
+
+    this.setState({ value }, () => {
+      onChange(value);
+    });
   };
 
   dragMax = (clientX: number) => {
     const { maxX, minX, width } = this.getCordsProperties();
     const percent = clientX > maxX ? 1 : (clientX - minX) / width;
-    let max = percent * this.range;
+    let nextStateMax = percent * this.getRange();
 
-    this.setState((prevState: RangeSliderState) => {
-      const [prevStateMin, prevStateMax] = prevState.value;
+    const {
+      onChange,
+      value: [prevStateMin, prevStateMax],
+      step,
+      min,
+      max,
+      distance
+    } = this.props;
 
-      if (clientX >= maxX) {
-        return { value: [prevStateMin, this.props.max] };
-      }
-      const delta = (max - prevStateMax + this.props.min) / this.props.step;
+    let value: [number, number];
+    if (clientX >= maxX) {
+      value = [prevStateMin, max];
+    } else {
+      const delta = (nextStateMax - prevStateMax + min) / step;
       let addition = 0;
       if (Math.abs(delta) >= 1) {
-        addition = Math.ceil(delta / this.props.step) * this.props.step;
+        addition = Math.ceil(delta / step) * step;
       }
-      max = prevStateMax + addition;
-      if (max - this.props.distance < prevStateMin) {
-        max = prevStateMin + this.props.distance;
+      nextStateMax = prevStateMax + addition;
+      if (nextStateMax - distance < prevStateMin) {
+        nextStateMax = prevStateMin + distance;
       }
-      return { value: [prevStateMin, max] };
-    }, this.callback);
+      value = [prevStateMin, nextStateMax];
+    }
+
+    this.setState({ value }, () => {
+      onChange(value);
+    });
   };
 
   handleMinKeydown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
@@ -133,24 +148,32 @@ export class RangeSlider extends Component<RangeSliderProps, RangeSliderState> {
       e.preventDefault();
       return;
     }
-    const { distance, min } = this.props;
+    const {
+      distance,
+      min,
+      value: [prevStateMin, prevStateMax],
+      onChange
+    } = this.props;
+    let value: [number, number];
 
     if (key === "ArrowRight") {
-      this.setState((prevState: RangeSliderState) => {
-        const [prevStateMin, prevStateMax] = prevState.value;
-        const nextStateMin =
-          prevStateMin + distance >= prevStateMax
-            ? prevStateMax - distance
-            : prevStateMin + this.getKeyboardStep();
-        return { value: [nextStateMin, prevStateMax] };
-      }, this.callback);
+      const nextStateMin =
+        prevStateMin + distance >= prevStateMax
+          ? prevStateMax - distance
+          : prevStateMin + this.getKeyboardStep();
+
+      value = [nextStateMin, prevStateMax];
+      this.setState({ value }, () => {
+        onChange(value);
+      });
     } else if (key === "ArrowLeft") {
-      this.setState((prevState: RangeSliderState) => {
-        const [prevStateMin, prevStateMax] = prevState.value;
-        const nextStateMin =
-          prevStateMin <= min ? min : prevStateMin - this.getKeyboardStep();
-        return { value: [nextStateMin, prevStateMax] };
-      }, this.callback);
+      const nextStateMin =
+        prevStateMin <= min ? min : prevStateMin - this.getKeyboardStep();
+
+      value = [nextStateMin, prevStateMax];
+      this.setState({ value }, () => {
+        onChange(value);
+      });
     }
   };
 
@@ -160,24 +183,32 @@ export class RangeSlider extends Component<RangeSliderProps, RangeSliderState> {
       e.preventDefault();
       return;
     }
-    const { distance, max } = this.props;
+    const {
+      distance,
+      max,
+      value: [prevStateMin, prevStateMax],
+      onChange
+    } = this.props;
+    let value: [number, number];
 
     if (key === "ArrowRight") {
-      this.setState((prevState: RangeSliderState) => {
-        const [prevStateMin, prevStateMax] = prevState.value;
-        const nextStateMax =
-          prevStateMax >= max ? max : prevStateMax + this.getKeyboardStep();
-        return { value: [prevStateMin, nextStateMax] };
-      }, this.callback);
+      const nextStateMax =
+        prevStateMax >= max ? max : prevStateMax + this.getKeyboardStep();
+      value = [prevStateMin, nextStateMax];
+
+      this.setState({ value }, () => {
+        onChange(value);
+      });
     } else if (key === "ArrowLeft") {
-      this.setState((prevState: RangeSliderState) => {
-        const [prevStateMin, prevStateMax] = prevState.value;
-        const nextStateMax =
-          prevStateMax - distance <= prevStateMin
-            ? prevStateMin + distance
-            : prevStateMax - this.getKeyboardStep();
-        return { value: [prevStateMin, nextStateMax] };
-      }, this.callback);
+      const nextStateMax =
+        prevStateMax - distance <= prevStateMin
+          ? prevStateMin + distance
+          : prevStateMax - this.getKeyboardStep();
+      value = [prevStateMin, nextStateMax];
+
+      this.setState({ value }, () => {
+        onChange(value);
+      });
     }
   };
 
@@ -189,34 +220,34 @@ export class RangeSlider extends Component<RangeSliderProps, RangeSliderState> {
     } else if (point > maxX) {
       point = maxX;
     }
-    const range =
-      Math.round(((point - minX) * this.range) / width) + this.props.min;
+    const {
+      onChange,
+      value: [prevStateMin, prevStateMax],
+      min
+    } = this.props;
+    const range = Math.round(((point - minX) * this.getRange()) / width) + min;
 
-    this.setState((prevState: RangeSliderState) => {
-      const [prevStateMin, prevStateMax] = prevState.value;
-      const { distance } = this.props;
-      if (range <= prevStateMin) {
-        return { value: [range, prevStateMax] };
-      } else if (range >= prevStateMax) {
-        return { value: [prevStateMin, range] };
-      }
-      if (Math.abs(range - prevStateMin) >= Math.abs(range - prevStateMax)) {
-        const nextMaxState =
-          range - prevStateMin < distance ? prevStateMin + distance : range;
-        return { value: [prevStateMin, nextMaxState] };
-      } else {
-        const nextMinState =
-          prevStateMax - range < distance ? prevStateMax - distance : range;
-        return { value: [nextMinState, prevStateMax] };
-      }
-    }, this.callback);
-  };
-
-  callback = () => {
-    if (typeof this.props.onChange === "function") {
-      const { value } = this.state;
-      this.props.onChange(value);
+    let value: [number, number];
+    const { distance } = this.props;
+    if (range <= prevStateMin) {
+      value = [range, prevStateMax];
+    } else if (range >= prevStateMax) {
+      value = [prevStateMin, range];
+    } else if (
+      Math.abs(range - prevStateMin) >= Math.abs(range - prevStateMax)
+    ) {
+      const nextMaxState =
+        range - prevStateMin < distance ? prevStateMin + distance : range;
+      value = [prevStateMin, nextMaxState];
+    } else {
+      const nextMinState =
+        prevStateMax - range < distance ? prevStateMax - distance : range;
+      value = [nextMinState, prevStateMax];
     }
+
+    this.setState({ value }, () => {
+      onChange(value);
+    });
   };
 
   clearDocumentEvents = () => {
@@ -229,26 +260,20 @@ export class RangeSlider extends Component<RangeSliderProps, RangeSliderState> {
     document.removeEventListener("touchcancel", this.clearDocumentEvents);
   };
 
-  componentWillReceiveProps(nextProps: RangeSliderProps) {
-    const { value, min, max } = nextProps;
-    if (value !== this.props.value) {
-      this.setState({ value });
-    }
-
-    if (min !== this.props.min || max !== this.props.max) {
-      this.range = max - min;
-    }
-  }
-
   componentWillUnmount() {
     this.clearDocumentEvents();
   }
 
   render() {
-    const [minState, maxState] = this.state.value;
-    const { min, max, colors } = this.props;
-    const right = 100 - ((maxState - min) * 100) / this.range;
-    const left = ((minState - min) * 100) / this.range;
+    const range = this.getRange();
+    const {
+      min,
+      max,
+      colors,
+      value: [minState, maxState]
+    } = this.props;
+    const right = 100 - ((maxState - min) * 100) / range;
+    const left = ((minState - min) * 100) / range;
 
     return (
       <div
