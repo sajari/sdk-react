@@ -9,12 +9,14 @@ export interface MapResultsViewProps {
   data: {
     lat: number;
     lng: number;
-    markers: {
-      lat: number;
-      lng: number;
-      [K: string]: any;
-    }[];
+    markers: MarkerProps[];
   };
+}
+
+export interface MarkerProps {
+  lat: number;
+  lng: number;
+  [K: string]: any;
 }
 
 let scriptTag: HTMLScriptElement | undefined;
@@ -35,18 +37,14 @@ interface HTMLMarkerType {
 
 const initMap = function(
   options: google.maps.MapOptions,
-  markers: { [K: string]: any }[],
+  markers: MarkerProps[],
   MarkerComponent: React.ComponentClass,
   mapState: MapResultsViewState,
   node: HTMLDivElement
 ) {
   const map: google.maps.Map = new google.maps.Map(node, options);
   // Create Marker
-  function HTMLMarker(
-    this: HTMLMarkerType,
-    data: { lat: number; lng: number; [K: string]: any },
-    index: number
-  ) {
+  function HTMLMarker(this: HTMLMarkerType, data: MarkerProps, index: number) {
     const { lat, lng, ...rest } = data;
     this.index = index;
     this.lat = lat;
@@ -54,55 +52,46 @@ const initMap = function(
     this.lng = lng;
     this.data = rest;
     this.pos = new google.maps.LatLng(this.lat, this.lng);
+    this.render = (mapState: MapResultsViewState) => {
+      this.div.style.zIndex = mapState.activeMarker === this.index ? "2" : "1";
+      ReactDOM.render(
+        // @ts-ignore
+        <MarkerComponent
+          {...this.data}
+          map={mapState}
+          index={this.index}
+          isSelected={mapState.selectedMarkers.includes(this.index)}
+          isActive={mapState.activeMarker === this.index}
+          getMarkerProps={(props: React.HTMLAttributes<HTMLElement>) => ({
+            onClick: callAll(() => {
+              mapState.setActiveMarker(this.index);
+            }, props.onClick)
+          })}
+        />,
+        this.div
+      );
+    };
   }
 
   HTMLMarker.prototype = new google.maps.OverlayView();
-  HTMLMarker.prototype.onRemove = function() {
-    console.log("remove");
-  };
-
-  // init your html element here
   HTMLMarker.prototype.onAdd = function(this: HTMLMarkerType) {
-    console.log("add marker fire");
     this.div = document.createElement("div");
     this.div.className = "sf-map-view-result-marker";
-
-    this.div.style.zIndex = mapState.activeMarker === this.index ? "2" : "1";
-    ReactDOM.render(
-      // @ts-ignore
-      <MarkerComponent
-        {...this.data}
-        map={mapState}
-        index={this.index}
-        isSelected={mapState.selectedMarkers.includes(this.index)}
-        isActive={mapState.activeMarker === this.index}
-        getMarkerProps={(props: React.HTMLAttributes<HTMLElement>) => ({
-          onClick: callAll(() => {
-            mapState.setActiveMarker(this.index);
-          }, props.onClick)
-        })}
-      />,
-      this.div
-    );
-
+    this.render(mapState);
     var panes = this.getPanes();
     panes.overlayImage.appendChild(this.div);
   };
 
   HTMLMarker.prototype.draw = function(this: HTMLMarkerType) {
-    console.log("drag fire!");
     var overlayProjection = this.getProjection();
     var position = overlayProjection.fromLatLngToDivPixel(this.pos);
-    // var panes = this.getPanes();
     this.div.style.left = position.x + "px";
     this.div.style.top = position.y + "px";
   };
 
   var bounds = new google.maps.LatLngBounds();
 
-  //@ts-ignore
-  const storedMarkers = [];
-  //@ts-ignore
+  const storedMarkers: HTMLMarkerType[] = [];
   markers.forEach((marker, index) => {
     //@ts-ignore
     var htmlMarker = new HTMLMarker(marker, index);
@@ -112,9 +101,7 @@ const initMap = function(
     map.fitBounds(bounds);
   });
 
-  //@ts-ignore
-  return mapState => {
-    //@ts-ignore
+  return (mapState: MapResultsViewState) => {
     storedMarkers.forEach(marker => {
       marker.render(mapState);
     });
@@ -139,9 +126,8 @@ export class MapResultsView extends Component<
   setActiveMarker = (index: number) => {
     this.setState(
       prevState => {
-        const newState = { activeMarker: index };
+        const newState = { activeMarker: index } as MapResultsViewState;
         if (!prevState.selectedMarkers.includes(index)) {
-          // @ts-ignore
           newState.selectedMarkers = [...prevState.selectedMarkers, index];
         }
         return newState;
@@ -224,12 +210,13 @@ export class MapResultsView extends Component<
           selectedMarkers: []
         },
         () => {
+          if (!this.target.current) return;
           this.markerClickCallback = this.markerClickCallback = initMap(
             this.getOptions(nextProps),
             nextProps.data.markers,
             nextProps.MarkerComponent,
             this.state,
-            this.target.current as HTMLDivElement
+            this.target.current
           );
         }
       );
@@ -246,9 +233,12 @@ export class MapResultsView extends Component<
           this.clientY = e.clientY;
         }}
         onMouseUp={(e: React.MouseEvent<HTMLDivElement>) => {
+          // TODO:
           if (
-            //@ts-ignore
-            !closestById(e.target, "sf-map-view-result-marker") &&
+            !closestById(
+              e.target as HTMLElement,
+              "sf-map-view-result-marker"
+            ) &&
             (this.clientX === e.clientX && this.clientY === e.clientY)
           ) {
             this.setActiveMarker(-1);
@@ -259,16 +249,18 @@ export class MapResultsView extends Component<
   }
 }
 
-//@ts-ignore
-const callAll = (...fns) => (...args) => fns.forEach(fn => fn && fn(...args));
+const callAll = (...fns: (((...args: any[]) => void) | undefined)[]) => (
+  ...args: any[]
+) => fns.forEach(fn => fn && fn(...args));
 
-function closestById(el: HTMLElement, className: string) {
-  while (el.className != className) {
-    //@ts-ignore
-    el = el.parentNode;
-    if (!el) {
+const closestById = (el: HTMLElement, className: string) => {
+  let element: HTMLElement | null = el;
+
+  while (element && element.className != className) {
+    element = element.parentNode as HTMLElement | null;
+    if (!element) {
       return null;
     }
   }
-  return el;
-}
+  return element;
+};
