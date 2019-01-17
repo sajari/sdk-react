@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import * as ReactDOM from "react-dom";
 import { css, cx } from "emotion";
-
+import DefaultMarker from "./DefaultMarker";
 interface MapResultsViewProps<Marker> {
   GoogleAPIMapKey: string;
-  MarkerComponent: React.ComponentType<MarkerComponentProps<Marker>>;
+  MarkerComponent?: React.ComponentType<MarkerComponentProps<Marker>>;
   options?: google.maps.MapOptions;
   styles?: React.CSSProperties;
   data: MapProps<Marker>;
@@ -28,7 +28,7 @@ export type MarkerComponentProps<Marker> = Marker & {
   isActive: boolean;
   index: number;
   getMarkerProps: (
-    props: React.HTMLAttributes<HTMLElement>
+    props?: React.HTMLAttributes<HTMLElement>
   ) => React.HTMLAttributes<HTMLElement>;
 };
 
@@ -81,10 +81,10 @@ const initializeMap = function<Marker>(
           index={this.index}
           isSelected={mapState.selectedMarkers.includes(this.index)}
           isActive={mapState.activeMarker === this.index}
-          getMarkerProps={(props: React.HTMLAttributes<HTMLElement>) => ({
+          getMarkerProps={(props?: React.HTMLAttributes<HTMLElement>) => ({
             onClick: callAll(() => {
               mapState.setActiveMarker(this.index);
-            }, props.onClick)
+            }, props && props.onClick)
           })}
           {...data}
         />,
@@ -138,7 +138,6 @@ interface MapResultsViewStateAndHelpers {
   setActiveMarker: (id: number) => void;
   selectedMarkers: number[];
 }
-
 export class MapResultsView<Marker> extends Component<
   MapResultsViewProps<Marker>,
   MapResultsViewState<Marker>
@@ -164,6 +163,7 @@ export class MapResultsView<Marker> extends Component<
   };
 
   static defaultProps = {
+    MarkerComponent: DefaultMarker,
     styles: {
       paddingBottom: "56%"
     }
@@ -222,7 +222,7 @@ export class MapResultsView<Marker> extends Component<
     this.markerClickCallback = initializeMap<Marker>(
       this.getOptions(),
       props.data.markers,
-      props.MarkerComponent,
+      props.MarkerComponent!,
       this.getMapResultsViewStateAndHelpers(),
       this.target.current
     );
