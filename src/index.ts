@@ -30,7 +30,9 @@ export {
   Select,
   Checkbox,
   Radio,
-  MapResultsView
+  MapResultsView,
+  MarkerRemote,
+  MarkerComponentProps
 } from "./components";
 
 export { Overlay } from "./containers";

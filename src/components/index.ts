@@ -23,4 +23,8 @@ export { Checkbox } from "./Checkbox";
 
 export { Radio } from "./Radio";
 
-export { MapResultsView } from "./MapResultsView";
+export {
+  MapResultsView,
+  MarkerRemote,
+  MarkerComponentProps
+} from "./MapResultsView";
