@@ -9,7 +9,7 @@ import { PipelineConsumer } from "../context/pipeline";
 import { SearchFn, PaginateFn } from "../context/pipeline/context";
 import { Result } from "@sajari/sdk-js";
 
-import { isNotEmptyArray, isNotEmptyString } from "./utils";
+import { isNotEmptyArray, isNotEmptyString, mapToObject } from "./utils";
 
 export type SearchStateAndHelpers = ControllerStateAndHelpers<any> &
   PipelineProps;
@@ -21,6 +21,11 @@ export interface PipelineProps {
   suggestions: string[];
   results: Result[];
   completion: string;
+  summary: SummaryInterface;
+}
+
+interface SummaryInterface {
+  [k: string]: string | number;
 }
 
 export interface StateChangeOptions<Item> extends StateChangeOptions<Item> {}
@@ -97,6 +102,8 @@ export class Search extends React.PureComponent<SearchProps<any>, {}> {
             pipelines.instant.completion
           );
 
+          pipelines.instant;
+
           const results = isNotEmptyArray(
             (pipelines.search.response &&
               pipelines.search.response.getResults()) ||
@@ -105,6 +112,18 @@ export class Search extends React.PureComponent<SearchProps<any>, {}> {
               pipelines.instant.response.getResults()) ||
               []
           );
+
+          const response =
+            pipelines.search.response || pipelines.instant.response;
+          let summary = {};
+          if (response) {
+            summary = {
+              ...mapToObject(response.getQueryValues()),
+              ...mapToObject(response.getValues()),
+              ...mapToObject(response.getResponse())
+            };
+          }
+
           const paginate = pipelines.paginate;
           const instantSearch = pipelines.instant.search;
           const search = pipelines.search.search;
@@ -115,7 +134,8 @@ export class Search extends React.PureComponent<SearchProps<any>, {}> {
             search,
             results,
             suggestions,
-            completion
+            completion,
+            summary
           };
 
           return (
