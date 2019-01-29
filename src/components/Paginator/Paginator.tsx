@@ -7,6 +7,11 @@ import { pageNumbers } from "./utils";
 import { PaginatorContainer } from "./Container";
 import { LeftChevron, RightChevron } from "./icons";
 import { Container, PageButton, PageNumber } from "./styled";
+import withGetStyles, {
+  WrapperComponentProps,
+  DefaultStyleProps
+} from "../../shared/withGetStyles";
+import { Theme } from "../styles/theme";
 
 export interface PaginatorProps {
   windowSize?: number;
@@ -23,28 +28,78 @@ export interface PaginatorProps {
   PageNumberRenderer?: React.ComponentType<PageNumberProps>;
 }
 
-export function Paginator(props: PaginatorProps) {
+const defaultStyles = {
+  container: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  controls: (props: StyleProps) => ({
+    backgroundColor: "transparent",
+    border: "none",
+    cursor: "pointer",
+    display: ["inline-block", "-moz-inline-stack"],
+    fontSize: "1em",
+    fontWeight: "bold",
+    padding: 10,
+    userSelect: "none",
+    width: 44,
+    height: 44,
+    textAlign: "center",
+    lineHeight: 0,
+    color: props.isDisabled ? "#aaa" : "#777"
+  }),
+  number: ({ isCurrent, theme }: StyleProps) => {
+    return {
+      cursor: "pointer",
+      display: ["inline-block", "-moz-inline-stack"],
+      fontWeight: "bold",
+      padding: 10,
+      userSelect: "none",
+      width: 44,
+      height: 44,
+      textAlign: "center"
+    };
+  }
+};
+
+interface StyleProps {
+  isDisabled?: boolean;
+  isCurrent?: boolean;
+  theme?: Theme;
+}
+
+export function Paginator(
+  props: WrapperComponentProps<PaginatorProps, StyleProps>
+) {
   const {
     windowSize = 5,
     styles = {},
     PreviousButtonRenderer = PreviousPageButton,
     NextButtonRenderer = NextPageButton,
-    PageNumberRenderer = DefaultPageNumber
+    PageNumberRenderer = DefaultPageNumber,
+    getStyles
   } = props;
   return (
     <PaginatorContainer>
       {({ page, totalPages, paginate }) => {
         return (
-          <Container
-            className={cx("sj-paginator", props.className)}
+          <nav
             aria-label="Pagination Navigation"
-            styles={styles.container}
+            // styles={styles.container}
+            className={cx(
+              "sj-paginator",
+              css(getStyles("title")),
+              props.className
+            )}
           >
             {page !== 1 && (
               <PreviousButtonRenderer
-                isDisabled={page === 1}
+                // isDisabled={page === 1}
                 onClick={prevPage(paginate, page)}
-                styles={styles.controls}
+                className={css(
+                  getStyles("controls", { isDisabled: page === 1 })
+                )}
               />
             )}
             <ul
@@ -70,49 +125,50 @@ export function Paginator(props: PaginatorProps) {
             </ul>
             {page !== totalPages && (
               <NextButtonRenderer
-                isDisabled={page === totalPages}
                 onClick={nextPage(paginate, page, totalPages)}
-                styles={styles.controls}
+                className={css(
+                  getStyles("controls", { isDisabled: page === totalPages })
+                )}
               />
             )}
-          </Container>
+          </nav>
         );
       }}
     </PaginatorContainer>
   );
 }
 
+export default withGetStyles<PaginatorProps, StyleProps>(
+  Paginator,
+  defaultStyles as DefaultStyleProps<StyleProps>
+);
+
 interface PageButtonProps {
-  isDisabled: boolean;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  styles?: React.CSSProperties;
+  className: string;
 }
 
 function PreviousPageButton(props: PageButtonProps) {
   return (
-    <PageButton
-      isDisabled={props.isDisabled}
+    <button
       onClick={props.onClick}
       aria-label="Goto Previous Page"
-      className="sj-paginator__page-button"
-      styles={props.styles}
+      className={"sj-paginator__page-button " + props.className}
     >
       <LeftChevron />
-    </PageButton>
+    </button>
   );
 }
 
 function NextPageButton(props: PageButtonProps) {
   return (
-    <PageButton
-      isDisabled={props.isDisabled}
+    <button
       onClick={props.onClick}
       aria-label="Goto Next Page"
-      className="sj-paginator__page-button"
-      styles={props.styles}
+      className={"sj-paginator__page-button " + props.className}
     >
       <RightChevron />
-    </PageButton>
+    </button>
   );
 }
 
