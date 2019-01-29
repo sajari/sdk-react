@@ -26,6 +26,10 @@ interface HistogramSliderProps {
     | ((
         props: { value: [number, number]; min: number; max: number }
       ) => JSX.Element);
+  /** Custom component for render drag button UI, pass `null` if you don't want to show the part */
+  ButtonRenderComponent?:
+    | null
+    | ((props: { focused?: boolean }) => JSX.Element);
   /** Showing an `apply` & `reset` button if a function was passed to the prop*/
   onApply?: (value: [number, number]) => void;
   /** Callback function while the range changed */
@@ -150,6 +154,7 @@ export class HistogramSlider extends Component<
       data,
       widthPx,
       InfoRenderComponent,
+      ButtonRenderComponent,
       ...rangeSliderProps
     } = this.props;
 
@@ -176,6 +181,7 @@ export class HistogramSlider extends Component<
           colors={this.props.colors!}
           value={this.state.value}
           onChange={this.handleSliderChange}
+          ButtonRenderComponent={ButtonRenderComponent}
         />
 
         <div className={css({ marginTop: "20px" })}>

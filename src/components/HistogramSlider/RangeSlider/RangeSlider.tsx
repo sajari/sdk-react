@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, PureComponent } from "react";
 import { css } from "emotion";
 
 interface RangeSliderProps {
@@ -8,6 +8,9 @@ interface RangeSliderProps {
   value: [number, number];
   distance: number;
   onChange: (value: [number, number]) => void;
+  ButtonRenderComponent?:
+    | null
+    | ((props: { focused?: boolean }) => JSX.Element);
   colors: {
     in: string;
     out: string;
@@ -264,16 +267,23 @@ export class RangeSlider extends Component<RangeSliderProps> {
     this.clearDocumentEvents();
   }
 
+  preventDefaultClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+  };
+
   render() {
     const range = this.getRange();
     const {
       min,
       max,
       colors,
-      value: [minState, maxState]
+      value: [minState, maxState],
+      ButtonRenderComponent
     } = this.props;
     const right = 100 - ((maxState - min) * 100) / range;
     const left = ((minState - min) * 100) / range;
+    const ButtonInnerComponent =
+      ButtonRenderComponent || DefaultRenderButtonComponent;
 
     return (
       <div
@@ -310,48 +320,46 @@ export class RangeSlider extends Component<RangeSliderProps> {
           <Button
             className={css({
               position: "absolute",
-              top: "-13px",
-              left: "-10px",
-              width: "28px",
-              height: "28px",
-              borderRadius: "9999px",
-              backgroundColor: "#ffffff",
-              boxShadow: "rgb(235, 235, 235) 0px 2px 2px",
-              border: "1px solid #d9d9d9"
+              top: "0",
+              left: "0",
+              border: "none",
+              backgroundColor: "transparent",
+              transform: "translate(-50%, -50%)",
+              padding: "0"
             })}
-            onClick={e => e.preventDefault()}
+            onClick={this.preventDefaultClick}
             role="slider"
             tabIndex={0}
             aria-valuenow={minState}
             aria-valuemax={max}
             aria-valuemin={min}
-            aria-disabled="false"
+            aria-disabled={false}
             onMouseDown={this.triggerMouseMin}
             onKeyDown={this.handleMinKeydown}
             onTouchStart={this.triggerTouchMin}
+            ButtonRenderComponent={ButtonInnerComponent}
           />
           <Button
             className={css({
               position: "absolute",
-              top: "-13px",
-              right: "-10px",
-              width: "28px",
-              height: "28px",
-              borderRadius: "9999px",
-              backgroundColor: "#ffffff",
-              boxShadow: "rgb(235, 235, 235) 0px 2px 2px",
-              border: "1px solid #d9d9d9"
+              top: "50%",
+              right: "0",
+              transform: "translate(50%, -50%)",
+              border: "none",
+              backgroundColor: "transparent",
+              padding: "0"
             })}
-            onClick={e => e.preventDefault()}
+            onClick={this.preventDefaultClick}
             role="slider"
             tabIndex={0}
             aria-valuenow={maxState}
             aria-valuemax={max}
             aria-valuemin={min}
-            aria-disabled="false"
+            aria-disabled={false}
             onKeyDown={this.handleMaxKeydown}
             onMouseDown={this.triggerMouseMax}
             onTouchStart={this.triggerTouchMax}
+            ButtonRenderComponent={ButtonInnerComponent}
           />
         </div>
       </div>
@@ -359,8 +367,20 @@ export class RangeSlider extends Component<RangeSliderProps> {
   }
 }
 
-const Button = (props: React.HTMLAttributes<HTMLButtonElement>) => (
-  <button {...props}>
+const DefaultRenderButtonComponent = () => (
+  <span
+    className={css({
+      width: "28px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      height: "28px",
+      borderRadius: "9999px",
+      backgroundColor: "#ffffff",
+      boxShadow: "rgb(235, 235, 235) 0px 2px 2px",
+      border: "1px solid #d9d9d9"
+    })}
+  >
     {[1, 2, 3].map(index => (
       <span
         key={index}
@@ -374,5 +394,32 @@ const Button = (props: React.HTMLAttributes<HTMLButtonElement>) => (
         })}
       />
     ))}
-  </button>
+  </span>
 );
+
+class Button extends React.PureComponent<
+  {
+    ButtonRenderComponent: ((props: { focused?: boolean }) => JSX.Element);
+  } & React.HTMLAttributes<HTMLButtonElement>
+> {
+  state = {
+    focused: false
+  };
+
+  handleFocus = () => {
+    this.setState({ focused: true });
+  };
+
+  handleBlur = () => {
+    this.setState({ focused: false });
+  };
+
+  render() {
+    const { ButtonRenderComponent, ...rest } = this.props;
+    return (
+      <button {...rest} onFocus={this.handleFocus} onBlur={this.handleBlur}>
+        <ButtonRenderComponent focused={this.state.focused} />
+      </button>
+    );
+  }
+}
