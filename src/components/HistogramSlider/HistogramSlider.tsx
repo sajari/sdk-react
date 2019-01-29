@@ -51,7 +51,7 @@ const DefaultInfoRenderComponent = ({ value }: { value: [number, number] }) => (
       color: "#666666"
     })}
   >
-    ${value[0]} AUD - ${value[1]} AUD
+    {value[0]} - {value[1]}
   </div>
 );
 
