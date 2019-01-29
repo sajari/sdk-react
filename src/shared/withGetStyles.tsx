@@ -1,35 +1,37 @@
 import React, { ComponentClass, SFC } from "react";
 import { CSSObject } from "emotion/node_modules/create-emotion/types";
 
-// export function withTheme<Props, Theme = {}>(
-//   component: ComponentClass<Props> | SFC<Props>
-// ): ComponentClass<OptionalThemeProps<Props, Theme>>;
-
-export type WrapperComponentProps<Props, T> = {
-  customStyles: StyleProps<T>;
-  getStyles: (key: string, props?: T) => CSSObject;
+export type WrapperComponentOriginProps<Props, State> = {
+  customStyles?: StyleProps<State>;
 } & Props;
 
-export interface DefaultStyleProps<T> {
-  [k: string]: ((props: T) => CSSObject) | CSSObject;
+export type WrapperComponentProps<Props, State> = WrapperComponentOriginProps<
+  Props,
+  State
+> & { getStyles: (key: string, props?: State) => CSSObject };
+
+export interface DefaultStyleProps<State> {
+  [k: string]: ((props: State) => CSSObject) | CSSObject;
 }
 
-export interface StyleProps<T> {
-  [k: string]: (defaultStyles: CSSObject, props: T) => CSSObject;
+export interface StyleProps<State> {
+  [k: string]: (defaultStyles: CSSObject, props?: State) => CSSObject;
 }
 
-function withGetStyles<Props, T>(
+function withGetStyles<Props, State>(
   WrappedComponent:
-    | ComponentClass<WrapperComponentProps<Props, T>>
-    | SFC<WrapperComponentProps<Props, T>>,
-  defaultStyles: DefaultStyleProps<T>
+    | ComponentClass<WrapperComponentProps<Props, State>>
+    | SFC<WrapperComponentProps<Props, State>>,
+  defaultStyles: DefaultStyleProps<State>
 ) {
-  return class extends React.Component<WrapperComponentProps<Props, T>> {
+  return class extends React.Component<
+    WrapperComponentOriginProps<Props, State>
+  > {
     static defaultProps = {
       customStyles: {}
     };
 
-    getStyles = (key: string, props: T) => {
+    getStyles = (key: string, props?: State): CSSObject => {
       if (!defaultStyles[key]) {
         return {};
       }
@@ -40,16 +42,19 @@ function withGetStyles<Props, T>(
             // @ts-ignore
             defaultStyles[key](props)
           : defaultStyles[key];
-      const custom = this.props.customStyles[key];
 
-      if (typeof custom === "function") {
-        return custom(base, props);
-      } else if (
-        custom != null &&
-        typeof custom === "object" &&
-        Array.isArray(custom) === false
-      ) {
-        return custom;
+      if (this.props.customStyles) {
+        const custom = this.props.customStyles[key];
+
+        if (typeof custom === "function") {
+          return custom(base, props);
+        } else if (
+          custom != null &&
+          typeof custom === "object" &&
+          Array.isArray(custom) === false
+        ) {
+          return custom;
+        }
       }
       return base;
     };
