@@ -6,23 +6,22 @@ import { pageNumbers } from "./utils";
 
 import { PaginatorContainer } from "./Container";
 import { LeftChevron, RightChevron } from "./icons";
-import { Container, PageButton, PageNumber } from "./styled";
+// @ts-ignore: module missing definitions
+import chroma from "chroma-js";
+import idx from "idx";
+
 import withGetStyles, {
   WrapperComponentProps,
   DefaultStyleProps
 } from "../../shared/withGetStyles";
 import { Theme } from "../styles/theme";
+import { withTheme } from "emotion-theming";
 
 export interface PaginatorProps {
   windowSize?: number;
-
+  baseClass?: string;
   className?: string;
-  styles?: {
-    container?: React.CSSProperties;
-    controls?: React.CSSProperties;
-    number?: (isCurrent: boolean) => React.CSSProperties;
-  };
-
+  theme?: Theme;
   PreviousButtonRenderer?: React.ComponentType<PageButtonProps>;
   NextButtonRenderer?: React.ComponentType<PageButtonProps>;
   PageNumberRenderer?: React.ComponentType<PageNumberProps>;
@@ -50,6 +49,11 @@ const defaultStyles = {
     color: props.isDisabled ? "#aaa" : "#777"
   }),
   number: ({ isCurrent, theme }: StyleProps) => {
+    // @ts-ignore: idx
+    const themeColor = idx(theme, _ => _.colors.brand.primary);
+    const textColor =
+      chroma.contrast("#fff", themeColor || "#333") > 4.5 ? "#fff" : "#000";
+
     return {
       cursor: "pointer",
       display: ["inline-block", "-moz-inline-stack"],
@@ -58,7 +62,10 @@ const defaultStyles = {
       userSelect: "none",
       width: 44,
       height: 44,
-      textAlign: "center"
+      textAlign: "center",
+      borderRadius: 5,
+      backgroundColor: isCurrent ? themeColor || "#333" : "inherit",
+      color: isCurrent ? textColor : "#585858"
     };
   }
 };
@@ -69,16 +76,17 @@ interface StyleProps {
   theme?: Theme;
 }
 
-export function Paginator(
+function PaginatorInner(
   props: WrapperComponentProps<PaginatorProps, StyleProps>
 ) {
   const {
     windowSize = 5,
-    styles = {},
     PreviousButtonRenderer = PreviousPageButton,
     NextButtonRenderer = NextPageButton,
     PageNumberRenderer = DefaultPageNumber,
-    getStyles
+    getStyles,
+    theme,
+    baseClass = "sj-paginator"
   } = props;
   return (
     <PaginatorContainer>
@@ -87,15 +95,12 @@ export function Paginator(
           <nav
             aria-label="Pagination Navigation"
             // styles={styles.container}
-            className={cx(
-              "sj-paginator",
-              css(getStyles("title")),
-              props.className
-            )}
+            className={cx(baseClass, css(getStyles("title")), props.className)}
           >
             {page !== 1 && (
               <PreviousButtonRenderer
-                // isDisabled={page === 1}
+                isDisabled={page === 1}
+                baseClass={baseClass}
                 onClick={prevPage(paginate, page)}
                 className={css(
                   getStyles("controls", { isDisabled: page === 1 })
@@ -114,10 +119,16 @@ export function Paginator(
                 (pageNumber: number) => (
                   <li key={pageNumber}>
                     <PageNumberRenderer
+                      baseClass={baseClass}
                       pageNumber={pageNumber}
                       isCurrent={page === pageNumber}
                       onClick={setPage(paginate, pageNumber)}
-                      styles={styles.number}
+                      className={css(
+                        getStyles("number", {
+                          isCurrent: page === pageNumber,
+                          theme
+                        })
+                      )}
                     />
                   </li>
                 )
@@ -125,6 +136,8 @@ export function Paginator(
             </ul>
             {page !== totalPages && (
               <NextButtonRenderer
+                isDisabled={page === totalPages}
+                baseClass={baseClass}
                 onClick={nextPage(paginate, page, totalPages)}
                 className={css(
                   getStyles("controls", { isDisabled: page === totalPages })
@@ -138,14 +151,18 @@ export function Paginator(
   );
 }
 
-export default withGetStyles<PaginatorProps, StyleProps>(
-  Paginator,
-  defaultStyles as DefaultStyleProps<StyleProps>
+export const Paginator = withTheme(
+  withGetStyles<PaginatorProps, StyleProps>(
+    PaginatorInner,
+    defaultStyles as DefaultStyleProps<StyleProps>
+  )
 );
 
 interface PageButtonProps {
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   className: string;
+  baseClass: string;
+  isDisabled: boolean;
 }
 
 function PreviousPageButton(props: PageButtonProps) {
@@ -153,7 +170,7 @@ function PreviousPageButton(props: PageButtonProps) {
     <button
       onClick={props.onClick}
       aria-label="Goto Previous Page"
-      className={"sj-paginator__page-button " + props.className}
+      className={props.baseClass + "__page-button " + props.className}
     >
       <LeftChevron />
     </button>
@@ -165,7 +182,7 @@ function NextPageButton(props: PageButtonProps) {
     <button
       onClick={props.onClick}
       aria-label="Goto Next Page"
-      className={"sj-paginator__page-button " + props.className}
+      className={props.baseClass + "__page-button " + props.className}
     >
       <RightChevron />
     </button>
@@ -176,18 +193,18 @@ export interface PageNumberProps {
   pageNumber: number;
   onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;
   isCurrent: boolean;
-  styles?: (isCurrent: boolean) => React.CSSProperties;
+  className: string;
+  baseClass: string;
 }
 
 function DefaultPageNumber(props: PageNumberProps) {
   return (
-    <PageNumber
+    <a
       className={cx(
-        "sj-paginator__page-number",
-        props.isCurrent && "sj-paginator__page-number--current",
-        props.styles && css(props.styles(props.isCurrent) as any)
+        props.baseClass + "__page-number",
+        props.className,
+        props.isCurrent && props.baseClass + "__page-number--current"
       )}
-      isCurrent={props.isCurrent}
       onClick={props.onClick}
       aria-label={
         props.isCurrent
@@ -197,7 +214,7 @@ function DefaultPageNumber(props: PageNumberProps) {
       aria-current={props.isCurrent ? true : undefined}
     >
       {props.pageNumber}
-    </PageNumber>
+    </a>
   );
 }
 
