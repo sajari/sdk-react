@@ -1,11 +1,11 @@
 import React, { ComponentClass, SFC } from "react";
 import { CSSObject } from "emotion/node_modules/create-emotion/types";
 
-export type WrapperComponentOriginProps<Props, State> = {
+export type WithGetStylesProps<Props, State> = {
   customStyles?: StyleProps<State>;
 } & Props;
 
-export type WrapperComponentProps<Props, State> = WrapperComponentOriginProps<
+export type WrapperComponentProps<Props, State> = WithGetStylesProps<
   Props,
   State
 > & { getStyles: (key: string, props?: State) => CSSObject };
@@ -18,15 +18,13 @@ export interface StyleProps<State> {
   [k: string]: (defaultStyles: CSSObject, props?: State) => CSSObject;
 }
 
-function withGetStyles<Props, State>(
+export function withGetStyles<Props, State>(
   WrappedComponent:
     | ComponentClass<WrapperComponentProps<Props, State>>
     | SFC<WrapperComponentProps<Props, State>>,
   defaultStyles: DefaultStyleProps<State>
 ) {
-  return class extends React.Component<
-    WrapperComponentOriginProps<Props, State>
-  > {
+  return class extends React.Component<WithGetStylesProps<Props, State>> {
     static defaultProps = {
       customStyles: {}
     };
@@ -64,5 +62,3 @@ function withGetStyles<Props, State>(
     }
   };
 }
-
-export default withGetStyles;

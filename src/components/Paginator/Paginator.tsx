@@ -10,7 +10,8 @@ import { LeftChevron, RightChevron } from "./icons";
 import chroma from "chroma-js";
 import idx from "idx";
 
-import withGetStyles, {
+import {
+  withGetStyles,
   WrapperComponentProps,
   DefaultStyleProps
 } from "../../shared/withGetStyles";
