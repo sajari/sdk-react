@@ -18,6 +18,11 @@ import {
 import { Theme } from "../styles/theme";
 import { withTheme } from "emotion-theming";
 
+interface Selectors {
+  container: string;
+  controls: string;
+  number: string;
+}
 export interface PaginatorProps {
   windowSize?: number;
   baseClass?: string;
@@ -78,7 +83,7 @@ interface StyleProps {
 }
 
 function PaginatorInner(
-  props: WrapperComponentProps<PaginatorProps, StyleProps>
+  props: WrapperComponentProps<PaginatorProps, StyleProps, Selectors>
 ) {
   const {
     windowSize = 5,
@@ -96,7 +101,11 @@ function PaginatorInner(
           <nav
             aria-label="Pagination Navigation"
             // styles={styles.container}
-            className={cx(baseClass, css(getStyles("title")), props.className)}
+            className={cx(
+              baseClass,
+              css(getStyles("container")),
+              props.className
+            )}
           >
             {page !== 1 && (
               <PreviousButtonRenderer
@@ -153,9 +162,9 @@ function PaginatorInner(
 }
 
 export const Paginator = withTheme(
-  withGetStyles<PaginatorProps, StyleProps>(
+  withGetStyles<PaginatorProps, StyleProps, Selectors>(
     PaginatorInner,
-    defaultStyles as DefaultStyleProps<StyleProps>
+    defaultStyles as DefaultStyleProps<StyleProps, Selectors>
   )
 );
 

@@ -1,42 +1,44 @@
 import React, { ComponentClass, SFC } from "react";
 import { CSSObject } from "emotion/node_modules/create-emotion/types";
 
-export type WithGetStylesProps<Props, State> = {
-  customStyles?: StyleProps<State>;
+export type WithGetStylesProps<Props, State, Selectors> = {
+  customStyles?: StyleProps<State, Selectors>;
 } & Props;
 
-export type WrapperComponentProps<Props, State> = WithGetStylesProps<
+export type WrapperComponentProps<Props, State, Selectors> = WithGetStylesProps<
   Props,
-  State
-> & { getStyles: (key: string, props?: State) => CSSObject };
+  State,
+  Selectors
+> & { getStyles: (key: keyof Selectors, props?: State) => CSSObject };
 
-export interface DefaultStyleProps<State> {
-  [k: string]: ((props: State) => CSSObject) | CSSObject;
-}
+export type DefaultStyleProps<State, Selectors> = {
+  [k in keyof Selectors]?: ((props: State) => CSSObject) | CSSObject
+};
 
-export interface StyleProps<State> {
-  [k: string]: (defaultStyles: CSSObject, props?: State) => CSSObject;
-}
+export type StyleProps<State, Selectors> = {
+  [k in keyof Selectors]?: (
+    defaultStyles: CSSObject,
+    props?: State
+  ) => CSSObject
+};
 
-export function withGetStyles<Props, State>(
+export function withGetStyles<Props, State, Selectors>(
   WrappedComponent:
-    | ComponentClass<WrapperComponentProps<Props, State>>
-    | SFC<WrapperComponentProps<Props, State>>,
-  defaultStyles: DefaultStyleProps<State>
+    | ComponentClass<WrapperComponentProps<Props, State, Selectors>>
+    | SFC<WrapperComponentProps<Props, State, Selectors>>,
+  defaultStyles: DefaultStyleProps<State, Selectors>
 ) {
-  return class extends React.Component<WithGetStylesProps<Props, State>> {
-    static defaultProps = {
-      customStyles: {}
-    };
-
-    getStyles = (key: string, props?: State): CSSObject => {
+  return class extends React.Component<
+    WithGetStylesProps<Props, State, Selectors>
+  > {
+    getStyles = (key: keyof Selectors, props?: State): CSSObject => {
       if (!defaultStyles[key]) {
         return {};
       }
 
       const base =
         typeof defaultStyles[key] === "function"
-          ? // @ts-ignore
+          ? // TODO: ts warning should be fixed
             // @ts-ignore
             defaultStyles[key](props)
           : defaultStyles[key];
