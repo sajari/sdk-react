@@ -1,9 +1,10 @@
 import { css, cx } from "emotion";
 import * as React from "react";
+import { ClickToken, PosNegToken } from "@sajari/sdk-js";
 import { ResultClickedFn } from "../context/pipeline/context";
 
 export interface TokenLinkProps {
-  token?: string;
+  token?: ClickToken | PosNegToken;
   url: string;
   resultClicked: ResultClickedFn;
   text?: string;
@@ -36,6 +37,11 @@ export class TokenLink extends React.PureComponent<
       ...rest
     } = this.props;
 
+    let clickToken;
+    if (token !== undefined && "click" in token) {
+      clickToken = token.click;
+    }
+
     let decodedText;
     try {
       decodedText = decodeURI(url);
@@ -56,7 +62,7 @@ export class TokenLink extends React.PureComponent<
 
     return (
       <a
-        href={this.state.clicked && token ? token : url}
+        href={this.state.clicked && clickToken ? clickToken : url}
         {...rest}
         className={className}
         onMouseDown={this.click}
