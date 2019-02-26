@@ -239,6 +239,7 @@ export class Input extends React.PureComponent<InputProps, InputState> {
         stateReducer={this.stateReducer}
         key={`sj-downshift-${this.props.defaultValue}`}
         defaultInputValue={this.props.defaultValue}
+        defaultSelectedItem={this.props.defaultValue && this.props.defaultValue}
         itemToString={
           this.props.dropdownMode === "results" ? itemToString : undefined
         }
