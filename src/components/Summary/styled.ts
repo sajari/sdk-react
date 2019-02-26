@@ -16,8 +16,7 @@ export const Emphasis = styled("strong")(
   { color: "#808080" },
 
   ({ theme }) => ({
-    // @ts-ignore: idx
-    color: idx(theme, _ => _.colors.brandPrimary) || "#808080"
+    color: (idx(theme, _ => _.colors.brandPrimary) || "#808080") as any
   }),
   override
 );
