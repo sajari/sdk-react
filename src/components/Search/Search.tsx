@@ -24,28 +24,14 @@ export interface PipelineProps {
   summary: SummaryInterface | undefined;
 }
 
-export interface QueryValuesInterface {
-  filter: string;
-  q: string;
-  page: string;
-}
-
-export interface ValuesInterface {
-  q?: string;
-  "q.original"?: string;
-  "q.suggestions"?: string;
-}
-
-export interface ResponseInterface {
-  reads: number;
-  totalResults: number;
-  time: number;
+export interface PipelineResponseInterface {
+  [k: string]: string | number;
 }
 
 export interface SummaryInterface {
-  queryValues: QueryValuesInterface;
-  values: ValuesInterface;
-  response: ResponseInterface;
+  queryValues: PipelineResponseInterface;
+  values: PipelineResponseInterface;
+  response: PipelineResponseInterface;
 }
 
 export interface StateChangeOptions<Item> extends StateChangeOptions<Item> {}
@@ -140,11 +126,13 @@ export class Search extends React.PureComponent<SearchProps<any>, {}> {
             summary = {
               queryValues: (mapToObject(
                 response.getQueryValues()
-              ) as unknown) as QueryValuesInterface,
-              values: mapToObject(response.getValues()) as ValuesInterface,
+              ) as unknown) as PipelineResponseInterface,
+              values: mapToObject(
+                response.getValues()
+              ) as PipelineResponseInterface,
               response: (mapToObject(response.getResponse() as
                 | Map<string, any>
-                | undefined) as unknown) as ResponseInterface
+                | undefined) as unknown) as PipelineResponseInterface
             };
           }
 
