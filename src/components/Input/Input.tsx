@@ -15,6 +15,7 @@ import {
   SearchState,
   StateChangeOptions
 } from "../Search";
+import { VoiceInput, MicIcon, EmptyMicIcon } from "./Voice";
 
 export type InputMode = "standard" | "typeahead";
 export type DropdownMode = "none" | "suggestions" | "results";
@@ -29,6 +30,7 @@ export interface InputProps {
   placeholder?: string;
   autoFocus?: boolean;
   buttonText?: string;
+  enableVoiceSearch?: boolean;
 
   inputRef?: (element: HTMLInputElement) => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
@@ -65,10 +67,12 @@ export class Input extends React.PureComponent<InputProps, InputState> {
     mode: "standard",
     dropdownMode: "none",
     ariaLabel: "Search through the site content",
-    placeholder: "Search"
+    placeholder: "Search",
+    enableVoiceSearch: false
   } as InputProps;
 
   private searchButton?: HTMLButtonElement;
+  private voiceSearchButton?: HTMLButtonElement;
 
   public state = { focused: false, typedInputValue: "" };
   private input?: HTMLInputElement;
@@ -90,10 +94,20 @@ export class Input extends React.PureComponent<InputProps, InputState> {
   private buttonRef = (element: HTMLButtonElement) => {
     this.searchButton = element;
   };
+  private voiceButtonRef = (element: HTMLButtonElement) => {
+    this.voiceSearchButton = element;
+  };
 
   private getButtonWidth = () => {
     if (this.searchButton) {
       return this.searchButton.offsetWidth;
+    }
+    return 0;
+  };
+
+  private getVoiceButtonWidth = () => {
+    if (this.voiceSearchButton) {
+      return this.voiceSearchButton.offsetWidth;
     }
     return 0;
   };
@@ -285,7 +299,9 @@ export class Input extends React.PureComponent<InputProps, InputState> {
               >
                 <div
                   role="search"
-                  className={innerContainerStyles(this.getButtonWidth())}
+                  className={innerContainerStyles(
+                    this.getButtonWidth() + this.getVoiceButtonWidth()
+                  )}
                 >
                   <AutosizeInput
                     inputRef={this.inputRef}
@@ -401,6 +417,36 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                     />
                   )}
                 </div>
+                {this.props.enableVoiceSearch && (
+                  <VoiceInput
+                    Renderer={({ onClick, active }) => {
+                      return (
+                        <button
+                          ref={this.voiceButtonRef}
+                          onClick={onClick}
+                          className={cx(
+                            "sj-input__button",
+                            buttonStyles(
+                              this.props.theme &&
+                                this.props.theme.colors &&
+                                this.props.theme.colors.brand &&
+                                this.props.theme.colors.brand.primary
+                            ),
+                            this.props.styles &&
+                              this.props.styles.button &&
+                              css(this.props.styles.button as any)
+                          )}
+                        >
+                          {active ? <MicIcon /> : <EmptyMicIcon />}
+                        </button>
+                      );
+                    }}
+                    onVoiceInput={input => {
+                      selectItem(input);
+                      search(input, true);
+                    }}
+                  />
+                )}
                 <button
                   ref={this.buttonRef}
                   className={cx(
