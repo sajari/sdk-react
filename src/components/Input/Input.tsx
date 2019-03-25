@@ -30,7 +30,10 @@ export interface InputProps {
   placeholder?: string;
   autoFocus?: boolean;
   buttonText?: string;
-  enableVoiceSearch?: boolean;
+
+  experimental?: {
+    voiceToText?: boolean;
+  };
 
   inputRef?: (element: HTMLInputElement) => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
@@ -68,7 +71,7 @@ export class Input extends React.PureComponent<InputProps, InputState> {
     dropdownMode: "none",
     ariaLabel: "Search through the site content",
     placeholder: "Search",
-    enableVoiceSearch: false
+    experimental: { voiceToText: false }
   } as InputProps;
 
   private searchButton?: HTMLButtonElement;
@@ -417,36 +420,38 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                     />
                   )}
                 </div>
-                {this.props.enableVoiceSearch && (
-                  <VoiceInput
-                    Renderer={({ onClick, active }) => {
-                      return (
-                        <button
-                          ref={this.voiceButtonRef}
-                          onClick={onClick}
-                          className={cx(
-                            "sj-input__button",
-                            buttonStyles(
-                              this.props.theme &&
-                                this.props.theme.colors &&
-                                this.props.theme.colors.brand &&
-                                this.props.theme.colors.brand.primary
-                            ),
-                            this.props.styles &&
-                              this.props.styles.button &&
-                              css(this.props.styles.button as any)
-                          )}
-                        >
-                          {active ? <MicIcon /> : <EmptyMicIcon />}
-                        </button>
-                      );
-                    }}
-                    onVoiceInput={input => {
-                      selectItem(input);
-                      search(input, true);
-                    }}
-                  />
-                )}
+                {this.props.experimental &&
+                  this.props.experimental.voiceToText && (
+                    <VoiceInput
+                      Renderer={({ onClick, active }) => {
+                        return (
+                          <button
+                            ref={this.voiceButtonRef}
+                            onClick={onClick}
+                            aria-label="Search by voice"
+                            className={cx(
+                              "sj-input__button",
+                              buttonStyles(
+                                this.props.theme &&
+                                  this.props.theme.colors &&
+                                  this.props.theme.colors.brand &&
+                                  this.props.theme.colors.brand.primary
+                              ),
+                              this.props.styles &&
+                                this.props.styles.button &&
+                                css(this.props.styles.button as any)
+                            )}
+                          >
+                            {active ? <MicIcon /> : <EmptyMicIcon />}
+                          </button>
+                        );
+                      }}
+                      onVoiceInput={input => {
+                        selectItem(input);
+                        search(input, true);
+                      }}
+                    />
+                  )}
                 <button
                   ref={this.buttonRef}
                   className={cx(
