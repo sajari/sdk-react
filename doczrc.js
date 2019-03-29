@@ -5,6 +5,7 @@ export default {
   typescript: true,
   port: 5000,
   themeConfig: {
+    mode: "light",
     colors: {
       primary: "#459CE7"
     },
