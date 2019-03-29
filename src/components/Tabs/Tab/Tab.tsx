@@ -1,12 +1,13 @@
-import { cx } from "emotion";
 import * as React from "react";
+import classnames from "classnames";
 import { FilterConsumer } from "../../context/filter";
 
 import { Container } from "./styled";
+import { CSSObject } from "@emotion/css";
 
 export interface TabProps {
   title: string;
-  styles?: React.CSSProperties;
+  styles?: CSSObject;
 }
 
 export const Tab: React.SFC<TabProps> = ({ title, styles = {} }) => (
@@ -15,10 +16,12 @@ export const Tab: React.SFC<TabProps> = ({ title, styles = {} }) => (
       const isSelected = selected.includes(title);
       return (
         <Container
-          className={cx("sj-tabs__tab", isSelected && "sj-tabs__tab--selected")}
+          className={classnames("sj-tabs__tab", {
+            "sj-tabs__tab--selected": isSelected
+          })}
           isSelected={isSelected}
           onClick={setFilter(set, title, !isSelected)}
-          style={styles}
+          css={styles}
         >
           {title}
         </Container>

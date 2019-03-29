@@ -3,6 +3,7 @@ import * as ReactDOM from "react-dom";
 import { Provider } from "../components";
 import { Pipeline, Values } from "../controllers";
 import { Theme } from "../components/styles";
+import { CSSObject } from "@emotion/css";
 
 export const GeneralWrapper: React.SFC = ({ children }) => {
   let pipeline = new Pipeline(
@@ -44,7 +45,7 @@ export const ExampleWrapper: React.SFC = ({ children }) => {
 };
 
 export interface InputWrapperProps {
-  style?: React.CSSProperties;
+  style?: CSSObject;
   theme?: Theme;
 }
 
@@ -61,7 +62,7 @@ export const InputWrapper: React.SFC<InputWrapperProps> = ({
 
   return (
     <Provider search={{ pipeline, values }} theme={theme}>
-      <div style={style}>{children}</div>
+      <div css={style}>{children}</div>
     </Provider>
   );
 };

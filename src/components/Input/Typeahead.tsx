@@ -1,12 +1,20 @@
-import { css, cx } from "emotion";
 import * as React from "react";
 import { trimPrefix } from "./shared/utils";
+import { CSSObject } from "@emotion/core";
 
 interface TypeaheadProps {
   inputValue: string;
   completion?: string;
-  styles?: React.CSSProperties;
+  styles?: CSSObject;
 }
+
+const typeaheadStyles: CSSObject = {
+  color: "#bebebe",
+  display: "inline",
+  fontSize: "1em",
+  marginLeft: -2,
+  position: "relative"
+};
 
 export function Typeahead({ inputValue, completion, styles }: TypeaheadProps) {
   let typeaheadValue = "";
@@ -15,22 +23,8 @@ export function Typeahead({ inputValue, completion, styles }: TypeaheadProps) {
   }
 
   return (
-    <div
-      className={cx(
-        "sj-input__typeahead",
-        typeaheadStyles,
-        styles && css(styles as any)
-      )}
-    >
+    <div css={[typeaheadStyles, styles]} className="sj-input__typeahead">
       {typeaheadValue}
     </div>
   );
 }
-
-const typeaheadStyles = css({
-  color: "#bebebe",
-  display: "inline",
-  fontSize: "1em",
-  marginLeft: -2,
-  position: "relative"
-});

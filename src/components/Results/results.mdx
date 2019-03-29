@@ -4,12 +4,12 @@ menu: Components
 route: /components/results
 ---
 
-import { PropsTable, Playground } from "docz"
-import { ExampleContainer } from "../../docs/helpers.ts"
-import { GeneralWrapper } from "../../docs/wrapper.tsx"
-import { Results } from "./Results.tsx"
+import { PropsTable, Playground } from "docz";
+import { ExampleContainer } from "../../docs/helpers.ts";
+import { GeneralWrapper } from "../../docs/wrapper.tsx";
+import { Results } from "./Results.tsx";
 
-export default ({children}) => <GeneralWrapper>{children}</GeneralWrapper>
+export default ({ children }) => <GeneralWrapper>{children}</GeneralWrapper>;
 
 # Results
 
@@ -18,67 +18,77 @@ to a standard `Result` component if nothing is provided.
 
 ```javascript
 // Import the Results component
-import { Results } from "@sajari/sdk-react"
+import { Results } from "@sajari/sdk-react";
 ```
 
 ## Usage
 
 ### Basic
+
 <Playground>
-    <Results />
+  <Results />
 </Playground>
 
 ### With images
+
 <Playground>
-    <Results showImages />
+  <Results showImages />
 </Playground>
 
-
 ### With custom styles
+
 <Playground>
-    <Results styles={{
+  <Results
+    styles={{
+      container: {
+        flexWrap: "nowrap",
+        justifyContent: "space-between"
+      },
+      item: {
+        width: "32%",
+        padding: "0.5rem",
+        boxShadow: "0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)",
+        marginBottom: 0
+      },
+      result: {
         container: {
-            flexWrap: "nowrap",
-            justifyContent: "space-between"
-        },
-        item: {
-            width: "32%",
-            padding: "0.5rem",
-            boxShadow: "0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)",
-            marginBottom: 0
-        },
-        result: {
-            container: {
-                height: "100%",
-                justifyContent: "space-between"
-            }
+          height: "100%",
+          justifyContent: "space-between"
         }
-    }} />
+      }
+    }}
+  />
 </Playground>
 
 ### With re-mapped fields
+
 <Playground>
-    <Results fields={{
-        title: "description",
-        description: "title",
-        url: "url",
-        image: "image"
-    }} />
+  <Results
+    fields={{
+      title: "description",
+      description: "title",
+      url: "url",
+      image: "image"
+    }}
+  />
 </Playground>
 
 ### With custom result renderer
+
 <ExampleContainer>
-    <Results
-        ResultRenderer={({values, token}) => <a href={token || "#"}>{values.title}</a>}
-        styles={{
-            item: {
-                marginBottom: "0.25rem",
-                "&:last-of-type": {
-                    marginBottom: 0
-                }
-            }
-        }}
-    />
+  <Results
+    ResultRenderer={({ values, token }) => (
+      <a href={token || "#"}>{values.title}</a>
+    )}
+    styles={{
+      item: {
+        marginBottom: "0.25rem",
+        "&:last-of-type": {
+          marginBottom: 0
+        }
+      }
+    }}
+  />
 </ExampleContainer>
 
 ```javascript
@@ -100,41 +110,50 @@ const CustomRenderer = ({values, token}) => <a href={token || "#"}>{values.title
 ```
 
 ## Props
+
 <PropsTable of={Results} />
 
 #### ResultRenderer propTypes
+
 ```typescript
 type ResultClickedFn = (url: string) => void;
 type ResultRendererProps = {
-    token: string;
-    values: { [k: string]: string | string[] };
-    resultClicked: ResultClickedFn;
-    score?: number;
-    indexScore?: number;
-}
+  token: string;
+  values: { [k: string]: string | string[] };
+  resultClicked: ResultClickedFn;
+  score?: number;
+  indexScore?: number;
+};
 ```
 
 ## Styles
 
 ### `css` classes
+
 ```css
-.sj-results__result {}
-.sj-results__result__title {}
-.sj-results__result__description {}
-.sj-results__result__link {}
-.sj-results__result__image {}
+.sj-results__result {
+}
+.sj-results__result__title {
+}
+.sj-results__result__description {
+}
+.sj-results__result__link {
+}
+.sj-results__result__image {
+}
 ```
 
 ### `styles` prop
+
 ```typescript
 type ResultsStyles = {
-    container?: React.CSSProperties,
-    item?: React.CSSProperties,
-    result?: {
-        container?: React.CSSProperties;
-        title?: React.CSSProperties;
-        description?: React.CSSProperties;
-        url?: React.CSSProperties;
-    }
-}
+  container?: CSSObject;
+  item?: CSSObject;
+  result?: {
+    container?: CSSObject;
+    title?: CSSObject;
+    description?: CSSObject;
+    url?: CSSObject;
+  };
+};
 ```
