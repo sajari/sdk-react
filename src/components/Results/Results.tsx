@@ -12,6 +12,7 @@ import { Consumer } from "../context";
 import { Result, ResultProps, ResultStyles } from "../Result";
 
 import { Container, Error, ResultItem } from "./styled";
+import { CSSObject } from "@emotion/core";
 
 const STATUS_UNAUTHORISED = 403;
 
@@ -25,8 +26,8 @@ export interface ResultsProps {
   };
   showImages?: boolean;
   styles?: {
-    container?: React.CSSProperties;
-    item?: React.CSSProperties;
+    container?: CSSObject;
+    item?: CSSObject;
     result?: ResultStyles;
   };
 }

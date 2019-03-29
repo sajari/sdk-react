@@ -1,21 +1,20 @@
-import { css, cx } from "emotion";
 import * as React from "react";
-
+import classnames from "classnames";
 import { PaginateFn } from "../context/pipeline/context";
 import { pageNumbers } from "./utils";
 
 import { PaginatorContainer } from "./Container";
 import { LeftChevron, RightChevron } from "./icons";
 import { Container, PageButton, PageNumber } from "./styled";
+import { CSSObject } from "@emotion/core";
 
 export interface PaginatorProps {
   windowSize?: number;
-
   className?: string;
   styles?: {
-    container?: React.CSSProperties;
-    controls?: React.CSSProperties;
-    number?: (isCurrent: boolean) => React.CSSProperties;
+    container?: CSSObject;
+    controls?: CSSObject;
+    number?: (isCurrent: boolean) => CSSObject;
   };
 
   PreviousButtonRenderer?: React.ComponentType<PageButtonProps>;
@@ -36,7 +35,7 @@ export function Paginator(props: PaginatorProps) {
       {({ page, totalPages, paginate }) => {
         return (
           <Container
-            className={cx("sj-paginator", props.className)}
+            className={"sj-paginator " + (props.className || "")}
             aria-label="Pagination Navigation"
             styles={styles.container}
           >
@@ -48,12 +47,12 @@ export function Paginator(props: PaginatorProps) {
               />
             )}
             <ul
-              className={css({
+              css={{
                 display: "inline-flex",
                 listStyle: "none",
                 margin: 0,
                 padding: 0
-              })}
+              }}
             >
               {pageNumbers(page, totalPages, windowSize).map(
                 (pageNumber: number) => (
@@ -85,7 +84,7 @@ export function Paginator(props: PaginatorProps) {
 interface PageButtonProps {
   isDisabled: boolean;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
-  styles?: React.CSSProperties;
+  styles?: CSSObject;
 }
 
 function PreviousPageButton(props: PageButtonProps) {
@@ -120,17 +119,16 @@ export interface PageNumberProps {
   pageNumber: number;
   onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;
   isCurrent: boolean;
-  styles?: (isCurrent: boolean) => React.CSSProperties;
+  styles?: (isCurrent: boolean) => CSSObject;
 }
 
 function DefaultPageNumber(props: PageNumberProps) {
   return (
     <PageNumber
-      className={cx(
-        "sj-paginator__page-number",
-        props.isCurrent && "sj-paginator__page-number--current",
-        props.styles && css(props.styles(props.isCurrent) as any)
-      )}
+      css={props.styles && (props.styles(props.isCurrent) as any)}
+      className={classnames("sj-paginator__page-number", {
+        "sj-paginator__page-number--current": props.isCurrent
+      })}
       isCurrent={props.isCurrent}
       onClick={props.onClick}
       aria-label={

@@ -4,51 +4,62 @@ menu: Components
 route: /components/paginator
 ---
 
-import { PropsTable, Playground } from "docz"
-import { GeneralWrapper } from "../../docs/wrapper.tsx"
-import { Paginator } from "./Paginator.tsx"
+import { PropsTable, Playground } from "docz";
+import { GeneralWrapper } from "../../docs/wrapper.tsx";
+import { Paginator } from "./Paginator.tsx";
 
-export default ({ children }) => <GeneralWrapper>{children}</GeneralWrapper>
+export default ({ children }) => <GeneralWrapper>{children}</GeneralWrapper>;
 
 # Paginator
 
 ```javascript
 // Import the Paginator component
-import { Paginator } from "@sajari/sdk-react"
+import { Paginator } from "@sajari/sdk-react";
 ```
 
 ## Usage
 
 ### Default
+
 <Playground>
-    <Paginator />
+  <Paginator />
 </Playground>
 
 ### With custom components
+
 <Playground>
-    <Paginator PageNumberRenderer={({pageNumber, onClick, isCurrent}) => (
-        <button onClick={onClick}>{pageNumber}</button>
-    )} />
+  <Paginator
+    PageNumberRenderer={({ pageNumber, onClick, isCurrent }) => (
+      <button onClick={onClick}>{pageNumber}</button>
+    )}
+  />
 </Playground>
 
 ## Props
+
 <PropsTable of={Paginator} />
 
 ## Styles
 
 ### `css` classes
+
 ```css
-.sj-paginator {}
-.sj-paginator__page-button {}
-.sj-paginator__page-number {}
-.sj-paginator__page-number.sj-paginator__page-number--current {}
+.sj-paginator {
+}
+.sj-paginator__page-button {
+}
+.sj-paginator__page-number {
+}
+.sj-paginator__page-number.sj-paginator__page-number--current {
+}
 ```
 
 ### `styles` prop
+
 ```typescript
 type PaginatorStyles = {
-    container?: React.CSSProperties;
-    controls?: React.CSSProperties;
-    number?: (isCurrent: boolean) => React.CSSProperties;
-};  
+  container?: CSSObject;
+  controls?: CSSObject;
+  number?: (isCurrent: boolean) => CSSObject;
+};
 ```

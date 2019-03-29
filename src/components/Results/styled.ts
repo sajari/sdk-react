@@ -1,4 +1,3 @@
-import { css } from "emotion";
 import idx from "idx";
 import { override, styled, StyledProps } from "../styles";
 
@@ -20,11 +19,11 @@ export const Container = styled("ol")<ContainerProps>(
 
 export interface ResultItemProps extends StyledProps<HTMLLIElement> {}
 
-const gridItem = css({
+const gridItem = {
   boxSizing: "border-box",
   padding: "0.5em",
   width: "25%"
-});
+};
 
 export const ResultItem = styled("li")<ResultItemProps>(
   {

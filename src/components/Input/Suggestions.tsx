@@ -1,16 +1,17 @@
-import { css, cx } from "emotion";
 import * as React from "react";
+import classnames from "classnames";
 import { Dropdown } from "./shared/Dropdown";
 import { trimPrefix } from "./shared/utils";
 import { SearchStateAndHelpers } from "../Search/Search";
+import { CSSObject } from "@emotion/core";
 
 export interface SuggestionsProps {
   searchProps: SearchStateAndHelpers;
   typedInputValue: string;
   suggestions?: string[];
   styles?: {
-    container?: React.CSSProperties;
-    item?: (isFocused: boolean) => React.CSSProperties;
+    container?: CSSObject;
+    item?: (isFocused: boolean) => CSSObject;
   };
 }
 
@@ -35,16 +36,17 @@ export function Suggestions({
               item: suggestion,
               index: idx,
               role: "option",
-              className: cx(
-                "sj-input__suggestions__item",
-                searchProps.highlightedIndex === idx &&
-                  "sj-input__suggestions__item--highlighted",
-                css(suggestionItemStyles(searchProps.highlightedIndex === idx)),
-                styles &&
-                  styles.item &&
-                  css(styles.item(searchProps.highlightedIndex === idx) as any)
-              )
+              className: classnames("sj-input__suggestions__item", {
+                "sj-input__suggestions__item--highlighted":
+                  searchProps.highlightedIndex === idx
+              })
             })}
+            css={[
+              suggestionItemStyles(searchProps.highlightedIndex === idx),
+              styles &&
+                styles.item &&
+                styles.item(searchProps.highlightedIndex === idx)
+            ]}
           >
             {suggestionText(typedInputValue, suggestion)}
           </li>

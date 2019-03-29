@@ -4,51 +4,61 @@ menu: Components
 route: /components/summary
 ---
 
-import { Playground, PropsTable } from "docz"
-import { GeneralWrapper } from "../../docs/wrapper.tsx"
-import { Summary } from "./Summary.tsx"
+import { Playground, PropsTable } from "docz";
+import { GeneralWrapper } from "../../docs/wrapper.tsx";
+import { Summary } from "./Summary.tsx";
 
-export default ({ children }) => <GeneralWrapper>{children}</GeneralWrapper>
+export default ({ children }) => <GeneralWrapper>{children}</GeneralWrapper>;
 
 # Summary
 
 ```javascript
-import { Summary } from "@sajari/sdk-react"
+import { Summary } from "@sajari/sdk-react";
 ```
 
 ## Usage
 
 ### Default
+
 <Playground>
-    <Summary />
+  <Summary />
 </Playground>
 
 ### With custom renderer
+
 <Playground>
-    <Summary Renderer={props => JSON.stringify(props)} />
+  <Summary Renderer={props => JSON.stringify(props)} />
 </Playground>
 
 ## Props
+
 <PropsTable of={Summary} />
 
 ## Styles
 
 ### `css` classes
+
 ```css
-.sj-summary {}
-.sj-summary__results-text {}
-.sj-summary__search-term {}
-.sj-summary__query-time {}
-.sj-summary__query-override {}
+.sj-summary {
+}
+.sj-summary__results-text {
+}
+.sj-summary__search-term {
+}
+.sj-summary__query-time {
+}
+.sj-summary__query-override {
+}
 ```
 
 ### `styles` prop
+
 ```typescript
 type SummaryStyles = {
-    container?: React.CSSProperties;
-    searchTerm?: React.CSSProperties;
-    override?:{
-        container?: React.CSSProperties;
-    }
-};  
+  container?: CSSObject;
+  searchTerm?: CSSObject;
+  override?: {
+    container?: CSSObject;
+  };
+};
 ```

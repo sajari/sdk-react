@@ -546,7 +546,7 @@
     "@babel/helper-plugin-utils" "^7.0.0"
     "@babel/plugin-syntax-jsx" "^7.2.0"
 
-"@babel/plugin-transform-react-jsx@^7.0.0":
+"@babel/plugin-transform-react-jsx@^7.0.0", "@babel/plugin-transform-react-jsx@^7.1.6":
   version "7.3.0"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-react-jsx/-/plugin-transform-react-jsx-7.3.0.tgz#f2cab99026631c767e2745a5368b331cfe8f5290"
   dependencies:
@@ -792,6 +792,21 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@emotion/babel-plugin-jsx-pragmatic@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@emotion/babel-plugin-jsx-pragmatic/-/babel-plugin-jsx-pragmatic-0.1.2.tgz#bb98bbef8effe83418307563c34e784deae57a1a"
+  dependencies:
+    "@babel/plugin-syntax-jsx" "^7.2.0"
+
+"@emotion/babel-preset-css-prop@^10.0.9":
+  version "10.0.9"
+  resolved "https://registry.yarnpkg.com/@emotion/babel-preset-css-prop/-/babel-preset-css-prop-10.0.9.tgz#70386bd88fe4d8896e1b9729364daf3a6051f726"
+  dependencies:
+    "@babel/plugin-transform-react-jsx" "^7.1.6"
+    "@emotion/babel-plugin-jsx-pragmatic" "^0.1.2"
+    babel-plugin-emotion "^10.0.9"
+    object-assign "^4.1.1"
+
 "@emotion/babel-utils@^0.6.4":
   version "0.6.10"
   resolved "https://registry.yarnpkg.com/@emotion/babel-utils/-/babel-utils-0.6.10.tgz#83dbf3dfa933fae9fc566e54fbb45f14674c6ccc"
@@ -811,6 +826,16 @@
     "@emotion/stylis" "0.8.3"
     "@emotion/utils" "0.11.1"
     "@emotion/weak-memoize" "0.2.2"
+
+"@emotion/core@^10.0.10":
+  version "10.0.10"
+  resolved "https://registry.yarnpkg.com/@emotion/core/-/core-10.0.10.tgz#8d3114e5a2f8b178a7067c603a2937516f180b08"
+  dependencies:
+    "@emotion/cache" "^10.0.9"
+    "@emotion/css" "^10.0.9"
+    "@emotion/serialize" "^0.11.6"
+    "@emotion/sheet" "0.9.2"
+    "@emotion/utils" "0.11.1"
 
 "@emotion/core@^10.0.5":
   version "10.0.9"
@@ -844,12 +869,6 @@
   dependencies:
     "@emotion/memoize" "0.7.1"
 
-"@emotion/is-prop-valid@^0.6.1":
-  version "0.6.8"
-  resolved "https://registry.yarnpkg.com/@emotion/is-prop-valid/-/is-prop-valid-0.6.8.tgz#68ad02831da41213a2089d2cab4e8ac8b30cbd85"
-  dependencies:
-    "@emotion/memoize" "^0.6.6"
-
 "@emotion/memoize@0.7.1":
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.7.1.tgz#e93c13942592cf5ef01aa8297444dc192beee52f"
@@ -881,6 +900,15 @@
   version "0.9.2"
   resolved "https://registry.yarnpkg.com/@emotion/sheet/-/sheet-0.9.2.tgz#74e5c6b5e489a1ba30ab246ab5eedd96916487c4"
 
+"@emotion/styled-base@^10.0.10":
+  version "10.0.10"
+  resolved "https://registry.yarnpkg.com/@emotion/styled-base/-/styled-base-10.0.10.tgz#ffb811295c9dcd9b3c12bf93301d7d8bcb02e6f4"
+  dependencies:
+    "@emotion/is-prop-valid" "0.7.3"
+    "@emotion/serialize" "^0.11.6"
+    "@emotion/utils" "0.11.1"
+    object-assign "^4.1.1"
+
 "@emotion/styled-base@^10.0.9":
   version "10.0.9"
   resolved "https://registry.yarnpkg.com/@emotion/styled-base/-/styled-base-10.0.9.tgz#634b43d1f0309c35c5b342c775b01610517d2529"
@@ -889,6 +917,13 @@
     "@emotion/serialize" "^0.11.6"
     "@emotion/utils" "0.11.1"
     object-assign "^4.1.1"
+
+"@emotion/styled@^10.0.10":
+  version "10.0.10"
+  resolved "https://registry.yarnpkg.com/@emotion/styled/-/styled-10.0.10.tgz#ec241a9389a585b2c2638b709c262c28469ed92e"
+  dependencies:
+    "@emotion/styled-base" "^10.0.10"
+    babel-plugin-emotion "^10.0.9"
 
 "@emotion/styled@^10.0.5":
   version "10.0.9"
@@ -1099,6 +1134,10 @@
   resolved "https://registry.yarnpkg.com/@types/cheerio/-/cheerio-0.22.11.tgz#61c0facf9636d14ba5f77fc65ed8913aa845d717"
   dependencies:
     "@types/node" "*"
+
+"@types/classnames@^2.2.7":
+  version "2.2.7"
+  resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.2.7.tgz#fb68cc9be8487e6ea5b13700e759bfbab7e0fefd"
 
 "@types/enzyme@^3.1.13":
   version "3.9.1"
@@ -2859,12 +2898,6 @@ create-ecdh@^4.0.0:
     bn.js "^4.1.0"
     elliptic "^6.0.0"
 
-create-emotion-styled@^9.2.8:
-  version "9.2.8"
-  resolved "https://registry.yarnpkg.com/create-emotion-styled/-/create-emotion-styled-9.2.8.tgz#c0050e768ba439609bec108600467adf2de67cc3"
-  dependencies:
-    "@emotion/is-prop-valid" "^0.6.1"
-
 create-emotion@^9.2.12:
   version "9.2.12"
   resolved "https://registry.yarnpkg.com/create-emotion/-/create-emotion-9.2.12.tgz#0fc8e7f92c4f8bb924b0fef6781f66b1d07cb26f"
@@ -3613,7 +3646,7 @@ emotion-theming@^10.0.5:
     hoist-non-react-statics "^3.3.0"
     object-assign "^4.1.1"
 
-emotion@^9.1.2, emotion@^9.2.8:
+emotion@^9.1.2:
   version "9.2.12"
   resolved "https://registry.yarnpkg.com/emotion/-/emotion-9.2.12.tgz#53925aaa005614e65c6e43db8243c843574d1ea9"
   dependencies:
@@ -7884,13 +7917,6 @@ react-dom@^16.5.0, react-dom@^16.7.0:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
     scheduler "^0.13.5"
-
-react-emotion@^9.2.8:
-  version "9.2.12"
-  resolved "https://registry.yarnpkg.com/react-emotion/-/react-emotion-9.2.12.tgz#74d1494f89e22d0b9442e92a33ca052461955c83"
-  dependencies:
-    babel-plugin-emotion "^9.2.11"
-    create-emotion-styled "^9.2.8"
 
 react-error-overlay@^5.1.4:
   version "5.1.4"

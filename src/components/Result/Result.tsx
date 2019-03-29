@@ -1,4 +1,5 @@
-import { css, cx } from "emotion";
+import classnames from "classnames";
+import { css } from "@emotion/core";
 import { withTheme } from "emotion-theming";
 import idx from "idx";
 import * as React from "react";
@@ -8,6 +9,7 @@ import { ResultClickedFn } from "../context/pipeline/context";
 import { Theme } from "../styles";
 import { Image } from "./Image";
 import { TokenLink } from "./TokenLink";
+import { CSSObject } from "@emotion/core";
 
 export interface ResultProps {
   token: ClickToken | PosNegToken | undefined;
@@ -23,10 +25,10 @@ export interface ResultProps {
 }
 
 export interface ResultStyles {
-  container?: React.CSSProperties;
-  title?: React.CSSProperties;
-  description?: React.CSSProperties;
-  url?: React.CSSProperties;
+  container?: CSSObject;
+  title?: CSSObject;
+  description?: CSSObject;
+  url?: CSSObject;
 }
 
 export class Result extends React.Component<ResultProps> {
@@ -48,56 +50,56 @@ export class Result extends React.Component<ResultProps> {
     const url = values.url;
     const img = values.image;
 
-    const classNames = {
-      container: cx(
-        "sj-results__result",
-        this.props.className,
-        css(resultStyles.container),
-        showImage && css({ flexDirection: "row" }),
-        styles && styles.container && css(styles.container as any)
-      ),
-      img: css({ display: "inline-block" }),
-      textContainer: cx("sj-result__text", css({ minWidth: 0 })),
-      title: cx(
-        "sj-results__result__title",
-        css(resultStyles.title),
-        styles && styles.title && css(styles.title as any),
-        themeColor(theme),
-        css({ "&:hover": themeColor(theme) })
-      ),
-      description: cx(
-        "sj-results__result__description",
-        css(resultStyles.description),
-        styles && styles.description && css(styles.description as any)
-      ),
-      url: cx(
-        "sj-results__result__link",
-        css(resultStyles.link),
-        styles && styles.url && css(styles.url as any),
-        css({ "&:hover": themeColor(theme) })
-      )
-    };
-
     return (
-      <div className={classNames.container}>
+      <div
+        css={[
+          resultStyles.container,
+          showImage && { flexDirection: "row" },
+          styles && styles.container && styles.container
+        ]}
+        className={classnames("sj-results__result", this.props.className)}
+      >
         {showImage && (
-          <Image className={classNames.img} src={img as string} alt={""} />
+          <Image
+            css={{ display: "inline-block" }}
+            src={img as string}
+            alt={""}
+          />
         )}
-        <div className={classNames.textContainer}>
+        <div className="sj-result__text" css={{ minWidth: 0 }}>
           <TokenLink
             url={url as string}
             token={token}
             resultClicked={resultClicked}
-            className={classNames.title}
+            className="sj-results__result__title"
+            css={[
+              resultStyles.title,
+              styles && styles.title && styles.title,
+              themeColor(theme),
+              { "&:hover": themeColor(theme) }
+            ]}
           >
             <h3>{title}</h3>
           </TokenLink>
-          <p className={classNames.description}>{description}</p>
+          <p
+            className={classnames("sj-results__result__description")}
+            css={[
+              resultStyles.description,
+              styles && styles.description && styles.description
+            ]}
+          >
+            {description}
+          </p>
           <TokenLink
             url={url as string}
             token={token}
             resultClicked={resultClicked}
-            className={classNames.url}
+            className="sj-results__result__link"
+            css={[
+              resultStyles.link,
+              styles && styles.url && styles.url,
+              { "&:hover": themeColor(theme) }
+            ]}
           >
             {url}
           </TokenLink>
