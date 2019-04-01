@@ -4,7 +4,9 @@ export default {
   source: "./src",
   typescript: true,
   port: 5000,
+  indexHtml: undefined,
   themeConfig: {
+    mode: "light",
     colors: {
       primary: "#459CE7"
     },
