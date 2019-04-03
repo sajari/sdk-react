@@ -1,6 +1,6 @@
-import { cx } from "emotion";
 import idx from "idx";
 import * as React from "react";
+import classnames from "classnames";
 // @ts-ignore: module missing defintions
 import { LiveMessage } from "react-aria-live";
 
@@ -9,14 +9,15 @@ import { SearchFn } from "../context/pipeline/context";
 
 import { Container, Emphasis, OverrideContainer } from "./styled";
 import { SummaryContainer, SummaryContext } from "./SummaryContainer";
+import { CSSObject } from "@emotion/css";
 
 export interface SummaryProps {
   showQueryTime?: boolean;
   showQueryOverride?: boolean;
   className?: string;
   styles?: {
-    container?: React.CSSProperties;
-    searchTerm?: React.CSSProperties;
+    container?: CSSObject;
+    searchTerm?: CSSObject;
     override?: OverrideStyles;
   };
 
@@ -42,7 +43,7 @@ function DefaultSummaryRenderer(props: SummaryContext & SummaryProps) {
 
   return (
     <Container
-      className={cx("sj-summary", props.className)}
+      className={classnames("sj-summary", props.className)}
       styles={idx(styles, _ => _.container)}
     >
       <LiveMessage message={ariaMessage} aria-live="polite" />
@@ -87,7 +88,7 @@ export interface OverrideProps {
 }
 
 export interface OverrideStyles {
-  container?: React.CSSProperties;
+  container?: CSSObject;
 }
 
 const Override: React.SFC<OverrideProps> = ({

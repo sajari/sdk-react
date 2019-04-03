@@ -1,6 +1,5 @@
 /* tslint:disable max-classes-per-file */
 import { Result } from "@sajari/sdk-js";
-import { css, cx } from "emotion";
 import { withTheme } from "emotion-theming";
 import * as React from "react";
 // @ts-ignore: component missing type defs
@@ -9,6 +8,7 @@ import { Theme } from "../styles";
 import { ResultRendererProps, Results } from "./Results";
 import { Suggestions } from "./Suggestions";
 import { Typeahead } from "./Typeahead";
+import { CSSObject } from "@emotion/core";
 import {
   Search,
   PipelineProps,
@@ -16,7 +16,7 @@ import {
   StateChangeOptions
 } from "../Search";
 import { VoiceInput, MicIcon, EmptyMicIcon } from "./Voice";
-
+import classnames from "classnames";
 export type InputMode = "standard" | "typeahead";
 export type DropdownMode = "none" | "suggestions" | "results";
 
@@ -47,13 +47,13 @@ export interface InputProps {
   className?: string;
   theme?: Theme;
   styles?: {
-    container?: React.CSSProperties;
-    input?: (isFocused: boolean) => React.CSSProperties;
-    typeahead?: React.CSSProperties;
-    button?: React.CSSProperties;
+    container?: CSSObject;
+    input?: (isFocused: boolean) => CSSObject;
+    typeahead?: CSSObject;
+    button?: CSSObject;
     suggestions?: {
-      container?: React.CSSProperties;
-      item?: (isFocused: boolean) => React.CSSProperties;
+      container?: CSSObject;
+      item?: (isFocused: boolean) => CSSObject;
     };
   };
 }
@@ -281,34 +281,34 @@ export class Input extends React.PureComponent<InputProps, InputState> {
             this.props.dropdownMode === "suggestions" ? suggestions : results;
           return (
             <div
-              className={cx(
-                "sj-input",
-                this.props.className,
+              className="sj-input"
+              css={
                 this.props.styles &&
-                  this.props.styles.container &&
-                  css(this.props.styles.container as any)
-              )}
+                this.props.styles.container &&
+                this.props.styles.container
+              }
             >
               <form
                 onClick={this.focusInput}
-                className={cx(
-                  "sj-input__input",
-                  this.state.focused && "sj-input__input--focused",
-                  css(inputContainerStyles(this.state.focused)),
+                className={classnames("sj-input__input", {
+                  "sj-input__input--focused": this.state.focused
+                })}
+                css={[
+                  inputContainerStyles(this.state.focused),
                   this.props.styles &&
                     this.props.styles.input &&
-                    css(this.props.styles.input(this.state.focused) as any)
-                )}
+                    (this.props.styles.input(this.state.focused) as any)
+                ]}
               >
                 <div
                   role="search"
-                  className={innerContainerStyles(
+                  css={innerContainerStyles(
                     this.getButtonWidth() + this.getVoiceButtonWidth()
                   )}
                 >
                   <AutosizeInput
                     inputRef={this.inputRef}
-                    className={css(inputResetStyles.container)}
+                    css={inputResetStyles.container}
                     inputStyle={inputResetStyles.input}
                     minWidth={5}
                     {...getInputProps({
@@ -429,8 +429,8 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                             ref={this.voiceButtonRef}
                             onClick={onClick}
                             aria-label="Search by voice"
-                            className={cx(
-                              "sj-input__button",
+                            className="sj-input__button"
+                            css={[
                               buttonStyles(
                                 this.props.theme &&
                                   this.props.theme.colors &&
@@ -439,8 +439,8 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                               ),
                               this.props.styles &&
                                 this.props.styles.button &&
-                                css(this.props.styles.button as any)
-                            )}
+                                this.props.styles.button
+                            ]}
                           >
                             {active ? <MicIcon /> : <EmptyMicIcon />}
                           </button>
@@ -454,8 +454,8 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                   )}
                 <button
                   ref={this.buttonRef}
-                  className={cx(
-                    "sj-input__button",
+                  className="sj-input__button"
+                  css={[
                     buttonStyles(
                       this.props.theme &&
                         this.props.theme.colors &&
@@ -464,8 +464,8 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                     ),
                     this.props.styles &&
                       this.props.styles.button &&
-                      css(this.props.styles.button as any)
-                  )}
+                      this.props.styles.button
+                  ]}
                   onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
                     event.preventDefault();
                     search(selectedItem, true);
@@ -476,9 +476,7 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                 >
                   <SearchIcon />
                   {this.props.buttonText && (
-                    <span className={buttonTextStyles}>
-                      {this.props.buttonText}
-                    </span>
+                    <span css={buttonTextStyles}>{this.props.buttonText}</span>
                   )}
                 </button>
               </form>
@@ -533,15 +531,14 @@ const inputContainerStyles = (isFocused: boolean) => ({
     : 0
 });
 
-const innerContainerStyles = (buttonWidth: number) =>
-  css({
-    display: "flex",
-    flex: "1 1 auto",
-    flexDirection: "row",
-    justifyContent: "start",
-    alignItems: "baseline",
-    maxWidth: `calc(100% - ${buttonWidth}px)`
-  });
+const innerContainerStyles = (buttonWidth: number): CSSObject => ({
+  display: "flex",
+  flex: "1 1 auto",
+  flexDirection: "row",
+  justifyContent: "start",
+  alignItems: "baseline",
+  maxWidth: `calc(100% - ${buttonWidth}px)`
+});
 
 const inputResetStyles = {
   container: {
@@ -568,22 +565,21 @@ const inputResetStyles = {
   }
 };
 
-const buttonStyles = (primary?: string) =>
-  css({
-    boxSizing: "content-box",
-    padding: 8,
-    border: 0,
-    fontSize: 18,
-    backgroundColor: "transparent",
-    display: "flex",
-    alignItems: "center",
-    cursor: "pointer",
-    color: "#737373",
-    "&:hover": {
-      color: primary != undefined ? primary : "#222"
-    }
-  });
-
-const buttonTextStyles = css({
-  paddingLeft: 8
+const buttonStyles = (primary?: string): CSSObject => ({
+  boxSizing: "content-box",
+  padding: 8,
+  border: 0,
+  fontSize: 18,
+  backgroundColor: "transparent",
+  display: "flex",
+  alignItems: "center",
+  cursor: "pointer",
+  color: "#737373",
+  "&:hover": {
+    color: primary != undefined ? primary : "#222"
+  }
 });
+
+const buttonTextStyles = {
+  paddingLeft: 8
+};

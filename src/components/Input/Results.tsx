@@ -1,10 +1,10 @@
 import { SearchStateAndHelpers } from "../Search/Search";
-import { css, cx } from "emotion";
 import * as React from "react";
 import { Config, defaultConfig } from "../../config";
 import { ResultsContainer } from "../Results/Results";
 import { Summary } from "../Summary";
 import { Dropdown } from "./shared/Dropdown";
+import { CSSObject } from "@emotion/core";
 
 export interface ResultsProps {
   searchProps: SearchStateAndHelpers;
@@ -38,36 +38,35 @@ export class Results extends React.Component<ResultsProps> {
           }
           return (
             <Dropdown searchProps={searchProps} className="sj-input__results">
-              {searchProps.isOpen &&
-                searchProps.inputValue !== "" && (
-                  <React.Fragment>
-                    {showSummary && (
-                      <li className={cx(listItem, resultPadding)}>
-                        <Summary
-                          showQueryOverride={false}
-                          styles={summaryStyles}
-                        />
-                      </li>
-                    )}
+              {searchProps.isOpen && searchProps.inputValue !== "" && (
+                <React.Fragment>
+                  {showSummary && (
+                    <li css={[listItem, resultPadding]}>
+                      <Summary
+                        showQueryOverride={false}
+                        styles={summaryStyles}
+                      />
+                    </li>
+                  )}
 
-                    {results.map((result, idx) => (
-                      <li
-                        {...searchProps.getItemProps({
-                          key: result.key,
-                          item: result,
-                          index: idx,
-                          role: "option",
-                          className: listItem
-                        })}
-                      >
-                        <ResultRenderer
-                          values={result.values}
-                          isHighlighted={searchProps.highlightedIndex === idx}
-                        />
-                      </li>
-                    ))}
+                  {results.map((result, idx) => (
+                    <li
+                      {...searchProps.getItemProps({
+                        key: result.key,
+                        item: result,
+                        index: idx,
+                        role: "option"
+                      })}
+                      css={listItem}
+                    >
+                      <ResultRenderer
+                        values={result.values}
+                        isHighlighted={searchProps.highlightedIndex === idx}
+                      />
+                    </li>
+                  ))}
 
-                    {/* <li className={cx(listItem, resultPadding)}>
+                  {/* <li className={cx(listItem, resultPadding)}>
                       <a
                         href={`/search?${config.qParam}=${
                           searchProps.inputValue
@@ -76,8 +75,8 @@ export class Results extends React.Component<ResultsProps> {
                         Show more results
                       </a>
                     </li> */}
-                  </React.Fragment>
-                )}
+                </React.Fragment>
+              )}
             </Dropdown>
           );
         }}
@@ -91,29 +90,29 @@ function ResultItem({ values, isHighlighted }: ResultRendererProps) {
   const description = values.description;
 
   return (
-    <div className={cx(resultPadding, isHighlighted && resultHighlighted)}>
-      <h3 className={titleCSS}>{title}</h3>
-      <p className={descriptionCSS}>{description}</p>
+    <div css={[resultPadding, isHighlighted && resultHighlighted]}>
+      <h3 css={titleCSS}>{title}</h3>
+      <p css={descriptionCSS}>{description}</p>
     </div>
   );
 }
 
-const listItem = css({
+const listItem = {
   listStyle: "none",
   paddingLeft: 0,
   marginLeft: 0,
   backgroundColor: "#fff",
   cursor: "auto"
-});
+};
 
-const resultPadding = css({ padding: "0.5em 1em" });
+const resultPadding = { padding: "0.5em 1em" };
 
-const resultHighlighted = css({
+const resultHighlighted = {
   backgroundColor: "#eee",
   cursor: "default"
-});
+};
 
-const titleCSS = css({
+const titleCSS: CSSObject = {
   fontSize: "1.1em",
   fontWeight: 400,
   lineHeight: 1.1,
@@ -122,9 +121,9 @@ const titleCSS = css({
   overflow: "hidden",
   textOverflow: "ellipsis",
   whiteSpace: "nowrap"
-});
+};
 
-const descriptionCSS = css({
+const descriptionCSS: CSSObject = {
   color: "#545454",
   fontSize: "0.85em",
   lineHeight: 1.4,
@@ -132,7 +131,7 @@ const descriptionCSS = css({
   marginTop: 2,
   overflowWrap: "break-word",
   wordWrap: "break-word"
-});
+};
 
 const summaryStyles = {
   container: {

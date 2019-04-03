@@ -73,7 +73,9 @@ They are available to use when call:
                 boxShadow: "0 2px 3px rgba(0,0,0,0.05)",
                 padding: "5px 50px 5px 10px",
                 outline: "none",
-                fontSize: "20px"
+                fontSize: "20px",
+                  boxSizing: 'border-box'
+
               }}
             />
             {inputValue && (
@@ -112,6 +114,7 @@ They are available to use when call:
         </div>
       )}
     </Search>
+
   </InputWrapper>
 </Playground>
 
@@ -142,7 +145,9 @@ They are available to use when call:
                 boxShadow: "0 2px 3px rgba(0,0,0,0.05)",
                 padding: "5px 70px 5px 10px",
                 outline: "none",
-                fontSize: "18px"
+                fontSize: "18px",
+                  boxSizing: 'border-box'
+
               }}
             />
             <button
@@ -182,6 +187,7 @@ They are available to use when call:
         </div>
       )}
     </Search>
+
   </InputWrapper>
 </Playground>
 
@@ -211,7 +217,7 @@ They are available to use when call:
         reset,
         instantSearch,
         results,
-      }) => {        
+      }) => {
         const isShow = isOpen && suggestions.length > 0;
         return (
           <div style={{ margin: "auto", maxWidth: "500px" }}>
@@ -226,7 +232,7 @@ They are available to use when call:
                 })}
                 style={{
                   borderRadius: isShow ? '4px 4px 0 0' : '4px',
-                  border: '1px solid #d9d9d9',                  
+                  border: '1px solid #d9d9d9',
                   width: '100%',
                   height: '42px',
                   display: 'block',
@@ -234,8 +240,9 @@ They are available to use when call:
                   padding: '5px 10px',
                   outline: 'none',
                   fontSize: '18px',
+                  boxSizing: 'border-box'
                 }}
-              />              
+              />
             </div>
             {isShow && (
               <ul
@@ -247,7 +254,7 @@ They are available to use when call:
                   padding: '0',
                   margin: '-1px 0 0 0',
                   borderRadius: '0 0 4px 4px',
-                  overflow: 'hidden',                  
+                  overflow: 'hidden',
                 }}
               >
                 {suggestions.map((item, index) => (

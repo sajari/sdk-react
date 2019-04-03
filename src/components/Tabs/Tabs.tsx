@@ -4,13 +4,14 @@ import { FilterProvider } from "../context/filter";
 
 import { Container, TabsContainer } from "./styled";
 import { Tab } from "./Tab";
+import { CSSObject } from "@emotion/css";
 
 export interface TabsProps {
   filter: Filter;
   tabs: Array<{ name: string; display: string }>;
   styles?: {
-    container?: React.CSSProperties;
-    tab?: React.CSSProperties;
+    container?: CSSObject;
+    tab?: CSSObject;
   };
 }
 

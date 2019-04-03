@@ -1,7 +1,8 @@
-import { css, cx } from "emotion";
 import * as React from "react";
+import { CSSObject } from "@emotion/core";
 import { ClickToken, PosNegToken } from "@sajari/sdk-js";
 import { ResultClickedFn } from "../context/pipeline/context";
+import classnames from "classnames";
 
 export interface TokenLinkProps {
   token?: ClickToken | PosNegToken;
@@ -10,7 +11,7 @@ export interface TokenLinkProps {
   text?: string;
   children?: React.ReactNode;
 
-  styles?: React.CSSProperties;
+  styles?: CSSObject;
   className?: string;
 
   [k: string]: any;
@@ -58,14 +59,13 @@ export class TokenLink extends React.PureComponent<
       renderChildren = decodedText;
     }
 
-    const className = cx(this.props.className, css(linkStyles));
-
     return (
       <a
         href={this.state.clicked && clickToken ? clickToken : url}
         {...rest}
-        className={className}
+        className={classnames(this.props.className)}
         onMouseDown={this.click}
+        css={linkStyles}
       >
         {renderChildren}
       </a>
