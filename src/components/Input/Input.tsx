@@ -1,3 +1,5 @@
+/** @jsx jsx */ jsx;
+import { jsx } from "@emotion/core";
 /* tslint:disable max-classes-per-file */
 import { Result } from "@sajari/sdk-js";
 import { withTheme } from "emotion-theming";

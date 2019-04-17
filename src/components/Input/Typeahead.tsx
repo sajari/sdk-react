@@ -1,3 +1,5 @@
+/** @jsx jsx */ jsx;
+import { jsx, css } from "@emotion/core";
 import * as React from "react";
 import { trimPrefix } from "./shared/utils";
 import { CSSObject } from "@emotion/core";
