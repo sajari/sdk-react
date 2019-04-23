@@ -1,5 +1,6 @@
+/** @jsx jsx */ jsx;
+import { jsx, css } from "@emotion/core";
 import classnames from "classnames";
-import { css } from "@emotion/core";
 import { withTheme } from "emotion-theming";
 import idx from "idx";
 import * as React from "react";
