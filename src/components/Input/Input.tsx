@@ -4,8 +4,6 @@ import { jsx } from "@emotion/core";
 import { Result } from "@sajari/sdk-js";
 import { withTheme } from "emotion-theming";
 import * as React from "react";
-// @ts-ignore: component missing type defs
-import AutosizeInput from "react-input-autosize";
 import { Theme } from "../styles";
 import { ResultRendererProps, Results } from "./Results";
 import { Suggestions } from "./Suggestions";
@@ -308,11 +306,10 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                     this.getButtonWidth() + this.getVoiceButtonWidth()
                   )}
                 >
-                  <AutosizeInput
-                    inputRef={this.inputRef}
-                    css={inputResetStyles.container}
-                    inputStyle={inputResetStyles.input}
-                    minWidth={5}
+                  <input
+                    type="text"
+                    ref={this.inputRef}
+                    css={[inputResetStyles.container, inputResetStyles.input]}
                     {...getInputProps({
                       "aria-label": this.props.ariaLabel,
                       placeholder: this.props.placeholder,
@@ -534,11 +531,8 @@ const inputContainerStyles = (isFocused: boolean) => ({
 });
 
 const innerContainerStyles = (buttonWidth: number): CSSObject => ({
-  display: "flex",
-  flex: "1 1 auto",
-  flexDirection: "row",
-  justifyContent: "start",
-  alignItems: "baseline",
+  position: "relative",
+  width: "100%",
   maxWidth: `calc(100% - ${buttonWidth}px)`
 });
 
@@ -560,6 +554,7 @@ const inputResetStyles = {
     border: 0,
     color: "inherit",
     fontFamily: "inherit",
+    width: "100%",
     fontSize: "inherit",
     outline: 0,
     padding: 0,
