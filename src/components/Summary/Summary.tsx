@@ -1,15 +1,15 @@
+import classnames from "classnames";
 import idx from "idx";
 import * as React from "react";
-import classnames from "classnames";
 // @ts-ignore: module missing defintions
 import { LiveMessage } from "react-aria-live";
 
 import { i18n } from "../../i18n";
 import { SearchFn } from "../context/pipeline/context";
 
+import { CSSObject } from "@emotion/css";
 import { Container, Emphasis, OverrideContainer } from "./styled";
 import { SummaryContainer, SummaryContext } from "./SummaryContainer";
-import { CSSObject } from "@emotion/css";
 
 export interface SummaryProps {
   showQueryTime?: boolean;

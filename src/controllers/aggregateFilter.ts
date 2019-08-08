@@ -1,12 +1,12 @@
-import { Filter } from "./filter";
-import { Values } from "./values";
-import { EVENT_RESPONSE_UPDATED } from "../events";
 import { AggregateResponse, CountResponse } from "@sajari/sdk-js";
+import { EVENT_RESPONSE_UPDATED } from "../events";
+import { Filter } from "./filter";
 import { Pipeline } from "./pipeline";
+import { Values } from "./values";
 
 export class CountAggregateFilter extends Filter {
   private _field: string = "";
-  private _counts: { name: string; count: number }[] = [];
+  private _counts: Array<{ name: string; count: number }> = [];
 
   constructor(
     field: string,
@@ -35,7 +35,7 @@ export class CountAggregateFilter extends Filter {
   }
 
   private _addCountToValues(values: Values) {
-    const count = values.get()["count"];
+    const count = values.get().count;
     const fields = typeof count === "string" ? count.split(",") : [];
     if (!fields.includes(this._field)) {
       fields.push(this._field);

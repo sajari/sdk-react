@@ -1,22 +1,22 @@
 /** @jsx jsx */ jsx;
 import { jsx } from "@emotion/core";
+import { CSSObject } from "@emotion/core";
 /* tslint:disable max-classes-per-file */
 import { Result } from "@sajari/sdk-js";
+import classnames from "classnames";
 import { withTheme } from "emotion-theming";
 import * as React from "react";
+import {
+  PipelineProps,
+  Search,
+  SearchState,
+  StateChangeOptions
+} from "../Search";
 import { Theme } from "../styles";
 import { ResultRendererProps, Results } from "./Results";
 import { Suggestions } from "./Suggestions";
 import { Typeahead } from "./Typeahead";
-import { CSSObject } from "@emotion/core";
-import {
-  Search,
-  PipelineProps,
-  SearchState,
-  StateChangeOptions
-} from "../Search";
-import { VoiceInput, MicIcon, EmptyMicIcon } from "./Voice";
-import classnames from "classnames";
+import { EmptyMicIcon, MicIcon, VoiceInput } from "./Voice";
 export type InputMode = "standard" | "typeahead";
 export type DropdownMode = "none" | "suggestions" | "results";
 
@@ -74,10 +74,10 @@ export class Input extends React.PureComponent<InputProps, InputState> {
     experimental: { voiceToText: false }
   } as InputProps;
 
+  public state = { focused: false, typedInputValue: "" };
+
   private searchButton?: HTMLButtonElement;
   private voiceSearchButton?: HTMLButtonElement;
-
-  public state = { focused: false, typedInputValue: "" };
   private input?: HTMLInputElement;
 
   public componentDidMount() {
@@ -87,168 +87,6 @@ export class Input extends React.PureComponent<InputProps, InputState> {
       }
     }
   }
-
-  private inputRef = (element: HTMLInputElement) => {
-    this.input = element;
-    if (typeof this.props.inputRef === "function") {
-      this.props.inputRef(element);
-    }
-  };
-  private buttonRef = (element: HTMLButtonElement) => {
-    this.searchButton = element;
-  };
-  private voiceButtonRef = (element: HTMLButtonElement) => {
-    this.voiceSearchButton = element;
-  };
-
-  private getButtonWidth = () => {
-    if (this.searchButton) {
-      return this.searchButton.offsetWidth;
-    }
-    return 0;
-  };
-
-  private getVoiceButtonWidth = () => {
-    if (this.voiceSearchButton) {
-      return this.voiceSearchButton.offsetWidth;
-    }
-    return 0;
-  };
-
-  private focusInput = (_: React.MouseEvent<HTMLFormElement>) => {
-    if (this.input) {
-      this.input.focus();
-      this.setState(state => ({ ...state, focused: true }));
-    }
-  };
-
-  private stateReducer = (
-    state: SearchState<any>,
-    changes: StateChangeOptions<any>,
-    { search, instantSearch, results, suggestions }: PipelineProps
-  ) => {
-    const items = this.props.dropdownMode === "results" ? results : suggestions;
-
-    switch (changes.type) {
-      case Search.stateChangeTypes.changeInput:
-        if (this.props.instantSearch) {
-          search(changes.inputValue || "", false);
-        } else if (this.props.mode === "typeahead") {
-          instantSearch(changes.inputValue || "", false);
-        }
-
-        if (this.props.dropdownMode !== "results") {
-          if (changes.inputValue === "") {
-            // if we clear the input, reset the selected item back to null
-            return { ...changes, selectedItem: null };
-          }
-          return { ...changes, selectedItem: changes.inputValue };
-        } else if (this.props.dropdownMode === "results") {
-          return { ...changes, highlightedIndex: null };
-        }
-        return changes;
-
-      case Search.stateChangeTypes.keyDownArrowUp:
-        if (state.highlightedIndex === 0) {
-          return {
-            ...changes,
-            inputValue: this.state.typedInputValue,
-            selectedItem: this.state.typedInputValue,
-            highlightedIndex: null
-          };
-        }
-
-        if (changes.highlightedIndex != null) {
-          const item = (items || [])[changes.highlightedIndex];
-          if (typeof item !== "string") {
-            return changes;
-          }
-
-          return {
-            ...changes,
-            inputValue: item,
-            selectedItem: item
-          };
-        }
-
-        return changes;
-
-      case Search.stateChangeTypes.keyDownArrowDown:
-        if (state.highlightedIndex === (items || []).length - 1) {
-          return {
-            ...changes,
-            inputValue: this.state.typedInputValue,
-            selectedItem: this.state.typedInputValue,
-            highlightedIndex: null
-          };
-        }
-
-        if (changes.highlightedIndex != null) {
-          const item = (items || [])[changes.highlightedIndex];
-          if (typeof item !== "string") {
-            return changes;
-          }
-
-          return {
-            ...changes,
-            inputValue: item,
-            selectedItem: item
-          };
-        }
-
-        return changes;
-
-      case Search.stateChangeTypes.clickItem:
-        if (this.input) {
-          this.input.blur();
-        }
-
-        if (this.props.dropdownMode === "results") {
-          const url =
-            changes.selectedItem !== undefined &&
-            changes.selectedItem.token !== undefined
-              ? changes.selectedItem.token
-              : changes.selectedItem.values.url;
-
-          window.location.href = url;
-          return state;
-        }
-
-        search(changes.inputValue || "", true);
-        return changes;
-
-      case Search.stateChangeTypes.keyDownEscape:
-        if (this.props.dropdownMode === "suggestions") {
-          return {
-            ...changes,
-            inputValue: this.state.typedInputValue,
-            selectedItem: this.state.typedInputValue
-          };
-        }
-        return changes;
-
-      case Search.stateChangeTypes.itemMouseEnter:
-        if (
-          this.props.dropdownMode === "suggestions" &&
-          changes.highlightedIndex != null
-        ) {
-          const item = (items || [])[changes.highlightedIndex];
-          if (typeof item !== "string") {
-            return changes;
-          }
-
-          return {
-            ...changes,
-            inputValue: item,
-            selectedItem: item
-          };
-        }
-        return changes;
-
-      default:
-        return changes;
-    }
-  };
 
   public render() {
     return (
@@ -499,6 +337,172 @@ export class Input extends React.PureComponent<InputProps, InputState> {
       </Search>
     );
   }
+
+  private inputRef = (element: HTMLInputElement) => {
+    this.input = element;
+    if (typeof this.props.inputRef === "function") {
+      this.props.inputRef(element);
+    }
+  };
+  private buttonRef = (element: HTMLButtonElement) => {
+    this.searchButton = element;
+  };
+  private voiceButtonRef = (element: HTMLButtonElement) => {
+    this.voiceSearchButton = element;
+  };
+
+  private getButtonWidth = () => {
+    if (this.searchButton) {
+      return this.searchButton.offsetWidth;
+    }
+    return 0;
+  };
+
+  private getVoiceButtonWidth = () => {
+    if (this.voiceSearchButton) {
+      return this.voiceSearchButton.offsetWidth;
+    }
+    return 0;
+  };
+
+  private focusInput = (_: React.MouseEvent<HTMLFormElement>) => {
+    if (this.input) {
+      this.input.focus();
+      this.setState(state => ({ ...state, focused: true }));
+    }
+  };
+
+  private stateReducer = (
+    state: SearchState<any>,
+    changes: StateChangeOptions<any>,
+    { search, instantSearch, results, suggestions }: PipelineProps
+  ) => {
+    const items = this.props.dropdownMode === "results" ? results : suggestions;
+
+    switch (changes.type) {
+      case Search.stateChangeTypes.changeInput:
+        if (this.props.instantSearch) {
+          search(changes.inputValue || "", false);
+        } else if (this.props.mode === "typeahead") {
+          if ((changes.inputValue || "").length > 2) {
+            instantSearch(changes.inputValue || "", false);
+          } else {
+            instantSearch("", true);
+          }
+        }
+
+        if (this.props.dropdownMode !== "results") {
+          if (changes.inputValue === "") {
+            // if we clear the input, reset the selected item back to null
+            return { ...changes, selectedItem: null };
+          }
+          return { ...changes, selectedItem: changes.inputValue };
+        } else if (this.props.dropdownMode === "results") {
+          return { ...changes, highlightedIndex: null };
+        }
+        return changes;
+
+      case Search.stateChangeTypes.keyDownArrowUp:
+        if (state.highlightedIndex === 0) {
+          return {
+            ...changes,
+            inputValue: this.state.typedInputValue,
+            selectedItem: this.state.typedInputValue,
+            highlightedIndex: null
+          };
+        }
+
+        if (changes.highlightedIndex != null) {
+          const item = (items || [])[changes.highlightedIndex];
+          if (typeof item !== "string") {
+            return changes;
+          }
+
+          return {
+            ...changes,
+            inputValue: item,
+            selectedItem: item
+          };
+        }
+
+        return changes;
+
+      case Search.stateChangeTypes.keyDownArrowDown:
+        if (state.highlightedIndex === (items || []).length - 1) {
+          return {
+            ...changes,
+            inputValue: this.state.typedInputValue,
+            selectedItem: this.state.typedInputValue,
+            highlightedIndex: null
+          };
+        }
+
+        if (changes.highlightedIndex != null) {
+          const item = (items || [])[changes.highlightedIndex];
+          if (typeof item !== "string") {
+            return changes;
+          }
+
+          return {
+            ...changes,
+            inputValue: item,
+            selectedItem: item
+          };
+        }
+
+        return changes;
+
+      case Search.stateChangeTypes.clickItem:
+        if (this.input) {
+          this.input.blur();
+        }
+
+        if (this.props.dropdownMode === "results") {
+          const url =
+            changes.selectedItem !== undefined &&
+            changes.selectedItem.token !== undefined
+              ? changes.selectedItem.token
+              : changes.selectedItem.values.url;
+
+          window.location.href = url;
+          return state;
+        }
+
+        search(changes.inputValue || "", true);
+        return changes;
+
+      case Search.stateChangeTypes.keyDownEscape:
+        if (this.props.dropdownMode === "suggestions") {
+          return {
+            ...changes,
+            inputValue: this.state.typedInputValue,
+            selectedItem: this.state.typedInputValue
+          };
+        }
+        return changes;
+
+      case Search.stateChangeTypes.itemMouseEnter:
+        if (
+          this.props.dropdownMode === "suggestions" &&
+          changes.highlightedIndex != null
+        ) {
+          const item = (items || [])[changes.highlightedIndex];
+          if (typeof item !== "string") {
+            return changes;
+          }
+
+          return {
+            ...changes,
+            inputValue: item,
+            selectedItem: item
+          };
+        }
+        return changes;
+
+      default:
+        return changes;
+    }
+  };
 }
 
 // connect input to theme

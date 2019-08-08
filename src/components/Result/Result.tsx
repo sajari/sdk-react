@@ -1,16 +1,16 @@
 /** @jsx jsx */ jsx;
-import { jsx, css } from "@emotion/core";
+import { css, jsx } from "@emotion/core";
 import classnames from "classnames";
 import { withTheme } from "emotion-theming";
 import idx from "idx";
 import * as React from "react";
 
+import { CSSObject } from "@emotion/core";
 import { ClickToken, PosNegToken } from "@sajari/sdk-js";
 import { ResultClickedFn } from "../context/pipeline/context";
 import { Theme } from "../styles";
 import { Image } from "./Image";
 import { TokenLink } from "./TokenLink";
-import { CSSObject } from "@emotion/core";
 
 export interface ResultProps {
   token: ClickToken | PosNegToken | undefined;

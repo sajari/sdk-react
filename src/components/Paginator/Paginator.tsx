@@ -1,14 +1,14 @@
 /** @jsx jsx */ jsx;
 import { jsx } from "@emotion/core";
-import * as React from "react";
 import classnames from "classnames";
+import * as React from "react";
 import { PaginateFn } from "../context/pipeline/context";
 import { pageNumbers } from "./utils";
 
+import { CSSObject } from "@emotion/core";
 import { PaginatorContainer } from "./Container";
 import { LeftChevron, RightChevron } from "./icons";
 import { Container, PageButton, PageNumber } from "./styled";
-import { CSSObject } from "@emotion/core";
 
 export interface PaginatorProps {
   windowSize?: number;

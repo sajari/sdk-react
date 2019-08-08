@@ -19,20 +19,20 @@ export class VoiceInput extends React.Component<
   VoiceInputProps,
   VoiceInputState
 > {
-  state = {
+  public state = {
     active: false,
     recognition: null as any,
     previousRecognition: null as any,
     supports: false
   };
 
-  componentDidMount() {
+  public componentDidMount() {
     this.setState({
       supports: window.hasOwnProperty("webkitSpeechRecognition")
     });
   }
 
-  handleClick = () => {
+  public handleClick = () => {
     const { onVoiceInput } = this.props;
     const { active, previousRecognition } = this.state;
 
@@ -65,7 +65,7 @@ export class VoiceInput extends React.Component<
     this.setState({ active: true, previousRecognition: recognition });
   };
 
-  render() {
+  public render() {
     if (!this.state.supports) {
       return null;
     }

@@ -1,8 +1,8 @@
-import * as React from "react";
 import { CSSObject } from "@emotion/core";
 import { ClickToken, PosNegToken } from "@sajari/sdk-js";
-import { ResultClickedFn } from "../context/pipeline/context";
 import classnames from "classnames";
+import * as React from "react";
+import { ResultClickedFn } from "../context/pipeline/context";
 
 export interface TokenLinkProps {
   token?: ClickToken | PosNegToken;

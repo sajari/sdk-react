@@ -11,8 +11,8 @@ import { i18n } from "../../i18n";
 import { Consumer } from "../context";
 import { Result, ResultProps, ResultStyles } from "../Result";
 
-import { Container, Error, ResultItem } from "./styled";
 import { CSSObject } from "@emotion/core";
+import { Container, Error, ResultItem } from "./styled";
 
 const STATUS_UNAUTHORISED = 403;
 

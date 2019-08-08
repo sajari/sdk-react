@@ -1,11 +1,11 @@
 /** @jsx jsx */ jsx;
 import { jsx } from "@emotion/core";
-import * as React from "react";
 import classnames from "classnames";
+import * as React from "react";
 import { FilterConsumer } from "../../context/filter";
 
-import { Container } from "./styled";
 import { CSSObject } from "@emotion/css";
+import { Container } from "./styled";
 
 const ReturnKeyCode = 13;
 const SpaceKeyCode = 32;

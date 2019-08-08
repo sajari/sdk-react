@@ -1,13 +1,13 @@
+import { Result } from "@sajari/sdk-js";
 import Downshift, {
   ControllerStateAndHelpers,
-  DownshiftState,
   DownshiftProps,
+  DownshiftState,
   StateChangeOptions
 } from "downshift";
 import * as React from "react";
 import { PipelineConsumer } from "../context/pipeline";
-import { SearchFn, PaginateFn } from "../context/pipeline/context";
-import { Result } from "@sajari/sdk-js";
+import { PaginateFn, SearchFn } from "../context/pipeline/context";
 
 import { isNotEmptyArray, isNotEmptyString, mapToObject } from "./utils";
 
@@ -57,30 +57,6 @@ export interface SearchProps<Item>
 export class Search extends React.PureComponent<SearchProps<any>, {}> {
   public static stateChangeTypes = { ...Downshift.stateChangeTypes };
   public state = {};
-
-  private stateReducer = (pipeline: PipelineProps) => (
-    state: DownshiftState<any>,
-    changes: StateChangeOptions<any>
-  ) => {
-    if (typeof this.props.stateReducer === "function") {
-      return this.props.stateReducer(state, changes, pipeline);
-    }
-
-    return changes;
-  };
-
-  private onChange = (pipeline: PipelineProps) => (
-    selectedItem: any,
-    stateAndHelper: DownshiftState<any>
-  ) => {
-    if (typeof this.props.onChange !== "function") {
-      return undefined;
-    }
-    return this.props.onChange(selectedItem, {
-      ...stateAndHelper,
-      ...pipeline
-    });
-  };
 
   public render() {
     const { onChange, stateReducer, children, ...rest } = this.props;
@@ -168,6 +144,30 @@ export class Search extends React.PureComponent<SearchProps<any>, {}> {
       </PipelineConsumer>
     );
   }
+
+  private stateReducer = (pipeline: PipelineProps) => (
+    state: DownshiftState<any>,
+    changes: StateChangeOptions<any>
+  ) => {
+    if (typeof this.props.stateReducer === "function") {
+      return this.props.stateReducer(state, changes, pipeline);
+    }
+
+    return changes;
+  };
+
+  private onChange = (pipeline: PipelineProps) => (
+    selectedItem: any,
+    stateAndHelper: DownshiftState<any>
+  ) => {
+    if (typeof this.props.onChange !== "function") {
+      return undefined;
+    }
+    return this.props.onChange(selectedItem, {
+      ...stateAndHelper,
+      ...pipeline
+    });
+  };
 }
 
 export default Search;

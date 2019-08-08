@@ -1,6 +1,6 @@
-import * as React from "react";
-import styled, { CreateStyled, StyledComponent } from "@emotion/styled";
 import { CSSObject } from "@emotion/core";
+import styled, { CreateStyled, StyledComponent } from "@emotion/styled";
+import * as React from "react";
 import { Theme } from "./theme";
 
 export { StyledComponent };

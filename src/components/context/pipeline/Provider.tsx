@@ -200,30 +200,28 @@ export class Provider extends React.PureComponent<
       paginate: this.handlePaginate
     } as Context);
 
-  private search = (key: "search" | "instant") => (
-    query: string,
-    override: boolean = false
-  ) => {
-    const { pipeline, values } =
-      (this.props[key] as ProviderPipelineConfig) || this.instant;
-    const { config } = this.state[key];
+  private search = (key: "search" | "instant") =>
+    debounce((query: string, override: boolean = false) => {
+      const { pipeline, values } =
+        (this.props[key] as ProviderPipelineConfig) || this.instant;
+      const { config } = this.state[key];
 
-    const text = {
-      [config.qParam]: query,
-      [config.qOverrideParam]: undefined
-    };
+      const text = {
+        [config.qParam]: query,
+        [config.qOverrideParam]: undefined
+      };
 
-    if (override) {
-      text[config.qOverrideParam] = "true";
-    }
+      if (override) {
+        text[config.qOverrideParam] = "true";
+      }
 
-    values.set(text);
-    if (text[config.qParam]) {
-      pipeline.search(values.get());
-    } else {
-      pipeline.clearResponse(values.get());
-    }
-  };
+      values.set(text);
+      if (text[config.qParam]) {
+        pipeline.search(values.get());
+      } else {
+        pipeline.clearResponse(values.get());
+      }
+    }, 50);
 
   private clear = (key: "search" | "instant") => (vals?: {
     [k: string]: string | undefined;
@@ -293,3 +291,38 @@ const updateState = (
     suggestions
   };
 };
+
+type Procedure = (...args: any[]) => void;
+
+function debounce<F extends Procedure>(
+  func: F,
+  waitMilliseconds = 50,
+  options = {
+    isImmediate: false
+  }
+): F {
+  let timeoutId: NodeJS.Timeout | undefined;
+
+  return function(this: any, ...args: any[]) {
+    const context = this;
+
+    const doLater = function() {
+      timeoutId = undefined;
+      if (!options.isImmediate) {
+        func.apply(context, args);
+      }
+    };
+
+    const shouldCallNow = options.isImmediate && timeoutId === undefined;
+
+    if (timeoutId !== undefined) {
+      clearTimeout(timeoutId);
+    }
+
+    timeoutId = setTimeout(doLater, waitMilliseconds);
+
+    if (shouldCallNow) {
+      func.apply(context, args);
+    }
+  } as any;
+}

@@ -1,12 +1,12 @@
 /** @jsx jsx */ jsx;
 import { jsx } from "@emotion/core";
-import { SearchStateAndHelpers } from "../Search/Search";
+import { CSSObject } from "@emotion/core";
 import * as React from "react";
 import { Config, defaultConfig } from "../../config";
 import { ResultsContainer } from "../Results/Results";
+import { SearchStateAndHelpers } from "../Search/Search";
 import { Summary } from "../Summary";
 import { Dropdown } from "./shared/Dropdown";
-import { CSSObject } from "@emotion/core";
 
 export interface ResultsProps {
   searchProps: SearchStateAndHelpers;

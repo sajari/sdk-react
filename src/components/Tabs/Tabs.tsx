@@ -2,9 +2,9 @@ import * as React from "react";
 import { Filter } from "../../controllers";
 import { FilterProvider } from "../context/filter";
 
+import { CSSObject } from "@emotion/css";
 import { Container, TabsContainer } from "./styled";
 import { Tab } from "./Tab";
-import { CSSObject } from "@emotion/css";
 
 export interface TabsProps {
   filter: Filter;

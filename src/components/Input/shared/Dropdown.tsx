@@ -1,8 +1,8 @@
 /** @jsx jsx */ jsx;
 import { jsx } from "@emotion/core";
-import { SearchStateAndHelpers } from "../../Search/Search";
-import * as React from "react";
 import { CSSObject } from "@emotion/core";
+import * as React from "react";
+import { SearchStateAndHelpers } from "../../Search/Search";
 
 export interface DropdownProps {
   searchProps: SearchStateAndHelpers;

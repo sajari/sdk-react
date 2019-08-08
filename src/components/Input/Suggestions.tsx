@@ -1,11 +1,11 @@
 /** @jsx jsx */ jsx;
 import { jsx } from "@emotion/core";
-import * as React from "react";
+import { CSSObject } from "@emotion/core";
 import classnames from "classnames";
+import * as React from "react";
+import { SearchStateAndHelpers } from "../Search/Search";
 import { Dropdown } from "./shared/Dropdown";
 import { trimPrefix } from "./shared/utils";
-import { SearchStateAndHelpers } from "../Search/Search";
-import { CSSObject } from "@emotion/core";
 
 export interface SuggestionsProps {
   searchProps: SearchStateAndHelpers;
