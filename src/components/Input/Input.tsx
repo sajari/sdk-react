@@ -1,22 +1,23 @@
 /** @jsx jsx */ jsx;
 import { jsx } from "@emotion/core";
-import { CSSObject } from "@emotion/core";
 /* tslint:disable max-classes-per-file */
 import { Result } from "@sajari/sdk-js";
-import classnames from "classnames";
 import { withTheme } from "emotion-theming";
 import * as React from "react";
-import {
-  PipelineProps,
-  Search,
-  SearchState,
-  StateChangeOptions
-} from "../Search";
 import { Theme } from "../styles";
 import { ResultRendererProps, Results } from "./Results";
 import { Suggestions } from "./Suggestions";
 import { Typeahead } from "./Typeahead";
-import { EmptyMicIcon, MicIcon, VoiceInput } from "./Voice";
+import { CSSObject } from "@emotion/core";
+import {
+  Search,
+  PipelineProps,
+  SearchState,
+  StateChangeOptions
+} from "../Search";
+import { VoiceInput, MicIcon, EmptyMicIcon } from "./Voice";
+import classnames from "classnames";
+
 export type InputMode = "standard" | "typeahead";
 export type DropdownMode = "none" | "suggestions" | "results";
 
@@ -104,6 +105,7 @@ export class Input extends React.PureComponent<InputProps, InputState> {
             suggestions,
             results,
             getInputProps,
+            getRootProps,
             openMenu,
             closeMenu,
             setState,
@@ -119,6 +121,10 @@ export class Input extends React.PureComponent<InputProps, InputState> {
             this.props.dropdownMode === "suggestions" ? suggestions : results;
           return (
             <div
+              {
+                // @ts-ignore
+                ...getRootProps({}, { suppressRefError: true })
+              }
               className="sj-input"
               css={
                 this.props.styles &&
