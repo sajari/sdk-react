@@ -92,6 +92,7 @@ export class Input extends React.PureComponent<InputProps, InputState> {
   public render() {
     return (
       <Search
+        getA11yStatusMessage={() => ""}
         stateReducer={this.stateReducer}
         key={`sj-downshift-${this.props.defaultValue}`}
         defaultInputValue={this.props.defaultValue}
