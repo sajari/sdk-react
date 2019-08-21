@@ -84,8 +84,6 @@ export class Search extends React.PureComponent<SearchProps<any>, {}> {
             pipelines.instant.completion
           );
 
-          pipelines.instant;
-
           const results = isNotEmptyArray(
             (pipelines.search.response &&
               pipelines.search.response.getResults()) ||
