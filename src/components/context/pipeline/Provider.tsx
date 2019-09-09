@@ -319,6 +319,7 @@ function debounce<F extends Procedure>(
       clearTimeout(timeoutId);
     }
 
+    // @ts-ignore
     timeoutId = setTimeout(doLater, waitMilliseconds);
 
     if (shouldCallNow) {

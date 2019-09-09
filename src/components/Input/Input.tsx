@@ -92,7 +92,6 @@ export class Input extends React.PureComponent<InputProps, InputState> {
   public render() {
     return (
       <Search
-        getA11yStatusMessage={() => ""}
         stateReducer={this.stateReducer}
         key={`sj-downshift-${this.props.defaultValue}`}
         defaultInputValue={this.props.defaultValue}
@@ -164,9 +163,10 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                       autoCorrect: "off",
                       maxLength: 2048,
                       onFocus: event => {
-                        openMenu();
+                        if (Array.isArray(results) && results.length > 0) {
+                          openMenu();
+                        }
                         this.setState(state => ({ ...state, focused: true }));
-
                         typeof this.props.onFocus === "function" &&
                           this.props.onFocus(event);
                       },
