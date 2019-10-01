@@ -992,9 +992,10 @@
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
 
-"@sajari/sdk-js@^1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@sajari/sdk-js/-/sdk-js-1.0.5.tgz#0c8678589cb3345e7ac0afce7b88f5fa3357831d"
+"@sajari/sdk-js@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@sajari/sdk-js/-/sdk-js-1.0.6.tgz#511a30317dd2196b708de6ffdad76a71ae3b8d95"
+  integrity sha512-v1qMkQjhJ6wUIE1YoKH5vEvZYtiRSMck0DEWmtqznt/g/+azSFxr6YPasx2ObKo7kJE6i3nHsnG+EieXjhzP3w==
 
 "@shellscape/koa-send@^4.1.0":
   version "4.1.3"
