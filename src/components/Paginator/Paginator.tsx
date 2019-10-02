@@ -119,7 +119,7 @@ function NextPageButton(props: PageButtonProps) {
 
 export interface PageNumberProps {
   pageNumber: number;
-  onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   isCurrent: boolean;
   styles?: (isCurrent: boolean) => CSSObject;
 }

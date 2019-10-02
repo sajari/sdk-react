@@ -8,16 +8,15 @@ export const Container = styled("nav")<StyledProps<HTMLElement>>(
     display: "flex",
     justifyContent: "center",
     alignItems: "center"
-    // marginBottom: "1em"
   },
   override
 );
 
-export interface PageNumberProps extends StyledProps<HTMLAnchorElement> {
+export interface PageNumberProps extends StyledProps<HTMLButtonElement> {
   isCurrent?: boolean;
 }
 
-export const PageNumber = styled("a")<PageNumberProps>(
+export const PageNumber = styled("button")<PageNumberProps>(
   {
     cursor: "pointer",
     display: ["inline-block", "-moz-inline-stack"],
@@ -26,7 +25,9 @@ export const PageNumber = styled("a")<PageNumberProps>(
     userSelect: "none",
     width: 44,
     height: 44,
-    textAlign: "center"
+    textAlign: "center",
+    fontSize: "inherit",
+    border: 0
   },
   ({ isCurrent: curr, theme }) => {
     // @ts-ignore: idx
