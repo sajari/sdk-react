@@ -44,10 +44,7 @@ export function Paginator(props: PaginatorProps) {
             {page !== 1 && (
               <PreviousButtonRenderer
                 isDisabled={page === 1}
-                onClick={event => {
-                  event.stopPropagation();
-                  prevPage(paginate, page);
-                }}
+                onClick={prevPage(paginate, page)}
                 styles={styles.controls}
               />
             )}
@@ -65,10 +62,7 @@ export function Paginator(props: PaginatorProps) {
                     <PageNumberRenderer
                       pageNumber={pageNumber}
                       isCurrent={page === pageNumber}
-                      onClick={event => {
-                        event.stopPropagation();
-                        setPage(paginate, pageNumber);
-                      }}
+                      onClick={setPage(paginate, pageNumber)}
                       styles={styles.number}
                     />
                   </li>
@@ -78,10 +72,7 @@ export function Paginator(props: PaginatorProps) {
             {page !== totalPages && (
               <NextButtonRenderer
                 isDisabled={page === totalPages}
-                onClick={event => {
-                  event.stopPropagation();
-                  nextPage(paginate, page, totalPages);
-                }}
+                onClick={nextPage(paginate, page, totalPages)}
                 styles={styles.controls}
               />
             )}
@@ -157,27 +148,28 @@ function DefaultPageNumber(props: PageNumberProps) {
 }
 
 function prevPage(paginate: PaginateFn, page: number) {
-  return function closure() {
+  return function closure(event: React.MouseEvent<HTMLButtonElement>) {
     if (page === 1) {
       return;
     }
 
-    setPage(paginate, page - 1)();
+    setPage(paginate, page - 1)(event);
   };
 }
 
 function nextPage(paginate: PaginateFn, page: number, totalPages: number) {
-  return function closure() {
+  return function closure(event: React.MouseEvent<HTMLButtonElement>) {
     if (page === totalPages) {
       return;
     }
 
-    setPage(paginate, page + 1)();
+    setPage(paginate, page + 1)(event);
   };
 }
 
 function setPage(paginate: PaginateFn, page: number) {
-  return function closure() {
+  return function closure(event: React.MouseEvent<HTMLButtonElement>) {
+    event.stopPropagation();
     paginate(page);
   };
 }
