@@ -44,7 +44,10 @@ export function Paginator(props: PaginatorProps) {
             {page !== 1 && (
               <PreviousButtonRenderer
                 isDisabled={page === 1}
-                onClick={prevPage(paginate, page)}
+                onClick={event => {
+                  event.stopPropagation();
+                  prevPage(paginate, page);
+                }}
                 styles={styles.controls}
               />
             )}
@@ -62,7 +65,10 @@ export function Paginator(props: PaginatorProps) {
                     <PageNumberRenderer
                       pageNumber={pageNumber}
                       isCurrent={page === pageNumber}
-                      onClick={setPage(paginate, pageNumber)}
+                      onClick={event => {
+                        event.stopPropagation();
+                        setPage(paginate, pageNumber);
+                      }}
                       styles={styles.number}
                     />
                   </li>
@@ -72,7 +78,10 @@ export function Paginator(props: PaginatorProps) {
             {page !== totalPages && (
               <NextButtonRenderer
                 isDisabled={page === totalPages}
-                onClick={nextPage(paginate, page, totalPages)}
+                onClick={event => {
+                  event.stopPropagation();
+                  nextPage(paginate, page, totalPages);
+                }}
                 styles={styles.controls}
               />
             )}
@@ -106,6 +115,7 @@ function PreviousPageButton(props: PageButtonProps) {
 function NextPageButton(props: PageButtonProps) {
   return (
     <PageButton
+      type="button"
       isDisabled={props.isDisabled}
       onClick={props.onClick}
       aria-label="Goto Next Page"
@@ -133,6 +143,7 @@ function DefaultPageNumber(props: PageNumberProps) {
       })}
       isCurrent={props.isCurrent}
       onClick={props.onClick}
+      type="button"
       aria-label={
         props.isCurrent
           ? `Current Page, Page ${props.pageNumber}`
