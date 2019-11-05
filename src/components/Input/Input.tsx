@@ -41,6 +41,7 @@ export interface InputProps {
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onChange?: (event: React.FormEvent<HTMLInputElement>) => void;
+  onSearch?: (query: string) => void;
 
   // The result render is only used when dropdownMode === "results"
   ResultRenderer?: React.ComponentType<ResultRendererProps>;
@@ -214,7 +215,11 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                             selectHighlightedItem();
                             item = (items || [])[highlightedIndex];
                           }
-                          search(item, true);
+                          if (typeof this.props.onSearch === "function") {
+                            this.props.onSearch(item);
+                          } else {
+                            search(item, true);
+                          }
                         }
 
                         if (event.key === "ArrowRight") {
@@ -312,7 +317,11 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                   ]}
                   onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
                     event.preventDefault();
-                    search(selectedItem, true);
+                    if (typeof this.props.onSearch === "function") {
+                      this.props.onSearch(selectedItem);
+                    } else {
+                      search(selectedItem, true);
+                    }
                   }}
                   aria-label="Search"
                   title="Search"
@@ -389,7 +398,11 @@ export class Input extends React.PureComponent<InputProps, InputState> {
     switch (changes.type) {
       case Search.stateChangeTypes.changeInput:
         if (this.props.instantSearch) {
-          search(changes.inputValue || "", false);
+          if (typeof this.props.onSearch === "function") {
+            this.props.onSearch(changes.inputValue || "");
+          } else {
+            search(changes.inputValue || "", false);
+          }
         } else if (this.props.mode === "typeahead") {
           if ((changes.inputValue || "").length > 2) {
             instantSearch(changes.inputValue || "", false);
@@ -475,7 +488,11 @@ export class Input extends React.PureComponent<InputProps, InputState> {
           return state;
         }
 
-        search(changes.inputValue || "", true);
+        if (typeof this.props.onSearch === "function") {
+          this.props.onSearch(changes.inputValue || "");
+        } else {
+          search(changes.inputValue || "", true);
+        }
         return changes;
 
       case Search.stateChangeTypes.keyDownEscape:
