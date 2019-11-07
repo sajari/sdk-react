@@ -11,16 +11,20 @@ import Search from "./Search.tsx";
 
 # Search
 
-Although the sdk provides its own `Input` component, a pre-built component like the `Input` will not be flexible enought to cover all cases when building search interfaces. The `Search` component, thus, provides a solution to address the issue by using the render prop technique.
+Although the SDK provides its own `Input` component, a pre-built component like
+`Input` will not be flexible enought to cover all cases when building search
+interfaces. The `Search` component provides a flexible interface for building
+`Input` components via a render prop.
 
 ```javascript
 // Import the Search component
 import { Search } from "@sajari/sdk-react";
 ```
 
-The component was built on top of [downshift](https://github.com/paypal/downshift), providing all of the library funtionalities along with `pipeline` methods & responses.
+The component was built on top of [downshift](https://github.com/paypal/downshift),
+providing all of the library funtionalities along with `pipeline` methods & responses.
 
-#### Pipleline methods & responses
+#### Pipeline methods & responses
 
 - `suggestions`: `string[]`
 - `results`: `Result[]`
@@ -31,8 +35,8 @@ The component was built on top of [downshift](https://github.com/paypal/downshif
 
 They are available to use when call:
 
-- Render function: `<Search>{searchProps => <div>/* your JSX here! */</div>}</Search>`
-- Props: `stateReduder` or `onChange`.
+- Render function: `<Search>{searchProps => <>/* your JSX here! */</>}</Search>`
+- Props: `stateReducer` or `onChange`.
 
 ## Usage
 
@@ -191,7 +195,7 @@ They are available to use when call:
   </InputWrapper>
 </Playground>
 
-### Search with suggestions
+### Show suggestions
 
 <Playground>
   <InputWrapper style={{ height: 250 }}>
