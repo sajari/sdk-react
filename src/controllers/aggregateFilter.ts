@@ -34,6 +34,13 @@ export class CountAggregateFilter extends Filter {
     return this._counts;
   }
 
+  public reset() {
+    this.get().forEach(item => {
+      this.set(item, false);
+    });
+    this._counts = [];
+  }
+
   private _addCountToValues(values: Values) {
     const count = values.get().count;
     const fields = typeof count === "string" ? count.split(",") : [];
