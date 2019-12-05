@@ -28,11 +28,11 @@ It's easy to get up and running using one of our examples as a starting point.
 They're pre-configured with all the correct dependencies, so all you need to do is copy the example
 directory into your own workspace and you're on your way!
 
-* **Basic**: basic search box, hit enter to search (<a href="https://3vy8p6k7z1.codesandbox.io/" target="_blank">View</a>, <a href="https://codesandbox.io/s/3vy8p6k7z1" target="_blank">Edit</a>).
-* **Typeahead with Instant Search**: search box with typeahead autocomplete and instant search enabled (<a href="https://5zz60m4l0p.codesandbox.io/" target="_blank">View</a>, <a href="https://codesandbox.io/s/5zz60m4l0p" target="_blank">Edit</a>).
-* **Suggestions Dropdown**: search box with drop-down autocomplete suggestions (<a href="https://pvo0pxojx.codesandbox.io/" target="_blank">View</a>, <a href="https://codesandbox.io/s/pvo0pxojx" target="_blank">Edit</a>).
-* **Radio/checkbox**: radio/checkbox filtering (<a href="https://w64pm94vn8.codesandbox.io/" target="_blank">View</a>, <a href="https://codesandbox.io/s/w64pm94vn8" target="_blank">Edit</a>).
-* **Custom Result Renderer**: custom result renderer (<a href="https://6x0vwormkk.codesandbox.io/" target="_blank">View</a>, <a href="https://codesandbox.io/s/6x0vwormkk" target="_blank">Edit</a>)
+* **Basic**: basic search box, hit enter to search (<a href="https://3vy8p6k7z1.csb.app/" target="_blank">View</a>, <a href="https://codesandbox.io/s/3vy8p6k7z1" target="_blank">Edit</a>).
+* **Typeahead with Instant Search**: search box with typeahead autocomplete and instant search enabled (<a href="https://5zz60m4l0p.csb.app/" target="_blank">View</a>, <a href="https://codesandbox.io/s/5zz60m4l0p" target="_blank">Edit</a>).
+* **Suggestions Dropdown**: search box with drop-down autocomplete suggestions (<a href="https://pvo0pxojx.csb.app/" target="_blank">View</a>, <a href="https://codesandbox.io/s/pvo0pxojx" target="_blank">Edit</a>).
+* **Radio/checkbox**: radio/checkbox filtering (<a href="https://w64pm94vn8.csb.app/" target="_blank">View</a>, <a href="https://codesandbox.io/s/w64pm94vn8" target="_blank">Edit</a>).
+* **Custom Result Renderer**: custom result renderer (<a href="https://6x0vwormkk.csb.app/" target="_blank">View</a>, <a href="https://codesandbox.io/s/6x0vwormkk" target="_blank">Edit</a>)
 
 
 <!-- TODO(@benhinchley): build examples in codesandbox
