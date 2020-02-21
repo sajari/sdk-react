@@ -32,6 +32,7 @@ directory into your own workspace and you're on your way!
 * **Typeahead with Instant Search**: search box with typeahead autocomplete and instant search enabled (<a href="https://5zz60m4l0p.codesandbox.io/" target="_blank">View</a>, <a href="https://codesandbox.io/s/5zz60m4l0p" target="_blank">Edit</a>).
 * **Suggestions Dropdown**: search box with drop-down autocomplete suggestions (<a href="https://pvo0pxojx.codesandbox.io/" target="_blank">View</a>, <a href="https://codesandbox.io/s/pvo0pxojx" target="_blank">Edit</a>).
 * **Radio/checkbox**: radio/checkbox filtering (<a href="https://w64pm94vn8.codesandbox.io/" target="_blank">View</a>, <a href="https://codesandbox.io/s/w64pm94vn8" target="_blank">Edit</a>).
+* **Radio/checkbox Facets**: radio/checkbox filtering and facets (<a href="https://isqwn.csb.app/" target="_blank">View</a>, <a href="https://codesandbox.io/s/sajari-react-sdk-example-radio-checkbox-facets-isqwn" target="_blank">Edit</a>).
 * **Custom Result Renderer**: custom result renderer (<a href="https://6x0vwormkk.codesandbox.io/" target="_blank">View</a>, <a href="https://codesandbox.io/s/6x0vwormkk" target="_blank">Edit</a>)
 
 
