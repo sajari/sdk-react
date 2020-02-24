@@ -4,6 +4,7 @@ import { Container, HiddenInput, NativeInput } from "./styled";
 
 export interface CheckboxProps {
   name: string;
+  all?: boolean;
   CheckboxRenderer?: React.ComponentType<CheckboxRendererProps>;
 }
 
@@ -13,16 +14,24 @@ export interface CheckboxRendererProps {
 
 export class Checkbox extends React.Component<CheckboxProps> {
   public render() {
-    const { name, CheckboxRenderer = NativeCheckbox } = this.props;
+    const { name, all, CheckboxRenderer = NativeCheckbox } = this.props;
 
     return (
       <FilterConsumer>
-        {({ selected, set }) => {
-          const isSelected = selected.includes(name);
+        {({ selected, options, set }) => {
+          const isSelected = all
+            ? selected.length === 0
+            : selected.includes(name);
           return (
             <Container
               isSelected={isSelected}
-              onClick={this.onClick(name, isSelected, set)}
+              onClick={
+                all
+                  ? () => {
+                      Object.keys(options).forEach(k => set(k, false));
+                    }
+                  : this.onClick(name, isSelected, set)
+              }
             >
               <HiddenInput type="checkbox" value={name} checked={isSelected} />
               <CheckboxRenderer isChecked={isSelected} />
