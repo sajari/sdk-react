@@ -3,13 +3,17 @@ import Downshift, {
   ControllerStateAndHelpers,
   DownshiftProps,
   DownshiftState,
-  StateChangeOptions
+  StateChangeOptions as BaseStateChangeOptions
 } from "downshift";
 import * as React from "react";
 import { PipelineConsumer } from "../context/pipeline";
 import { PaginateFn, SearchFn } from "../context/pipeline/context";
 
 import { isNotEmptyArray, isNotEmptyString, mapToObject } from "./utils";
+
+const CustomStateChangeTypes = {
+  resetInput: "__input_reset__"
+};
 
 export type SearchStateAndHelpers = ControllerStateAndHelpers<any> &
   PipelineProps;
@@ -34,7 +38,8 @@ export interface SummaryInterface {
   response: PipelineResponseInterface;
 }
 
-export interface StateChangeOptions<Item> extends StateChangeOptions<Item> {}
+export interface StateChangeOptions<Item>
+  extends BaseStateChangeOptions<Item> {}
 
 export interface SearchState<Item> extends DownshiftState<Item> {}
 
@@ -43,10 +48,12 @@ type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export interface SearchProps<Item>
   extends Omit<DownshiftProps<Item>, "onChange" | "stateReducer" | "children"> {
   children: (args: SearchStateAndHelpers) => JSX.Element;
+  defaultInputValue?: string;
   stateReducer?: (
     state: SearchState<Item>,
     changes: StateChangeOptions<Item>,
-    pipeline: PipelineProps
+    pipeline: PipelineProps,
+    defaultInputValue?: string
   ) => Partial<StateChangeOptions<Item>>;
   onChange?: (
     selectedItem: Item,
@@ -55,11 +62,20 @@ export interface SearchProps<Item>
 }
 
 export class Search extends React.PureComponent<SearchProps<any>, {}> {
-  public static stateChangeTypes = { ...Downshift.stateChangeTypes };
+  public static stateChangeTypes = {
+    ...Downshift.stateChangeTypes,
+    ...CustomStateChangeTypes
+  };
   public state = {};
 
   public render() {
-    const { onChange, stateReducer, children, ...rest } = this.props;
+    const {
+      onChange,
+      defaultInputValue,
+      stateReducer,
+      children,
+      ...rest
+    } = this.props;
 
     if (typeof children !== "function") {
       // istanbul ignore next
@@ -126,7 +142,7 @@ export class Search extends React.PureComponent<SearchProps<any>, {}> {
 
           return (
             <Downshift
-              stateReducer={this.stateReducer(pipeline)}
+              stateReducer={this.stateReducer(pipeline, defaultInputValue)}
               onChange={this.onChange(pipeline)}
               {...rest}
             >
@@ -143,12 +159,17 @@ export class Search extends React.PureComponent<SearchProps<any>, {}> {
     );
   }
 
-  private stateReducer = (pipeline: PipelineProps) => (
-    state: DownshiftState<any>,
-    changes: StateChangeOptions<any>
-  ) => {
+  private stateReducer = (
+    pipeline: PipelineProps,
+    defaultInputValue?: string
+  ) => (state: DownshiftState<any>, changes: StateChangeOptions<any>) => {
     if (typeof this.props.stateReducer === "function") {
-      return this.props.stateReducer(state, changes, pipeline);
+      return this.props.stateReducer(
+        state,
+        changes,
+        pipeline,
+        defaultInputValue
+      );
     }
 
     return changes;

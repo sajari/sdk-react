@@ -1,27 +1,30 @@
 /** @jsx jsx */ jsx;
 import { jsx } from "@emotion/core";
+import { CSSObject } from "@emotion/core";
 /* tslint:disable max-classes-per-file */
 import { Result } from "@sajari/sdk-js";
+import classnames from "classnames";
+import { StateChangeTypes } from "downshift";
 import { withTheme } from "emotion-theming";
 import * as React from "react";
+import {
+  PipelineProps,
+  Search,
+  SearchState,
+  StateChangeOptions,
+} from "../Search";
 import { Theme } from "../styles";
 import { ResultRendererProps, Results } from "./Results";
 import { Suggestions } from "./Suggestions";
 import { Typeahead } from "./Typeahead";
-import { CSSObject } from "@emotion/core";
-import {
-  Search,
-  PipelineProps,
-  SearchState,
-  StateChangeOptions
-} from "../Search";
-import { VoiceInput, MicIcon, EmptyMicIcon } from "./Voice";
-import classnames from "classnames";
+import { EmptyMicIcon, MicIcon, VoiceInput } from "./Voice";
 
 export type InputMode = "standard" | "typeahead";
 export type DropdownMode = "none" | "suggestions" | "results";
 
+
 export interface InputProps {
+  showClearButton?: boolean;
   mode: InputMode;
   dropdownMode: DropdownMode;
   instantSearch?: boolean;
@@ -76,18 +79,24 @@ export class Input extends React.PureComponent<InputProps, InputState> {
     experimental: { voiceToText: false }
   } as InputProps;
 
-  public state = { focused: false, typedInputValue: "" };
+  public searchButtonRef = React.createRef<HTMLButtonElement>()
+  public voiceSearchButtonRef = React.createRef<HTMLButtonElement>()
+  public clearButtonRef = React.createRef<HTMLButtonElement>()
+  public inputRef = React.createRef<HTMLInputElement>()
 
-  private searchButton?: HTMLButtonElement;
-  private voiceSearchButton?: HTMLButtonElement;
-  private input?: HTMLInputElement;
+  public state = { focused: false, typedInputValue: "" };
 
   public componentDidMount() {
     if (!this.state.focused) {
-      if (this.props.autoFocus && this.input != null) {
-        this.input.focus();
+      if (this.props.autoFocus && this.inputRef?.current) {
+        this.inputRef.current.focus()
       }
     }
+  }
+
+  public getWidth(element: HTMLButtonElement | HTMLInputElement | null | undefined) {
+    if(!element) { return 0; }
+    return element.offsetWidth
   }
 
   public render() {
@@ -116,10 +125,11 @@ export class Input extends React.PureComponent<InputProps, InputState> {
             inputValue,
             selectItem,
             search,
-            completion
+            completion,
           } = searchProps;
           const items =
             this.props.dropdownMode === "suggestions" ? suggestions : results;
+          const resetFunc = (event: React.MouseEvent<HTMLButtonElement>) => {event.preventDefault(); setState({type: Search.stateChangeTypes.resetInput as StateChangeTypes})}
           return (
             <div
               {
@@ -148,7 +158,7 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                 <div
                   role="search"
                   css={innerContainerStyles(
-                    this.getButtonWidth() + this.getVoiceButtonWidth()
+                    this.getWidth(this.searchButtonRef.current) + this.getWidth(this.voiceSearchButtonRef.current) + this.getWidth(this.clearButtonRef.current)
                   )}
                 >
                   <input
@@ -193,8 +203,8 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                           event.preventDefault();
                           // @ts-ignore: Prevent Downshift's default 'Enter' behavior.
                           event.nativeEvent.preventDownshiftDefault = true;
-                          if (this.input) {
-                            this.input.blur();
+                          if (this.inputRef?.current) {
+                            this.inputRef.current.blur();
                           }
 
                           let item = selectedItem;
@@ -266,16 +276,21 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                           : undefined
                       }
                       styles={this.props.styles && this.props.styles.typeahead}
-                    />
+                    />  
                   )}
                 </div>
+                {this.props.showClearButton && (
+                  <button onClick={resetFunc} ref={this.clearButtonRef} aria-label="Clear" title="Clear" value="Clear" css={[clearButtonStyles(inputValue), this?.props?.styles?.button]} className={"sj-input__button"}>
+                    <TimesIcon />
+                  </button>
+                )}
                 {this.props.experimental &&
-                  this.props.experimental.voiceToText && (
+                  this.props.experimental.voiceToText && (  
                     <VoiceInput
                       Renderer={({ onClick, active }) => {
                         return (
                           <button
-                            ref={this.voiceButtonRef}
+                            ref={this.voiceSearchButtonRef}
                             onClick={onClick}
                             aria-label="Search by voice"
                             className="sj-input__button"
@@ -302,21 +317,17 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                     />
                   )}
                 <button
-                  ref={this.buttonRef}
+                  ref={this.searchButtonRef}
                   className="sj-input__button"
                   css={[
                     buttonStyles(
-                      this.props.theme &&
-                        this.props.theme.colors &&
-                        this.props.theme.colors.brand &&
-                        this.props.theme.colors.brand.primary
+                        this?.props?.theme?.colors?.brand?.primary
                     ),
-                    this.props.styles &&
-                      this.props.styles.button &&
-                      this.props.styles.button
+                      this?.props?.styles?.button
                   ]}
                   onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
                     event.preventDefault();
+                    
                     if (typeof this.props.onSearch === "function") {
                       this.props.onSearch(selectedItem);
                     } else {
@@ -354,36 +365,9 @@ export class Input extends React.PureComponent<InputProps, InputState> {
     );
   }
 
-  private inputRef = (element: HTMLInputElement) => {
-    this.input = element;
-    if (typeof this.props.inputRef === "function") {
-      this.props.inputRef(element);
-    }
-  };
-  private buttonRef = (element: HTMLButtonElement) => {
-    this.searchButton = element;
-  };
-  private voiceButtonRef = (element: HTMLButtonElement) => {
-    this.voiceSearchButton = element;
-  };
-
-  private getButtonWidth = () => {
-    if (this.searchButton) {
-      return this.searchButton.offsetWidth;
-    }
-    return 0;
-  };
-
-  private getVoiceButtonWidth = () => {
-    if (this.voiceSearchButton) {
-      return this.voiceSearchButton.offsetWidth;
-    }
-    return 0;
-  };
-
   private focusInput = (_: React.MouseEvent<HTMLFormElement>) => {
-    if (this.input) {
-      this.input.focus();
+    if (this.inputRef.current) {
+      this.inputRef.current.focus();
       this.setState(state => ({ ...state, focused: true }));
     }
   };
@@ -391,7 +375,8 @@ export class Input extends React.PureComponent<InputProps, InputState> {
   private stateReducer = (
     state: SearchState<any>,
     changes: StateChangeOptions<any>,
-    { search, instantSearch, results, suggestions }: PipelineProps
+    { search, instantSearch, results, suggestions }: PipelineProps,
+    defaultInputValue?: string
   ) => {
     const items = this.props.dropdownMode === "results" ? results : suggestions;
 
@@ -473,8 +458,8 @@ export class Input extends React.PureComponent<InputProps, InputState> {
         return changes;
 
       case Search.stateChangeTypes.clickItem:
-        if (this.input) {
-          this.input.blur();
+        if (this.inputRef.current) {
+          this.inputRef.current.blur();
         }
 
         if (this.props.dropdownMode === "results") {
@@ -522,6 +507,14 @@ export class Input extends React.PureComponent<InputProps, InputState> {
           };
         }
         return changes;
+      
+      case Search.stateChangeTypes.resetInput:
+        return {
+          inputValue: defaultInputValue ?? '',
+          selectedItem: null,
+          isOpen: false,
+          ...changes,
+        }
 
       default:
         return changes;
@@ -538,6 +531,13 @@ const SearchIcon = (props: any) => (
       d="M12.5 11h-.79l-.28-.27A6.471 6.471 0 0 0 13 6.5 6.5 6.5 0 1 0 6.5 13c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L17.49 16l-4.99-5zm-6 0C4.01 11 2 8.99 2 6.5S4.01 2 6.5 2 11 4.01 11 6.5 8.99 11 6.5 11z"
       fill="currentcolor"
     />
+  </svg>
+);
+
+const TimesIcon = () => (
+  <svg width="1em" height="1em" viewBox="0 0 24 24">
+    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"  fill="currentColor"/>
+    <path d="M0 0h24v24H0z" fill="none" />
   </svg>
 );
 
@@ -604,6 +604,16 @@ const buttonStyles = (primary?: string): CSSObject => ({
     color: primary != undefined ? primary : "#222"
   }
 });
+
+const clearButtonStyles = (inputValue: string | null): CSSObject => {
+  const baseButtonStyles = buttonStyles()
+
+  return {
+    ...baseButtonStyles,
+    transition: 'transform .1s ease-in-out',
+    transform: `scale(${inputValue? 1: 0})`,
+  }
+}
 
 const buttonTextStyles = {
   paddingLeft: 8

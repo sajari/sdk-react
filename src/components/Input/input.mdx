@@ -33,11 +33,29 @@ With the `default` props, the `<Input />` acts like a regular `<input type="text
   </InputWrapper>
 </Playground>
 
+### With default value
+
+<Playground>
+  <InputWrapper>
+    <Input defaultValue="A default string value" />
+  </InputWrapper>
+</Playground>
+
+### With a clear button
+
+Clear input value by adding a `showClearButton` props, clicking this button will reset the input back to its default state.
+
+<Playground>
+  <InputWrapper>
+    <Input showClearButton />
+  </InputWrapper>
+</Playground>
+
 ### With instant search and typeahead
 
 <Playground>
   <InputWrapper>
-    <Input mode="typeahead" instantSearch />
+    <Input mode="typeahead" instantSearch showClearButton />
   </InputWrapper>
 </Playground>
 
@@ -45,7 +63,7 @@ With the `default` props, the `<Input />` acts like a regular `<input type="text
 
 <Playground>
   <InputWrapper style={{ height: 300 }}>
-    <Input mode="typeahead" dropdownMode="suggestions" />
+    <Input mode="typeahead" dropdownMode="suggestions" showClearButton />
   </InputWrapper>
 </Playground>
 
@@ -53,7 +71,12 @@ With the `default` props, the `<Input />` acts like a regular `<input type="text
 
 <Playground>
   <InputWrapper style={{ height: 400 }}>
-    <Input mode="typeahead" dropdownMode="results" instantSearch />
+    <Input
+      mode="typeahead"
+      dropdownMode="results"
+      instantSearch
+      showClearButton
+    />
   </InputWrapper>
 </Playground>
 
@@ -62,6 +85,7 @@ With the `default` props, the `<Input />` acts like a regular `<input type="text
 <Playground>
   <InputWrapper style={{ height: 300 }}>
     <Input
+      showClearButton
       mode="typeahead"
       dropdownMode="suggestions"
       styles={{
