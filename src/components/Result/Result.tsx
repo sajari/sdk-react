@@ -1,8 +1,7 @@
 /** @jsx jsx */ jsx;
-import { css, jsx } from "@emotion/core";
+import { css, jsx, SerializedStyles } from "@emotion/core";
 import classnames from "classnames";
 import { withTheme } from "emotion-theming";
-import idx from "idx";
 import * as React from "react";
 
 import { CSSObject } from "@emotion/core";
@@ -160,7 +159,6 @@ const resultStyles = {
   }
 } as { [k: string]: any };
 
-function themeColor(theme?: Theme): string {
-  // @ts-ignore: idx
-  return css({ color: idx(theme, _ => _.colors.brand.primary) || "inherit" });
+function themeColor(theme?: Theme): SerializedStyles {
+  return css({ color: theme?.colors?.brand?.primary ?? "inherit" })
 }

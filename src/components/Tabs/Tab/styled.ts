@@ -1,4 +1,3 @@
-import idx from "idx";
 import { override, styled } from "../../styles";
 
 export interface ContainerProps {
@@ -20,13 +19,11 @@ export const Container = styled("div")<ContainerProps>(
     isSelected
       ? {
           borderBottom: "3px solid",
-          // @ts-ignore: idx
-          color: idx(theme, _ => _.colors.brand.primary) || "#333"
+          color: theme.colors?.brand?.primary ?? "#333"
         }
       : {
           "&:hover": {
-            // @ts-ignore: idx
-            color: idx(theme, _ => _.colors.brand.primary) || "#333"
+            color: theme.colors?.brand?.primary ?? "#333"
           },
           borderBottom: "3px solid transparent"
         },

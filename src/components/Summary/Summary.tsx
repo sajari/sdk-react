@@ -1,5 +1,4 @@
 import classnames from "classnames";
-import idx from "idx";
 import * as React from "react";
 // @ts-ignore: module missing defintions
 import { LiveMessage } from "react-aria-live";
@@ -44,7 +43,7 @@ function DefaultSummaryRenderer(props: SummaryContext & SummaryProps) {
   return (
     <Container
       className={classnames("sj-summary", props.className)}
-      styles={idx(styles, _ => _.container)}
+      styles={styles?.container}
     >
       <LiveMessage message={ariaMessage} aria-live="polite" />
       <span className="sj-summary__results-text">
@@ -71,7 +70,7 @@ function DefaultSummaryRenderer(props: SummaryContext & SummaryProps) {
           responseQuery={props.responseQuery}
           query={props.query}
           search={props.search}
-          styles={idx(styles, _ => _.override)}
+          styles={styles?.override}
         />
       )}
     </Container>
@@ -109,7 +108,7 @@ const Override: React.SFC<OverrideProps> = ({
   return (
     <OverrideContainer
       className={className}
-      styles={idx(styles, _ => _.container)}
+      styles={styles?.container}
     >
       {`${i18n.t("summary:searchInsteadFor")} `}
       <a onClick={click({ search, query })} href="">
