@@ -14,7 +14,6 @@
   "plugins": [
     "@babel/proposal-class-properties",
     "@babel/proposal-object-rest-spread",
-    ["babel-plugin-emotion", { "hoist": true }],
-    "babel-plugin-idx"
+    ["babel-plugin-emotion", { "hoist": true }]
   ]
 }

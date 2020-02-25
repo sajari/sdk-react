@@ -3,7 +3,7 @@ import Downshift, {
   ControllerStateAndHelpers,
   DownshiftProps,
   DownshiftState,
-  StateChangeOptions
+  StateChangeOptions as BaseStateChangeOptions
 } from "downshift";
 import * as React from "react";
 import { PipelineConsumer } from "../context/pipeline";
@@ -34,7 +34,8 @@ export interface SummaryInterface {
   response: PipelineResponseInterface;
 }
 
-export interface StateChangeOptions<Item> extends StateChangeOptions<Item> {}
+export interface StateChangeOptions<Item>
+  extends BaseStateChangeOptions<Item> {}
 
 export interface SearchState<Item> extends DownshiftState<Item> {}
 

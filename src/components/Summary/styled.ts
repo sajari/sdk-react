@@ -1,4 +1,3 @@
-import idx from "idx";
 import { override, styled, StyledProps } from "../styles";
 
 export interface ContainerProps extends StyledProps<HTMLDivElement> {}
@@ -16,7 +15,7 @@ export const Emphasis = styled("strong")(
   { color: "#808080" },
 
   ({ theme }) => ({
-    color: (idx(theme, _ => _.colors.brandPrimary) || "#808080") as any
+    color: (theme.colors?.brandPrimary ?? "#808080") as any
   }),
   override
 );

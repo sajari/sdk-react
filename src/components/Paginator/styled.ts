@@ -1,6 +1,5 @@
 // @ts-ignore: module missing definitions
 import chroma from "chroma-js";
-import idx from "idx";
 import { override, styled, StyledProps } from "../styles";
 
 export const Container = styled("nav")<StyledProps<HTMLElement>>(
@@ -30,8 +29,7 @@ export const PageNumber = styled("button")<PageNumberProps>(
     border: 0
   },
   ({ isCurrent: curr, theme }) => {
-    // @ts-ignore: idx
-    const themeColor = idx(theme, _ => _.colors.brand.primary);
+    const themeColor = theme?.colors?.brand?.primary
 
     const textColor =
       chroma.contrast("#fff", themeColor || "#333") > 4.5 ? "#fff" : "#000";

@@ -1,4 +1,3 @@
-import idx from "idx";
 import { override, styled, StyledProps } from "../styles";
 
 export const Error = styled("div")({ color: "red" }, override);
@@ -31,7 +30,6 @@ export const ResultItem = styled("li")<ResultItemProps>(
     width: "100%"
   },
   ({ theme }) =>
-    // @ts-ignore: idx
-    (idx(theme, _ => _.layout.type) || "list") === "grid" ? gridItem : {},
+    (theme.layout?.type ?? "list") === "grid" ? gridItem : {},
   override
 );

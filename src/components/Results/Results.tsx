@@ -4,7 +4,6 @@ import {
   Token,
   TransportError
 } from "@sajari/sdk-js";
-import idx from "idx";
 import * as React from "react";
 
 import { i18n } from "../../i18n";
@@ -94,17 +93,13 @@ export const ResultsContainer: React.SFC<ResultsContainerProps> = ({
             // tslint:disable:object-literal-sort-keys
             const values = {
               ...result.values,
-              // @ts-ignore: idx
-              title: result.values[idx(fields, _ => _.title) || "title"],
+              title: result.values[fields?.title ?? "title"],
               description:
                 result.values[
-                  // @ts-ignore: idx
-                  idx(fields, _ => _.description) || "description"
+                  fields?.description ?? "description"
                 ],
-              // @ts-ignore: idx
-              url: result.values[idx(fields, _ => _.url) || "url"],
-              // @ts-ignore: idx
-              image: result.values[idx(fields, _ => _.image) || "image"]
+              url: result.values[fields?.url ?? "url"],
+              image: result.values[fields?.image ?? "image"]
             };
             // tslint:enable:object-literal-sort-keys
 
@@ -146,14 +141,14 @@ export class Results extends React.Component<ResultsProps, {}> {
           }
 
           return results.length > 0 ? (
-            <Container styles={idx(styles, _ => _.container)}>
+            <Container styles={styles?.container}>
               {results.map(({ key, ...result }) => {
                 return (
-                  <ResultItem key={key} styles={idx(styles, _ => _.item)}>
+                  <ResultItem key={key} styles={styles?.item}>
                     <ResultRenderer
                       {...result}
                       showImage={showImages}
-                      styles={idx(styles, _ => _.result)}
+                      styles={styles?.result}
                     />
                   </ResultItem>
                 );
