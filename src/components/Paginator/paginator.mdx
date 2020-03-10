@@ -7,6 +7,7 @@ route: /components/paginator
 import { PropsTable, Playground } from "docz";
 import { GeneralWrapper } from "../../docs/wrapper.tsx";
 import { Paginator } from "./Paginator.tsx";
+import { useState } from "react";
 
 export default ({ children }) => <GeneralWrapper>{children}</GeneralWrapper>;
 
@@ -33,6 +34,20 @@ import { Paginator } from "@sajari/sdk-react";
       <button onClick={onClick}>{pageNumber}</button>
     )}
   />
+</Playground>
+
+### Listen for page change
+
+<Playground>
+  {() => {
+    const [state, setState] = useState();
+    return (
+      <>
+        <Paginator onChange={paginatorState => setState(paginatorState)} />
+        <p>State: {JSON.stringify(state)}</p>
+      </>
+    );
+  }}
 </Playground>
 
 ## Props

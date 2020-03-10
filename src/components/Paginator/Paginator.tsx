@@ -10,6 +10,12 @@ import { PaginatorContainer } from "./Container";
 import { LeftChevron, RightChevron } from "./icons";
 import { Container, PageButton, PageNumber } from "./styled";
 
+export interface PaginatorState {
+  pageNumber: number;
+  totalPages: number;
+  triggeredBy: "backward" | "forward" | "jump" | "firstRender";
+}
+
 export interface PaginatorProps {
   windowSize?: number;
   className?: string;
@@ -22,7 +28,12 @@ export interface PaginatorProps {
   PreviousButtonRenderer?: React.ComponentType<PageButtonProps>;
   NextButtonRenderer?: React.ComponentType<PageButtonProps>;
   PageNumberRenderer?: React.ComponentType<PageNumberProps>;
+  onChange?: (state: PaginatorState) => void;
 }
+
+const Wrapper = (props: any) => {
+  return props.children();
+};
 
 export function Paginator(props: PaginatorProps) {
   const {
@@ -30,53 +41,77 @@ export function Paginator(props: PaginatorProps) {
     styles = {},
     PreviousButtonRenderer = PreviousPageButton,
     NextButtonRenderer = NextPageButton,
-    PageNumberRenderer = DefaultPageNumber
+    PageNumberRenderer = DefaultPageNumber,
+    onChange
   } = props;
+
   return (
     <PaginatorContainer>
       {({ page, totalPages, paginate }) => {
         return (
-          <Container
-            className={"sj-paginator " + (props.className || "")}
-            aria-label="Pagination Navigation"
-            styles={styles.container}
-          >
-            {page !== 1 && (
-              <PreviousButtonRenderer
-                isDisabled={page === 1}
-                onClick={prevPage(paginate, page)}
-                styles={styles.controls}
-              />
-            )}
-            <ul
-              css={{
-                display: "inline-flex",
-                listStyle: "none",
-                margin: 0,
-                padding: 0
-              }}
-            >
-              {pageNumbers(page, totalPages, windowSize).map(
-                (pageNumber: number) => (
-                  <li key={pageNumber}>
-                    <PageNumberRenderer
-                      pageNumber={pageNumber}
-                      isCurrent={page === pageNumber}
-                      onClick={setPage(paginate, pageNumber)}
-                      styles={styles.number}
+          <Wrapper>
+            {() => {
+              React.useEffect(() => {
+                // tslint:disable-next-line: no-unused-expression
+                onChange &&
+                  typeof onChange === "function" &&
+                  onChange({
+                    pageNumber: page,
+                    totalPages,
+                    triggeredBy: "firstRender"
+                  });
+              }, []);
+
+              return (
+                <Container
+                  className={"sj-paginator " + (props.className || "")}
+                  aria-label="Pagination Navigation"
+                  styles={styles.container}
+                >
+                  {page !== 1 && (
+                    <PreviousButtonRenderer
+                      isDisabled={page === 1}
+                      onClick={prevPage(paginate, page, totalPages, onChange)}
+                      styles={styles.controls}
                     />
-                  </li>
-                )
-              )}
-            </ul>
-            {page !== totalPages && (
-              <NextButtonRenderer
-                isDisabled={page === totalPages}
-                onClick={nextPage(paginate, page, totalPages)}
-                styles={styles.controls}
-              />
-            )}
-          </Container>
+                  )}
+                  <ul
+                    css={{
+                      display: "inline-flex",
+                      listStyle: "none",
+                      margin: 0,
+                      padding: 0
+                    }}
+                  >
+                    {pageNumbers(page, totalPages, windowSize).map(
+                      (pageNumber: number) => (
+                        <li key={pageNumber}>
+                          <PageNumberRenderer
+                            pageNumber={pageNumber}
+                            isCurrent={page === pageNumber}
+                            onClick={jumpPage(
+                              paginate,
+                              pageNumber,
+                              totalPages,
+                              onChange
+                            )}
+                            styles={styles.number}
+                          />
+                        </li>
+                      )
+                    )}
+                  </ul>
+                  {page !== totalPages && (
+                    <NextButtonRenderer
+                      isDisabled={page === totalPages}
+                      onClick={nextPage(paginate, page, totalPages, onChange)}
+                      styles={styles.controls}
+                    />
+                  )}
+                </Container>
+              );
+            }}
+          </Wrapper>
         );
       }}
     </PaginatorContainer>
@@ -147,23 +182,55 @@ function DefaultPageNumber(props: PageNumberProps) {
   );
 }
 
-function prevPage(paginate: PaginateFn, page: number) {
+function jumpPage(
+  paginate: PaginateFn,
+  page: number,
+  totalPages: number,
+  onChange?: (state: PaginatorState) => void
+) {
+  return function closure(event: React.MouseEvent<HTMLButtonElement>) {
+    setPage(paginate, page)(event);
+    // tslint:disable-next-line: no-unused-expression
+    onChange &&
+      typeof onChange === "function" &&
+      onChange({ pageNumber: page, totalPages, triggeredBy: "jump" });
+  };
+}
+
+function prevPage(
+  paginate: PaginateFn,
+  page: number,
+  totalPages: number,
+  onChange?: (state: PaginatorState) => void
+) {
   return function closure(event: React.MouseEvent<HTMLButtonElement>) {
     if (page === 1) {
       return;
     }
-
     setPage(paginate, page - 1)(event);
+    // tslint:disable-next-line: no-unused-expression
+    onChange &&
+      typeof onChange === "function" &&
+      onChange({ pageNumber: page - 1, totalPages, triggeredBy: "backward" });
   };
 }
 
-function nextPage(paginate: PaginateFn, page: number, totalPages: number) {
+function nextPage(
+  paginate: PaginateFn,
+  page: number,
+  totalPages: number,
+  onChange?: (state: PaginatorState) => void
+) {
   return function closure(event: React.MouseEvent<HTMLButtonElement>) {
     if (page === totalPages) {
       return;
     }
 
     setPage(paginate, page + 1)(event);
+    // tslint:disable-next-line: no-unused-expression
+    onChange &&
+      typeof onChange === "function" &&
+      onChange({ pageNumber: page + 1, totalPages, triggeredBy: "forward" });
   };
 }
 
