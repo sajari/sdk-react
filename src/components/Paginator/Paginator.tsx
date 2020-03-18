@@ -92,6 +92,7 @@ interface PageButtonProps {
 function PreviousPageButton(props: PageButtonProps) {
   return (
     <PageButton
+      type="button"
       isDisabled={props.isDisabled}
       onClick={props.onClick}
       aria-label="Goto Previous Page"
