@@ -41,6 +41,9 @@ export default {
   external,
   output: [
     IS_DEV ? undefined : { file: pkg.main, format: "cjs" },
+    IS_DEV
+      ? undefined
+      : { name: "SajariSDKReact", file: pkg["umd:main"], format: "umd" },
     { file: pkg.module, format: "es" }
   ].filter(x => !!x),
   plugins
