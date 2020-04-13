@@ -40,6 +40,7 @@
     "i18next": "^11.9.0",
     "i18next-browser-languagedetector": "^2.2.3",
     "js-cookie": "^2.2.0",
+    "rc-slider": "^9.2.4",
     "react-aria-live": "^2.0.2",
     "react-select": "^2.0.0"
   },
@@ -62,6 +63,7 @@
     "@types/enzyme": "^3.1.13",
     "@types/i18next": "^11.9.0",
     "@types/jest": "^23.3.2",
+    "@types/rc-slider": "^8.6.5",
     "@types/react": "^16.4.14",
     "@types/react-dom": "^16.0.7",
     "babel-core": "^7.0.0-0",

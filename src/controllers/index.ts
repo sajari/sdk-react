@@ -7,4 +7,5 @@ export { Values, CallbackFn as ValuesCallbackFn } from "./values";
 export { Analytics, GoogleAnalytics, DebugAnalytics } from "./analytics";
 export { Filter, CombineFilters } from "./filter";
 export { CountAggregateFilter } from "./aggregateFilter";
+export { RangeFilter } from "./rangeFilter";
 export { ClickTracking, NoTracking, PosNegTracking } from "./tracking";
