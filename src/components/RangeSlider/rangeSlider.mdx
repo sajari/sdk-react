@@ -1,0 +1,39 @@
+---
+name: RangeSlider
+menu: Components
+route: /components/rangeSlider
+---
+
+import { PropsTable } from "docz";
+import { Filter, RangeFilter } from "../../controllers";
+import { FilterProvider } from "../context/filter";
+import { RangeSlider } from "./RangeSlider.tsx";
+import { Playground } from "docz";
+import { EVENT_SELECTION_UPDATED, EVENT_VALUES_UPDATED } from "../../events";
+
+# RangeSlider
+
+## Usage
+
+<Playground>
+{() => {
+    const rangeFilter = new RangeFilter('priceRange', [0, 1000]);
+    rangeFilter.set(200,500)
+    const [filterOutput, setFilterOutput ] = React.useState(rangeFilter.filter())
+
+    const removeListener = rangeFilter.listen(EVENT_SELECTION_UPDATED, () => {
+      setFilterOutput(rangeFilter.filter())
+    })
+
+    return (
+      <>
+        <RangeSlider
+          filter={rangeFilter}
+        />
+        <pre>"{filterOutput}"</pre>
+      </>
+    )
+
+}}
+
+</Playground>
