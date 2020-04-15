@@ -35,7 +35,7 @@ export class RangeFilter extends Filter {
   };
 
   public reset = () => {
-    this._range = [...this._limit] as [number, number];
+    this._range = this._limit.map(r => r) as [number, number];
     if (this._filter !== "") {
       this.clear();
     }

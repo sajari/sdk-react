@@ -11,7 +11,9 @@ export {
   PosNegTracking,
   GoogleAnalytics,
   DebugAnalytics,
-  CountAggregateFilter
+  CountAggregateFilter,
+  RangeFilter,
+  RangeAggregrateFilter
 } from "./controllers";
 
 export {
@@ -30,7 +32,8 @@ export {
   Select,
   Checkbox,
   Radio,
-  Search
+  Search,
+  RangeSlider
 } from "./components";
 
 export { Overlay } from "./containers";

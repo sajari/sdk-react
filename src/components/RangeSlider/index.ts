@@ -1,1 +1,1 @@
-export { RangeSliderUI, RangeSliderUIProps } from "./RangeSliderUI";
+export { RangeSlider } from "./RangeSlider";
