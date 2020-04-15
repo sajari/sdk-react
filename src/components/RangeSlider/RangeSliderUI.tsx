@@ -22,7 +22,11 @@ export const RangeSliderUI = ({
     return (
       <Handle {...hanleModifiedProps}>
         <ValueTip>
-          {renderTip ? renderTip(handleProps.value) : handleProps.value}
+          {renderTip ? (
+            <span>{renderTip(handleProps.value)}</span>
+          ) : (
+            <span>{handleProps.value}</span>
+          )}
         </ValueTip>
       </Handle>
     );
