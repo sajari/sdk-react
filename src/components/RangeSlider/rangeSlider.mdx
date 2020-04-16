@@ -5,30 +5,36 @@ route: /components/rangeSlider
 ---
 
 import { PropsTable } from "docz";
-import { Filter, RangeFilter } from "../../controllers";
-import { FilterProvider } from "../context/filter";
+import { RangeFilter } from "../../controllers";
 import { RangeSlider } from "./RangeSlider.tsx";
 import { Playground } from "docz";
-import { EVENT_SELECTION_UPDATED, EVENT_VALUES_UPDATED } from "../../events";
+import { EVENT_SELECTION_UPDATED } from "../../events";
 
 # RangeSlider
+
+```javascript
+// Import the RangeSlider component
+import { RangeSlider } from "@sajari/sdk-react";
+```
 
 ## Usage
 
 <Playground>
 {() => {
-    const rangeFilter = new RangeFilter('priceRange', [0, 1000]);
-    rangeFilter.set(200,500)
-    const [filterOutput, setFilterOutput ] = React.useState(rangeFilter.filter())
+    const rangeFilter = new RangeFilter('range', [0, 500]);
+    rangeFilter.set(200,300);
+    const [filterOutput, setFilterOutput ] = React.useState(rangeFilter.filter());
 
     const removeListener = rangeFilter.listen(EVENT_SELECTION_UPDATED, () => {
       setFilterOutput(rangeFilter.filter())
-    })
+    });
 
     return (
       <>
         <RangeSlider
           filter={rangeFilter}
+          pushable={50}
+          allowCross={false}
         />
         <pre>"{filterOutput}"</pre>
       </>
@@ -37,3 +43,84 @@ import { EVENT_SELECTION_UPDATED, EVENT_VALUES_UPDATED } from "../../events";
 }}
 
 </Playground>
+
+## Custom Step
+
+<Playground>
+{() => {
+    const rangeFilter = new RangeFilter('rating', [1, 5]);
+    rangeFilter.set(2,4);
+    const [filterOutput, setFilterOutput ] = React.useState(rangeFilter.filter());
+
+    const removeListener = rangeFilter.listen(EVENT_SELECTION_UPDATED, () => {
+      setFilterOutput(rangeFilter.filter())
+    });
+
+    return (
+      <>
+        <RangeSlider
+          filter={rangeFilter}
+          step={0.5}
+        />
+        <pre>"{filterOutput}"</pre>
+      </>
+    )
+
+}}
+
+</Playground>
+
+## Custom Style
+
+<Playground>
+{() => {
+    const rangeFilter = new RangeFilter('price', [0, 10000]);
+    rangeFilter.set(3000,6000);
+    const [filterOutput, setFilterOutput ] = React.useState(rangeFilter.filter());
+
+    const removeListener = rangeFilter.listen(EVENT_SELECTION_UPDATED, () => {
+      setFilterOutput(rangeFilter.filter())
+    });
+
+    return (
+      <>
+        <RangeSlider
+          filter={rangeFilter}
+          step={5}
+          styles={{
+            container: {
+              height: "10px",
+            },
+            track: {backgroundColor: '#3474ee', height: '10px'},
+            rail: {
+              backgroundColor: '#ffffff',
+              border: '1px solid #ddd',
+              height: '10px',
+              borderRadius: "2px"
+            },
+            handle: {
+              borderRadius: 0,
+              marginTop: "-3px",
+              boxShadow: 'none',
+              '&:after': {
+                borderRadius:'2px',
+                width:'20px',
+                height: '20px',
+                backgroundColor: '#fff',
+                border:'1px solid #ddd',
+              }
+            }
+          }}
+          renderTip={value => <b>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD'}).format(value)}</b>}
+        />
+        <pre>"{filterOutput}"</pre>
+      </>
+    )
+
+}}
+
+</Playground>
+
+## Props
+
+<PropsTable of={RangeSlider} />

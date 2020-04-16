@@ -45,9 +45,11 @@ export class RangeAggregrateFilter extends RangeFilter {
     this._limitChangeListeners.push(listener);
   }
 
-  public clear = () => {
-    this._emitSelectionUpdated();
-  };
+  public removeLimitChangeListener(listener: LimitUpdateListener) {
+    this._limitChangeListeners = this._limitChangeListeners.filter(
+      item => item !== listener
+    );
+  }
 
   private _fireLimitChangeEvent(bounce: [number, number]) {
     this._limitChangeListeners.forEach(func => func(bounce));
