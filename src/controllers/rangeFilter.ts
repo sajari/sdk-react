@@ -4,7 +4,7 @@ export class RangeFilter extends Filter {
   protected _field = "";
   protected _multi = false;
   protected _range = [0, 0] as [number, number];
-  protected _limit = [0, 0] as [number, number];
+  protected _limit = [0, 0] as [number, number]; // [min, max]
   protected _current = "";
   protected _filter = "";
 

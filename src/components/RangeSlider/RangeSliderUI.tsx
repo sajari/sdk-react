@@ -1,18 +1,33 @@
 import classnames from "classnames";
 import { Handle, RangeProps } from "rc-slider";
 import React from "react";
-import { StyledRanger, ValueTip } from "./styled";
+import { CSSObject } from "styled-components";
+import { StyledRange, ValueTip } from "./styled";
 
-export interface RangeSliderUIProps extends RangeProps {
-  renderTip?: (value: number) => JSX.Element;
-  className?: string;
+export interface RangeCustomStyleObject {
+  handle?: CSSObject;
+  container?: CSSObject;
+  rail?: CSSObject;
+  track?: CSSObject;
 }
+
+export interface RangerSliderCustomProps {
+  className?: string;
+  styles?: RangeCustomStyleObject;
+  renderTip?: (value: number) => JSX.Element;
+  allowCross?: boolean;
+  pushable?: boolean | number;
+  step?: number;
+}
+
+export type RangeSliderUIProps = RangeProps & RangerSliderCustomProps;
 
 export const RangeSliderUI = ({
   renderTip,
   className,
   ...props
 }: RangeSliderUIProps) => {
+  // Assign type `any` for handleProps due to missing definition from lib
   const handle = (handleProps: any) => {
     const hanleModifiedProps = {
       ...handleProps,
@@ -33,7 +48,7 @@ export const RangeSliderUI = ({
   };
 
   return (
-    <StyledRanger
+    <StyledRange
       {...props}
       className={classnames("sj-range-slider", className)}
       defaultValue={props.value}
