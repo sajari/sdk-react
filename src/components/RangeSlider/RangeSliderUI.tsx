@@ -1,7 +1,7 @@
+import { CSSObject } from "@emotion/core";
 import classnames from "classnames";
 import { Handle, RangeProps } from "rc-slider";
 import React from "react";
-import { CSSObject } from "styled-components";
 import { StyledRange, ValueTip } from "./styled";
 
 export interface RangeCustomStyleObject {
