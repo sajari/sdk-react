@@ -1,8 +1,8 @@
 import { Range, RangeProps } from "rc-slider";
-import { styled } from "../styles";
+import { styled, Theme } from "../styles";
 import { RangeCustomStyleObject } from "./RangeSliderUI";
 
-const BaseStyledRange = styled(Range)`
+const BaseStyledRange = styled(Range)<{theme?: Theme}>`
   &.rc-slider {
     position: relative;
     padding: 5px 0;
