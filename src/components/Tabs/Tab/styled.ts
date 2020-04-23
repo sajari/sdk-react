@@ -1,8 +1,8 @@
-import { override, styled } from "../../styles";
+import { override, styled, Theme } from "../../styles";
 
 export interface ContainerProps {
   isSelected: boolean;
-  theme: any;
+  theme: Theme;
 }
 
 export const Container = styled("div")<ContainerProps>(
