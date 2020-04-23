@@ -9,7 +9,7 @@ In the library repo root:
 ```shell
 $ yarn             # fetches the dependencies
 $ yarn build       # produces a built version of the package
-$ cd build         # move to the build directory (now containing the built package)
+$ cd dist          # move to the dist directory (now containing the built package)
 $ yarn link        # link the package
 $ cd ..            # go back to the repo root
 $ yarn build:watch # rebuild on changes
@@ -22,4 +22,3 @@ $ yarn                   # fetch the dependencies
 $ yarn link sajari-react # use the version of sajari-react in the repo
 $ yarn start             # build/start your app...
 ```
- 
