@@ -12,7 +12,7 @@ export type LimitUpdateListener = ({
   range: Range;
 }) => void;
 
-export class RangeAggregrateFilter extends RangeFilter {
+export class RangeAggregateFilter extends RangeFilter {
   private _prevInput = "";
   private _count = "";
   private _limitChangeListeners: LimitUpdateListener[] = [];

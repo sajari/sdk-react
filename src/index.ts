@@ -13,7 +13,7 @@ export {
   DebugAnalytics,
   CountAggregateFilter,
   RangeFilter,
-  RangeAggregrateFilter
+  RangeAggregateFilter
 } from "./controllers";
 
 export {

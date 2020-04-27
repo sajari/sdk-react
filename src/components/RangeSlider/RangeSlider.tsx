@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   LimitUpdateListener,
-  RangeAggregrateFilter
-} from "../../controllers/rangeAggregrateFilter";
+  RangeAggregateFilter
+} from "../../controllers/rangeAggregateFilter";
 import { RangeFilter } from "../../controllers/rangeFilter";
 import { RangerSliderCustomProps, RangeSliderUI } from "./RangeSliderUI";
 
@@ -40,16 +40,16 @@ export const RangeSliderStatic = ({
   );
 };
 
-export interface RangeAggregrateSliderProps extends RangerSliderCustomProps {
-  filter: RangeAggregrateFilter;
+export interface RangeAggregateSliderProps extends RangerSliderCustomProps {
+  filter: RangeAggregateFilter;
   step?: number;
 }
 
-export const RangeAggregrateSlider = ({
+export const RangeAggregateSlider = ({
   filter,
   step = 1,
   ...props
-}: RangeAggregrateSliderProps) => {
+}: RangeAggregateSliderProps) => {
   const debounce = useRef<number>(-1);
   const value = filter.getRange();
   const [range, setRange] = useState<number[]>(value);
@@ -92,12 +92,12 @@ export const RangeAggregrateSlider = ({
 };
 
 export interface RangeSliderProps extends RangerSliderCustomProps {
-  filter: RangeFilter | RangeAggregrateFilter;
+  filter: RangeFilter | RangeAggregateFilter;
 }
 
 export const RangeSlider = ({ filter, ...props }: RangeSliderProps) => {
-  if (filter instanceof RangeAggregrateFilter) {
-    return <RangeAggregrateSlider filter={filter} {...props} />;
+  if (filter instanceof RangeAggregateFilter) {
+    return <RangeAggregateSlider filter={filter} {...props} />;
   } else {
     return <RangeSliderStatic filter={filter} {...props} />;
   }
