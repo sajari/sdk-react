@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { RangeAggregrateFilter } from "../../controllers/rangeAggregrateFilter";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  LimitUpdateListener,
+  RangeAggregrateFilter
+} from "../../controllers/rangeAggregrateFilter";
 import { RangeFilter } from "../../controllers/rangeFilter";
 import { RangerSliderCustomProps, RangeSliderUI } from "./RangeSliderUI";
 
@@ -12,12 +15,17 @@ export const RangeSliderStatic = ({
   step = 1,
   ...props
 }: RangeSliderStaticProps) => {
+  const debounce = useRef<number>(-1);
   const value = filter.getRange();
   const [range, setRange] = useState<number[]>(value);
   const [min, max] = filter.limit();
 
   useEffect(() => {
-    filter.set(range[0], range[1]);
+    window.clearTimeout(debounce.current);
+    // @ts-ignore: keep refer to Node.Timeout
+    debounce.current = setTimeout(() => {
+      filter.set(range[0], range[1]);
+    }, 500);
   }, [range]);
 
   return (
@@ -42,12 +50,16 @@ export const RangeAggregrateSlider = ({
   step = 1,
   ...props
 }: RangeAggregrateSliderProps) => {
+  const debounce = useRef<number>(-1);
   const value = filter.getRange();
   const [range, setRange] = useState<number[]>(value);
   const [[min, max], setLimit] = useState(filter.limit());
 
   useEffect(() => {
-    const callback = (bounce: [number, number]) => setLimit(bounce);
+    const callback: LimitUpdateListener = ({ bounce, range: cbRange }) => {
+      setLimit(bounce);
+      setRange(cbRange);
+    };
     filter.addLimitChangeListener(callback);
 
     return () => {
@@ -56,7 +68,15 @@ export const RangeAggregrateSlider = ({
   }, []);
 
   useEffect(() => {
-    filter.set(range[0], range[1]);
+    window.clearTimeout(debounce.current);
+    // @ts-ignore: keep refer to Node.Timeout
+    debounce.current = setTimeout(() => {
+      filter.set(range[0], range[1]);
+    }, 500);
+
+    return () => {
+      window.clearTimeout(debounce.current);
+    };
   }, [range]);
 
   return (
