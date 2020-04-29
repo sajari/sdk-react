@@ -86,8 +86,7 @@ export class RangeAggregateFilter extends RangeFilter {
   }
 
   private _addMinMaxToValues(values: Values) {
-    const min = values.get().min;
-    const max = values.get().max;
+    const { min, max } = values.get();
     const minFields = typeof min === "string" ? min.split(",") : [];
     if (!minFields.includes(this._field)) {
       minFields.push(this._field);
