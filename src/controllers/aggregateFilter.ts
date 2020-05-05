@@ -42,7 +42,7 @@ export class CountAggregateFilter extends Filter {
   }
 
   private _addCountToValues(values: Values) {
-    const count = values.get().count;
+    const { count } = values.get();
     const fields = typeof count === "string" ? count.split(",") : [];
     if (!fields.includes(this._field)) {
       fields.push(this._field);
@@ -65,27 +65,21 @@ export class CountAggregateFilter extends Filter {
   }
 
   private _genFilterOptions(current: string[], type = "~") {
-    return this._counts.reduce(
-      (opts, { name }) => {
-        if (!current.includes(name)) {
-          opts[name] = `${this._field}${type}"${name}"`;
-        }
-        return opts;
-      },
-      {} as { [key: string]: string }
-    );
+    return this._counts.reduce((opts, { name }) => {
+      if (!current.includes(name)) {
+        opts[name] = `${this._field}${type}"${name}"`;
+      }
+      return opts;
+    }, {} as { [key: string]: string });
   }
 
   private _clearFilterOptions(current: string[]) {
-    const clear = Object.keys(this.getOptions()).reduce(
-      (opts, key) => {
-        if (!current.includes(key)) {
-          opts[key] = null;
-        }
-        return opts;
-      },
-      {} as { [key: string]: string | null }
-    );
+    const clear = Object.keys(this.getOptions()).reduce((opts, key) => {
+      if (!current.includes(key)) {
+        opts[key] = null;
+      }
+      return opts;
+    }, {} as { [key: string]: string | null });
     this.setOptions(clear);
   }
 }

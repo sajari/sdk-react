@@ -47,6 +47,10 @@ export const RangeSliderUI = ({
     );
   };
 
+  if (props.min === props.max) {
+    return null;
+  }
+
   return (
     <StyledRange
       {...props}
