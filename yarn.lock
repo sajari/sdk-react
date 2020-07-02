@@ -1301,10 +1301,10 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@sajari/sdk-js@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@sajari/sdk-js/-/sdk-js-1.0.6.tgz#511a30317dd2196b708de6ffdad76a71ae3b8d95"
-  integrity sha512-v1qMkQjhJ6wUIE1YoKH5vEvZYtiRSMck0DEWmtqznt/g/+azSFxr6YPasx2ObKo7kJE6i3nHsnG+EieXjhzP3w==
+"@sajari/sdk-js@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@sajari/sdk-js/-/sdk-js-1.0.8.tgz#837bb22f6cba4805a87eb52a08de09f788350322"
+  integrity sha512-ha5eRH/z9jxVJum0+1fekwr8Ut161nkQhQqLFkIKs7hv+hzCn0jU4A+jBmF83JkWOxCdgcxyJZieSxZR5SWkKg==
 
 "@shellscape/koa-send@^4.1.0":
   version "4.1.3"

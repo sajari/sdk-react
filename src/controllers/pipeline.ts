@@ -32,6 +32,7 @@ export class Pipeline {
 
   private pipeline: SDKPipeline;
   private name: string;
+  private version?: string;
   private tracking: ClickTracking | NoTracking;
   private listeners: ListenerMap;
   private searchCount: number;
@@ -51,7 +52,7 @@ export class Pipeline {
       collection: string;
       endpoint?: string;
     },
-    name: string,
+    name: string | { name: string; version?: string },
     tracking: ClickTracking | NoTracking = new NoTracking(),
     analyticsAdapters = [GoogleAnalytics]
   ) {
@@ -59,8 +60,23 @@ export class Pipeline {
     this.config = config;
     const opts = endpoint !== undefined ? [withEndpoint(endpoint)] : [];
 
-    this.pipeline = new Client(project, collection, opts).pipeline(name);
-    this.name = name;
+    let p: { name?: string; version?: string } = {
+      name: undefined,
+      version: undefined
+    };
+    if (typeof name === "string") {
+      p.name = name;
+    } else if ("name" in name) {
+      p.name = name.name;
+      p.version = name.version;
+    }
+
+    this.pipeline = new Client(project, collection, opts).pipeline(
+      p.name as string,
+      p.version
+    );
+    this.name = p.name as string;
+    this.version = p.version;
     this.tracking = tracking;
     this.listeners = new Map([
       [EVENT_SEARCH_SENT, new Listener()],

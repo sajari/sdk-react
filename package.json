@@ -31,7 +31,7 @@
   "dependencies": {
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.10",
-    "@sajari/sdk-js": "^1.0.6",
+    "@sajari/sdk-js": "^1.0.8",
     "chroma-js": "^1.4.0",
     "classnames": "^2.2.6",
     "downshift": "^2.2.2",
