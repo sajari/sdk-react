@@ -115,4 +115,19 @@ export class Response {
     }
     return aggregates as AggregateResponse;
   }
+
+  /**
+   * Return the aggregateFilters in the response.
+   */
+  public getAggregateFilters(): AggregateResponse | undefined {
+    if (this.response === undefined) {
+      return undefined;
+    }
+
+    const aggregates = this.response.get("aggregateFilters");
+    if (aggregates === undefined) {
+      return undefined;
+    }
+    return aggregates as AggregateResponse;
+  }
 }
