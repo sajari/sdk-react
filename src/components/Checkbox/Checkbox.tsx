@@ -33,7 +33,12 @@ export class Checkbox extends React.Component<CheckboxProps> {
                   : this.onClick(name, isSelected, set)
               }
             >
-              <HiddenInput type="checkbox" value={name} checked={isSelected} />
+              <HiddenInput
+                readOnly={true}
+                type="checkbox"
+                value={name}
+                checked={isSelected}
+              />
               <CheckboxRenderer isChecked={isSelected} />
             </Container>
           );
@@ -50,5 +55,5 @@ export class Checkbox extends React.Component<CheckboxProps> {
 }
 
 const NativeCheckbox: React.SFC<CheckboxRendererProps> = ({ isChecked }) => (
-  <NativeInput type="checkbox" checked={isChecked} />
+  <NativeInput type="checkbox" readOnly={true} checked={isChecked} />
 );
