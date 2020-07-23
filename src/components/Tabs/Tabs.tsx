@@ -20,7 +20,12 @@ export const Tabs: React.SFC<TabsProps> = ({ filter, tabs, styles = {} }) => (
     <Container className="sj-tabs" styles={styles.container}>
       <TabsContainer>
         {tabs.map(tab => (
-          <Tab key={tab.name} title={tab.display} styles={styles.tab} />
+          <Tab
+            key={tab.name}
+            name={tab.name}
+            title={tab.display}
+            styles={styles.tab}
+          />
         ))}
       </TabsContainer>
     </Container>
