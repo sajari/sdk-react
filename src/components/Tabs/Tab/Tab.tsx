@@ -11,14 +11,15 @@ const ReturnKeyCode = 13;
 const SpaceKeyCode = 32;
 
 export interface TabProps {
+  name: string;
   title: string;
   styles?: CSSObject;
 }
 
-export const Tab: React.SFC<TabProps> = ({ title, styles = {} }) => (
+export const Tab: React.SFC<TabProps> = ({ name, title, styles = {} }) => (
   <FilterConsumer>
     {({ selected, set }) => {
-      const isSelected = selected.includes(title);
+      const isSelected = selected.includes(name);
       return (
         <Container
           className={classnames("sj-tabs__tab", {
@@ -29,11 +30,11 @@ export const Tab: React.SFC<TabProps> = ({ title, styles = {} }) => (
           onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
             if (e.keyCode === ReturnKeyCode || e.keyCode === SpaceKeyCode) {
               e.preventDefault();
-              setFilter(set, title, !isSelected)();
+              setFilter(set, name, !isSelected)();
             }
           }}
           isSelected={isSelected}
-          onClick={setFilter(set, title, !isSelected)}
+          onClick={setFilter(set, name, !isSelected)}
           css={styles}
         >
           {title}

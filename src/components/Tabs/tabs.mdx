@@ -15,7 +15,10 @@ import { Tabs } from "./Tabs.tsx";
 <ExampleContainer>
   <Tabs
     filter={categoryFilter()}
-    tabs={[{ name: "All", display: "All" }, { name: "Blog", display: "Blog" }]}
+    tabs={[
+      { name: "All", display: "All" },
+      { name: "Blog", display: "Blog" }
+    ]}
   />
 </ExampleContainer>
 
@@ -32,7 +35,10 @@ const filter = new Filter(
 
 <Tabs
   filter={filter}
-  tabs={[{ name: "All", display: "All" }, { name: "Blog", display: "Blog" }]}
+  tabs={[
+    { name: "All", display: "All" },
+    { name: "Blog", display: "Blog" }
+  ]}
 />;
 ```
 
