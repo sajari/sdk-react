@@ -11,14 +11,15 @@ const ReturnKeyCode = 13;
 const SpaceKeyCode = 32;
 
 export interface TabProps {
+  id: string;
   title: string;
   styles?: CSSObject;
 }
 
-export const Tab: React.SFC<TabProps> = ({ title, styles = {} }) => (
+export const Tab: React.SFC<TabProps> = ({ id, title, styles = {} }) => (
   <FilterConsumer>
     {({ selected, set }) => {
-      const isSelected = selected.includes(title);
+      const isSelected = selected.includes(id);
       return (
         <Container
           className={classnames("sj-tabs__tab", {
@@ -29,11 +30,11 @@ export const Tab: React.SFC<TabProps> = ({ title, styles = {} }) => (
           onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
             if (e.keyCode === ReturnKeyCode || e.keyCode === SpaceKeyCode) {
               e.preventDefault();
-              setFilter(set, title, !isSelected)();
+              setFilter(set, id, !isSelected)();
             }
           }}
           isSelected={isSelected}
-          onClick={setFilter(set, title, !isSelected)}
+          onClick={setFilter(set, id, !isSelected)}
           css={styles}
         >
           {title}
@@ -44,11 +45,11 @@ export const Tab: React.SFC<TabProps> = ({ title, styles = {} }) => (
 );
 
 type SetFn = (name: string, value: boolean) => void;
-const setFilter = (set: SetFn, name: string, value: boolean) => () => {
+const setFilter = (set: SetFn, id: string, value: boolean) => () => {
   if (!value) {
     // make tab act like radio button
     return;
   }
 
-  set(name, value);
+  set(id, value);
 };

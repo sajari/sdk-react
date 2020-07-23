@@ -8,7 +8,7 @@ import { Tab } from "./Tab";
 
 export interface TabsProps {
   filter: Filter;
-  tabs: Array<{ name: string; display: string }>;
+  tabs: Array<{ id: string; display: string }>;
   styles?: {
     container?: CSSObject;
     tab?: CSSObject;
@@ -20,7 +20,12 @@ export const Tabs: React.SFC<TabsProps> = ({ filter, tabs, styles = {} }) => (
     <Container className="sj-tabs" styles={styles.container}>
       <TabsContainer>
         {tabs.map(tab => (
-          <Tab key={tab.name} title={tab.display} styles={styles.tab} />
+          <Tab
+            key={tab.id}
+            id={tab.id}
+            title={tab.display}
+            styles={styles.tab}
+          />
         ))}
       </TabsContainer>
     </Container>
