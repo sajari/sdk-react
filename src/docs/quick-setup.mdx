@@ -45,14 +45,14 @@ const pipeline = new Pipeline(
 );
 ```
 
-#### 🚨 Note:
+**🚨 Note**
 
-- Replace `project-id` and `collection-name` with the correct details from the [credentials](https://www.sajari.com/console/collection/credentials) section of your console.
-- Replace `pipeline-name` with the pipeline you'd like to use for querying.
+- Replace `project-id` and `collection-name` with the correct details from the [credentials](https://www.sajari.com/console/collection/credentials) section of the Sajari Console.
+- Replace `pipeline-name` with the pipeline name to use for querying.
 
 ## Values
 
-Search parameters are passed via the [Values](/controllers/values) controller, create a new instance and set some defaults:
+Search parameters are passed via the [Values](/controllers/values) controller. Create a new instance and set some defaults:
 
 ```jsx
 import { Provider, Pipeline, Values, NoTracking } from "@sajari/sdk-react";
@@ -65,7 +65,7 @@ const values = new Values({
 
 ## Provider
 
-All of your search components from the SDK are required to be within a context [Provider](components/provider). The only required prop is `search` which takes the `pipeline` and `values` we created previously.
+All of the search components from the SDK must be within a context [Provider](components/provider). The only required prop is `search` which takes the `pipeline` and `values` created previously.
 
 ```jsx
 <Provider search={{ pipeline, values }}>
@@ -75,7 +75,7 @@ All of your search components from the SDK are required to be within a context [
 
 ## Input & Results
 
-Now we need to capture input and display some results using the [`Input`](/components/Input), [`Response`](/components/Response), [`Summary`](/components/Summary), [`Results`](/components/Results), and [`Paginator`](/components/Paginator) components.
+Now you need to capture input and display some results using the [`Input`](/components/Input), [`Response`](/components/Response), [`Summary`](/components/Summary), [`Results`](/components/Results), and [`Paginator`](/components/Paginator) components.
 
 ```jsx
 <Provider search={{ pipeline, values }}>
@@ -90,7 +90,7 @@ Now we need to capture input and display some results using the [`Input`](/compo
 
 ### Example
 
-Now you should have a basic search interface working. For more advanced interfaces, see the examples. Here's the completed example:
+Now you should have a basic search interface working. For more advanced interfaces, see the [examples](/#examples). Here's the complete example:
 
 ```jsx
 import React from "react";
