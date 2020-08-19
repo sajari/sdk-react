@@ -57,9 +57,13 @@ $ npm install --save @sajari/sdk-react
 
 > This package also depends on [`react`](https://www.npmjs.com/package/react). Please make sure you have those installed as well.
 
+## Quick setup
+
+See the [quick setup](https://sajari-sdk-react.netlify.app/quick-setup) guide to setup a basic search.
+
 # Documentation
 
-For documentation, see [sajari-sdk-react.netlify.com](https://sajari-sdk-react.netlify.com).
+For documentation, see [sajari-sdk-react.netlify.app](https://sajari-sdk-react.netlify.app/).
 
 # License
 
