@@ -12,8 +12,9 @@ export class CountAggregateFilter extends Filter {
     field: string,
     pipeline: Pipeline,
     values: Values,
-    multi: boolean = false,
-    type: string = "~"
+    multi = false,
+    type = "~",
+    listField = false
   ) {
     super({}, [], multi);
 
@@ -26,7 +27,7 @@ export class CountAggregateFilter extends Filter {
 
       this._counts = this._getCounts(aggregates);
       this._clearFilterOptions(current);
-      this.setOptions(this._genFilterOptions(current, type));
+      this.setOptions(this._genFilterOptions(current, type, listField));
     });
   }
 
@@ -64,10 +65,10 @@ export class CountAggregateFilter extends Filter {
       .sort(({ count: a }, { count: b }) => b - a);
   }
 
-  private _genFilterOptions(current: string[], type = "~") {
+  private _genFilterOptions(current: string[], type = "~", listField = false) {
     return this._counts.reduce((opts, { name }) => {
       if (!current.includes(name)) {
-        opts[name] = `${this._field}${type}"${name}"`;
+        opts[name] = filterOptValue(name, this._field, type, listField);
       }
       return opts;
     }, {} as { [key: string]: string });
@@ -82,4 +83,17 @@ export class CountAggregateFilter extends Filter {
     }, {} as { [key: string]: string | null });
     this.setOptions(clear);
   }
+}
+
+export function filterOptValue(
+  name: string,
+  field: string,
+  type = "~",
+  listField = false
+) {
+  let item = `"${name}"`;
+  if (listField) {
+    item = `["${name}"]`;
+  }
+  return `${field}${type}${item}`;
 }
