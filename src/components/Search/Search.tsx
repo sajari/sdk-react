@@ -120,9 +120,9 @@ export class Search extends React.PureComponent<SearchProps<any>, {}> {
               values: mapToObject(
                 response.getValues()
               ) as PipelineResponseInterface,
-              response: (mapToObject(response.getResponse() as
-                | Map<string, any>
-                | undefined) as unknown) as PipelineResponseInterface
+              response: (mapToObject(
+                response.getResponse() as Map<string, any> | undefined
+              ) as unknown) as PipelineResponseInterface
             };
           }
 

@@ -60,9 +60,7 @@ function DefaultSummaryRenderer(props: SummaryContext & SummaryProps) {
         "{" "}
       </span>
       {showQueryTime && (
-        <span className="sj-summary__query-time">{`(${
-          props.responseTime
-        }) `}</span>
+        <span className="sj-summary__query-time">{`(${props.responseTime}) `}</span>
       )}
       {showQueryOverride && (
         <Override
@@ -106,10 +104,7 @@ const Override: React.SFC<OverrideProps> = ({
   }
 
   return (
-    <OverrideContainer
-      className={className}
-      styles={styles?.container}
-    >
+    <OverrideContainer className={className} styles={styles?.container}>
       {`${i18n.t("summary:searchInsteadFor")} `}
       <a onClick={click({ search, query })} href="">
         {query}

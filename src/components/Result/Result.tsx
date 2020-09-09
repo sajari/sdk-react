@@ -160,5 +160,5 @@ const resultStyles = {
 } as { [k: string]: any };
 
 function themeColor(theme?: Theme): SerializedStyles {
-  return css({ color: theme?.colors?.brand?.primary ?? "inherit" })
+  return css({ color: theme?.colors?.brand?.primary ?? "inherit" });
 }

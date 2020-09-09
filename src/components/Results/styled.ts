@@ -29,7 +29,6 @@ export const ResultItem = styled("li")<ResultItemProps>(
     marginBottom: "1.5em",
     width: "100%"
   },
-  ({ theme }) =>
-    (theme.layout?.type ?? "list") === "grid" ? gridItem : {},
+  ({ theme }) => ((theme.layout?.type ?? "list") === "grid" ? gridItem : {}),
   override
 );

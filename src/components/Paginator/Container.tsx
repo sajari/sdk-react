@@ -15,7 +15,9 @@ export interface PaginatorContainerRenderFnArgs {
   paginate: PaginateFn;
 }
 
-export type PaginatorContainerRenderFn = (args: PaginatorContainerRenderFnArgs) => React.ReactNode;
+export type PaginatorContainerRenderFn = (
+  args: PaginatorContainerRenderFnArgs
+) => React.ReactNode;
 
 export function PaginatorContainer(props: PaginatorContainerProps) {
   return (

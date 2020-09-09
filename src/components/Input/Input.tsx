@@ -11,7 +11,7 @@ import {
   PipelineProps,
   Search,
   SearchState,
-  StateChangeOptions,
+  StateChangeOptions
 } from "../Search";
 import { Theme } from "../styles";
 import { ResultRendererProps, Results } from "./Results";
@@ -21,7 +21,6 @@ import { EmptyMicIcon, MicIcon, VoiceInput } from "./Voice";
 
 export type InputMode = "standard" | "typeahead";
 export type DropdownMode = "none" | "suggestions" | "results";
-
 
 export interface InputProps {
   showClearButton?: boolean;
@@ -79,24 +78,28 @@ export class Input extends React.PureComponent<InputProps, InputState> {
     experimental: { voiceToText: false }
   } as InputProps;
 
-  public searchButtonRef = React.createRef<HTMLButtonElement>()
-  public voiceSearchButtonRef = React.createRef<HTMLButtonElement>()
-  public clearButtonRef = React.createRef<HTMLButtonElement>()
-  public inputRef = React.createRef<HTMLInputElement>()
+  public searchButtonRef = React.createRef<HTMLButtonElement>();
+  public voiceSearchButtonRef = React.createRef<HTMLButtonElement>();
+  public clearButtonRef = React.createRef<HTMLButtonElement>();
+  public inputRef = React.createRef<HTMLInputElement>();
 
   public state = { focused: false, typedInputValue: "" };
 
   public componentDidMount() {
     if (!this.state.focused) {
       if (this.props.autoFocus && this.inputRef?.current) {
-        this.inputRef.current.focus()
+        this.inputRef.current.focus();
       }
     }
   }
 
-  public getWidth(element: HTMLButtonElement | HTMLInputElement | null | undefined) {
-    if(!element) { return 0; }
-    return element.offsetWidth
+  public getWidth(
+    element: HTMLButtonElement | HTMLInputElement | null | undefined
+  ) {
+    if (!element) {
+      return 0;
+    }
+    return element.offsetWidth;
   }
 
   public render() {
@@ -125,11 +128,16 @@ export class Input extends React.PureComponent<InputProps, InputState> {
             inputValue,
             selectItem,
             search,
-            completion,
+            completion
           } = searchProps;
           const items =
             this.props.dropdownMode === "suggestions" ? suggestions : results;
-          const resetFunc = (event: React.MouseEvent<HTMLButtonElement>) => {event.preventDefault(); setState({type: Search.stateChangeTypes.resetInput as StateChangeTypes})}
+          const resetFunc = (event: React.MouseEvent<HTMLButtonElement>) => {
+            event.preventDefault();
+            setState({
+              type: Search.stateChangeTypes.resetInput as StateChangeTypes
+            });
+          };
           return (
             <div
               {...getRootProps(
@@ -160,7 +168,9 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                 <div
                   role="search"
                   css={innerContainerStyles(
-                    this.getWidth(this.searchButtonRef.current) + this.getWidth(this.voiceSearchButtonRef.current) + this.getWidth(this.clearButtonRef.current)
+                    this.getWidth(this.searchButtonRef.current) +
+                      this.getWidth(this.voiceSearchButtonRef.current) +
+                      this.getWidth(this.clearButtonRef.current)
                   )}
                 >
                   <input
@@ -278,16 +288,27 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                           : undefined
                       }
                       styles={this.props.styles && this.props.styles.typeahead}
-                    />  
+                    />
                   )}
                 </div>
                 {this.props.showClearButton && (
-                  <button onClick={resetFunc} ref={this.clearButtonRef} aria-label="Clear" title="Clear" value="Clear" css={[clearButtonStyles(inputValue), this?.props?.styles?.button]} className={"sj-input__button"}>
+                  <button
+                    onClick={resetFunc}
+                    ref={this.clearButtonRef}
+                    aria-label="Clear"
+                    title="Clear"
+                    value="Clear"
+                    css={[
+                      clearButtonStyles(inputValue),
+                      this?.props?.styles?.button
+                    ]}
+                    className={"sj-input__button"}
+                  >
                     <TimesIcon />
                   </button>
                 )}
                 {this.props.experimental &&
-                  this.props.experimental.voiceToText && (  
+                  this.props.experimental.voiceToText && (
                     <VoiceInput
                       Renderer={({ onClick, active }) => {
                         return (
@@ -322,14 +343,12 @@ export class Input extends React.PureComponent<InputProps, InputState> {
                   ref={this.searchButtonRef}
                   className="sj-input__button"
                   css={[
-                    buttonStyles(
-                        this?.props?.theme?.colors?.brand?.primary
-                    ),
-                      this?.props?.styles?.button
+                    buttonStyles(this?.props?.theme?.colors?.brand?.primary),
+                    this?.props?.styles?.button
                   ]}
                   onClick={(event: React.MouseEvent<HTMLButtonElement>) => {
                     event.preventDefault();
-                    
+
                     if (typeof this.props.onSearch === "function") {
                       this.props.onSearch(selectedItem);
                     } else {
@@ -509,14 +528,14 @@ export class Input extends React.PureComponent<InputProps, InputState> {
           };
         }
         return changes;
-      
+
       case Search.stateChangeTypes.resetInput:
         return {
-          inputValue: defaultInputValue ?? '',
+          inputValue: defaultInputValue ?? "",
           selectedItem: null,
           isOpen: false,
-          ...changes,
-        }
+          ...changes
+        };
 
       default:
         return changes;
@@ -538,7 +557,10 @@ const SearchIcon = (props: any) => (
 
 const TimesIcon = () => (
   <svg width="1em" height="1em" viewBox="0 0 24 24">
-    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"  fill="currentColor"/>
+    <path
+      d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"
+      fill="currentColor"
+    />
     <path d="M0 0h24v24H0z" fill="none" />
   </svg>
 );
@@ -608,14 +630,14 @@ const buttonStyles = (primary?: string): CSSObject => ({
 });
 
 const clearButtonStyles = (inputValue: string | null): CSSObject => {
-  const baseButtonStyles = buttonStyles()
+  const baseButtonStyles = buttonStyles();
 
   return {
     ...baseButtonStyles,
-    transition: 'transform .1s ease-in-out',
-    transform: `scale(${inputValue? 1: 0})`,
-  }
-}
+    transition: "transform .1s ease-in-out",
+    transform: `scale(${inputValue ? 1 : 0})`
+  };
+};
 
 const buttonTextStyles = {
   paddingLeft: 8

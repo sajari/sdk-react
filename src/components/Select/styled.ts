@@ -33,8 +33,8 @@ export const styles = {
       backgroundColor: isDisabled
         ? null
         : isSelected || isFocused
-          ? "#eaeaea"
-          : null,
+        ? "#eaeaea"
+        : null,
       color: "#666"
     };
   },
