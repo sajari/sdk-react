@@ -94,10 +94,7 @@ export const ResultsContainer: React.SFC<ResultsContainerProps> = ({
             const values = {
               ...result.values,
               title: result.values[fields?.title ?? "title"],
-              description:
-                result.values[
-                  fields?.description ?? "description"
-                ],
+              description: result.values[fields?.description ?? "description"],
               url: result.values[fields?.url ?? "url"],
               image: result.values[fields?.image ?? "image"]
             };
