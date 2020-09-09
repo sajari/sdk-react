@@ -132,10 +132,12 @@ export class Input extends React.PureComponent<InputProps, InputState> {
           const resetFunc = (event: React.MouseEvent<HTMLButtonElement>) => {event.preventDefault(); setState({type: Search.stateChangeTypes.resetInput as StateChangeTypes})}
           return (
             <div
-              {
-                // @ts-ignore
-                ...getRootProps({}, { suppressRefError: true })
-              }
+              {...getRootProps(
+                // skip labelledby becasuse there is no label associated to the input by getLabelProps
+                // @ts-ignore warning due to incorrect type definition for the param
+                { "aria-labelledby": undefined },
+                { suppressRefError: true }
+              )}
               className="sj-input"
               css={
                 this.props.styles &&
