@@ -14,6 +14,25 @@ import Button from ".";
 
 <ExampleContainer>
   <ThemeProvider>
-    <Button>Hello</Button>
+    <Button>Default</Button>
+    <Button appearance="primary">Primary</Button>
+    <Button
+      appearance="link"
+      as="a"
+      href="https://sajari.com"
+      target="_blank"
+    >
+      Link
+    </Button>
+    <Button
+      disabled
+      appearance="link"
+      as="a"
+      href="https://sajari.com"
+      target="_blank"
+    >
+      Disabled link
+    </Button>
+    <Button appearance="subtle-link" onFocus={() => console.log('focus')}>Subtle link</Button>
   </ThemeProvider>
 </ExampleContainer>

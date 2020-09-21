@@ -13,12 +13,26 @@ type DeepPartial<T> = {
 
 export interface Theme {
   color: {
-    primary: string;
+    primary: {
+      background: string;
+      foreground: string;
+      backgroundActive: string;
+      border: string;
+      outline: string;
+    };
   };
 }
 
 const defaultTheme: Theme = {
-  color: { primary: "#3f83f8" }
+  color: {
+    primary: {
+      background: "#3f83f8",
+      foreground: "#ebf5ff",
+      backgroundActive: "#1c64f2",
+      border: "#1c64f2",
+      outline: "#c3ddfd"
+    }
+  }
 };
 
 export const useTheme = () => useEmotionTheme<Theme>();
