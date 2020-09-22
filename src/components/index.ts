@@ -26,3 +26,5 @@ export { Radio } from "./Radio";
 export { Search } from "./Search";
 
 export { RangeSlider } from "./RangeSlider";
+
+export { Box } from "./Box";
