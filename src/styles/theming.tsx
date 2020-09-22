@@ -1,5 +1,8 @@
 import { CacheProvider } from "@emotion/core";
-import { ThemeProvider as EmotionThemeProvider } from "emotion-theming";
+import {
+  ThemeProvider as EmotionThemeProvider,
+  useTheme as useEmotionTheme
+} from "emotion-theming";
 import React from "react";
 import { merge } from "../utils/object";
 import cache from "./cache";
@@ -18,18 +21,20 @@ const defaultTheme: Theme = {
   color: { primary: "#3f83f8" }
 };
 
+export const useTheme = () => useEmotionTheme<Theme>();
+
 interface ThemeProviderProps {
-  important?: boolean;
+  importantStyles?: boolean;
   theme?: DeepPartial<Theme>;
 }
 
 const ThemeProvider: React.FC<ThemeProviderProps> = ({
   theme = defaultTheme,
-  important = true,
+  importantStyles = true,
   children
 }) => (
   <EmotionThemeProvider theme={merge(defaultTheme, theme)}>
-    {important ? (
+    {importantStyles ? (
       <CacheProvider value={cache}>{children}</CacheProvider>
     ) : (
       children
