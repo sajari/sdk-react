@@ -1,0 +1,71 @@
+---
+name: TextInput
+menu: Components
+route: /components/textinput
+---
+
+import { PropsTable, Playground } from "docz";
+import { ExampleContainer } from "../../docs/helpers.ts";
+import TextInput from "./index.tsx";
+import ThemeProvider from "../../styles/theming";
+
+# TextInput
+
+## Usage
+
+<ExampleContainer>
+  <ThemeProvider>
+    <TextInput />
+  </ThemeProvider>
+</ExampleContainer>
+
+The `<TextInput />` component
+
+```javascript
+import { TextInput } from "@sajari/sdk-react";
+
+<ThemeProvider>
+  <TextInput />
+</ThemeProvider>;
+```
+
+### Default
+
+<Playground>
+  <ExampleContainer>
+    <ThemeProvider>
+      <TextInput
+        label="Search something"
+        onValueChange={value => {
+          // Do something
+        }}
+      />
+    </ThemeProvider>
+  </ExampleContainer>
+</Playground>
+
+### Loading
+
+<Playground>
+  <ExampleContainer>
+    <ThemeProvider>
+      <TextInput loading />
+    </ThemeProvider>
+  </ExampleContainer>
+</Playground>
+
+### With speech recognition API
+
+<Playground>
+  <ExampleContainer>
+    <ThemeProvider>
+      <TextInput enableVoice onValueChange={text => console.info(text)} />
+    </ThemeProvider>
+  </ExampleContainer>
+</Playground>
+
+The analyzed string from voice input is available through `onValueChange` prop.
+
+## Props
+
+<PropsTable of={TextInput} />
