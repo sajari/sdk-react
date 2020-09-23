@@ -4,66 +4,34 @@ menu: Components
 route: /components/tabs
 ---
 
-import { PropsTable } from "docz";
-import { ExampleContainer, categoryFilter } from "../../docs/helpers.ts";
-import { Tabs } from "./Tabs.tsx";
+import { ExampleContainer, categoryMultiFilter } from "../../docs/helpers.ts";
+import ThemeProvider from "../../styles/theming";
+import Tabs, { TabList, TabPanels, Tab, TabPanel } from ".";
 
 # Tabs
 
 ## Usage
 
 <ExampleContainer>
-  <Tabs
-    filter={categoryFilter()}
-    tabs={[
-      { name: "All", display: "All" },
-      { name: "Blog", display: "Blog" }
-    ]}
-  />
+  <ThemeProvider>
+    <Tabs>
+      <TabList>
+        <Tab>One</Tab>
+        <Tab>Two</Tab>
+        <Tab>Three</Tab>
+      </TabList>
+
+      <TabPanels>
+        <TabPanel>
+          <p>one!</p>
+        </TabPanel>
+        <TabPanel>
+          <p>two!</p>
+        </TabPanel>
+        <TabPanel>
+          <p>three!</p>
+        </TabPanel>
+      </TabPanels>
+    </Tabs>
+  </ThemeProvider>
 </ExampleContainer>
-
-```javascript
-import { Filter, Tabs } from "@sajari/sdk-react";
-
-const filter = new Filter(
-  {
-    All: "",
-    Blog: "dir1='blog'"
-  },
-  ["All"]
-);
-
-<Tabs
-  filter={filter}
-  tabs={[
-    { name: "All", display: "All" },
-    { name: "Blog", display: "Blog" }
-  ]}
-/>;
-```
-
-## Props
-
-<PropsTable of={Tabs} />
-
-## Styles
-
-### `css` classes
-
-```css
-.sj-tabs {
-}
-.sj-tabs__tab {
-}
-.sj-tabs__tab--selected {
-}
-```
-
-### `styles` props
-
-```typescript
-type TabStyles = {
-  container?: CSSObject;
-  tab?: CSSObject;
-};
-```

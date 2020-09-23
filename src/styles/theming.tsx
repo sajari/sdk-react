@@ -14,9 +14,9 @@ type DeepPartial<T> = {
 export interface Theme {
   color: {
     primary: {
-      background: string;
-      foreground: string;
-      backgroundActive: string;
+      base: string;
+      text: string;
+      active: string;
       border: string;
       outline: string;
     };
@@ -26,9 +26,9 @@ export interface Theme {
 const defaultTheme: Theme = {
   color: {
     primary: {
-      background: "#3f83f8",
-      foreground: "#ebf5ff",
-      backgroundActive: "#1c64f2",
+      base: "#3f83f8",
+      text: "#ebf5ff",
+      active: "#1c64f2",
       border: "#1c64f2",
       outline: "#c3ddfd"
     }
