@@ -6,8 +6,10 @@ interface BoxProps {
   children?: React.ReactNode;
 }
 
+type DefaultElement = "div";
+
 const BoxComponent = (
-  props: PropsWithAs<BoxProps, "div">,
+  props: PropsWithAs<BoxProps, DefaultElement>,
   ref: React.Ref<HTMLDivElement>
 ) => {
   const { as: Type = "div", children, ...rest } = props;
@@ -18,6 +20,6 @@ const BoxComponent = (
   );
 };
 
-const Box = forwardRefWithAs<BoxProps, "div">(BoxComponent);
+const Box = forwardRefWithAs<BoxProps, DefaultElement>(BoxComponent);
 
 export default Box;
