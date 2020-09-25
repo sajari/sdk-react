@@ -1,0 +1,75 @@
+---
+name: Swatch
+menu: Components
+route: /components/swatch
+---
+
+import { PropsTable, Playground } from "docz";
+import { ExampleContainer, RenderPropComponent } from "../../docs/helpers.ts";
+import Swatch from "./index";
+import Color from './color';
+
+# Swatch
+
+## Usage
+
+<Playground>
+  {() => {
+    const [checkedColors, setCheckedColors] = React.useState([]);
+    return (
+      <ExampleContainer style={{display: "flex"}}>
+        <Swatch checkedColors={checkedColors} onChange={e => {
+            const color = e.target.value;
+            setCheckedColors(o => o.includes(color) ? o.filter(c => c !== color):[...o, color])
+          }}>
+          <Color.White />
+          <Color.Silver />
+          <Color.Black />
+          <Color.Pink />
+          <Color.Magenta />
+          <Color.Red />
+          <Color.Beige />
+          <Color.Orange />
+          <Color.Brown />
+          <Color.Yellow />
+          <Color.Green />
+          <Color.Azure />
+          <Color.Aqua />
+          <Color.Teal />
+          <Color.Turquoise />
+          <Color.Blue />
+          <Color.ElectricBlue />
+          <Color.Lilac />
+          <Color.Purple />
+          <Color.Violet />
+        </Swatch>
+      </ExampleContainer>
+    );
+  }}
+</Playground>
+
+The `<Swatch />` component
+
+### Colors
+
+You can use the pre-defined set of colors by using the syntax `<Color.{Color} />`, or you can use your own using `<Swatch.Color />` and pass the required props.
+
+<Playground>
+  {() => {
+    const [checkedColors, setCheckedColors] = React.useState([]);
+    return (
+      <ExampleContainer style={{display: "flex"}}>
+        <Swatch checkedColors={checkedColors} onChange={e => {
+            const color = e.target.value;
+            setCheckedColors(o => o.includes(color) ? o.filter(c => c !== color):[...o, color])
+          }}>
+          <Swatch.Color id="Custom color" bg="#F56565" color="#ECC94B" border="#4299E1" />
+        </Swatch>
+      </ExampleContainer>
+    );
+  }}
+</Playground>
+
+## Props
+
+<PropsTable of={Swatch} />
