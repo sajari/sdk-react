@@ -1334,7 +1334,7 @@
     "@react-stately/toggle" "^3.2.0"
     "@react-types/button" "^3.2.0"
 
-"@react-aria/focus@^3.2.0":
+"@react-aria/focus@^3.1.0", "@react-aria/focus@^3.2.0", "@react-aria/focus@^3.2.1":
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/@react-aria/focus/-/focus-3.2.1.tgz#c51c91472737468a0633e34aaa76459f6df1aa8a"
   integrity sha512-tceyh8DZOV79KSoE/c/Hm/HAf3ezoaUL0cd8M8e4G+SWxO+bE2EIB0MEH2CzAIgeQ79cvexKv4T/Gms8PgnMIw==
@@ -1355,7 +1355,7 @@
     "@react-types/shared" "^3.1.0"
     intl-messageformat "^2.2.0"
 
-"@react-aria/interactions@^3.2.0":
+"@react-aria/interactions@^3.1.0", "@react-aria/interactions@^3.2.0":
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/@react-aria/interactions/-/interactions-3.2.0.tgz#43d28489f8e1ec333127221ed1a2a7c92783dd01"
   integrity sha512-NhXnEOimpp+3K5XUbiM4DxhZ2LykT1Vy7iGaRk1alm7S//y+dxzNm7VzvjAI2+YeMbv6TbdtiPVfXB/+Xi+D9w==
@@ -1371,7 +1371,31 @@
   dependencies:
     "@babel/runtime" "^7.6.2"
 
-"@react-aria/utils@^3.2.0", "@react-aria/utils@^3.2.1":
+"@react-aria/switch@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@react-aria/switch/-/switch-3.1.0.tgz#efd40e92c17642d051a381fed24b9b2faba07179"
+  integrity sha512-p8Ro8i95fnDcmTJy7R7SvMykya+2Zu8TIMIhMSBcFfuPRJpbmDG+kcizPKI6EvF0sLQu1klW/sdhAqfH/QJf/g==
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/toggle" "^3.1.0"
+    "@react-stately/toggle" "^3.1.0"
+    "@react-types/switch" "^3.1.0"
+
+"@react-aria/toggle@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@react-aria/toggle/-/toggle-3.1.0.tgz#3f0423ff3b05187b4e374bbb65421fe5d95895d7"
+  integrity sha512-DNnfUffiQ3UOgzmFLwCoUORDDh1qUAZat2ks846BrH+I86Lapr7KSRMM/DqoWkXT6XWSdSl8RLUU8b5b4hXUWQ==
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/focus" "^3.1.0"
+    "@react-aria/interactions" "^3.1.0"
+    "@react-aria/utils" "^3.1.0"
+    "@react-stately/toggle" "^3.1.0"
+    "@react-types/checkbox" "^3.1.0"
+    "@react-types/shared" "^3.1.0"
+    "@react-types/switch" "^3.1.0"
+
+"@react-aria/utils@^3.1.0", "@react-aria/utils@^3.2.0", "@react-aria/utils@^3.2.1":
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/@react-aria/utils/-/utils-3.2.1.tgz#9242308ee9f1106a6bd9cb3af8702bf6528d110a"
   integrity sha512-6Kto7wg2Wd6C2AeRxMxtYLIEigqscLhVxeeLQCiH+w4x3St72lZIH6p6zn+NVUIybkHE5p4ipfYUdhKJexFNxQ==
@@ -1381,7 +1405,7 @@
     "@react-types/shared" "^3.2.0"
     clsx "^1.1.1"
 
-"@react-stately/toggle@^3.2.0":
+"@react-stately/toggle@^3.1.0", "@react-stately/toggle@^3.2.0":
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/@react-stately/toggle/-/toggle-3.2.0.tgz#35a9edcd1c47bfb9d2744d9fb08cfd6d7cb14b9b"
   integrity sha512-NQUP1WrIxQcB466PueZNJLcNoN1RJ42k/RjZRVvNyeSmnqJ6EwCylT5ZR3rUR/8T4Uggu+99laNkERFifnSlyQ==
@@ -1432,6 +1456,14 @@
     "@types/warning" "^3.0.0"
     tslib "^2.0.0"
     warning "^4.0.3"
+
+"@react-types/switch@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@react-types/switch/-/switch-3.1.0.tgz#a286251e9455364e622a480c3be176e49b1affed"
+  integrity sha512-tRhzyL3zIZEVium9LUgu1PRWDHcEW7T03Y+ZROT+gi9Cwf06y4VGVvfvXZScQSaum3ECOtvB3j+BaimU8/IvGQ==
+  dependencies:
+    "@react-types/checkbox" "^3.1.0"
+    "@react-types/shared" "^3.1.0"
 
 "@sajari/sdk-js@^1.0.8":
   version "1.0.8"

@@ -1,19 +1,27 @@
 import React from "react";
 import { SwatchProps } from "./types";
 
-const SwatchContext = React.createContext<
-  Omit<Required<SwatchProps>, "children">
->({
-  checkedColors: [],
-  onChange: () => {}
+interface SwatchContextProps {
+  state: string[];
+  setState: (checkedColors: string[]) => void;
+}
+
+const SwatchContext = React.createContext<SwatchContextProps>({
+  state: [],
+  setState: () => {}
 });
 
 export const SwatchProvider = ({
   children,
-  ...rest
+  checkedColors,
+  onChange
 }: Required<SwatchProps>) => {
   return (
-    <SwatchContext.Provider value={rest}>{children}</SwatchContext.Provider>
+    <SwatchContext.Provider
+      value={{ state: checkedColors, setState: onChange }}
+    >
+      {children}
+    </SwatchContext.Provider>
   );
 };
 

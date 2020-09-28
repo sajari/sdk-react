@@ -18,10 +18,7 @@ import Color from './color';
     const [checkedColors, setCheckedColors] = React.useState([]);
     return (
       <ExampleContainer style={{display: "flex"}}>
-        <Swatch checkedColors={checkedColors} onChange={e => {
-            const color = e.target.value;
-            setCheckedColors(o => o.includes(color) ? o.filter(c => c !== color):[...o, color])
-          }}>
+        <Swatch checkedColors={checkedColors} onChange={setCheckedColors}>
           <Color.White />
           <Color.Silver />
           <Color.Black />
@@ -59,11 +56,26 @@ You can use the pre-defined set of colors by using the syntax `<Color.{Color} />
     const [checkedColors, setCheckedColors] = React.useState([]);
     return (
       <ExampleContainer style={{display: "flex"}}>
-        <Swatch checkedColors={checkedColors} onChange={e => {
-            const color = e.target.value;
-            setCheckedColors(o => o.includes(color) ? o.filter(c => c !== color):[...o, color])
-          }}>
-          <Swatch.Color id="Custom color" bg="#F56565" color="#ECC94B" border="#4299E1" />
+        <Swatch checkedColors={checkedColors} onChange={setCheckedColors}>
+          <Swatch.Color id="Magenta" bg="#F56565" color="#ECC94B" border="#4299E1" />
+        </Swatch>
+      </ExampleContainer>
+    );
+  }}
+</Playground>
+
+### Overriding prop
+
+If there are two duplicating ids in the Swatch, simply override the props.
+
+<Playground>
+  {() => {
+    const [checkedColors, setCheckedColors] = React.useState([]);
+    return (
+      <ExampleContainer style={{display: "flex"}}>
+        <Swatch checkedColors={checkedColors} onChange={setCheckedColors}>
+          <Swatch.Color id="Magenta" bg="#F56565" color="#ECC94B" border="#4299E1" />
+          <Color.Magenta id="Magenta (override)" />
         </Swatch>
       </ExampleContainer>
     );

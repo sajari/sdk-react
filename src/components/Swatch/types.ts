@@ -15,7 +15,7 @@ export interface SwatchProps {
   /** List of <Swatch.Color /> */
   children: React.ReactNode;
   /** On change handler */
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  /** Currently checked colors */
+  onChange: (checkedColors: string[]) => void;
+  /** Default checked colors */
   checkedColors?: string[];
 }
