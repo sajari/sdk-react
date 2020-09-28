@@ -4,6 +4,12 @@ test.each([
   // valid
   [{}, true],
   [Object.create({}), true],
+  [
+    () => {
+      return;
+    },
+    true
+  ],
   // invalid
   ["", false],
   [[], false],
@@ -11,13 +17,7 @@ test.each([
   [0, false],
   [null, false],
   [undefined, false],
-  [NaN, false],
-  [
-    () => {
-      return;
-    },
-    false
-  ]
+  [NaN, false]
 ])("isObject(%o)", (obj, expected) => {
   expect(isObject(obj)).toBe(expected);
 });
