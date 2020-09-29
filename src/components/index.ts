@@ -17,10 +17,6 @@ export { Paginator } from "./Paginator";
 
 export { Select } from "./Select";
 
-export { Checkbox } from "./Checkbox";
-
-export { Radio } from "./Radio";
-
 export { Search } from "./Search";
 
 export { RangeSlider } from "./RangeSlider";
