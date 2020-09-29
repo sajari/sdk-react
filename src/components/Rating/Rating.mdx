@@ -1,0 +1,110 @@
+---
+name: Rating
+menu: Components
+route: /components/rating
+---
+
+import { PropsTable, Playground } from "docz";
+import { ExampleContainer, RenderPropComponent } from "../../docs/helpers.ts";
+import Rating from "./index";
+
+# Rating
+
+## Usage
+
+<Playground>
+  {() => {
+    return (
+      <ExampleContainer style={{display: "flex", flexDirection: "column"}}>
+        <Rating value={1} />
+        <Rating value={2} />
+        <Rating value={3} />
+        <Rating value={4} />
+        <Rating value={5}  />
+      </ExampleContainer>
+    );
+  }}
+</Playground>
+
+The `<Rating />` component
+
+## Maxium stars
+
+Set the maxium star with the `max` prop
+
+<Playground>
+  {() => {
+    return (
+      <ExampleContainer style={{display: "flex", flexDirection: "column"}}>
+        <Rating value={5} max={10}/>
+      </ExampleContainer>
+    );
+  }}
+</Playground>
+
+## Half star
+
+Rating can be represented as half by passing a decimal value
+
+<Playground>
+  {() => {
+    return (
+      <ExampleContainer style={{display: "flex", flexDirection: "column"}}>
+        <Rating value={2.9} />
+        <Rating value={3.5} />
+        <Rating value={4.1} />
+        <Rating value={5}  />
+      </ExampleContainer>
+    );
+  }}
+</Playground>
+
+## Custom icon
+
+Customize the rating icon with the `character` prop
+
+<Playground>
+  {() => {
+    return (
+      <ExampleContainer style={{display: "flex", flexDirection: "column"}}>
+        <Rating value={1} character="A" />
+        <Rating value={2.5} character="B" />
+        <Rating value={5} character={() => "S"} />
+        <Rating value={2.5} character={<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+	<g>
+		<path d="M12,0A12,12,0,1,0,24,12,12,12,0,0,0,12,0ZM6,10.5A1.5,1.5,0,1,1,7.5,12,1.5,1.5,0,0,1,6,10.5ZM12,19a4,4,0,0,1-4-4h8A4,4,0,0,1,12,19Zm4.5-7A1.5,1.5,0,1,1,18,10.5,1.5,1.5,0,0,1,16.5,12Z" />
+	</g>
+</svg>
+} />
+      </ExampleContainer>
+    );
+  }}
+</Playground>
+
+## Copywriting
+
+<Playground>
+  {() => {
+    return (
+      <ExampleContainer style={{display: "flex", flexDirection: "column"}}>
+        <Rating value={1} character="A"><span style={{marginLeft: "1rem"}}>A for Amazing</span></Rating>
+        <Rating value={2.5} character="B"><span style={{marginLeft: "1rem"}}>B for Brilliant</span></Rating>
+        <Rating value={5} character="S"><span style={{marginLeft: "1rem"}}>S for Sajari</span></Rating>
+      </ExampleContainer>
+    );
+  }}
+</Playground>
+
+## Direction
+
+<Playground>
+  {() => {
+    return (
+      <ExampleContainer style={{display: "flex", flexDirection: "column"}}>
+        <Rating direction="rtl" value={1.5} character="A"><span style={{marginRight: "1rem"}}>A for Amazing</span></Rating>
+        <Rating value={2.5} character="B"><span style={{marginLeft: "1rem"}}>B for Brilliant</span></Rating>
+        <Rating direction="rtl" value={5} character="S"><span style={{marginRight: "1rem"}}>S for Sajari</span></Rating>
+      </ExampleContainer>
+    );
+  }}
+</Playground>
