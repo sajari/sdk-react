@@ -1,14 +1,14 @@
-import { ChangeEvent } from "react";
+import { ThemeStyle } from "twin.macro";
 
 export interface ColorProps {
   /** The identifier of the color */
   id: string;
   /** Background color */
-  bg: string;
+  bg: string | ThemeStyle;
   /** Check icon color */
-  color: string;
+  color: string | ThemeStyle;
   /** Border color, defaults to background color */
-  border?: string;
+  border?: string | ThemeStyle;
 }
 
 export interface SwatchProps {
