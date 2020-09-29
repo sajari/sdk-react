@@ -1,11 +1,7 @@
+import { isObject } from "./assersion";
+
 interface MergeObject {
   [k: string]: any;
-}
-
-export function isObject(val: any) {
-  return (
-    val !== null && typeof val === "object" && Array.isArray(val) === false
-  );
 }
 
 export const merge = (target: MergeObject, source: MergeObject) => {

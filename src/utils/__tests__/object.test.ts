@@ -1,26 +1,4 @@
-import { isObject, merge } from "../object";
-
-test.each([
-  // valid
-  [{}, true],
-  [Object.create({}), true],
-  // invalid
-  ["", false],
-  [[], false],
-  [1, false],
-  [0, false],
-  [null, false],
-  [undefined, false],
-  [NaN, false],
-  [
-    () => {
-      return;
-    },
-    false
-  ]
-])("isObject(%o)", (obj, expected) => {
-  expect(isObject(obj)).toBe(expected);
-});
+import { merge } from "../object";
 
 test.each([
   [{ a: 2 }, { a: 1 }, { a: 1 }],
