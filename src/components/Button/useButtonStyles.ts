@@ -120,17 +120,17 @@ const useButtonStyles = ({
     // TODO: test theming for primary appearance, we might want to change them later
     case "primary":
       styles.push(`
-        color: ${theme.color.primary.foreground};
+        color: ${theme.color.primary.text};
         border-color: ${theme.color.primary.border};
       `);
 
       if (focused || pressed) {
-        styles.push(`background: ${theme.color.primary.backgroundActive};`);
+        styles.push(`background: ${theme.color.primary.active};`);
         styles.push(`box-shadow: 0 0 0 3px ${theme.color.primary.outline};`);
       } else if (hovered) {
-        styles.push(`background: ${theme.color.primary.backgroundActive};`);
+        styles.push(`background: ${theme.color.primary.active};`);
       } else {
-        styles.push(`background: ${theme.color.primary.background};`);
+        styles.push(`background: ${theme.color.primary.base};`);
       }
       break;
 

@@ -34,6 +34,7 @@
     "@react-aria/button": "^3.2.1",
     "@react-aria/interactions": "^3.2.0",
     "@react-aria/utils": "^3.2.1",
+    "@reach/auto-id": "^0.11.2",
     "@sajari/sdk-js": "^1.0.8",
     "@tailwindcss/ui": "^0.6.2",
     "chroma-js": "^1.4.0",
