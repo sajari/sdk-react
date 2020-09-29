@@ -1,20 +1,25 @@
-// @ts-nocheck
-// tslint:disable: jsx-no-lambda
+/** @jsx jsx */
+import { jsx } from "@emotion/core";
 import { useId } from "@reach/auto-id";
 import React, { ChangeEvent } from "react";
 import tw, { styled } from "twin.macro";
+import {
+  EmptyMicIcon,
+  MicIcon,
+  SearchIcon,
+  SpinnerIcon
+} from "../../assets/icons";
 import useInputStyles from "../../hooks/use-input-styles";
+import { __DEV__ } from "../../utils/assersion";
 import Box from "../Box";
 import { VoiceInput } from "../Input/Voice";
-import { EmptyMicIcon, MicIcon, SearchIcon, SpinnerIcon } from "./icons";
 import { TextInputProps } from "./types";
 
-const StyledBox = styled.div`
-  ${tw`relative w-full`};
-`;
-
-const StyledIconContainer = styled.div<{ left: boolean; showCancel: boolean }>`
-  ${({ left, showCancel }) =>
+const StyledIconContainer = styled.div<{
+  left?: boolean;
+  showCancel?: boolean;
+}>`
+  ${({ left = false, showCancel = false }) =>
     left
       ? tw`flex absolute inset-y-0 left-0 items-center pl-4`
       : showCancel
@@ -22,20 +27,12 @@ const StyledIconContainer = styled.div<{ left: boolean; showCancel: boolean }>`
       : tw`flex absolute inset-y-0 right-0 items-center pr-4`}
 `;
 
-const StyledButton = styled.button`
-  ${tw`bg-transparent shadow-none border-0 cursor-pointer`}
-`;
-
-const StyledLabel = styled.label`
-  ${tw`sr-only`};
-`;
-
 const TextInput = React.forwardRef(
   (
     {
       label,
       placeholder,
-      enterKeyHint,
+      enterKeyHint = "search",
       id = `text-input-${useId()}`,
       invalid,
       onValueChange = () => {},
@@ -49,48 +46,50 @@ const TextInput = React.forwardRef(
     const [showCancel, setShowCancel] = React.useState(!!!value);
     const styles = useInputStyles({ block: true, type: "text" });
 
-    React.useEffect(() => setShowCancel(value && value !== ""), [value]);
+    React.useEffect(() => setShowCancel(value ? value !== "" : false), [value]);
     return (
-      <StyledBox>
+      <Box css={tw`relative w-full`}>
         {label && (
-          <StyledLabel className="sr-only" htmlFor={id}>
+          <Box as="label" css={tw`sr-only`} htmlFor={id}>
             {label}
-          </StyledLabel>
+          </Box>
         )}
         <StyledIconContainer left={true}>
           <SearchIcon />
         </StyledIconContainer>
-        <Box
-          ref={ref}
-          as="input"
-          type="search"
-          css={styles}
-          dir="auto"
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            onValueChange(e.target.value);
-            if (!value) {
-              setShowCancel(e.target.value !== "");
-            }
-          }}
-          placeholder={placeholder}
-          enterkeyhint={enterKeyHint}
-          aria-invalid={invalid}
-          autoCapitalize="off"
-          autoComplete="off"
-          autoCorrect="off"
-          spellCheck="false"
-          enterKeyHint="search"
-          inputMode="search"
-          {...rest}
-        />
+        {
+          // @ts-ignore
+          <Box
+            ref={ref}
+            as="input"
+            type="search"
+            dir="auto"
+            css={styles}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+              onValueChange(e.target.value);
+              if (!value) {
+                setShowCancel(e.target.value !== "");
+              }
+            }}
+            placeholder={placeholder}
+            enterkeyhint={enterKeyHint}
+            aria-invalid={invalid}
+            autoCapitalize="off"
+            autoComplete="off"
+            autoCorrect="off"
+            spellCheck="false"
+            inputMode="search"
+            {...rest}
+          />
+        }
         {enableVoice || loading ? (
           <StyledIconContainer showCancel={showCancel}>
             {enableVoice && (
               <VoiceInput
                 Renderer={({ active, onClick }) => (
-                  <StyledButton onClick={onClick} aria-label="Search by voice">
+                  <Box as="button" css={tw`bg-transparent shadow-none border-0 cursor-pointer`} onClick={onClick} aria-label="Search by voice">
                     {active ? <MicIcon /> : <EmptyMicIcon />}
-                  </StyledButton>
+                  </Box>
                 )}
                 onVoiceInput={onValueChange}
               />
@@ -98,9 +97,13 @@ const TextInput = React.forwardRef(
             {loading && <SpinnerIcon />}
           </StyledIconContainer>
         ) : null}
-      </StyledBox>
+      </Box>
     );
   }
 );
 
+if(__DEV__) {
+  TextInput.displayName = 'TextInput';
+}
 export default TextInput;
+export type {TextInputProps}
