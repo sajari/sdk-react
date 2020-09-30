@@ -1,0 +1,32 @@
+---
+name: Image
+menu: Components
+route: /components/image
+---
+
+import { PropsTable, Playground } from "docz";
+import { ExampleContainer, RenderPropComponent } from "../../docs/helpers.ts";
+import Image from "./index";
+
+# Image
+
+## Usage
+
+<Playground>
+  {() => {
+    return (
+      <ExampleContainer>
+        <Image
+          htmlWidth={200}
+          src="https://i.pinimg.com/736x/97/6e/5e/976e5e1188e9490c2475a90ed4359b73.jpg"
+        />
+      </ExampleContainer>
+    );
+  }}
+</Playground>
+
+The `<Image />` component
+
+## Props
+
+<PropsTable of={Image} />
