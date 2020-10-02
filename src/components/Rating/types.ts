@@ -6,14 +6,14 @@ export interface RatingProps {
   /** Associated text */
   children?: React.ReactText;
   /** The icon to show, defaults to star icon */
-  character?: React.ReactNode;
+  character?: React.ReactNode | React.FC<RatingItemProps>;
   /** Direction */
   direction?: "ltr" | "rtl";
   /** Unit, used for labeling, default to "stars" */
   unit?: string;
 }
 
-export interface RatingItemProps {
+export interface InternalRatingItemProps {
   /** Index */
   index: number;
   /** Total count */
@@ -27,3 +27,18 @@ export interface RatingItemProps {
   /** Flip the half side around */
   flipped?: boolean;
 }
+
+export interface RatingItemProps {
+  /** Its self pos */
+  index: number;
+  /** Total count */
+  count: number;
+}
+
+export enum ItemType {
+  FILLED = 1,
+  HALF_FILLED,
+  EMPTY
+}
+
+export class RatingMaxmiumExceededError extends Error {}

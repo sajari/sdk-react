@@ -2,7 +2,7 @@
 import { jsx } from "@emotion/core";
 import React from "react";
 import tw, { styled, theme } from "twin.macro";
-import { RatingItemProps } from "./types";
+import { InternalRatingItemProps, RatingItemProps } from "./types";
 
 const StyledFirstHalf = styled.div<{ half: boolean; flipped: boolean }>`
   ${tw`absolute top-0 w-1/2 h-full overflow-hidden select-none`}
@@ -26,9 +26,9 @@ export const RatingItem = ({
   flipped = false,
   count,
   index
-}: RatingItemProps) => {
+}: InternalRatingItemProps) => {
   const characterNode =
-    typeof character === "function" ? character() : character;
+    typeof character === "function" ? character({ count, index }) : character;
 
   return (
     <div
