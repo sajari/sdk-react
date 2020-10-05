@@ -1,0 +1,36 @@
+---
+name: RangeInput
+menu: Components
+route: /components/range-input
+---
+
+import { Playground } from "docz";
+import { ExampleContainer, categoryMultiFilter } from "../../docs/helpers.ts";
+import ThemeProvider from "../../styles/theming";
+import { RangeFilter } from "../../controllers";
+import RangeInput from "./index";
+import { EVENT_SELECTION_UPDATED } from "../../events";
+
+# RangeInput
+
+## Usage
+
+<Playground>
+  {() => {
+    const rangeFilter = new RangeFilter('range', [0, 500]);
+    rangeFilter.set(200,300);
+    const [filterOutput, setFilterOutput ] = React.useState(rangeFilter.filter());
+
+    rangeFilter.listen(EVENT_SELECTION_UPDATED, () => {
+      setFilterOutput(rangeFilter.filter())
+    });
+
+    return (<ExampleContainer>
+      <ThemeProvider importantStyles={false}>
+        <RangeInput 
+          filter={rangeFilter} />
+          <pre>"{filterOutput}"</pre>
+      </ThemeProvider>
+    </ExampleContainer>)
+  }}
+</Playground>
