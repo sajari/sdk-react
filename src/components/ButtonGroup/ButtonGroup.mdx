@@ -1,0 +1,32 @@
+---
+name: ButtonGroup
+menu: Components
+route: /components/button-group
+---
+
+import { Playground } from "docz";
+import { ExampleContainer, categoryMultiFilter } from "../../docs/helpers.ts";
+import ThemeProvider from "../../styles/theming";
+import ButtonGroup from ".";
+import Button from "../Button";
+
+# ButtonGroup
+
+## Usage
+
+<Playground>
+  {() => {
+    const [active, setIsActive] = React.useState(true);
+    const activeAppearance = 'primary';
+    return (
+      <ExampleContainer>
+        <ThemeProvider>
+          <ButtonGroup attached>
+            <Button appearance={active ? activeAppearance : undefined} onClick={() => setIsActive(true)}>Button</Button>
+            <Button appearance={!active ? activeAppearance : undefined} onClick={() => setIsActive(false)}>Button</Button>
+          </ButtonGroup>
+        </ThemeProvider>
+      </ExampleContainer>
+    );
+  }}
+</Playground>

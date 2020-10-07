@@ -21,11 +21,11 @@ const useButtonStyles = ({
   const styles: (string | TwStyle)[] = [];
 
   styles.push(
-    tw`focus:outline-none items-center justify-center border transition duration-150 ease-in-out cursor-pointer no-underline`,
+    tw`focus:outline-none items-center justify-center border-solid border transition duration-150 ease-in-out cursor-pointer no-underline`,
   );
 
   if (!isLink) {
-    styles.push(tw`font-medium select-none rounded-md`);
+    styles.push(tw`font-medium select-none`);
   }
 
   styles.push(fullWidth ? tw`flex` : tw`inline-flex`);
