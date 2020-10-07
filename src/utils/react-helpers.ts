@@ -1,15 +1,12 @@
-import React, { Children, isValidElement } from "react";
-type ReactRef<T> =
-  | React.Ref<T>
-  | React.RefObject<T>
-  | React.MutableRefObject<T>;
+import React, { Children, isValidElement } from 'react';
+type ReactRef<T> = React.Ref<T> | React.RefObject<T> | React.MutableRefObject<T>;
 
 export function setRef<T = any>(ref: React.Ref<T> = null, value: T) {
   if (!ref) {
     return;
   }
 
-  if (typeof ref === "function") {
+  if (typeof ref === 'function') {
     ref(value);
   } else {
     // eslint-disable-next-line no-param-reassign
@@ -21,12 +18,8 @@ export function setRef<T = any>(ref: React.Ref<T> = null, value: T) {
  * Get a list of all valid React child elements
  * @param children
  */
-export function cleanChildren(
-  children: React.ReactChildren | React.ReactNode
-): React.ReactElement[] {
-  return Children.toArray(children).filter(child =>
-    isValidElement(child)
-  ) as React.ReactElement[];
+export function cleanChildren(children: React.ReactChildren | React.ReactNode): React.ReactElement[] {
+  return Children.toArray(children).filter((child) => isValidElement(child)) as React.ReactElement[];
 }
 
 export function assignRef(ref: React.Ref<HTMLElement>, value: HTMLElement) {
@@ -51,7 +44,7 @@ export function assignRef(ref: React.Ref<HTMLElement>, value: HTMLElement) {
 export function mergeRefs<T>(...refs: Array<ReactRef<T> | undefined>) {
   return (value: T) => {
     // @ts-ignore
-    refs.forEach(ref => assignRef(ref, value));
+    refs.forEach((ref) => assignRef(ref, value));
   };
 }
 
@@ -72,11 +65,7 @@ export interface CreateContextOptions {
  * @param options create context options
  */
 export function createContext<ContextType>(options: CreateContextOptions = {}) {
-  const {
-    strict = true,
-    errorMessage = "useContext must be inside a Provider with a value",
-    name
-  } = options;
+  const { strict = true, errorMessage = 'useContext must be inside a Provider with a value', name } = options;
   const Context = React.createContext<ContextType | undefined>(undefined);
 
   Context.displayName = name;
@@ -89,7 +78,5 @@ export function createContext<ContextType>(options: CreateContextOptions = {}) {
     return context;
   }
 
-  return [Context.Provider, useContext, Context] as CreateContextReturn<
-    ContextType
-  >;
+  return [Context.Provider, useContext, Context] as CreateContextReturn<ContextType>;
 }

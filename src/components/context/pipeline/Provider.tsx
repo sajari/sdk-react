@@ -1,9 +1,9 @@
-import * as React from "react";
-import { Config, defaultConfig } from "../../../config";
-import { NoTracking, Pipeline, Response, Values } from "../../../controllers";
-import { UnlistenFn } from "../../../controllers/listener";
-import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from "../../../events";
-import { Context, PipelineContext } from "./context";
+import * as React from 'react';
+import { Config, defaultConfig } from '../../../config';
+import { NoTracking, Pipeline, Response, Values } from '../../../controllers';
+import { UnlistenFn } from '../../../controllers/listener';
+import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from '../../../events';
+import { Context, PipelineContext } from './context';
 
 export interface ProviderPipelineConfig {
   pipeline: Pipeline;
@@ -34,10 +34,10 @@ export interface PipelineProviderState {
 
 const defaultState = {
   response: null,
-  query: "",
-  completion: "",
+  query: '',
+  completion: '',
   suggestions: [],
-  config: defaultConfig
+  config: defaultConfig,
 } as {
   response: Response | null;
   query: string;
@@ -46,13 +46,10 @@ const defaultState = {
   config: Config;
 };
 
-export class Provider extends React.PureComponent<
-  PipelineProviderProps,
-  PipelineProviderState
-> {
+export class Provider extends React.PureComponent<PipelineProviderProps, PipelineProviderState> {
   public state: PipelineProviderState = {
     search: defaultState,
-    instant: defaultState
+    instant: defaultState,
   };
 
   private unregisterFunctions: UnlistenFn[] = [];
@@ -63,103 +60,83 @@ export class Provider extends React.PureComponent<
 
     const mergedConfig = { ...defaultConfig, ...search.config };
     this.setState(
-      state =>
+      (state) =>
         ({
           ...state,
           search: {
             ...state.search,
             response: search.pipeline.getResponse(),
-            query: search.values.get()[mergedConfig.qParam] || "",
-            config: mergedConfig
+            query: search.values.get()[mergedConfig.qParam] || '',
+            config: mergedConfig,
           },
           instant: {
             ...state.instant,
-            config: { ...defaultConfig, ...search.config }
-          }
-        } as PipelineProviderState)
+            config: { ...defaultConfig, ...search.config },
+          },
+        } as PipelineProviderState),
     );
 
     this.unregisterFunctions.push(
       search.pipeline.listen(EVENT_RESPONSE_UPDATED, (response: Response) =>
-        this.setState(state => ({
+        this.setState((state) => ({
           ...state,
           search: {
             ...state.search,
             response,
-            ...responseUpdatedListener(
-              search.values,
-              state.search.config,
-              response
-            )
-          }
-        }))
-      )
+            ...responseUpdatedListener(search.values, state.search.config, response),
+          },
+        })),
+      ),
     );
 
     this.unregisterFunctions.push(
       search.values.listen(EVENT_VALUES_UPDATED, () =>
-        this.setState(state => ({
+        this.setState((state) => ({
           ...state,
           search: {
             ...state.search,
-            ...valuesUpdatedListener(
-              search.values,
-              search.pipeline,
-              state.search.config
-            )
-          }
-        }))
-      )
+            ...valuesUpdatedListener(search.values, search.pipeline, state.search.config),
+          },
+        })),
+      ),
     );
 
     this.instant = instant;
     if (this.instant === undefined) {
       const { project, collection, endpoint } = search.pipeline.config;
       this.instant = {
-        pipeline: new Pipeline(
-          { project, collection, endpoint },
-          "autocomplete",
-          new NoTracking()
-        ),
-        values: new Values()
+        pipeline: new Pipeline({ project, collection, endpoint }, 'autocomplete', new NoTracking()),
+        values: new Values(),
       };
     }
 
     this.unregisterFunctions.push(
-      (this.instant as ProviderPipelineConfig).pipeline.listen(
-        EVENT_RESPONSE_UPDATED,
-        (response: Response) =>
-          this.setState(state => ({
-            ...state,
-            instant: {
-              ...state.instant,
-              response,
-              ...responseUpdatedListener(
-                (this.instant as ProviderPipelineConfig).values,
-                state.instant.config,
-                response
-              )
-            }
-          }))
-      )
+      (this.instant as ProviderPipelineConfig).pipeline.listen(EVENT_RESPONSE_UPDATED, (response: Response) =>
+        this.setState((state) => ({
+          ...state,
+          instant: {
+            ...state.instant,
+            response,
+            ...responseUpdatedListener((this.instant as ProviderPipelineConfig).values, state.instant.config, response),
+          },
+        })),
+      ),
     );
 
     this.unregisterFunctions.push(
-      (this.instant as ProviderPipelineConfig).values.listen(
-        EVENT_VALUES_UPDATED,
-        () =>
-          this.setState(state => ({
-            ...state,
-            instant: {
-              ...state.instant,
-              ...valuesUpdatedListener(
-                (this.instant as ProviderPipelineConfig).values,
-                (this.instant as ProviderPipelineConfig).pipeline,
-                state.instant.config
-              )
-            }
-          }))
-      )
+      (this.instant as ProviderPipelineConfig).values.listen(EVENT_VALUES_UPDATED, () =>
+        this.setState((state) => ({
+          ...state,
+          instant: {
+            ...state.instant,
+            ...valuesUpdatedListener(
+              (this.instant as ProviderPipelineConfig).values,
+              (this.instant as ProviderPipelineConfig).pipeline,
+              state.instant.config,
+            ),
+          },
+        })),
+      ),
     );
 
     if (searchOnLoad) {
@@ -168,7 +145,7 @@ export class Provider extends React.PureComponent<
   }
 
   public componentWillUnmount() {
-    this.unregisterFunctions.forEach(fn => fn());
+    this.unregisterFunctions.forEach((fn) => fn());
     this.unregisterFunctions = [];
   }
 
@@ -176,11 +153,7 @@ export class Provider extends React.PureComponent<
     const { children } = this.props;
     const value = this.getContext(this.state);
 
-    return (
-      <PipelineContext.Provider value={value}>
-        {children}
-      </PipelineContext.Provider>
-    );
+    return <PipelineContext.Provider value={value}>{children}</PipelineContext.Provider>;
   }
 
   private getContext = (state: PipelineProviderState) =>
@@ -188,31 +161,30 @@ export class Provider extends React.PureComponent<
       ...state,
       search: {
         ...state.search,
-        search: this.search("search"),
-        clear: this.clear("search")
+        search: this.search('search'),
+        clear: this.clear('search'),
       },
       instant: {
         ...state.instant,
-        search: this.search("instant"),
-        clear: this.clear("instant")
+        search: this.search('instant'),
+        clear: this.clear('instant'),
       },
       resultClicked: this.handleResultClicked,
-      paginate: this.handlePaginate
+      paginate: this.handlePaginate,
     } as Context);
 
-  private search = (key: "search" | "instant") =>
+  private search = (key: 'search' | 'instant') =>
     debounce((query: string, override: boolean = false) => {
-      const { pipeline, values } =
-        (this.props[key] as ProviderPipelineConfig) || this.instant;
+      const { pipeline, values } = (this.props[key] as ProviderPipelineConfig) || this.instant;
       const { config } = this.state[key];
 
       const text = {
         [config.qParam]: query,
-        [config.qOverrideParam]: undefined
+        [config.qOverrideParam]: undefined,
       };
 
       if (override) {
-        text[config.qOverrideParam] = "true";
+        text[config.qOverrideParam] = 'true';
       }
 
       values.set(text);
@@ -223,11 +195,8 @@ export class Provider extends React.PureComponent<
       }
     }, 50);
 
-  private clear = (key: "search" | "instant") => (vals?: {
-    [k: string]: string | undefined;
-  }) => {
-    const { pipeline, values } =
-      (this.props[key] as ProviderPipelineConfig) || this.instant;
+  private clear = (key: 'search' | 'instant') => (vals?: { [k: string]: string | undefined }) => {
+    const { pipeline, values } = (this.props[key] as ProviderPipelineConfig) || this.instant;
 
     if (vals !== undefined) {
       values.set(vals);
@@ -235,8 +204,7 @@ export class Provider extends React.PureComponent<
     pipeline.clearResponse(values.get());
   };
 
-  private handleResultClicked = (url: string) =>
-    this.props.search.pipeline.emitResultClicked(url);
+  private handleResultClicked = (url: string) => this.props.search.pipeline.emitResultClicked(url);
 
   private handlePaginate = (page: number) => {
     const { search } = this.props;
@@ -247,48 +215,35 @@ export class Provider extends React.PureComponent<
   };
 }
 
-const responseUpdatedListener = (
-  values: Values,
-  config: Config,
-  response: Response
-) => {
-  const query = values.get()[config.qParam] || "";
+const responseUpdatedListener = (values: Values, config: Config, response: Response) => {
+  const query = values.get()[config.qParam] || '';
   const responseValues = response.getValues();
 
   return updateState(query, responseValues, config);
 };
 
-const valuesUpdatedListener = (
-  values: Values,
-  pipeline: Pipeline,
-  config: Config
-) => {
-  const query = values.get()[config.qParam] || "";
+const valuesUpdatedListener = (values: Values, pipeline: Pipeline, config: Config) => {
+  const query = values.get()[config.qParam] || '';
   const responseValues = pipeline.getResponse().getValues();
 
   return updateState(query, responseValues, config);
 };
 
-const updateState = (
-  query: string,
-  responseValues: Map<string, string> | undefined,
-  config: Config
-) => {
-  const completion =
-    query && responseValues ? responseValues.get(config.qParam) || "" : "";
+const updateState = (query: string, responseValues: Map<string, string> | undefined, config: Config) => {
+  const completion = query && responseValues ? responseValues.get(config.qParam) || '' : '';
 
   let suggestions: string[] = [];
   if (responseValues) {
-    suggestions = (responseValues.get(config.qSuggestionsParam) || "")
-      .split(",")
-      .filter(s => s.length > 0)
+    suggestions = (responseValues.get(config.qSuggestionsParam) || '')
+      .split(',')
+      .filter((s) => s.length > 0)
       .slice(0, config.maxSuggestions);
   }
 
   return {
     completion,
     query,
-    suggestions
+    suggestions,
   };
 };
 
@@ -298,15 +253,15 @@ function debounce<F extends Procedure>(
   func: F,
   waitMilliseconds = 50,
   options = {
-    isImmediate: false
-  }
+    isImmediate: false,
+  },
 ): F {
   let timeoutId: number | undefined;
 
-  return function(this: any, ...args: any[]) {
+  return function (this: any, ...args: any[]) {
     const context = this;
 
-    const doLater = function() {
+    const doLater = function () {
       timeoutId = undefined;
       if (!options.isImmediate) {
         func.apply(context, args);

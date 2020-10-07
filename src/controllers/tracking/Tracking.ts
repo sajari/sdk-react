@@ -1,7 +1,7 @@
-import { Session } from "@sajari/sdk-js";
+import { Session } from '@sajari/sdk-js';
 
-import { EVENT_TRACKING_RESET } from "../../events";
-import { CallbackFn, Listener, ListenerMap, UnlistenFn } from "../listener";
+import { EVENT_TRACKING_RESET } from '../../events';
+import { CallbackFn, Listener, ListenerMap, UnlistenFn } from '../listener';
 
 const events = [EVENT_TRACKING_RESET];
 
@@ -12,8 +12,8 @@ export class Tracking {
   constructor() {
     this.listeners = new Map(
       Object.entries({
-        [EVENT_TRACKING_RESET]: new Listener()
-      })
+        [EVENT_TRACKING_RESET]: new Listener(),
+      }),
     );
   }
 
@@ -35,7 +35,7 @@ export class Tracking {
    * @private
    */
   public _emitTrackingReset(values: { [k: string]: string }) {
-    (this.listeners.get(EVENT_TRACKING_RESET) as Listener).notify(listener => {
+    (this.listeners.get(EVENT_TRACKING_RESET) as Listener).notify((listener) => {
       listener(values);
     });
   }

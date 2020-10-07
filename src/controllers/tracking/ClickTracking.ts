@@ -1,12 +1,7 @@
-import {
-  DefaultSession,
-  InteractiveSession,
-  Session,
-  TrackingType
-} from "@sajari/sdk-js";
+import { DefaultSession, InteractiveSession, Session, TrackingType } from '@sajari/sdk-js';
 
-import { Tracking } from "./Tracking";
-import { getTrackingData } from "./utils";
+import { Tracking } from './Tracking';
+import { getTrackingData } from './utils';
 
 export class ClickTracking extends Tracking {
   private field: string;
@@ -19,16 +14,16 @@ export class ClickTracking extends Tracking {
    * @param field Field to use for click token generation.
    * @param qParam Value to use for full-text query param.
    */
-  constructor(field = "url", qParam = "q") {
+  constructor(field = 'url', qParam = 'q') {
     super();
 
     this.field = field;
     this.qParam = qParam;
     this.clientTracking = new InteractiveSession(
       qParam,
-      new DefaultSession(TrackingType.Click, field, getTrackingData())
+      new DefaultSession(TrackingType.Click, field, getTrackingData()),
     );
-    this.prevQ = "";
+    this.prevQ = '';
   }
 
   /**
@@ -49,7 +44,7 @@ export class ClickTracking extends Tracking {
    */
   public next(values: { [k: string]: string }) {
     if (this.clientTracking === null) {
-      throw new Error("clientTracking is null");
+      throw new Error('clientTracking is null');
     }
     return this.clientTracking.next(values);
   }

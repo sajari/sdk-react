@@ -1,10 +1,7 @@
-import { HTMLAttributes } from "react";
+import { HTMLAttributes } from 'react';
 
 export interface TabPanelProps
-  extends Omit<
-    HTMLAttributes<HTMLDivElement>,
-    "role" | "tabIndex" | "hidden" | "id" | "outline"
-  > {
+  extends Omit<HTMLAttributes<HTMLDivElement>, 'role' | 'tabIndex' | 'hidden' | 'id' | 'outline'> {
   selected?: boolean;
   selectedPanelRef?: React.Ref<HTMLElement>;
   id?: string;

@@ -1,3 +1,3 @@
-import { HTMLAttributes } from "react";
+import { HTMLAttributes } from 'react';
 
-export type TabPanelsProps = Omit<HTMLAttributes<HTMLDivElement>, "tabIndex">;
+export type TabPanelsProps = Omit<HTMLAttributes<HTMLDivElement>, 'tabIndex'>;

@@ -1,4 +1,4 @@
-import * as React from "react";
+import * as React from 'react';
 
 export interface VoiceInputProps {
   onVoiceInput: (input: string) => void;
@@ -15,20 +15,17 @@ export interface VoiceInputState {
   supports: boolean;
 }
 
-export class VoiceInput extends React.Component<
-  VoiceInputProps,
-  VoiceInputState
-> {
+export class VoiceInput extends React.Component<VoiceInputProps, VoiceInputState> {
   public state = {
     active: false,
     recognition: null as any,
     previousRecognition: null as any,
-    supports: false
+    supports: false,
   };
 
   public componentDidMount() {
     this.setState({
-      supports: window.hasOwnProperty("webkitSpeechRecognition")
+      supports: window.hasOwnProperty('webkitSpeechRecognition'),
     });
   }
 
@@ -47,7 +44,7 @@ export class VoiceInput extends React.Component<
     recognition.continuous = false;
     recognition.interimResults = false;
 
-    recognition.lang = "en-US";
+    recognition.lang = 'en-US';
     recognition.start();
 
     recognition.onresult = (event: any) => {

@@ -1,13 +1,10 @@
-import memoize from "fast-memoize";
-import * as React from "react";
-import { Filter } from "../../../controllers";
-import { Options } from "../../../controllers/filter";
-import { UnlistenFn } from "../../../controllers/listener";
-import {
-  EVENT_OPTIONS_UPDATED,
-  EVENT_SELECTION_UPDATED
-} from "../../../events";
-import { Context, FilterContext } from "./context";
+import memoize from 'fast-memoize';
+import * as React from 'react';
+import { Filter } from '../../../controllers';
+import { Options } from '../../../controllers/filter';
+import { UnlistenFn } from '../../../controllers/listener';
+import { EVENT_OPTIONS_UPDATED, EVENT_SELECTION_UPDATED } from '../../../events';
+import { Context, FilterContext } from './context';
 
 export interface FilterProviderProps {
   filter: Filter;
@@ -18,16 +15,13 @@ export interface FilterProviderState {
   selected: string[];
 }
 
-export class FilterProvider extends React.PureComponent<
-  FilterProviderProps,
-  FilterProviderState
-> {
+export class FilterProvider extends React.PureComponent<FilterProviderProps, FilterProviderState> {
   public state = { options: {}, selected: [] };
   private unregisterFuntions: UnlistenFn[] = [];
 
   private getContext = memoize((state: FilterProviderState) => ({
     ...state,
-    set: (name: string, value: boolean) => this.props.filter.set(name, value)
+    set: (name: string, value: boolean) => this.props.filter.set(name, value),
   }));
 
   public componentDidMount() {
@@ -35,25 +29,23 @@ export class FilterProvider extends React.PureComponent<
 
     this.unregisterFuntions.push(
       filter.listen(EVENT_OPTIONS_UPDATED, () =>
-        this.setState(state => ({ ...state, options: filter.getOptions() }))
-      )
+        this.setState((state) => ({ ...state, options: filter.getOptions() })),
+      ),
     );
 
     this.unregisterFuntions.push(
-      filter.listen(EVENT_SELECTION_UPDATED, () =>
-        this.setState(state => ({ ...state, selected: filter.get() }))
-      )
+      filter.listen(EVENT_SELECTION_UPDATED, () => this.setState((state) => ({ ...state, selected: filter.get() }))),
     );
 
-    this.setState(state => ({
+    this.setState((state) => ({
       ...state,
       options: filter.getOptions(),
-      selected: filter.get()
+      selected: filter.get(),
     }));
   }
 
   public componentWillUnmount() {
-    this.unregisterFuntions.forEach(fn => fn());
+    this.unregisterFuntions.forEach((fn) => fn());
   }
 
   public render() {

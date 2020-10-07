@@ -1,8 +1,8 @@
-import { CSSObject } from "@emotion/core";
-import classnames from "classnames";
-import { Handle, RangeProps } from "rc-slider";
-import React from "react";
-import { StyledRange, ValueTip } from "./styled";
+import { CSSObject } from '@emotion/core';
+import classnames from 'classnames';
+import { Handle, RangeProps } from 'rc-slider';
+import React from 'react';
+import { StyledRange, ValueTip } from './styled';
 
 export interface RangeCustomStyleObject {
   handle?: CSSObject;
@@ -22,26 +22,18 @@ export interface RangerSliderCustomProps {
 
 export type RangeSliderUIProps = RangeProps & RangerSliderCustomProps;
 
-export const RangeSliderUI = ({
-  renderTip,
-  className,
-  ...props
-}: RangeSliderUIProps) => {
+export const RangeSliderUI = ({ renderTip, className, ...props }: RangeSliderUIProps) => {
   // Assign type `any` for handleProps due to missing definition from lib
   const handle = (handleProps: any) => {
     const hanleModifiedProps = {
       ...handleProps,
-      dragging: handleProps.dragging.toString()
+      dragging: handleProps.dragging.toString(),
     };
 
     return (
       <Handle {...hanleModifiedProps}>
         <ValueTip>
-          {renderTip ? (
-            <span>{renderTip(handleProps.value)}</span>
-          ) : (
-            <span>{handleProps.value}</span>
-          )}
+          {renderTip ? <span>{renderTip(handleProps.value)}</span> : <span>{handleProps.value}</span>}
         </ValueTip>
       </Handle>
     );
@@ -54,7 +46,7 @@ export const RangeSliderUI = ({
   return (
     <StyledRange
       {...props}
-      className={classnames("sj-range-slider", className)}
+      className={classnames('sj-range-slider', className)}
       defaultValue={props.value}
       handle={handle}
     />

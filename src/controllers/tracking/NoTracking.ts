@@ -1,7 +1,7 @@
-import { DefaultSession, Session, TrackingType } from "@sajari/sdk-js";
+import { DefaultSession, Session, TrackingType } from '@sajari/sdk-js';
 
-import { Tracking } from "./Tracking";
-import { getTrackingData } from "./utils";
+import { Tracking } from './Tracking';
+import { getTrackingData } from './utils';
 
 export class NoTracking extends Tracking {
   /**
@@ -9,11 +9,7 @@ export class NoTracking extends Tracking {
    */
   constructor() {
     super();
-    this.clientTracking = new DefaultSession(
-      TrackingType.None,
-      "_id",
-      getTrackingData()
-    );
+    this.clientTracking = new DefaultSession(TrackingType.None, '_id', getTrackingData());
   }
 
   /**
@@ -32,7 +28,7 @@ export class NoTracking extends Tracking {
    */
   public next(values: { [k: string]: string }) {
     if (this.clientTracking === null) {
-      throw new Error("clientTracking is null");
+      throw new Error('clientTracking is null');
     }
     return this.clientTracking.next(values);
   }

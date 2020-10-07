@@ -1,22 +1,18 @@
-export { Consumer, Provider } from "./context";
-export {
-  FilterContext,
-  FilterConsumer,
-  FilterProvider
-} from "./context/filter";
+export { Consumer, Provider } from './context';
+export { FilterContext, FilterConsumer, FilterProvider } from './context/filter';
 
-export { Input } from "./Input";
+export { Input } from './Input';
 
-export { Response } from "./Response";
-export { ResultsContainer, Results } from "./Results";
-export { Result, TokenLink } from "./Result";
+export { Response } from './Response';
+export { ResultsContainer, Results } from './Results';
+export { Result, TokenLink } from './Result';
 
-export { Summary } from "./Summary";
+export { Summary } from './Summary';
 
-export { Paginator } from "./Paginator";
+export { Paginator } from './Paginator';
 
-export { Select } from "./Select";
+export { Select } from './Select';
 
-export { Search } from "./Search";
+export { Search } from './Search';
 
-export { RangeSlider } from "./RangeSlider";
+export { RangeSlider } from './RangeSlider';

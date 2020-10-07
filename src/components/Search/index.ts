@@ -1,6 +1,1 @@
-export {
-  Search,
-  PipelineProps,
-  SearchState,
-  StateChangeOptions
-} from "./Search";
+export { Search, PipelineProps, SearchState, StateChangeOptions } from './Search';

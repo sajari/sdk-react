@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface Props {
   /** The state when entering an invalid input */
@@ -7,6 +7,4 @@ interface Props {
   indeterminate?: boolean;
 }
 
-export interface CheckboxProps
-  extends Props,
-    React.InputHTMLAttributes<HTMLInputElement> {}
+export interface CheckboxProps extends Props, React.InputHTMLAttributes<HTMLInputElement> {}

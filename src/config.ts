@@ -8,10 +8,10 @@ export interface Config {
 }
 
 export const defaultConfig: Config = {
-  qParam: "q",
-  qOverrideParam: "q.override",
-  qSuggestionsParam: "q.suggestions",
+  qParam: 'q',
+  qOverrideParam: 'q.override',
+  qSuggestionsParam: 'q.suggestions',
   maxSuggestions: 5,
-  resultsPerPageParam: "resultsPerPage",
-  pageParam: "page"
+  resultsPerPageParam: 'resultsPerPage',
+  pageParam: 'page',
 };

@@ -1,10 +1,10 @@
-import { ThemeProvider } from "emotion-theming";
-import * as React from "react";
+import { ThemeProvider } from 'emotion-theming';
+import * as React from 'react';
 // @ts-ignore: module missing definitions
-import { LiveAnnouncer } from "react-aria-live";
+import { LiveAnnouncer } from 'react-aria-live';
 
-import { PipelineProvider } from "./pipeline";
-import { ProviderPipelineConfig } from "./pipeline/Provider";
+import { PipelineProvider } from './pipeline';
+import { ProviderPipelineConfig } from './pipeline/Provider';
 
 export interface ProviderProps {
   search: ProviderPipelineConfig;
@@ -19,11 +19,7 @@ export class Provider extends React.PureComponent<ProviderProps> {
     const { search, instant, theme, searchOnLoad, children } = this.props;
 
     return (
-      <PipelineProvider
-        search={search}
-        instant={instant}
-        searchOnLoad={searchOnLoad}
-      >
+      <PipelineProvider search={search} instant={instant} searchOnLoad={searchOnLoad}>
         <LiveAnnouncer>
           <ThemeProvider theme={theme || {}}>
             <React.Fragment>{children}</React.Fragment>

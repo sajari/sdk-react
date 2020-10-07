@@ -1,4 +1,4 @@
-import { isObject } from "./assertion";
+import { isObject } from './assertion';
 
 interface MergeObject {
   [k: string]: any;
@@ -9,7 +9,7 @@ export const merge = (target: MergeObject, source: MergeObject) => {
     return source;
   }
 
-  Object.keys(source).forEach(key => {
+  Object.keys(source).forEach((key) => {
     const targetValue = target[key];
     const sourceValue = source[key];
 

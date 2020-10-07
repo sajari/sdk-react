@@ -1,8 +1,4 @@
-export function pageNumbers(
-  page: number,
-  totalPages: number,
-  windowSize: number
-) {
+export function pageNumbers(page: number, totalPages: number, windowSize: number) {
   let pages = [page];
   for (let i = 1; i < windowSize; i++) {
     pages.unshift(page - i);
@@ -10,7 +6,7 @@ export function pageNumbers(
   }
 
   // filter out negative values
-  pages = pages.filter(v => v > 0);
+  pages = pages.filter((v) => v > 0);
 
   return windowFn(page, pages, totalPages, windowSize);
 }

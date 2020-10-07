@@ -5,6 +5,4 @@ interface Props {
   visuallyHidden?: boolean;
 }
 
-export interface LabelProps
-  extends Props,
-    React.HTMLAttributes<Omit<HTMLLabelElement, "htmlFor">> {}
+export interface LabelProps extends Props, React.HTMLAttributes<Omit<HTMLLabelElement, 'htmlFor'>> {}

@@ -1,6 +1,6 @@
-import * as React from "react";
-import { Config } from "../../../config";
-import { Response } from "../../../controllers";
+import * as React from 'react';
+import { Config } from '../../../config';
+import { Response } from '../../../controllers';
 
 export type SearchFn = (query: string, override: boolean) => void;
 export type ClearFn = (values?: { [k: string]: string | undefined }) => void;

@@ -1,13 +1,13 @@
-import { Filter } from "./filter";
+import { Filter } from './filter';
 
 export type Range = [number, number];
 
 export class RangeFilter extends Filter {
-  protected _field = "";
+  protected _field = '';
   protected _range = [0, 0] as Range;
   protected _limit = [0, 0] as Range; // [min, max]
-  protected _current = "";
-  protected _filter = "";
+  protected _current = '';
+  protected _filter = '';
 
   constructor(field: string, limit: Range) {
     super({}, []);
@@ -21,7 +21,7 @@ export class RangeFilter extends Filter {
   public filter = () => this._filter;
   public limit = () => this._limit;
 
-  public get = () => (this._current === "" ? [] : [this._current]);
+  public get = () => (this._current === '' ? [] : [this._current]);
 
   public getRange() {
     return this._range;
@@ -35,21 +35,21 @@ export class RangeFilter extends Filter {
   };
 
   public reset = () => {
-    this._range = this._limit.map(r => r) as Range;
-    if (this._filter !== "") {
+    this._range = this._limit.map((r) => r) as Range;
+    if (this._filter !== '') {
       this.clear();
     }
   };
 
   public clear = () => {
-    this._filter = "";
+    this._filter = '';
     this._emitSelectionUpdated();
   };
 }
 
 export function getFilterQuery(range: Range, limit: Range, field: string) {
   if (range[1] === limit[1] && range[0] === limit[0]) {
-    return "";
+    return '';
   }
   return `(${field} >= ${range[0]} AND ${field} <= ${range[1]})`;
 }

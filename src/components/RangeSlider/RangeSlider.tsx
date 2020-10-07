@@ -1,20 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  LimitUpdateListener,
-  RangeAggregateFilter
-} from "../../controllers/rangeAggregateFilter";
-import { RangeFilter } from "../../controllers/rangeFilter";
-import { RangerSliderCustomProps, RangeSliderUI } from "./RangeSliderUI";
+import React, { useEffect, useRef, useState } from 'react';
+import { LimitUpdateListener, RangeAggregateFilter } from '../../controllers/rangeAggregateFilter';
+import { RangeFilter } from '../../controllers/rangeFilter';
+import { RangerSliderCustomProps, RangeSliderUI } from './RangeSliderUI';
 
 export interface RangeSliderStaticProps extends RangerSliderCustomProps {
   filter: RangeFilter;
 }
 
-export const RangeSliderStatic = ({
-  filter,
-  step = 1,
-  ...props
-}: RangeSliderStaticProps) => {
+export const RangeSliderStatic = ({ filter, step = 1, ...props }: RangeSliderStaticProps) => {
   const debounce = useRef<number>(-1);
   const value = filter.getRange();
   const [range, setRange] = useState<number[]>(value);
@@ -28,16 +21,7 @@ export const RangeSliderStatic = ({
     }, 500);
   }, [range]);
 
-  return (
-    <RangeSliderUI
-      value={range}
-      onChange={setRange}
-      min={min}
-      max={max}
-      step={step}
-      {...props}
-    />
-  );
+  return <RangeSliderUI value={range} onChange={setRange} min={min} max={max} step={step} {...props} />;
 };
 
 export interface RangeAggregateSliderProps extends RangerSliderCustomProps {
@@ -45,11 +29,7 @@ export interface RangeAggregateSliderProps extends RangerSliderCustomProps {
   step?: number;
 }
 
-export const RangeAggregateSlider = ({
-  filter,
-  step = 1,
-  ...props
-}: RangeAggregateSliderProps) => {
+export const RangeAggregateSlider = ({ filter, step = 1, ...props }: RangeAggregateSliderProps) => {
   const debounce = useRef<number>(-1);
   const value = filter.getRange();
   const [range, setRange] = useState<number[]>(value);
@@ -79,16 +59,7 @@ export const RangeAggregateSlider = ({
     };
   }, [range]);
 
-  return (
-    <RangeSliderUI
-      value={range}
-      onChange={setRange}
-      min={min}
-      max={max}
-      step={step}
-      {...props}
-    />
-  );
+  return <RangeSliderUI value={range} onChange={setRange} min={min} max={max} step={step} {...props} />;
 };
 
 export interface RangeSliderProps extends RangerSliderCustomProps {

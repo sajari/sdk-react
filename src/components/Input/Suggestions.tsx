@@ -1,11 +1,11 @@
 /** @jsx jsx */ jsx;
-import { jsx } from "@emotion/core";
-import { CSSObject } from "@emotion/core";
-import classnames from "classnames";
-import * as React from "react";
-import { SearchStateAndHelpers } from "../Search/Search";
-import { Dropdown } from "./shared/Dropdown";
-import { trimPrefix } from "./shared/utils";
+import { jsx } from '@emotion/core';
+import { CSSObject } from '@emotion/core';
+import classnames from 'classnames';
+import * as React from 'react';
+import { SearchStateAndHelpers } from '../Search/Search';
+import { Dropdown } from './shared/Dropdown';
+import { trimPrefix } from './shared/utils';
 
 export interface SuggestionsProps {
   searchProps: SearchStateAndHelpers;
@@ -17,18 +17,9 @@ export interface SuggestionsProps {
   };
 }
 
-export function Suggestions({
-  searchProps,
-  typedInputValue,
-  suggestions = [],
-  styles
-}: SuggestionsProps) {
+export function Suggestions({ searchProps, typedInputValue, suggestions = [], styles }: SuggestionsProps) {
   return (
-    <Dropdown
-      searchProps={searchProps}
-      className="sj-input__suggestions"
-      styles={styles && styles.container}
-    >
+    <Dropdown searchProps={searchProps} className="sj-input__suggestions" styles={styles && styles.container}>
       {searchProps.isOpen &&
         suggestions.length > 0 &&
         suggestions.map((suggestion, idx) => (
@@ -37,17 +28,14 @@ export function Suggestions({
               key: suggestion,
               item: suggestion,
               index: idx,
-              role: "option",
-              className: classnames("sj-input__suggestions__item", {
-                "sj-input__suggestions__item--highlighted":
-                  searchProps.highlightedIndex === idx
-              })
+              role: 'option',
+              className: classnames('sj-input__suggestions__item', {
+                'sj-input__suggestions__item--highlighted': searchProps.highlightedIndex === idx,
+              }),
             })}
             css={[
               suggestionItemStyles(searchProps.highlightedIndex === idx),
-              styles &&
-                styles.item &&
-                styles.item(searchProps.highlightedIndex === idx)
+              styles && styles.item && styles.item(searchProps.highlightedIndex === idx),
             ]}
           >
             {suggestionText(typedInputValue, suggestion)}
@@ -60,7 +48,7 @@ export function Suggestions({
 function suggestionText(inputValue: string, suggestion: string) {
   return (
     <React.Fragment>
-      {inputValue === "" || !suggestion.startsWith(inputValue) ? (
+      {inputValue === '' || !suggestion.startsWith(inputValue) ? (
         suggestion
       ) : (
         <React.Fragment>
@@ -73,10 +61,10 @@ function suggestionText(inputValue: string, suggestion: string) {
 }
 
 const suggestionItemStyles = (isFocused: boolean) => ({
-  listStyle: "none",
+  listStyle: 'none',
   marginLeft: 0,
-  padding: "0.25em 0.5em",
-  color: isFocused ? "#222" : "inherit",
-  backgroundColor: isFocused ? "#eee" : "inherit",
-  cursor: isFocused ? "default" : "auto"
+  padding: '0.25em 0.5em',
+  color: isFocused ? '#222' : 'inherit',
+  backgroundColor: isFocused ? '#eee' : 'inherit',
+  cursor: isFocused ? 'default' : 'auto',
 });

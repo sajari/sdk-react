@@ -1,5 +1,5 @@
-import React from "react";
-import { SwatchProps } from "./types";
+import React from 'react';
+import { SwatchProps } from './types';
 
 interface SwatchContextProps {
   state: string[];
@@ -8,20 +8,12 @@ interface SwatchContextProps {
 
 const SwatchContext = React.createContext<SwatchContextProps>({
   state: [],
-  setState: () => {}
+  setState: () => {},
 });
 
-export const SwatchProvider = ({
-  children,
-  checkedColors,
-  onChange
-}: Required<SwatchProps>) => {
+export const SwatchProvider = ({ children, checkedColors, onChange }: Required<SwatchProps>) => {
   return (
-    <SwatchContext.Provider
-      value={{ state: checkedColors, setState: onChange }}
-    >
-      {children}
-    </SwatchContext.Provider>
+    <SwatchContext.Provider value={{ state: checkedColors, setState: onChange }}>{children}</SwatchContext.Provider>
   );
 };
 

@@ -1,22 +1,21 @@
-import { Result } from "@sajari/sdk-js";
+import { Result } from '@sajari/sdk-js';
 import Downshift, {
   ControllerStateAndHelpers,
   DownshiftProps,
   DownshiftState,
-  StateChangeOptions as BaseStateChangeOptions
-} from "downshift";
-import * as React from "react";
-import { PipelineConsumer } from "../context/pipeline";
-import { PaginateFn, SearchFn } from "../context/pipeline/context";
+  StateChangeOptions as BaseStateChangeOptions,
+} from 'downshift';
+import * as React from 'react';
+import { PipelineConsumer } from '../context/pipeline';
+import { PaginateFn, SearchFn } from '../context/pipeline/context';
 
-import { isNotEmptyArray, isNotEmptyString, mapToObject } from "./utils";
+import { isNotEmptyArray, isNotEmptyString, mapToObject } from './utils';
 
 const CustomStateChangeTypes = {
-  resetInput: "__input_reset__"
+  resetInput: '__input_reset__',
 };
 
-export type SearchStateAndHelpers = ControllerStateAndHelpers<any> &
-  PipelineProps;
+export type SearchStateAndHelpers = ControllerStateAndHelpers<any> & PipelineProps;
 
 export interface PipelineProps {
   search: SearchFn;
@@ -38,50 +37,39 @@ export interface SummaryInterface {
   response: PipelineResponseInterface;
 }
 
-export interface StateChangeOptions<Item>
-  extends BaseStateChangeOptions<Item> {}
+export interface StateChangeOptions<Item> extends BaseStateChangeOptions<Item> {}
 
 export interface SearchState<Item> extends DownshiftState<Item> {}
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
-export interface SearchProps<Item>
-  extends Omit<DownshiftProps<Item>, "onChange" | "stateReducer" | "children"> {
+export interface SearchProps<Item> extends Omit<DownshiftProps<Item>, 'onChange' | 'stateReducer' | 'children'> {
   children: (args: SearchStateAndHelpers) => JSX.Element;
   defaultInputValue?: string;
   stateReducer?: (
     state: SearchState<Item>,
     changes: StateChangeOptions<Item>,
     pipeline: PipelineProps,
-    defaultInputValue?: string
+    defaultInputValue?: string,
   ) => Partial<StateChangeOptions<Item>>;
-  onChange?: (
-    selectedItem: Item,
-    stateAndHelper: SearchState<Item> & PipelineProps
-  ) => void;
+  onChange?: (selectedItem: Item, stateAndHelper: SearchState<Item> & PipelineProps) => void;
 }
 
 export class Search extends React.PureComponent<SearchProps<any>, {}> {
   public static stateChangeTypes = {
     ...Downshift.stateChangeTypes,
-    ...CustomStateChangeTypes
+    ...CustomStateChangeTypes,
   };
   public state = {};
 
   public render() {
-    const {
-      onChange,
-      defaultInputValue,
-      stateReducer,
-      children,
-      ...rest
-    } = this.props;
+    const { onChange, defaultInputValue, stateReducer, children, ...rest } = this.props;
 
-    if (typeof children !== "function") {
+    if (typeof children !== 'function') {
       // istanbul ignore next
-      if (process.env.NODE_ENV !== "production") {
+      if (process.env.NODE_ENV !== 'production') {
         console.error(
-          `Warning: Must specify either a render prop, a render function as children, or a component prop to Search`
+          `Warning: Must specify either a render prop, a render function as children, or a component prop to Search`,
         );
       }
       return null; // warning will alert developer to their mistake
@@ -89,40 +77,25 @@ export class Search extends React.PureComponent<SearchProps<any>, {}> {
 
     return (
       <PipelineConsumer>
-        {pipelines => {
-          const suggestions = isNotEmptyArray(
-            pipelines.search.suggestions,
-            pipelines.instant.suggestions
-          );
+        {(pipelines) => {
+          const suggestions = isNotEmptyArray(pipelines.search.suggestions, pipelines.instant.suggestions);
 
-          const completion = isNotEmptyString(
-            pipelines.search.completion,
-            pipelines.instant.completion
-          );
+          const completion = isNotEmptyString(pipelines.search.completion, pipelines.instant.completion);
 
           const results = isNotEmptyArray(
-            (pipelines.search.response &&
-              pipelines.search.response.getResults()) ||
-              [],
-            (pipelines.instant.response &&
-              pipelines.instant.response.getResults()) ||
-              []
+            (pipelines.search.response && pipelines.search.response.getResults()) || [],
+            (pipelines.instant.response && pipelines.instant.response.getResults()) || [],
           );
 
-          const response =
-            pipelines.search.response || pipelines.instant.response;
+          const response = pipelines.search.response || pipelines.instant.response;
           let summary: SummaryInterface | undefined;
           if (response) {
             summary = {
-              queryValues: (mapToObject(
-                response.getQueryValues()
-              ) as unknown) as PipelineResponseInterface,
-              values: mapToObject(
-                response.getValues()
-              ) as PipelineResponseInterface,
+              queryValues: (mapToObject(response.getQueryValues()) as unknown) as PipelineResponseInterface,
+              values: mapToObject(response.getValues()) as PipelineResponseInterface,
               response: (mapToObject(
-                response.getResponse() as Map<string, any> | undefined
-              ) as unknown) as PipelineResponseInterface
+                response.getResponse() as Map<string, any> | undefined,
+              ) as unknown) as PipelineResponseInterface,
             };
           }
 
@@ -137,7 +110,7 @@ export class Search extends React.PureComponent<SearchProps<any>, {}> {
             results,
             suggestions,
             completion,
-            summary
+            summary,
           };
 
           return (
@@ -146,10 +119,10 @@ export class Search extends React.PureComponent<SearchProps<any>, {}> {
               onChange={this.onChange(pipeline)}
               {...rest}
             >
-              {downshift =>
+              {(downshift) =>
                 children({
                   ...downshift,
-                  ...pipeline
+                  ...pipeline,
                 })
               }
             </Downshift>
@@ -159,32 +132,24 @@ export class Search extends React.PureComponent<SearchProps<any>, {}> {
     );
   }
 
-  private stateReducer = (
-    pipeline: PipelineProps,
-    defaultInputValue?: string
-  ) => (state: DownshiftState<any>, changes: StateChangeOptions<any>) => {
-    if (typeof this.props.stateReducer === "function") {
-      return this.props.stateReducer(
-        state,
-        changes,
-        pipeline,
-        defaultInputValue
-      );
+  private stateReducer = (pipeline: PipelineProps, defaultInputValue?: string) => (
+    state: DownshiftState<any>,
+    changes: StateChangeOptions<any>,
+  ) => {
+    if (typeof this.props.stateReducer === 'function') {
+      return this.props.stateReducer(state, changes, pipeline, defaultInputValue);
     }
 
     return changes;
   };
 
-  private onChange = (pipeline: PipelineProps) => (
-    selectedItem: any,
-    stateAndHelper: DownshiftState<any>
-  ) => {
-    if (typeof this.props.onChange !== "function") {
+  private onChange = (pipeline: PipelineProps) => (selectedItem: any, stateAndHelper: DownshiftState<any>) => {
+    if (typeof this.props.onChange !== 'function') {
       return undefined;
     }
     return this.props.onChange(selectedItem, {
       ...stateAndHelper,
-      ...pipeline
+      ...pipeline,
     });
   };
 }

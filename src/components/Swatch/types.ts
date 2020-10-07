@@ -1,4 +1,4 @@
-import { ThemeStyle } from "twin.macro";
+import { ThemeStyle } from 'twin.macro';
 
 export interface ColorProps {
   /** The identifier of the color */

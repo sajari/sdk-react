@@ -1,14 +1,9 @@
-import { AriaButtonProps } from "@react-types/button";
-import { PropsWithAs } from "../../types/component-as";
+import { AriaButtonProps } from '@react-types/button';
+import { PropsWithAs } from '../../types/component-as';
 
-export type ButtonAppearance =
-  | "default"
-  | "primary"
-  | "link"
-  | "subtle-link"
-  | "none";
-export type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl";
-export type ButtonSpacing = "compact" | "default" | "none";
+export type ButtonAppearance = 'default' | 'primary' | 'link' | 'subtle-link' | 'none';
+export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type ButtonSpacing = 'compact' | 'default' | 'none';
 
 interface Props {
   /** The base styling to apply to the button */
