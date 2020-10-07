@@ -12,14 +12,14 @@ export const toRatingArray: (value: number, max: number) => ItemType[] = (
     throw new RatingMaxmiumExceededError();
   }
   return [
-    ...Array.from<ItemType.FILLED>(Array(Math.floor(value))).fill(
-      ItemType.FILLED
+    ...Array.from<ItemType.Filled>(Array(Math.floor(value))).fill(
+      ItemType.Filled
     ),
-    ...Array.from<ItemType.HALF_FILLED>(Array(isHalf ? 1 : 0)).fill(
-      ItemType.HALF_FILLED
+    ...Array.from<ItemType.HalfFilled>(Array(isHalf ? 1 : 0)).fill(
+      ItemType.HalfFilled
     ),
-    ...Array.from<ItemType.EMPTY>(Array(max - Math.ceil(value))).fill(
-      ItemType.EMPTY
+    ...Array.from<ItemType.Empty>(Array(max - Math.ceil(value))).fill(
+      ItemType.Empty
     )
   ];
 };

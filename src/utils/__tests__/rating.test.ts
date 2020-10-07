@@ -7,18 +7,18 @@ import { toRatingArray } from "../rating";
 test.each([
   // valid
   // [value, max, throw, isValid, expected]
-  [1, 2, false, true, [ItemType.FILLED, ItemType.EMPTY]],
-  [1.3, 2, false, true, [ItemType.FILLED, ItemType.HALF_FILLED]],
-  [1.5, 2, false, true, [ItemType.FILLED, ItemType.HALF_FILLED]],
-  [2, 2, false, true, [ItemType.FILLED, ItemType.FILLED]],
-  [0, 2, false, true, [ItemType.EMPTY, ItemType.EMPTY]],
+  [1, 2, false, true, [ItemType.Filled, ItemType.Empty]],
+  [1.3, 2, false, true, [ItemType.Filled, ItemType.HalfFilled]],
+  [1.5, 2, false, true, [ItemType.Filled, ItemType.HalfFilled]],
+  [2, 2, false, true, [ItemType.Filled, ItemType.Filled]],
+  [0, 2, false, true, [ItemType.Empty, ItemType.Empty]],
   // invalid,
-  [1, 2, false, false, [ItemType.FILLED, ItemType.FILLED]],
-  [2, 2, false, false, [ItemType.FILLED, ItemType.HALF_FILLED]],
-  [1.5, 2, false, false, [ItemType.HALF_FILLED, ItemType.EMPTY]],
-  [1.5, 2, false, false, [ItemType.HALF_FILLED, ItemType.FILLED]],
-  [1.5, 2, false, false, [ItemType.EMPTY, ItemType.FILLED]],
-  [4, 3, true, false, [ItemType.EMPTY, ItemType.FILLED]]
+  [1, 2, false, false, [ItemType.Filled, ItemType.Filled]],
+  [2, 2, false, false, [ItemType.Filled, ItemType.HalfFilled]],
+  [1.5, 2, false, false, [ItemType.HalfFilled, ItemType.Empty]],
+  [1.5, 2, false, false, [ItemType.HalfFilled, ItemType.Filled]],
+  [1.5, 2, false, false, [ItemType.Empty, ItemType.Filled]],
+  [4, 3, true, false, [ItemType.Empty, ItemType.Filled]]
 ])("value: %d, max: %d", (value, max, willThrow, isValid, expected) => {
   if (willThrow) {
     expect(() => {

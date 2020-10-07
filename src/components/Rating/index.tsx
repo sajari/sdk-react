@@ -38,7 +38,7 @@ const Rating = React.forwardRef(
       <StyledBox flipped={flipped} ref={ref} role="img" aria-label={label}>
         {arr.map((type, i) => {
           switch(type){
-            case ItemType.FILLED:
+            case ItemType.Filled:
               return <RatingItem
               key={`active-rating-${i}`}
               index={i}
@@ -46,7 +46,7 @@ const Rating = React.forwardRef(
               character={character}
               active={true}
             />
-            case ItemType.HALF_FILLED:
+            case ItemType.HalfFilled:
               return <RatingItem
               key={`half-active-rating`}
               index={Math.ceil(value) - Math.floor(value)}
@@ -56,7 +56,7 @@ const Rating = React.forwardRef(
               active={true}
               half={true}
             />
-            case ItemType.EMPTY:
+            case ItemType.Empty:
               return <RatingItem
               key={`inactive-rating-${i}`}
               index={i}

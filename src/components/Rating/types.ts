@@ -36,9 +36,9 @@ export interface RatingItemProps {
 }
 
 export enum ItemType {
-  FILLED = 1,
-  HALF_FILLED,
-  EMPTY
+  Filled = 1,
+  HalfFilled,
+  Empty
 }
 
 export class RatingMaxmiumExceededError extends Error {}
