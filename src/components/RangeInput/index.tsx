@@ -112,10 +112,7 @@ const RangeInput = React.forwardRef(
         />
         <div css={tw`flex flex-col sm:flex-row items-center justify-between`}>
           {leftInput}
-          <hr
-            {...separatorProps}
-            css={tw`border-0 w-2 h-px bg-gray-500 rounded`}
-          />
+          &ndash;
           {rightInput}
         </div>
       </div>
