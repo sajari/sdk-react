@@ -28,10 +28,7 @@ export {
   TokenLink,
   Summary,
   Paginator,
-  Tabs,
   Select,
-  Checkbox,
-  Radio,
   Search,
   RangeSlider
 } from "./components";
