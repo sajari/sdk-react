@@ -1,0 +1,26 @@
+---
+name: Radio
+menu: Components
+route: /components/radio
+---
+
+import ThemeProvider from "../../styles/theming";
+import { ExampleContainer } from "../../docs/helpers.ts";
+import Radio from ".";
+import RadioGroup from "../RadioGroup";
+
+# Radio
+
+## Usage
+
+<ExampleContainer>
+  <ThemeProvider>
+    <RadioGroup defaultValue="1" name="example-2">
+      <Radio value="1">Option 1</Radio>
+      <Radio value="2">Option 2</Radio>
+      <Radio value="3" disabled>
+        Option 3
+      </Radio>
+    </RadioGroup>
+  </ThemeProvider>
+</ExampleContainer>
