@@ -25,7 +25,11 @@ const useButtonStyles = ({
   );
 
   if (!isLink) {
-    styles.push(tw`font-medium select-none rounded-md`);
+    styles.push(tw`font-medium select-none`);
+  }
+
+  if (rounded) {
+    styles.push(tw`rounded-md`);
   }
 
   styles.push(fullWidth ? tw`flex` : tw`inline-flex`);
@@ -96,6 +100,47 @@ const useButtonStyles = ({
         }
       }
       break;
+  }
+
+  switch (zIndex) {
+    case false:
+      break;
+    case true:
+      styles.push(tw`focus:z-auto`);
+      break;
+    case 0:
+      styles.push(tw`focus:z-0`);
+      break;
+    case 10:
+      styles.push(tw`focus:z-10`);
+      break;
+    case 20:
+      styles.push(tw`focus:z-20`);
+      break;
+    case 30:
+      styles.push(tw`focus:z-30`);
+      break;
+    case 40:
+      styles.push(tw`focus:z-40`);
+      break;
+    case 50:
+      styles.push(tw`focus:z-50`);
+      break;
+  }
+
+  // Used in context of ButonGroup
+  if (isFirst && attached) {
+    styles.push(inline ? tw`rounded-l-md` : tw`rounded-t-md`);
+  }
+
+  // Used in context of ButonGroup
+  if (isLast && attached) {
+    styles.push(inline ? tw`rounded-r-md` : tw`rounded-b-md`);
+  }
+
+  // Used in context of ButonGroup
+  if (!isFirst && !isLast && attached) {
+    styles.push(tw`rounded-none`);
   }
 
   if (disabled) {
