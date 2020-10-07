@@ -1,7 +1,7 @@
 import React from 'react';
 import Box from '../../Box';
 
-import { __DEV__ } from '../../../utils/assersion';
+import { __DEV__ } from '../../../utils/assertion';
 import { assignRef } from '../../../utils/react-helpers';
 import { useTabContext } from '../context';
 import { TabPanelProps } from './types';

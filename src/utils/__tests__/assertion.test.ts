@@ -1,4 +1,4 @@
-import { isObject } from "../assersion";
+import { isObject } from "../assertion";
 
 test.each([
   // valid
