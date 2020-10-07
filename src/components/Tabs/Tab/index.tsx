@@ -2,7 +2,7 @@
 import { jsx } from "@emotion/core";
 import React from 'react';
 
-import { __DEV__ } from '../../../utils/assersion';
+import { __DEV__ } from '../../../utils/assertion';
 import Box from '../../Box';
 import useTabStyles from './styles';
 import { TabProps } from './types';
