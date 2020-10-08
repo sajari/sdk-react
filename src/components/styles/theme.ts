@@ -1,6 +1,6 @@
 export interface Theme {
   layout?: {
-    type?: "list" | "grid";
+    type?: 'list' | 'grid';
   };
 
   colors?: {

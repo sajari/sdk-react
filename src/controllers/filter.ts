@@ -1,5 +1,5 @@
-import { EVENT_OPTIONS_UPDATED, EVENT_SELECTION_UPDATED } from "../events";
-import { Listener } from "./listener";
+import { EVENT_OPTIONS_UPDATED, EVENT_SELECTION_UPDATED } from '../events';
+import { Listener } from './listener';
 
 const events = [EVENT_SELECTION_UPDATED, EVENT_OPTIONS_UPDATED];
 
@@ -16,7 +16,7 @@ export class Filter {
   private current: string[];
   private options: Options;
   private multi: boolean;
-  private joinOperator: "OR" | "AND";
+  private joinOperator: 'OR' | 'AND';
   private listeners: { [k: string]: Listener };
 
   /**
@@ -29,9 +29,9 @@ export class Filter {
     options: Options, // Dictionary of name -> filter pairs
     initial: string | string[] = [], // List of initially selected items
     multi: boolean = false, // Multiple selections allowed?
-    joinOperator: "OR" | "AND" = "OR" // Join operator used if multi = true
+    joinOperator: 'OR' | 'AND' = 'OR', // Join operator used if multi = true
   ) {
-    if (typeof initial === "string") {
+    if (typeof initial === 'string') {
       initial = [initial];
     }
 
@@ -46,7 +46,7 @@ export class Filter {
     /** @private */
     this.listeners = {
       [EVENT_SELECTION_UPDATED]: new Listener(),
-      [EVENT_OPTIONS_UPDATED]: new Listener()
+      [EVENT_OPTIONS_UPDATED]: new Listener(),
     };
   }
 
@@ -93,10 +93,10 @@ export class Filter {
    * Set an option to null to remove it.
    */
   public setOptions(options: { [k: string]: string | null }) {
-    Object.keys(options).forEach(k => {
+    Object.keys(options).forEach((k) => {
       if (options[k] === null) {
         delete this.options[k];
-        this.current = this.current.filter(n => n !== k);
+        this.current = this.current.filter((n) => n !== k);
       } else {
         this.options[k] = options[k] as string;
       }
@@ -123,20 +123,20 @@ export class Filter {
    */
   public filter(): string {
     const filters = this.current
-      .map(c => {
+      .map((c) => {
         let f = this.options[c];
-        if (typeof f === "function") {
+        if (typeof f === 'function') {
           f = f();
         }
-        if (f !== "") {
-          f = "(" + f + ")";
+        if (f !== '') {
+          f = '(' + f + ')';
         }
         return f;
       })
       .filter(Boolean);
     switch (filters.length) {
       case 0:
-        return "";
+        return '';
       case 1:
         return filters[0];
       default:
@@ -149,7 +149,7 @@ export class Filter {
    * @private
    */
   protected _emitSelectionUpdated() {
-    this.listeners[EVENT_SELECTION_UPDATED].notify(listener => {
+    this.listeners[EVENT_SELECTION_UPDATED].notify((listener) => {
       listener();
     });
   }
@@ -159,7 +159,7 @@ export class Filter {
    * @private
    */
   protected _emitOptionsUpdated() {
-    this.listeners[EVENT_OPTIONS_UPDATED].notify(listener => {
+    this.listeners[EVENT_OPTIONS_UPDATED].notify((listener) => {
       listener();
     });
   }
@@ -169,7 +169,7 @@ export class Filter {
     if (on && this.current.indexOf(name) === -1) {
       this.current = this.current.concat(name);
     } else {
-      this.current = this.current.filter(n => n !== name);
+      this.current = this.current.filter((n) => n !== name);
     }
 
     this._emitSelectionUpdated();
@@ -187,22 +187,19 @@ export class Filter {
  * @param  [operator="AND"] Operator to apply between them ("AND" | "OR").
  * @return The resulting Filter.
  */
-export const CombineFilters = (
-  filters: Filter[],
-  operator: "AND" | "OR" = "AND"
-) => {
+export const CombineFilters = (filters: Filter[], operator: 'AND' | 'OR' = 'AND') => {
   const opts: { [k: string]: () => string } = {};
   let count = 1;
   let on: string[] = [];
 
-  filters.forEach(f => {
-    opts["" + count] = () => f.filter();
-    on = on.concat(["" + count]);
+  filters.forEach((f) => {
+    opts['' + count] = () => f.filter();
+    on = on.concat(['' + count]);
     count++;
   });
 
   const combFilter = new Filter(opts, on, true, operator);
-  filters.forEach(f => {
+  filters.forEach((f) => {
     f.listen(EVENT_SELECTION_UPDATED, () => {
       // @ts-ignore
       combFilter._emitSelectionUpdated();

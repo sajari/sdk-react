@@ -1,1 +1,1 @@
-export { Paginator } from "./Paginator";
+export { Paginator } from './Paginator';

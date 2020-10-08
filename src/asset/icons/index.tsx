@@ -1,2 +1,2 @@
-import { ReactComponent as Check } from "./check.svg";
+import { ReactComponent as Check } from './check.svg';
 export { Check };

@@ -1,8 +1,8 @@
-import { CSSObject } from "@emotion/core";
-import { ClickToken, PosNegToken } from "@sajari/sdk-js";
-import classnames from "classnames";
-import * as React from "react";
-import { ResultClickedFn } from "../context/pipeline/context";
+import { CSSObject } from '@emotion/core';
+import { ClickToken, PosNegToken } from '@sajari/sdk-js';
+import classnames from 'classnames';
+import * as React from 'react';
+import { ResultClickedFn } from '../context/pipeline/context';
 
 export interface TokenLinkProps {
   token?: ClickToken | PosNegToken;
@@ -21,25 +21,14 @@ export interface TokenLinkState {
   clicked: boolean;
 }
 
-export class TokenLink extends React.PureComponent<
-  TokenLinkProps,
-  TokenLinkState
-> {
+export class TokenLink extends React.PureComponent<TokenLinkProps, TokenLinkState> {
   public state = { clicked: false };
 
   public render() {
-    const {
-      token,
-      url,
-      text,
-      styles = {},
-      resultClicked,
-      children,
-      ...rest
-    } = this.props;
+    const { token, url, text, styles = {}, resultClicked, children, ...rest } = this.props;
 
     let clickToken;
-    if (token !== undefined && "click" in token) {
+    if (token !== undefined && 'click' in token) {
       clickToken = token.click;
     }
 
@@ -75,14 +64,14 @@ export class TokenLink extends React.PureComponent<
   private click = (_: React.MouseEvent<HTMLAnchorElement>) => {
     const { url, resultClicked } = this.props;
     resultClicked(url);
-    this.setState(state => ({ ...state, clicked: true }));
+    this.setState((state) => ({ ...state, clicked: true }));
   };
 }
 
 const linkStyles = {
-  textDecoration: "none",
-  "&:hover": {
-    cursor: "pointer",
-    textDecoration: "underline"
-  }
+  textDecoration: 'none',
+  '&:hover': {
+    cursor: 'pointer',
+    textDecoration: 'underline',
+  },
 };

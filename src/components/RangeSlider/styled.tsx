@@ -1,6 +1,6 @@
-import { Range, RangeProps } from "rc-slider";
-import { styled, Theme } from "../styles";
-import { RangeCustomStyleObject } from "./RangeSliderUI";
+import { Range, RangeProps } from 'rc-slider';
+import { styled, Theme } from '../styles';
+import { RangeCustomStyleObject } from './RangeSliderUI';
 
 const BaseStyledRange = styled(Range)<{ theme?: Theme }>`
   &.rc-slider {
@@ -50,7 +50,7 @@ const BaseStyledRange = styled(Range)<{ theme?: Theme }>`
 
     &:before,
     &:after {
-      content: "";
+      content: '';
       display: block;
       width: 100%;
       height: 100%;
@@ -70,7 +70,7 @@ const BaseStyledRange = styled(Range)<{ theme?: Theme }>`
 
     &:before {
       opacity: 0;
-      border: 5px solid ${props => props.theme.colors?.brand || "#6772F9"};
+      border: 5px solid ${(props) => props.theme.colors?.brand || '#6772F9'};
     }
   }
 
@@ -86,12 +86,12 @@ const BaseStyledRange = styled(Range)<{ theme?: Theme }>`
       opacity: 0.2;
     }
     &:after {
-      border-color: ${props => props.theme.colors?.brand || "#6772F9"};
+      border-color: ${(props) => props.theme.colors?.brand || '#6772F9'};
     }
   }
 
   .rc-slider-track {
-    background-color: ${props => props.theme.colors?.brand || "#6772F9"};
+    background-color: ${(props) => props.theme.colors?.brand || '#6772F9'};
   }
 `;
 
@@ -99,11 +99,11 @@ export const StyledRange = styled(BaseStyledRange)<
   RangeProps & {
     styles?: RangeCustomStyleObject;
   }
->(props => ({
-  "&.rc-slider": props.styles?.container,
-  ".rc-slider-handle": props.styles?.handle,
-  ".rc-slider-rail": props.styles?.rail,
-  ".rc-slider-track": props.styles?.track
+>((props) => ({
+  '&.rc-slider': props.styles?.container,
+  '.rc-slider-handle': props.styles?.handle,
+  '.rc-slider-rail': props.styles?.rail,
+  '.rc-slider-track': props.styles?.track,
 }));
 
 export const ValueTip = styled.div`

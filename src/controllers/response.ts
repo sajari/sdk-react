@@ -1,4 +1,4 @@
-import { AggregateResponse, RequestError, Result } from "@sajari/sdk-js";
+import { AggregateResponse, RequestError, Result } from '@sajari/sdk-js';
 
 export type ResponseMap = Map<string, number | AggregateResponse | Result[]>;
 
@@ -19,7 +19,7 @@ export class Response {
     error: RequestError | null,
     queryValues?: Map<string, string>,
     response?: ResponseMap,
-    values?: Map<string, string>
+    values?: Map<string, string>,
   ) {
     this.error = error;
     this.queryValues = queryValues;
@@ -32,10 +32,7 @@ export class Response {
    */
   public isEmpty(): boolean {
     return (
-      this.error === null &&
-      this.response === undefined &&
-      this.values === undefined &&
-      this.queryValues === undefined
+      this.error === null && this.response === undefined && this.values === undefined && this.queryValues === undefined
     );
   }
 
@@ -78,27 +75,21 @@ export class Response {
    * Return results from the response.
    */
   public getResults(): Result[] | undefined {
-    return this.response !== undefined
-      ? (this.response.get("results") as Result[])
-      : undefined;
+    return this.response !== undefined ? (this.response.get('results') as Result[]) : undefined;
   }
 
   /**
    * Return the total number of results.
    */
   public getTotalResults(): number | undefined {
-    return this.response !== undefined
-      ? (this.response.get("totalResults") as number)
-      : undefined;
+    return this.response !== undefined ? (this.response.get('totalResults') as number) : undefined;
   }
 
   /**
    * Return time from the response.
    */
   public getTime(): number | undefined {
-    return this.response !== undefined
-      ? (this.response.get("time") as number)
-      : undefined;
+    return this.response !== undefined ? (this.response.get('time') as number) : undefined;
   }
 
   /**
@@ -109,7 +100,7 @@ export class Response {
       return undefined;
     }
 
-    const aggregates = this.response.get("aggregates");
+    const aggregates = this.response.get('aggregates');
     if (aggregates === undefined) {
       return undefined;
     }
@@ -124,7 +115,7 @@ export class Response {
       return undefined;
     }
 
-    const aggregates = this.response.get("aggregateFilters");
+    const aggregates = this.response.get('aggregateFilters');
     if (aggregates === undefined) {
       return undefined;
     }

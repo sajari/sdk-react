@@ -1,5 +1,5 @@
-import * as React from "react";
-import { Options } from "../../../controllers/filter";
+import * as React from 'react';
+import { Options } from '../../../controllers/filter';
 
 export interface FilterContext {
   options: Options;

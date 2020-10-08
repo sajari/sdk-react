@@ -1,7 +1,7 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { Consumer } from "../context";
-import { PaginateFn } from "../context/pipeline/context";
+import { Consumer } from '../context';
+import { PaginateFn } from '../context/pipeline/context';
 
 export interface PaginatorContainerProps {
   children?: PaginatorContainerRenderFn;
@@ -15,20 +15,13 @@ export interface PaginatorContainerRenderFnArgs {
   paginate: PaginateFn;
 }
 
-export type PaginatorContainerRenderFn = (
-  args: PaginatorContainerRenderFnArgs
-) => React.ReactNode;
+export type PaginatorContainerRenderFn = (args: PaginatorContainerRenderFnArgs) => React.ReactNode;
 
 export function PaginatorContainer(props: PaginatorContainerProps) {
   return (
     <Consumer>
       {({ search: { response, config }, paginate }) => {
-        if (
-          response === null ||
-          response === undefined ||
-          response.isEmpty() ||
-          response.isError()
-        ) {
+        if (response === null || response === undefined || response.isEmpty() || response.isError()) {
           return null;
         }
 
@@ -37,9 +30,7 @@ export function PaginatorContainer(props: PaginatorContainerProps) {
           return;
         }
 
-        const page = queryValues.get(config.pageParam)
-          ? parseInt(queryValues.get(config.pageParam) as string, 10)
-          : 1;
+        const page = queryValues.get(config.pageParam) ? parseInt(queryValues.get(config.pageParam) as string, 10) : 1;
         const resultsPerPage = queryValues.get(config.resultsPerPageParam)
           ? parseInt(queryValues.get(config.resultsPerPageParam) as string, 10)
           : 10;
@@ -66,7 +57,7 @@ export function PaginatorContainer(props: PaginatorContainerProps) {
           resultsPerPage,
           totalResults,
           totalPages,
-          paginate
+          paginate,
         });
       }}
     </Consumer>

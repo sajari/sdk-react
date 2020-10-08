@@ -1,18 +1,15 @@
-import React from "react";
-import { PropsWithAs } from "../../types/component-as";
-import { forwardRefWithAs } from "../../utils/forwardRefWithAs";
+import React from 'react';
+import { PropsWithAs } from '../../types/component-as';
+import { forwardRefWithAs } from '../../utils/forwardRefWithAs';
 
 interface BoxProps {
   children?: React.ReactNode;
 }
 
-type DefaultElement = "div";
+type DefaultElement = 'div';
 
-const BoxComponent = (
-  props: PropsWithAs<BoxProps, DefaultElement>,
-  ref: React.Ref<HTMLDivElement>
-) => {
-  const { as: Type = "div", children, ...rest } = props;
+const BoxComponent = (props: PropsWithAs<BoxProps, DefaultElement>, ref: React.Ref<HTMLDivElement>) => {
+  const { as: Type = 'div', children, ...rest } = props;
   return (
     <Type ref={ref} {...rest}>
       {children}

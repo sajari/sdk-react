@@ -1,17 +1,12 @@
-import {
-  RequestError,
-  Result as SDKResult,
-  Token,
-  TransportError
-} from "@sajari/sdk-js";
-import * as React from "react";
+import { RequestError, Result as SDKResult, Token, TransportError } from '@sajari/sdk-js';
+import * as React from 'react';
 
-import { i18n } from "../../i18n";
-import { Consumer } from "../context";
-import { Result, ResultProps, ResultStyles } from "../Result";
+import { i18n } from '../../i18n';
+import { Consumer } from '../context';
+import { Result, ResultProps, ResultStyles } from '../Result';
 
-import { CSSObject } from "@emotion/core";
-import { Container, Error, ResultItem } from "./styled";
+import { CSSObject } from '@emotion/core';
+import { Container, Error, ResultItem } from './styled';
 
 const STATUS_UNAUTHORISED = 403;
 
@@ -49,10 +44,7 @@ export interface ResultsRenderFnProps {
   results?: Array<{ key: string } & ResultProps>;
 }
 
-export const ResultsContainer: React.SFC<ResultsContainerProps> = ({
-  children,
-  fields
-}) => {
+export const ResultsContainer: React.SFC<ResultsContainerProps> = ({ children, fields }) => {
   return (
     <Consumer>
       {({ search: { response }, resultClicked }) => {
@@ -62,54 +54,49 @@ export const ResultsContainer: React.SFC<ResultsContainerProps> = ({
         if (response.isError()) {
           const err = response.getError() as RequestError;
           if (err.httpStatusCode === STATUS_UNAUTHORISED) {
-            err.message = i18n.t("errors:authorization");
+            err.message = i18n.t('errors:authorization');
           }
           if (err.transportErrorCode === TransportError.Connection) {
-            err.message = i18n.t("errors:connection");
+            err.message = i18n.t('errors:connection');
           } else if (err.transportErrorCode === TransportError.ParseResponse) {
-            err.message = i18n.t("errors:parseResponse");
+            err.message = i18n.t('errors:parseResponse');
           }
           return children({ error: err });
         }
 
-        const results =
-          response !== undefined ? response.getResults() || [] : [];
+        const results = response !== undefined ? response.getResults() || [] : [];
 
         if (results.length < 1) {
           return children({ error: null, results: [] as any });
         }
 
-        const res: Array<{ key: string } & ResultProps> = results.map(
-          (result: SDKResult, index: number) => {
-            const key =
-              (result.values._id as string) ||
-              (("" + index + result.values.url) as string);
+        const res: Array<{ key: string } & ResultProps> = results.map((result: SDKResult, index: number) => {
+          const key = (result.values._id as string) || (('' + index + result.values.url) as string);
 
-            let token: Token | undefined = result.token;
-            if (Object.getOwnPropertyNames(token).length === 0) {
-              token = undefined;
-            }
-
-            // tslint:disable:object-literal-sort-keys
-            const values = {
-              ...result.values,
-              title: result.values[fields?.title ?? "title"],
-              description: result.values[fields?.description ?? "description"],
-              url: result.values[fields?.url ?? "url"],
-              image: result.values[fields?.image ?? "image"]
-            };
-            // tslint:enable:object-literal-sort-keys
-
-            return {
-              key,
-              resultClicked,
-              token,
-              values,
-              indexScore: result.indexScore,
-              score: result.score
-            } as { key: string } & ResultProps;
+          let token: Token | undefined = result.token;
+          if (Object.getOwnPropertyNames(token).length === 0) {
+            token = undefined;
           }
-        );
+
+          // tslint:disable:object-literal-sort-keys
+          const values = {
+            ...result.values,
+            title: result.values[fields?.title ?? 'title'],
+            description: result.values[fields?.description ?? 'description'],
+            url: result.values[fields?.url ?? 'url'],
+            image: result.values[fields?.image ?? 'image'],
+          };
+          // tslint:enable:object-literal-sort-keys
+
+          return {
+            key,
+            resultClicked,
+            token,
+            values,
+            indexScore: result.indexScore,
+            score: result.score,
+          } as { key: string } & ResultProps;
+        });
 
         return children({ error: null, results: res });
       }}
@@ -119,12 +106,7 @@ export const ResultsContainer: React.SFC<ResultsContainerProps> = ({
 
 export class Results extends React.Component<ResultsProps, {}> {
   public render() {
-    const {
-      ResultRenderer = Result,
-      showImages,
-      fields,
-      styles = {}
-    } = this.props;
+    const { ResultRenderer = Result, showImages, fields, styles = {} } = this.props;
 
     return (
       <ResultsContainer fields={fields}>
@@ -142,11 +124,7 @@ export class Results extends React.Component<ResultsProps, {}> {
               {results.map(({ key, ...result }) => {
                 return (
                   <ResultItem key={key} styles={styles?.item}>
-                    <ResultRenderer
-                      {...result}
-                      showImage={showImages}
-                      styles={styles?.result}
-                    />
+                    <ResultRenderer {...result} showImage={showImages} styles={styles?.result} />
                   </ResultItem>
                 );
               })}

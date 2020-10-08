@@ -1,10 +1,6 @@
-import { Analytics } from "./analytics";
+import { Analytics } from './analytics';
 
-import {
-  EVENT_ANALYTICS_BODY_RESET,
-  EVENT_ANALYTICS_PAGE_CLOSED,
-  EVENT_ANALYTICS_RESULT_CLICKED
-} from "../../events";
+import { EVENT_ANALYTICS_BODY_RESET, EVENT_ANALYTICS_PAGE_CLOSED, EVENT_ANALYTICS_RESULT_CLICKED } from '../../events';
 
 export class DebugAnalytics {
   /**
@@ -19,16 +15,16 @@ export class DebugAnalytics {
 
   public pageClosed = (bodyToSend: string) => {
     // tslint:disable-next-line no-console
-    console.log("DebugAnalytics: pageClosed, body:", bodyToSend);
+    console.log('DebugAnalytics: pageClosed, body:', bodyToSend);
   };
 
   public bodyReset = (bodyToSend: string) => {
     // tslint:disable-next-line no-console
-    console.log("DebugAnalytics: bodyReset, body:", bodyToSend);
+    console.log('DebugAnalytics: bodyReset, body:', bodyToSend);
   };
 
   public resultClicked = (bodyToSend: string) => {
     // tslint:disable-next-line no-console
-    console.log("DebugAnalytics: resultClicked, body:", bodyToSend);
+    console.log('DebugAnalytics: resultClicked, body:', bodyToSend);
   };
 }

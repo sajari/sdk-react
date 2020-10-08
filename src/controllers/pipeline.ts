@@ -1,27 +1,13 @@
-import {
-  Client,
-  Pipeline as SDKPipeline,
-  RequestError,
-  Response as SDKResponse,
-  withEndpoint
-} from "@sajari/sdk-js";
+import { Client, Pipeline as SDKPipeline, RequestError, Response as SDKResponse, withEndpoint } from '@sajari/sdk-js';
 
-import {
-  EVENT_RESPONSE_UPDATED,
-  EVENT_RESULT_CLICKED,
-  EVENT_SEARCH_SENT
-} from "../events";
+import { EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED, EVENT_SEARCH_SENT } from '../events';
 
-import { Analytics, GoogleAnalytics } from "./analytics";
-import { CallbackFn, Listener, ListenerMap } from "./listener";
-import { Response } from "./response";
-import { ClickTracking, NoTracking } from "./tracking";
+import { Analytics, GoogleAnalytics } from './analytics';
+import { CallbackFn, Listener, ListenerMap } from './listener';
+import { Response } from './response';
+import { ClickTracking, NoTracking } from './tracking';
 
-const events = [
-  EVENT_SEARCH_SENT,
-  EVENT_RESPONSE_UPDATED,
-  EVENT_RESULT_CLICKED
-];
+const events = [EVENT_SEARCH_SENT, EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED];
 
 export class Pipeline {
   public config: {
@@ -54,7 +40,7 @@ export class Pipeline {
     },
     name: string | { name: string; version?: string },
     tracking: ClickTracking | NoTracking = new NoTracking(),
-    analyticsAdapters = [GoogleAnalytics]
+    analyticsAdapters = [GoogleAnalytics],
   ) {
     const { project, collection, endpoint } = config;
     this.config = config;
@@ -62,31 +48,28 @@ export class Pipeline {
 
     let p: { name?: string; version?: string } = {
       name: undefined,
-      version: undefined
+      version: undefined,
     };
-    if (typeof name === "string") {
+    if (typeof name === 'string') {
       p.name = name;
-    } else if ("name" in name) {
+    } else if ('name' in name) {
       p.name = name.name;
       p.version = name.version;
     }
 
-    this.pipeline = new Client(project, collection, opts).pipeline(
-      p.name as string,
-      p.version
-    );
+    this.pipeline = new Client(project, collection, opts).pipeline(p.name as string, p.version);
     this.name = p.name as string;
     this.version = p.version;
     this.tracking = tracking;
     this.listeners = new Map([
       [EVENT_SEARCH_SENT, new Listener()],
       [EVENT_RESPONSE_UPDATED, new Listener()],
-      [EVENT_RESULT_CLICKED, new Listener()]
+      [EVENT_RESULT_CLICKED, new Listener()],
     ]);
     this.searchCount = 0;
     this.response = new Response(null);
     this.analytics = new Analytics(this, this.tracking);
-    analyticsAdapters.forEach(Adapter => {
+    analyticsAdapters.forEach((Adapter) => {
       // tslint:disable-next-line
       new Adapter(this.analytics);
     });
@@ -110,7 +93,7 @@ export class Pipeline {
    * @private
    */
   public _emitSearchSent(values: { [k: string]: string }) {
-    (this.listeners.get(EVENT_SEARCH_SENT) as Listener).notify(listener => {
+    (this.listeners.get(EVENT_SEARCH_SENT) as Listener).notify((listener) => {
       listener(values);
     });
   }
@@ -120,11 +103,9 @@ export class Pipeline {
    * @private
    */
   public _emitResponseUpdated(response: Response) {
-    (this.listeners.get(EVENT_RESPONSE_UPDATED) as Listener).notify(
-      listener => {
-        listener(response);
-      }
-    );
+    (this.listeners.get(EVENT_RESPONSE_UPDATED) as Listener).notify((listener) => {
+      listener(response);
+    });
   }
 
   /**
@@ -132,7 +113,7 @@ export class Pipeline {
    * @param value Value to send to the listeners.
    */
   public emitResultClicked(value: string) {
-    (this.listeners.get(EVENT_RESULT_CLICKED) as Listener).notify(listener => {
+    (this.listeners.get(EVENT_RESULT_CLICKED) as Listener).notify((listener) => {
       listener(value);
     });
   }
@@ -148,11 +129,7 @@ export class Pipeline {
     this.pipeline.search(
       values,
       this.tracking,
-      (
-        error: RequestError | null,
-        response: SDKResponse | undefined,
-        responseValues = {}
-      ) => {
+      (error: RequestError | null, response: SDKResponse | undefined, responseValues = {}) => {
         if (currentSearch < this.searchCount) {
           return;
         }
@@ -160,10 +137,8 @@ export class Pipeline {
         this.response = new Response(
           error ? error : null,
           new Map(Object.entries(values)),
-          response !== undefined
-            ? new Map(Object.entries(response))
-            : undefined,
-          new Map(Object.entries(responseValues))
+          response !== undefined ? new Map(Object.entries(response)) : undefined,
+          new Map(Object.entries(responseValues)),
         );
         // tslint:disable-next-line no-console
         if (error && console && console.error) {
@@ -171,7 +146,7 @@ export class Pipeline {
           console.error(error);
         }
         this._emitResponseUpdated(this.response);
-      }
+      },
     );
     this._emitSearchSent(values);
   }

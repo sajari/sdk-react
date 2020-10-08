@@ -1,25 +1,23 @@
-import { override, styled, StyledProps } from "../styles";
+import { override, styled, StyledProps } from '../styles';
 
 export interface ContainerProps extends StyledProps<HTMLDivElement> {}
 
-export const Container = styled("div")<ContainerProps>(
+export const Container = styled('div')<ContainerProps>(
   {
-    color: "#808080",
-    fontSize: "small",
-    marginBottom: "1.5em"
+    color: '#808080',
+    fontSize: 'small',
+    marginBottom: '1.5em',
   },
-  override
+  override,
 );
 
-export const Emphasis = styled("strong")(
-  { color: "#808080" },
+export const Emphasis = styled('strong')(
+  { color: '#808080' },
 
   ({ theme }) => ({
-    color: (theme.colors?.brandPrimary ?? "#808080") as any
+    color: (theme.colors?.brandPrimary ?? '#808080') as any,
   }),
-  override
+  override,
 );
 
-export const OverrideContainer = styled("span")<StyledProps<HTMLSpanElement>>(
-  override
-);
+export const OverrideContainer = styled('span')<StyledProps<HTMLSpanElement>>(override);

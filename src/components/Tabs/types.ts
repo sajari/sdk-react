@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export interface TabsProps {
   children: React.ReactNode;
@@ -17,15 +17,14 @@ export interface TabsProps {
    */
   manual?: boolean;
   /** The alignment of the tabs */
-  align?: "start" | "center" | "end";
+  align?: 'start' | 'center' | 'end';
   /** If `true`, tabs will stretch to width of the tablist. */
   fitted?: boolean;
   /** If `true`, children in the Tabs will render when hidden */
   alwaysRenderChildren?: boolean;
 }
 
-export interface TabsContextOptions
-  extends Omit<TabsProps, "children" | "index"> {
+export interface TabsContextOptions extends Omit<TabsProps, 'children' | 'index'> {
   id?: string;
   index: number;
   manualIndex?: number;

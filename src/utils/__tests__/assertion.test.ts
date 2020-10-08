@@ -1,4 +1,4 @@
-import { isObject } from "../assertion";
+import { isObject } from '../assertion';
 
 test.each([
   // valid
@@ -8,16 +8,16 @@ test.each([
     () => {
       return;
     },
-    true
+    true,
   ],
   // invalid
-  ["", false],
+  ['', false],
   [[], false],
   [1, false],
   [0, false],
   [null, false],
   [undefined, false],
-  [NaN, false]
-])("isObject(%o)", (obj, expected) => {
+  [NaN, false],
+])('isObject(%o)', (obj, expected) => {
   expect(isObject(obj)).toBe(expected);
 });

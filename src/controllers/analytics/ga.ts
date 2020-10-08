@@ -1,16 +1,12 @@
-import { UnlistenFn } from "../listener";
-import { Analytics } from "./analytics";
+import { UnlistenFn } from '../listener';
+import { Analytics } from './analytics';
 
-import {
-  EVENT_ANALYTICS_BODY_RESET,
-  EVENT_ANALYTICS_PAGE_CLOSED,
-  EVENT_ANALYTICS_RESULT_CLICKED
-} from "../../events";
+import { EVENT_ANALYTICS_BODY_RESET, EVENT_ANALYTICS_PAGE_CLOSED, EVENT_ANALYTICS_RESULT_CLICKED } from '../../events';
 
 enum GoogleAnalyticsObjects {
-  UniversalAnalytics = "_ua",
-  AnalyticsJS = "ga",
-  GTag = "gtag"
+  UniversalAnalytics = '_ua',
+  AnalyticsJS = 'ga',
+  GTag = 'gtag',
 }
 
 export class GoogleAnalytics {
@@ -25,16 +21,10 @@ export class GoogleAnalytics {
    * @param {string} [id=undefined] The name of the ga global object. Defaults to "ga" or "_ua" if one isn't supplied.
    * @param {string} [param="q"] The URL parameter to use to indicate a search. Default to "q".
    */
-  constructor(analytics: Analytics, id?: string, param: string = "q") {
-    this.unregisterFunctions.push(
-      analytics.listen(EVENT_ANALYTICS_PAGE_CLOSED, this.onPageClose)
-    );
-    this.unregisterFunctions.push(
-      analytics.listen(EVENT_ANALYTICS_BODY_RESET, this.onBodyReset)
-    );
-    this.unregisterFunctions.push(
-      analytics.listen(EVENT_ANALYTICS_RESULT_CLICKED, this.onResultClicked)
-    );
+  constructor(analytics: Analytics, id?: string, param: string = 'q') {
+    this.unregisterFunctions.push(analytics.listen(EVENT_ANALYTICS_PAGE_CLOSED, this.onPageClose));
+    this.unregisterFunctions.push(analytics.listen(EVENT_ANALYTICS_BODY_RESET, this.onBodyReset));
+    this.unregisterFunctions.push(analytics.listen(EVENT_ANALYTICS_RESULT_CLICKED, this.onResultClicked));
 
     if (id !== undefined) {
       this.id = id;
@@ -53,7 +43,7 @@ export class GoogleAnalytics {
   /**
    * Stops this object listening for events.
    */
-  public detatch = () => this.unregisterFunctions.forEach(fn => fn());
+  public detatch = () => this.unregisterFunctions.forEach((fn) => fn());
 
   /**
    * Sends a page view event if ga is found on the page and we're not in dev mode.
@@ -65,15 +55,15 @@ export class GoogleAnalytics {
       const pageAddress = url.augmentUri(
         // Take only the portion of the url following the domain
         location.href.substring(location.origin.length),
-        { [this.param]: body }
+        { [this.param]: body },
       );
 
       if (this.id === GoogleAnalyticsObjects.GTag) {
-        window[this.id]("event", "page_view", {
-          page_location: pageAddress
+        window[this.id]('event', 'page_view', {
+          page_location: pageAddress,
         });
       } else {
-        window[this.id]("send", "pageview", pageAddress);
+        window[this.id]('send', 'pageview', pageAddress);
       }
     }
   }
@@ -100,10 +90,10 @@ const url = {
    */
   decodeUriArgs(queryStr: string) {
     const args = {} as { [k: string]: string };
-    const a = queryStr.split("&");
+    const a = queryStr.split('&');
     for (const i in a) {
       if (a.hasOwnProperty(i)) {
-        const b = a[i].split("=");
+        const b = a[i].split('=');
         args[decodeURIComponent(b[0])] = decodeURIComponent(b[1]);
       }
     }
@@ -115,26 +105,19 @@ const url = {
    */
   encodeUriArgs(args: { [k: string]: string }) {
     const queryParts: string[] = [];
-    Object.keys(args).forEach(key =>
-      queryParts.push(
-        encodeURIComponent(key) + "=" + encodeURIComponent(args[key])
-      )
-    );
-    return queryParts.join("&");
+    Object.keys(args).forEach((key) => queryParts.push(encodeURIComponent(key) + '=' + encodeURIComponent(args[key])));
+    return queryParts.join('&');
   },
 
   /**
    * Merges query strings or objects into a single query string. Accepts a variable number of query string/objects
    * to merge. The latter overrides the former.
    */
-  mergeQueryStr(
-    first: string | { [k: string]: string },
-    ...rest: Array<string | { [k: string]: string }>
-  ) {
-    const args = typeof first === "string" ? this.decodeUriArgs(first) : first;
-    rest.forEach(arg => {
-      const next = typeof arg === "string" ? this.decodeUriArgs(arg) : arg;
-      Object.keys(next).forEach(prop => (args[prop] = next[prop]));
+  mergeQueryStr(first: string | { [k: string]: string }, ...rest: Array<string | { [k: string]: string }>) {
+    const args = typeof first === 'string' ? this.decodeUriArgs(first) : first;
+    rest.forEach((arg) => {
+      const next = typeof arg === 'string' ? this.decodeUriArgs(arg) : arg;
+      Object.keys(next).forEach((prop) => (args[prop] = next[prop]));
     });
     return this.encodeUriArgs(args);
   },
@@ -145,9 +128,9 @@ const url = {
   augmentUri(uri: string, args: { [k: string]: string }) {
     const m = /^([^?]+)\?(.+)+$/.exec(uri);
     if (m) {
-      return m[1] + "?" + this.mergeQueryStr(m[2], args);
+      return m[1] + '?' + this.mergeQueryStr(m[2], args);
     } else {
-      return uri + "?" + this.encodeUriArgs(args);
+      return uri + '?' + this.encodeUriArgs(args);
     }
   },
 
@@ -155,14 +138,10 @@ const url = {
    * Get a parameter from the URL
    */
   getURLParameter(name: string) {
-    const value = new RegExp("[?|&]" + name + "=" + "([^&;]+?)(&|#|;|$)").exec(
-      location.search
-    ) || [undefined, ""];
+    const value = new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [undefined, ''];
 
-    return (
-      decodeURIComponent((value[1] as string).replace(/\+/g, "%20")) || null
-    );
-  }
+    return decodeURIComponent((value[1] as string).replace(/\+/g, '%20')) || null;
+  },
 };
 
-const isFunction = (x: any) => typeof x === "function";
+const isFunction = (x: any) => typeof x === 'function';

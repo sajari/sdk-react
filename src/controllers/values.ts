@@ -1,18 +1,12 @@
-import { EVENT_VALUES_UPDATED } from "../events";
-import { Listener, ListenerMap } from "./listener";
+import { EVENT_VALUES_UPDATED } from '../events';
+import { Listener, ListenerMap } from './listener';
 
 export type ValueFn = () => string;
-export type ValuesMap = Map<
-  string,
-  string | string[] | number | boolean | ValueFn
->;
+export type ValuesMap = Map<string, string | string[] | number | boolean | ValueFn>;
 export interface ValuesObject {
   [k: string]: string | string[] | number | boolean | ValueFn | undefined;
 }
-export type CallbackFn = (
-  values: ValuesObject,
-  set: (values: ValuesObject) => void
-) => void;
+export type CallbackFn = (values: ValuesObject, set: (values: ValuesObject) => void) => void;
 
 export class Values {
   private values: ValuesMap;
@@ -22,9 +16,7 @@ export class Values {
    * Constructor for Values object.
    * @param values Initial values.
    */
-  constructor(
-    values: { [k: string]: string | string[] | number | boolean | ValueFn } = {}
-  ) {
+  constructor(values: { [k: string]: string | string[] | number | boolean | ValueFn } = {}) {
     this.listeners = new Map([[EVENT_VALUES_UPDATED, new Listener()]]);
     this.values = new Map(Object.entries(values));
   }
@@ -58,10 +50,10 @@ export class Values {
     const values = {} as { [k: string]: string };
 
     this.values.forEach((value, key) => {
-      if (typeof value === "function") {
+      if (typeof value === 'function') {
         values[key] = (value as ValueFn)();
       } else if (Array.isArray(value)) {
-        values[key] = (value as string[]).join(",");
+        values[key] = (value as string[]).join(',');
       } else {
         values[key] = String(value);
       }
@@ -75,8 +67,8 @@ export class Values {
    * @private
    */
   private _emitUpdated(changes: ValuesObject) {
-    (this.listeners.get(EVENT_VALUES_UPDATED) as Listener).notify(listener =>
-      listener(changes, (values: ValuesObject) => this._set(values))
+    (this.listeners.get(EVENT_VALUES_UPDATED) as Listener).notify((listener) =>
+      listener(changes, (values: ValuesObject) => this._set(values)),
     );
   }
 
@@ -84,7 +76,7 @@ export class Values {
    * Sets values without triggering an event, internal use only.
    */
   private _set(values: ValuesObject) {
-    Object.keys(values).forEach(key => {
+    Object.keys(values).forEach((key) => {
       if (values[key] === undefined) {
         this.values.delete(key);
       } else {

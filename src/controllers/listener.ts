@@ -40,7 +40,7 @@ export class Listener {
    * @param {function(callback: Function)} fn Function to call each of the callbacks in the listener with.
    */
   public notify(fn: (callback: CallbackFn) => void) {
-    this.listeners.forEach(l => {
+    this.listeners.forEach((l) => {
       try {
         fn(l);
       } catch (e) {

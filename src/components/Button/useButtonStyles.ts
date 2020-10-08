@@ -1,7 +1,7 @@
-import { css } from "@emotion/core";
-import tw from "twin.macro";
-import { useTheme } from "../../styles/theming";
-import { ButtonProps } from "./types";
+import { css } from '@emotion/core';
+import tw from 'twin.macro';
+import { useTheme } from '../../styles/theming';
+import { ButtonProps } from './types';
 
 const useButtonStyles = ({
   size,
@@ -12,18 +12,16 @@ const useButtonStyles = ({
   loading,
   pressed,
   focused,
-  hovered
+  hovered,
 }: ButtonProps & { pressed: boolean; hovered: boolean; focused: boolean }) => {
   const theme = useTheme();
 
-  const isLink = (["link", "subtle-link"] as Array<
-    ButtonProps["apperance"]
-  >).includes(appearance);
+  const isLink = (['link', 'subtle-link'] as Array<ButtonProps['apperance']>).includes(appearance);
 
   const styles = [];
 
   styles.push(
-    tw`focus:outline-none items-center justify-center border transition duration-150 ease-in-out cursor-pointer no-underline`
+    tw`focus:outline-none items-center justify-center border transition duration-150 ease-in-out cursor-pointer no-underline`,
   );
 
   if (!isLink) {
@@ -33,12 +31,12 @@ const useButtonStyles = ({
   styles.push(fullWidth ? tw`flex` : tw`inline-flex`);
 
   switch (size) {
-    case "xl":
+    case 'xl':
       if (!isLink) {
         styles.push(tw`text-xl`);
       }
-      if (spacing !== "none") {
-        if (spacing === "compact") {
+      if (spacing !== 'none') {
+        if (spacing === 'compact') {
           styles.push(tw`px-8`);
         } else {
           styles.push(tw`px-12 py-4`);
@@ -46,12 +44,12 @@ const useButtonStyles = ({
       }
       break;
 
-    case "lg":
+    case 'lg':
       if (!isLink) {
         styles.push(tw`text-lg`);
       }
-      if (spacing !== "none") {
-        if (spacing === "compact") {
+      if (spacing !== 'none') {
+        if (spacing === 'compact') {
           styles.push(tw`px-6`);
         } else {
           styles.push(tw`px-8 py-3`);
@@ -59,12 +57,12 @@ const useButtonStyles = ({
       }
       break;
 
-    case "sm":
+    case 'sm':
       if (!isLink) {
         styles.push(tw`text-sm`);
       }
-      if (spacing !== "none") {
-        if (spacing === "compact") {
+      if (spacing !== 'none') {
+        if (spacing === 'compact') {
           styles.push(tw`px-2`);
         } else {
           styles.push(tw`px-3 py-1`);
@@ -72,12 +70,12 @@ const useButtonStyles = ({
       }
       break;
 
-    case "xs":
+    case 'xs':
       if (!isLink) {
         styles.push(tw`text-xs`);
       }
-      if (spacing !== "none") {
-        if (spacing === "compact") {
+      if (spacing !== 'none') {
+        if (spacing === 'compact') {
           styles.push(tw`px-2`);
         } else {
           styles.push(tw`px-3 py-1`);
@@ -86,12 +84,12 @@ const useButtonStyles = ({
       break;
 
     default:
-    case "md":
+    case 'md':
       if (!isLink) {
         styles.push(tw`text-base`);
       }
-      if (spacing !== "none") {
-        if (spacing === "compact") {
+      if (spacing !== 'none') {
+        if (spacing === 'compact') {
           styles.push(tw`px-3`);
         } else {
           styles.push(tw`px-4 py-2`);
@@ -104,7 +102,7 @@ const useButtonStyles = ({
     styles.push(tw`text-gray-400 cursor-not-allowed`);
 
     switch (appearance) {
-      case "default":
+      case 'default':
         styles.push(tw`border-gray-200 bg-gray-100`);
         break;
 
@@ -118,7 +116,7 @@ const useButtonStyles = ({
 
   switch (appearance) {
     // TODO: test theming for primary appearance, we might want to change them later
-    case "primary":
+    case 'primary':
       styles.push(`
         color: ${theme.color.primary.text};
         border-color: ${theme.color.primary.border};
@@ -134,18 +132,18 @@ const useButtonStyles = ({
       }
       break;
 
-    case "default":
+    case 'default':
       styles.push(
-        tw`text-gray-500 border-gray-200 focus:border-gray-400 bg-white hover:bg-gray-100 focus:bg-white focus:border-opacity-75 focus:shadow-outline-gray shadow-sm`
+        tw`text-gray-500 border-gray-200 focus:border-gray-400 bg-white hover:bg-gray-100 focus:bg-white focus:border-opacity-75 focus:shadow-outline-gray shadow-sm`,
       );
       if (pressed) {
         styles.push(tw`bg-gray-100`);
       }
       break;
 
-    case "link":
+    case 'link':
       styles.push(
-        tw`bg-transparent no-underline hover:underline focus:underline border-transparent focus:shadow-outline focus:shadow-outline-blue`
+        tw`bg-transparent no-underline hover:underline focus:underline border-transparent focus:shadow-outline focus:shadow-outline-blue`,
       );
       styles.push(pressed ? tw`text-blue-700` : tw`text-blue-500`);
 
@@ -154,9 +152,9 @@ const useButtonStyles = ({
       }
       break;
 
-    case "subtle-link":
+    case 'subtle-link':
       styles.push(
-        tw`bg-transparent no-underline hover:underline focus:underline border-transparent focus:shadow-outline focus:shadow-outline-gray`
+        tw`bg-transparent no-underline hover:underline focus:underline border-transparent focus:shadow-outline focus:shadow-outline-gray`,
       );
 
       styles.push(pressed ? tw`text-gray-700` : tw`text-gray-500`);

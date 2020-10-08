@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { BlurContainer, Container } from "./styled";
+import { BlurContainer, Container } from './styled';
 
 export interface OverlayProps {
   isActive: boolean;
@@ -27,11 +27,11 @@ export class Overlay extends React.Component<OverlayProps> {
   private onClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const target = event.target;
     // @ts-ignore: nodeName is a property of event.target
-    if (target.nodeName !== "DIV") {
+    if (target.nodeName !== 'DIV') {
       return;
     }
     // @ts-ignore: className is a property of event.target
-    if ((target.className || "").split(" ").includes("sj-overlay")) {
+    if ((target.className || '').split(' ').includes('sj-overlay')) {
       this.props.onOuterClick(event);
     }
   };

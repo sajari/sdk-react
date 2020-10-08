@@ -1,17 +1,11 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
-import { useId } from "@reach/auto-id";
-import React, {
-  cloneElement,
-  forwardRef,
-  useImperativeHandle,
-  useRef,
-  useState
-} from "react";
-import tw from "twin.macro";
-import useSpacing from "../../hooks/use-spacing";
-import { cleanChildren } from "../../utils/react-helpers";
-import { RadioGroupProps } from "./types";
+import { css, jsx } from '@emotion/core';
+import { useId } from '@reach/auto-id';
+import React, { cloneElement, forwardRef, useImperativeHandle, useRef, useState } from 'react';
+import tw from 'twin.macro';
+import useSpacing from '../../hooks/use-spacing';
+import { cleanChildren } from '../../utils/react-helpers';
+import { RadioGroupProps } from './types';
 
 const RadioGroup = forwardRef(
   (
@@ -21,11 +15,11 @@ const RadioGroup = forwardRef(
       defaultValue,
       inline = false,
       value: valueProp,
-      spacing = inline ? "4" : "2",
+      spacing = inline ? '4' : '2',
       children,
       ...rest
     }: RadioGroupProps,
-    ref
+    ref,
   ) => {
     const { current: isControlled } = useRef(valueProp != null);
     const [value, setValue] = useState(defaultValue || null);
@@ -47,11 +41,11 @@ const RadioGroup = forwardRef(
     const internalName = name || fallbackName;
     const validChildren = cleanChildren(children);
 
-    const clones = validChildren.map(child => {
+    const clones = validChildren.map((child) => {
       return cloneElement(child, {
         name: internalName,
         onChange: internalOnChange,
-        checked: child.props.value === internalValue
+        checked: child.props.value === internalValue,
       });
     });
 
@@ -60,36 +54,29 @@ const RadioGroup = forwardRef(
       ref,
       () => ({
         focus: () => {
-          let input = rootRef?.current?.querySelector<HTMLDivElement>(
-            "input:not(:disabled):checked"
-          );
+          let input = rootRef?.current?.querySelector<HTMLDivElement>('input:not(:disabled):checked');
 
           if (!input) {
-            input = rootRef?.current?.querySelector("input:not(:disabled)");
+            input = rootRef?.current?.querySelector('input:not(:disabled)');
           }
 
           if (input) {
             input.focus();
           }
-        }
+        },
       }),
-      []
+      [],
     );
 
     return (
-      <div
-        {...rest}
-        ref={rootRef}
-        role="radiogroup"
-        css={[inline ? tw`flex-row` : tw`flex-col`, spacingStyles]}
-      >
+      <div {...rest} ref={rootRef} role="radiogroup" css={[inline ? tw`flex-row` : tw`flex-col`, spacingStyles]}>
         {clones}
       </div>
     );
-  }
+  },
 );
 
-RadioGroup.displayName = "RadioGroup";
+RadioGroup.displayName = 'RadioGroup';
 
 export default RadioGroup;
 export type { RadioGroupProps };

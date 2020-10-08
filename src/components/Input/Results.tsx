@@ -1,12 +1,12 @@
 /** @jsx jsx */ jsx;
-import { jsx } from "@emotion/core";
-import { CSSObject } from "@emotion/core";
-import * as React from "react";
-import { Config, defaultConfig } from "../../config";
-import { ResultsContainer } from "../Results/Results";
-import { SearchStateAndHelpers } from "../Search/Search";
-import { Summary } from "../Summary";
-import { Dropdown } from "./shared/Dropdown";
+import { jsx } from '@emotion/core';
+import { CSSObject } from '@emotion/core';
+import * as React from 'react';
+import { Config, defaultConfig } from '../../config';
+import { ResultsContainer } from '../Results/Results';
+import { SearchStateAndHelpers } from '../Search/Search';
+import { Summary } from '../Summary';
+import { Dropdown } from './shared/Dropdown';
 
 export interface ResultsProps {
   searchProps: SearchStateAndHelpers;
@@ -24,7 +24,7 @@ export class Results extends React.Component<ResultsProps> {
   public static defaultProps = {
     ResultRenderer: ResultItem,
     config: defaultConfig,
-    showSummary: false
+    showSummary: false,
   };
 
   public render() {
@@ -36,18 +36,15 @@ export class Results extends React.Component<ResultsProps> {
             return error.message;
           }
           if (results === undefined) {
-            return "no results";
+            return 'no results';
           }
           return (
             <Dropdown searchProps={searchProps} className="sj-input__results">
-              {searchProps.isOpen && searchProps.inputValue !== "" && (
+              {searchProps.isOpen && searchProps.inputValue !== '' && (
                 <React.Fragment>
                   {showSummary && (
                     <li css={[listItem, resultPadding]}>
-                      <Summary
-                        showQueryOverride={false}
-                        styles={summaryStyles}
-                      />
+                      <Summary showQueryOverride={false} styles={summaryStyles} />
                     </li>
                   )}
 
@@ -57,14 +54,11 @@ export class Results extends React.Component<ResultsProps> {
                         key: result.key,
                         item: result,
                         index: idx,
-                        role: "option"
+                        role: 'option',
                       })}
                       css={listItem}
                     >
-                      <ResultRenderer
-                        values={result.values}
-                        isHighlighted={searchProps.highlightedIndex === idx}
-                      />
+                      <ResultRenderer values={result.values} isHighlighted={searchProps.highlightedIndex === idx} />
                     </li>
                   ))}
 
@@ -100,43 +94,43 @@ function ResultItem({ values, isHighlighted }: ResultRendererProps) {
 }
 
 const listItem = {
-  listStyle: "none",
+  listStyle: 'none',
   paddingLeft: 0,
   marginLeft: 0,
-  backgroundColor: "#fff",
-  cursor: "auto"
+  backgroundColor: '#fff',
+  cursor: 'auto',
 };
 
-const resultPadding = { padding: "0.5em 1em" };
+const resultPadding = { padding: '0.5em 1em' };
 
 const resultHighlighted = {
-  backgroundColor: "#eee",
-  cursor: "default"
+  backgroundColor: '#eee',
+  cursor: 'default',
 };
 
 const titleCSS: CSSObject = {
-  fontSize: "1.1em",
+  fontSize: '1.1em',
   fontWeight: 400,
   lineHeight: 1.1,
   marginBottom: 0,
   marginTop: 0,
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-  whiteSpace: "nowrap"
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
 };
 
 const descriptionCSS: CSSObject = {
-  color: "#545454",
-  fontSize: "0.85em",
+  color: '#545454',
+  fontSize: '0.85em',
   lineHeight: 1.4,
   marginBottom: 4,
   marginTop: 2,
-  overflowWrap: "break-word",
-  wordWrap: "break-word"
+  overflowWrap: 'break-word',
+  wordWrap: 'break-word',
 };
 
 const summaryStyles = {
   container: {
-    marginBottom: 0
-  }
+    marginBottom: 0,
+  },
 };

@@ -1,4 +1,4 @@
-export { RequestError } from "@sajari/sdk-js";
+export { RequestError } from '@sajari/sdk-js';
 
 export {
   Pipeline,
@@ -13,8 +13,8 @@ export {
   DebugAnalytics,
   CountAggregateFilter,
   RangeFilter,
-  RangeAggregateFilter
-} from "./controllers";
+  RangeAggregateFilter,
+} from './controllers';
 
 export {
   Consumer,
@@ -30,10 +30,10 @@ export {
   Paginator,
   Select,
   Search,
-  RangeSlider
-} from "./components";
+  RangeSlider,
+} from './components';
 
-export { Overlay } from "./containers";
+export { Overlay } from './containers';
 
 export {
   EVENT_SELECTION_UPDATED,
@@ -45,7 +45,7 @@ export {
   EVENT_ANALYTICS_BODY_RESET,
   EVENT_ANALYTICS_RESULT_CLICKED,
   EVENT_VALUES_UPDATED,
-  EVENT_TRACKING_RESET
-} from "./events";
+  EVENT_TRACKING_RESET,
+} from './events';
 
-export { i18n } from "./i18n";
+export { i18n } from './i18n';

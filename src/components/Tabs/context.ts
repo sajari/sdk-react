@@ -1,9 +1,9 @@
-import { createContext } from "../../utils/react-helpers";
-import { TabsContextOptions } from "./types";
+import { createContext } from '../../utils/react-helpers';
+import { TabsContextOptions } from './types';
 
 const [TabContextProvider, useTabContext] = createContext<TabsContextOptions>({
   strict: true,
-  name: "TabsContext"
+  name: 'TabsContext',
 });
 
 export default TabContextProvider;

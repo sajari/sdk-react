@@ -1,8 +1,8 @@
 /** @jsx jsx */ jsx;
-import { jsx } from "@emotion/core";
-import { CSSObject } from "@emotion/core";
-import * as React from "react";
-import { SearchStateAndHelpers } from "../../Search/Search";
+import { jsx } from '@emotion/core';
+import { CSSObject } from '@emotion/core';
+import * as React from 'react';
+import { SearchStateAndHelpers } from '../../Search/Search';
 
 export interface DropdownProps {
   searchProps: SearchStateAndHelpers;
@@ -15,29 +15,29 @@ export interface DropdownProps {
 const DropdownZIndex = 10000000;
 
 const container: CSSObject = {
-  boxSizing: "border-box",
-  position: "relative",
-  width: "100%",
-  zIndex: DropdownZIndex
+  boxSizing: 'border-box',
+  position: 'relative',
+  width: '100%',
+  zIndex: DropdownZIndex,
 };
 
 const content: CSSObject = {
-  boxSizing: "border-box",
-  position: "absolute",
-  width: "100%"
+  boxSizing: 'border-box',
+  position: 'absolute',
+  width: '100%',
 };
 
 const listStyles = {
   marginTop: 0,
   marginBottom: 0,
   paddingLeft: 0,
-  backgroundColor: "#fff"
+  backgroundColor: '#fff',
 };
 
 const listIsOpen = {
-  boxShadow: "0 3px 8px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)",
-  boxSizing: "border-box",
-  cursor: "default"
+  boxShadow: '0 3px 8px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08)',
+  boxSizing: 'border-box',
+  cursor: 'default',
 };
 
 export class Dropdown extends React.Component<DropdownProps> {
@@ -48,7 +48,7 @@ export class Dropdown extends React.Component<DropdownProps> {
         <div css={content}>
           <ul
             {...searchProps.getMenuProps({
-              className
+              className,
             })}
             // an explicit aria-label is defined
             aria-labelledby={undefined}

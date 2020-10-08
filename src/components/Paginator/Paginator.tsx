@@ -1,14 +1,14 @@
 /** @jsx jsx */ jsx;
-import { jsx } from "@emotion/core";
-import classnames from "classnames";
-import * as React from "react";
-import { PaginateFn } from "../context/pipeline/context";
-import { pageNumbers } from "./utils";
+import { jsx } from '@emotion/core';
+import classnames from 'classnames';
+import * as React from 'react';
+import { PaginateFn } from '../context/pipeline/context';
+import { pageNumbers } from './utils';
 
-import { CSSObject } from "@emotion/core";
-import { PaginatorContainer } from "./Container";
-import { LeftChevron, RightChevron } from "./icons";
-import { Container, PageButton, PageNumber } from "./styled";
+import { CSSObject } from '@emotion/core';
+import { PaginatorContainer } from './Container';
+import { LeftChevron, RightChevron } from './icons';
+import { Container, PageButton, PageNumber } from './styled';
 
 export interface PaginatorProps {
   windowSize?: number;
@@ -30,14 +30,14 @@ export function Paginator(props: PaginatorProps) {
     styles = {},
     PreviousButtonRenderer = PreviousPageButton,
     NextButtonRenderer = NextPageButton,
-    PageNumberRenderer = DefaultPageNumber
+    PageNumberRenderer = DefaultPageNumber,
   } = props;
   return (
     <PaginatorContainer>
       {({ page, totalPages, paginate }) => {
         return (
           <Container
-            className={"sj-paginator " + (props.className || "")}
+            className={'sj-paginator ' + (props.className || '')}
             aria-label="Pagination Navigation"
             styles={styles.container}
           >
@@ -50,24 +50,22 @@ export function Paginator(props: PaginatorProps) {
             )}
             <ul
               css={{
-                display: "inline-flex",
-                listStyle: "none",
+                display: 'inline-flex',
+                listStyle: 'none',
                 margin: 0,
-                padding: 0
+                padding: 0,
               }}
             >
-              {pageNumbers(page, totalPages, windowSize).map(
-                (pageNumber: number) => (
-                  <li key={pageNumber}>
-                    <PageNumberRenderer
-                      pageNumber={pageNumber}
-                      isCurrent={page === pageNumber}
-                      onClick={setPage(paginate, pageNumber)}
-                      styles={styles.number}
-                    />
-                  </li>
-                )
-              )}
+              {pageNumbers(page, totalPages, windowSize).map((pageNumber: number) => (
+                <li key={pageNumber}>
+                  <PageNumberRenderer
+                    pageNumber={pageNumber}
+                    isCurrent={page === pageNumber}
+                    onClick={setPage(paginate, pageNumber)}
+                    styles={styles.number}
+                  />
+                </li>
+              ))}
             </ul>
             {page !== totalPages && (
               <NextButtonRenderer
@@ -130,17 +128,13 @@ function DefaultPageNumber(props: PageNumberProps) {
   return (
     <PageNumber
       css={props.styles && (props.styles(props.isCurrent) as any)}
-      className={classnames("sj-paginator__page-number", {
-        "sj-paginator__page-number--current": props.isCurrent
+      className={classnames('sj-paginator__page-number', {
+        'sj-paginator__page-number--current': props.isCurrent,
       })}
       isCurrent={props.isCurrent}
       onClick={props.onClick}
       type="button"
-      aria-label={
-        props.isCurrent
-          ? `Current Page, Page ${props.pageNumber}`
-          : `Page ${props.pageNumber}`
-      }
+      aria-label={props.isCurrent ? `Current Page, Page ${props.pageNumber}` : `Page ${props.pageNumber}`}
       aria-current={props.isCurrent ? true : undefined}
     >
       {props.pageNumber}

@@ -1,11 +1,11 @@
-import memoize from "fast-memoize";
-import * as React from "react";
+import memoize from 'fast-memoize';
+import * as React from 'react';
 // @ts-ignore: module missing defintion file
-import ReactSelect from "react-select";
+import ReactSelect from 'react-select';
 
-import { Filter, Options } from "../../controllers/filter";
-import { FilterConsumer, FilterProvider } from "../context/filter";
-import { styles as defaultStyles } from "./styled";
+import { Filter, Options } from '../../controllers/filter';
+import { FilterConsumer, FilterProvider } from '../context/filter';
+import { styles as defaultStyles } from './styled';
 
 export interface SelectProps {
   filter: Filter;
@@ -16,11 +16,11 @@ export const Select: React.SFC<SelectProps> = ({ filter }) => (
     <FilterConsumer>
       {({ options, selected, set }) => {
         const opts = mapOptions(options);
-        const defaultValue = opts.filter(x => x.label === selected[0]).pop();
+        const defaultValue = opts.filter((x) => x.label === selected[0]).pop();
 
         return (
           <ReactSelect
-            key={"1" + defaultValue}
+            key={'1' + defaultValue}
             defaultValue={defaultValue}
             isClearable={true}
             options={mapOptions(options)}
@@ -36,18 +36,18 @@ export const Select: React.SFC<SelectProps> = ({ filter }) => (
 const mapOptions = memoize((options: Options) =>
   Object.entries(options).map(([label, value]) => ({
     label,
-    value
-  }))
+    value,
+  })),
 );
 
-const ActionSelect = "select-option";
-const ActionPop = "pop-value";
-const ActionClear = "clear";
+const ActionSelect = 'select-option';
+const ActionPop = 'pop-value';
+const ActionClear = 'clear';
 
-const handleChange = (
-  selected: string[],
-  set: (name: string, value: boolean) => void
-) => (value: any, { action }: any) => {
+const handleChange = (selected: string[], set: (name: string, value: boolean) => void) => (
+  value: any,
+  { action }: any,
+) => {
   switch (action) {
     case ActionSelect:
       set(value.label, true);
@@ -56,7 +56,7 @@ const handleChange = (
       set(selected[0], false);
       break;
     case ActionClear:
-      selected.forEach(option => {
+      selected.forEach((option) => {
         set(option, false);
       });
       break;

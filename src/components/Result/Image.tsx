@@ -1,7 +1,7 @@
 /** @jsx jsx */ jsx;
-import { CSSObject, jsx } from "@emotion/core";
-import classnames from "classnames";
-import * as React from "react";
+import { CSSObject, jsx } from '@emotion/core';
+import classnames from 'classnames';
+import * as React from 'react';
 
 export interface ImageProps {
   alt: string;
@@ -14,10 +14,10 @@ const imageStyles: CSSObject = {
   minHeight: 90,
   width: 90,
   height: 90,
-  marginRight: "1em",
-  backgroundPosition: "center",
-  backgroundSize: "contain",
-  backgroundRepeat: "no-repeat"
+  marginRight: '1em',
+  backgroundPosition: 'center',
+  backgroundSize: 'contain',
+  backgroundRepeat: 'no-repeat',
 };
 
 export function Image(props: ImageProps) {
@@ -27,11 +27,5 @@ export function Image(props: ImageProps) {
     styles.push({ backgroundImage: `url(${src})` });
   }
 
-  return (
-    <div
-      role="presentation"
-      css={styles}
-      className={classnames("sj-results__result__image", props.className)}
-    />
-  );
+  return <div role="presentation" css={styles} className={classnames('sj-results__result__image', props.className)} />;
 }
