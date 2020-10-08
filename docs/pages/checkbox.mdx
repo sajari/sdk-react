@@ -1,0 +1,27 @@
+import SEO from '../components/SEO';
+
+<SEO title="Checkbox" description="TBD." />
+
+# Checkbox
+
+TBD
+
+```js
+import { CheckboxGroup, Checkbox, ThemeProvider } from '@sajari/react-components';
+```
+
+## Usage
+
+```jsx
+<ThemeProvider>
+  <CheckboxGroup defaultValue={['naruto', 'kakashi']} onChange={(selected) => console.log(selected)}>
+    <Checkbox value="naruto">Naruto</Checkbox>
+    <Checkbox value="sasuke">Sasuke</Checkbox>
+    <Checkbox value="kakashi">kakashi</Checkbox>
+  </CheckboxGroup>
+</ThemeProvider>
+```
+
+## Props
+
+### Checkbox Props

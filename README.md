@@ -1,74 +1,86 @@
-# Sajari React SDK
+# TSDX Monorepo User Guide
 
-[![npm (scoped)](https://img.shields.io/npm/v/@sajari/sdk-react.svg?style=flat-square)](https://www.npmjs.com/package/@sajari/sdk-react)
-[![Travis](https://img.shields.io/travis/sajari/sajari-sdk-react.svg?style=flat-square)](https://travis-ci.org/sajari/sajari-sdk-react)
-[![license](https://img.shields.io/npm/l/@sajari/sdk-react.svg?style=flat-square)](./LICENSE)
+## Usage
 
-`@sajari/sdk-react` is a client side javascript library of React Components for the
-[Sajari](https://www.sajari.com) search platform to help build fast and powerful search interfaces.
+This monorepo is setup for a dummy `@sajari/` NPM organization. There are 2 packages by default:
 
-React provides a simple and elegant way to structure user interfaces. The Sajari React SDK provides
-a way to seamlessly integrate the Sajari platform into any web-based app through the use of easily
-composable Components.
+- `@sajari/react-sdk` - The “compositions” like we have in v2 but with new styling and using the components and hooks behind the scenes.
+- `@sajari/react-hooks` - Hooks that allow you to build a search interface using any components.
+- `@sajari/react-components` - The bare components that allow you to build an interface using a search back end other than Sajari.
 
-We also provide a vanilla Sajari JS library [here](https://github.com/sajari/sajari-sdk-js/).
+Unlike other TSDX templates, the developer experience for this template is currently a bit more manual.
 
-[![sajari search ui](img/sajari-search-ui.gif)](https://www.sajari.com)
+Your first order of business will be to search and replace `@sajari` for the npm organization of your own.
 
-# Table of contents
+After that you can install all the dependencies in the root directory. Since the monorepo uses Lerna and Yarn Workspaces, npm CLI is not supported (only yarn).
 
-- [Examples](#examples)
-- [Installation](#installation)
-- [Documentation](#documentation)
-- [License](#license)
-- [Browser support](#browser-support)
-
-# Examples
-
-It's easy to get up and running using one of our examples as a starting point.
-They're pre-configured with all the correct dependencies, so all you need to do is copy the example
-directory into your own workspace and you're on your way!
-
-- **Basic**: basic search box, hit enter to search (<a href="https://3vy8p6k7z1.codesandbox.io/" target="_blank">View</a>, <a href="https://codesandbox.io/s/3vy8p6k7z1" target="_blank">Edit</a>).
-- **Typeahead with Instant Search**: search box with typeahead autocomplete and instant search enabled (<a href="https://5zz60m4l0p.codesandbox.io/" target="_blank">View</a>, <a href="https://codesandbox.io/s/5zz60m4l0p" target="_blank">Edit</a>).
-- **Suggestions Dropdown**: search box with drop-down autocomplete suggestions (<a href="https://pvo0pxojx.codesandbox.io/" target="_blank">View</a>, <a href="https://codesandbox.io/s/pvo0pxojx" target="_blank">Edit</a>).
-- **Radio/checkbox**: radio/checkbox filtering (<a href="https://w64pm94vn8.codesandbox.io/" target="_blank">View</a>, <a href="https://codesandbox.io/s/w64pm94vn8" target="_blank">Edit</a>).
-- **Radio/checkbox Facets**: radio/checkbox filtering and facets (<a href="https://isqwn.csb.app/" target="_blank">View</a>, <a href="https://codesandbox.io/s/sajari-react-sdk-example-radio-checkbox-facets-isqwn" target="_blank">Edit</a>).
-- **Custom Result Renderer**: custom result renderer (<a href="https://6x0vwormkk.codesandbox.io/" target="_blank">View</a>, <a href="https://codesandbox.io/s/6x0vwormkk" target="_blank">Edit</a>)
-
-<!-- TODO(@benhinchley): build examples in codesandbox
-
-* [Sliding autocomplete dropdown](./examples/sliding-autocomplete-dropdown): search box enabled by clicking search icon.
-* [Standard search](./examples/standard-search/): instant search with autocomplete + tab filtering.
-* [Aggregate](./examples/aggregate/): aggregate filtering.
-
--->
-
-# Installation
-
-This module is distributed via [npm](https://www.npmjs.com/) which is bundled with
-[node](https://nodejs.org/en/) and should be installed as one of your project's `dependencies`:
-
-We distribute the `@sajari/sdk-react` library through NPM.
-
-```shell
-$ npm install --save @sajari/sdk-react
+```sh
+yarn install
 ```
 
-> This package also depends on [`react`](https://www.npmjs.com/package/react). Please make sure you have those installed as well.
+This will install all dependencies in each project, build them, and symlink them via Lerna
 
-## Quick setup
+## Development workflow
 
-See the [quick setup](https://sajari-sdk-react.netlify.app/quick-setup) guide to setup a basic search.
+In one terminal, run tsdx watch in parallel:
 
-# Documentation
+```sh
+yarn start
+```
 
-For documentation, see [sajari-sdk-react.netlify.app](https://sajari-sdk-react.netlify.app/).
+This builds each package to `<packages>/<package>/dist` and runs the project in watch mode so any edits you save inside `<packages>/<package>/src` cause a rebuild to `<packages>/<package>/dist`. The results will stream to to the terminal.
 
-# License
+### Using the example/playground
 
-We use the [MIT license](./LICENSE)
+You can play with local packages in the Parcel-powered example/playground.
 
-# Browser support
+```sh
+cd example
+yarn install # or yarn install
+yarn start
+```
 
-The browser support is dependent on the React library, which currently supports recent versions of Chrome, Firefox, Sajari, Opera, and IE9+. (17/8/2016)
+This will start the example/playground on `localhost:1234`. If you have lerna running watch in parallel mode in one terminal, and then you run parcel, your playground will hot reload when you make changes to any imported module whose source is inside of `packages/*/src/*`. Note that to accomplish this, each package's `start` command passes TDSX the `--noClean` flag. This prevents Parcel from exploding between rebuilds because of File Not Found errors.
+
+Important Safety Tip: When adding/altering packages in the playground, use `alias` object in package.json. This will tell Parcel to resolve them to the filesystem instead of trying to install the package from NPM. It also fixes duplicate React errors you may run into.
+
+#### Yalc
+
+[Yalc](https://github.com/whitecolor/yalc) is an alternative to `yarn/npm link` (and Parcel aliasing) that many developers find useful because it more closely mimics how NPM works. It works kind of like a local package registry via filesystem and symlinking magic.
+
+To do this, install yalc globally.
+
+Using NPM:
+
+```sh
+npm i yalc -g
+```
+
+Using Yarn:
+
+```sh
+yarn global add yalc
+```
+
+Then in each package's `start` command add a [`yalc publish`](https://github.com/whitecolor/yalc#publish) or `yalc push` as an TSDX `--onSuccess` hook.
+
+```diff
+"scripts": {
+-   "start": "tsdx watch --verbose --noClean",
++   "start": "tsdx watch --verbose --noClean --onSuccess yalc publish",
+    "build": "tsdx build --tsconfig tsconfig.build.json",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepublish": "npm run build"
+  },
+```
+
+In your example directory, now add each package via yalc
+
+```sh
+yalc add <package>
+# or
+yalc link <package>
+```
+
+There's definitely room for improvement with this workflow, so please contribute if you come up with something better.

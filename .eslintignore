@@ -1,0 +1,11 @@
+**/node_modules/**
+**/build/**
+**/dist/**
+.eslintrc.js
+jest-preprocess.js
+jest.config.js
+
+types/**
+# enable linter later
+docs/**
+example/**
