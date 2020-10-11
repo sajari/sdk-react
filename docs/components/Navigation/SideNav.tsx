@@ -12,7 +12,7 @@ const compositionsLinks = [
   'SearchInput',
   'Result',
   'Results',
-  'Paginatiion',
+  'Pagination',
   'Filter',
   'Sorting',
   'PageSize',

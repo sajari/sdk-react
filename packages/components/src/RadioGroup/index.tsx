@@ -69,7 +69,12 @@ const RadioGroup = forwardRef(
     );
 
     return (
-      <div {...rest} ref={rootRef} role="radiogroup" css={[inline ? tw`flex-row` : tw`flex-col`, spacingStyles]}>
+      <div
+        {...rest}
+        ref={rootRef}
+        role="radiogroup"
+        css={[tw`flex`, inline ? tw`flex-row` : tw`flex-col`, spacingStyles]}
+      >
         {clones}
       </div>
     );

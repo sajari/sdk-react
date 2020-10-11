@@ -26,6 +26,7 @@ module.exports = {
   ],
   env: {
     jest: true,
+    browser: true,
   },
   parserOptions: {
     project: './tsconfig.json',

@@ -48,9 +48,13 @@ export default function useInputStyles(props: UseInputStyleProps) {
   }
 
   if (['radio', 'checkbox'].includes(type)) {
-    styles.push(tw`h-4 w-4 text-blue-500 p-0 m-0`);
+    styles.push(tw`h-4 w-4 text-blue-500 flex-none p-0 m-0`);
   } else {
     styles.push(tw`transition-shadow duration-200 ease-in-out`);
+  }
+
+  if (type === 'checkbox') {
+    styles.push(tw`rounded`);
   }
 
   if (type === 'checkbox' && indeterminate) {

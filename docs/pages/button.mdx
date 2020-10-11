@@ -1,23 +1,113 @@
 import SEO from '../components/SEO';
 
-<SEO title="Button" description="TBD." />
+<SEO
+  title="Button"
+  description="Button component is used to trigger an action or event, such as submitting a
+form, opening a Dialog, canceling an action, or performing a delete operation."
+/>
 
 # Button
 
-TBD
+Button component is used to trigger an action or event, such as submitting a
+form, opening a modal.
 
 ```js
-import { Button, ThemeProvider } from '@sajari/react-components';
+import { Button } from '@sajari/react-components';
 ```
 
 ## Usage
 
 ```jsx
-<ThemeProvider>
-  <Button>Hello</Button>
-</ThemeProvider>
+<Button appearance="primary">Button</Button>
+```
+
+### Sizes
+
+Use the `size` prop to change the size of the button. You can set the value to
+`xs`, `sm`, `md`, `lg` or `xl`.
+
+```jsx
+<>
+  <Button appearance="primary" size="xs">
+    Button
+  </Button>
+  <Button appearance="primary" size="sm">
+    Button
+  </Button>
+  <Button appearance="primary" size="md">
+    Button
+  </Button>
+  <Button appearance="primary" size="lg">
+    Button
+  </Button>
+  <Button appearance="primary" size="xl">
+    Button
+  </Button>
+</>
 ```
 
 ## Props
 
-### Button Props
+### Appearance
+
+Use the `appearance` prop to change the visual style of the Button. You can set the
+value to `default`, `primary`, `link`, or `subtle-link`.
+
+```jsx
+<>
+  <Button>Button</Button>
+  <Button appearance="primary">Button</Button>
+  <Button appearance="link">Button</Button>
+  <Button appearance="subtle-link">Button</Button>
+</>
+```
+
+### As a link
+
+Buttons can be used as links.
+
+```jsx
+<Button href="https://sajari.com" as="a" targe="_blank" appearance="link">
+  View
+</Button>
+```
+
+### Disabled state
+
+Pass `disabled` prop to the Button component to disable it's functionality. This will disable
+the buttons default functionality and dim it's appearance.
+
+```jsx
+<>
+  <Button disabled>Button</Button>
+  <Button appearance="primary" disabled>
+    Button
+  </Button>
+  <Button appearance="link" disabled>
+    Button
+  </Button>
+  <Button appearance="subtle-link" disabled>
+    Button
+  </Button>
+</>
+```
+
+## Accessibility
+
+- Button has `role` button.
+- When Button has focus, <kbd>Space</kbd> and <kbd>Enter</kbd> activates it.
+
+## Props
+
+The Button composes the `Box` component so you can pass props for
+`Box`. These are props related to the Button component.
+
+| Name          | Type                                                | Default   | Description                                                                                             |
+| ------------- | --------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------- |
+| `aria-label`  | `string`                                            |           | The label of the button                                                                                 |
+| `appearance`  | `default`, `primary`, `link`, `subtle-link`, `none` | `default` | The variant of the button style to use.                                                                 |
+| `disabled`    | `boolean`                                           |           | If `true`, the button will be disabled.                                                                 |
+| `loading`     | `boolean`                                           |           | If `true`, the button will show a spinner.                                                              |
+| `loadingText` | `string`                                            |           | The label to show in the button when `loading` is true. If no text is passed, it only shows the spinner |
+| `size`        | `xs`, `sm`, `md`, `lg` , `xl`                       | `md`      | The size of the button.                                                                                 |
+| `as`          | `string`                                            | `button`  | HTML element or custom component.                                                                       |

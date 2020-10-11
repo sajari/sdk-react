@@ -1,39 +1,120 @@
 import SEO from '../components/SEO';
 
-<SEO title="Button" description="TBD." />
+<SEO title="Tabs" description="An accessible Tabs component for your application" />
 
-# Button
+# Tabs
 
-TBD
+An accessible tabs component.
+
+The `Tab` and `TabPanel` elements are associated by their order in the tree.
+None of the components are empty wrappers, each is associated with a real DOM
+element in the document, giving you maximum control over styling and
+composition.
 
 ```js
-import { Tabs, TabList, TabPanels, Tab, TabPanel, ThemeProvider } from '@sajari/react-components';
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@sajari/react-components';
 ```
 
 ## Usage
 
-```jsx
-<ThemeProvider>
-  <Tabs>
-    <TabList>
-      <Tab>One</Tab>
-      <Tab>Two</Tab>
-      <Tab>Three</Tab>
-    </TabList>
+You can render any element within `Tabs`, but `TabList` should only have `Tab`
+as children, and `TabPanels` should have `TabPanel` as children.
 
-    <TabPanels>
-      <TabPanel>
-        <p>one!</p>
-      </TabPanel>
-      <TabPanel>
-        <p>two!</p>
-      </TabPanel>
-      <TabPanel>
-        <p>three!</p>
-      </TabPanel>
-    </TabPanels>
-  </Tabs>
-</ThemeProvider>
+Tabs expects `TabList` and `TabPanels` as children. The order doesn't matter,
+you can have tabs at the top, at the bottom, or both.
+
+```jsx
+<Tabs>
+  <TabList>
+    <Tab>One</Tab>
+    <Tab>Two</Tab>
+    <Tab>Three</Tab>
+  </TabList>
+
+  <TabPanels>
+    <TabPanel>
+      <p>one!</p>
+    </TabPanel>
+    <TabPanel>
+      <p>two!</p>
+    </TabPanel>
+    <TabPanel>
+      <p>three!</p>
+    </TabPanel>
+  </TabPanels>
+</Tabs>
+```
+
+### Change the tabs alignment
+
+You can change the alignment of the `TabList` by passing `align` prop. We
+support 3 sizes `start`, `center`, `end`.
+
+```jsx
+<Tabs align="end">
+  <TabList>
+    <Tab>One</Tab>
+    <Tab>Two</Tab>
+  </TabList>
+  <TabPanels>
+    <TabPanel>
+      <p>one!</p>
+    </TabPanel>
+    <TabPanel>
+      <p>two!</p>
+    </TabPanel>
+  </TabPanels>
+</Tabs>
+```
+
+### Fitted Tabs
+
+Stretch the tab list to fit the container by passing `fitted` prop.
+
+```jsx
+<Tabs fitted>
+  <TabList>
+    <Tab>One</Tab>
+    <Tab>Two</Tab>
+  </TabList>
+  <TabPanels>
+    <TabPanel>
+      <p>one!</p>
+    </TabPanel>
+    <TabPanel>
+      <p>two!</p>
+    </TabPanel>
+  </TabPanels>
+</Tabs>
+```
+
+### Tabs onChange
+
+The `onChange` callback returns the active tab's index whenever the user changes
+tabs. If you intend to control the tabs programmatically, use this with the
+`index` prop.
+
+```jsx
+function Example() {
+  const colors = ['bg-red-50', 'bg-green-50', 'bg-blue-50'];
+  const [tabIndex, setTabIndex] = React.useState(0);
+  const bg = colors[tabIndex];
+
+  return (
+    <Tabs onChange={(index) => setTabIndex(index)} backgroundColor={bg}>
+      <TabList>
+        <Tab>Red</Tab>
+        <Tab>Green</Tab>
+        <Tab>Blue</Tab>
+      </TabList>
+      <TabPanels p="2rem">
+        <TabPanel>The Primary Colors</TabPanel>
+        <TabPanel>Are 1, 2, 3</TabPanel>
+        <TabPanel>Red, green and blue.</TabPanel>
+      </TabPanels>
+    </Tabs>
+  );
+}
 ```
 
 ## Props

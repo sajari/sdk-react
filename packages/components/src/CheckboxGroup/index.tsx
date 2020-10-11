@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
 import React, { cloneElement, useRef, useState } from 'react';
 import tw from 'twin.macro';
@@ -52,7 +52,7 @@ const CheckboxGroup = ({
   );
 
   return (
-    <div {...rest} role="group" css={css([inline ? tw`flex-row` : tw`flex-col`, spacingStyles])}>
+    <div {...rest} role="group" css={[tw`flex`, inline ? tw`flex-row` : tw`flex-col`, spacingStyles]}>
       {clones}
     </div>
   );
