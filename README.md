@@ -1,18 +1,15 @@
-# TSDX Monorepo User Guide
+# Sajari React SDK
 
 ## Usage
 
-This monorepo is setup for a dummy `@sajari/` NPM organization. There are 2 packages by default:
+`@sajari/react-sdk` is a client side javascript library of React Components for the
+[Sajari](https://www.sajari.com) search platform to help build fast and powerful search interfaces. The monorepo consists of main 3 packages:
 
-- `@sajari/react-sdk` - The “compositions” like we have in v2 but with new styling and using the components and hooks behind the scenes.
 - `@sajari/react-hooks` - Hooks that allow you to build a search interface using any components.
 - `@sajari/react-components` - The bare components that allow you to build an interface using a search back end other than Sajari.
+- `@sajari/react-sdk` - The “compositions” like we have in v2 but with new styling and using the components and hooks behind the scenes.
 
-Unlike other TSDX templates, the developer experience for this template is currently a bit more manual.
-
-Your first order of business will be to search and replace `@sajari` for the npm organization of your own.
-
-After that you can install all the dependencies in the root directory. Since the monorepo uses Lerna and Yarn Workspaces, npm CLI is not supported (only yarn).
+You can install all the dependencies in the root directory. Since the monorepo uses Lerna and Yarn Workspaces, npm CLI is not supported (only yarn).
 
 ```sh
 yarn install

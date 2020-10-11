@@ -1,13 +1,12 @@
 import * as React from 'react';
-import { Input } from '@sajari/react-components';
 import { useQuery } from '@sajari/react-hooks';
 
-const InputComposition = () => {
+const SearchInputComposition = () => {
   const { query, setQuery } = useQuery();
 
   return (
     <>
-      <Input value={query} onChange={setQuery} />
+      <input value={query} onChange={(e) => setQuery(e.target.value)} />
       <div>
         Value:
         {query}
@@ -16,4 +15,4 @@ const InputComposition = () => {
   );
 };
 
-export default InputComposition;
+export default SearchInputComposition;
