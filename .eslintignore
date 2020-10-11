@@ -4,6 +4,8 @@
 .eslintrc.js
 jest-preprocess.js
 jest.config.js
+tsdx.config.js
+tsdx.config.base.js
 
 types/**
 # enable linter later

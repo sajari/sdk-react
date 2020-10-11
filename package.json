@@ -4,6 +4,7 @@
   "devDependencies": {
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
+    "@svgr/rollup": "^5.4.0",
     "@testing-library/dom": "^7.24.4",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.0.4",
