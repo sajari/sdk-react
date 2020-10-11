@@ -97,7 +97,6 @@ tabs. If you intend to control the tabs programmatically, use this with the
 ```jsx
 function Example() {
   const [tabIndex, setTabIndex] = React.useState(0);
-  const bg = colors[tabIndex];
 
   return (
     <Tabs onChange={(index) => setTabIndex(index)}>
