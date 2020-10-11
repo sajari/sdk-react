@@ -4,11 +4,11 @@ menu: Components
 route: /components/button-group
 ---
 
-import { Playground } from "docz";
-import { ExampleContainer, categoryMultiFilter } from "../../docs/helpers.ts";
-import ThemeProvider from "../../styles/theming";
-import ButtonGroup from ".";
-import Button from "../Button";
+import { Playground } from 'docz';
+import { ExampleContainer, categoryMultiFilter } from '../../docs/helpers.ts';
+import ThemeProvider from '../../styles/theming';
+import ButtonGroup from '.';
+import Button from '../Button';
 
 # ButtonGroup
 
@@ -16,14 +16,24 @@ import Button from "../Button";
 
 <Playground>
   {() => {
-    const [active, setIsActive] = React.useState(true);
+    const [index, setIndex] = React.useState(0);
     const activeAppearance = 'primary';
     return (
       <ExampleContainer>
         <ThemeProvider>
           <ButtonGroup attached>
-            <Button appearance={active ? activeAppearance : undefined} onClick={() => setIsActive(true)}>Button</Button>
-            <Button appearance={!active ? activeAppearance : undefined} onClick={() => setIsActive(false)}>Button</Button>
+            <Button appearance={index === 0 ? activeAppearance : undefined} onPress={() => setIndex(0)}>
+              Button
+            </Button>
+            <Button appearance={index === 1 ? activeAppearance : undefined} onPress={() => setIndex(1)}>
+              Button
+            </Button>
+            <Button appearance={index === 2 ? activeAppearance : undefined} onPress={() => setIndex(2)}>
+              Button
+            </Button>
+            <Button appearance={index === 3 ? activeAppearance : undefined} onPress={() => setIndex(3)}>
+              Button
+            </Button>
           </ButtonGroup>
         </ThemeProvider>
       </ExampleContainer>
