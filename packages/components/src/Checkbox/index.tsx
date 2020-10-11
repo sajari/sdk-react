@@ -59,8 +59,7 @@ const Checkbox = React.forwardRef((props: CheckboxProps, ref?: React.Ref<HTMLInp
         aria-invalid={invalid}
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
-        className="form-checkbox"
-        css={inputStyles}
+        css={[inputStyles, tw`form-checkbox`]}
       />
     </div>
   );

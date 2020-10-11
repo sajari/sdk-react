@@ -54,8 +54,7 @@ const Radio = React.forwardRef((props: RadioProps, ref?: React.Ref<HTMLInputElem
         aria-label={ariaLabel}
         aria-labelledby={ariaLabelledBy}
         aria-invalid={invalid}
-        className="form-radio"
-        css={inputStyles}
+        css={[inputStyles, tw`form-radio`]}
       />
     </div>
   );
