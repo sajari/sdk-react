@@ -1,4 +1,4 @@
-import { createContext } from '../utils/react-helpers';
+import { createContext } from 'sajari-react-sdk-utils';
 import { TabsContextOptions } from './types';
 
 const [TabContextProvider, useTabContext] = createContext<TabsContextOptions>({

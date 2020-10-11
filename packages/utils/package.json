@@ -1,13 +1,13 @@
 {
-  "name": "@sajari/react-sdk",
+  "name": "sajari-react-sdk-utils",
   "version": "0.0.0",
   "description": "TBD",
   "repository": {
     "type": "git",
-    "directory": "packages/sdk"
+    "directory": "packages/utils"
   },
   "scripts": {
-    "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
+    "start": "tsdx watch --tsconfig tsconfig.build.json --tsdxconfig --verbose --noClean",
     "build": "tsdx build --tsconfig tsconfig.build.json",
     "test": "jest",
     "test:ci": "jest --env=jsdom --coverage --watchAll=false --maxWorkers=2",
@@ -21,12 +21,9 @@
     "dist"
   ],
   "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "react": "^16.8.0"
   },
   "dependencies": {
-    "@sajari/react-hooks": "^0.0.0",
-    "@sajari/react-components": "^0.0.0",
     "tslib": "^2.0.0"
   },
   "publishConfig": {

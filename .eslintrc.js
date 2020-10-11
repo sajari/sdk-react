@@ -9,6 +9,8 @@ module.exports = {
         'packages/hooks/src/**/**/*.tsx',
         'packages/sdk/src/**/**/*.ts',
         'packages/sdk/src/**/**/*.tsx',
+        'packages/utils/src/**/**/*.ts',
+        'packages/utils/src/**/**/*.tsx',
       ],
       rules: {
         'import/no-extraneous-dependencies': 'off',

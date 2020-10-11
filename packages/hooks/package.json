@@ -10,7 +10,7 @@
     "prepublish": "yarn build"
   },
   "main": "dist/index.js",
-  "module": "dist/react-hooks.esm.js",
+  "module": "dist/hooks.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "README.md",

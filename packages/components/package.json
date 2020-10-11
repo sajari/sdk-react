@@ -14,7 +14,7 @@
     "prepublish": "yarn build"
   },
   "main": "dist/index.js",
-  "module": "dist/react-components.esm.js",
+  "module": "dist/index.esm.js",
   "typings": "dist/index.d.ts",
   "files": [
     "README.md",
@@ -40,7 +40,8 @@
     "@react-aria/button": "^3.2.2",
     "@react-aria/switch": "^3.1.1",
     "@react-types/button": "^3.2.1",
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.0",
+    "sajari-react-sdk-utils": "^0.0.0"
   },
   "publishConfig": {
     "access": "public"

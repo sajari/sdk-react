@@ -35,10 +35,10 @@
   "scripts": {
     "lerna": "lerna",
     "clean": "lerna clean",
-    "start": "lerna run start --stream --parallel --scope={@sajari/react-components,@sajari/react-hooks,@sajari/react-sdk}",
+    "start": "lerna run start --stream --parallel --scope={@sajari/react-components,@sajari/react-hooks,@sajari/react-sdk,sajari-react-sdk-utils}",
     "test": "lerna exec --scope={@sajari/react-components,@sajari/react-hooks,@sajari/react-sdk} -- yarn test",
-    "test:ci": "lerna exec --scope={@sajari/react-components,@sajari/react-hooks,@sajari/react-sdk} -- yarn test:ci",
-    "build": "lerna run build --scope={@sajari/react-components,@sajari/react-hooks,@sajari/react-sdk}",
+    "test:ci": "lerna exec --scope={@sajari/react-components,@sajari/react-hooks,@sajari/react-sdk,sajari-react-sdk-utils} -- yarn test:ci",
+    "build": "lerna run build --scope={@sajari/react-components,@sajari/react-hooks,@sajari/react-sdk,sajari-react-sdk-utils}",
     "prepublish": "lerna run prepublish",
     "docs": "lerna exec --scope=sajari-sdk-docs -- yarn dev",
     "build:docs": "lerna exec --scope=sajari-sdk-docs -- yarn build",
