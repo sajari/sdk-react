@@ -25,7 +25,7 @@ const useButtonStyles = ({
   );
 
   if (!isLink) {
-    styles.push(tw`font-medium select-none`);
+    styles.push(tw`font-medium select-none rounded-md`);
   }
 
   styles.push(fullWidth ? tw`flex` : tw`inline-flex`);
