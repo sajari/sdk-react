@@ -19,7 +19,9 @@ const Button = React.forwardRef((props: ButtonProps, ref?: React.Ref<HTMLElement
     spacing = 'default',
     disabled,
     fullWidth = false,
+    onClick,
     children,
+    ...rest
   } = props;
 
   const [focused, setFocused] = React.useState(false);
@@ -27,7 +29,10 @@ const Button = React.forwardRef((props: ButtonProps, ref?: React.Ref<HTMLElement
   const buttonRef = useRef<HTMLElement | null>(null);
   const ownRef = mergeRefs(buttonRef, ref);
 
-  const { buttonProps, isPressed: pressed } = useButton({ ...props, isDisabled: disabled, elementType: as }, buttonRef);
+  const { buttonProps, isPressed: pressed } = useButton(
+    { ...rest, isDisabled: disabled, elementType: as, onPress: onClick },
+    buttonRef,
+  );
   const { hoverProps, isHovered: hovered } = useHover({
     isDisabled: disabled,
   });

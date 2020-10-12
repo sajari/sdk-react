@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import tw from 'twin.macro';
 import Box from '../Box';
 
-import { __DEV__ } from '../utils/assersion';
+import { __DEV__ } from '../utils/assertion';
 import { ImageProps } from './types';
 
 // TODO: Handle load failed fallback

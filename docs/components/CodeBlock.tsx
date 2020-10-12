@@ -19,10 +19,6 @@ import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import * as ReactTable from 'react-table';
 import resolveConfig from 'tailwindcss/resolveConfig';
 
-import LoremIpsum from './LoremIpsum';
-import makeData from './make-data';
-import snippets from './snippets';
-
 const { theme } = resolveConfig(tailwindConfig);
 
 export const liveEditorStyle = {
@@ -103,9 +99,6 @@ const CodeBlock = (props: CodeBlockProps) => {
       ...ReactHooks,
       ...ReactSDK,
       mdx,
-      LoremIpsum,
-      snippets,
-      makeData,
       ReactTable,
     },
     noInline: manual,

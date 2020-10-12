@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React from 'react';
-import { __DEV__ } from '../utils/assersion';
+import { __DEV__ } from '../utils/assertion';
 import { LabelProps } from './types';
 import useLabelStyles from './styles';
 

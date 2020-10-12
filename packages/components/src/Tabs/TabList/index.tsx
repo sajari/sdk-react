@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import React, { cloneElement, useRef } from 'react';
 
-import { __DEV__ } from '../../utils/assersion';
+import { __DEV__ } from '../../utils/assertion';
 import { cleanChildren } from '../../utils/react-helpers';
 import Box from '../../Box';
 import { useTabContext } from '../context';

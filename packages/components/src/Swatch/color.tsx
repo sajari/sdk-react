@@ -7,7 +7,7 @@ import { useToggleState } from '@react-stately/toggle';
 import React from 'react';
 import tw, { styled, ThemeStyle } from 'twin.macro';
 import { Check } from '../asset/icons';
-import { __DEV__ } from '../utils/assersion';
+import { __DEV__ } from '../utils/assertion';
 import Box from '../Box';
 import { colors } from './colors';
 import { useSwatch } from './context';

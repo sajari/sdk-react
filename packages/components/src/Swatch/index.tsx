@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import tw from 'twin.macro';
-import { __DEV__ } from '../utils/assersion';
+import { __DEV__ } from '../utils/assertion';
 import Box from '../Box';
 import { Color } from './color';
 import { SwatchProvider } from './context';
