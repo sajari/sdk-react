@@ -13,6 +13,6 @@
     "preserveConstEnums": true,
     "sourceMap": true,
     "lib": ["dom", "esnext"],
-    "types": ["jest", "node"]
+    "types": ["jest", "node", "@types/testing-library__jest-dom"]
   }
 }
