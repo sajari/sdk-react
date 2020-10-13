@@ -6,7 +6,7 @@ import { useSwitch } from '@react-aria/switch';
 import { useToggleState } from '@react-stately/toggle';
 import React from 'react';
 import tw, { styled, ThemeStyle } from 'twin.macro';
-import { Check } from '../asset/icons';
+import { Check } from '../assets/icons';
 import { __DEV__ } from '../utils/assertion';
 import Box from '../Box';
 import { colors } from './colors';
@@ -21,8 +21,8 @@ const StyledLabel = styled.label<{
 }>`
   ${({ focus }) =>
     focus
-      ? tw`flex items-center justify-center rounded-full w-8 h-8 border border-solid shadow-outline`
-      : tw`flex items-center justify-center rounded-full w-8 h-8 border border-solid shadow-none`};
+      ? tw`flex items-center justify-center w-8 h-8 border border-solid rounded-full shadow-outline`
+      : tw`flex items-center justify-center w-8 h-8 border border-solid rounded-full shadow-none`};
   color: ${({ textColor }) => textColor};
   background-color: ${({ bg }) => bg};
   border-color: ${({ border }) => border};
@@ -55,7 +55,7 @@ export const Color = ({ id, bg, color, border = bg }: ColorProps) => {
         {id}
       </Box>
       <Box as="input" css={tw`sr-only`} {...inputProps} {...focusProps} ref={ref} />
-      <Check css={tempState.isSelected ? tw`fill-current opacity-100` : tw`fill-current opacity-0`} />
+      <Check css={tempState.isSelected ? tw`opacity-100 fill-current` : tw`opacity-0 fill-current`} />
     </StyledLabel>
   );
 };
