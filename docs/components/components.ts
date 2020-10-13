@@ -1,4 +1,14 @@
-const coreComponents = ['Button', 'ButtonGroup', 'Checkbox', 'Image', 'PoweredBy', 'Radio', 'Swatch', 'Tabs'].sort();
+const coreComponents = [
+  'Button',
+  'ButtonGroup',
+  'Checkbox',
+  'Image',
+  'PoweredBy',
+  'Radio',
+  'Swatch',
+  'Text',
+  'Tabs',
+].sort();
 const searchComponents = [
   'Filter',
   'PageSize',

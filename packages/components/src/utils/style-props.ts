@@ -1,5 +1,5 @@
-import tw, { TwStyle } from "twin.macro";
-import { isNumber } from "../utils/assertion";
+import tw, { TwStyle } from 'twin.macro';
+import { isNumber } from './assertion';
 
 export function mapTruncateValue(truncate: boolean | 2 | 3 | 4 | 5): TwStyle {
   if (truncate === true) {
