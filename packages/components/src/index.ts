@@ -6,6 +6,7 @@ export { default as Radio } from './Radio';
 export { default as RadioGroup } from './RadioGroup';
 export { default as Tabs } from './Tabs';
 export * from './Tabs';
+export { default as Select } from './Select';
 export { default as Swatch } from './Swatch';
 export { default as Image } from './Image';
 export { default as ThemeProvider } from './styles/theming';
