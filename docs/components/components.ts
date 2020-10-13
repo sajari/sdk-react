@@ -9,6 +9,7 @@ const coreComponents = [
   'Swatch',
   'Text',
   'Tabs',
+  'Pagination',
 ].sort();
 const searchComponents = [
   'Filter',

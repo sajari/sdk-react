@@ -2,8 +2,8 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 import tw from 'twin.macro';
-import { ChevronLeft, ChevronRight } from '../../asset/icons';
-import { clamp } from '../../utils/number';
+import { ChevronLeft, ChevronRight } from '../assets/icons';
+import { clamp } from '../utils/number';
 import Box from '../Box';
 import Button from '../Button';
 import ButtonGroup from '../ButtonGroup';
@@ -41,12 +41,12 @@ const getButtons = (page: number, pageCount: number, onChange: (page: number) =>
     }
   }
 
-  return items.map((item, index) => {
+  return items.map((item) => {
     if (item === null) {
       return (
         <Box
           as="span"
-          key={`spacer-${index}`}
+          key="spacer-ellipsis"
           css={tw`focus:z-10 px-2 py-2 bg-gray-50 rounded-none border-solid border border-gray-200 select-none`}
         >
           &hellip;
@@ -63,7 +63,7 @@ const getButtons = (page: number, pageCount: number, onChange: (page: number) =>
         appearance={active ? 'primary' : undefined}
         aria-current={active ? 'page' : undefined}
         aria-label={`Page ${number}${active ? ', current page' : ''}`}
-        onPress={() => onChange && onChange(number)}
+        onClick={() => onChange && onChange(number)}
       >
         {number}
       </Button>
@@ -99,25 +99,15 @@ const Pagination = (props: PaginationProps) => {
   };
 
   return (
-    <ButtonGroup as="nav" aria-label="Pagination" attached={true}>
-      <Button
-        disabled={!hasPrevious}
-        onPress={() => (hasPrevious ? changeHandler(page - 1) : {})}
-        icon="chevron-left"
-        label="Previous"
-      >
+    <ButtonGroup as="nav" aria-label="Pagination" attached>
+      <Button disabled={!hasPrevious} onClick={() => (hasPrevious ? changeHandler(page - 1) : {})} label="Previous">
         &#8203;
         <ChevronLeft />
       </Button>
 
       {getButtons(page, pageCount, changeHandler)}
 
-      <Button
-        disabled={!hasNext}
-        onPress={() => (hasNext ? changeHandler(page + 1) : {})}
-        icon="chevron-right"
-        label="Next"
-      >
+      <Button disabled={!hasNext} onClick={() => (hasNext ? changeHandler(page + 1) : {})} label="Next">
         &#8203;
         <ChevronRight />
       </Button>
