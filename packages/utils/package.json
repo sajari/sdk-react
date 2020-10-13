@@ -1,0 +1,32 @@
+{
+  "name": "sajari-react-sdk-utils",
+  "version": "0.0.0",
+  "description": "TBD",
+  "repository": {
+    "type": "git",
+    "directory": "packages/utils"
+  },
+  "scripts": {
+    "start": "tsdx watch --tsconfig tsconfig.build.json --tsdxconfig --verbose --noClean",
+    "build": "tsdx build --tsconfig tsconfig.build.json",
+    "test": "jest",
+    "test:ci": "jest --env=jsdom --coverage --watchAll=false --maxWorkers=2",
+    "prepublish": "yarn build"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "README.md",
+    "dist"
+  ],
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

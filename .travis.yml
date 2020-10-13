@@ -1,6 +1,7 @@
 language: node_js
-node_js:
-  - "10"
-before_install:
-  - curl -o- -L https://yarnpkg.com/install.sh | bash
-  - export PATH="$HOME/.yarn/bin:$PATH"
+node_js: node
+cache: yarn
+jobs:
+  include:
+    - stage: Test
+      script: yarn test:ci

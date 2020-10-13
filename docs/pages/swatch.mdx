@@ -1,0 +1,49 @@
+import SEO from '../components/SEO';
+
+<SEO title="Checkbox" description="TBD." />
+
+# Checkbox
+
+TBD
+
+```js
+import { Swatch } from '@sajari/react-components';
+```
+
+## Usage
+
+```jsx
+function BasicUsage() {
+  const [checkedColors, setCheckedColors] = React.useState([]);
+  return (
+    <>
+      <Swatch checkedColors={checkedColors} onChange={setCheckedColors}>
+        <Swatch.Color.White />
+        <Swatch.Color.Silver />
+        <Swatch.Color.Black />
+        <Swatch.Color.Pink />
+        <Swatch.Color.Magenta />
+        <Swatch.Color.Red />
+        <Swatch.Color.Beige />
+        <Swatch.Color.Orange />
+        <Swatch.Color.Brown />
+        <Swatch.Color.Yellow />
+        <Swatch.Color.Green />
+        <Swatch.Color.Azure />
+        <Swatch.Color.Aqua />
+        <Swatch.Color.Teal />
+        <Swatch.Color.Turquoise />
+        <Swatch.Color.Blue />
+        <Swatch.Color.ElectricBlue />
+        <Swatch.Color.Lilac />
+        <Swatch.Color.Purple />
+        <Swatch.Color.Violet />
+      </Swatch>
+    </>
+  );
+}
+```
+
+## Props
+
+### Checkbox Props

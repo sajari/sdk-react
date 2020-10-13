@@ -1,0 +1,162 @@
+import SEO from '../components/SEO';
+
+<SEO title="Tabs" description="An accessible Tabs component for your application" />
+
+# Tabs
+
+An accessible tabs component.
+
+The `Tab` and `TabPanel` elements are associated by their order in the tree.
+None of the components are empty wrappers, each is associated with a real DOM
+element in the document, giving you maximum control over styling and
+composition.
+
+```js
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@sajari/react-components';
+```
+
+## Usage
+
+You can render any element within `Tabs`, but `TabList` should only have `Tab`
+as children, and `TabPanels` should have `TabPanel` as children.
+
+Tabs expects `TabList` and `TabPanels` as children. The order doesn't matter,
+you can have tabs at the top, at the bottom, or both.
+
+```jsx
+<Tabs>
+  <TabList>
+    <Tab>One</Tab>
+    <Tab>Two</Tab>
+    <Tab>Three</Tab>
+  </TabList>
+
+  <TabPanels>
+    <TabPanel>
+      <p>one!</p>
+    </TabPanel>
+    <TabPanel>
+      <p>two!</p>
+    </TabPanel>
+    <TabPanel>
+      <p>three!</p>
+    </TabPanel>
+  </TabPanels>
+</Tabs>
+```
+
+### Change the tabs alignment
+
+You can change the alignment of the `TabList` by passing `align` prop. We
+support 3 sizes `start`, `center`, `end`.
+
+```jsx
+<Tabs align="end">
+  <TabList>
+    <Tab>One</Tab>
+    <Tab>Two</Tab>
+  </TabList>
+  <TabPanels>
+    <TabPanel>
+      <p>one!</p>
+    </TabPanel>
+    <TabPanel>
+      <p>two!</p>
+    </TabPanel>
+  </TabPanels>
+</Tabs>
+```
+
+### Fitted Tabs
+
+Stretch the tab list to fit the container by passing `fitted` prop.
+
+```jsx
+<Tabs fitted>
+  <TabList>
+    <Tab>One</Tab>
+    <Tab>Two</Tab>
+  </TabList>
+  <TabPanels>
+    <TabPanel>
+      <p>one!</p>
+    </TabPanel>
+    <TabPanel>
+      <p>two!</p>
+    </TabPanel>
+  </TabPanels>
+</Tabs>
+```
+
+### Tabs onChange
+
+The `onChange` callback returns the active tab's index whenever the user changes
+tabs. If you intend to control the tabs programmatically, use this with the
+`index` prop.
+
+```jsx
+function Example() {
+  const [tabIndex, setTabIndex] = React.useState(0);
+
+  return (
+    <Tabs onChange={(index) => setTabIndex(index)}>
+      <TabList>
+        <Tab>Red</Tab>
+        <Tab>Green</Tab>
+        <Tab>Blue</Tab>
+      </TabList>
+      <TabPanels>
+        <TabPanel>The Primary Colors</TabPanel>
+        <TabPanel>Are 1, 2, 3</TabPanel>
+        <TabPanel>Red, green and blue.</TabPanel>
+      </TabPanels>
+    </Tabs>
+  );
+}
+```
+
+## Accessibility
+
+### Keyboard
+
+| Key                | Action                                                                     |
+| ------------------ | -------------------------------------------------------------------------- |
+| `ArrowLeft`        | Moves focus to the next tab                                                |
+| `ArrowUp`          | Moves focus to the previous tab                                            |
+| `Tab`              | When focus moves into the tab list, places focus on the active tab element |
+| `Space` or `Enter` | Activates the tab if it was not activated automatically on focus           |
+| `Home`             | Moves focus to the first tab                                               |
+| `End`              | Moves focus to the last tab                                                |
+
+### ARIA roles
+
+| Component | Aria               | Usage                                                                       |
+| --------- | ------------------ | --------------------------------------------------------------------------- |
+| Tab       | `role="tab"`       | Indicates that it's a tab                                                   |
+|           | `aria-selected`    | Set to `true` a tab is selected and all other Tabs have it set to `false`.  |
+|           | `aria-controls`    | Set to the `id` of its associated `TabPanel`                                |
+| TabList   | `id`               | The `id` of the `TabPanel` that's referencd by its associated `Tab`         |
+|           | `aria-orientation` | Set to vertical or horizontal based on the value of the `orientation` prop. |
+|           | `role="tablist"`   | Indicates that it's a tablist                                               |
+|           | `aria-labelledby`  | Set to the `id` of the `Tab` that labels the `TabPanel`.                    |
+
+## Props
+
+### Tabs Props
+
+Tabs composes `Box` so you call pass all `Box` related props.
+
+| Name           | Type                      | Default | Description                                                                                                                     |
+| -------------- | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `onChange`     | `(index: number) => void` |         | The callback to update the active tab index.                                                                                    |
+| `index`        | `number`                  |         | The controlled index of the tabs.                                                                                               |
+| `defaultIndex` | `number`                  |         | The index of the initial active tab.                                                                                            |
+| `manual`       | `boolean`                 |         | If `true`, keyboard navigation changes focus between tabs but doens't activate it. User will have to press `Enter` to active it |
+| `children`     | `React.ReactNode`         |         | The children of the switch.                                                                                                     |
+| `fitted`       | `boolean`                 |         | If `true`, the tabs will stretch to fill the available space                                                                    |
+
+### Tab Props
+
+| Name       | Type      | Default | Description                         |
+| ---------- | --------- | ------- | ----------------------------------- |
+| `disabled` | `boolean` |         | If `true`, the tab will be disabled |
