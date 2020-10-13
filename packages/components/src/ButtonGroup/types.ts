@@ -1,4 +1,5 @@
-import { PropsWithAs } from "../../types/component-as";
+import React from 'react';
+import { PropsWithAs } from '../types/component-as';
 
 export interface Props {
   /** Should the children be attached to each other */
@@ -11,6 +12,6 @@ export interface Props {
   children: React.ReactNode;
 }
 
-export type UseButtonGroupStylesParams = Props["inline"];
+export type UseButtonGroupStylesParams = Pick<Props, 'attached' | 'inline'>;
 
 export type ButtonGroupProps = PropsWithAs<Props>;

@@ -1,28 +1,31 @@
+/* eslint-disable no-nested-ternary */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import React, { cloneElement } from 'react';
 import tw, { styled } from 'twin.macro';
-import { __DEV__ } from '../../utils/assertion';
-import { cleanChildren } from '../../utils/react-helpers';
+import { __DEV__ } from '../utils/assertion';
+import { cleanChildren } from '../utils/react-helpers';
 import Box from '../Box';
 
 import { ButtonGroupProps } from './types';
 import { useButtonGroupStyles } from './useButtonGroupStyles';
 
 // TODO: remove "any"
-const StyledBox = styled<any>(Box)<Pick<ButtonGroupProps, 'attached' | 'inline'>>`
+const StyledBox = styled<any>(Box, { shouldForwardProp: (prop) => prop !== 'attached' && prop !== 'inline' })<
+Pick<ButtonGroupProps, 'attached' | 'inline'>
+>`
   & > * {
-    :first-child {
+    :first-of-type {
       ${(props) =>
-        props.attached ? (props.inline ? tw`rounded-none rounded-l-md` : tw`rounded-none rounded-t-md`) : tw``}
+    (props.attached ? (props.inline ? tw`rounded-none rounded-l-md` : tw`rounded-none rounded-t-md`) : tw``)}
     }
 
-    :last-child {
+    :last-of-type {
       ${(props) =>
-        props.attached ? (props.inline ? tw`rounded-none rounded-r-md` : tw`rounded-none rounded-b-md`) : tw``}
+    (props.attached ? (props.inline ? tw`rounded-none rounded-r-md` : tw`rounded-none rounded-b-md`) : tw``)}
     }
 
-    :not(:last-child):not(:first-child) {
+    :not(:last-of-type):not(:first-of-type) {
       ${(props) => (props.attached ? tw`rounded-none focus:rounded-none` : tw``)};
     }
 
@@ -31,18 +34,18 @@ const StyledBox = styled<any>(Box)<Pick<ButtonGroupProps, 'attached' | 'inline'>
 `;
 
 const ButtonGroup = React.forwardRef((props: ButtonGroupProps, ref?: React.Ref<HTMLDivElement>) => {
-  const { attached, fullWidth, inline = true, children, as = 'div', ...rest } = props;
-  const buttonGroupStyles = useButtonGroupStyles(inline);
+  const { attached = false, fullWidth, inline = true, children, as = 'div', ...rest } = props;
+  const buttonGroupStyles = useButtonGroupStyles({ attached, inline });
   const validChildren = cleanChildren(children);
 
-  const clones = validChildren.map((child, index) => {
-    // TODO: handle case where child is Tooltip
+  const clones = validChildren.map((child) =>
+  // TODO: handle case where child is Tooltip
 
-    return cloneElement(child, {
+    cloneElement(child, {
       fullWidth,
       ...child.props,
-    });
-  });
+    }),
+  );
 
   return (
     <StyledBox attached={attached} inline={inline} as={as} ref={ref} css={buttonGroupStyles} {...rest}>
