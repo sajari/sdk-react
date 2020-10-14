@@ -10,6 +10,7 @@ type DefaultElement = 'div';
 
 const BoxComponent = (props: PropsWithAs<BoxProps, DefaultElement>, ref: React.Ref<HTMLDivElement>) => {
   const { as: Type = 'div', children, ...rest } = props;
+
   return (
     <Type ref={ref} {...rest}>
       {children}

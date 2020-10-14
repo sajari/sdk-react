@@ -38,7 +38,7 @@ const Layout = (props: FlexProps) => {
         <Flex alignItems="items-center">
           <Logomark size="sm" margin="mr-3" />
           <Heading as="h3" size="md">
-            Sajari SDK
+            Sajari React SDK
           </Heading>
         </Flex>
         <Flex alignItems="items-center" space="space-x-2">
@@ -70,7 +70,7 @@ const App = ({ Component, pageProps }: AppProps) => (
     <MDXProvider components={MDXComponents}>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta title="Sajari SDK Design System" />
+        <meta title="Sajari React SDK" />
         <meta name="theme-color" content="#319795" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />

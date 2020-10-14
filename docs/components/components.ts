@@ -1,3 +1,15 @@
-const components = ['Button', 'Checkbox', 'Radio', 'Tabs', 'Swatch', 'Image'].sort();
+const coreComponents = ['Button', 'Checkbox', 'Image', 'PoweredBy', 'Radio', 'Swatch', 'Tabs'].sort();
+const searchComponents = [
+  'Filter',
+  'PageSize',
+  'Pagination',
 
-export default components;
+  'Result',
+  'Results',
+  'SearchInput',
+  'Sorting',
+  'ViewType',
+].sort();
+const hooks = ['useFilter', 'usePageSize', 'usePagination', 'useQuery', 'useSorting'].sort();
+
+export { coreComponents, searchComponents, hooks };

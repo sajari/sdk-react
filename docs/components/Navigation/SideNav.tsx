@@ -1,23 +1,10 @@
 import { Box, BoxProps, Heading, HeadingProps } from '@sajari-ui/core';
 import React from 'react';
 
-import components from '../components';
+import { coreComponents, searchComponents, hooks } from '../components';
 import { SideNavLink, stringToUrl } from './NavLink';
 
-const topNavLinks = [['Getting Started', '/'], ['Examples']];
-
-const hooksNavLinks = ['useQuery', 'usePagination', 'useFilter', 'useSorting', 'usePageSize'];
-
-const compositionsLinks = [
-  'SearchInput',
-  'Result',
-  'Results',
-  'Pagination',
-  'Filter',
-  'Sorting',
-  'PageSize',
-  'ViewType',
-];
+const topNavLinks = [['Getting Started', '/'], ['Components'], ['Hooks'], ['Search UI']];
 
 const NavGroupHeading = (props: HeadingProps) => <Heading size="xs" as="h2" margin="mb-2" {...props} />;
 
@@ -34,7 +21,7 @@ export const SideNavContent = () => (
     <Box margin="mb-10">
       <NavGroupHeading>Components</NavGroupHeading>
 
-      {components.map((link) => (
+      {coreComponents.map((link) => (
         <SideNavLink key={link} href={stringToUrl(link)}>
           {link}
         </SideNavLink>
@@ -44,7 +31,7 @@ export const SideNavContent = () => (
     <Box margin="mb-10">
       <NavGroupHeading>Hooks</NavGroupHeading>
 
-      {hooksNavLinks.map((link) => (
+      {hooks.map((link) => (
         <SideNavLink key={link} href={stringToUrl(link)}>
           {link}
         </SideNavLink>
@@ -52,9 +39,9 @@ export const SideNavContent = () => (
     </Box>
 
     <Box margin="mb-10">
-      <NavGroupHeading>Compositions</NavGroupHeading>
+      <NavGroupHeading>Search UI</NavGroupHeading>
 
-      {compositionsLinks.map((link) => (
+      {searchComponents.map((link) => (
         <SideNavLink key={link} href={stringToUrl(link)}>
           {link}
         </SideNavLink>
