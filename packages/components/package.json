@@ -29,18 +29,18 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@emotion/core": "^10.0.10",
-    "@emotion/styled": "^10.0.10",
-    "emotion-theming": "^10.0.10",
-    "tailwindcss": "^1.8.10",
-    "twin.macro": "^1.9.0"
+    "@emotion/core": "^10.0.35",
+    "@emotion/styled": "^10.0.27",
+    "emotion-theming": "^10.0.27",
+    "tailwindcss": "^1.9.0",
+    "twin.macro": "^1.10.0"
   },
   "dependencies": {
     "@reach/auto-id": "^0.11.2",
     "@react-aria/button": "^3.2.2",
     "@react-aria/switch": "^3.1.1",
     "@react-types/button": "^3.2.1",
-    "tslib": "^2.0.0",
+    "tslib": "^2.0.3",
     "sajari-react-sdk-utils": "^0.0.0"
   },
   "publishConfig": {
