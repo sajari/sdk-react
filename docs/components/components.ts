@@ -11,6 +11,7 @@ const coreComponents = [
   'Text',
   'TextInput',
   'Tabs',
+  'Pagination',
 ].sort();
 const searchComponents = [
   'Filter',

@@ -12,17 +12,17 @@ import { useButtonGroupStyles } from './useButtonGroupStyles';
 
 // TODO: remove "any"
 const StyledBox = styled<any>(Box, { shouldForwardProp: (prop) => prop !== 'attached' && prop !== 'inline' })<
-Pick<ButtonGroupProps, 'attached' | 'inline'>
+  Pick<ButtonGroupProps, 'attached' | 'inline'>
 >`
   & > * {
     :first-of-type {
       ${(props) =>
-    (props.attached ? (props.inline ? tw`rounded-none rounded-l-md` : tw`rounded-none rounded-t-md`) : tw``)}
+        props.attached ? (props.inline ? tw`rounded-none rounded-l-md` : tw`rounded-none rounded-t-md`) : tw``}
     }
 
     :last-of-type {
       ${(props) =>
-    (props.attached ? (props.inline ? tw`rounded-none rounded-r-md` : tw`rounded-none rounded-b-md`) : tw``)}
+        props.attached ? (props.inline ? tw`rounded-none rounded-r-md` : tw`rounded-none rounded-b-md`) : tw``}
     }
 
     :not(:last-of-type):not(:first-of-type) {
@@ -39,7 +39,7 @@ const ButtonGroup = React.forwardRef((props: ButtonGroupProps, ref?: React.Ref<H
   const validChildren = cleanChildren(children);
 
   const clones = validChildren.map((child) =>
-  // TODO: handle case where child is Tooltip
+    // TODO: handle case where child is Tooltip
 
     cloneElement(child, {
       fullWidth,
