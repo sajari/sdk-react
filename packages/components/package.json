@@ -40,8 +40,9 @@
     "@react-aria/button": "^3.2.2",
     "@react-aria/switch": "^3.1.1",
     "@react-types/button": "^3.2.1",
-    "tslib": "^2.0.3",
-    "sajari-react-sdk-utils": "^0.0.0"
+    "sajari-react-sdk-utils": "^0.0.0",
+    "tailwindcss-truncate-multiline": "^1.0.3",
+    "tslib": "^2.0.3"
   },
   "publishConfig": {
     "access": "public"

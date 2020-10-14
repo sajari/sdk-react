@@ -1,4 +1,5 @@
 const tailwindUI = require('@tailwindcss/ui');
+const truncateMultiLine = require("tailwindcss-truncate-multiline")();
 
 module.exports = {
   future: {
@@ -7,8 +8,20 @@ module.exports = {
   },
   purge: [],
   theme: {
-    extend: {},
+    truncate: {
+      lines: {
+        2: '2',
+        3: '3',
+        4: '4',
+        5: '5',
+      }
+    },
+    extend: {
+      fontSize: {
+        'code-inline': '0.9375em',
+      }
+    }
   },
   variants: {},
-  plugins: [tailwindUI],
+  plugins: [tailwindUI, truncateMultiLine],
 };

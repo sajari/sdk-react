@@ -4,6 +4,10 @@ export function isArray<T>(value: any): value is T[] {
   return Array.isArray(value);
 }
 
+export function isNumber(value: any): value is number {
+  return typeof value === 'number';
+}
+
 export const isEmptyArray = (value: any) => isArray(value) && value.length === 0;
 
 export const isObject = (value: any) => {

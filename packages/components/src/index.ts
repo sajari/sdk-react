@@ -1,4 +1,5 @@
 export { default as Button } from './Button';
+export { default as ButtonGroup } from './ButtonGroup';
 export { default as Checkbox } from './Checkbox';
 export { default as CheckboxGroup } from './CheckboxGroup';
 export { default as PoweredBy } from './PoweredBy';
@@ -8,5 +9,7 @@ export { default as Tabs } from './Tabs';
 export * from './Tabs';
 export { default as Select } from './Select';
 export { default as Swatch } from './Swatch';
+export { default as Rating } from './Rating';
 export { default as Image } from './Image';
+export { default as Text } from './Text';
 export { default as ThemeProvider } from './styles/theming';
