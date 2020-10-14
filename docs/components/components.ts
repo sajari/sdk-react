@@ -6,8 +6,10 @@ const coreComponents = [
   'PoweredBy',
   'Radio',
   'Rating',
+  'Select',
   'Swatch',
   'Text',
+  'TextInput',
   'Tabs',
   'Pagination',
 ].sort();

@@ -62,5 +62,9 @@ export default function useInputStyles(props: UseInputStyleProps) {
     styles.push(`background-color: ${theme.color.primary.base};`);
   }
 
+  if (type === 'select') {
+    styles.push(tw`rounded-md py-2 px-10 pl-3`);
+  }
+
   return css(styles);
 }
