@@ -1,5 +1,5 @@
 import 'twin.macro';
-import styledImport from '../styles/styled';
+import { styled as styledImport } from 'sajari-react-sdk-styles';
 
 declare module 'twin.macro' {
   const styled: typeof styledImport;

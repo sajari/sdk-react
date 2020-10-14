@@ -1,10 +1,11 @@
 {
-  "name": "@sajari/react-components",
+  "name": "sajari-react-sdk-styles",
   "version": "0.0.0",
+  "private": true,
   "description": "TBD",
   "repository": {
     "type": "git",
-    "directory": "packages/components"
+    "directory": "packages/styles"
   },
   "scripts": {
     "start": "tsdx watch --tsconfig tsconfig.build.json --tsdxconfig --verbose --noClean",
@@ -22,23 +23,19 @@
   ],
   "peerDependencies": {
     "react": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "@emotion/core": "> 10",
+    "@emotion/styled": "> 10",
+    "@tailwindcss/ui": "^0.6.2",
+    "emotion-theming": "> 10"
   },
   "devDependencies": {
-    "tailwindcss": "^1.9.0",
-    "twin.macro": "^1.10.0"
+    "@emotion/core": "^10.0.35",
+    "@emotion/styled": "^10.0.27",
+    "emotion-theming": "^10.0.27",
+    "tailwindcss-truncate-multiline": "^1.0.3",
+    "tailwindcss": "^1.9.0"
   },
   "dependencies": {
-    "@reach/auto-id": "^0.11.2",
-    "@react-aria/button": "^3.2.2",
-    "@react-aria/switch": "^3.1.1",
-    "@react-types/button": "^3.2.1",
-    "sajari-react-sdk-utils": "^0.0.0",
-    "sajari-react-sdk-styles": "^0.0.0",
-    "tailwindcss-truncate-multiline": "^1.0.3",
-    "tslib": "^2.0.3"
-  },
-  "publishConfig": {
-    "access": "public"
+    "tslib": "^2.0.0"
   }
 }

@@ -2,6 +2,7 @@
 **/build/**
 **/dist/**
 .eslintrc.js
+tailwind.config.js
 jest-preprocess.js
 jest.config.js
 tsdx.config.js
