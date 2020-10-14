@@ -5,6 +5,7 @@ const coreComponents = [
   'Image',
   'PoweredBy',
   'Radio',
+  'Rating',
   'Swatch',
   'Text',
   'Tabs',
