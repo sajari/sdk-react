@@ -9,4 +9,5 @@ export { default as Tabs } from './Tabs';
 export * from './Tabs';
 export { default as Swatch } from './Swatch';
 export { default as Image } from './Image';
+export { default as Text } from './Text';
 export { default as ThemeProvider } from './styles/theming';
