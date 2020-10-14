@@ -7,4 +7,4 @@ import Search from './search.svg';
 import Spinner from './spinner.svg';
 import Star from './small-star.svg';
 
-export { Check, Star, ChevronLeft, ChevronRight, EmptyMic, Mic, Search, Spinner, Star };
+export { Check, ChevronLeft, ChevronRight, EmptyMic, Mic, Search, Spinner, Star };
