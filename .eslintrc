@@ -10,7 +10,9 @@
         "packages/sdk/src/**/**/*.ts",
         "packages/sdk/src/**/**/*.tsx",
         "packages/utils/src/**/**/*.ts",
-        "packages/utils/src/**/**/*.tsx"
+        "packages/utils/src/**/**/*.tsx",
+        "packages/styles/src/**/**/*.ts",
+        "packages/styles/src/**/**/*.tsx"
       ],
       "rules": {
         "import/no-extraneous-dependencies": "off",
