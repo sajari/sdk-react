@@ -9,6 +9,7 @@ const coreComponents = [
   'Select',
   'Swatch',
   'Text',
+  'TextInput',
   'Tabs',
 ].sort();
 const searchComponents = [

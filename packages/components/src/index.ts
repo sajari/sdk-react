@@ -12,4 +12,5 @@ export { default as Swatch } from './Swatch';
 export { default as Rating } from './Rating';
 export { default as Image } from './Image';
 export { default as Text } from './Text';
+export { default as TextInput } from './TextInput';
 export { default as ThemeProvider } from './styles/theming';
