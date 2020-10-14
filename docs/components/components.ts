@@ -6,6 +6,7 @@ const coreComponents = [
   'PoweredBy',
   'Radio',
   'Rating',
+  'Select',
   'Swatch',
   'Text',
   'Tabs',
