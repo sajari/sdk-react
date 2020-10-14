@@ -5,8 +5,9 @@ const coreComponents = [
   'Image',
   'PoweredBy',
   'Radio',
-  'Swatch',
   'Rating',
+  'Swatch',
+  'Text',
   'Tabs',
 ].sort();
 const searchComponents = [
