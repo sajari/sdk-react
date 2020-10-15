@@ -4,8 +4,8 @@ import React from 'react';
 
 import Box from '../Box';
 import { __DEV__ } from '../utils/assertion';
+import useTextStyles from './styles';
 import { Props as TextProps } from './types';
-import useTextStyles from './useTextStyles';
 
 const Text = React.forwardRef((props: TextProps, ref?: React.Ref<HTMLElement>) => {
   const { as = 'p', truncate, ...rest } = props;

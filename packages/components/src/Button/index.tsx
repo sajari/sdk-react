@@ -7,8 +7,8 @@ import React, { useRef } from 'react';
 
 import Box from '../Box';
 import { mergeRefs } from '../utils/react-helpers';
+import useButtonStyles from './styles';
 import { ButtonProps } from './types';
-import useButtonStyles from './useButtonStyles';
 
 const Button = React.forwardRef((props: ButtonProps, ref?: React.Ref<HTMLElement>) => {
   const {

@@ -5,7 +5,7 @@ import tw from 'twin.macro';
 import { UseButtonGroupStylesParams } from './types';
 
 export function useButtonGroupStyles({ attached, inline }: UseButtonGroupStylesParams) {
-  const styles = [tw`inline-flex items-center`];
+  const styles = [tw`inline-flex`, !attached ? tw`items-center` : undefined];
 
   styles.push(inline ? tw`flex-row space-x-4` : tw`flex-col space-y-2`);
 

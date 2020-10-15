@@ -12,7 +12,7 @@ import { SelectProps } from './types';
 
 const Select = React.forwardRef((props: SelectProps, ref?: React.Ref<HTMLSelectElement>) => {
   const { id = `select-${useId()}`, children, disabled, invalid, placeholder, label, ...rest } = props;
-  const styleProps = useInputStyle({ block: true, type: 'select', ...props } as UseInputStyleProps);
+  const styles = useInputStyle({ block: true, type: 'select', ...props } as UseInputStyleProps);
 
   return (
     <React.Fragment>
@@ -29,7 +29,7 @@ const Select = React.forwardRef((props: SelectProps, ref?: React.Ref<HTMLSelectE
         dir="auto"
         disabled={disabled}
         aria-invalid={invalid}
-        css={[tw`form-select`, styleProps]}
+        css={[tw`form-select`, styles]}
         {...rest}
       >
         {placeholder && <option value="">{placeholder}</option>}

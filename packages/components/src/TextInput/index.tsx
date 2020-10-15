@@ -16,12 +16,13 @@ const StyledIconContainer = styled.div<{
   left?: boolean;
   showCancel?: boolean;
 }>`
+  ${tw`text-gray-500`}
   ${({ left = false, showCancel = false }) =>
     left
-      ? tw`flex absolute inset-y-0 left-0 items-center pl-4`
+      ? tw`absolute inset-y-0 left-0 flex items-center pl-4`
       : showCancel
-      ? tw`flex absolute inset-y-0 right-0 items-center pr-8`
-      : tw`flex absolute inset-y-0 right-0 items-center pr-4`}
+      ? tw`absolute inset-y-0 right-0 flex items-center pr-8`
+      : tw`absolute inset-y-0 right-0 flex items-center pr-4`}
 `;
 
 const TextInput = React.forwardRef(
@@ -45,6 +46,7 @@ const TextInput = React.forwardRef(
     const styles = useInputStyles({ block: true, type: 'text' });
 
     React.useEffect(() => setShowCancel(value ? value !== '' : false), [value]);
+
     return (
       <Box css={tw`relative w-full`}>
         {label && (
@@ -61,7 +63,7 @@ const TextInput = React.forwardRef(
           as="input"
           type="search"
           dir="auto"
-          css={styles}
+          css={[tw`form-input`, styles]}
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             onChange(e);
             if (!value) {
@@ -92,5 +94,6 @@ const TextInput = React.forwardRef(
 if (__DEV__) {
   TextInput.displayName = 'TextInput';
 }
+
 export default TextInput;
 export type { TextInputProps };

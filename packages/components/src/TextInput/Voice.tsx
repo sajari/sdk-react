@@ -7,7 +7,11 @@ import useVoiceInput from '../hooks/use-voice-input';
 import { VoiceProps } from './types';
 
 export const Voice = ({ children, onVoiceInput }: VoiceProps) => {
-  const { active, start } = useVoiceInput(onVoiceInput);
+  const { active, start, supported } = useVoiceInput(onVoiceInput);
+
+  if (!supported) {
+    return null;
+  }
 
   if (children && typeof children === 'function') {
     return children({ onClick: start, active });
@@ -16,7 +20,7 @@ export const Voice = ({ children, onVoiceInput }: VoiceProps) => {
   return (
     <Box
       as="button"
-      css={tw`bg-transparent shadow-none border-0 cursor-pointer`}
+      css={tw`bg-transparent border-0 shadow-none cursor-pointer`}
       onClick={start}
       aria-label="Search by voice"
     >

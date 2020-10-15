@@ -48,7 +48,7 @@ const getButtons = (page: number, pageCount: number, onChange: (page: number) =>
         <Box
           as="span"
           key="spacer-ellipsis"
-          css={tw`focus:z-10 px-2 py-2 bg-gray-50 rounded-none border-solid border border-gray-200 select-none`}
+          css={tw`px-2 py-2 border border-gray-200 border-solid rounded-none select-none focus:z-10 bg-gray-50`}
         >
           &hellip;
         </Box>
@@ -101,14 +101,24 @@ const Pagination = (props: PaginationProps) => {
 
   return (
     <ButtonGroup as="nav" aria-label="Pagination" attached>
-      <Button disabled={!hasPrevious} onClick={() => (hasPrevious ? changeHandler(page - 1) : {})} label="Previous">
+      <Button
+        spacing="compact"
+        disabled={!hasPrevious}
+        onClick={() => (hasPrevious ? changeHandler(page - 1) : {})}
+        label="Previous"
+      >
         &#8203;
         <ChevronLeft />
       </Button>
 
       {getButtons(page, pageCount, changeHandler)}
 
-      <Button disabled={!hasNext} onClick={() => (hasNext ? changeHandler(page + 1) : {})} label="Next">
+      <Button
+        spacing="compact"
+        disabled={!hasNext}
+        onClick={() => (hasNext ? changeHandler(page + 1) : {})}
+        label="Next"
+      >
         &#8203;
         <ChevronRight />
       </Button>
