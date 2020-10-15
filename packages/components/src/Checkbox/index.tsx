@@ -3,9 +3,10 @@ import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
 import React from 'react';
 import tw from 'twin.macro';
+
 import useInputStyle, { UseInputStyleProps } from '../hooks/use-input-styles';
-import { __DEV__ } from '../utils/assertion';
 import Label from '../Label';
+import { __DEV__ } from '../utils/assertion';
 import { CheckboxProps } from './types';
 
 const Checkbox = React.forwardRef((props: CheckboxProps, ref?: React.Ref<HTMLInputElement>) => {

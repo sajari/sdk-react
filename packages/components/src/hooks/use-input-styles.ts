@@ -1,6 +1,6 @@
 import { css } from '@emotion/core';
-import tw, { TwStyle } from 'twin.macro';
 import { useTheme } from 'sajari-react-sdk-styles';
+import tw, { TwStyle } from 'twin.macro';
 
 export interface UseInputStyleProps {
   disabled?: boolean;
@@ -14,7 +14,6 @@ export interface UseInputStyleProps {
 export default function useInputStyles(props: UseInputStyleProps) {
   const { block, disabled, indeterminate, invalid, readOnly, type } = props;
   const theme = useTheme();
-
   const styles: (TwStyle | string)[] = [];
 
   styles.push(

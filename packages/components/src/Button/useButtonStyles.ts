@@ -1,6 +1,7 @@
 import { css } from '@emotion/core';
-import tw, { TwStyle } from 'twin.macro';
 import { useTheme } from 'sajari-react-sdk-styles';
+import tw, { TwStyle } from 'twin.macro';
+
 import { ButtonProps } from './types';
 
 const useButtonStyles = ({
@@ -15,9 +16,7 @@ const useButtonStyles = ({
   hovered,
 }: ButtonProps & { pressed: boolean; hovered: boolean; focused: boolean }) => {
   const theme = useTheme();
-
   const isLink = (['link', 'subtle-link'] as Array<ButtonProps['apperance']>).includes(appearance);
-
   const styles: (string | TwStyle)[] = [];
 
   styles.push(

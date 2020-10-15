@@ -1,4 +1,5 @@
 import { theme } from 'twin.macro';
+
 import { ColorProps } from './types';
 
 export const colors: ColorProps[] = [

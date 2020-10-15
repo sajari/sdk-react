@@ -1,8 +1,8 @@
 import React, { cloneElement } from 'react';
 
+import Box from '../../Box';
 import { __DEV__ } from '../../utils/assertion';
 import { cleanChildren } from '../../utils/react-helpers';
-import Box from '../../Box';
 import { useTabContext } from '../context';
 import { TabPanelsProps } from './types';
 

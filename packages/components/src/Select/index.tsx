@@ -3,12 +3,12 @@ import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
 import React from 'react';
 import tw from 'twin.macro';
-import { __DEV__ } from '../utils/assertion';
 
+import Box from '../Box';
 import useInputStyle, { UseInputStyleProps } from '../hooks/use-input-styles';
 import Label from '../Label';
+import { __DEV__ } from '../utils/assertion';
 import { SelectProps } from './types';
-import Box from '../Box';
 
 const Select = React.forwardRef((props: SelectProps, ref?: React.Ref<HTMLSelectElement>) => {
   const { id = `select-${useId()}`, children, disabled, invalid, placeholder, label, ...rest } = props;

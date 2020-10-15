@@ -4,8 +4,9 @@ import { useButton } from '@react-aria/button';
 import { useFocus, useHover } from '@react-aria/interactions';
 import { mergeProps } from '@react-aria/utils';
 import React, { useRef } from 'react';
-import { mergeRefs } from '../utils/react-helpers';
+
 import Box from '../Box';
+import { mergeRefs } from '../utils/react-helpers';
 import { ButtonProps } from './types';
 import useButtonStyles from './useButtonStyles';
 
@@ -25,7 +26,6 @@ const Button = React.forwardRef((props: ButtonProps, ref?: React.Ref<HTMLElement
   } = props;
 
   const [focused, setFocused] = React.useState(false);
-
   const buttonRef = useRef<HTMLElement | null>(null);
   const ownRef = mergeRefs(buttonRef, ref);
 

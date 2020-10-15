@@ -1,9 +1,10 @@
 import React from 'react';
 import tw from 'twin.macro';
-import { VoiceProps } from './types';
-import Box from '../Box';
+
 import { EmptyMic, Mic } from '../assets/icons';
+import Box from '../Box';
 import useVoiceInput from '../hooks/use-voice-input';
+import { VoiceProps } from './types';
 
 export const Voice = ({ children, onVoiceInput }: VoiceProps) => {
   const { active, start } = useVoiceInput(onVoiceInput);

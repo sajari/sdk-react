@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { useQuery } from '@sajari/react-hooks';
+import * as React from 'react';
 
 const SearchInputComposition = () => {
   const { query, setQuery } = useQuery();

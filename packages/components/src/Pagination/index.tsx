@@ -2,11 +2,12 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 import tw from 'twin.macro';
+
 import { ChevronLeft, ChevronRight } from '../assets/icons';
-import { clamp } from '../utils/number';
 import Box from '../Box';
 import Button from '../Button';
 import ButtonGroup from '../ButtonGroup';
+import { clamp } from '../utils/number';
 import { PaginationProps } from './types';
 
 const getButtons = (page: number, pageCount: number, onChange: (page: number) => void) => {

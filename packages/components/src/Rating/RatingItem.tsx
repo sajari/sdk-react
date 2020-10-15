@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 import tw, { styled, theme } from 'twin.macro';
+
 import { InternalRatingItemProps } from './types';
 
 const StyledFirstHalf = styled.div<{ half: boolean; flipped: boolean }>`

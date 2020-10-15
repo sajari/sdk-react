@@ -1,6 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import { css } from '@emotion/core';
 import tw from 'twin.macro';
+
 import { UseButtonGroupStylesParams } from './types';
 
 export function useButtonGroupStyles({ attached, inline }: UseButtonGroupStylesParams) {

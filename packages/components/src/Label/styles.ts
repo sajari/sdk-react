@@ -1,5 +1,6 @@
 import { css } from '@emotion/core';
 import tw, { TwStyle } from 'twin.macro';
+
 import { LabelProps } from './types';
 
 export default function useLabelStyles({ visuallyHidden }: LabelProps) {

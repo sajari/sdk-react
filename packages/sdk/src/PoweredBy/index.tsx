@@ -2,9 +2,10 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 import { __DEV__ } from 'sajari-react-sdk-utils';
-import { PoweredByProps } from './types';
-import usePoweredByStyles from './styles';
+
 import { LogoSajariColor, LogoSajariMono } from '../assets/logos';
+import usePoweredByStyles from './styles';
+import { PoweredByProps } from './types';
 
 const PoweredBy = React.forwardRef((props: PoweredByProps, ref?: React.Ref<HTMLDivElement>) => {
   const styles = usePoweredByStyles(props);

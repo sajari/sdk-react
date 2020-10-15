@@ -3,12 +3,12 @@
 import { jsx } from '@emotion/core';
 import React, { cloneElement } from 'react';
 import tw, { styled } from 'twin.macro';
+
+import Box from '../Box';
 import { __DEV__ } from '../utils/assertion';
 import { cleanChildren } from '../utils/react-helpers';
-import Box from '../Box';
-
-import { ButtonGroupProps } from './types';
 import { useButtonGroupStyles } from './styles';
+import { ButtonGroupProps } from './types';
 
 // TODO: remove "any"
 const StyledBox = styled<any>(Box, { shouldForwardProp: (prop) => prop !== 'attached' && prop !== 'inline' })<

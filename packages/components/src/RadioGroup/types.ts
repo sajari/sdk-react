@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Spacing } from '../hooks/use-spacing';
 
 interface Props {
@@ -12,4 +13,4 @@ interface Props {
 
 export interface RadioGroupProps
   extends Props,
-  Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'> {}
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange' | 'defaultValue'> {}

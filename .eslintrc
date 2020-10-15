@@ -1,5 +1,6 @@
 {
   "extends": ["airbnb-typescript", "prettier"],
+  "plugins": ["simple-import-sort", "import", "prettier"],
   "env": {
     "jest": true,
     "browser": true
@@ -50,6 +51,8 @@
         // Useful feature
         "react/jsx-props-no-spreading": "off",
 
+        "react/react-in-jsx-scope": "off",
+
         // Fix TypeScript extension issues
         // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/imports.js#L139
         // https://stackoverflow.com/questions/59265981/typescript-eslint-missing-file-extension-ts-import-extensions
@@ -69,7 +72,10 @@
         "@typescript-eslint/indent": "off",
 
         // This one is annoying
-        "@typescript-eslint/explicit-function-return-type": "off"
+        "@typescript-eslint/explicit-function-return-type": "off",
+
+        // Dangling commas make merge/diffs easier
+        "@typescript-eslint/comma-dangle": "off"
       }
     }
   ],

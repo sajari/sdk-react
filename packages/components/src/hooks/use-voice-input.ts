@@ -1,5 +1,5 @@
 /* eslint-disable new-cap, no-prototype-builtins */
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export default function useVoiceInput(onResult?: (r: string) => void) {
   const [supported, setSupported] = useState(false);

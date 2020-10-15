@@ -6,9 +6,10 @@ import { useSwitch } from '@react-aria/switch';
 import { useToggleState } from '@react-stately/toggle';
 import React from 'react';
 import tw, { styled, ThemeStyle } from 'twin.macro';
+
 import { Check } from '../assets/icons';
-import { __DEV__ } from '../utils/assertion';
 import Box from '../Box';
+import { __DEV__ } from '../utils/assertion';
 import { colors } from './colors';
 import { useSwatch } from './context';
 import { ColorProps } from './types';

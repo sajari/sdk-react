@@ -3,6 +3,7 @@
 import { jsx } from '@emotion/core';
 import React from 'react';
 import tw, { styled } from 'twin.macro';
+
 import { Star } from '../assets/icons';
 import { __DEV__ } from '../utils/assertion';
 import { toRatingArray } from '../utils/rating';
@@ -11,9 +12,9 @@ import { ItemType, RatingItemProps, RatingProps } from './types';
 
 const StyledBox = styled.div<{ flipped: boolean }>`
   ${({ flipped }) =>
-    (flipped
+    flipped
       ? tw`inline-flex flex-row-reverse items-center space-x-1 space-x-reverse`
-      : tw`inline-flex items-center space-x-1`)};
+      : tw`inline-flex items-center space-x-1`};
 `;
 
 const Rating = React.forwardRef(

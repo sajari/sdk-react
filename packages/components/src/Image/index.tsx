@@ -2,8 +2,8 @@
 import { jsx } from '@emotion/core';
 import React, { useEffect, useRef, useState } from 'react';
 import tw from 'twin.macro';
-import Box from '../Box';
 
+import Box from '../Box';
 import { __DEV__ } from '../utils/assertion';
 import { ImageProps } from './types';
 

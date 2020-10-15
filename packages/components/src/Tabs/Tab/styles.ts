@@ -1,6 +1,7 @@
 import { css } from '@emotion/core';
-import tw, { TwStyle } from 'twin.macro';
 import { useTheme } from 'sajari-react-sdk-styles';
+import tw, { TwStyle } from 'twin.macro';
+
 import { useTabContext } from '../context';
 import { TabProps } from './types';
 
@@ -8,7 +9,6 @@ export default function useTabStyles(props: TabProps) {
   const { selected, disabled } = props;
   const { fitted } = useTabContext();
   const theme = useTheme();
-
   const styles: (TwStyle | string)[] = [];
 
   styles.push(

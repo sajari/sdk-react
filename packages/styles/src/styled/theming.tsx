@@ -1,6 +1,7 @@
 import { CacheProvider } from '@emotion/core';
 import { ThemeProvider as EmotionThemeProvider, useTheme as useEmotionTheme } from 'emotion-theming';
 import * as React from 'react';
+
 import { merge } from '../utils/object';
 import cache from './cache';
 

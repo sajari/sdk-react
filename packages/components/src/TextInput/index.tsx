@@ -4,23 +4,24 @@ import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
 import React, { ChangeEvent } from 'react';
 import tw, { styled } from 'twin.macro';
+
 import { Search, Spinner } from '../assets/icons';
+import Box from '../Box';
 import useInputStyles from '../hooks/use-input-styles';
 import { __DEV__ } from '../utils/assertion';
-import Box from '../Box';
-import { Voice } from './Voice';
 import { TextInputProps } from './types';
+import { Voice } from './Voice';
 
 const StyledIconContainer = styled.div<{
   left?: boolean;
   showCancel?: boolean;
 }>`
   ${({ left = false, showCancel = false }) =>
-    (left
+    left
       ? tw`flex absolute inset-y-0 left-0 items-center pl-4`
       : showCancel
-        ? tw`flex absolute inset-y-0 right-0 items-center pr-8`
-        : tw`flex absolute inset-y-0 right-0 items-center pr-4`)}
+      ? tw`flex absolute inset-y-0 right-0 items-center pr-8`
+      : tw`flex absolute inset-y-0 right-0 items-center pr-4`}
 `;
 
 const TextInput = React.forwardRef(

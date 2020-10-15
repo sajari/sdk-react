@@ -2,9 +2,9 @@
 import { jsx } from '@emotion/core';
 import React, { cloneElement, useRef } from 'react';
 
+import Box from '../../Box';
 import { __DEV__ } from '../../utils/assertion';
 import { cleanChildren } from '../../utils/react-helpers';
-import Box from '../../Box';
 import { useTabContext } from '../context';
 import useTabListStyles from './styles';
 import { TabListProps } from './types';
