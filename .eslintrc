@@ -1,5 +1,9 @@
 {
-  "extends": ["airbnb-typescript"],
+  "extends": ["airbnb-typescript", "prettier"],
+  "env": {
+    "jest": true,
+    "browser": true
+  },
   "overrides": [
     {
       "files": [
@@ -15,24 +19,71 @@
         "packages/styles/src/**/**/*.tsx"
       ],
       "rules": {
-        "import/no-extraneous-dependencies": "off",
+        // Prettier setup
+        "prettier/prettier": "error",
+
+        // Fix up spacing between declarations
+        "padding-line-between-statements": [
+          "error",
+          {
+            "blankLine": "never",
+            "prev": ["singleline-const", "singleline-let", "singleline-var"],
+            "next": ["singleline-const", "singleline-let", "singleline-var"]
+          }
+        ],
+
+        // Sort imports
+        "sort-imports": "off",
+        "import/order": "off",
+        "simple-import-sort/sort": "error",
+
+        // Named or default is fine
         "import/prefer-default-export": "off",
-        "implicit-arrow-linebreak": "off",
-        "function-paren-newline": "off",
-        "max-len": "off",
+
+        // TODO: We should fix up the paths so we can re-enable this rule
+        // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-extraneous-dependencies.md
+        "import/no-extraneous-dependencies": "off",
+
+        // Not required with TS
         "react/prop-types": "off",
+
+        // Useful feature
         "react/jsx-props-no-spreading": "off",
-        // prettier takes care
-        "object-curly-newline": "off",
-        "arrow-parens": "off"
+
+        // Fix TypeScript extension issues
+        // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/imports.js#L139
+        // https://stackoverflow.com/questions/59265981/typescript-eslint-missing-file-extension-ts-import-extensions
+        "import/extensions": [
+          "error",
+          "ignorePackages",
+          {
+            "js": "never",
+            "mjs": "never",
+            "jsx": "never",
+            "ts": "never",
+            "tsx": "never"
+          }
+        ],
+
+        // Let prettier take care of it
+        "@typescript-eslint/indent": "off",
+
+        // This one is annoying
+        "@typescript-eslint/explicit-function-return-type": "off"
       }
     }
   ],
-  "env": {
-    "jest": true,
-    "browser": true
+  "settings": {
+    "react": {
+      "pragma": "h",
+      "version": "detect"
+    }
   },
   "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
     "project": "./tsconfig.json"
   }
 }
