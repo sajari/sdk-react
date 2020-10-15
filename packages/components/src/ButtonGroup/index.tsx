@@ -8,7 +8,7 @@ import { cleanChildren } from '../utils/react-helpers';
 import Box from '../Box';
 
 import { ButtonGroupProps } from './types';
-import { useButtonGroupStyles } from './useButtonGroupStyles';
+import { useButtonGroupStyles } from './styles';
 
 // TODO: remove "any"
 const StyledBox = styled<any>(Box, { shouldForwardProp: (prop) => prop !== 'attached' && prop !== 'inline' })<
@@ -38,9 +38,8 @@ const ButtonGroup = React.forwardRef((props: ButtonGroupProps, ref?: React.Ref<H
   const buttonGroupStyles = useButtonGroupStyles({ attached, inline });
   const validChildren = cleanChildren(children);
 
+  // TODO: handle case where child is Tooltip
   const clones = validChildren.map((child) =>
-    // TODO: handle case where child is Tooltip
-
     cloneElement(child, {
       fullWidth,
       ...child.props,
