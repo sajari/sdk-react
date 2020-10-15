@@ -10,7 +10,8 @@ import { cleanChildren } from '../utils/react-helpers';
 import { useButtonGroupStyles } from './styles';
 import { ButtonGroupProps } from './types';
 
-const StyledBox = styled(Box, { shouldForwardProp: (prop) => prop !== 'attached' && prop !== 'inline' })<
+// TODO: remove "any"
+const StyledBox = styled<any>(Box, { shouldForwardProp: (prop) => prop !== 'attached' && prop !== 'inline' })<
   Pick<ButtonGroupProps, 'attached' | 'inline'>
 >`
   & > button {
