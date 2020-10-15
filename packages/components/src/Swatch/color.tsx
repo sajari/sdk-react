@@ -5,13 +5,13 @@ import { useFocusRing } from '@react-aria/focus';
 import { useSwitch } from '@react-aria/switch';
 import { useToggleState } from '@react-stately/toggle';
 import React from 'react';
+import { __DEV__ } from 'sajari-react-sdk-utils';
 import tw, { styled, ThemeStyle } from 'twin.macro';
 
 import { Check } from '../assets/icons';
 import Box from '../Box';
-import { __DEV__ } from '../utils/assertion';
 import { colors } from './colors';
-import { useSwatch } from './context';
+import { useSwatchContext } from './context';
 import { ColorProps } from './types';
 
 const StyledLabel = styled.label<{
@@ -30,7 +30,7 @@ const StyledLabel = styled.label<{
 `;
 
 export const Color = ({ id, bg, color, border = bg }: ColorProps) => {
-  const { state, setState } = useSwatch();
+  const { state, setState } = useSwatchContext();
   const tempState = useToggleState({
     isSelected: state.includes(id),
     onChange: (isSelected) => {

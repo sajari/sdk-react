@@ -1,19 +1,14 @@
-import React from 'react';
-
-import { SwatchProps } from './types';
+import { createContext } from 'sajari-react-sdk-utils';
 
 interface SwatchContextProps {
   state: string[];
   setState: (checkedColors: string[]) => void;
 }
 
-const SwatchContext = React.createContext<SwatchContextProps>({
-  state: [],
-  setState: () => {},
+const [SwatchContextProvider, useSwatchContext] = createContext<SwatchContextProps>({
+  strict: true,
+  name: 'SwatchContext',
 });
 
-export const SwatchProvider = ({ children, checkedColors, onChange }: Required<SwatchProps>) => (
-  <SwatchContext.Provider value={{ state: checkedColors, setState: onChange }}>{children}</SwatchContext.Provider>
-);
-
-export const useSwatch = () => React.useContext(SwatchContext);
+export default SwatchContextProvider;
+export { useSwatchContext };
