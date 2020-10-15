@@ -10,11 +10,10 @@ import { cleanChildren } from '../utils/react-helpers';
 import { useButtonGroupStyles } from './styles';
 import { ButtonGroupProps } from './types';
 
-// TODO: remove "any"
-const StyledBox = styled<any>(Box, { shouldForwardProp: (prop) => prop !== 'attached' && prop !== 'inline' })<
+const StyledBox = styled(Box, { shouldForwardProp: (prop) => prop !== 'attached' && prop !== 'inline' })<
   Pick<ButtonGroupProps, 'attached' | 'inline'>
 >`
-  & > * {
+  & > button {
     :first-of-type {
       ${(props) =>
         props.attached ? (props.inline ? tw`rounded-none rounded-l-md` : tw`rounded-none rounded-t-md`) : tw``}
