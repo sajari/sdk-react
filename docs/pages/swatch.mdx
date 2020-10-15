@@ -1,10 +1,13 @@
 import SEO from '../components/SEO';
 
-<SEO title="Checkbox" description="TBD." />
+<SEO
+  title="Swatch"
+  description="The Swatch component acts like a color filter that allows for more granular product/item searching."
+/>
 
-# Checkbox
+# Swatch
 
-TBD
+The `Swatch` component acts like a color filter that allows for more granular product/item searching.
 
 ```js
 import { Swatch } from '@sajari/react-components';
@@ -16,7 +19,7 @@ import { Swatch } from '@sajari/react-components';
 function BasicUsage() {
   const [checkedColors, setCheckedColors] = React.useState([]);
   return (
-    <>
+    <div style={{ display: 'flex' }}>
       <Swatch checkedColors={checkedColors} onChange={setCheckedColors}>
         <Swatch.Color.White />
         <Swatch.Color.Silver />
@@ -39,11 +42,51 @@ function BasicUsage() {
         <Swatch.Color.Purple />
         <Swatch.Color.Violet />
       </Swatch>
-    </>
+    </div>
+  );
+}
+```
+
+### Colors
+
+You can use the pre-defined set of colors by using the syntax `<Swatch.Color.{Color} />`, or you can use your own using `<Swatch.Color />` and pass the required props. Accepted format includes `hex`, `rgb`, `rgba`, `hsl`, `hsla`.
+
+```jsx
+function CustomColor() {
+  const [checkedColors, setCheckedColors] = React.useState([]);
+  return (
+    <div style={{ display: 'flex' }}>
+      <Swatch checkedColors={checkedColors} onChange={setCheckedColors}>
+        <Swatch.Color id="Hex format" bg="#F56565" color="#ECC94B" border="#4299E1" />
+        <Swatch.Color id="RGB format" bg="rgb(45, 100, 219)" color="rgb(129, 200, 174)" border="rgb(137, 200, 38)" />
+        <Swatch.Color
+          id="RGBA format"
+          bg="rgba(45, 100, 219, 0.5)"
+          color="rgb(129, 200, 174, 1)"
+          border="rgb(137, 200, 38, 0.2)"
+        />
+        <Swatch.Color id="HSL format" bg="hsl(309, 35%, 69%)" color="hsl(351, 67%, 50%)" border="hsl(265, 21%, 23%)" />
+        <Swatch.Color id="CSS color name" bg="DarkSlateBlue" color="Gold" border="LightCoral" />
+      </Swatch>
+    </div>
   );
 }
 ```
 
 ## Props
 
-### Checkbox Props
+### Swatch
+
+| Name            | Type                   | Default    | Description                               |
+| --------------- | ---------------------- | ---------- | ----------------------------------------- |
+| `checkedColors` | `string[]`             | `[]`       | An array containing id of selected colors |
+| `onChange`      | `(id: string) => void` | `() => {}` | OnChange handler                          |
+
+### Swatch.Color
+
+| Name     | Type     | Default | Description                                                                            |
+| -------- | -------- | ------- | -------------------------------------------------------------------------------------- |
+| `id`     | `string` |         | The id of the color                                                                    |
+| `bg`     | `string` |         | The background color, see above for accepted formats                                   |
+| `color`  | `string` |         | The color of the checkmark when that color is selected, see above for accepted formats |
+| `border` | `string` |         | The border color, defaults to `bg` if not specified, see above for accepted formats    |

@@ -1,17 +1,17 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import { __DEV__ } from 'sajari-react-sdk-utils';
 import tw from 'twin.macro';
 
 import Box from '../Box';
-import { __DEV__ } from '../utils/assertion';
 import { Color } from './color';
-import { SwatchProvider } from './context';
+import SwatchContextProvider from './context';
 import { SwatchProps } from './types';
 
 const Swatch = ({ children, checkedColors = [], onChange = () => {} }: SwatchProps) => (
-  <SwatchProvider checkedColors={checkedColors} onChange={onChange}>
+  <SwatchContextProvider value={{ state: checkedColors, setState: onChange }}>
     <Box css={tw`grid grid-cols-7 gap-3`}>{children}</Box>
-  </SwatchProvider>
+  </SwatchContextProvider>
 );
 
 if (__DEV__) {
