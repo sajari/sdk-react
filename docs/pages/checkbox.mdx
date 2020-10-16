@@ -37,28 +37,29 @@ import { CheckboxGroup, Checkbox } from '@sajari/react-components';
 ```jsx
 function IndeterminateExample() {
   const [checkedItems, setCheckedItems] = React.useState([true, false]);
-
   const allChecked = checkedItems.every(Boolean);
-  const isIndeterminate = checkedItems.some(Boolean) && !allChecked;
+  const indeterminate = checkedItems.some(Boolean) && !allChecked;
 
   return (
     <>
       <Checkbox
         checked={allChecked}
-        indeterminate={isIndeterminate}
+        indeterminate={indeterminate}
         onChange={(e) => setCheckedItems([e.target.checked, e.target.checked])}
         children="Parent Checkbox"
       />
-      <Checkbox
-        checked={checkedItems[0]}
-        onChange={(e) => setCheckedItems([e.target.checked, checkedItems[1]])}
-        children="Child Checkbox 1"
-      />
-      <Checkbox
-        checked={checkedItems[1]}
-        onChange={(e) => setCheckedItems([checkedItems[0], e.target.checked])}
-        children="Child Checkbox 2"
-      />
+      <div className="pl-6 mt-2 space-y-2">
+        <Checkbox
+          checked={checkedItems[0]}
+          onChange={(e) => setCheckedItems([e.target.checked, checkedItems[1]])}
+          children="Child Checkbox 1"
+        />
+        <Checkbox
+          checked={checkedItems[1]}
+          onChange={(e) => setCheckedItems([checkedItems[0], e.target.checked])}
+          children="Child Checkbox 2"
+        />
+      </div>
     </>
   );
 }

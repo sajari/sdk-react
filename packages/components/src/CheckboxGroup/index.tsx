@@ -25,7 +25,8 @@ const CheckboxGroup = ({
 
   const internalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { checked, value } = event.target;
-    let newValues;
+    let newValues: Array<any>;
+
     if (checked) {
       newValues = [...internalValues, value];
     } else {
@@ -58,5 +59,6 @@ const CheckboxGroup = ({
     </div>
   );
 };
+
 export default CheckboxGroup;
 export type { CheckboxGroupProps };

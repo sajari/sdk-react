@@ -30,7 +30,6 @@ const Checkbox = React.forwardRef((props: CheckboxProps, ref?: React.Ref<HTMLInp
   } = props;
 
   const inputStyles = useInputStyle({
-    checked,
     block: true,
     type: 'checkbox',
     indeterminate,
