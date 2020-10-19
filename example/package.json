@@ -11,7 +11,7 @@
     "react-app-polyfill": "^1.0.0"
   },
   "alias": {
-    "@sajari/react-sdk": "../packages/sdk",
+    "@sajari/react-search-ui": "../packages/search-ui",
     "react": "../node_modules/react",
     "react-dom": "../node_modules/react-dom/profiling",
     "scheduler/tracing": "../node_modules/scheduler/tracing-profiling"

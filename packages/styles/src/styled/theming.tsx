@@ -15,8 +15,6 @@ export interface Theme {
       base: string;
       text: string;
       active: string;
-      border: string;
-      outline: string;
     };
   };
 }
@@ -24,11 +22,9 @@ export interface Theme {
 const defaultTheme: Theme = {
   color: {
     primary: {
-      base: '#3f83f8',
-      text: '#ebf5ff',
-      active: '#1c64f2',
-      border: '#1c64f2',
-      outline: '#c3ddfd',
+      base: 'hsl(228, 100%, 66%)',
+      text: '#fff',
+      active: 'hsl(228, 100%, 60%)',
     },
   },
 };

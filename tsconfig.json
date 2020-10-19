@@ -8,7 +8,7 @@
     "paths": {
       "@sajari/react-components": ["packages/components/src"],
       "@sajari/react-hooks": ["packages/hooks/src"],
-      "@sajari/react-sdk": ["packages/sdk/src"],
+      "@sajari/react-search-ui": ["packages/search-ui/src"],
       "sajari-react-sdk-utils": ["packages/utils/src"]
     }
   }

@@ -2,12 +2,12 @@
 
 ## Usage
 
-`@sajari/react-sdk` is a client side javascript library of React Components for the
+`@sajari/react-search-ui` is a client side javascript library of React Components for the
 [Sajari](https://www.sajari.com) search platform to help build fast and powerful search interfaces. The monorepo consists of main 3 packages:
 
 - `@sajari/react-hooks` - Hooks that allow you to build a search interface using any components.
 - `@sajari/react-components` - The bare components that allow you to build an interface using a search back end other than Sajari.
-- `@sajari/react-sdk` - The “compositions” like we have in v2 but with new styling and using the components and hooks behind the scenes.
+- `@sajari/react-search-ui` - The “compositions” like we have in v2 but with new styling and using the components and hooks behind the scenes.
 
 You can install all the dependencies in the root directory. Since the monorepo uses Lerna and Yarn Workspaces, npm CLI is not supported (only yarn).
 

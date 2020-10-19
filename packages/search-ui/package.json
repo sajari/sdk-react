@@ -1,10 +1,10 @@
 {
-  "name": "@sajari/react-sdk",
+  "name": "@sajari/react-search-ui",
   "version": "0.0.0",
   "description": "TBD",
   "repository": {
     "type": "git",
-    "directory": "packages/sdk"
+    "directory": "packages/search-ui"
   },
   "scripts": {
     "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",

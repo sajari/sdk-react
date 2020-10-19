@@ -6,7 +6,7 @@ import { useSwitch } from '@react-aria/switch';
 import { useToggleState } from '@react-stately/toggle';
 import React from 'react';
 import { __DEV__ } from 'sajari-react-sdk-utils';
-import tw, { styled, ThemeStyle } from 'twin.macro';
+import tw, { styled } from 'twin.macro';
 
 import { Check } from '../assets/icons';
 import Box from '../Box';
@@ -14,22 +14,38 @@ import { colors } from './colors';
 import { useSwatchContext } from './context';
 import { ColorProps } from './types';
 
+const mapBorderRadius = (rounded: ColorProps['rounded']) => {
+  switch (rounded) {
+    case 'none':
+      return tw`rounded-none`;
+    case 'sm':
+      return tw`rounded-sm`;
+    case 'lg':
+      return tw`rounded-lg`;
+    case 'full':
+      return tw`rounded-full`;
+    default:
+    case 'md':
+      return tw`rounded-md`;
+  }
+};
+
 const StyledLabel = styled.label<{
-  textColor: string | ThemeStyle;
-  bg: string | ThemeStyle;
-  border: string | ThemeStyle;
+  textColor: ColorProps['color'];
+  bg: ColorProps['bg'];
+  border: ColorProps['border'];
+  rounded: ColorProps['rounded'];
   focus: boolean;
 }>`
-  ${({ focus }) =>
-    focus
-      ? tw`flex items-center justify-center w-8 h-8 border border-solid rounded-full shadow-outline`
-      : tw`flex items-center justify-center w-8 h-8 border border-solid rounded-full shadow-none`};
+  ${tw`flex items-center justify-center mt-2 ml-2 border border-solid cursor-pointer w-7 h-7`}
+  ${({ rounded }) => mapBorderRadius(rounded)}
+  ${({ focus }) => (focus ? tw`shadow-outline` : tw`shadow-none`)};
   color: ${({ textColor }) => textColor};
   background-color: ${({ bg }) => bg};
   border-color: ${({ border }) => border};
 `;
 
-export const Color = ({ id, bg, color, border = bg }: ColorProps) => {
+export const Color = ({ id, bg, color, border = bg, rounded = 'md' }: ColorProps) => {
   const { state, setState } = useSwatchContext();
   const tempState = useToggleState({
     isSelected: state.includes(id),
@@ -50,8 +66,9 @@ export const Color = ({ id, bg, color, border = bg }: ColorProps) => {
     ref,
   );
   const { focusProps, isFocusVisible } = useFocusRing();
+
   return (
-    <StyledLabel focus={isFocusVisible} bg={bg} border={border} textColor={color}>
+    <StyledLabel focus={isFocusVisible} bg={bg} border={border} textColor={color} rounded={rounded}>
       <Box as="span" css={tw`sr-only`}>
         {id}
       </Box>

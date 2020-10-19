@@ -1,4 +1,5 @@
 {
   "extends": "../../tsconfig.build.json",
+  "files": ["./src/types/twin.d.ts"],
   "include": ["src", "types", "../../types"]
 }

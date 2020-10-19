@@ -57,16 +57,16 @@ function CustomColor() {
   return (
     <div style={{ display: 'flex' }}>
       <Swatch checkedColors={checkedColors} onChange={setCheckedColors}>
-        <Swatch.Color id="Hex format" bg="#F56565" color="#ECC94B" border="#4299E1" />
-        <Swatch.Color id="RGB format" bg="rgb(45, 100, 219)" color="rgb(129, 200, 174)" border="rgb(137, 200, 38)" />
+        <Swatch.Color id="hex" bg="#f56565" color="#ecc94b" border="#4299e1" />
+        <Swatch.Color id="rgb" bg="rgb(45, 100, 219)" color="rgb(129, 200, 174)" border="rgb(137, 200, 38)" />
         <Swatch.Color
-          id="RGBA format"
+          id="rgba"
           bg="rgba(45, 100, 219, 0.5)"
           color="rgb(129, 200, 174, 1)"
           border="rgb(137, 200, 38, 0.2)"
         />
-        <Swatch.Color id="HSL format" bg="hsl(309, 35%, 69%)" color="hsl(351, 67%, 50%)" border="hsl(265, 21%, 23%)" />
-        <Swatch.Color id="CSS color name" bg="DarkSlateBlue" color="Gold" border="LightCoral" />
+        <Swatch.Color id="hsl" bg="hsl(309, 35%, 69%)" color="hsl(351, 67%, 50%)" border="hsl(265, 21%, 23%)" />
+        <Swatch.Color id="css" bg="blue" color="white" border="darkblue" />
       </Swatch>
     </div>
   );

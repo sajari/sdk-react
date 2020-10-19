@@ -2,7 +2,7 @@ import { mdx } from '@mdx-js/react';
 
 import * as ReactComponents from '@sajari/react-components';
 import * as ReactHooks from '@sajari/react-hooks';
-import * as ReactSDK from '@sajari/react-sdk';
+import * as ReactSDK from '@sajari/react-search-ui';
 
 import {
   Box,

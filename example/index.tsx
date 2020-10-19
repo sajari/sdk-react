@@ -1,7 +1,7 @@
 import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { InputComposition, ContextProvider } from '@sajari/react-sdk';
+import { InputComposition, ContextProvider } from '@sajari/react-search-ui';
 
 const App = () => {
   return (

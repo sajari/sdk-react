@@ -35,9 +35,9 @@ export const colors: ColorProps[] = [
   },
   {
     id: 'Red',
-    bg: theme`colors.red.400`,
+    bg: theme`colors.red.500`,
     color: theme`colors.red.800`,
-    border: theme`colors.red.500`,
+    border: theme`colors.red.600`,
   },
   {
     id: 'Beige',

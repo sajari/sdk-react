@@ -10,7 +10,7 @@ import { SwatchProps } from './types';
 
 const Swatch = ({ children, checkedColors = [], onChange = () => {} }: SwatchProps) => (
   <SwatchContextProvider value={{ state: checkedColors, setState: onChange }}>
-    <Box css={tw`grid grid-cols-7 gap-3`}>{children}</Box>
+    <Box css={tw`flex flex-wrap -mt-2 -ml-2`}>{children}</Box>
   </SwatchContextProvider>
 );
 

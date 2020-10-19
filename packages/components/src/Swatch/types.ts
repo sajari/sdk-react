@@ -10,6 +10,8 @@ export interface ColorProps {
   color: string | ThemeStyle;
   /** Border color, defaults to background color */
   border?: string | ThemeStyle;
+  /** Border radius */
+  rounded?: 'sm' | 'md' | 'lg' | 'full' | 'none';
 }
 
 export interface SwatchProps {
