@@ -26,3 +26,5 @@ export { default as Text } from './Text';
 export * from './Text';
 export { default as TextInput } from './TextInput';
 export * from './TextInput';
+export { default as Heading } from './Heading';
+export * from './Heading';
