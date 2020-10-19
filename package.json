@@ -39,7 +39,7 @@
     "lerna": "lerna",
     "clean": "lerna clean",
     "start": "lerna run start --stream --parallel --scope={@sajari/react-components,@sajari/react-hooks,@sajari/react-search-ui,sajari-react-sdk-utils,sajari-react-sdk-styles}",
-    "test": "lerna exec --scope={@sajari/react-components,@sajari/react-hooks,@sajari/react-search-ui,sajari-react-sdk-styles} -- yarn test",
+    "test": "lerna exec --scope={@sajari/react-components,@sajari/react-hooks,@sajari/react-search-ui,sajari-react-sdk-styles} -- yarn test --passWithNoTests",
     "test:ci": "lerna exec --scope={@sajari/react-components,@sajari/react-hooks,@sajari/react-search-ui,sajari-react-sdk-styles} -- yarn test:ci",
     "build": "lerna run build --scope={@sajari/react-components,@sajari/react-hooks,@sajari/react-search-ui,sajari-react-sdk-utils,sajari-react-sdk-styles}",
     "prepublish": "lerna run prepublish",

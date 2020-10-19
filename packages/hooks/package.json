@@ -17,7 +17,13 @@
     "dist"
   ],
   "dependencies": {
+    "@sajari/sdk-js": "next",
+    "js-cookie": "^2.2.1",
+    "sajari-react-sdk-utils": "^0.0.0",
     "tslib": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "^2.2.6"
   },
   "peerDependencies": {
     "react": "^16.8.0",
