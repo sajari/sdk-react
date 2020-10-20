@@ -6,15 +6,9 @@ import { Config, defaultConfig } from './config';
 import { NoTracking, Pipeline, Response, Values } from './controllers';
 import { UnlistenFn } from './controllers/listener';
 import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from './events';
+import { Context, PipelineProviderProps, PipelineProviderState, ProviderPipelineConfig, State } from './types';
 
-export type SearchFn = (query: string, override: boolean) => void;
-export type ClearFn = (values?: { [k: string]: string | undefined }) => void;
-export type ResultClickedFn = (url: string) => void;
-export type PaginateFn = (page: number) => void;
-
-type Procedure = (...args: any[]) => void;
-
-function debounce<F extends Procedure>(
+function debounce<F extends (...args: any[]) => void>(
   func: F,
   waitMilliseconds = 50,
   options = {
@@ -80,71 +74,10 @@ const valuesUpdatedListener = (values: Values, pipeline: Pipeline, config: Confi
   return updateState(query, responseValues, config);
 };
 
-export interface PipelineContextState {
-  response: Response | null;
-  query: string;
-  completion: string;
-  suggestions: string[];
-  config: Config;
-  search: SearchFn;
-  clear: ClearFn;
-  fields?: Fields;
-}
-
-export interface ProviderPipelineConfig {
-  pipeline: Pipeline;
-  values: Values;
-  config?: Config;
-  fields?: Fields;
-}
-
-export interface ProviderPipelineState {
-  response: Response | null;
-  query: string;
-  config: Config;
-  completion: string;
-  suggestions: string[];
-}
-
-export interface Fields {
-  title?: string;
-  description?: string;
-  price?: string;
-  rating?: string;
-  category?: string;
-}
-
-export interface PipelineProviderProps {
-  search: ProviderPipelineConfig;
-  instant?: ProviderPipelineConfig;
-  searchOnLoad?: boolean;
-}
-
-export interface PipelineProviderState {
-  search: ProviderPipelineState;
-  instant: ProviderPipelineState;
-}
-
-export interface Context {
-  search: PipelineContextState;
-  instant: PipelineContextState;
-
-  resultClicked: ResultClickedFn;
-  paginate: PaginateFn;
-}
-
 const [Provider, useContext] = createContext<Context>({
   strict: true,
   name: 'PipelineContext',
 });
-
-interface State {
-  response: Response | null;
-  query: string;
-  completion: string;
-  suggestions: string[];
-  config: Config;
-}
 
 const defaultState: State = {
   response: null,
