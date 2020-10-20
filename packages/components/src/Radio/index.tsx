@@ -5,7 +5,7 @@ import { useId } from '@reach/auto-id';
 import React from 'react';
 import tw from 'twin.macro';
 
-import useInputStyle, { UseInputStyleProps } from '../hooks/use-input-styles';
+import useInputStyle, { UseInputStyleProps } from '../hooks/useInputStyles';
 import Label from '../Label';
 import { __DEV__ } from '../utils/assertion';
 import { RadioProps } from './types';

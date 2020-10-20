@@ -5,7 +5,7 @@ import React from 'react';
 import tw from 'twin.macro';
 
 import Box from '../Box';
-import useInputStyle, { UseInputStyleProps } from '../hooks/use-input-styles';
+import useInputStyle, { UseInputStyleProps } from '../hooks/useInputStyles';
 import Label from '../Label';
 import { __DEV__ } from '../utils/assertion';
 import { SelectProps } from './types';

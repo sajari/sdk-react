@@ -7,7 +7,7 @@ import tw, { styled } from 'twin.macro';
 
 import { Search, Spinner } from '../assets/icons';
 import Box from '../Box';
-import useInputStyles from '../hooks/use-input-styles';
+import useInputStyles from '../hooks/useInputStyles';
 import { __DEV__ } from '../utils/assertion';
 import { TextInputProps } from './types';
 import { Voice } from './Voice';

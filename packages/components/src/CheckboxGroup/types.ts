@@ -1,7 +1,7 @@
 import { HTMLAttributes } from 'react';
 
 import { CheckboxProps } from '../Checkbox';
-import { Spacing } from '../hooks/use-spacing';
+import { Spacing } from '../hooks/useSpacing';
 
 export interface Props {
   name?: string;

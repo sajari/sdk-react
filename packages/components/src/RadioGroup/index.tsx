@@ -4,7 +4,7 @@ import { useId } from '@reach/auto-id';
 import React, { cloneElement, forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import tw from 'twin.macro';
 
-import useSpacing from '../hooks/use-spacing';
+import useSpacing from '../hooks/useSpacing';
 import { cleanChildren } from '../utils/react-helpers';
 import { RadioGroupProps } from './types';
 
