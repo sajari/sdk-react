@@ -4,7 +4,7 @@ import { useId } from '@reach/auto-id';
 import React, { cloneElement, useRef, useState } from 'react';
 import tw from 'twin.macro';
 
-import useSpacing from '../hooks/use-spacing';
+import useSpacing from '../hooks/useSpacing';
 import { cleanChildren } from '../utils/react-helpers';
 import { CheckboxGroupProps } from './types';
 
