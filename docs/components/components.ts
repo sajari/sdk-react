@@ -5,21 +5,21 @@ const coreComponents = [
   'Image',
   'Radio',
   'Rating',
+  'Combobox',
   'Select',
   'Swatch',
   'Text',
-  'TextInput',
   'Tabs',
   'Pagination',
 ].sort();
 const searchComponents = [
   'PoweredBy',
   'Filter',
+  'Input',
   'PageSize',
   'Pagination',
   'Result',
   'Results',
-  'SearchInput',
   'Sorting',
   'ViewType',
 ].sort();

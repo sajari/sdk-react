@@ -1,6 +1,3 @@
-const tailwindUI = require('@tailwindcss/ui');
-const truncateMultiLine = require('tailwindcss-truncate-multiline')();
-
 export default {
   future: {
     // removeDeprecatedGapUtilities: true,
@@ -8,6 +5,15 @@ export default {
   },
   purge: [],
   theme: {
+    backdropFilter: {
+      none: 'none',
+      'blur-1': 'blur(0.25rem)',
+      'blur-2': 'blur(0.5rem)',
+      'blur-3': 'blur(0.75rem)',
+      'blur-4': 'blur(1rem)',
+      'blur-5': 'blur(1.25rem)',
+      'blur-6': 'blur(1.5rem)',
+    },
     truncate: {
       lines: {
         2: '2',
@@ -17,6 +23,9 @@ export default {
       },
     },
     extend: {
+      borderRadius: {
+        inherit: 'inherit',
+      },
       fontSize: {
         'code-inline': '0.9375em',
       },
@@ -28,5 +37,5 @@ export default {
     backgroundColor: ['responsive', 'hover', 'focus', 'checked', 'group-hover', 'group-focus'],
     borderColor: ['responsive', 'hover', 'focus', 'checked'],
   },
-  plugins: [tailwindUI, truncateMultiLine],
+  plugins: [require('@tailwindcss/ui'), require('tailwindcss-filters'), require('tailwindcss-truncate-multiline')()],
 };

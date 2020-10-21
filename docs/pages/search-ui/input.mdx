@@ -1,41 +1,41 @@
-import SEO from '../components/SEO';
+import SEO from '../../components/SEO';
 
 <SEO
-  title="SearchInput"
-  description="SearchInput component is a component that is used to get user input in a text field. It is usually used together with a FormControl to provide an accessible label, validation messages, etc."
+  title="Input"
+  description="Input component is a component that is used to get user input in a text field. It is usually used together with a FormControl to provide an accessible label, validation messages, etc."
 />
 
-# SearchInput
+# Input
 
-SearchInput component is a component that is used to get user input in a text field. It is usually used together with a FormControl to provide an accessible label, validation messages, etc.
+Input component is a component that is used to get user input in a text field. It is usually used together with a FormControl to provide an accessible label, validation messages, etc.
 
 ## Import
 
 ```js
-import { SearchInput } from 'sajari/react-search-ui';
+import { Input } from 'sajari/react-search-ui';
 ```
 
 ## Usage
 
 ```jsx
-<SearchInput label="Search something" onChange={(e) => {}} />
+<Input label="Search something" onChange={(e) => {}} />
 ```
 
 ### Loading
 
 ```jsx
-<SearchInput loading />
+<Input loading />
 ```
 
 ## Speech recognition
 
 ```jsx
-<SearchInput enableVoice onVoiceInput={(text) => console.info(text)} />
+<Input enableVoice onVoiceInput={(text) => console.info(text)} />
 ```
 
 ## Props
 
-`SearchInput` component props inherits the `input` element props with some additional for speech recognition and loading state
+`Input` component props inherits the `input` element props with some additional for speech recognition and loading state
 
 | Name           | Type                  | Default | Description                                                                                                                      |
 | -------------- | --------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |

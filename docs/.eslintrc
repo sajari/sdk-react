@@ -14,7 +14,7 @@
       "error",
       {
         "labelComponents": ["Label"],
-        "controlComponents": ["Input", "Checkbox", "SearchInput", "Select"],
+        "controlComponents": ["Input", "Checkbox", "Combobox", "Select"],
         "assert": "either"
       }
     ],

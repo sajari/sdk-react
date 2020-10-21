@@ -1,41 +1,46 @@
-import SEO from '../components/SEO';
+import SEO from '../../components/SEO';
 
 <SEO
-  title="TextInput"
-  description="TextInput component is a component that is used to get user input in a text field. It is usually used together with a FormControl to provide an accessible label, validation messages, etc."
+  title="Combobox"
+  description="Combobox component is a component that is used to get user input in a text field. It is usually used together with a FormControl to provide an accessible label, validation messages, etc."
 />
 
-# TextInput
+# Combobox
 
-TextInput component is a component that is used to get user input in a text field. It is usually used together with a FormControl to provide an accessible label, validation messages, etc.
+Combobox component is a component that is used to get user input in a text field. It is usually used together with a FormControl to provide an accessible label, validation messages, etc.
 
 ## Import
 
 ```js
-import { TextInput } from 'sajari/react-components';
+import { Combobox } from 'sajari/react-components';
 ```
 
 ## Usage
 
 ```jsx
-<TextInput label="Search something" onChange={(e) => {}} />
+<Combobox
+  label="Example"
+  placeholder="Search"
+  onChange={(e) => {}}
+  items={['apple iphone', 'apple imac', 'apple watch', 'apple mac pro', 'apple macbook pro']}
+/>
 ```
 
 ### Loading
 
 ```jsx
-<TextInput loading />
+<Combobox loading />
 ```
 
 ## Speech recognition
 
 ```jsx
-<TextInput enableVoice onVoiceInput={(text) => console.info(text)} />
+<Combobox enableVoice onVoiceInput={(text) => console.info(text)} />
 ```
 
 ## Props
 
-`TextInput` component props inherits the `input` element props with some additional for speech recognition and loading state
+`Combobox` component props inherits the `input` element props with some additional for speech recognition and loading state
 
 | Name           | Type                  | Default | Description                                                                                                                      |
 | -------------- | --------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |

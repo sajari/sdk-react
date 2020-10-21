@@ -25,16 +25,18 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "tailwindcss": "^1.9.0",
-    "twin.macro": "^1.10.0"
+    "tailwindcss": "^1.9.5",
+    "twin.macro": "^1.11.0"
   },
   "dependencies": {
     "@reach/auto-id": "^0.11.2",
     "@react-aria/button": "^3.2.2",
     "@react-aria/switch": "^3.1.1",
     "@react-types/button": "^3.2.1",
+    "downshift": "^6.0.6",
     "sajari-react-sdk-utils": "^0.0.0",
     "sajari-react-sdk-styles": "^0.0.0",
+    "tailwindcss-filters": "^3.0.0",
     "tailwindcss-truncate-multiline": "^1.0.3",
     "tslib": "^2.0.3"
   },
