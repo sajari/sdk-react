@@ -221,6 +221,7 @@ const SearchContextProvider: React.FC<PipelineProviderProps> = ({
       ...state,
       search: {
         ...state.search,
+        values: search.values,
         search: searchFn('search'),
         clear: clear('search'),
         fields: search.fields,

@@ -1,0 +1,93 @@
+import SEO from '../../components/SEO';
+
+<SEO title="usePageSize" description="usePageSize provides getter/setter for the resultsPerPage param." />
+
+# usePageSize
+
+`usePageSize` provides getter/setter for the resultsPerPage param.
+
+```js
+import { Result } from '@sajari/react-search-ui';
+import { Pagination, Select, Input } from '@sajari/react-components';
+import { usePageSize, useSearchContext, SearchContextProvider, Pipeline, Values } from '@sajari/react-hooks';
+```
+
+## Usage
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const values = new Values({ q: '' });
+
+  const SearchPlayground = React.memo(() => {
+    const { search, results } = useSearchContext();
+    const { setPageSize } = usePageSize();
+    const [query, setQuery] = React.useState('');
+
+    return (
+      <div className="flex flex-col space-y-4">
+        <div className="flex space-x-4">
+          <form
+            className="w-3/5"
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (query) {
+                // TODO: current Pipeline is not working if empty query is passed
+                search(query);
+              }
+            }}
+          >
+            <Input label="Search something" onChange={(e) => setQuery(e.target.value)} />
+          </form>
+          <div className="w-2/5">
+            <Select onChange={(e) => setPageSize(parseInt(e.target.value), 10)} placeholder="Select page size">
+              <option value="3">3</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+            </Select>
+          </div>
+        </div>
+        {results ? (
+          <div className="flex flex-col space-y-4">
+            {results.map((_, index) => (
+              <div key={`use-pageSize-demo-result-${index}`}>
+                <Result />
+              </div>
+            ))}
+          </div>
+        ) : null}
+      </div>
+    );
+  });
+
+  return (
+    <SearchContextProvider search={{ pipeline, values, fields: { category: 'brand', title: 'name' } }}>
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
+```
+
+## Anatomy
+
+`usePageSize` returns an object containing the following properties:
+
+| Name          | Type                     | Default | Description                             |
+| ------------- | ------------------------ | ------- | --------------------------------------- |
+| `pageSize`    | `number`                 |         | The number of result per page           |
+| `setPageSize` | `(size: number) => void` |         | Method to set number of result per page |
+
+## Props
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+

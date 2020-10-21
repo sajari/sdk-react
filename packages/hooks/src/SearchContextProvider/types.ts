@@ -15,6 +15,7 @@ export interface PipelineContextState {
   search: SearchFn;
   clear: ClearFn;
   fields?: Fields;
+  values: Values;
 }
 
 export interface ProviderPipelineConfig {
