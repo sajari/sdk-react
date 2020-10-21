@@ -1,0 +1,101 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="usePagination"
+  description="usePagination provides conveniences that allow user to integrate the Pagination component with the search context on the fly."
+/>
+
+# usePagination
+
+`usePagination` provides conveniences that allow user to integrate the Pagination component with the search context on the fly.
+
+```js
+import { Result } from '@sajari/react-search-ui';
+import { Pagination, Input } from '@sajari/react-components';
+import { usePagination, SearchContextProvider, Pipeline, Values } from '@sajari/react-hooks';
+```
+
+## Usage
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const values = new Values({ q: '' });
+
+  const SearchPlayground = React.memo(() => {
+    const { search, results } = useSearchContext();
+    const { page, setPage, pageSize, pageCount, totalResults } = usePagination('search');
+    const [query, setQuery] = React.useState('');
+
+    return (
+      <div className="flex flex-col space-y-4">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (query) {
+              // TODO: current Pipeline is not working if empty query is passed
+              search(query);
+            }
+          }}
+        >
+          <Input label="Search something" value={query} onChange={(e) => setQuery(e.target.value)} />
+        </form>
+        {results ? (
+          <div className="flex flex-col space-y-6 items-center">
+            <div className="flex flex-col space-y-4">
+              {results.map((_, index) => (
+                <div key={`usePagination-demo-result-${index}`}>
+                  <Result />
+                </div>
+              ))}
+            </div>
+            <Pagination
+              page={page}
+              pageSize={pageSize}
+              totalResults={totalResults}
+              pageCount={pageCount}
+              onChange={setPage}
+            />
+          </div>
+        ) : null}
+      </div>
+    );
+  });
+
+  return (
+    <SearchContextProvider search={{ pipeline, values, fields: { category: 'brand', title: 'name' } }}>
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
+```
+
+## Anatomy
+
+`usePagination` returns an object containing the following properties:
+
+| Name           | Type                        | Default | Description                                                 |
+| -------------- | --------------------------- | ------- | ----------------------------------------------------------- |
+| `pageCount`    | `number`                    | `0`     | The number of pages                                         |
+| `totalResults` | `number`                    | `0`     | The total number of results                                 |
+| `pageSize`     | `number`                    | `10`    | The number of results per page                              |
+| `page`         | `number`                    | `1`     | The current page                                            |
+| `setPage`      | `(pageNum: number) => void` |         | A method for setting the page                               |
+| `hasNext`      | `boolean`                   |         | A boolean to determine if there is a next page              |
+| `hasPrevious`  | `boolean`                   |         | A boolean to determine if there is a previous page          |
+| `nextPage`     | `() => void`                |         | Go to next page, do nothing if `hasNext` is `false`         |
+| `previousPage` | `() => void`                |         | Go to previous page, do nothing if `hasPrevious` is `false` |
+
+## Props
+
+| Name  | Type                      | Default | Description     |
+| ----- | ------------------------- | ------- | --------------- |
+| `key` | `"search"` \| `"instant"` |         | The search mode |
