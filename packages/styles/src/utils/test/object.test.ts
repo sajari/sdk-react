@@ -1,4 +1,4 @@
-import { merge } from '../object';
+import { filterObject, merge } from '../object';
 
 test.each([
   [{ a: 2 }, { a: 1 }, { a: 1 }],
@@ -46,4 +46,16 @@ test.each([
   ],
 ])('merge(%o, %o)', (target, source, expected) => {
   expect(merge(target, source)).toEqual(expected);
+});
+
+test.each([
+  [{ foo: 'bar', baz: 1 }, ['foo'], false, { foo: 'bar' }],
+  [{ foo: 'bar', baz: 1 }, [], false, {}],
+  [{ foo: 'bar', baz: 1 }, ['bar'], false, {}],
+  [{ foo: 'bar', baz: 1 }, ['foo'], true, { baz: 1 }],
+  [{ foo: 'bar', baz: 1 }, ['fooz'], true, { foo: 'bar', baz: 1 }],
+  [{ foo: 'bar', baz: 1 }, [], true, { foo: 'bar', baz: 1 }],
+  [{ foo: 'bar', baz: 1 }, [], true, { foo: 'bar', baz: 1 }],
+])('filterObject', (obj, keys, isBlacklisting, result) => {
+  expect(filterObject(obj, keys, isBlacklisting)).toEqual(result);
 });
