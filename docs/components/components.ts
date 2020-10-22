@@ -11,6 +11,7 @@ const coreComponents = [
   'Text',
   'Tabs',
   'Pagination',
+  'Heading',
 ].sort();
 const searchComponents = [
   'PoweredBy',

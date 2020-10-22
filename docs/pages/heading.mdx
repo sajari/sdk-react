@@ -1,0 +1,60 @@
+import SEO from '../components/SEO';
+
+<SEO title="Heading" description="Heading are used for rendering headlines. It renders an <h1> element by default." />
+
+# Heading
+
+Headings are used for rendering headlines. It renders an `<h1>` element by default.
+
+```js
+import { Heading } from '@sajari/react-components';
+```
+
+## Usage
+
+```jsx
+<Heading>I'm a Heading</Heading>
+```
+
+### Changing font size
+
+By default, the `size` prop is automatically determined by the heading level, set via `as` prop. To change the size of the heading, you can use the `size` prop.
+
+```jsx
+<div>
+  <Heading as="h1" size="xs">
+    In love with React & Next
+  </Heading>
+  <Heading as="h2" size="sm">
+    In love with React & Next
+  </Heading>
+  <Heading as="h3" size="md">
+    In love with React & Next
+  </Heading>
+  <Heading as="h4" size="lg">
+    In love with React & Next
+  </Heading>
+  <Heading as="h5" size="xl">
+    In love with React & Next
+  </Heading>
+  <Heading as="h6" size="2xl">
+    In love with React & Next
+  </Heading>
+</div>
+```
+
+### Truncate heading
+
+Pass the `truncate` prop to render an ellipsis when the headings exceeds.
+
+```jsx
+<Heading truncate>Basic text writing, including headings, body text, lists, and more.</Heading>
+```
+
+## Props
+
+| Name       | Type                                 | Default | Description                                                                 |
+| ---------- | ------------------------------------ | ------- | --------------------------------------------------------------------------- |
+| `as`       | `h1`, `h2`, `h3`, `h4`, `h5`, `h6`   | `h1`    | The element to render for the heading.                                      |
+| `size`     | `2xl`, `xl` , `lg`, `md`, `sm`, `xs` |         | The text size of the heading.                                               |
+| `truncate` | `boolean`, `2`, `3`, `4`, `5`        | `false` | Whether to truncate the heading. Numeric values are used for line clamping. |

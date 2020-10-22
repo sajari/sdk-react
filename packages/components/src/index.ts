@@ -8,6 +8,8 @@ export { default as CheckboxGroup } from './CheckboxGroup';
 export * from './CheckboxGroup';
 export { default as Combobox } from './Combobox';
 export * from './Combobox';
+export { default as Heading } from './Heading';
+export * from './Heading';
 export { default as Image } from './Image';
 export * from './Image';
 export { default as Pagination } from './Pagination';
