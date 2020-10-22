@@ -42,12 +42,12 @@ const getButtons = (page: number, pageCount: number, onChange: (page: number) =>
     }
   }
 
-  return items.map((item) => {
+  return items.map((item, index) => {
     if (item === null) {
       return (
         <Box
           as="span"
-          key="spacer-ellipsis"
+          key={`spacer-ellipsis-${index}`} // eslint-disable-line
           css={tw`px-2 py-2 border border-gray-200 border-solid rounded-none select-none focus:z-10 bg-gray-50`}
         >
           &hellip;

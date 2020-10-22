@@ -1,0 +1,138 @@
+import SEO from '../../components/SEO';
+
+<SEO title="Radio" description="Radio buttons are used when only one choice may be selected in a series of options." />
+
+# Radio
+
+Radio buttons are used when only one choice may be selected in a series of options.
+
+```js
+import { Radio, RadioGroup } from '@sajari/react-components';
+```
+
+## Usage
+
+Basic usage of radio button.
+
+```jsx
+function RadioExample() {
+  const [value, setValue] = React.useState('1');
+  return (
+    <RadioGroup onChange={(e) => setValue(e.target.value)} value={value} name="example-1">
+      <Radio value="1">Option 1</Radio>
+      <Radio value="2">Option 2</Radio>
+      <Radio value="3">Option 3</Radio>
+    </RadioGroup>
+  );
+}
+```
+
+### Disabled
+
+```jsx
+<RadioGroup defaultValue="1" name="example-2">
+  <Radio value="1" disabled>
+    Option 1
+  </Radio>
+  <Radio value="2">Option 2</Radio>
+  <Radio value="3">Option 3</Radio>
+</RadioGroup>
+```
+
+### Horizontal alignment
+
+```jsx
+<RadioGroup inline spacing="space-x-4" defaultValue="1">
+  <Radio value="1">Option 1</Radio>
+  <Radio value="2">Option 2</Radio>
+  <Radio value="3">Option 3</Radio>
+</RadioGroup>
+```
+
+### Invalid
+
+```jsx
+<Radio invalid>Radio</Radio>
+```
+
+### Custom Radio Buttons
+
+In some cases, you might need to create components that work like radios but
+don't look like radios. Chakra exports a `RadioGroup` to help with this
+scenario. Here's what you need to do:
+
+1. Create a component that accepts the `checked` and `disabled` props. Be
+   sure to `forwardRef` to the component because it's used for keyboard
+   accessibility.
+2. Add the component as children of `RadioGroup` and pass a `value` prop
+   to it.
+3. If you pass `disabled` to any of it's children, it'll be skipped in the
+   keyboard navigation.
+
+```jsx
+function Example() {
+  // Step 1: Create a component that accepts `checked` and `disabled` prop
+  const CustomRadio = React.forwardRef((props, ref) => {
+    const { checked, disabled, value, ...rest } = props;
+    return (
+      <Button
+        ref={ref}
+        appearance={checked ? 'primary' : 'default'}
+        aria-checked={checked}
+        role="radio"
+        disabled={disabled}
+        {...rest}
+      />
+    );
+  });
+
+  // Step 2: Add `CustomRadio` as children of `RadioGroup`
+  function Render() {
+    return (
+      <RadioGroup defaultValue="rad2" onChange={(val) => console.log(val)} inline>
+        <CustomRadio value="rad1">CustomRadio 1</CustomRadio>
+        <CustomRadio value="rad2">CustomRadio 2</CustomRadio>
+        <CustomRadio value="rad3">CustomRadio 3</CustomRadio>
+        <CustomRadio disabled value="rad4">
+          CustomRadio 4
+        </CustomRadio>
+      </RadioGroup>
+    );
+  }
+
+  return <Render />;
+}
+```
+
+## Props
+
+### Radio Props
+
+| Name              | Type                 | Default | Description                                                                                                           |
+| ----------------- | -------------------- | ------- | --------------------------------------------------------------------------------------------------------------------- |
+| `name`            | `string`             |         | The name of the input field in a radio (Useful for form submission)                                                   |
+| `value`           | `string` or `number` |         | The value to be used in the radio input. This is the value that will be returned on form submission                   |
+| `checked`         | `boolean`            |         | If `true`, the radio will be checked. You'll need to pass `onChange` to update it's value (since it's now controlled) |
+| `defaultChecked`  | `boolean`            |         | If `true`, the radio will be initially checked                                                                        |
+| `disabled`        | `boolean`            |         | If `true`, the radio will be disabled                                                                                 |
+| `invalid`         | `boolean`            |         | If `true`, the radio is marked as invalid. Changes style of unchecked state                                           |
+| `children`        | `React.ReactNode`    |         | The children of the radio                                                                                             |
+| `onChange`        | `function`           |         | Function called when the state of the radio changes                                                                   |
+| `onBlur`          | `function`           |         | Function called when you blur out of the radio                                                                        |
+| `onFocus`         | `function`           |         | Function called when the radio receive focus                                                                          |
+| `aria-label`      | `string`             |         | An accessible label for the radio in event there's no visible label or `children` was passed                          |
+| `aria-labelledby` | `string`             |         | Id that points to the label for the radio in event no `children` was passed                                           |
+
+### RadioGroup & RadioGroup Props
+
+| Name           | Type                  | Default | Description                                                         |
+| -------------- | --------------------- | ------- | ------------------------------------------------------------------- |
+| `id`           | `string`              |         | The id of the checkbox group.                                       |
+| `name`         | `string`              |         | The name of the input field in a radio (Useful for form submission) |
+| `defaultValue` | `string`              |         | The initial value of the radio group                                |
+| `value`        | `RadioProps['value']` |         | The value of the radio group                                        |
+| `onChange`     | `function`            |         | The callback fired when any children Radio is checked               |
+| `spacing`      | `FlexProps['space']`  |         | The space between each checkbox                                     |
+| `inline`       | `boolean`             |         | If `true`, the checkboxes will aligned horizontally.                |
+
+`RadioGroup` composes the `ButtonGroup` component.

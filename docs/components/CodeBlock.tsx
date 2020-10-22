@@ -36,7 +36,6 @@ const LiveCodePreview = (props) => (
     as={LivePreview}
     margin="mt-5"
     padding="p-4"
-    overflow="overflow-auto"
     borderColor="border-gray-200"
     borderWidth={['border', 'border-b-0']}
     borderRadius="rounded-t-md"

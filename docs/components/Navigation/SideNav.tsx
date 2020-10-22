@@ -21,31 +21,43 @@ export const SideNavContent = () => (
     <Box margin="mb-10">
       <NavGroupHeading>Components</NavGroupHeading>
 
-      {coreComponents.map((link) => (
-        <SideNavLink key={link} href={stringToUrl(link)}>
-          {link}
-        </SideNavLink>
-      ))}
+      {coreComponents.map((name) => {
+        const link = `components/${name}`;
+
+        return (
+          <SideNavLink key={link} href={stringToUrl(link)}>
+            {name}
+          </SideNavLink>
+        );
+      })}
     </Box>
 
     <Box margin="mb-10">
       <NavGroupHeading>Hooks</NavGroupHeading>
 
-      {hooks.map((link) => (
-        <SideNavLink key={link} href={stringToUrl(link)}>
-          {link}
-        </SideNavLink>
-      ))}
+      {hooks.map((name) => {
+        const link = `hooks/${name}`;
+
+        return (
+          <SideNavLink key={link} href={stringToUrl(link)}>
+            {name}
+          </SideNavLink>
+        );
+      })}
     </Box>
 
     <Box margin="mb-10">
       <NavGroupHeading>Search UI</NavGroupHeading>
 
-      {searchComponents.map((link) => (
-        <SideNavLink key={link} href={stringToUrl(link)}>
-          {link}
-        </SideNavLink>
-      ))}
+      {searchComponents.map((name) => {
+        const link = `search-ui/${name}`;
+
+        return (
+          <SideNavLink key={link} href={stringToUrl(link)}>
+            {name}
+          </SideNavLink>
+        );
+      })}
     </Box>
   </>
 );

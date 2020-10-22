@@ -8,7 +8,7 @@ export interface UseInputStyleProps {
   readOnly?: boolean;
   indeterminate?: boolean;
   block?: boolean;
-  type: 'text' | 'select' | 'radio' | 'checkbox';
+  type: 'combobox' | 'select' | 'radio' | 'checkbox';
 }
 
 export default function useInputStyles(props: UseInputStyleProps) {
@@ -17,7 +17,7 @@ export default function useInputStyles(props: UseInputStyleProps) {
   const styles: (TwStyle | string)[] = [];
 
   styles.push(
-    tw`px-3 py-2 pl-10 text-base leading-normal text-gray-700 bg-white border border-gray-200 border-solid outline-none`,
+    tw`px-3 py-2 pl-10 text-base leading-normal text-gray-700 transition-all duration-150 bg-white border border-gray-200 border-solid outline-none`,
   );
 
   if (block) {
@@ -67,8 +67,8 @@ export default function useInputStyles(props: UseInputStyleProps) {
     styles.push(tw`px-10 py-2 pl-3 rounded-md`);
   }
 
-  if (type === 'text') {
-    styles.push(tw`rounded-full`);
+  if (type === 'combobox') {
+    styles.push(tw`focus:border-gray-300 focus:shadow-none focus:shadow-sm`);
   }
 
   return css(styles);

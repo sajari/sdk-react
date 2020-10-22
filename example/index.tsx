@@ -3,9 +3,16 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { ContextProvider } from '@sajari/react-search-ui';
 import { SearchContextProvider, Pipeline, Values, useSearchContext } from '@sajari/react-hooks';
+import { Pagination } from '@sajari/react-components';
 
 const SearchPlayground = () => {
-  const { search, results } = useSearchContext<{ id: string; free_shipping: string }>();
+  const { search, setPage, page, pageCount, pageSize, totalResults, results } = useSearchContext<{
+    id: string;
+    free_shipping: string;
+  }>();
+
+  const fromItem = pageSize * (page - 1) + 1;
+  const toItem = results?.length + fromItem - 1;
 
   return (
     <>
@@ -15,6 +22,11 @@ const SearchPlayground = () => {
           search(e.target.value, true);
         }}
       />
+      {results ? (
+        <p>
+          Showing <b>{fromItem}</b> - <b>{toItem}</b> out of <b>{totalResults}</b> items
+        </p>
+      ) : null}
       {results?.map(({ values: { id, free_shipping, category, description, price, rating, title } }) => (
         <div key={id}>
           <h3>{title}</h3>
@@ -35,6 +47,13 @@ const SearchPlayground = () => {
           </ul>
         </div>
       ))}
+      <Pagination
+        page={page}
+        pageSize={pageSize}
+        totalResults={totalResults}
+        pageCount={pageCount}
+        onChange={setPage}
+      />
     </>
   );
 };

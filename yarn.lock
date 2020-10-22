@@ -3052,9 +3052,9 @@
     typescript "^4.0.3"
 
 "@sajari/sdk-js@next":
-  version "2.0.0-alpha.11"
-  resolved "https://registry.yarnpkg.com/@sajari/sdk-js/-/sdk-js-2.0.0-alpha.11.tgz#5915fec4a95d29ee4bb8e0332c68748c03d6849e"
-  integrity sha512-eeFZ6+HNwIer4UcbyB16pIo3c3hbosEchJAfPWkzS5oG1mYQiVps4xzRTciZ8UbeuntUlDPeag5lap4hLpAUPw==
+  version "2.0.0-alpha.12"
+  resolved "https://registry.yarnpkg.com/@sajari/sdk-js/-/sdk-js-2.0.0-alpha.12.tgz#dd0a9a57fac5db56434757a3a21801e727c39c40"
+  integrity sha512-YIOgSsf/DyJZtz0aVnScysYrKfBL/2MKVXX94l9TMW7zAT/nBraumEoggoWzUCHP/MKkMtOXc1UwSLxTazknQw==
 
 "@sinonjs/commons@^1.7.0":
   version "1.8.1"
@@ -5409,6 +5409,11 @@ compose-function@3.0.3:
   dependencies:
     arity-n "^1.0.4"
 
+compute-scroll-into-view@^1.0.14:
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/compute-scroll-into-view/-/compute-scroll-into-view-1.0.16.tgz#5b7bf4f7127ea2c19b750353d7ce6776a90ee088"
+  integrity sha512-a85LHKY81oQnikatZYA90pufpZ6sQx++BoCxOEMsjpZx+ZnaKGQnCyCehTRr/1p9GBIAHTjcU9k71kSYWloLiQ==
+
 concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
@@ -6321,6 +6326,16 @@ dot-prop@^5.1.0:
   integrity sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==
   dependencies:
     is-obj "^2.0.0"
+
+downshift@^6.0.6:
+  version "6.0.6"
+  resolved "https://registry.yarnpkg.com/downshift/-/downshift-6.0.6.tgz#82aee8e2e260d7ad99df8a0969bd002dd523abe8"
+  integrity sha512-tmLab3cXCn6PtZYl9V8r/nB2m+7/nCNrwo0B3kTHo/2lRBHr+1en1VNOQt2wIt0ajanAnxquZ00WPCyxe6cNFQ==
+  dependencies:
+    "@babel/runtime" "^7.11.2"
+    compute-scroll-into-view "^1.0.14"
+    prop-types "^15.7.2"
+    react-is "^16.13.1"
 
 dset@^2.0.1:
   version "2.0.1"
@@ -12031,7 +12046,7 @@ react-focus-lock@^2.4.1:
     use-callback-ref "^1.2.1"
     use-sidecar "^1.0.1"
 
-react-is@16.13.1, react-is@^16.12.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.6:
+react-is@16.13.1, react-is@^16.12.0, react-is@^16.13.1, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.6:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
@@ -13678,7 +13693,7 @@ tailwindcss-truncate-multiline@^1.0.3:
   resolved "https://registry.yarnpkg.com/tailwindcss-truncate-multiline/-/tailwindcss-truncate-multiline-1.0.3.tgz#de3ccb99a5a44ab042dd447be640776e4753ed23"
   integrity sha512-YsF5Nn2lQUCJECbU99dMDJ/XhrG8RKbSYXPmvoHnldB+HG/H8vJUqB+b5HKapvT26aQotdZLjJpC8YBGrWU12A==
 
-tailwindcss@^1.8.10, tailwindcss@^1.8.8:
+tailwindcss@^1.8.10:
   version "1.8.10"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-1.8.10.tgz#945ef151c401c04a1c95e6a6bc747387a8d1b9dc"
   integrity sha512-7QkERG/cWCzsuMqHMwjOaLMVixOGLNBiXsrkssxlE1aWfkxVbGqiuMokR2162xRyaH2mBIHKxmlf1qb3DvIPqw==
@@ -13706,10 +13721,10 @@ tailwindcss@^1.8.10, tailwindcss@^1.8.8:
     reduce-css-calc "^2.1.6"
     resolve "^1.14.2"
 
-tailwindcss@^1.9.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-1.9.0.tgz#19caaca94656e2d5f038fa46e754d91e152e9609"
-  integrity sha512-RJJ7SRtmm1jBXzOm5It50NAX76251yW+XWISb2Y+kxgqwcCHq4RDor7elzeUChl/dIFvUMDsHb7LfiGtLs3qtg==
+tailwindcss@^1.9.4, tailwindcss@^1.9.5:
+  version "1.9.5"
+  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-1.9.5.tgz#3339b790a68bc1f09a8efd8eb94cb05aed5235c2"
+  integrity sha512-Je5t1fAfyW333YTpSxF+8uJwbnrkpyBskDtZYgSMMKQbNp6QUhEKJ4g/JIevZjD2Zidz9VxLraEUq/yWOx6nQg==
   dependencies:
     "@fullhuman/postcss-purgecss" "^2.1.2"
     autoprefixer "^9.4.5"
@@ -14173,10 +14188,10 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   resolved "https://registry.yarnpkg.com/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
   integrity sha1-WuaBd/GS1EViadEIr6k/+HQ/T2Q=
 
-twin.macro@^1.10.0:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/twin.macro/-/twin.macro-1.10.0.tgz#b13d0934457d4cae54f1504a3a2ed744ed603960"
-  integrity sha512-+K9xvBvlx7iQ+CRatqNO/3VVV2+D+rbxexViKFtkjlICd+7A9hp5/8IOQ3SUPTQp80Ouist3Zcs/89quSLaoZg==
+twin.macro@^1.11.0:
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/twin.macro/-/twin.macro-1.11.0.tgz#0ed352262741e7b53fdc117fd2a66f2dddfe613c"
+  integrity sha512-a9RHMqDpD+Q4/SJOo0cgjlHhAH23h2Hx/HAcjNMTx1kyb/hokb4Yvhc4+KVj4jcFyNM4P+KHMuQ6tA4KMD4XJg==
   dependencies:
     "@babel/parser" "^7.10.2"
     babel-plugin-macros "^2.8.0"
@@ -14187,7 +14202,7 @@ twin.macro@^1.10.0:
     dset "^2.0.1"
     lodash.merge "^4.6.2"
     string-similarity "^4.0.1"
-    tailwindcss "^1.8.8"
+    tailwindcss "^1.9.4"
     timsort "^0.3.0"
 
 type-check@^0.4.0, type-check@~0.4.0:
