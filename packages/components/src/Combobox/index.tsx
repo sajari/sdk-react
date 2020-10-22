@@ -36,6 +36,7 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     id = `combobox-${useId()}`,
     invalid,
     onChange = () => {},
+    onKeyDown = () => {},
     onVoiceInput = () => {},
     enableVoice = false,
     loading = false,
@@ -79,7 +80,7 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
   return (
     <InputContextProvider value={context}>
       <Box css={[tw`relative`]}>
-        <Box as="label" css={tw`sr-only`} htmlFor={id} {...getLabelProps()}>
+        <Box as="label" css={tw`sr-only`} {...getLabelProps({ htmlFor: id })}>
           {label ?? placeholder}
         </Box>
 
@@ -92,25 +93,32 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
           <Box
             ref={ref}
             as="input"
-            type="search"
-            dir="auto"
             css={[tw`form-input`, styles, open && hasItems ? tw`rounded-b-none` : tw``]}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              onChange(e);
-              if (!value) {
-                setShowCancel(e.target.value !== '');
-              }
-            }}
-            placeholder={placeholder}
+            {...getInputProps({
+              type: 'search',
+              dir: 'auto',
+              placeholder,
+              'aria-invalid': invalid,
+              autoCapitalize: 'off',
+              autoComplete: 'off',
+              autoCorrect: 'off',
+              spellCheck: 'false',
+              inputMode: 'search',
+              onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => {
+                if (e.key === 'Enter') {
+                  (e.nativeEvent as any).preventDownshiftDefault = true; // Don't supress native form submission when 'Enter' key is pressed
+                }
+                onKeyDown(e);
+              },
+              onChange: (e: ChangeEvent<HTMLInputElement>) => {
+                onChange(e);
+                if (!value) {
+                  setShowCancel(e.target.value !== '');
+                }
+              },
+            })}
             enterkeyhint={enterKeyHint}
-            aria-invalid={invalid}
-            autoCapitalize="off"
-            autoComplete="off"
-            autoCorrect="off"
-            spellCheck="false"
-            inputMode="search"
             {...rest}
-            {...getInputProps()}
           />
 
           {enableVoice || loading ? (
