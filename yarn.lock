@@ -3070,7 +3070,7 @@
     toasted-notes "^3.2.0"
     typescript "^4.0.3"
 
-"@sajari/sdk-js@next":
+"@sajari/sdk-js@2.0.0-alpha.12":
   version "2.0.0-alpha.12"
   resolved "https://registry.yarnpkg.com/@sajari/sdk-js/-/sdk-js-2.0.0-alpha.12.tgz#dd0a9a57fac5db56434757a3a21801e727c39c40"
   integrity sha512-YIOgSsf/DyJZtz0aVnScysYrKfBL/2MKVXX94l9TMW7zAT/nBraumEoggoWzUCHP/MKkMtOXc1UwSLxTazknQw==
