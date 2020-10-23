@@ -7,7 +7,7 @@ import SEO from '../../components/SEO';
 `useQuery` provides a getter & setter for the current query.
 
 ```js
-import { useQuery, useSearch } from '@sajari/react-hooks';
+import { useQuery } from '@sajari/react-hooks';
 ```
 
 ## Usage
@@ -15,10 +15,26 @@ import { useQuery, useSearch } from '@sajari/react-hooks';
 ```jsx
 function Example() {
   const { query, setQuery } = useQuery();
+
+  return (
+    <>
+      <Combobox onChange={(e) => setQuery(e.target.value)} />
+      {query && <Text className="mt-2">{query}</Text>}
+    </>
+  );
+}
+```
+
+### Combine with useSearch
+
+```jsx
+// TODO: use Results component once done mapping with the response from backend
+function Example() {
+  const { query, setQuery } = useQuery();
   const { results = [] } = useSearch();
 
   return (
-    <div>
+    <>
       <Combobox onChange={(e) => setQuery(e.target.value)} />
       {query && results.length > 0 && (
         <ul className="list-disc px-5 space-y-2 mt-5">
@@ -27,7 +43,7 @@ function Example() {
           ))}
         </ul>
       )}
-    </div>
+    </>
   );
 }
 ```

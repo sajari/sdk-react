@@ -65,7 +65,7 @@ function useSearchCustomQuery<T>(query: string) {
 }
 
 // Returns results for pass in Values and Pipeline
-function useSearchCustomPipeline<T>(values: Values, pipeline: Pipeline, fields: Fields) {
+function useSearchCustomPipeline<T>(values: Values, pipeline: Pipeline, fields?: Fields) {
   // TODO: dirty way to get the return type of a generic function
   function inferTypeFunction(...args) {
     // @ts-ignore
@@ -87,7 +87,7 @@ function useSearchCustomPipeline<T>(values: Values, pipeline: Pipeline, fields: 
       );
 
       const reqResults = response?.getResults();
-      const results = reqResults ? mapResultFields<T>(reqResults, fields) : undefined;
+      const results = reqResults ? mapResultFields<T>(reqResults, fields || {}) : undefined;
 
       setSearchOutput({ results, latency, totalResults });
     });

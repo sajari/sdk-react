@@ -1,0 +1,108 @@
+import SEO from '../../components/SEO';
+import { useState } from 'react';
+
+<SEO title="useSearch" description="useSearch provides a getter & setter for the current query." />
+
+# useSearch
+
+`useSearch` provides a getter & setter for the current query.
+
+```js
+import { useSearch } from '@sajari/react-hooks';
+```
+
+## Usage
+
+Returns results for the current query. By default it will use the Values and Pipeline from the context:
+
+```jsx
+// TODO: use Results component once done mapping with the response from backend
+function Example() {
+  const { results = [] } = useSearch();
+  const { query, setQuery } = useQuery();
+
+  return (
+    <>
+      <Combobox onChange={(e) => setQuery(e.target.value)} />
+      {query && results.length > 0 && (
+        <ul className="list-disc px-5 space-y-2 mt-5">
+          {results.map(({ values: { title, id } }) => (
+            <li key={id}>{title}</li>
+          ))}
+        </ul>
+      )}
+    </>
+  );
+}
+```
+
+### Set a basic string query
+
+```jsx
+function Example() {
+  const [tabIndex, setTabIndex] = React.useState(0);
+  const queries = ['phone', 'chair', 'macbook'];
+  const { results = [] } = useSearch(queries[tabIndex]);
+
+  return (
+    <>
+      <Tabs onChange={(index) => setTabIndex(index)}>
+        <TabList>
+          <Tab>Phone</Tab>
+          <Tab>Chair</Tab>
+          <Tab>Macbook</Tab>
+        </TabList>
+        <div>
+          {results.length > 0 && (
+            <ul className="list-disc px-5 space-y-2 mt-5">
+              {results.map(({ values: { title, id } }) => (
+                <li key={id}>{title}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </Tabs>
+    </>
+  );
+}
+```
+
+### Optionally pass in Values or Pipeline:
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: 'sajariptyltd',
+      collection: 'sajari-com',
+    },
+    'website',
+  );
+  const values = new Values({ q: 'api', resultsPerPage: 3 });
+  const fields = { title: 'name' };
+
+  const { results = [] } = useSearch(values, pipeline, fields);
+
+  return (
+    <>
+      {results.length > 0 && (
+        <ul className="list-disc px-5 space-y-2">
+          {results.map(({ values: { title, id } }) => (
+            <li key={id}>{title}</li>
+          ))}
+        </ul>
+      )}
+    </>
+  );
+}
+```
+
+## Anatomy
+
+`useSearch` returns an object containing the following properties:
+
+| Name           | Type       | Default | Description                            |
+| -------------- | ---------- | ------- | -------------------------------------- |
+| `results`      | `Result[]` |         | An array of results that met the query |
+| `latency`      | `number`   |         | The engine latency                     |
+| `totalResults` | `number`   |         | The total count of results             |
