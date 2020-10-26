@@ -22,6 +22,7 @@ const searchComponents = [
   'Pagination',
   'Result',
   'Results',
+  'Summary',
   'Sorting',
   'ViewType',
 ].sort();
