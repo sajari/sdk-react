@@ -1,6 +1,5 @@
 import React from 'react';
 import { useContext } from '../SearchContextProvider';
-import usePagination from '../usePagination';
 import { UsePageSizeResult } from './types';
 
 function usePageSize(): UsePageSizeResult {
@@ -10,7 +9,6 @@ function usePageSize(): UsePageSizeResult {
       values,
     },
   } = useContext();
-  const { pageSize } = usePagination('search');
 
   const setPageSize = React.useCallback(
     (size: number) => {
@@ -19,8 +17,10 @@ function usePageSize(): UsePageSizeResult {
     [values],
   );
 
+  const pageSize = parseInt(values.get()[resultsPerPageParam], 10);
+
   return {
-    pageSize,
+    pageSize: Number.isNaN(pageSize) ? 10 : pageSize,
     setPageSize,
   };
 }
