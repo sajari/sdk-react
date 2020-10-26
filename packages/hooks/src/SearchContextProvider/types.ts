@@ -41,7 +41,7 @@ export interface Fields {
   category?: string;
 }
 
-export interface PipelineProviderProps {
+export interface SearchProviderValues {
   search: ProviderPipelineConfig;
   instant?: ProviderPipelineConfig;
   searchOnLoad?: boolean;
