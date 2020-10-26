@@ -1,0 +1,37 @@
+import SEO from '../../components/SEO';
+
+<SEO title="Results" description="Results is a component used to display results response from a search query." />
+
+# Results
+
+Results is a component used to display results response from a search query.
+
+```js
+import { Results } from '@sajari/react-search-ui';
+```
+
+## Usage
+
+```jsx
+function Example() {
+  useSearch('iphone');
+
+  return <Results />;
+}
+```
+
+### Grid display
+
+```jsx
+function Example() {
+  useSearch('macbook');
+
+  return <Results appearance="grid" />;
+}
+```
+
+## Props
+
+| Name         | Type          | Default | Description                            |
+| ------------ | ------------- | ------- | -------------------------------------- |
+| `appearance` | `row`, `grid` | `row`   | The layout for displaying the results. |

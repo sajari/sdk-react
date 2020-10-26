@@ -14,23 +14,21 @@ const Heading = styled(Text)`
 
 const Result = React.forwardRef((props: ResultProps, ref?: React.Ref<HTMLDivElement>) => {
   const styles = useResultStyles(props);
-  // const { appearance } = props;
+  const { title, description, rating, category, image, ...rest } = props;
 
   return (
-    <div {...props} ref={ref} css={styles.container}>
-      <Image src="https://source.unsplash.com/random/100x100" css={tw`mr-5 rounded-md`} />
+    <div {...rest} ref={ref} css={styles.container}>
+      <Image src={image} css={tw`mr-5 rounded-md`} />
 
       <div css={tw`flex-1 min-w-0`}>
-        <Heading as="h1">Apple - iPhone 6s Plus 64GB - Space Gray</Heading>
+        <Heading as="h1">{title}</Heading>
         <div css={tw`flex items-baseline mt-1`}>
-          <Text css={tw`mr-3 text-xs text-gray-400`}>Cell Phones &gt; iPhone</Text>
-          <Rating value={4} max={5} />
+          <Text css={tw`mr-3 text-xs text-gray-400`}>{category}</Text>
+          {rating && <Rating value={rating} max={5} />}
         </div>
 
         <Text truncate={2} css={tw`mt-1 text-sm text-gray-500`}>
-          A 5.5-inch Retina HD display with 3D Touch. 7000 series aluminum and stronger cover glass. An A9 chip with
-          64-bit desktop-class architecture. All new 12MP iSight camera with Live Photos. Touch ID. Faster LTE and
-          Wi-Fi. Long battery life and iOS 9 and iCloud. All in a smooth, continuous unibody design.
+          {description}
         </Text>
       </div>
     </div>
