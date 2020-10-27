@@ -28,3 +28,5 @@ export { default as Tabs } from './Tabs';
 export * from './Tabs';
 export { default as Text } from './Text';
 export * from './Text';
+export { default as RangeInput } from './RangeInput';
+export * from './RangeInput';

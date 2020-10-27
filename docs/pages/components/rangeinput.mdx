@@ -1,0 +1,38 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="RangeInput"
+  description="RangeInput allows user to be able to search through items that within min and max value."
+/>
+
+# RangeInput
+
+RangeInput allows user to be able to search through items that within min and max value.
+
+## Import
+
+```js
+import { RangeInput } from '@sajari/react-components';
+import { RangeFilter, EVENT_SELECTION_UPDATED } from '@sajari/react-hooks';
+```
+
+## Usage
+
+```jsx
+function Example() {
+  const rangeFilter = new RangeFilter('range', [0, 500]);
+  rangeFilter.set(200, 300);
+  const [filterOutput, setFilterOutput] = React.useState(rangeFilter.filter());
+
+  rangeFilter.listen(EVENT_SELECTION_UPDATED, () => {
+    setFilterOutput(rangeFilter.filter());
+  });
+
+  return (
+    <>
+      <RangeInput filter={rangeFilter} />
+      <pre style={{ textAlign: 'center', marginTop: '1rem' }}>"{filterOutput}"</pre>
+    </>
+  );
+}
+```
