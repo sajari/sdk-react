@@ -1,0 +1,93 @@
+import SEO from '../../components/SEO';
+
+<SEO title="Sorting" description="Sorting composition renders a select component for sorting options." />
+
+# Sorting
+
+Sorting composition renders a select component for sorting options.
+
+```js
+import { Result } from '@sajari/react-search-ui';
+import { Select, Input } from '@sajari/react-components';
+import { Sorting, useSearchContext, SearchContextProvider, Pipeline, Values } from '@sajari/react-hooks';
+```
+
+## Usage
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const values = new Values({ q: '' });
+
+  const SearchPlayground = React.memo(() => {
+    const { search, results } = useSearchContext();
+    const [query, setQuery] = React.useState('');
+
+    return (
+      <div className="flex flex-col space-y-4">
+        <div className="flex space-x-4">
+          <div className="w-2/5">
+            <Sorting
+              options={[
+                { name: 'Most relavant', value: '' },
+                { name: 'Brand: A to Z', value: 'brand' },
+                { name: 'Brand: Z to A', value: '-brand' },
+                { name: 'Rating: Low to High', value: 'rating' },
+                { name: 'Rating: High to Low', value: '-rating' },
+                { name: 'Popularity', value: 'popularity' },
+              ]}
+            />
+          </div>
+          <form
+            className="w-3/5"
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (query) {
+                // TODO: current Pipeline is not working if empty query is passed
+                search(query);
+              }
+            }}
+          >
+            <Input label="Search something" onChange={(e) => setQuery(e.target.value)} />
+          </form>
+        </div>
+        {results ? (
+          <div className="flex flex-col space-y-4">
+            {results.map((_, index) => (
+              <div key={`sorting-composition-demo-result-${index}`}>
+                <Result />
+              </div>
+            ))}
+          </div>
+        ) : null}
+      </div>
+    );
+  });
+
+  return (
+    <SearchContextProvider search={{ pipeline, values, fields: { category: 'brand', title: 'name' } }}>
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
+```
+
+### Search on value change
+
+By default `Sorting` composition will initiate search request whenever sorting value changes, you can opt-out of that by passing `searchOnChange={false}` to `Sorting`, in that case you'll need to use the `useSorting` hook to detect changes to `sorting` value.
+
+## Props
+
+| Name             | Type                                   | Default                                | Description                                                |
+| ---------------- | -------------------------------------- | -------------------------------------- | ---------------------------------------------------------- |
+| `label`          | `string`                               | `"Sort"`                               |                                                            |
+| `options`        | `Array<{name: string, value: string}>` | `[{name: "Most relavant", value: ""}]` |                                                            |
+| `searchOnChange` | `boolean`                              | `true`                                 | Whether to re-initiate search request when sorting changes |
