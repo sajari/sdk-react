@@ -2,3 +2,4 @@ export { default as ContextProvider } from './ContextProvider';
 export { default as PoweredBy } from './PoweredBy';
 export { default as Result } from './Result';
 export { default as Input } from './Input';
+export { default as ViewType } from './ViewType';
