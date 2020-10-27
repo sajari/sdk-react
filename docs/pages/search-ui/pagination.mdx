@@ -1,0 +1,51 @@
+import SEO from '../../components/SEO';
+
+<SEO title="Pagination" description="Pagination composition renders a pagination component with config wired in." />
+
+# Pagination
+
+Pagination composition renders a pagination component with config wired in.
+
+```js
+import { PaginationComposition } from '@sajari/react-search-ui';
+import { SearchContextProvider, useSearchContext } from '@sajari/react-hooks';
+```
+
+## Usage
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const values = new Values({ q: '' });
+
+  const SearchPlayground = React.memo(() => {
+    const { search } = useSearchContext();
+
+    React.useEffect(() => {
+      search('iphone');
+    }, []);
+
+    return <PaginationComposition />;
+  });
+
+  return (
+    <SearchContextProvider search={{ pipeline, values, fields: { category: 'brand', title: 'name' } }}>
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
+```
+
+## Props
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+

@@ -175,7 +175,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
 
   const searchFn = (key: 'search' | 'instant') =>
     debounce((query: string, override: boolean = false) => {
-      const func = key === 'instant' ? instant : search;
+      const func = key === 'instant' ? instant.current : search;
       const state = key === 'instant' ? instantState : searchState;
       const { pipeline, values } = func as ProviderPipelineConfig;
       const { config } = state;
@@ -198,7 +198,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
     }, 50);
 
   const clear = (key: 'search' | 'instant') => (vals?: { [k: string]: string | undefined }) => {
-    const func = key === 'instant' ? instant : search;
+    const func = key === 'instant' ? instant.current : search;
     const { pipeline, values } = func as ProviderPipelineConfig;
 
     if (vals !== undefined) {
@@ -230,7 +230,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
         ...state.instant,
         search: searchFn('instant'),
         clear: clear('instant'),
-        fields: instantProp?.fields,
+        fields: instant.current?.fields,
       },
       resultClicked: handleResultClicked,
       paginate: handlePaginate,
