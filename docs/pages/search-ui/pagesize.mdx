@@ -1,0 +1,85 @@
+import SEO from '../../components/SEO';
+
+<SEO title="PageSize" description="PageSize composition renders a select component for page sizes." />
+
+# PageSize
+
+PageSize composition renders a select component for page sizes.
+
+```js
+import { Result, PageSize } from '@sajari/react-search-ui';
+import { Select, Input } from '@sajari/react-components';
+import { usePageSize, useSearchContext, SearchContextProvider, Pipeline, Values } from '@sajari/react-hooks';
+```
+
+## Usage
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const values = new Values({ q: '' });
+
+  const SearchPlayground = React.memo(() => {
+    const { search, results } = useSearchContext();
+    const { setPageSize } = usePageSize();
+    const [query, setQuery] = React.useState('');
+
+    return (
+      <div className="flex flex-col space-y-4">
+        <div className="flex space-x-4">
+          <div className="w-1/5">
+            <PageSize />
+          </div>
+          <form
+            className="flex-1"
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (query) {
+                // TODO: current Pipeline is not working if empty query is passed
+                search(query);
+              }
+            }}
+          >
+            <Input label="Search something" onChange={(e) => setQuery(e.target.value)} />
+          </form>
+        </div>
+        {results ? (
+          <div className="flex flex-col space-y-4">
+            {results.map((_, index) => (
+              <div key={`pagesize-composition-demo-result-${index}`}>
+                <Result />
+              </div>
+            ))}
+          </div>
+        ) : null}
+      </div>
+    );
+  });
+
+  return (
+    <SearchContextProvider search={{ pipeline, values, fields: { category: 'brand', title: 'name' } }}>
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
+```
+
+### Search on value change
+
+By default `PageSize` composition will initiate search request whenever page size value changes, you can opt-out of that by passing `searchOnChange={false}` to `PageSize`, in that case you'll need to use the `usePageSize` hook to detect changes to `pageSize` value.
+
+## Props
+
+| Name             | Type            | Default               | Description                                                  |
+| ---------------- | --------------- | --------------------- | ------------------------------------------------------------ |
+| `label`          | `string`        | `Size`                |                                                              |
+| `sizes`          | `Array<number>` | [10, 20, 35, 50, 100] |
+| `searchOnChange` | `boolean`       | `true`                | Whether to re-initiate search request when page size changes |
