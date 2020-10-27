@@ -12,6 +12,7 @@
     "@mdx-js/mdx": "^1.6.18",
     "@mdx-js/react": "^1.6.18",
     "@next/mdx": "^9.5.5",
+    "@react-aria/ssr": "^3.0.1",
     "@sajari-ui/core": "^0.1.170",
     "@types/mdx-js__react": "^1.5.3",
     "@types/react-table": "^7.0.24",
