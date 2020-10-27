@@ -6,7 +6,7 @@ import { Config, defaultConfig } from './config';
 import { NoTracking, Pipeline, Response, Values } from './controllers';
 import { UnlistenFn } from './controllers/listener';
 import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from './events';
-import { Context, PipelineProviderProps, PipelineProviderState, ProviderPipelineConfig, State } from './types';
+import { Context, PipelineProviderState, ProviderPipelineConfig, SearchProviderValues, State } from './types';
 
 function debounce<F extends (...args: any[]) => void>(
   func: F,
@@ -87,7 +87,7 @@ const defaultState: State = {
   config: defaultConfig,
 };
 
-const SearchContextProvider: React.FC<PipelineProviderProps> = ({
+const SearchContextProvider: React.FC<SearchProviderValues> = ({
   children,
   search,
   instant: instantProp,
@@ -240,4 +240,5 @@ const SearchContextProvider: React.FC<PipelineProviderProps> = ({
 };
 
 export default SearchContextProvider;
-export { useContext };
+export { useContext, Pipeline, Values };
+export type { SearchProviderValues };

@@ -5,7 +5,7 @@ import { Box, Flex, FlexProps, Heading, Logomark } from '@sajari-ui/core';
 import { DefaultSeo } from 'next-seo';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { ContextProvider } from '@sajari/react-search-ui';
+import { ThemeProvider } from 'sajari-react-sdk-styles';
 
 import MDXComponents from '../components/MDXComponents';
 import MobileNav from '../components/Navigation/MobileNav';
@@ -81,9 +81,9 @@ const App = ({ Component, pageProps }: AppProps) => (
         </Head>
         <DefaultSeo {...seo} />
         <Layout>
-          <ContextProvider>
+          <ThemeProvider>
             <Component {...pageProps} />
-          </ContextProvider>
+          </ThemeProvider>
         </Layout>
       </MDXProvider>
     </SSRProvider>
