@@ -29,8 +29,14 @@ function Example() {
 
   const SearchPlayground = React.memo(() => {
     const { search, results } = useSearchContext();
-    const { setPageSize } = usePageSize();
+    const { pageSize, setPageSize } = usePageSize();
     const [query, setQuery] = React.useState('');
+
+    React.useEffect(() => {
+      if (query) {
+        search(query);
+      }
+    }, [pageSize]);
 
     return (
       <div className="flex flex-col space-y-4">
@@ -48,7 +54,7 @@ function Example() {
             <Input label="Search something" onChange={(e) => setQuery(e.target.value)} />
           </form>
           <div className="w-2/5">
-            <Select onChange={(e) => setPageSize(parseInt(e.target.value), 10)} placeholder="Select page size">
+            <Select value={`${pageSize}`} onChange={(e) => setPageSize(parseInt(e.target.value), 10)}>
               <option value="3">3</option>
               <option value="5">5</option>
               <option value="10">10</option>
