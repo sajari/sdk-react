@@ -5,3 +5,5 @@ export { default as PaginationComposition } from './Pagination';
 export { default as PoweredBy } from './PoweredBy';
 export { default as Result } from './Result';
 export { default as Results } from './Results';
+export { default as Summary } from './Summary';
+export { default as ViewType } from './ViewType';

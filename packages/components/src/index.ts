@@ -32,3 +32,5 @@ export { default as Tabs } from './Tabs';
 export * from './Tabs';
 export { default as Text } from './Text';
 export * from './Text';
+export { default as Label } from './Label';
+export * from './Label';
