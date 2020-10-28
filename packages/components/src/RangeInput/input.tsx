@@ -9,13 +9,14 @@ import { RangeInputInputProps } from './types';
 export const Input = (props: RangeInputInputProps) => {
   const ref = React.useRef<any>();
   const { inputProps, labelProps } = useTextField({ ...props, type: 'number' }, ref);
+
   return (
     <div css={tw`flex`}>
       <label css={tw`sr-only`} {...labelProps}>
         {props.label}
       </label>
       <input
-        css={tw`block w-full text-gray-600 border border-gray-300 border-solid focus:shadow-outline-blue outline-none transition-shadow duration-200 ease-in-out rounded px-3 py-2`}
+        css={tw`block w-full px-3 py-2 text-gray-600 transition-shadow duration-200 ease-in-out border border-gray-300 border-solid rounded outline-none focus:shadow-outline-blue`}
         {...inputProps}
         min={props.min}
         max={props.max}

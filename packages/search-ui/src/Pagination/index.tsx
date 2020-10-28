@@ -1,6 +1,6 @@
-import React from 'react';
-import { usePagination } from '@sajari/react-hooks';
 import { Pagination as PurePagination } from '@sajari/react-components';
+import { usePagination } from '@sajari/react-hooks';
+import React from 'react';
 import { __DEV__ } from 'sajari-react-sdk-utils';
 
 const Pagination: React.FC = () => {

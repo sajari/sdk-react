@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { useContext } from '../SearchContextProvider';
 import { UsePageSizeResult } from './types';
 

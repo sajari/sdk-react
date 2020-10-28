@@ -98,7 +98,7 @@ export const RangeInput = React.forwardRef(
             </button>
           ))}
         </Track>
-        <div css={tw`flex flex-col sm:flex-row items-center justify-between`}>
+        <div css={tw`flex flex-col items-center justify-between sm:flex-row`}>
           {leftInput}
           &ndash;
           {rightInput}

@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import Box from '../Box';
 import React from 'react';
 import { __DEV__ } from 'sajari-react-sdk-utils';
 
+import Box from '../Box';
 import useHeadingStyles from './styles';
 import { HeadingProps } from './types';
 

@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+
 import { useContext } from '../SearchContextProvider';
 import { UseSortingResult } from './types';
 
