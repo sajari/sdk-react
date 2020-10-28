@@ -7,6 +7,8 @@ export type ResultClickedFn = (url: string) => void;
 export type PaginateFn = (page: number) => void;
 
 export interface PipelineContextState {
+  values: Values;
+  pipeline: Pipeline;
   response: Response | null;
   query: string;
   completion: string;
@@ -15,7 +17,6 @@ export interface PipelineContextState {
   search: SearchFn;
   clear: ClearFn;
   fields?: Fields;
-  values: Values;
 }
 
 export interface ProviderPipelineConfig {
@@ -58,12 +59,4 @@ export interface Context {
 
   resultClicked: ResultClickedFn;
   paginate: PaginateFn;
-}
-
-export interface State {
-  response: Response | null;
-  query: string;
-  completion: string;
-  suggestions: string[];
-  config: Config;
 }

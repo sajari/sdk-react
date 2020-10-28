@@ -1,0 +1,58 @@
+import SEO from '../../components/SEO';
+
+<SEO title="useQuery" description="useQuery provides a getter & setter for the current query." />
+
+# useQuery
+
+`useQuery` provides a getter & setter for the current query.
+
+```js
+import { useQuery } from '@sajari/react-hooks';
+```
+
+## Usage
+
+```jsx
+function Example() {
+  const { query, setQuery } = useQuery();
+
+  return (
+    <>
+      <Combobox onChange={(e) => setQuery(e.target.value)} />
+      {query && <Text className="mt-2">{query}</Text>}
+    </>
+  );
+}
+```
+
+### Combine with useSearch
+
+```jsx
+// TODO: use Results component once done mapping with the response from backend
+function Example() {
+  const { query, setQuery } = useQuery();
+  const { results = [] } = useSearch();
+
+  return (
+    <>
+      <Combobox onChange={(e) => setQuery(e.target.value)} />
+      {query && results.length > 0 && (
+        <ul className="list-disc px-5 space-y-2 mt-5">
+          {results.map(({ values: { title, id } }) => (
+            <li key={id}>{title}</li>
+          ))}
+        </ul>
+      )}
+    </>
+  );
+}
+```
+
+## Anatomy
+
+`useQuery` returns an object containing the following properties:
+
+| Name       | Type                      | Default | Description                     |
+| ---------- | ------------------------- | ------- | ------------------------------- |
+| `query`    | `string`                  |         | The string of the current query |
+| `setQuery` | `(query: string) => void` |         | Method to set string for query  |

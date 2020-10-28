@@ -1,3 +1,6 @@
+/* eslint-disable import/named */
+export * from './SearchContextProvider/events';
+
 export {
   default as SearchContextProvider,
   SearchProviderValues,
@@ -6,9 +9,9 @@ export {
   Range,
   RangeFilter,
 } from './SearchContextProvider';
-export * from './SearchContextProvider/events';
-
 export { default as useSearchContext } from './useSearchContext';
 export { default as usePagination } from './usePagination';
 export { default as usePageSize } from './usePageSize';
+export { default as useSearch } from './useSearch';
 export { default as useSorting } from './useSorting';
+export { default as useQuery } from './useQuery';
