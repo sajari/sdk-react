@@ -1,20 +1,27 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
-import { Label, Select } from '@sajari/react-components';
-import { usePageSize } from '@sajari/react-hooks';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Select, Label } from '@sajari/react-components';
+import { usePageSize, useQuery, useSearchContext } from '@sajari/react-hooks';
 import { __DEV__ } from 'sajari-react-sdk-utils';
 import tw from 'twin.macro';
-
 import { PageSizeProps } from './types';
 
 const defaultSizes = [10, 20, 35, 50, 100];
 
-// TODO: incorparate searchOnChange with useQuery hook
 const PageSize: React.FC<PageSizeProps> = ({ searchOnChange = true, label = 'Size', sizes = defaultSizes }) => {
+  const { search } = useSearchContext();
   const { pageSize, setPageSize } = usePageSize();
+  const { query } = useQuery();
   const id = `page-size-${useId()}`;
+
+  useEffect(() => {
+    if (searchOnChange) {
+      search(query);
+    }
+  }, [pageSize]);
+
   return (
     <div css={tw`flex space-x-4`}>
       <Label htmlFor={id}>{label}</Label>
