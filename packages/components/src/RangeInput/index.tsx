@@ -2,13 +2,14 @@
 import { jsx } from '@emotion/core';
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
 import React from 'react';
-import tw from 'twin.macro';
-import { Input } from './input';
-import { RangeInputProps } from './types';
-import { Handle, Segment, Track, ValueTip } from './styled';
 import { useRanger } from 'react-ranger';
+import tw from 'twin.macro';
 
-const RangeInput = React.forwardRef(
+import { Input } from './input';
+import { Handle, Segment, Track, ValueTip } from './styled';
+import { RangeInputProps } from './types';
+
+export const RangeInput = React.forwardRef(
   (
     { filter, leftInput: leftInputFunc, rightInput: rightInputFunc }: RangeInputProps,
     ref?: React.Ref<HTMLDivElement>,
@@ -86,6 +87,7 @@ const RangeInput = React.forwardRef(
           ))}
           {handles.map(({ value, active, getHandleProps }) => (
             <button
+              type="button"
               {...getHandleProps({
                 style: { appearance: 'none', border: 'none', background: 'transparent', outline: 'none' },
               })}
