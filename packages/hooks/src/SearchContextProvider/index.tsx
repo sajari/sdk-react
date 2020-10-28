@@ -1,47 +1,19 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createContext } from 'sajari-react-sdk-utils';
 
+import debounce from '../utils/debounce';
 import { Config, defaultConfig } from './config';
-import { NoTracking, Pipeline, Response, Values } from './controllers';
+import { NoTracking, Pipeline, Response, Values, RangeFilter, Range } from './controllers';
 import { UnlistenFn } from './controllers/listener';
 import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from './events';
-import { Context, PipelineProviderProps, PipelineProviderState, ProviderPipelineConfig, State } from './types';
-
-function debounce<F extends (...args: any[]) => void>(
-  func: F,
-  waitMilliseconds = 50,
-  options = {
-    isImmediate: false,
-  },
-): F {
-  let timeoutId: number | undefined;
-
-  // eslint-disable-next-line func-names
-  return function (this: any, ...args: any[]) {
-    const context = this;
-
-    const doLater = () => {
-      timeoutId = undefined;
-      if (!options.isImmediate) {
-        func.apply(context, args);
-      }
-    };
-
-    const shouldCallNow = options.isImmediate && timeoutId === undefined;
-
-    if (timeoutId !== undefined) {
-      clearTimeout(timeoutId);
-    }
-
-    // @ts-ignore
-    timeoutId = setTimeout(doLater, waitMilliseconds);
-
-    if (shouldCallNow) {
-      func.apply(context, args);
-    }
-  } as any;
-}
+import {
+  Context,
+  PipelineProviderState,
+  ProviderPipelineConfig,
+  ProviderPipelineState,
+  SearchProviderValues,
+} from './types';
 
 const updateState = (query: string, responseValues: Map<string, string> | undefined, config: Config) => {
   const completion = query && responseValues ? responseValues.get(config.qParam) || '' : '';
@@ -79,7 +51,7 @@ const [Provider, useContext] = createContext<Context>({
   name: 'PipelineContext',
 });
 
-const defaultState: State = {
+const defaultState: ProviderPipelineState = {
   response: null,
   query: '',
   completion: '',
@@ -87,7 +59,7 @@ const defaultState: State = {
   config: defaultConfig,
 };
 
-const SearchContextProvider: React.FC<PipelineProviderProps> = ({
+const SearchContextProvider: React.FC<SearchProviderValues> = ({
   children,
   search,
   instant: instantProp,
@@ -173,39 +145,45 @@ const SearchContextProvider: React.FC<PipelineProviderProps> = ({
     };
   }, []);
 
-  const searchFn = (key: 'search' | 'instant') =>
-    debounce((query: string, override: boolean = false) => {
-      const func = key === 'instant' ? instant : search;
-      const state = key === 'instant' ? instantState : searchState;
+  const searchFn = useCallback(
+    (key: 'search' | 'instant') =>
+      debounce((query: string, override: boolean = false) => {
+        const func = key === 'instant' ? instant.current : search;
+        const state = key === 'instant' ? instantState : searchState;
+        const { pipeline, values } = func as ProviderPipelineConfig;
+        const { config } = state;
+
+        const text = {
+          [config.qParam]: query,
+          [config.qOverrideParam]: undefined,
+        };
+
+        if (override) {
+          text[config.qOverrideParam] = 'true';
+        }
+
+        values.set(text);
+        if (text[config.qParam]) {
+          pipeline.search(values.get());
+        } else {
+          pipeline.clearResponse(values.get());
+        }
+      }, 50),
+    [],
+  );
+
+  const clear = useCallback(
+    (key: 'search' | 'instant') => (vals?: { [k: string]: string | undefined }) => {
+      const func = key === 'instant' ? instant.current : search;
       const { pipeline, values } = func as ProviderPipelineConfig;
-      const { config } = state;
 
-      const text = {
-        [config.qParam]: query,
-        [config.qOverrideParam]: undefined,
-      };
-
-      if (override) {
-        text[config.qOverrideParam] = 'true';
+      if (vals !== undefined) {
+        values.set(vals);
       }
-
-      values.set(text);
-      if (text[config.qParam]) {
-        pipeline.search(values.get());
-      } else {
-        pipeline.clearResponse(values.get());
-      }
-    }, 50);
-
-  const clear = (key: 'search' | 'instant') => (vals?: { [k: string]: string | undefined }) => {
-    const func = key === 'instant' ? instant : search;
-    const { pipeline, values } = func as ProviderPipelineConfig;
-
-    if (vals !== undefined) {
-      values.set(vals);
-    }
-    pipeline.clearResponse(values.get());
-  };
+      pipeline.clearResponse(values.get());
+    },
+    [],
+  );
 
   const handlePaginate = (page: number) => {
     const { pipeline, values } = search;
@@ -214,7 +192,7 @@ const SearchContextProvider: React.FC<PipelineProviderProps> = ({
     pipeline.search(values.get());
   };
 
-  const handleResultClicked = (url: string) => search.pipeline.emitResultClicked(url);
+  const handleResultClicked = useCallback((url: string) => search.pipeline.emitResultClicked(url), []);
 
   const getContext = (state: PipelineProviderState) =>
     ({
@@ -222,15 +200,18 @@ const SearchContextProvider: React.FC<PipelineProviderProps> = ({
       search: {
         ...state.search,
         values: search.values,
+        pipeline: search.pipeline,
         search: searchFn('search'),
         clear: clear('search'),
         fields: search.fields,
       },
       instant: {
         ...state.instant,
+        values: instant.current?.values,
+        pipeline: instant.current?.pipeline,
         search: searchFn('instant'),
         clear: clear('instant'),
-        fields: instantProp?.fields,
+        fields: instant.current?.fields,
       },
       resultClicked: handleResultClicked,
       paginate: handlePaginate,
@@ -240,4 +221,5 @@ const SearchContextProvider: React.FC<PipelineProviderProps> = ({
 };
 
 export default SearchContextProvider;
-export { useContext };
+export { useContext, Pipeline, Values, RangeFilter, Range };
+export type { SearchProviderValues };

@@ -12,6 +12,7 @@ const coreComponents = [
   'Tabs',
   'Pagination',
   'Heading',
+  'RangeInput',
 ].sort();
 const searchComponents = [
   'PoweredBy',
@@ -21,9 +22,10 @@ const searchComponents = [
   'Pagination',
   'Result',
   'Results',
+  'Summary',
   'Sorting',
   'ViewType',
 ].sort();
-const hooks = ['useFilter', 'usePageSize', 'usePagination', 'useQuery', 'useSorting'].sort();
+const hooks = ['useFilter', 'usePageSize', 'usePagination', 'useQuery', 'useSearch', 'useSorting'].sort();
 
 export { coreComponents, searchComponents, hooks };
