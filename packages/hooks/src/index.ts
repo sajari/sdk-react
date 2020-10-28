@@ -1,5 +1,11 @@
-export { default as SearchContextProvider, SearchProviderValues, Values, Pipeline } from './SearchContextProvider';
-export { Values, Pipeline, RangeFilter, Range } from './SearchContextProvider/controllers';
+export {
+  default as SearchContextProvider,
+  SearchProviderValues,
+  Values,
+  Pipeline,
+  Range,
+  RangeFilter,
+} from './SearchContextProvider';
 export * from './SearchContextProvider/events';
 
 export { default as useSearchContext } from './useSearchContext';
