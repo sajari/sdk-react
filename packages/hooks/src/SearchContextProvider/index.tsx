@@ -5,7 +5,16 @@ import { createContext } from 'sajari-react-sdk-utils';
 import debounce from '../utils/debounce';
 import { Config, defaultConfig } from './config';
 // eslint-disable-next-line import/named
-import { NoTracking, Pipeline, Range, RangeFilter, Response, Values } from './controllers';
+import {
+  NoTracking,
+  ClickTracking,
+  PosNegTracking,
+  Pipeline,
+  Range,
+  RangeFilter,
+  Response,
+  Values,
+} from './controllers';
 import { UnlistenFn } from './controllers/listener';
 import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from './events';
 import {
@@ -222,5 +231,5 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
 };
 
 export default SearchContextProvider;
-export { useContext, Pipeline, Values, RangeFilter, Range };
+export { ClickTracking, PosNegTracking, useContext, Pipeline, Values, RangeFilter, Range };
 export type { SearchProviderValues };

@@ -8,6 +8,8 @@ export {
   Pipeline,
   Range,
   RangeFilter,
+  ClickTracking,
+  PosNegTracking,
 } from './SearchContextProvider';
 export { default as useSearchContext } from './useSearchContext';
 export { default as usePagination } from './usePagination';

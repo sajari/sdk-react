@@ -40,10 +40,7 @@ function Example() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            if (query) {
-              // TODO: current Pipeline is not working if empty query is passed
-              search(query);
-            }
+            search(query);
           }}
         >
           <Input label="Search something" value={query} onChange={(e) => setQuery(e.target.value)} />
