@@ -29,10 +29,77 @@ function Example() {
   });
 
   return (
-    <>
+    <div className="flex flex-col">
       <RangeInput filter={rangeFilter} />
-      <pre style={{ textAlign: 'center', marginTop: '1rem' }}>"{filterOutput}"</pre>
-    </>
+      <pre className="self-center">"{filterOutput}"</pre>
+    </div>
   );
 }
 ```
+
+### Custom input
+
+You can also use your own input by passing a function to `leftInput` or `rightInput` props. Make sure to call `getProps`, then spread the `inputProps` and `labelProps` to its corresponding element to preserve accessibility. The `ref` is meant to be spread on the input element.
+
+Note that as we uses [`Adobe's React-Aria`](https://react-spectrum.adobe.com/react-aria/useTextField.html) package internally, `useTextField` doesn't accept `min` or `max` for unknown reason, therefore as a workaround we must spread those manually.
+
+```jsx
+function Example() {
+  const rangeFilter = new RangeFilter('range', [0, 500]);
+  rangeFilter.set(200, 300);
+  const [filterOutput, setFilterOutput] = React.useState(rangeFilter.filter());
+
+  rangeFilter.listen(EVENT_SELECTION_UPDATED, () => {
+    setFilterOutput(rangeFilter.filter());
+  });
+
+  return (
+    <div className="flex flex-col">
+      <RangeInput
+        filter={rangeFilter}
+        leftInput={({ getProps, ref }) => {
+          const { inputProps, labelProps } = getProps({ label: 'Custom left input' });
+          return (
+            <div className="flex">
+              <label className="sr-only" {...labelProps}>
+                Custom left input
+              </label>
+              <input {...inputProps} min={0} max={500} ref={ref} />
+            </div>
+          );
+        }}
+      />
+      <pre className="self-center">"{filterOutput}"</pre>
+    </div>
+  );
+}
+```
+
+### Usage without Filter controller
+
+In case you don't want to depend on `RangeFilter`, you can otp-out of that by passing `limit`, `value`, `onChange` to the `RangeInput`.
+
+```jsx
+function Example() {
+  const [range, setRange] = React.useState([200, 100]);
+  return (
+    <div className="flex flex-col">
+      <RangeInput limit={[0, 500]} value={range} onChange={setRange} />
+      <pre className="self-center">
+        "[{range[0]}, {range[1]}]"
+      </pre>
+    </div>
+  );
+}
+```
+
+## Props
+
+| Name         | Type                                     | Default    | Description                                                                                       |
+| ------------ | ---------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------- |
+| `limit`      | `[number, number]`                       | `[0, 100]` | The inclusive limit of the range, used when you want to use the component without RangeFilter     |
+| `value`      | `[number, number]`                       | `[25, 50]` | The current value of the range input, used when you want to use the component without RangeFilter |
+| `onChange`   | `(value: [number, number]) => void`      | `() => {}` | The callback when the value changes, used when you want to use the component without RangeFilter  |
+| `filter`     | `RangeFilter`                            |            | The RangeFilter object                                                                            |
+| `leftInput`  | `({ getProps, ref }) => React.ReactNode` | `<Input/>` | The left input to set the range's min value                                                       |
+| `rightInput` | `({ getProps, ref }) => React.ReactNode` | `<Input/>` | The right input to set the range's min value                                                      |

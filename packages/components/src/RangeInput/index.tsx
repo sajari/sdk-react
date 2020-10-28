@@ -5,18 +5,26 @@ import React from 'react';
 import { useRanger } from 'react-ranger';
 import tw from 'twin.macro';
 
+import { defaultParams } from './defaults';
 import { Input } from './input';
 import { Handle, Segment, Track, ValueTip } from './styled';
 import { RangeInputProps } from './types';
 
 export const RangeInput = React.forwardRef(
   (
-    { filter, leftInput: leftInputFunc, rightInput: rightInputFunc }: RangeInputProps,
+    {
+      filter,
+      onChange = defaultParams.onChange,
+      value = defaultParams.value,
+      limit = defaultParams.limit,
+      leftInput: leftInputFunc,
+      rightInput: rightInputFunc,
+    }: RangeInputProps,
     ref?: React.Ref<HTMLDivElement>,
   ) => {
-    const limit = filter.limit();
-    const [min, max] = limit;
-    const [range, setRange] = React.useState(filter.getRange());
+    const limitRange = filter?.limit() ?? limit;
+    const [min, max] = limitRange;
+    const [range, setRange] = React.useState(filter?.getRange() ?? value);
     const { getTrackProps, segments, handles } = useRanger({
       stepSize: 1,
       min,
@@ -28,8 +36,10 @@ export const RangeInput = React.forwardRef(
     const rightRef = React.useRef(null);
 
     const handleRangeInputChange = (left: boolean) => (v: string) => {
-      const value = parseInt(v, 10);
-      setRange((r) => (left ? [Number.isNaN(value) ? min : value, r[1]] : [r[0], Number.isNaN(value) ? max : value]));
+      const newValue = parseInt(v, 10);
+      setRange((r) =>
+        left ? [Number.isNaN(newValue) ? min : newValue, r[1]] : [r[0], Number.isNaN(newValue) ? max : newValue],
+      );
     };
 
     const handleSwitchRange = () => {
@@ -40,7 +50,11 @@ export const RangeInput = React.forwardRef(
     };
 
     React.useEffect(() => {
-      filter.set(range[0], range[1]);
+      if (filter) {
+        filter.set(range[0], range[1]);
+      } else {
+        onChange(range);
+      }
     }, [range]);
 
     const leftInputProps = {
@@ -51,6 +65,7 @@ export const RangeInput = React.forwardRef(
       value: range[0].toString(),
       onBlur: handleSwitchRange,
       onChange: handleRangeInputChange(true),
+      label: 'Range input left bound',
     };
 
     const rightInputProps = {
@@ -61,22 +76,26 @@ export const RangeInput = React.forwardRef(
       value: range[1].toString(),
       onBlur: handleSwitchRange,
       onChange: handleRangeInputChange(false),
+      label: 'Range input right bound',
     };
 
     const leftInput = leftInputFunc ? (
       leftInputFunc({
-        getCustomInputProps: useTextField.bind(undefined, leftInputProps, leftRef),
+        getProps: (override = {}) => ({ ...useTextField({ ...leftInputProps, ...override }, leftRef), ref: leftRef }),
       })
     ) : (
-      <Input {...leftInputProps} label="Range input left bound" />
+      <Input {...leftInputProps} />
     );
 
     const rightInput = rightInputFunc ? (
       rightInputFunc({
-        getCustomInputProps: useTextField.bind(undefined, rightInputProps, rightRef),
+        getProps: (override = {}) => ({
+          ...useTextField({ ...rightInputProps, ...override }, rightRef),
+          ref: rightRef,
+        }),
       })
     ) : (
-      <Input {...rightInputProps} label="Range input right bound" />
+      <Input {...rightInputProps} />
     );
 
     return (
@@ -85,7 +104,7 @@ export const RangeInput = React.forwardRef(
           {segments.map(({ getSegmentProps }, i) => (
             <Segment index={i} {...getSegmentProps()} />
           ))}
-          {handles.map(({ value, active, getHandleProps }) => (
+          {handles.map(({ value: handleValue, active, getHandleProps }) => (
             <button
               type="button"
               {...getHandleProps({
@@ -93,7 +112,7 @@ export const RangeInput = React.forwardRef(
               })}
             >
               <Handle active={active}>
-                <ValueTip>{value}</ValueTip>
+                <ValueTip>{handleValue}</ValueTip>
               </Handle>
             </button>
           ))}

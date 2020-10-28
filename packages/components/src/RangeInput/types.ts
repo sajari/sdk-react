@@ -1,15 +1,22 @@
 import { AriaTextFieldOptions, TextFieldAria } from '@react-aria/textfield';
-import { RangeFilter } from '@sajari/react-hooks';
+import { Range, RangeFilter } from '@sajari/react-hooks';
 import React from 'react';
 
 export interface CustomInputProps {
-  /** Usual props for the input and label to be accessible and work correctly */
-  getCustomInputProps: () => TextFieldAria;
+  getProps: (
+    override?: AriaTextFieldOptions,
+  ) => TextFieldAria & { ref: React.MutableRefObject<HTMLInputElement | null> };
 }
 
 export type RangeInputProps = {
+  /** The limit range */
+  limit?: Range;
+  /** The range value */
+  value?: Range;
+  /** The onChange handler */
+  onChange?: (value: Range) => void;
   /** RangeFilter object  */
-  filter: RangeFilter;
+  filter?: RangeFilter;
   /** Left custom input */
   leftInput?: (props: CustomInputProps) => React.ReactNode;
   /** Right custom input */
