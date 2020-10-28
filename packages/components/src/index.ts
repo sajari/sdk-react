@@ -1,3 +1,4 @@
+/* eslint-disable import/export */
 export { default as Button } from './Button';
 export * from './Button';
 export { default as ButtonGroup } from './ButtonGroup';
@@ -12,8 +13,6 @@ export { default as Heading } from './Heading';
 export * from './Heading';
 export { default as Image } from './Image';
 export * from './Image';
-export { default as Label } from './Label';
-export * from './Label';
 export { default as Pagination } from './Pagination';
 export * from './Pagination';
 export { default as Radio } from './Radio';

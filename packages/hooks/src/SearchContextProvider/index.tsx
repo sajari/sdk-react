@@ -4,7 +4,8 @@ import { createContext } from 'sajari-react-sdk-utils';
 
 import debounce from '../utils/debounce';
 import { Config, defaultConfig } from './config';
-import { NoTracking, Pipeline, Response, Values, RangeFilter, Range } from './controllers';
+// eslint-disable-next-line import/named
+import { NoTracking, Pipeline, Range, RangeFilter, Response, Values } from './controllers';
 import { UnlistenFn } from './controllers/listener';
 import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from './events';
 import {
