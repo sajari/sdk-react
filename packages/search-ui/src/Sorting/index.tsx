@@ -1,12 +1,13 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React from 'react';
-import { SortingProps, SortOption } from './types';
-import { Select, Label } from '@sajari/react-components';
+import { useId } from '@reach/auto-id';
+import { Label, Select } from '@sajari/react-components';
 import { useSorting } from '@sajari/react-hooks';
+import React from 'react';
 import { __DEV__ } from 'sajari-react-sdk-utils';
 import tw from 'twin.macro';
-import { useId } from '@reach/auto-id';
+
+import { SortingProps, SortOption } from './types';
 
 const defaultOptions: SortOption[] = [{ name: 'Most relavant', value: '' }];
 
