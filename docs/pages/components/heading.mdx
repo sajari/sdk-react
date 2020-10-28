@@ -1,4 +1,4 @@
-import SEO from '../components/SEO';
+import SEO from '../../components/SEO';
 
 <SEO title="Heading" description="Heading are used for rendering headlines. It renders an <h1> element by default." />
 
@@ -21,7 +21,7 @@ import { Heading } from '@sajari/react-components';
 By default, the `size` prop is automatically determined by the heading level, set via `as` prop. To change the size of the heading, you can use the `size` prop.
 
 ```jsx
-<div>
+<div className="flex flex-col space-y-2">
   <Heading as="h1" size="xs">
     In love with React & Next
   </Heading>
