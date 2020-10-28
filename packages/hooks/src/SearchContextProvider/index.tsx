@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { createContext } from 'sajari-react-sdk-utils';
 
 import { Config, defaultConfig } from './config';
-import { NoTracking, Pipeline, Response, Values } from './controllers';
+import { NoTracking, Pipeline, Response, Values, RangeFilter, Range } from './controllers';
 import { UnlistenFn } from './controllers/listener';
 import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from './events';
 import { Context, PipelineProviderState, ProviderPipelineConfig, SearchProviderValues, State } from './types';
@@ -240,5 +240,5 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
 };
 
 export default SearchContextProvider;
-export { useContext, Pipeline, Values };
+export { useContext, Pipeline, Values, RangeFilter, Range };
 export type { SearchProviderValues };
