@@ -3,6 +3,7 @@ import { mdx } from '@mdx-js/react';
 import * as ReactComponents from '@sajari/react-components';
 import * as ReactHooks from '@sajari/react-hooks';
 import * as ReactSDK from '@sajari/react-search-ui';
+import SearchProvider from './SearchProvider';
 
 import {
   Box,
@@ -108,20 +109,22 @@ const CodeBlock = (props: CodeBlockProps) => {
 
   if (language === 'jsx' && live === true) {
     return (
-      <LiveProvider {...liveProviderProps}>
-        <Box position="relative">
-          <EditableNotice />
-          <LiveCodePreview />
-          <LiveCodeError />
+      <SearchProvider>
+        <LiveProvider {...liveProviderProps}>
           <Box position="relative">
-            <CopyButton onClick={onCopy} theme="dark">
-              {hasCopied ? 'Copied!' : 'Copy'}
-            </CopyButton>
-            {/* @ts-ignore padding works but isn't in types?! */}
-            <LiveEditor onChange={handleCodeChange} style={liveEditorStyle} padding={20} className="rounded-b-md" />
+            <EditableNotice />
+            <LiveCodePreview />
+            <LiveCodeError />
+            <Box position="relative">
+              <CopyButton onClick={onCopy} theme="dark">
+                {hasCopied ? 'Copied!' : 'Copy'}
+              </CopyButton>
+              {/* @ts-ignore padding works but isn't in types?! */}
+              <LiveEditor onChange={handleCodeChange} style={liveEditorStyle} padding={20} className="rounded-b-md" />
+            </Box>
           </Box>
-        </Box>
-      </LiveProvider>
+        </LiveProvider>
+      </SearchProvider>
     );
   }
 

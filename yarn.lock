@@ -2882,6 +2882,18 @@
     "@react-stately/toggle" "^3.2.1"
     "@react-types/switch" "^3.1.1"
 
+"@react-aria/textfield@^3.2.1":
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/@react-aria/textfield/-/textfield-3.2.1.tgz#dc6830acd11ecb40e36f3757cfcf09063d4d593f"
+  integrity sha512-xswGi6TIU7IzHlxWqG7ZY97q77vEHMREjb2yxWJPA9peqfOTYKW6e5IIjFSrW2UiZrhx1MWmJ8/eelcVvxwPzQ==
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/focus" "^3.2.2"
+    "@react-aria/label" "^3.1.1"
+    "@react-aria/utils" "^3.3.0"
+    "@react-types/shared" "^3.2.1"
+    "@react-types/textfield" "^3.2.1"
+
 "@react-aria/toggle@^3.1.1":
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/@react-aria/toggle/-/toggle-3.1.1.tgz#5a1e523af0a2425c4cd73dbeb9e9116c65ea7437"
@@ -2962,6 +2974,13 @@
   integrity sha512-nI5J/1CrJrVANwgikXyPMqxWJ4UyefzE4Vz/TwTgoXQ9v+LRNo22wbisfh1EmJAlZ0E52X/iKViVaBroNty+EA==
   dependencies:
     "@react-types/checkbox" "^3.2.1"
+    "@react-types/shared" "^3.2.1"
+
+"@react-types/textfield@^3.2.1":
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/@react-types/textfield/-/textfield-3.2.1.tgz#3976baf7e96f23a7a8622d44e59c213da4035dd2"
+  integrity sha512-tGe7rw508MqWGydjwXLXxZlPE3PaWij6KL+yy06qnyS9jBRo/0tSM8tjKOlZVpsDE1kqZXbx2UyOUEmqHGq4dg==
+  dependencies:
     "@react-types/shared" "^3.2.1"
 
 "@rollup/plugin-babel@^5.1.0":
@@ -12064,6 +12083,11 @@ react-live@^2.2.2:
     prop-types "^15.5.8"
     react-simple-code-editor "^0.10.0"
     unescape "^1.0.1"
+
+react-ranger@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-ranger/-/react-ranger-2.1.0.tgz#a9007d67a7871736fffc5fe0d7c54a736771e9a1"
+  integrity sha512-d8ezhyX3v/KlN8SkyoE5e8Dybsdmn94eUAqBDsAPrVhZde8sVt6pLJw4fC784KiMmS4LyAjvtjGxhAEqjjGYgw==
 
 react-refresh@0.8.3:
   version "0.8.3"

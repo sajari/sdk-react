@@ -31,7 +31,7 @@ const defaultTheme: Theme = {
 
 export const useTheme = () => useEmotionTheme<Theme>();
 
-interface ThemeProviderProps {
+export interface ThemeProviderProps {
   importantStyles?: boolean;
   theme?: DeepPartial<Theme>;
 }

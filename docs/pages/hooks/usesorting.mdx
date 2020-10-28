@@ -1,0 +1,103 @@
+import SEO from '../../components/SEO';
+
+<SEO title="useSorting" description="useSorting provides getter/setter for sorting results." />
+
+# useSorting
+
+`useSorting` provides getter/setter for sorting results.
+
+```js
+import { Result } from '@sajari/react-search-ui';
+import { Select, Input } from '@sajari/react-components';
+import { useSorting, useSearchContext, SearchContextProvider, Pipeline, Values } from '@sajari/react-hooks';
+```
+
+## Usage
+
+`setSorting` expects a string, and that string must satisfy the following requirements:
+
+- There must be at least one record in the collection that has that field and its corresponding value.
+- The field's value must be an `Integer`, `Float`, `Timestamp` or a `String`.
+- It must follow the syntax of `"${field}"` for ascending order of that field and `"-${field}"` for the opposite
+
+E.g. if your record contains a `rating` field, then passing `"rating"` to sort for items that have the lowest rating to highest, or `"-rating"` for highest to lowest.
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const values = new Values({ q: '' });
+
+  const SearchPlayground = React.memo(() => {
+    const { search, results } = useSearchContext();
+    const { sorting, setSorting } = useSorting();
+    const [query, setQuery] = React.useState('');
+
+    return (
+      <div className="flex flex-col space-y-4">
+        <div className="flex space-x-4">
+          <form
+            className="w-3/5"
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (query) {
+                // TODO: current Pipeline is not working if empty query is passed
+                search(query);
+              }
+            }}
+          >
+            <Input label="Search something" onChange={(e) => setQuery(e.target.value)} />
+          </form>
+          <div className="w-2/5">
+            <Select value={sorting} onChange={(e) => setSorting(e.target.value)}>
+              <option value="">Most relavant</option>
+              <option value="brand">Brand: A to Z</option>
+              <option value="-brand">Brand: Z to A</option>
+              <option value="rating">Rating: Low to High</option>
+              <option value="-rating">Rating: High to Low</option>
+              <option value="popularity">Popularity</option>
+            </Select>
+          </div>
+        </div>
+        {results ? (
+          <div className="flex flex-col space-y-4">
+            {results.map((_, index) => (
+              <div key={`use-sorting-demo-result-${index}`}>
+                <Result />
+              </div>
+            ))}
+          </div>
+        ) : null}
+      </div>
+    );
+  });
+
+  return (
+    <SearchContextProvider search={{ pipeline, values, fields: { category: 'brand', title: 'name' } }}>
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
+```
+
+## Anatomy
+
+`useSorting` returns an object containing the following properties:
+
+| Name         | Type                      | Default | Description                |
+| ------------ | ------------------------- | ------- | -------------------------- |
+| `sorting`    | `sorting`                 |         | The currently sorting mode |
+| `setSorting` | `(order: string) => void` |         | Method to set sorting mode |
+
+## Props
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+

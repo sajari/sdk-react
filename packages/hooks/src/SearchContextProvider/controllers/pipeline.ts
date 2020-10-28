@@ -179,7 +179,11 @@ export class Pipeline {
    * @param values Key-value pair parameters.
    */
   public clearResponse(values: { [k: string]: string }) {
-    this.tracking.next(values);
+    // TODO: temporarily check if tracking is undefined to skip warning
+    // Should revert this once the above FIXMEs are resolved
+    if (this.tracking) {
+      this.tracking.next(values);
+    }
 
     this.searchCount++;
     this.response = new Response(null);
