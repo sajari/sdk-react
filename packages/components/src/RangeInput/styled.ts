@@ -9,8 +9,9 @@ export const Track = styled.div`
   touch-action: none;
 `;
 
-export const Segment = styled.div<{ index: number }>`
-  background-color: ${(props) => (props.index === 1 ? 'rgb(103, 114, 249)' : 'rgb(218, 223, 231)')};
+export const Segment = styled.div<{ index: number; isSingleHandle: boolean }>`
+  background-color: ${(props) =>
+    props.index === 1 && !props.isSingleHandle ? 'rgb(103, 114, 249)' : 'rgb(218, 223, 231)'};
   height: 100%;
   border-radius: 6px;
 `;

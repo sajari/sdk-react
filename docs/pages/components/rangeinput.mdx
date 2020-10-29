@@ -93,6 +93,20 @@ function Example() {
 }
 ```
 
+### Customize number of handles
+
+```jsx
+function Example() {
+  const [range, setRange] = React.useState([100]);
+  return (
+    <div className="flex flex-col space-y-4">
+      <RangeInput min={0} max={500} value={range} onChange={setRange} />
+      <pre className="self-center">"[{range[0]}]"</pre>
+    </div>
+  );
+}
+```
+
 ## Props
 
 | Name         | Type                                     | Default    | Description                                                                                       |

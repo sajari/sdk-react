@@ -1,6 +1,7 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
+import { Range } from '@sajari/react-hooks';
 import React from 'react';
 import { useRanger } from 'react-ranger';
 import tw from 'twin.macro';
@@ -16,13 +17,14 @@ export const RangeInput = React.forwardRef(
       filter,
       onChange = defaultParams.onChange,
       value = defaultParams.value,
-      min: minProps = defaultParams.limit[0],
-      max: maxProps = defaultParams.limit[1],
+      min: minProps = defaultParams.min,
+      max: maxProps = defaultParams.max,
       leftInput: leftInputFunc,
       rightInput: rightInputFunc,
     }: RangeInputProps,
     ref?: React.Ref<HTMLDivElement>,
   ) => {
+    const isSingleHandle = value.length === 1;
     const [min, max] = filter?.limit() ?? [minProps, maxProps];
     const [range, setRange] = React.useState(filter?.getRange() ?? value);
     const { getTrackProps, segments, handles } = useRanger({
@@ -38,12 +40,17 @@ export const RangeInput = React.forwardRef(
     const handleRangeInputChange = (left: boolean) => (v: string) => {
       const newValue = parseInt(v, 10);
       setRange((r) =>
-        left ? [Number.isNaN(newValue) ? min : newValue, r[1]] : [r[0], Number.isNaN(newValue) ? max : newValue],
+        isSingleHandle
+          ? [Number.isNaN(newValue) ? min : newValue]
+          : left
+          ? [Number.isNaN(newValue) ? min : newValue, r[1] as number]
+          : [r[0], Number.isNaN(newValue) ? max : newValue],
       );
     };
 
     const handleSwitchRange = () => {
-      const [from, to] = range;
+      if (isSingleHandle) return;
+      const [from, to] = range as Range;
       if (from > to) {
         setRange([to, from]);
       }
@@ -51,7 +58,7 @@ export const RangeInput = React.forwardRef(
 
     React.useEffect(() => {
       if (filter) {
-        filter.set(range[0], range[1]);
+        filter.set(range[0], range[1] as number);
       } else {
         onChange(range);
       }
@@ -73,7 +80,7 @@ export const RangeInput = React.forwardRef(
       max,
       type: 'number',
       inputMode: 'numeric' as AriaTextFieldOptions['inputMode'],
-      value: range[1].toString(),
+      value: (isSingleHandle ? 0 : (range[1] as number)).toString(),
       onBlur: handleSwitchRange,
       onChange: handleRangeInputChange(false),
       label: 'Range input right bound',
@@ -87,7 +94,7 @@ export const RangeInput = React.forwardRef(
       <Input {...leftInputProps} />
     );
 
-    const rightInput = rightInputFunc ? (
+    const rightInput = isSingleHandle ? null : rightInputFunc ? (
       rightInputFunc({
         getProps: (override = {}) => ({
           ...useTextField({ ...rightInputProps, ...override }, rightRef),
@@ -102,7 +109,7 @@ export const RangeInput = React.forwardRef(
       <div ref={ref} css={tw`flex flex-col`}>
         <Track {...getTrackProps()}>
           {segments.map(({ getSegmentProps }, i) => (
-            <Segment index={i} {...getSegmentProps()} />
+            <Segment isSingleHandle={isSingleHandle} index={i} {...getSegmentProps()} />
           ))}
           {handles.map(({ value: handleValue, active, getHandleProps }) => (
             <button
@@ -117,10 +124,19 @@ export const RangeInput = React.forwardRef(
             </button>
           ))}
         </Track>
-        <div css={tw`flex flex-col items-center justify-between sm:flex-row`}>
+        <div
+          css={css(
+            tw`flex flex-col items-center sm:flex-row`,
+            isSingleHandle ? tw`justify-center` : tw`justify-between`,
+          )}
+        >
           {leftInput}
-          &ndash;
-          {rightInput}
+          {isSingleHandle ? null : (
+            <React.Fragment>
+              &ndash;
+              {rightInput}
+            </React.Fragment>
+          )}
         </div>
       </div>
     );
