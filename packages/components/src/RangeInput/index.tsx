@@ -16,14 +16,14 @@ export const RangeInput = React.forwardRef(
       filter,
       onChange = defaultParams.onChange,
       value = defaultParams.value,
-      limit = defaultParams.limit,
+      min: minProps = defaultParams.limit[0],
+      max: maxProps = defaultParams.limit[1],
       leftInput: leftInputFunc,
       rightInput: rightInputFunc,
     }: RangeInputProps,
     ref?: React.Ref<HTMLDivElement>,
   ) => {
-    const limitRange = filter?.limit() ?? limit;
-    const [min, max] = limitRange;
+    const [min, max] = filter?.limit() ?? [minProps, maxProps];
     const [range, setRange] = React.useState(filter?.getRange() ?? value);
     const { getTrackProps, segments, handles } = useRanger({
       stepSize: 1,

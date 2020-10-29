@@ -81,10 +81,10 @@ In case you don't want to depend on `RangeFilter`, you can otp-out of that by pa
 
 ```jsx
 function Example() {
-  const [range, setRange] = React.useState([200, 100]);
+  const [range, setRange] = React.useState([100, 200]);
   return (
     <div className="flex flex-col">
-      <RangeInput limit={[0, 500]} value={range} onChange={setRange} />
+      <RangeInput min={0} max={500} value={range} onChange={setRange} />
       <pre className="self-center">
         "[{range[0]}, {range[1]}]"
       </pre>
@@ -97,7 +97,8 @@ function Example() {
 
 | Name         | Type                                     | Default    | Description                                                                                       |
 | ------------ | ---------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------- |
-| `limit`      | `[number, number]`                       | `[0, 100]` | The inclusive limit of the range, used when you want to use the component without RangeFilter     |
+| `min`        | `number`                                 | `0`        | The min range, used when you want to use the component without RangeFilter                        |
+| `max`        | `number`                                 | `100`      | The max range, used when you want to use the component without RangeFilter                        |
 | `value`      | `[number, number]`                       | `[25, 50]` | The current value of the range input, used when you want to use the component without RangeFilter |
 | `onChange`   | `(value: [number, number]) => void`      | `() => {}` | The callback when the value changes, used when you want to use the component without RangeFilter  |
 | `filter`     | `RangeFilter`                            |            | The RangeFilter object                                                                            |

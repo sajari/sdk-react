@@ -9,8 +9,10 @@ export interface CustomInputProps {
 }
 
 export type RangeInputProps = {
-  /** The limit range */
-  limit?: Range;
+  /** The min range */
+  min?: number;
+  /** The max range */
+  max?: number;
   /** The range value */
   value?: Range;
   /** The onChange handler */
