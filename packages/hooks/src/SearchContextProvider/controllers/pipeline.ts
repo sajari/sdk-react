@@ -56,10 +56,6 @@ export class Pipeline {
   ) {
     const { project, collection, endpoint } = config;
     this.config = config;
-    // TODO: v0.x import { withEndpoint } from '@sajari/sdk-js';
-    // need to check with Ben/look up v0.x code to see why the method has been removed and what is the alternative
-    // const opts = endpoint !== undefined ? [withEndpoint(endpoint)] : [];
-    // const opts = [];
 
     const p: { name?: string; version?: string } = {
       name: undefined,
@@ -72,12 +68,10 @@ export class Pipeline {
       p.version = name.version;
     }
 
-    // this.pipeline = new Client(project, collection, opts).pipeline(p.name as string, p.version);
     this.pipeline = new Client(project, collection, endpoint).pipeline(p.name as string, p.version);
     this.name = p.name as string;
     this.version = p.version;
-    // FIXME: this is causing a bad request due to no defined clientTracking
-    // this.tracking = tracking;
+    this.tracking = tracking;
     this.listeners = new Map([
       [EVENT_SEARCH_SENT, new Listener()],
       [EVENT_RESPONSE_UPDATED, new Listener()],
@@ -86,12 +80,11 @@ export class Pipeline {
     this.searchCount = 0;
     this.response = new Response(null);
 
-    // FIXME: this is causing a bad request due to no defined clientTracking
-    // this.analytics = new Analytics(this, this.tracking);
-    // analyticsAdapters.forEach((Adapter) => {
-    //   // eslint-disable-next-line no-new
-    //   new Adapter(this.analytics);
-    // });
+    this.analytics = new Analytics(this, this.tracking);
+    analyticsAdapters.forEach((Adapter) => {
+      // eslint-disable-next-line no-new
+      new Adapter(this.analytics);
+    });
   }
 
   /**
@@ -146,9 +139,7 @@ export class Pipeline {
     const currentSearch = this.searchCount;
 
     this.pipeline
-      // TODO: check why tracking type doesn't match
-      // @ts-ignore
-      .search(values, this.tracking)
+      .search(values, this.tracking.next(values))
       .then(([response, responseValues]) => {
         if (currentSearch < this.searchCount) {
           return;
@@ -179,11 +170,7 @@ export class Pipeline {
    * @param values Key-value pair parameters.
    */
   public clearResponse(values: { [k: string]: string }) {
-    // TODO: temporarily check if tracking is undefined to skip warning
-    // Should revert this once the above FIXMEs are resolved
-    if (this.tracking) {
-      this.tracking.next(values);
-    }
+    this.tracking.next(values);
 
     this.searchCount++;
     this.response = new Response(null);
