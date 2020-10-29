@@ -1,11 +1,13 @@
+/* eslint-disable react/no-array-index-key */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
-import React, { useEffect } from 'react';
-import { Select, Label } from '@sajari/react-components';
+import { Label, Select } from '@sajari/react-components';
 import { usePageSize, useQuery, useSearchContext } from '@sajari/react-hooks';
+import React, { useEffect } from 'react';
 import { __DEV__ } from 'sajari-react-sdk-utils';
 import tw from 'twin.macro';
+
 import { PageSizeProps } from './types';
 
 const defaultSizes = [10, 20, 35, 50, 100];

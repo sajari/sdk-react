@@ -43,7 +43,7 @@ function Example() {
             search(query);
           }}
         >
-          <Input label="Search something" value={query} onChange={(e) => setQuery(e.target.value)} />
+          <Input label="Search something" value={query} onChange={(value) => setQuery(value)} />
         </form>
         {results ? (
           <div className="flex flex-col space-y-6 items-center">

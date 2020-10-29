@@ -23,7 +23,7 @@ function Example() {
 
   return (
     <>
-      <Combobox onChange={(e) => setQuery(e.target.value)} />
+      <Combobox onChange={(value) => setQuery(value)} />
       {query && results.length > 0 && (
         <ul className="list-disc px-5 space-y-2 mt-5">
           {results.map(({ values: { title, id } }) => (

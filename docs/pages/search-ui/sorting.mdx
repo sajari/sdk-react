@@ -53,7 +53,7 @@ function Example() {
               search(query);
             }}
           >
-            <Input label="Search something" onChange={(e) => setQuery(e.target.value)} />
+            <Input label="Search something" onChange={(value) => setQuery(value)} />
           </form>
         </div>
         {results ? <Results /> : null}
