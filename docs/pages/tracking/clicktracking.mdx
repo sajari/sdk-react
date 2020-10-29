@@ -1,0 +1,59 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="Click Tracking"
+  description="Click tracking refers to recording user click interactions alongside search results. This is usually the successful search outcome customers use to power machine learning."
+/>
+
+# Click Tracking
+
+```js
+import { Results } from '@sajari/react-search-ui';
+import { Input } from '@sajari/react-components';
+import { SearchContextProvider, Pipeline, Values, ClickTracking } from '@sajari/react-hooks';
+```
+
+## Usage
+
+When `ClickTracking` is used, a token object containing a link will be returned for each result item. Details can be found [here](https://www.sajari.com/docs/user-guide/analytics/click-tracking/)
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+    new ClickTracking(),
+  );
+
+  const values = new Values({ q: '' });
+
+  const SearchPlayground = React.memo(() => {
+    const { search, results } = useSearchContext();
+    const [query, setQuery] = React.useState('');
+
+    return (
+      <div className="flex flex-col space-y-4">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            search(query);
+          }}
+        >
+          <Input label="Search something" value={query} onChange={(value) => setQuery(value)} />
+        </form>
+        {results ? <Results /> : null}
+      </div>
+    );
+  });
+
+  return (
+    <SearchContextProvider search={{ pipeline, values, fields: { category: 'brand', title: 'name' } }}>
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
+```
