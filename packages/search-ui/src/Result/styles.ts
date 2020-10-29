@@ -5,6 +5,7 @@ import { ResultProps } from './types';
 
 type Styles = {
   container: SerializedStyles[];
+  image: SerializedStyles[];
   logo: SerializedStyles[];
   label: SerializedStyles[];
 };
@@ -12,6 +13,7 @@ type Styles = {
 export default function useResultStyles({ appearance = 'row' }: ResultProps): Styles {
   const styles = {
     container: [tw`flex items-center`],
+    image: [tw`rounded-md object-contain max-h-full`],
     logo: [tw`inline-block align-middle`],
     label: [tw`pr-1`],
   };

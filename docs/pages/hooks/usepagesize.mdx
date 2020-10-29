@@ -7,7 +7,7 @@ import SEO from '../../components/SEO';
 `usePageSize` provides getter/setter for the resultsPerPage param.
 
 ```js
-import { Result } from '@sajari/react-search-ui';
+import { Results } from '@sajari/react-search-ui';
 import { Pagination, Select, Input } from '@sajari/react-components';
 import { usePageSize, useSearchContext, SearchContextProvider, Pipeline, Values } from '@sajari/react-hooks';
 ```
@@ -62,15 +62,7 @@ function Example() {
             </Select>
           </div>
         </div>
-        {results ? (
-          <div className="flex flex-col space-y-4">
-            {results.map((_, index) => (
-              <div key={`use-pageSize-demo-result-${index}`}>
-                <Result />
-              </div>
-            ))}
-          </div>
-        ) : null}
+        {results ? <Results /> : null}
       </div>
     );
   });

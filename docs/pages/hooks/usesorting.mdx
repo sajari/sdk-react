@@ -7,7 +7,7 @@ import SEO from '../../components/SEO';
 `useSorting` provides getter/setter for sorting results.
 
 ```js
-import { Result } from '@sajari/react-search-ui';
+import { Results } from '@sajari/react-search-ui';
 import { Select, Input } from '@sajari/react-components';
 import { useSorting, useSearchContext, SearchContextProvider, Pipeline, Values } from '@sajari/react-hooks';
 ```
@@ -40,6 +40,12 @@ function Example() {
     const { sorting, setSorting } = useSorting();
     const [query, setQuery] = React.useState('');
 
+    React.useEffect(() => {
+      if (query) {
+        search(query);
+      }
+    }, [sorting]);
+
     return (
       <div className="flex flex-col space-y-4">
         <div className="flex space-x-4">
@@ -66,15 +72,7 @@ function Example() {
             </Select>
           </div>
         </div>
-        {results ? (
-          <div className="flex flex-col space-y-4">
-            {results.map((_, index) => (
-              <div key={`use-sorting-demo-result-${index}`}>
-                <Result />
-              </div>
-            ))}
-          </div>
-        ) : null}
+        {results ? <Results /> : null}
       </div>
     );
   });

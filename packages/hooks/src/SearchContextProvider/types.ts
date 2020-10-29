@@ -1,7 +1,7 @@
 import { Config } from './config';
 import { Pipeline, Response, Values } from './controllers';
 
-export type SearchFn = (query: string, override: boolean) => void;
+export type SearchFn = (query: string, override?: boolean) => void;
 export type ClearFn = (values?: { [k: string]: string | undefined }) => void;
 export type ResultClickedFn = (url: string) => void;
 export type PaginateFn = (page: number) => void;

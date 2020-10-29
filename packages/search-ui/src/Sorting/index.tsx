@@ -1,20 +1,26 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
-import { Label, Select } from '@sajari/react-components';
-import { useSorting } from '@sajari/react-hooks';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Select, Label } from '@sajari/react-components';
+import { useQuery, useSearchContext, useSorting } from '@sajari/react-hooks';
 import { __DEV__ } from 'sajari-react-sdk-utils';
 import tw from 'twin.macro';
-
 import { SortingProps, SortOption } from './types';
 
 const defaultOptions: SortOption[] = [{ name: 'Most relavant', value: '' }];
 
-// TODO: incorparate search on change with `useQuery` hook
 const Sorting: React.FC<SortingProps> = ({ searchOnChange = true, label = 'Sort', options = defaultOptions }) => {
+  const { search } = useSearchContext();
+  const { query } = useQuery();
   const { sorting, setSorting } = useSorting();
   const id = `sorting-composition-${useId()}`;
+
+  useEffect(() => {
+    if (searchOnChange) {
+      search(query);
+    }
+  }, [sorting]);
 
   return (
     <div css={tw`flex space-x-4`}>

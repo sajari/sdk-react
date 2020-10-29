@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { useSearch } from '@sajari/react-hooks';
+import { useSearchContext } from '@sajari/react-hooks';
 import React from 'react';
 
 import Result from '../Result';
@@ -8,7 +8,7 @@ import useResultsStyles from './styles';
 import { ResultsProps, ResultValues } from './types';
 
 const Results = (props: ResultsProps) => {
-  const { results } = useSearch<ResultValues>();
+  const { results } = useSearchContext<ResultValues>();
   const styles = useResultsStyles(props);
   const { appearance = 'row' } = props;
 

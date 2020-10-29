@@ -10,7 +10,7 @@ import SEO from '../../components/SEO';
 `usePagination` provides conveniences that allow user to integrate the Pagination component with the search context on the fly.
 
 ```js
-import { Result } from '@sajari/react-search-ui';
+import { Results } from '@sajari/react-search-ui';
 import { Pagination, Input } from '@sajari/react-components';
 import { usePagination, SearchContextProvider, Pipeline, Values } from '@sajari/react-hooks';
 ```
@@ -50,13 +50,7 @@ function Example() {
         </form>
         {results ? (
           <div className="flex flex-col space-y-6 items-center">
-            <div className="flex flex-col space-y-4">
-              {results.map((_, index) => (
-                <div key={`usePagination-demo-result-${index}`}>
-                  <Result />
-                </div>
-              ))}
-            </div>
+            <Results />
             <Pagination
               page={page}
               pageSize={pageSize}

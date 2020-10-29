@@ -7,7 +7,7 @@ import SEO from '../../components/SEO';
 PageSize composition renders a select component for page sizes.
 
 ```js
-import { Result, PageSize } from '@sajari/react-search-ui';
+import { Results, PageSize } from '@sajari/react-search-ui';
 import { Select, Input } from '@sajari/react-components';
 import { usePageSize, useSearchContext, SearchContextProvider, Pipeline, Values } from '@sajari/react-hooks';
 ```
@@ -51,15 +51,7 @@ function Example() {
             <Input label="Search something" onChange={(e) => setQuery(e.target.value)} />
           </form>
         </div>
-        {results ? (
-          <div className="flex flex-col space-y-4">
-            {results.map((_, index) => (
-              <div key={`pagesize-composition-demo-result-${index}`}>
-                <Result />
-              </div>
-            ))}
-          </div>
-        ) : null}
+        {results ? <Results /> : null}
       </div>
     );
   });

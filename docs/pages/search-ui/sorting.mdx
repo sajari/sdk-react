@@ -7,7 +7,7 @@ import SEO from '../../components/SEO';
 Sorting composition renders a select component for sorting options.
 
 ```js
-import { Result } from '@sajari/react-search-ui';
+import { Results } from '@sajari/react-search-ui';
 import { Select, Input } from '@sajari/react-components';
 import { Sorting, useSearchContext, SearchContextProvider, Pipeline, Values } from '@sajari/react-hooks';
 ```
@@ -59,15 +59,7 @@ function Example() {
             <Input label="Search something" onChange={(e) => setQuery(e.target.value)} />
           </form>
         </div>
-        {results ? (
-          <div className="flex flex-col space-y-4">
-            {results.map((_, index) => (
-              <div key={`sorting-composition-demo-result-${index}`}>
-                <Result />
-              </div>
-            ))}
-          </div>
-        ) : null}
+        {results ? <Results /> : null}
       </div>
     );
   });
