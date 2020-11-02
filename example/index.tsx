@@ -2,7 +2,7 @@ import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { ContextProvider } from '@sajari/react-search-ui';
-import { SearchContextProvider, Pipeline, Values, useSearchContext } from '@sajari/react-hooks';
+import { SearchContextProvider, Pipeline, Values, useSearchContext, FieldDictionary } from '@sajari/react-hooks';
 import { Pagination } from '@sajari/react-components';
 
 const SearchPlayground = () => {
@@ -71,7 +71,9 @@ const values = new Values({ q: '' });
 
 const App = () => {
   return (
-    <SearchContextProvider search={{ pipeline, values, fields: { category: 'brand', title: 'name' } }}>
+    <SearchContextProvider
+      search={{ pipeline, values, fields: new FieldDictionary({ category: 'brand', title: 'name' }) }}
+    >
       <ContextProvider>
         <SearchPlayground />
       </ContextProvider>
