@@ -29,12 +29,12 @@
     "emotion-theming": "> 10"
   },
   "devDependencies": {
-    "@emotion/core": "^10.0.35",
+    "@emotion/core": "^10.1.0",
     "@emotion/styled": "^10.0.27",
     "emotion-theming": "^10.0.27",
     "tailwindcss-filters": "^3.0.0",
     "tailwindcss-truncate-multiline": "^1.0.3",
-    "tailwindcss": "^1.9.5"
+    "tailwindcss": "^1.9.6"
   },
   "dependencies": {
     "tslib": "^2.0.0"
