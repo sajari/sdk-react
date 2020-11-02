@@ -39,7 +39,7 @@ const PageSize: React.FC<PageSizeProps> = ({ searchOnChange = true, label = 'Siz
 };
 
 if (__DEV__) {
-  PageSize.displayName = 'PageSizeComposition';
+  PageSize.displayName = 'PageSize';
 }
 
 export default PageSize;

@@ -93,7 +93,7 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
           <Box
             ref={ref}
             as="input"
-            css={[tw`form-input`, styles, open && hasItems ? tw`rounded-b-none` : tw``]}
+            css={[tw`form-input`, styles]}
             {...getInputProps({
               type: 'search',
               dir: 'auto',

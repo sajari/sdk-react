@@ -14,7 +14,7 @@ type Styles = {
 export function useItemsStyles({ shown = true }) {
   const styles = {
     container: [
-      tw`absolute left-0 right-0 z-20 -mt-px bg-white border border-gray-300 shadow rounded-b-md`,
+      tw`absolute left-0 right-0 z-20 mt-2 bg-white border border-gray-300 rounded-lg shadow`,
       !shown ? tw`hidden` : null,
     ],
     heading: [tw`px-4 pt-2 text-xs text-gray-400`],

@@ -1,13 +1,13 @@
 import SEO from '../../components/SEO';
 
-<SEO title="Pagination" description="Pagination composition renders a pagination component with config wired in." />
+<SEO title="Pagination" description="The Pagination component renders a pagination component with config wired in." />
 
 # Pagination
 
-Pagination composition renders a pagination component with config wired in.
+The Pagination component renders a pagination component with config wired in.
 
 ```js
-import { PaginationComposition } from '@sajari/react-search-ui';
+import { Pagination } from '@sajari/react-search-ui';
 import { SearchContextProvider, useSearchContext } from '@sajari/react-hooks';
 ```
 
@@ -33,7 +33,7 @@ function Example() {
       search('iphone');
     }, []);
 
-    return <PaginationComposition />;
+    return <Pagination />;
   });
 
   return (

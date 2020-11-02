@@ -17,7 +17,7 @@ const Pagination: React.FC = () => {
 };
 
 if (__DEV__) {
-  Pagination.displayName = 'PaginationComposition';
+  Pagination.displayName = 'Pagination';
 }
 
 export default Pagination;

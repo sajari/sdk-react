@@ -16,7 +16,7 @@ const Sorting: React.FC<SortingProps> = ({ searchOnChange = true, label = 'Sort'
   const { search } = useSearchContext();
   const { query } = useQuery();
   const { sorting, setSorting } = useSorting();
-  const id = `sorting-composition-${useId()}`;
+  const id = `sorting-${useId()}`;
 
   useEffect(() => {
     if (searchOnChange) {
@@ -39,7 +39,7 @@ const Sorting: React.FC<SortingProps> = ({ searchOnChange = true, label = 'Sort'
 };
 
 if (__DEV__) {
-  Sorting.displayName = 'SortingComposition';
+  Sorting.displayName = 'Sorting';
 }
 
 export default Sorting;
