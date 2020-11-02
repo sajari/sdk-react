@@ -28,11 +28,11 @@
     "@sajari/react-hooks": "^0.0.0",
     "@sajari/react-components": "^0.0.0",
     "sajari-react-sdk-styles": "^0.0.0",
-    "tslib": "^2.0.0"
+    "tslib": "^2.0.3"
   },
   "devDependencies": {
-    "tailwindcss": "^1.9.5",
-    "twin.macro": "^1.11.0"
+    "tailwindcss": "^1.9.6",
+    "twin.macro": "^1.12.0"
   },
   "publishConfig": {
     "access": "public"

@@ -1,4 +1,3 @@
-/* eslint-disable import/named */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable no-underscore-dangle */
 import { Aggregates } from '@sajari/sdk-js';

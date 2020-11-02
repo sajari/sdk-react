@@ -1,7 +1,7 @@
 import { css, SerializedStyles } from '@emotion/core';
 import tw from 'twin.macro';
 
-import { ResultProps } from './types';
+// import { ResultProps } from './types';
 
 type Styles = {
   container: SerializedStyles[];
@@ -10,10 +10,10 @@ type Styles = {
   label: SerializedStyles[];
 };
 
-export default function useResultStyles({ appearance = 'row' }: ResultProps): Styles {
+export default function useResultStyles(): Styles {
   const styles = {
     container: [tw`flex items-center`],
-    image: [tw`rounded-md object-contain max-h-full`],
+    image: [tw`object-contain max-h-full rounded-md`],
     logo: [tw`inline-block align-middle`],
     label: [tw`pr-1`],
   };

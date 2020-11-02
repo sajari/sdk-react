@@ -45,7 +45,6 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     ...rest
   } = props;
   const [showCancel, setShowCancel] = React.useState(!value);
-  const hasItems = items?.length > 0;
 
   const {
     isOpen: open,

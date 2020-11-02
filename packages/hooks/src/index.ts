@@ -1,4 +1,3 @@
-/* eslint-disable import/named */
 export * from './SearchContextProvider/events';
 
 export {
