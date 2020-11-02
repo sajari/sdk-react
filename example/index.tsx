@@ -62,7 +62,7 @@ const pipeline = new Pipeline(
   {
     project: '1594153711901724220',
     collection: 'bestbuy',
-    endpoint: '//jsonapi-us-valkyrie.sajari.net',
+    endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
   },
   'query',
 );

@@ -7,7 +7,7 @@ const SearchProvider: React.FC = ({ children }) => {
       {
         project: '1594153711901724220',
         collection: 'bestbuy',
-        endpoint: '//jsonapi-us-valkyrie.sajari.net',
+        endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
       },
       'query',
     ),
