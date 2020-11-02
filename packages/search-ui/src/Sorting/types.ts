@@ -6,5 +6,4 @@ export type SortOption = {
 export interface SortingProps {
   label?: string;
   options?: SortOption[];
-  searchOnChange?: boolean;
 }

@@ -1,31 +1,31 @@
-export default function debounce<F extends (...args: any[]) => void>(
+import { useRef } from 'react';
+
+export default function useDebounce<F extends (...args: any[]) => void>(
   func: F,
   waitMilliseconds = 50,
   options = {
     isImmediate: false,
   },
 ): F {
-  let timeoutId: number | undefined;
+  const timeoutIdRef = useRef<ReturnType<typeof setTimeout>>();
 
   // eslint-disable-next-line func-names
   return function (this: any, ...args: any[]) {
+    if (timeoutIdRef.current) {
+      clearTimeout(timeoutIdRef.current);
+    }
     const context = this;
 
     const doLater = () => {
-      timeoutId = undefined;
+      timeoutIdRef.current = undefined;
       if (!options.isImmediate) {
         func.apply(context, args);
       }
     };
 
-    const shouldCallNow = options.isImmediate && timeoutId === undefined;
+    const shouldCallNow = options.isImmediate && timeoutIdRef.current === undefined;
 
-    if (timeoutId !== undefined) {
-      clearTimeout(timeoutId);
-    }
-
-    // @ts-ignore
-    timeoutId = setTimeout(doLater, waitMilliseconds);
+    timeoutIdRef.current = setTimeout(doLater, waitMilliseconds);
 
     if (shouldCallNow) {
       func.apply(context, args);

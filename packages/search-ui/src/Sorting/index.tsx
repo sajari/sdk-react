@@ -3,8 +3,8 @@
 import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
 import { Label, Select } from '@sajari/react-components';
-import { useQuery, useSearchContext, useSorting } from '@sajari/react-hooks';
-import React, { useEffect } from 'react';
+import { useSorting } from '@sajari/react-hooks';
+import React from 'react';
 import { __DEV__ } from 'sajari-react-sdk-utils';
 import tw from 'twin.macro';
 
@@ -12,17 +12,9 @@ import { SortingProps, SortOption } from './types';
 
 const defaultOptions: SortOption[] = [{ name: 'Most relavant', value: '' }];
 
-const Sorting: React.FC<SortingProps> = ({ searchOnChange = true, label = 'Sort', options = defaultOptions }) => {
-  const { search } = useSearchContext();
-  const { query } = useQuery();
+const Sorting: React.FC<SortingProps> = ({ label = 'Sort', options = defaultOptions }) => {
   const { sorting, setSorting } = useSorting();
   const id = `sorting-${useId()}`;
-
-  useEffect(() => {
-    if (searchOnChange) {
-      search(query);
-    }
-  }, [sorting]);
 
   return (
     <div css={tw`flex space-x-4`}>

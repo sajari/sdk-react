@@ -8,7 +8,7 @@ The Pagination component renders a pagination component with config wired in.
 
 ```js
 import { Pagination } from '@sajari/react-search-ui';
-import { SearchContextProvider, useSearchContext } from '@sajari/react-hooks';
+import { SearchContextProvider, useSearch } from '@sajari/react-hooks';
 ```
 
 ## Usage
@@ -27,11 +27,7 @@ function Example() {
   const values = new Values({ q: '' });
 
   const SearchPlayground = React.memo(() => {
-    const { search } = useSearchContext();
-
-    React.useEffect(() => {
-      search('iphone');
-    }, []);
+    useSearch('iphone');
 
     return <Pagination />;
   });

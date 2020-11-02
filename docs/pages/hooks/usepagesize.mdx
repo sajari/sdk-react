@@ -9,7 +9,7 @@ import SEO from '../../components/SEO';
 ```js
 import { Results } from '@sajari/react-search-ui';
 import { Pagination, Select, Input } from '@sajari/react-components';
-import { usePageSize, useSearchContext, SearchContextProvider, Pipeline, Values } from '@sajari/react-hooks';
+import { usePageSize, useSearch, SearchContextProvider, Pipeline, Values } from '@sajari/react-hooks';
 ```
 
 ## Usage
@@ -28,15 +28,9 @@ function Example() {
   const values = new Values({ q: '' });
 
   const SearchPlayground = React.memo(() => {
-    const { search, results } = useSearchContext();
+    const { search, results } = useSearch();
     const { pageSize, setPageSize } = usePageSize();
     const [query, setQuery] = React.useState('');
-
-    React.useEffect(() => {
-      if (query) {
-        search(query);
-      }
-    }, [pageSize]);
 
     return (
       <div className="flex flex-col space-y-4">
@@ -48,7 +42,7 @@ function Example() {
               search(query);
             }}
           >
-            <Input label="Search something" onChange={(value) => setQuery(value)} />
+            <Input label="Search something" value={query} onChange={(value) => setQuery(value)} />
           </form>
           <div className="w-2/5">
             <Select value={`${pageSize}`} onChange={(e) => setPageSize(parseInt(e.target.value), 10)}>

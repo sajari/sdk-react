@@ -1,113 +1,131 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useContext } from '../SearchContextProvider';
-import { Pipeline, Response, Values } from '../SearchContextProvider/controllers';
-import { EVENT_RESPONSE_UPDATED } from '../SearchContextProvider/events';
-import { FieldDictionary } from '../SearchContextProvider/types';
+import { defaultConfig } from '../SearchContextProvider/config';
+import { Response } from '../SearchContextProvider/controllers';
+import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from '../SearchContextProvider/events';
+import useQuery from '../useQuery';
 import debounce from '../utils/debounce';
 import mapResultFields from '../utils/mapResultFields';
-import mapToObject from '../utils/mapToObject';
+import { UseSearchCustomConfig, UseSearchParams, UseSearchResult } from './types';
 
-// Returns results for the current query
-function useSearchDefaultQuery<T>() {
-  const {
-    search: { response, pipeline, values, query, fields = {} },
-  } = useContext();
-
-  const { time: latency, totalResults } = mapToObject<{ time?: number; totalResults?: number }>(
-    response?.getResponse() as Map<string, any> | undefined,
-  );
-  const reqResults = response?.getResults();
-
+function useCustomSearch({ pipeline, values, fields = {} }: UseSearchCustomConfig): UseSearchResult {
+  const [loading, setLoading] = useState(false);
   const searchFn = useCallback(
-    debounce((q: string) => {
-      if (q) {
-        pipeline.search(values.get());
-      } else {
+    debounce((q?: string) => {
+      setLoading(true);
+      if (q === '') {
         pipeline.clearResponse(values.get());
+      } else {
+        if (q) {
+          values.set({ [defaultConfig.qParam]: q });
+        }
+        pipeline.search(values.get());
       }
     }, 50),
-    [],
+    [pipeline, values],
   );
 
-  useEffect(() => {
-    searchFn(query);
-  }, [query]);
-
-  return {
-    results: reqResults ? mapResultFields<T>(reqResults, fields) : undefined,
-    latency,
-    totalResults,
-  };
-}
-
-// Returns results for a given query
-function useSearchCustomQuery<T>(query: string) {
-  const {
-    search: { response, search, fields = {} },
-  } = useContext();
+  const [searchOutput, setSearchOutput] = useState<Omit<UseSearchResult, 'loading'>>({ search: searchFn, error: null });
 
   useEffect(() => {
-    search(query, true);
-  }, [query]);
-
-  const { time: latency, totalResults } = mapToObject<{ time?: number; totalResults?: number }>(
-    response?.getResponse() as Map<string, any> | undefined,
-  );
-  const reqResults = response?.getResults();
-
-  return {
-    results: reqResults ? mapResultFields<T>(reqResults, fields) : undefined,
-    latency,
-    totalResults,
-  };
-}
-
-// Returns results for pass in Values and Pipeline
-function useSearchCustomPipeline<T>(values: Values, pipeline: Pipeline, fields?: FieldDictionary) {
-  // TODO: dirty way to get the return type of a generic function
-  function inferTypeFunction(...args) {
-    // @ts-ignore
-    return mapResultFields<T>(...args);
-  }
-
-  const [searchOutput, setSearchOutput] = useState<{
-    results?: ReturnType<typeof inferTypeFunction>;
-    latency?: number;
-    totalResults?: number;
-  }>({});
-
-  useEffect(() => {
-    pipeline.search(values.get());
+    searchFn();
 
     return pipeline.listen(EVENT_RESPONSE_UPDATED, (response: Response) => {
-      const { time: latency, totalResults } = mapToObject<{ time?: number; totalResults?: number }>(
-        response?.getResponse() as Map<string, any> | undefined,
-      );
-
+      const { time: latency, totalResults } = { time: response?.getTime(), totalResults: response?.getTotalResults() };
       const reqResults = response?.getResults();
-      const results = reqResults ? mapResultFields<T>(reqResults, fields || {}) : undefined;
+      const results = reqResults ? mapResultFields(reqResults, fields) : undefined;
 
-      setSearchOutput({ results, latency, totalResults });
+      setLoading(false);
+      setSearchOutput((o) => ({ ...o, results, latency, totalResults, error: response?.getError() }));
     });
   }, []);
 
-  return searchOutput;
+  useEffect(() => {
+    return values.listen(EVENT_VALUES_UPDATED, () => {
+      searchFn();
+    });
+  }, []);
+
+  return { ...searchOutput, loading };
 }
 
-function useSearch<T = Record<string, string | string[]>>(
-  ...args: [] | [string] | [Values, Pipeline, FieldDictionary]
-) {
-  if (args[0] instanceof Values && args[1] instanceof Pipeline && args[2]) {
-    return useSearchCustomPipeline<T>(args[0], args[1], args[2]);
-  }
+function useNormalSearch(queryOverride: string = ''): UseSearchResult {
+  const [error, setError] = useState<Error | null>(null);
+  const firstRender = useRef(true);
+  const { query, setQuery } = useQuery();
+  const {
+    search: { searching, response, fields = {}, values, search: searchFn, config },
+  } = useContext();
 
-  if (typeof args[0] === 'string') {
-    return useSearchCustomQuery<T>(args[0]);
-  }
+  const results = response?.getResults();
 
-  return useSearchDefaultQuery<T>();
+  const request = {
+    ...values.get(),
+    [config.pageParam]: undefined, // Exclude this from being in JSON.stringify to prevent the search being called twice
+  };
+
+  const handleSearch = useCallback(
+    debounce(() => {
+      searchFn(query);
+    }, 50),
+    [query],
+  );
+
+  const search = useCallback(
+    (q?: string) => {
+      if (q) {
+        setQuery(q);
+      } else {
+        searchFn(query);
+      }
+    },
+    [query],
+  );
+
+  useEffect(() => {
+    setQuery(queryOverride);
+  }, [queryOverride]);
+
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    handleSearch();
+  }, [JSON.stringify(request)]);
+
+  useEffect(() => {
+    if (response) {
+      switch (true) {
+        case response.isError():
+          setError(response.getError()?.error ?? new Error('Something wrong happened.'));
+          break;
+        case !response.isError():
+          setError(null);
+          break;
+        default:
+          break;
+      }
+    }
+  }, [response]);
+
+  return {
+    latency: response?.getTime(),
+    totalResults: response?.getTotalResults(),
+    results: results ? mapResultFields(results, fields) : undefined,
+    search,
+    loading: searching,
+    error,
+  };
+}
+
+function useSearch(params?: UseSearchParams) {
+  if (params !== undefined && typeof params === 'object' && 'pipeline' in params && 'values' in params) {
+    return useCustomSearch(params);
+  }
+  return useNormalSearch(params);
 }
 
 export default useSearch;

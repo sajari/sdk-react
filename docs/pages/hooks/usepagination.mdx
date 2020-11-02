@@ -12,7 +12,7 @@ import SEO from '../../components/SEO';
 ```js
 import { Results } from '@sajari/react-search-ui';
 import { Pagination, Input } from '@sajari/react-components';
-import { usePagination, SearchContextProvider, Pipeline, Values } from '@sajari/react-hooks';
+import { usePagination, useSearch, SearchContextProvider, Pipeline, Values } from '@sajari/react-hooks';
 ```
 
 ## Usage
@@ -31,7 +31,7 @@ function Example() {
   const values = new Values({ q: '' });
 
   const SearchPlayground = React.memo(() => {
-    const { search, results } = useSearchContext();
+    const { search, results } = useSearch();
     const { page, setPage, pageSize, pageCount, totalResults } = usePagination('search');
     const [query, setQuery] = React.useState('');
 
