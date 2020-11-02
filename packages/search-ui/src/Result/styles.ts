@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { css, SerializedStyles } from '@emotion/core';
 import tw from 'twin.macro';
 
-// import { ResultProps } from './types';
+import { ResultProps } from './types';
 
 type Styles = {
   container: SerializedStyles[];
@@ -10,7 +11,7 @@ type Styles = {
   label: SerializedStyles[];
 };
 
-export default function useResultStyles(): Styles {
+export default function useResultStyles(props: ResultProps): Styles {
   const styles = {
     container: [tw`flex items-center`],
     image: [tw`object-contain max-h-full rounded-md`],

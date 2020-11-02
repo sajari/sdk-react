@@ -13,8 +13,8 @@ const Heading = styled(Text)`
 `;
 
 const Result = React.forwardRef((props: ResultProps, ref?: React.Ref<HTMLDivElement>) => {
-  const styles = useResultStyles(props);
-  const { title, description, rating, category, image, url, ratingMax = 5, ...rest } = props;
+  const { appearance = 'row', title, description, rating, category, image, url, ratingMax = 5, ...rest } = props;
+  const styles = useResultStyles({ ...props, appearance });
 
   return (
     <article {...rest} ref={ref} css={styles.container}>
