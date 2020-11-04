@@ -19,10 +19,10 @@ const Results = (props: ResultsProps) => {
           key={_id}
           title={title}
           url={url}
-          category={category.toString()}
+          category={category?.toString()}
           description={description}
           image={image}
-          price={price.toString()}
+          price={price?.toString()}
           rating={Number(rating)}
           appearance={appearance}
           css={styles.item}
