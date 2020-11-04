@@ -1,0 +1,58 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="AspectRatio"
+  description="The AspectRatio component is used to embed responsive videos and maps, etc. It
+uses a very common padding hack"
+/>
+
+# AspectRatio
+
+AspectRatio component is used to embed responsive videos and maps, etc. It
+uses a very common [padding hack](https://css-tricks.com/aspect-ratio-boxes/) to achieve this.
+
+## Import
+
+```js
+import { AspectRatio } from '@sajari/react-components';
+```
+
+## Embed Video
+
+To embed a video with a specific aspect ratio, use an iframe with `src` pointing
+to the link of the video.
+
+```jsx
+<AspectRatio>
+  <iframe title="Chernobyl (2019)" src="https://www.youtube.com/embed/s9APLXM9Ei8" allowFullScreen />
+</AspectRatio>
+```
+
+### Embed Image
+
+Here's how to embed an image that has a 4 by 3 aspect ratio.
+
+```jsx
+<AspectRatio ratio={4 / 3}>
+  <Image src="https://source.unsplash.com/random" alt="Photo" />
+</AspectRatio>
+```
+
+### Embed a map
+
+Here's how to embed a responsive Google map using `AspectRatio`.
+
+```jsx
+<AspectRatio ratio={1}>
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d53049.54485302262!2d151.28657919999998!3d-33.796915199999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sau!4v1592655739603!5m2!1sen!2sau"
+    alt="demo"
+  />
+</AspectRatio>
+```
+
+## Props
+
+| Name  | Type     | Default | Description                     |
+| ----- | -------- | ------- | ------------------------------- |
+| ratio | `number` | 16/9    | The aspect ratio of the content |
