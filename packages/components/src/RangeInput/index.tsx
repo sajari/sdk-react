@@ -1,10 +1,12 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx, css } from '@emotion/core';
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
+import { Range } from '@sajari/react-hooks';
 import React from 'react';
 import { useRanger } from 'react-ranger';
 import tw from 'twin.macro';
 
+import { defaultParams } from './defaults';
 import { __DEV__ } from '../utils/assertion';
 import { Input } from './input';
 import { Handle, Segment, Track, ValueTip } from './styled';
@@ -12,12 +14,20 @@ import { RangeInputProps } from './types';
 
 const RangeInput = React.forwardRef(
   (
-    { filter, leftInput: leftInputFunc, rightInput: rightInputFunc }: RangeInputProps,
+    {
+      filter,
+      onChange = defaultParams.onChange,
+      value = defaultParams.value,
+      min: minProps = defaultParams.min,
+      max: maxProps = defaultParams.max,
+      leftInput: leftInputFunc,
+      rightInput: rightInputFunc,
+    }: RangeInputProps,
     ref?: React.Ref<HTMLDivElement>,
   ) => {
-    const limit = filter.limit();
-    const [min, max] = limit;
-    const [range, setRange] = React.useState(filter.getRange());
+    const isSingleHandle = value.length === 1;
+    const [min, max] = filter?.limit() ?? [minProps, maxProps];
+    const [range, setRange] = React.useState(filter?.getRange() ?? value);
     const { getTrackProps, segments, handles } = useRanger({
       stepSize: 1,
       min,
@@ -29,19 +39,30 @@ const RangeInput = React.forwardRef(
     const rightRef = React.useRef(null);
 
     const handleRangeInputChange = (left: boolean) => (v: string) => {
-      const value = parseInt(v, 10);
-      setRange((r) => (left ? [Number.isNaN(value) ? min : value, r[1]] : [r[0], Number.isNaN(value) ? max : value]));
+      const newValue = parseInt(v, 10);
+      setRange((r) =>
+        isSingleHandle
+          ? [Number.isNaN(newValue) ? min : newValue]
+          : left
+          ? [Number.isNaN(newValue) ? min : newValue, r[1] as number]
+          : [r[0], Number.isNaN(newValue) ? max : newValue],
+      );
     };
 
     const handleSwitchRange = () => {
-      const [from, to] = range;
+      if (isSingleHandle) return;
+      const [from, to] = range as Range;
       if (from > to) {
         setRange([to, from]);
       }
     };
 
     React.useEffect(() => {
-      filter.set(range[0], range[1]);
+      if (filter) {
+        filter.set(range[0], range[1] as number);
+      } else {
+        onChange(range);
+      }
     }, [range]);
 
     const inputProps = {
@@ -57,37 +78,42 @@ const RangeInput = React.forwardRef(
       ...inputProps,
       value: range[0].toString(),
       onChange: handleRangeInputChange(true),
+      label: 'Range input left bound',
     };
 
     const rightInputProps = {
       ...inputProps,
-      value: range[1].toString(),
+      value: (isSingleHandle ? 0 : (range[1] as number)).toString(),
       onChange: handleRangeInputChange(false),
+      label: 'Range input right bound',
     };
 
     const leftInput = leftInputFunc ? (
       leftInputFunc({
-        getCustomInputProps: useTextField.bind(undefined, leftInputProps, leftRef),
+        getProps: (override = {}) => ({ ...useTextField({ ...leftInputProps, ...override }, leftRef), ref: leftRef }),
       })
     ) : (
-      <Input {...leftInputProps} label="Range input left bound" />
+      <Input {...leftInputProps} />
     );
 
-    const rightInput = rightInputFunc ? (
+    const rightInput = isSingleHandle ? null : rightInputFunc ? (
       rightInputFunc({
-        getCustomInputProps: useTextField.bind(undefined, rightInputProps, rightRef),
+        getProps: (override = {}) => ({
+          ...useTextField({ ...rightInputProps, ...override }, rightRef),
+          ref: rightRef,
+        }),
       })
     ) : (
-      <Input {...rightInputProps} label="Range input right bound" />
+      <Input {...rightInputProps} />
     );
 
     return (
       <div ref={ref} css={tw`flex flex-col`}>
         <Track {...getTrackProps()}>
           {segments.map(({ getSegmentProps }, i) => (
-            <Segment index={i} {...getSegmentProps()} />
+            <Segment isSingleHandle={isSingleHandle} index={i} {...getSegmentProps()} />
           ))}
-          {handles.map(({ value, active, getHandleProps }) => (
+          {handles.map(({ value: handleValue, active, getHandleProps }) => (
             <button
               type="button"
               {...getHandleProps({
@@ -95,15 +121,24 @@ const RangeInput = React.forwardRef(
               })}
             >
               <Handle active={active}>
-                <ValueTip>{value}</ValueTip>
+                <ValueTip>{handleValue}</ValueTip>
               </Handle>
             </button>
           ))}
         </Track>
-        <div css={tw`flex flex-col items-center justify-between sm:flex-row`}>
+        <div
+          css={css(
+            tw`flex flex-col items-center sm:flex-row`,
+            isSingleHandle ? tw`justify-center` : tw`justify-between`,
+          )}
+        >
           {leftInput}
-          &ndash;
-          {rightInput}
+          {isSingleHandle ? null : (
+            <React.Fragment>
+              &ndash;
+              {rightInput}
+            </React.Fragment>
+          )}
         </div>
       </div>
     );
