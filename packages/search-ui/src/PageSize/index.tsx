@@ -12,7 +12,7 @@ import { PageSizeProps } from './types';
 
 const defaultSizes = [10, 20, 35, 50, 100];
 
-const PageSize: React.FC<PageSizeProps> = ({ searchOnChange = true, label = 'Size', sizes = defaultSizes }) => {
+const PageSize: React.FC<PageSizeProps> = ({ searchOnChange = true, label = 'Show', sizes = defaultSizes }) => {
   const { search } = useSearchContext();
   const { pageSize, setPageSize } = usePageSize();
   const { query } = useQuery();
