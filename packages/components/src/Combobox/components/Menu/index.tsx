@@ -1,7 +1,5 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React from 'react';
-import { styled } from 'sajari-react-sdk-styles';
 import tw from 'twin.macro';
 
 import { DownKey, EnterKey, UpKey } from '../../../assets/icons';
@@ -11,30 +9,24 @@ import { useComboboxContext } from '../../context';
 import Item from '../Item';
 import { useItemsStyles } from './styles';
 
-const List = styled.ul``;
-
-const Menu = (props: any) => {
-  const { open, items, inputValue, highlightedIndex } = useComboboxContext();
-  const styles = useItemsStyles();
-  const { innerRef, ...rest } = props;
-
-  if (!open || !items.length) {
-    return null;
-  }
+const Menu = () => {
+  const { open, items, inputValue, highlightedIndex, getMenuProps } = useComboboxContext();
+  const shown = open && items.length > 0;
+  const styles = useItemsStyles({ shown });
 
   return (
     <Box css={styles.container}>
       <Text as="h6" css={styles.heading}>
         Suggestions
       </Text>
-      <List {...rest} ref={innerRef} css={styles.items}>
+      <ul {...getMenuProps()} css={styles.items}>
         {items.map((value, index) => {
           const selected = highlightedIndex === index;
           const highlight = inputValue.length > 0 && value.startsWith(inputValue);
 
           return <Item value={value} highlight={highlight} selected={selected} index={index} />;
         })}
-      </List>
+      </ul>
       <Box as="footer" css={styles.footer}>
         <Box as="span" css={styles.footerItem}>
           <UpKey css={styles.footerIcon} />

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 export type CallbackFn = (...args: any[]) => void;
 export type UnlistenFn = () => void;
 
@@ -44,9 +45,7 @@ export class Listener {
       try {
         fn(l);
       } catch (e) {
-        // tslint:disable-next-line no-console
         if (console && console.error) {
-          // tslint:disable-next-line no-console
           console.error(e);
         }
       }

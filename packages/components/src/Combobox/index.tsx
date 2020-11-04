@@ -11,7 +11,7 @@ import Box from '../Box';
 import useInputStyles from '../hooks/useInputStyles';
 import { __DEV__ } from '../utils/assertion';
 import Menu from './components/Menu';
-import InputContextProvider from './context';
+import ComboboxContextProvider from './context';
 import { ComboboxProps } from './types';
 import { Voice } from './Voice';
 
@@ -22,7 +22,7 @@ const StyledIconContainer = styled.div<{
   ${tw`text-gray-400`}
   ${({ left = false, showCancel = false }) =>
     left
-      ? tw`absolute inset-y-0 left-0 flex items-center pl-4`
+      ? tw`absolute inset-y-0 left-0 flex items-center pl-3`
       : showCancel
       ? tw`absolute inset-y-0 right-0 flex items-center pr-8`
       : tw`absolute inset-y-0 right-0 flex items-center pr-4`}
@@ -45,7 +45,6 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     ...rest
   } = props;
   const [showCancel, setShowCancel] = React.useState(!value);
-  const hasItems = items?.length > 0;
 
   const {
     isOpen: open,
@@ -60,8 +59,8 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
   } = useCombobox({
     items,
     initialInputValue: value.toString(),
-    // onInputValueChange: ({ inputValue }) => onChange(inputValue),
-    // onSelectedItemChange: ({ inputValue }) => onChange(inputValue, true),
+    onInputValueChange: (changes) => onChange(changes.inputValue),
+    onSelectedItemChange: (changes) => onChange(changes.inputValue),
   });
 
   React.useEffect(() => setShowCancel(value ? value !== '' : false), [value]);
@@ -72,13 +71,14 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     items,
     selectedItem,
     highlightedIndex,
+    getMenuProps,
     getItemProps,
   };
 
   const styles = useInputStyles({ block: true, type: 'combobox' });
 
   return (
-    <InputContextProvider value={context}>
+    <ComboboxContextProvider value={context}>
       <Box css={[tw`relative`]}>
         <Box as="label" css={tw`sr-only`} {...getLabelProps({ htmlFor: id })}>
           {label ?? placeholder}
@@ -89,11 +89,10 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
             <Search />
           </StyledIconContainer>
 
-          {/** @ts-ignore enterkeyhint */}
           <Box
             ref={ref}
             as="input"
-            css={[tw`form-input`, styles, open && hasItems ? tw`rounded-b-none` : tw``]}
+            css={[tw`form-input`, styles]}
             {...getInputProps({
               type: 'search',
               dir: 'auto',
@@ -105,13 +104,17 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
               spellCheck: 'false',
               inputMode: 'search',
               onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => {
-                if (e.key === 'Enter') {
-                  (e.nativeEvent as any).preventDownshiftDefault = true; // Don't supress native form submission when 'Enter' key is pressed
+                // Don't supress native form submission when 'Enter' key is pressed
+                // Only if the user isn't focused on an item in the suggestions
+                if (e.key === 'Enter' && highlightedIndex === -1) {
+                  (e.nativeEvent as any).preventDownshiftDefault = true;
                 }
+
                 onKeyDown(e);
               },
               onChange: (e: ChangeEvent<HTMLInputElement>) => {
-                onChange(e);
+                onChange(e.target.value);
+
                 if (!value) {
                   setShowCancel(e.target.value !== '');
                 }
@@ -129,9 +132,9 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
           ) : null}
         </Box>
 
-        <Menu {...getMenuProps({ refKey: 'innerRef' })} />
+        <Menu />
       </Box>
-    </InputContextProvider>
+    </ComboboxContextProvider>
   );
 });
 

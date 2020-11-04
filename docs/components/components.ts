@@ -1,4 +1,5 @@
 const coreComponents = [
+  'AspectRatio',
   'Button',
   'ButtonGroup',
   'Checkbox',
@@ -20,7 +21,6 @@ const searchComponents = [
   'Input',
   'PageSize',
   'Pagination',
-  'Result',
   'Results',
   'Summary',
   'Sorting',

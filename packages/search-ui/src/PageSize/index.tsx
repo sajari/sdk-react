@@ -1,16 +1,18 @@
+/* eslint-disable react/no-array-index-key */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
-import React, { useEffect } from 'react';
-import { Select, Label } from '@sajari/react-components';
+import { Label, Select } from '@sajari/react-components';
 import { usePageSize, useQuery, useSearchContext } from '@sajari/react-hooks';
+import React, { useEffect } from 'react';
 import { __DEV__ } from 'sajari-react-sdk-utils';
 import tw from 'twin.macro';
+
 import { PageSizeProps } from './types';
 
 const defaultSizes = [10, 20, 35, 50, 100];
 
-const PageSize: React.FC<PageSizeProps> = ({ searchOnChange = true, label = 'Size', sizes = defaultSizes }) => {
+const PageSize: React.FC<PageSizeProps> = ({ searchOnChange = true, label = 'Show', sizes = defaultSizes }) => {
   const { search } = useSearchContext();
   const { pageSize, setPageSize } = usePageSize();
   const { query } = useQuery();
@@ -37,7 +39,7 @@ const PageSize: React.FC<PageSizeProps> = ({ searchOnChange = true, label = 'Siz
 };
 
 if (__DEV__) {
-  PageSize.displayName = 'PageSizeComposition';
+  PageSize.displayName = 'PageSize';
 }
 
 export default PageSize;

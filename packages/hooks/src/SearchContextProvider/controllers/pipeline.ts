@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable max-classes-per-file */
-/* eslint-disable no-plusplus */
+/* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
 import { Client } from '@sajari/sdk-js';
 
@@ -135,7 +133,7 @@ export class Pipeline {
    * @param values Key-value parameters to pass to the pipeline.
    */
   public search(values: { [k: string]: string }) {
-    this.searchCount++;
+    this.searchCount += 1;
     const currentSearch = this.searchCount;
 
     this.pipeline
@@ -156,6 +154,7 @@ export class Pipeline {
       })
       .catch((error) => {
         console.error(error);
+
         if (currentSearch < this.searchCount) {
           return;
         }
@@ -171,8 +170,7 @@ export class Pipeline {
    */
   public clearResponse(values: { [k: string]: string }) {
     this.tracking.next(values);
-
-    this.searchCount++;
+    this.searchCount += 1;
     this.response = new Response(null);
     this._emitResponseUpdated(this.response);
   }

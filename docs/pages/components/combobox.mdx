@@ -18,12 +18,34 @@ import { Combobox } from 'sajari/react-components';
 ## Usage
 
 ```jsx
-<Combobox
-  label="Example"
-  placeholder="Search"
-  onChange={(e) => {}}
-  items={['apple iphone', 'apple imac', 'apple watch', 'apple mac pro', 'apple macbook pro']}
-/>
+function Example() {
+  const [query, setQuery] = React.useState('');
+  const [value, setValue] = React.useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    setQuery(formData.get('query'));
+  };
+
+  return (
+    <>
+      <Text>Current query: {query}</Text>
+      <Text>Current value: {value}</Text>
+
+      <form onSubmit={handleSubmit}>
+        <Combobox
+          label="Query"
+          name="query"
+          value={query}
+          placeholder="Search"
+          items={['apple iphone', 'apple imac', 'apple watch', 'apple mac pro', 'apple macbook pro']}
+          onChange={setValue}
+        />
+      </form>
+    </>
+  );
+}
 ```
 
 ### Loading
@@ -42,8 +64,9 @@ import { Combobox } from 'sajari/react-components';
 
 `Combobox` component props inherits the `input` element props with some additional for speech recognition and loading state
 
-| Name           | Type                  | Default | Description                                                                                                                      |
-| -------------- | --------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `loading`      | `boolean`             | `false` | Show the spinner icon                                                                                                            |
-| `enableVoice`  | `boolean`             | `false` | Whether to enable speech recognition ([Compatibility table](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition)) |
-| `onVoiceInput` | `(r: string) => void` |         | The callback when a voice transcript is output                                                                                   |
+| Name           | Type                      | Default | Description                                                                                                                      |
+| -------------- | ------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `loading`      | `boolean`                 | `false` | Show the spinner icon                                                                                                            |
+| `enableVoice`  | `boolean`                 | `false` | Whether to enable speech recognition ([Compatibility table](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition)) |
+| `onChange`     | `(value: string) => void` |         | The callback when the input value changes. Note: The `event` is not passed as the argument.                                      |
+| `onVoiceInput` | `(value: string) => void` |         | The callback when a voice transcript is output                                                                                   |

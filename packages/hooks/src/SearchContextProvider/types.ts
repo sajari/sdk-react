@@ -16,14 +16,14 @@ export interface PipelineContextState {
   config: Config;
   search: SearchFn;
   clear: ClearFn;
-  fields?: Fields;
+  fields?: FieldDictionary;
 }
 
 export interface ProviderPipelineConfig {
   pipeline: Pipeline;
   values: Values;
   config?: Config;
-  fields?: Fields;
+  fields?: FieldDictionary;
 }
 
 export interface ProviderPipelineState {
@@ -32,14 +32,6 @@ export interface ProviderPipelineState {
   config: Config;
   completion: string;
   suggestions: string[];
-}
-
-export interface Fields {
-  title?: string;
-  description?: string;
-  price?: string;
-  rating?: string;
-  category?: string;
 }
 
 export interface SearchProviderValues {
@@ -56,7 +48,51 @@ export interface PipelineProviderState {
 export interface Context {
   search: PipelineContextState;
   instant: PipelineContextState;
-
   resultClicked: ResultClickedFn;
   paginate: PaginateFn;
+}
+
+type Field = ((data: Record<string, any>) => any) | string | string[];
+export class FieldDictionary {
+  id?: Field;
+
+  url?: Field;
+
+  title?: Field;
+
+  description?: Field;
+
+  price?: Field;
+
+  category?: Field;
+
+  rating?: Field;
+
+  inventory?: Field;
+
+  image?: Field;
+
+  constructor(input?: FieldDictionary) {
+    const {
+      id = '_id',
+      url = 'url',
+      title = 'title',
+      description = 'description',
+      price = 'price',
+      category = 'category',
+      rating = 'rating',
+      inventory = 'inventory',
+      image = 'image',
+    } = input ?? {};
+
+    this.id = id;
+    this.url = url;
+    this.title = title;
+    this.description = description;
+    this.price = price;
+    this.category = category;
+    this.rating = rating;
+    this.inventory = inventory;
+    this.image = image;
+  }
 }

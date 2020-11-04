@@ -1,10 +1,10 @@
 import SEO from '../../components/SEO';
 
-<SEO title="Sorting" description="Sorting composition renders a select component for sorting options." />
+<SEO title="Sorting" description="The Sorting component renders a select component for sorting options." />
 
 # Sorting
 
-Sorting composition renders a select component for sorting options.
+The Sorting component renders a select component for sorting options.
 
 ```js
 import { Results } from '@sajari/react-search-ui';
@@ -20,7 +20,7 @@ function Example() {
     {
       project: '1594153711901724220',
       collection: 'bestbuy',
-      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+      endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
     },
     'query',
   );
@@ -53,7 +53,7 @@ function Example() {
               search(query);
             }}
           >
-            <Input label="Search something" onChange={(e) => setQuery(e.target.value)} />
+            <Input label="Search something" onChange={(value) => setQuery(value)} />
           </form>
         </div>
         {results ? <Results /> : null}
@@ -71,7 +71,7 @@ function Example() {
 
 ### Search on value change
 
-By default `Sorting` composition will initiate search request whenever sorting value changes, you can opt-out of that by passing `searchOnChange={false}` to `Sorting`, in that case you'll need to use the `useSorting` hook to detect changes to `sorting` value.
+By default, the `Sorting` component will initiate search request whenever sorting value changes, you can opt-out of that by passing `searchOnChange={false}` to `Sorting`, in that case you'll need to use the `useSorting` hook to detect changes to `sorting` value.
 
 ## Props
 

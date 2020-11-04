@@ -6,6 +6,7 @@ interface ComboboxContextProps {
   open: boolean;
   items: Array<string>;
   getItemProps: PropGetters<any>['getItemProps'];
+  getMenuProps: PropGetters<any>['getMenuProps'];
   highlightedIndex: number;
   selectedItem: any;
 }

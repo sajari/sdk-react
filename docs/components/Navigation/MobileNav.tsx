@@ -26,7 +26,7 @@ const useRouteChanged = (handleRouteChange: () => void) => {
   }, [router.events, handleRouteChange]);
 };
 
-export default () => {
+const MobileNav = () => {
   const { open, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef<HTMLElement>(null);
   useRouteChanged(onClose);
@@ -50,3 +50,5 @@ export default () => {
     </>
   );
 };
+
+export default MobileNav;

@@ -4,12 +4,11 @@ import { createContext } from 'sajari-react-sdk-utils';
 
 import debounce from '../utils/debounce';
 import { Config, defaultConfig } from './config';
-// eslint-disable-next-line import/named
 import {
-  NoTracking,
   ClickTracking,
-  PosNegTracking,
+  NoTracking,
   Pipeline,
+  PosNegTracking,
   Range,
   RangeFilter,
   Response,
@@ -23,6 +22,7 @@ import {
   ProviderPipelineConfig,
   ProviderPipelineState,
   SearchProviderValues,
+  FieldDictionary,
 } from './types';
 
 const updateState = (query: string, responseValues: Map<string, string> | undefined, config: Config) => {
@@ -231,5 +231,5 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
 };
 
 export default SearchContextProvider;
-export { ClickTracking, PosNegTracking, useContext, Pipeline, Values, RangeFilter, Range };
+export { ClickTracking, PosNegTracking, useContext, Pipeline, Values, RangeFilter, Range, FieldDictionary };
 export type { SearchProviderValues };

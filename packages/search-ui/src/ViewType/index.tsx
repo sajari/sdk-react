@@ -30,7 +30,7 @@ const ViewType: React.FC<ViewTypeProps> = ({ defaultView = 'list', label = 'View
 };
 
 if (__DEV__) {
-  ViewType.displayName = 'ViewTypeComposition';
+  ViewType.displayName = 'ViewType';
 }
 export default ViewType;
 export type { ViewTypeProps };

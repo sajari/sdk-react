@@ -1,11 +1,13 @@
+/* eslint-disable react/no-array-index-key */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
-import React, { useEffect } from 'react';
-import { Select, Label } from '@sajari/react-components';
+import { Label, Select } from '@sajari/react-components';
 import { useQuery, useSearchContext, useSorting } from '@sajari/react-hooks';
+import React, { useEffect } from 'react';
 import { __DEV__ } from 'sajari-react-sdk-utils';
 import tw from 'twin.macro';
+
 import { SortingProps, SortOption } from './types';
 
 const defaultOptions: SortOption[] = [{ name: 'Most relavant', value: '' }];
@@ -14,7 +16,7 @@ const Sorting: React.FC<SortingProps> = ({ searchOnChange = true, label = 'Sort'
   const { search } = useSearchContext();
   const { query } = useQuery();
   const { sorting, setSorting } = useSorting();
-  const id = `sorting-composition-${useId()}`;
+  const id = `sorting-${useId()}`;
 
   useEffect(() => {
     if (searchOnChange) {
@@ -37,7 +39,7 @@ const Sorting: React.FC<SortingProps> = ({ searchOnChange = true, label = 'Sort'
 };
 
 if (__DEV__) {
-  Sorting.displayName = 'SortingComposition';
+  Sorting.displayName = 'Sorting';
 }
 
 export default Sorting;

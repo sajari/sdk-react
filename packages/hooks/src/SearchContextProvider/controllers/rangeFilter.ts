@@ -37,9 +37,7 @@ export class RangeFilter extends Filter {
 
   public get = () => (this._current === '' ? [] : [this._current]);
 
-  public getRange() {
-    return this._range;
-  }
+  public getRange = () => this._range;
 
   // @ts-ignore: override method
   public set = (from: number, to: number) => {

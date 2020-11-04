@@ -16,6 +16,8 @@ interface Props {
   loading?: boolean;
   /** Autocomplete items */
   items?: Array<string>;
+  /** Called when the value changes  */
+  onChange?: (value?: string) => void;
 }
 
 type HtmlAttributes = Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof Props>;
