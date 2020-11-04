@@ -9,6 +9,7 @@ export {
   RangeFilter,
   ClickTracking,
   PosNegTracking,
+  FieldDictionary,
 } from './SearchContextProvider';
 export { default as useSearchContext } from './useSearchContext';
 export { default as usePagination } from './usePagination';

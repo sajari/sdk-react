@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useContext } from '../SearchContextProvider';
 import { Pipeline, Response, Values } from '../SearchContextProvider/controllers';
 import { EVENT_RESPONSE_UPDATED } from '../SearchContextProvider/events';
-import { Fields } from '../SearchContextProvider/types';
+import { FieldDictionary } from '../SearchContextProvider/types';
 import debounce from '../utils/debounce';
 import mapResultFields from '../utils/mapResultFields';
 import mapToObject from '../utils/mapToObject';
@@ -65,7 +65,7 @@ function useSearchCustomQuery<T>(query: string) {
 }
 
 // Returns results for pass in Values and Pipeline
-function useSearchCustomPipeline<T>(values: Values, pipeline: Pipeline, fields?: Fields) {
+function useSearchCustomPipeline<T>(values: Values, pipeline: Pipeline, fields?: FieldDictionary) {
   // TODO: dirty way to get the return type of a generic function
   function inferTypeFunction(...args) {
     // @ts-ignore
@@ -96,7 +96,9 @@ function useSearchCustomPipeline<T>(values: Values, pipeline: Pipeline, fields?:
   return searchOutput;
 }
 
-function useSearch<T = Record<string, string | string[]>>(...args: [] | [string] | [Values, Pipeline, Fields]) {
+function useSearch<T = Record<string, string | string[]>>(
+  ...args: [] | [string] | [Values, Pipeline, FieldDictionary]
+) {
   if (args[0] instanceof Values && args[1] instanceof Pipeline && args[2]) {
     return useSearchCustomPipeline<T>(args[0], args[1], args[2]);
   }

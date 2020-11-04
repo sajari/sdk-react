@@ -22,6 +22,7 @@ import {
   ProviderPipelineConfig,
   ProviderPipelineState,
   SearchProviderValues,
+  FieldDictionary,
 } from './types';
 
 const updateState = (query: string, responseValues: Map<string, string> | undefined, config: Config) => {
@@ -230,5 +231,5 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
 };
 
 export default SearchContextProvider;
-export { ClickTracking, PosNegTracking, useContext, Pipeline, Values, RangeFilter, Range };
+export { ClickTracking, PosNegTracking, useContext, Pipeline, Values, RangeFilter, Range, FieldDictionary };
 export type { SearchProviderValues };
