@@ -1,72 +1,18 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React, { useEffect, useRef, useState } from 'react';
-import tw from 'twin.macro';
+import React from 'react';
 
+import AspectRatio from '../AspectRatio';
 import Box from '../Box';
 import { __DEV__ } from '../utils/assertion';
 import { ImageProps } from './types';
-
-// TODO: Handle load failed fallback
-
-interface HasImageLoadedProps {
-  src?: ImageProps['src'];
-  onLoad?: ImageProps['onLoad'];
-  onError?: ImageProps['onError'];
-}
+import { useImageStyles } from './useImageStyles';
 
 interface NativeImageProps {
   htmlWidth?: ImageProps['htmlWidth'];
   htmlHeight?: ImageProps['htmlHeight'];
   alt?: ImageProps['alt'];
   loading?: ImageProps['loading'];
-}
-
-export function useHasImageLoaded(props: HasImageLoadedProps) {
-  const { src, onLoad, onError } = props;
-  const ref = useRef(true);
-  const [hasLoaded, setHasLoaded] = useState(false);
-
-  useEffect(() => {
-    if (!src) {
-      return;
-    }
-
-    const image = new window.Image();
-
-    image.onload = (event) => {
-      if (ref.current) {
-        setHasLoaded(true);
-
-        if (onLoad) {
-          // @ts-ignore
-          onLoad(event);
-        }
-      }
-    };
-
-    image.onerror = (event) => {
-      if (ref.current) {
-        setHasLoaded(false);
-
-        if (onError) {
-          // @ts-ignore
-          onError(event);
-        }
-      }
-    };
-
-    image.src = src;
-  }, [src, onLoad, onError]);
-
-  // eslint-disable-next-line arrow-body-style
-  useEffect(() => {
-    return () => {
-      ref.current = false;
-    };
-  }, []);
-
-  return hasLoaded;
 }
 
 const NativeImage = React.forwardRef((props: NativeImageProps, ref?: React.Ref<HTMLImageElement>) => {
@@ -76,19 +22,16 @@ const NativeImage = React.forwardRef((props: NativeImageProps, ref?: React.Ref<H
 });
 
 const Image = React.forwardRef((props: ImageProps, ref?: React.Ref<HTMLImageElement>) => {
-  const { src, onError, onLoad, htmlWidth, htmlHeight, ...rest } = props;
+  const { src, onError, onLoad, htmlWidth, htmlHeight, aspectRatio, objectFit, ...rest } = props;
   const imageProps = { src, onLoad, onError, htmlWidth, htmlHeight };
-  const hasLoaded = useHasImageLoaded(imageProps);
+  const styles = useImageStyles(props);
+  const image = <Box as={NativeImage} ref={ref} css={styles} {...imageProps} {...rest} />;
 
-  return (
-    <Box
-      as={NativeImage}
-      ref={ref}
-      css={[tw`duration-200 ease-in transition-opacity`, hasLoaded ? tw`opacity-100` : tw`opacity-0`]}
-      {...imageProps}
-      {...rest}
-    />
-  );
+  if (!aspectRatio) {
+    return image;
+  }
+
+  return <AspectRatio ratio={aspectRatio}>{image}</AspectRatio>;
 });
 
 if (__DEV__) {

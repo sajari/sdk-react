@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { AspectRatioProps } from '../AspectRatio';
+
 type HtmlAttributes = Omit<React.ImgHTMLAttributes<HTMLImageElement>, keyof Props>;
 
 interface Props {
@@ -11,7 +13,10 @@ interface Props {
   htmlHeight?: string | number;
   /** Defines loading strategy */
   loading?: 'eager' | 'lazy';
-  /** Opt out of the `fallbackSrc` logic and use the `Image` directly */
+  /** Set an aspect ratio for the image */
+  aspectRatio?: AspectRatioProps['ratio'];
+  /** Handy for use with the aspectRatio option */
+  objectFit?: 'contain' | 'cover' | 'fill' | 'scale-down' | 'none';
 }
 
 export interface ImageProps extends HtmlAttributes, Props {}
