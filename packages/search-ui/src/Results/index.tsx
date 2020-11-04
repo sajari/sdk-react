@@ -14,22 +14,20 @@ const Results = (props: ResultsProps) => {
 
   return (
     <div css={[styles.container]}>
-      {results?.map(({ values: { category, description, image, _id, price, rating, title, url } }) => {
-        return (
-          <Result
-            key={_id}
-            title={title}
-            url={url}
-            category={category.toString()}
-            description={description}
-            image={image}
-            price={price.toString()}
-            rating={Number(rating)}
-            appearance={appearance}
-            css={styles.item}
-          />
-        );
-      })}
+      {results?.map(({ values: { category, description, image, _id, price, rating, title, url } }) => (
+        <Result
+          key={_id}
+          title={title}
+          url={url}
+          category={category?.toString()}
+          description={description}
+          image={image}
+          price={price?.toString()}
+          rating={Number(rating)}
+          appearance={appearance}
+          css={styles.item}
+        />
+      ))}
     </div>
   );
 };
