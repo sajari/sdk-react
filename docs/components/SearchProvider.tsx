@@ -12,7 +12,10 @@ const SearchProvider: React.FC = ({ children }) => {
       'query',
     ),
     values: new Values({ q: '' }),
-    fields: new FieldDictionary({ category: 'brand', title: 'name' }),
+    fields: new FieldDictionary({
+      category: (data) => data.level4 || data.level3 || data.level2 || data.level1,
+      title: 'name',
+    }),
   });
 
   return <SearchContextProvider search={ref.current}>{children}</SearchContextProvider>;

@@ -16,7 +16,7 @@ export const Segment = styled.div<{ index: number; isSingleHandle: boolean }>`
   border-radius: 6px;
 `;
 
-export const Handle = styled.div<{ active: boolean }>`
+export const Handle = styled.span<{ active: boolean }>`
   position: relative;
   width: 14px;
   height: 14px;
@@ -37,6 +37,7 @@ export const Handle = styled.div<{ active: boolean }>`
     height: 24px;
     opacity: 0.2;
     background-color: ${(props) => (props.active ? '#6772F9' : 'transparent')};
+    transition: background 0.2s ease;
   }
 
   ::after {
@@ -49,8 +50,8 @@ export const Handle = styled.div<{ active: boolean }>`
     width: 14px;
     height: 14px;
     background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 2px 0px;
     border: ${(props) => (props.active ? '1px solid #6772F9' : '1px solid rgb(218, 223, 231)')};
+    transition: border 0.2s ease;
   }
 `;
 
