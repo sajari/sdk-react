@@ -5,11 +5,12 @@ import React from 'react';
 import { useRanger } from 'react-ranger';
 import tw from 'twin.macro';
 
+import { __DEV__ } from '../utils/assertion';
 import { Input } from './input';
 import { Handle, Segment, Track, ValueTip } from './styled';
 import { RangeInputProps } from './types';
 
-export const RangeInput = React.forwardRef(
+const RangeInput = React.forwardRef(
   (
     { filter, leftInput: leftInputFunc, rightInput: rightInputFunc }: RangeInputProps,
     ref?: React.Ref<HTMLDivElement>,
@@ -43,23 +44,24 @@ export const RangeInput = React.forwardRef(
       filter.set(range[0], range[1]);
     }, [range]);
 
-    const leftInputProps = {
+    const inputProps = {
       min,
       max,
       type: 'number',
       inputMode: 'numeric' as AriaTextFieldOptions['inputMode'],
-      value: range[0].toString(),
       onBlur: handleSwitchRange,
+      css: tw`w-10`,
+    };
+
+    const leftInputProps = {
+      ...inputProps,
+      value: range[0].toString(),
       onChange: handleRangeInputChange(true),
     };
 
     const rightInputProps = {
-      min,
-      max,
-      type: 'number',
-      inputMode: 'numeric' as AriaTextFieldOptions['inputMode'],
+      ...inputProps,
       value: range[1].toString(),
-      onBlur: handleSwitchRange,
       onChange: handleRangeInputChange(false),
     };
 
@@ -108,4 +110,9 @@ export const RangeInput = React.forwardRef(
   },
 );
 
+if (__DEV__) {
+  RangeInput.displayName = 'RangeInput';
+}
+
 export default RangeInput;
+export type { RangeInputProps };
