@@ -13,15 +13,26 @@ const Heading = styled(Text)`
 `;
 
 const Result = React.forwardRef((props: ResultProps, ref?: React.Ref<HTMLDivElement>) => {
-  const { appearance = 'row', title, description, rating, category, image, url, ratingMax = 5, ...rest } = props;
+  const {
+    appearance = 'list',
+    title,
+    description,
+    rating,
+    category,
+    image,
+    url,
+    price,
+    ratingMax = 5,
+    imageAspectRatio = 1,
+    imageObjectFit = 'contain',
+    ...rest
+  } = props;
   const styles = useResultStyles({ ...props, appearance });
 
   return (
     <article {...rest} ref={ref} css={styles.container}>
-      <a href={url} target="_blank" rel="noreferrer noopener" css={tw`block w-24 h-24 mr-6`}>
-        <span css={tw`flex items-center justify-center w-full h-full`}>
-          <Image src={image} css={styles.image} />
-        </span>
+      <a href={url} target="_blank" rel="noreferrer noopener" css={styles.imageContiner}>
+        <Image src={image} css={styles.image} aspectRatio={imageAspectRatio} objectFit={imageObjectFit} />
       </a>
 
       <div css={tw`flex-1 min-w-0`}>
@@ -30,14 +41,19 @@ const Result = React.forwardRef((props: ResultProps, ref?: React.Ref<HTMLDivElem
             {title}
           </a>
         </Heading>
+
+        <div>{price}</div>
+
         <div css={tw`flex items-baseline mt-1`}>
-          <Text css={tw`mr-3 text-xs text-gray-400`}>{category}</Text>
+          {category && appearance === 'list' && <Text css={tw`mr-3 text-xs text-gray-400`}>{category}</Text>}
           {rating && <Rating value={rating} max={ratingMax} />}
         </div>
 
-        <Text truncate={2} css={tw`mt-1 text-sm text-gray-500`}>
-          {description}
-        </Text>
+        {description && appearance === 'list' && (
+          <Text truncate={2} css={tw`mt-1 text-sm text-gray-500`}>
+            {description}
+          </Text>
+        )}
       </div>
     </article>
   );

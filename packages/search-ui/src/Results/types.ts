@@ -1,14 +1,19 @@
-import { ResultProps } from '../Result';
+import { ImageProps } from '@sajari/react-components';
 
 export interface ResultsProps {
-  appearance?: ResultProps['appearance'];
+  appearance?: 'list' | 'grid';
+  ratingMax?: number;
+  imageAspectRatio?: ImageProps['aspectRatio'];
+  imageObjectFit?: ImageProps['objectFit'];
 }
 
-// TODO: This should be a common type somewhere
 export interface ResultValues {
   _id: string;
-  title: string;
-  description?: string;
-  image?: string;
   url: string;
+  title: string;
+  image?: string;
+  description?: string;
+  category?: string;
+  rating?: number;
+  price?: string;
 }

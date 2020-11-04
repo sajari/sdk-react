@@ -56,7 +56,6 @@ export interface PipelineProviderState {
 export interface Context {
   search: PipelineContextState;
   instant: PipelineContextState;
-
   resultClicked: ResultClickedFn;
   paginate: PaginateFn;
 }

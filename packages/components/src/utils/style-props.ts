@@ -1,3 +1,4 @@
+import { css, SerializedStyles } from '@emotion/core';
 import tw, { TwStyle } from 'twin.macro';
 
 import { isNumber } from './assertion';
@@ -27,4 +28,11 @@ export function mapTruncateValue(truncate: boolean | 2 | 3 | 4 | 5): TwStyle {
   }
 
   return tw``;
+}
+
+export function mapStyles(styles: Record<string, (TwStyle | string)[]>): Record<string, SerializedStyles> {
+  return Object.entries(styles).reduce((obj, [key, value]) => Object.assign(obj, { [key]: css(value) }), {}) as Record<
+    keyof typeof styles,
+    SerializedStyles
+  >;
 }

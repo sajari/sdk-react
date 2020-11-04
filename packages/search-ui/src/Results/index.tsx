@@ -3,14 +3,14 @@ import { jsx } from '@emotion/core';
 import { useSearchContext } from '@sajari/react-hooks';
 import React from 'react';
 
-import Result from '../Result';
+import Result from './Result';
 import useResultsStyles from './styles';
 import { ResultsProps, ResultValues } from './types';
 
 const Results = (props: ResultsProps) => {
   const { results } = useSearchContext<ResultValues>();
   const styles = useResultsStyles(props);
-  const { appearance = 'row' } = props;
+  const { appearance = 'list' } = props;
 
   return (
     <div css={[styles.container]}>

@@ -3,7 +3,6 @@ export { default as Input } from './Input';
 export { default as PageSize } from './PageSize';
 export { default as Pagination } from './Pagination';
 export { default as PoweredBy } from './PoweredBy';
-export { default as Result } from './Result';
 export { default as Results } from './Results';
 export { default as Sorting } from './Sorting';
 export { default as Summary } from './Summary';

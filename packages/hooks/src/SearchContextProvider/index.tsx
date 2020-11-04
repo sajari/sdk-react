@@ -4,7 +4,6 @@ import { createContext } from 'sajari-react-sdk-utils';
 
 import debounce from '../utils/debounce';
 import { Config, defaultConfig } from './config';
-// eslint-disable-next-line import/named
 import {
   ClickTracking,
   NoTracking,
