@@ -1,0 +1,35 @@
+{
+  "root": true,
+  "parser": "babel-eslint",
+  "extends": ["@sampotts/eslint-config/react"],
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "no-shadow": "off",
+    // Should revisit this later
+    "no-param-reassign": ["error", { "props": false }],
+    // Preact innit
+    "react/react-in-jsx-scope": "off",
+    // We kinda need this to pass some props on...
+    "react/jsx-props-no-spreading": "off",
+
+    // Fix label stuff
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        "labelComponents": ["Label"],
+        "controlComponents": ["Input", "Checkbox", "SearchInput", "Select"],
+        "assert": "either"
+      }
+    ]
+  },
+  "settings": {
+    "react": {
+      "version": "latest"
+    }
+  },
+  "parserOptions": {
+    "sourceType": "module"
+  }
+}
