@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { Filter } from './filter';
+import { Filter } from './deprecatedFilter';
 
 export function getFilterQuery(range: Range, limit: Range, field: string) {
   if (range[1] === limit[1] && range[0] === limit[0]) {

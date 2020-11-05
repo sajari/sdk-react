@@ -1,5 +1,5 @@
 import { Config } from './config';
-import { Pipeline, Response, Values } from './controllers';
+import { Filter, Pipeline, Response, Values } from './controllers';
 
 export type SearchFn = (query: string, override?: boolean) => void;
 export type ClearFn = (values?: { [k: string]: string | undefined }) => void;
@@ -18,6 +18,7 @@ export interface PipelineContextState {
   clear: ClearFn;
   fields?: FieldDictionary;
   searching: boolean;
+  filters?: Filter[];
 }
 
 export interface ProviderPipelineConfig {
@@ -25,6 +26,7 @@ export interface ProviderPipelineConfig {
   values: Values;
   config?: Config;
   fields?: FieldDictionary;
+  filters?: Filter[];
 }
 
 export interface ProviderPipelineState {
