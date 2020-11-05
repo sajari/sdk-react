@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { styled } from 'twin.macro';
 
 export const Track = styled.div`
@@ -11,7 +12,11 @@ export const Track = styled.div`
 
 export const Segment = styled.div<{ index: number; isSingleHandle: boolean }>`
   background-color: ${(props) =>
-    props.index === 1 && !props.isSingleHandle ? 'rgb(103, 114, 249)' : 'rgb(218, 223, 231)'};
+    props.isSingleHandle && props.index === 0
+      ? 'rgb(103, 114, 249)'
+      : props.index === 1 && !props.isSingleHandle
+      ? 'rgb(103, 114, 249)'
+      : 'rgb(218, 223, 231)'};
   height: 100%;
   border-radius: 6px;
 `;
