@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
-import { Range } from '@sajari/react-hooks';
 import React, { MouseEvent, ReactNode } from 'react';
 import { useRanger } from 'react-ranger';
 import tw from 'twin.macro';
