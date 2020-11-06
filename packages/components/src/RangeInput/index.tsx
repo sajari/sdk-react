@@ -1,13 +1,13 @@
 /** @jsx jsx */
-import { jsx, css } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
 import { Range } from '@sajari/react-hooks';
 import React from 'react';
 import { useRanger } from 'react-ranger';
 import tw from 'twin.macro';
 
-import { defaultParams } from './defaults';
 import { __DEV__ } from '../utils/assertion';
+import { defaultParams } from './defaults';
 import { Input } from './input';
 import { Handle, Segment, Track, ValueTip } from './styled';
 import { RangeInputProps } from './types';
@@ -40,13 +40,20 @@ const RangeInput = React.forwardRef(
 
     const handleRangeInputChange = (left: boolean) => (v: string) => {
       const newValue = parseInt(v, 10);
-      setRange((r) =>
-        isSingleHandle
-          ? [Number.isNaN(newValue) ? min : newValue]
-          : left
-          ? [Number.isNaN(newValue) ? min : newValue, r[1] as number]
-          : [r[0], Number.isNaN(newValue) ? max : newValue],
-      );
+
+      setRange((r) => {
+        const isNumeric = Number.isNaN(newValue);
+
+        if (isSingleHandle) {
+          return [isNumeric ? min : newValue];
+        }
+
+        if (left) {
+          return [isNumeric ? min : newValue, r[1] as number];
+        }
+
+        return [r[0], isNumeric ? max : newValue];
+      });
     };
 
     const handleSwitchRange = () => {

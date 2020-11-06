@@ -3,6 +3,7 @@ const coreComponents = [
   'Button',
   'ButtonGroup',
   'Checkbox',
+  'Heading',
   'Image',
   'Radio',
   'Rating',
@@ -12,11 +13,10 @@ const coreComponents = [
   'Text',
   'Tabs',
   'Pagination',
-  'Heading',
+  'PoweredBy',
   'RangeInput',
 ].sort();
 const searchComponents = [
-  'PoweredBy',
   'Filter',
   'Input',
   'PageSize',

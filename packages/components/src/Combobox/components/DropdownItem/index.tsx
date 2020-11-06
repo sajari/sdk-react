@@ -6,13 +6,13 @@ import tw from 'twin.macro';
 import { EnterKey } from '../../../assets/icons';
 import Box from '../../../Box';
 import { useComboboxContext } from '../../context';
-import { useItemStyles } from './styles';
-import { ItemProps } from './types';
+import { useDropdownItemStyles } from './styles';
+import { DropdownItemProps } from './types';
 
-const Item = (props: ItemProps) => {
+const DropdownItem = (props: DropdownItemProps) => {
   const { highlight, value, index, selected } = props;
   const { inputValue, getItemProps } = useComboboxContext();
-  const styles = useItemStyles(props);
+  const styles = useDropdownItemStyles(props);
 
   // Highlight the suggested text rather than their input
   // https://baymard.com/blog/autocomplete-design#7-highlight-the-active-suggestion-desktop-specific
@@ -51,4 +51,4 @@ const Item = (props: ItemProps) => {
   );
 };
 
-export default Item;
+export default DropdownItem;

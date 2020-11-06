@@ -1,4 +1,4 @@
-export interface ItemProps {
+export interface DropdownItemProps {
   value: string;
   index: number;
   highlight: boolean;

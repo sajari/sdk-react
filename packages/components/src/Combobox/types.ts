@@ -1,6 +1,10 @@
 import React from 'react';
 
+export type ComboboxMode = 'standard' | 'typeahead' | 'suggestions' | 'results';
+
 interface Props {
+  /** The mode for the combobox to operate */
+  mode?: ComboboxMode;
   /** The state when entering an invalid input */
   invalid?: boolean;
   /** An aria-label, also used for the placeholder if not specified */
@@ -18,13 +22,10 @@ interface Props {
   items?: Array<string>;
   /** Called when the value changes  */
   onChange?: (value?: string) => void;
+  /** The typeahead completion value */
+  completion?: string;
 }
 
 type HtmlAttributes = Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof Props>;
 
 export interface ComboboxProps extends Props, HtmlAttributes {}
-
-export interface VoiceProps {
-  children?: React.Component | ((props: { onClick: () => void; active: boolean }) => React.ReactElement);
-  onVoiceInput?: (result: string) => void;
-}

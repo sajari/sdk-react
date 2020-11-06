@@ -1,13 +1,7 @@
-import { css, SerializedStyles } from '@emotion/core';
 import tw from 'twin.macro';
 
+import { mapStyles } from '../utils/style-props';
 import { PoweredByProps } from './types';
-
-type Styles = {
-  container: SerializedStyles[];
-  logo: SerializedStyles[];
-  label: SerializedStyles[];
-};
 
 export default function usePoweredByStyles({ align = 'right' }: PoweredByProps) {
   const styles = {
@@ -31,5 +25,5 @@ export default function usePoweredByStyles({ align = 'right' }: PoweredByProps) 
       break;
   }
 
-  return Object.entries(styles).reduce((obj, [key, value]) => Object.assign(obj, { [key]: css(value) }), {}) as Styles;
+  return mapStyles(styles);
 }

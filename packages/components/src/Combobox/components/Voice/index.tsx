@@ -1,12 +1,12 @@
 import React from 'react';
 import tw from 'twin.macro';
 
-import { EmptyMic, Mic } from '../assets/icons';
-import Box from '../Box';
-import useVoiceInput from '../hooks/useVoiceInput';
+import { EmptyMic, Mic } from '../../../assets/icons';
+import Box from '../../../Box';
+import useVoiceInput from '../../../hooks/useVoiceInput';
 import { VoiceProps } from './types';
 
-export const Voice = ({ children, onVoiceInput }: VoiceProps) => {
+const Voice = ({ children, onVoiceInput }: VoiceProps) => {
   const { active, start, supported } = useVoiceInput(onVoiceInput);
 
   if (!supported) {
@@ -28,3 +28,5 @@ export const Voice = ({ children, onVoiceInput }: VoiceProps) => {
     </Box>
   );
 };
+
+export default Voice;

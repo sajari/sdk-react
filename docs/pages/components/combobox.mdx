@@ -18,9 +18,18 @@ import { Combobox } from 'sajari/react-components';
 ## Usage
 
 ```jsx
+<Combobox />
+```
+
+### Suggestions mode
+
+You can set `mode` to `suggestions` to render autocomplete suggstions.
+
+```jsx
 function Example() {
   const [query, setQuery] = React.useState('');
   const [value, setValue] = React.useState('');
+  const suggestions = ['apple iphone', 'apple imac', 'apple watch', 'apple mac pro', 'apple macbook pro'];
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -35,17 +44,26 @@ function Example() {
 
       <form onSubmit={handleSubmit}>
         <Combobox
+          mode="suggestions"
           label="Query"
           name="query"
           value={query}
           placeholder="Search"
-          items={['apple iphone', 'apple imac', 'apple watch', 'apple mac pro', 'apple macbook pro']}
+          items={suggestions}
           onChange={setValue}
         />
       </form>
     </>
   );
 }
+```
+
+### Typeahead mode
+
+You can set `mode` to `typeahed` to render a typeahead suggestion.
+
+```jsx
+<Combobox mode="typeahead" label="Query" name="query" placeholder="Search" completion="apple iphone" />
 ```
 
 ### Loading

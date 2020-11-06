@@ -16,6 +16,8 @@ export { default as Image } from './Image';
 export * from './Image';
 export { default as Pagination } from './Pagination';
 export * from './Pagination';
+export { default as PoweredBy } from './PoweredBy';
+export * from './PoweredBy';
 export { default as Radio } from './Radio';
 export * from './Radio';
 export { default as RadioGroup } from './RadioGroup';

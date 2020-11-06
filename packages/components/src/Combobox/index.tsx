@@ -2,18 +2,20 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
+import { useFocusWithin } from '@react-aria/interactions';
 import { useCombobox } from 'downshift';
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import tw, { styled } from 'twin.macro';
 
 import { Search, Spinner } from '../assets/icons';
 import Box from '../Box';
 import useInputStyles from '../hooks/useInputStyles';
 import { __DEV__ } from '../utils/assertion';
-import Menu from './components/Menu';
+import Dropdown from './components/Dropdown';
+import Typeahead from './components/Typeahead';
+import Voice from './components/Voice';
 import ComboboxContextProvider from './context';
 import { ComboboxProps } from './types';
-import { Voice } from './Voice';
 
 const StyledIconContainer = styled.div<{
   left?: boolean;
@@ -30,6 +32,7 @@ const StyledIconContainer = styled.div<{
 
 const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInputElement>) => {
   const {
+    mode = 'standard',
     label,
     placeholder,
     enterKeyHint = 'search',
@@ -42,9 +45,10 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     loading = false,
     value = '',
     items = [],
+    completion = '',
     ...rest
   } = props;
-  const [showCancel, setShowCancel] = React.useState(!value);
+  const [showCancel, setShowCancel] = useState(!value);
 
   const {
     isOpen: open,
@@ -63,12 +67,19 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     onSelectedItemChange: (changes) => onChange(changes.inputValue),
   });
 
-  React.useEffect(() => setShowCancel(value ? value !== '' : false), [value]);
+  useEffect(() => setShowCancel(value ? value !== '' : false), [value]);
+
+  const [focusWithin, setFocusWithin] = useState(false);
+  const { focusWithinProps } = useFocusWithin({
+    onFocusWithinChange: (isFocusWithin) => setFocusWithin(isFocusWithin),
+  });
 
   const context = {
+    mode,
     inputValue,
     open,
     items,
+    completion,
     selectedItem,
     highlightedIndex,
     getMenuProps,
@@ -79,20 +90,25 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
 
   return (
     <ComboboxContextProvider value={context}>
-      <Box css={[tw`relative`]}>
-        <Box as="label" css={tw`sr-only`} {...getLabelProps({ htmlFor: id })}>
-          {label ?? placeholder}
-        </Box>
+      <Box css={tw`relative`} {...focusWithinProps}>
+        <Box
+          css={[tw`relative form-input`, styles, focusWithin ? tw`border-blue-400 shadow-outline-blue` : tw``]}
+          {...getComboboxProps()}
+        >
+          <Box as="label" css={tw`sr-only`} {...getLabelProps({ htmlFor: id })}>
+            {label ?? placeholder}
+          </Box>
 
-        <Box css={tw`relative`} {...getComboboxProps()}>
           <StyledIconContainer left>
             <Search />
           </StyledIconContainer>
 
+          <Typeahead />
+
           <Box
             ref={ref}
             as="input"
-            css={[tw`form-input`, styles]}
+            css={[tw`form-input`, tw`absolute inset-0 w-full bg-transparent border-0 pl-9`]}
             {...getInputProps({
               type: 'search',
               dir: 'auto',
@@ -103,7 +119,7 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
               autoCorrect: 'off',
               spellCheck: 'false',
               inputMode: 'search',
-              onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => {
+              onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => {
                 // Don't supress native form submission when 'Enter' key is pressed
                 // Only if the user isn't focused on an item in the suggestions
                 if (e.key === 'Enter' && highlightedIndex === -1) {
@@ -132,7 +148,7 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
           ) : null}
         </Box>
 
-        <Menu />
+        <Dropdown />
       </Box>
     </ComboboxContextProvider>
   );

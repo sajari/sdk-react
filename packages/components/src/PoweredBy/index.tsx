@@ -4,6 +4,7 @@ import React from 'react';
 import { __DEV__ } from 'sajari-react-sdk-utils';
 
 import { LogoSajariColor, LogoSajariMono } from '../assets/logos';
+import Box from '../Box';
 import usePoweredByStyles from './styles';
 import { PoweredByProps } from './types';
 
@@ -12,10 +13,12 @@ const PoweredBy = React.forwardRef((props: PoweredByProps, ref?: React.Ref<HTMLD
   const { appearance } = props;
 
   return (
-    <div {...props} ref={ref} css={styles.container}>
-      <span css={styles.label}>Powered by</span>
+    <Box ref={ref} css={styles.container} {...props}>
+      <Box as="span" css={styles.label}>
+        Powered by
+      </Box>
       {appearance === 'color' ? <LogoSajariColor css={styles.logo} /> : <LogoSajariMono css={styles.logo} />}
-    </div>
+    </Box>
   );
 });
 
