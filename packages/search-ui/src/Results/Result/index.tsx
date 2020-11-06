@@ -32,9 +32,11 @@ const Result = React.forwardRef((props: ResultProps, ref?: React.Ref<HTMLDivElem
 
   return (
     <article {...rest} ref={ref} css={styles.container}>
-      <a href={url} target="_blank" rel="noreferrer noopener" css={styles.imageContiner}>
-        <Image src={image} css={styles.image} aspectRatio={imageAspectRatio} objectFit={imageObjectFit} />
-      </a>
+      {image && (
+        <a href={url} target="_blank" rel="noreferrer noopener" css={styles.imageContiner}>
+          <Image src={image} css={styles.image} aspectRatio={imageAspectRatio} objectFit={imageObjectFit} />
+        </a>
+      )}
 
       <div css={tw`flex-1 min-w-0`}>
         <div css={tw`flex items-start`}>
