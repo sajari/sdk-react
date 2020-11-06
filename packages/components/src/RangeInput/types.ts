@@ -24,12 +24,3 @@ export type RangeInputProps = {
   /** Right custom input */
   rightInput?: (props: CustomInputProps) => React.ReactNode;
 };
-
-export type RangeInputInputProps = AriaTextFieldOptions & {
-  /** Label */
-  label: string;
-  /** Min value */
-  min: number;
-  /** Max value */
-  max: number;
-};

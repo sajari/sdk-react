@@ -11,9 +11,12 @@ export const Track = styled.div`
 
 export const Segment = styled.div<{ index: number; isSingleHandle: boolean }>`
   background-color: ${(props) =>
-    props.index === 1 && !props.isSingleHandle ? 'rgb(103, 114, 249)' : 'rgb(218, 223, 231)'};
+    (props.index === 1 && !props.isSingleHandle) || (props.index === 0 && props.isSingleHandle)
+      ? 'rgb(103, 114, 249)'
+      : 'rgb(218, 223, 231)'};
   height: 100%;
   border-radius: 6px;
+  cursor: pointer;
 `;
 
 export const Handle = styled.span<{ active: boolean }>`
@@ -50,7 +53,7 @@ export const Handle = styled.span<{ active: boolean }>`
     width: 14px;
     height: 14px;
     background-color: white;
-    border: ${(props) => (props.active ? '1px solid #6772F9' : '1px solid rgb(218, 223, 231)')};
+    border: 2px solid #6772f9;
     transition: border 0.2s ease;
   }
 `;

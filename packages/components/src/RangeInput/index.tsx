@@ -2,13 +2,14 @@
 import { css, jsx } from '@emotion/core';
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
 import { Range } from '@sajari/react-hooks';
-import React from 'react';
+import React, { MouseEvent, ReactNode } from 'react';
 import { useRanger } from 'react-ranger';
 import tw from 'twin.macro';
 
 import { __DEV__ } from '../utils/assertion';
+import { clamp, closest } from '../utils/number';
+import Input from './components/Input';
 import { defaultParams } from './defaults';
-import { Input } from './input';
 import { Handle, Segment, Track, ValueTip } from './styled';
 import { RangeInputProps } from './types';
 
@@ -37,11 +38,21 @@ const RangeInput = React.forwardRef(
     });
     const leftRef = React.useRef(null);
     const rightRef = React.useRef(null);
+    const trackRef = React.useRef<HTMLDivElement>(null);
+    const [low, high] = range.map(Number);
 
-    const handleRangeInputChange = (left: boolean) => (v: string) => {
-      const newValue = parseInt(v, 10);
+    React.useEffect(() => {
+      if (filter) {
+        filter.set(low, high);
+      } else {
+        onChange(range);
+      }
+    }, [range]);
 
-      setRange((r) => {
+    const handleRangeInputChange = (left: boolean) => (v: string | number) => {
+      const newValue = typeof v === 'string' ? parseInt(v, 10) : v;
+
+      setRange(() => {
         const isNumeric = Number.isNaN(newValue);
 
         if (isSingleHandle) {
@@ -49,28 +60,42 @@ const RangeInput = React.forwardRef(
         }
 
         if (left) {
-          return [isNumeric ? min : newValue, r[1] as number];
+          return [isNumeric ? min : newValue, high];
         }
 
-        return [r[0], isNumeric ? max : newValue];
+        return [low, isNumeric ? max : newValue];
       });
     };
 
     const handleSwitchRange = () => {
-      if (isSingleHandle) return;
-      const [from, to] = range as Range;
-      if (from > to) {
-        setRange([to, from]);
+      if (isSingleHandle) {
+        return;
+      }
+
+      if (low > high) {
+        setRange([high, low]);
       }
     };
 
-    React.useEffect(() => {
-      if (filter) {
-        filter.set(range[0], range[1] as number);
-      } else {
-        onChange(range);
+    const handleSegmentClick = (event: MouseEvent<HTMLDivElement>, i: number) => {
+      if (trackRef?.current === null) {
+        return;
       }
-    }, [range]);
+
+      // Calculate percentage
+      const clientRect = trackRef.current.getBoundingClientRect();
+      const percent = clamp((100 / clientRect.width) * (event.clientX - clientRect.left), 0, 100);
+      const delta = max - min;
+      const newValue = Math.round(delta * (percent / 100));
+
+      if (i === 1 && !isSingleHandle) {
+        // Determine closest handle if clicking in center section
+        const [index] = closest(newValue, [low, high]);
+        handleRangeInputChange(index === 0)(newValue);
+      } else {
+        handleRangeInputChange(i === 0)(newValue);
+      }
+    };
 
     const inputProps = {
       min,
@@ -79,18 +104,21 @@ const RangeInput = React.forwardRef(
       inputMode: 'numeric' as AriaTextFieldOptions['inputMode'],
       onBlur: handleSwitchRange,
       css: tw`w-10`,
+      style: {
+        width: '100px',
+      },
     };
 
     const leftInputProps = {
       ...inputProps,
-      value: range[0].toString(),
+      value: low.toString(),
       onChange: handleRangeInputChange(true),
       label: 'Range input left bound',
     };
 
     const rightInputProps = {
       ...inputProps,
-      value: (isSingleHandle ? 0 : (range[1] as number)).toString(),
+      value: (isSingleHandle ? 0 : high).toString(),
       onChange: handleRangeInputChange(false),
       label: 'Range input right bound',
     };
@@ -103,23 +131,33 @@ const RangeInput = React.forwardRef(
       <Input {...leftInputProps} />
     );
 
-    const rightInput = isSingleHandle ? null : rightInputFunc ? (
-      rightInputFunc({
+    let rightInput: ReactNode | null = <Input {...rightInputProps} />;
+
+    if (isSingleHandle) {
+      rightInput = null;
+    }
+
+    if (rightInputFunc) {
+      rightInput = rightInputFunc({
         getProps: (override = {}) => ({
           ...useTextField({ ...rightInputProps, ...override }, rightRef),
           ref: rightRef,
         }),
-      })
-    ) : (
-      <Input {...rightInputProps} />
-    );
+      });
+    }
 
     return (
       <div ref={ref} css={tw`flex flex-col`}>
-        <Track {...getTrackProps()}>
-          {segments.map(({ getSegmentProps }, i) => (
-            <Segment isSingleHandle={isSingleHandle} index={i} {...getSegmentProps()} />
+        <Track {...getTrackProps({ ref: trackRef })}>
+          {segments.map(({ getSegmentProps }, i: number) => (
+            <Segment
+              isSingleHandle={isSingleHandle}
+              index={i}
+              {...getSegmentProps()}
+              onClick={(e: MouseEvent<HTMLDivElement>) => handleSegmentClick(e, i)}
+            />
           ))}
+
           {handles.map(({ value: handleValue, active, getHandleProps }) => (
             <button
               type="button"
@@ -133,6 +171,7 @@ const RangeInput = React.forwardRef(
             </button>
           ))}
         </Track>
+
         <div
           css={css(
             tw`flex flex-col items-center sm:flex-row`,
@@ -140,12 +179,7 @@ const RangeInput = React.forwardRef(
           )}
         >
           {leftInput}
-          {isSingleHandle ? null : (
-            <React.Fragment>
-              &ndash;
-              {rightInput}
-            </React.Fragment>
-          )}
+          {isSingleHandle ? null : rightInput}
         </div>
       </div>
     );

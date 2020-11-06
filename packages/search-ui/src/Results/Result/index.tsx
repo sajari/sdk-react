@@ -53,10 +53,10 @@ const Result = React.forwardRef((props: ResultProps, ref?: React.Ref<HTMLDivElem
           )}
         </div>
 
-        {(category || rating) && appearance === 'list' && (
+        {(category || typeof rating === 'number') && appearance === 'list' && (
           <div css={tw`flex items-baseline mt-1`}>
             {category && <Text css={tw`mr-3 text-xs text-gray-400`}>{category}</Text>}
-            {rating && <Rating value={rating} max={ratingMax} />}
+            {typeof rating === 'number' && <Rating value={rating} max={ratingMax} />}
           </div>
         )}
 
@@ -66,9 +66,9 @@ const Result = React.forwardRef((props: ResultProps, ref?: React.Ref<HTMLDivElem
           </Text>
         )}
 
-        {(price || rating) && appearance === 'grid' && (
+        {(price || typeof rating === 'number') && appearance === 'grid' && (
           <div css={tw`mt-1 space-y-1 text-center`}>
-            {rating && <Rating value={rating} max={ratingMax} />}
+            {typeof rating === 'number' && <Rating value={rating} max={ratingMax} />}
             {price && <Text>{formatNumber(Number(price), 'USD')}</Text>}
           </div>
         )}
