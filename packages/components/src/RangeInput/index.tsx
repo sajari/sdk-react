@@ -9,7 +9,7 @@ import { __DEV__ } from '../utils/assertion';
 import { clamp, closest } from '../utils/number';
 import Input from './components/Input';
 import { defaultParams } from './defaults';
-import { Handle, Segment, Track, ValueTip } from './styled';
+import { Handle, Segment, Track } from './styled';
 import { RangeInputProps } from './types';
 
 const RangeInput = React.forwardRef(
@@ -158,16 +158,13 @@ const RangeInput = React.forwardRef(
           ))}
 
           {handles.map(({ value: handleValue, active, getHandleProps }) => (
-            <button
-              type="button"
+            <Handle
+              active={active}
+              data-value={handleValue}
               {...getHandleProps({
                 style: { appearance: 'none', border: 'none', background: 'transparent', outline: 'none' },
               })}
-            >
-              <Handle active={active}>
-                <ValueTip>{handleValue}</ValueTip>
-              </Handle>
-            </button>
+            />
           ))}
         </Track>
 

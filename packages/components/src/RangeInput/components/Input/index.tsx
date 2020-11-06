@@ -13,6 +13,7 @@ const Input = (props: RangeInputInputProps) => {
   const { inputProps, labelProps } = useTextField({ ...props, type: 'number' }, ref);
   const styles = useInputStyle({ block: true, type: 'text', ...props } as UseInputStyleProps);
   const { label, min, max } = props;
+  // TODO: Replace the magic numbers
   const widthStyles = { width: `${38 + max.toString().length * 12}px` };
 
   return (
@@ -20,7 +21,7 @@ const Input = (props: RangeInputInputProps) => {
       <label css={tw`sr-only`} {...labelProps}>
         {label}
       </label>
-      <input css={[tw`form-input`, styles, widthStyles]} {...inputProps} min={min} max={max} ref={ref} />
+      <input css={[tw`form-input`, styles, tw`text-sm`, widthStyles]} {...inputProps} min={min} max={max} ref={ref} />
     </React.Fragment>
   );
 };
