@@ -1,5 +1,4 @@
 import { Combobox } from '@sajari/react-components';
-// import { useCombobox } from 'downshift';
 import React from 'react';
 import { __DEV__ } from 'sajari-react-sdk-utils';
 
