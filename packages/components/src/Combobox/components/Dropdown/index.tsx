@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { PoweredBy } from '@sajari/react-components';
 import tw from 'twin.macro';
 
 import { DownKey, EnterKey, UpKey } from '../../../assets/icons';
 import Box from '../../../Box';
+import PoweredBy from '../../../PoweredBy';
 import Text from '../../../Text';
 import { useComboboxContext } from '../../context';
 import DropdownItem from '../DropdownItem';

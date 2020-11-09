@@ -84,8 +84,7 @@ const RangeInput = React.forwardRef(
       // Calculate percentage
       const clientRect = trackRef.current.getBoundingClientRect();
       const percent = clamp((100 / clientRect.width) * (event.clientX - clientRect.left), 0, 100);
-      const delta = max - min;
-      const newValue = Math.round(delta * (percent / 100));
+      const newValue = Math.round((max - min) * (percent / 100));
 
       if (i === 1 && !isSingleHandle) {
         // Determine closest handle if clicking in center section
@@ -152,8 +151,8 @@ const RangeInput = React.forwardRef(
             <Segment
               isSingleHandle={isSingleHandle}
               index={i}
-              {...getSegmentProps()}
               onClick={(e: MouseEvent<HTMLDivElement>) => handleSegmentClick(e, i)}
+              {...getSegmentProps()}
             />
           ))}
 
