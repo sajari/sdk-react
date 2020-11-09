@@ -39,9 +39,10 @@ function useFilter(name: string) {
 
     const aggregates = response.getAggregates();
     const aggregateFilters = response.getAggregateFilters();
-    const fieldCount = filter.getCount();
+    const isCount = filter.getCount();
+    const fieldCount = filter.getField();
 
-    if (fieldCount) {
+    if (isCount && fieldCount) {
       const repeated = filter.isRepeated();
       let count = {};
       ({ count } = (aggregateFilters || {})[fieldCount] || {});

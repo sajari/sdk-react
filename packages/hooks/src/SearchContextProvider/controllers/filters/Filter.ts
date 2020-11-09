@@ -15,11 +15,13 @@ export default class Filter {
 
   private name: string;
 
+  private field: string | undefined;
+
   private options: Options;
 
   private multi: boolean;
 
-  private count: string | undefined;
+  private count: boolean;
 
   private repeated: boolean;
 
@@ -40,7 +42,8 @@ export default class Filter {
     options = {},
     repeated = false,
     name,
-    count,
+    field,
+    count = false,
   }: FilterOptions) {
     if (typeof initial === 'string') {
       initial = [initial];
@@ -52,6 +55,8 @@ export default class Filter {
     this.initial = initial;
     /** @private */
     this.name = name;
+    /** @private */
+    this.field = field;
     /** @private */
     this.count = count;
     /** @private */
@@ -123,6 +128,10 @@ export default class Filter {
 
   public getName() {
     return this.name;
+  }
+
+  public getField() {
+    return this.field;
   }
 
   public getCount() {

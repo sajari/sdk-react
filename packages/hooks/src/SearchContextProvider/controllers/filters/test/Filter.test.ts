@@ -14,7 +14,8 @@ describe('Filter', () => {
 
   const countFilter = new Filter({
     name: 'priceRange',
-    count: 'price_range',
+    count: true,
+    field: 'price_range',
     multi: true,
   });
 
@@ -24,8 +25,8 @@ describe('Filter', () => {
   });
 
   it('getCount', () => {
-    expect(filter.getCount()).toBeUndefined();
-    expect(countFilter.getCount()).toBe('price_range');
+    expect(filter.getCount()).not.toBeTruthy();
+    expect(countFilter.getCount()).toBeTruthy();
   });
 
   it('isMulti', () => {
