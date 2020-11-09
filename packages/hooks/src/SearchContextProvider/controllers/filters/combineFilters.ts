@@ -45,7 +45,7 @@ export default function combineFilters(filters: Filter[], joinOperator: JoinOper
     );
   });
 
-  function removeChildFilterListeners() {
+  function removeChildListFiltereners() {
     removeListenerFuncs.forEach((fn) => fn());
   }
 
@@ -84,5 +84,5 @@ export default function combineFilters(filters: Filter[], joinOperator: JoinOper
       .join(',');
   };
 
-  return { filter, listen, buckets, countFilters, count, removeChildFilterListeners };
+  return { filter, listen, buckets, countFilters, count, removeChildListFiltereners };
 }

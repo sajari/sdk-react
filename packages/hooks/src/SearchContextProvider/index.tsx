@@ -104,7 +104,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
 
       unregisterFunctions.push(
         filter.listen(EVENT_SELECTION_UPDATED, () => search.pipeline.search(search.values.get())),
-        filter.removeChildFilterListeners,
+        filter.removeChildListFiltereners,
       );
 
       search.values.set({

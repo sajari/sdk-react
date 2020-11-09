@@ -18,6 +18,7 @@ const coreComponents = [
 const searchComponents = [
   'PoweredBy',
   'Filter',
+  'ListFilter',
   'Input',
   'PageSize',
   'Pagination',

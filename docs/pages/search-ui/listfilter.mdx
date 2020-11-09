@@ -1,0 +1,215 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="ListFilter"
+  description="ListFilter component easily allows the creation of a filter for checkbox or radiobox list."
+/>
+
+# ListFilter
+
+`ListFilter` component easily allows the creation of a filter for checkbox or radiobox list.
+
+```js
+import { ListFilter } from '@sajari/react-search-ui';
+```
+
+## Usage
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const brandFilter = new Filter({
+    name: 'brand',
+    options: {
+      Apple: "brand = 'Apple'",
+      Samsung: "brand = 'Samsung'",
+      Dell: "brand = 'Dell'",
+      HP: "brand = 'HP'",
+      Garmin: "brand = 'Garmin'",
+    },
+    multi: true,
+  });
+
+  const priceFilter = new Filter({
+    name: 'price',
+    options: {
+      High: 'price >= 200',
+      Mid: 'price >= 50',
+      Low: 'price < 50',
+    },
+    multi: false,
+    initial: ['High'],
+  });
+
+  const values = new Values({ q: '' });
+
+  const SearchPlayground = React.memo(() => {
+    const { results, search } = useSearchContext();
+
+    return (
+      <div className="flex flex-col space-y-4">
+        <Input label="Search something" onChange={(value) => search(value)} />
+        {results ? (
+          <div className="flex -mx-3">
+            <div className="w-1/4 px-3 border-gray-100 border-r">
+              <ListFilter name="brand" title="Brand" />
+              <ListFilter name="price" title="Price (bucket)" />
+            </div>
+            <div className="w-3/4 px-3">{results.length ? <Results /> : <div>No results 😢</div>}</div>
+          </div>
+        ) : null}
+      </div>
+    );
+  });
+
+  return (
+    <SearchContextProvider
+      search={{
+        pipeline,
+        values,
+        fields: { category: 'brand', title: 'name' },
+        filters: [priceFilter, brandFilter],
+      }}
+    >
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
+```
+
+### Sortable and searchable
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const categoryFilter = new Filter({
+    name: 'category',
+    field: 'level1',
+    count: true,
+    multi: true,
+  });
+
+  const priceRangeFilter = new Filter({
+    name: 'priceRange',
+    count: true,
+    field: 'price_range',
+    multi: true,
+  });
+
+  const values = new Values({ q: '' });
+
+  const SearchPlayground = React.memo(() => {
+    const { results, search } = useSearchContext();
+
+    return (
+      <div className="flex flex-col space-y-4">
+        <Input label="Search something" onChange={(value) => search(value)} />
+        {results ? (
+          <div className="flex -mx-3">
+            <div className="w-1/4 px-3 border-gray-100 border-r">
+              <ListFilter name="category" title="Category" searchable sortable />
+              <ListFilter name="priceRange" title="Range ($)" />
+            </div>
+            <div className="w-3/4 px-3">{results.length ? <Results /> : <div>No results 😢</div>}</div>
+          </div>
+        ) : null}
+      </div>
+    );
+  });
+
+  return (
+    <SearchContextProvider
+      search={{
+        pipeline,
+        values,
+        fields: { category: 'brand', title: 'name' },
+        filters: [priceRangeFilter, categoryFilter],
+      }}
+    >
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
+```
+
+### Custom render item
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const ratingFilter = new Filter({
+    name: 'rating',
+    count: true,
+    field: 'rating',
+    multi: true,
+  });
+
+  const values = new Values({ q: '' });
+
+  const SearchPlayground = React.memo(() => {
+    const { results, search } = useSearchContext();
+
+    return (
+      <div className="flex flex-col space-y-4">
+        <Input label="Search something" onChange={(value) => search(value)} />
+        {results ? (
+          <div className="flex -mx-3">
+            <div className="w-1/4 px-3 border-gray-100 border-r">
+              <ListFilter name="rating" title="Rating" itemRender={(v) => <Rating max={5} value={Number(v)} />} />
+            </div>
+            <div className="w-3/4 px-3">{results.length ? <Results /> : <div>No results 😢</div>}</div>
+          </div>
+        ) : null}
+      </div>
+    );
+  });
+
+  return (
+    <SearchContextProvider
+      search={{
+        pipeline,
+        values,
+        fields: { category: 'brand', title: 'name' },
+        filters: [ratingFilter],
+      }}
+    >
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
+```
+
+## Props
+
+| Name         | Type                                | Default | Description                                                                              |
+| ------------ | ----------------------------------- | ------- | ---------------------------------------------------------------------------------------- |
+| `name`       | `string`                            | -       | The name of a given Filter                                                               |
+| `title`      | `string`                            | -       | Title of the filter list                                                                 |
+| `limit`      | `number`                            | `8`     | Maxium of shown items when the list is collapsed                                         |
+| `searchable` | `boolean`                           | `false` | If true, display an input for searching through filter items                             |
+| `sortable`   | `boolean`                           | `false` | If true, sort selected items on top                                                      |
+| `renderItem` | `(value:string) => React.ReactNode` | -       | A render prop function is used to custom the item label rather than just displaying text |
