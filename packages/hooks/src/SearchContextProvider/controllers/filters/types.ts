@@ -10,7 +10,9 @@ export interface FilterOptions {
   /** List of initially selected items */
   initial?: string | string[];
   /** Map to a field which aims to perform a count aggregate */
-  count?: string;
+  count?: boolean;
+  /** A field in schema, used if count = true */
+  field?: string;
   /** Whether the response of the field is an array. This setting is only applicable if count is set */
   repeated?: boolean;
   /** Multiple selections allowed */

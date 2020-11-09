@@ -25,13 +25,15 @@ describe('combineFilters', () => {
 
   const priceRangeFilter = new Filter({
     name: 'priceRange',
-    count: 'price_range',
+    count: true,
+    field: 'price_range',
     multi: true,
   });
 
   const categoryFilter = new Filter({
     name: 'category',
-    count: 'product_cat',
+    count: true,
+    field: 'product_cat',
     multi: true,
   });
 

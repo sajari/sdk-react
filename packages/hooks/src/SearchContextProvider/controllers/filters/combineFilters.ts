@@ -78,7 +78,8 @@ export default function combineFilters(filters: Filter[], joinOperator: JoinOper
   // Generate count field from aggregate count Filter(s) for Values object
   const count = () => {
     return filters
-      .map((f) => f.getCount())
+      .filter((f) => f.getCount())
+      .map((f) => f.getField())
       .filter(Boolean)
       .join(',');
   };

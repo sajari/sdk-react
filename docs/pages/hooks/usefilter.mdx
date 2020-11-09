@@ -141,13 +141,15 @@ function Example() {
 
   const categoryFilter = new Filter({
     name: 'category',
-    count: 'level1',
+    field: 'level1',
+    count: true,
     multi: true,
   });
 
   const priceRangeFilter = new Filter({
     name: 'priceRange',
-    count: 'price_range',
+    count: true,
+    field: 'price_range',
     multi: true,
   });
 
@@ -250,14 +252,16 @@ function Example() {
 
   const colorFilter = new Filter({
     name: 'color',
-    count: 'imageTags',
+    count: true,
+    field: 'imageTags',
     multi: true,
     repeated: true,
   });
 
   const ratingFilter = new Filter({
     name: 'rating',
-    count: 'rating',
+    count: true,
+    field: 'rating',
     multi: true,
   });
 
