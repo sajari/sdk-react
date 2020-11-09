@@ -1,12 +1,7 @@
-import { css, SerializedStyles } from '@emotion/core';
 import tw from 'twin.macro';
 
+import { mapStyles } from '../utils/style-props';
 import { ResultsProps } from './types';
-
-type Styles = {
-  container: SerializedStyles[];
-  item: SerializedStyles[];
-};
 
 export default function useResultsStyles({ appearance = 'list' }: ResultsProps): Styles {
   const styles = {
@@ -16,5 +11,5 @@ export default function useResultsStyles({ appearance = 'list' }: ResultsProps):
     item: [],
   };
 
-  return Object.entries(styles).reduce((obj, [key, value]) => Object.assign(obj, { [key]: css(value) }), {}) as Styles;
+  return mapStyles(styles);
 }
