@@ -25,6 +25,7 @@ const searchComponents = [
   'Summary',
   'Sorting',
   'ViewType',
+  'ColorFilter',
 ].sort();
 const hooks = ['useFilter', 'usePageSize', 'usePagination', 'useQuery', 'useSearch', 'useSorting'].sort();
 

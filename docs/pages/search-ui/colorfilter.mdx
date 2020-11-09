@@ -1,0 +1,71 @@
+import SEO from '../../components/SEO';
+
+<SEO title="ColorFilter" description="ColorFilter component easily allows the creation of color filter." />
+
+# ColorFilter
+
+`ColorFilter` component easily allows the creation of color filter.
+
+```js
+import { ColorFilter } from '@sajari/react-search-ui';
+```
+
+## Usage
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+  const colorFilter = new Filter({
+    name: 'color',
+    count: true,
+    field: 'imageTags',
+    multi: true,
+    repeated: true,
+  });
+
+  const values = new Values({ q: '' });
+
+  const SearchPlayground = React.memo(() => {
+    const { results, search } = useSearchContext();
+    return (
+      <div className="flex flex-col space-y-4">
+        <Input label="Search something" onChange={(value) => search(value)} />
+        {results ? (
+          <div className="flex -mx-3">
+            <div className="w-1/4 px-3 border-gray-100 border-r">
+              <ColorFilter name="color" title="Color" />
+            </div>
+            <div className="w-3/4 px-3">{results.length ? <Results /> : <div>No results 😢</div>}</div>
+          </div>
+        ) : null}
+      </div>
+    );
+  });
+  return (
+    <SearchContextProvider
+      search={{
+        pipeline,
+        values,
+        fields: { category: 'brand', title: 'name' },
+        filters: [colorFilter],
+      }}
+    >
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
+```
+
+## Props
+
+| Name    | Type     | Default | Description                |
+| ------- | -------- | ------- | -------------------------- |
+| `name`  | `string` | -       | The name of a given Filter |
+| `title` | `string` | -       | Title of the filter list   |
