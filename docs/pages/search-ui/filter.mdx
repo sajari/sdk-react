@@ -1,15 +1,282 @@
 import SEO from '../../components/SEO';
 
-<SEO title="Filter" description="TBD" />
+<SEO title="Filter" description="Filter component easily allows the creation of a filter for list or color." />
 
 # Filter
 
-TBD
+`Filter` component easily allows the creation of a filter for list or color.
 
-## Usage
+```js
+import { Filter } from '@sajari/react-search-ui';
+import { Filter as FilterOptions } from '@sajari/react-hooks';
+```
 
-TBD
+## List
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const brandFilter = new FilterOptions({
+    name: 'brand',
+    options: {
+      Apple: "brand = 'Apple'",
+      Samsung: "brand = 'Samsung'",
+      Dell: "brand = 'Dell'",
+      HP: "brand = 'HP'",
+      Garmin: "brand = 'Garmin'",
+    },
+    multi: true,
+  });
+
+  const priceFilter = new FilterOptions({
+    name: 'price',
+    options: {
+      High: 'price >= 200',
+      Mid: 'price >= 50',
+      Low: 'price < 50',
+    },
+    multi: false,
+    initial: ['High'],
+  });
+
+  const values = new Values({ q: '' });
+
+  const SearchPlayground = React.memo(() => {
+    const { results, search } = useSearchContext();
+
+    return (
+      <div className="flex flex-col space-y-4">
+        <Input label="Search something" onChange={(value) => search(value)} />
+        {results ? (
+          <div className="flex -mx-3">
+            <div className="w-1/4 px-3 border-gray-100 border-r">
+              <Filter type="list" name="brand" title="Brand" />
+              <Filter type="list" name="price" title="Price (bucket)" />
+            </div>
+            <div className="w-3/4 px-3">{results.length ? <Results /> : <div>No results 😢</div>}</div>
+          </div>
+        ) : null}
+      </div>
+    );
+  });
+
+  return (
+    <SearchContextProvider
+      search={{
+        pipeline,
+        values,
+        fields: { category: 'brand', title: 'name' },
+        filters: [priceFilter, brandFilter],
+      }}
+    >
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
+```
+
+### Sortable and searchable
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const categoryFilter = new FilterOptions({
+    name: 'category',
+    field: 'level1',
+    count: true,
+    multi: true,
+  });
+
+  const priceRangeFilter = new FilterOptions({
+    name: 'priceRange',
+    count: true,
+    field: 'price_range',
+    multi: true,
+  });
+
+  const values = new Values({ q: '' });
+
+  const SearchPlayground = React.memo(() => {
+    const { results, search } = useSearchContext();
+
+    return (
+      <div className="flex flex-col space-y-4">
+        <Input label="Search something" onChange={(value) => search(value)} />
+        {results ? (
+          <div className="flex -mx-3">
+            <div className="w-1/4 px-3 border-gray-100 border-r">
+              <Filter type="list" name="category" title="Category" searchable sortable />
+              <Filter type="list" name="priceRange" title="Range ($)" />
+            </div>
+            <div className="w-3/4 px-3">{results.length ? <Results /> : <div>No results 😢</div>}</div>
+          </div>
+        ) : null}
+      </div>
+    );
+  });
+
+  return (
+    <SearchContextProvider
+      search={{
+        pipeline,
+        values,
+        fields: { category: 'brand', title: 'name' },
+        filters: [priceRangeFilter, categoryFilter],
+      }}
+    >
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
+```
+
+### Custom render item
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const ratingFilter = new FilterOptions({
+    name: 'rating',
+    count: true,
+    field: 'rating',
+    multi: true,
+  });
+
+  const values = new Values({ q: '' });
+
+  const SearchPlayground = React.memo(() => {
+    const { results, search } = useSearchContext();
+
+    return (
+      <div className="flex flex-col space-y-4">
+        <Input label="Search something" onChange={(value) => search(value)} />
+        {results ? (
+          <div className="flex -mx-3">
+            <div className="w-1/4 px-3 border-gray-100 border-r">
+              <Filter
+                type="list"
+                name="rating"
+                title="Rating"
+                itemRender={(v) => <Rating max={5} value={Number(v)} />}
+              />
+            </div>
+            <div className="w-3/4 px-3">{results.length ? <Results /> : <div>No results 😢</div>}</div>
+          </div>
+        ) : null}
+      </div>
+    );
+  });
+
+  return (
+    <SearchContextProvider
+      search={{
+        pipeline,
+        values,
+        fields: { category: 'brand', title: 'name' },
+        filters: [ratingFilter],
+      }}
+    >
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
+```
+
+## Color
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const colorFilter = new FilterOptions({
+    name: 'color',
+    count: true,
+    field: 'imageTags',
+    multi: true,
+    repeated: true,
+  });
+
+  const values = new Values({ q: '' });
+
+  const SearchPlayground = React.memo(() => {
+    const { results, search } = useSearchContext();
+
+    return (
+      <div className="flex flex-col space-y-4">
+        <Input label="Search something" onChange={(value) => search(value)} />
+        {results ? (
+          <div className="flex -mx-3">
+            <div className="w-1/4 px-3 border-gray-100 border-r">
+              <Filter type="color" name="color" title="Color" />
+            </div>
+            <div className="w-3/4 px-3">{results.length ? <Results /> : <div>No results 😢</div>}</div>
+          </div>
+        ) : null}
+      </div>
+    );
+  });
+
+  return (
+    <SearchContextProvider
+      search={{
+        pipeline,
+        values,
+        fields: { category: 'brand', title: 'name' },
+        filters: [colorFilter],
+      }}
+    >
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
+```
 
 ## Props
 
-TBD
+| Name    | Type              | Default | Description                |
+| ------- | ----------------- | ------- | -------------------------- |
+| `name`  | `string`          | -       | The name of a given Filter |
+| `title` | `string`          | -       | Title of the filter list   |
+| `type`  | `list` or `color` | `list`  | Title of the filter list   |
+
+## List
+
+Exclusive props if `type` is `list`.
+
+| Name         | Type                                | Default | Description                                                                              |
+| ------------ | ----------------------------------- | ------- | ---------------------------------------------------------------------------------------- |
+| `limit`      | `number`                            | `8`     | Maxium of shown items when the list is collapsed                                         |
+| `searchable` | `boolean`                           | `false` | If true, display an input for searching through filter items                             |
+| `sortable`   | `boolean`                           | `false` | If true, sort selected items on top                                                      |
+| `renderItem` | `(value:string) => React.ReactNode` | -       | A render prop function is used to custom the item label rather than just displaying text |

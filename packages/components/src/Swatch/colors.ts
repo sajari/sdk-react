@@ -124,3 +124,5 @@ export const colors: ColorProps[] = [
     border: theme`colors.purple.700`,
   },
 ];
+
+export const colorKeys = colors.map(({ id }) => id);

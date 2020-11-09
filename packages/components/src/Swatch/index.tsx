@@ -5,6 +5,7 @@ import tw from 'twin.macro';
 
 import Box from '../Box';
 import { Color } from './color';
+import { colorKeys } from './colors';
 import SwatchContextProvider from './context';
 import { SwatchProps } from './types';
 
@@ -19,5 +20,6 @@ if (__DEV__) {
 }
 
 Swatch.Color = Color;
+Swatch.colorKeys = colorKeys;
 export default Swatch;
 export type { SwatchProps };

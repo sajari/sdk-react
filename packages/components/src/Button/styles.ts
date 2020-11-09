@@ -57,9 +57,8 @@ const useButtonStyles = ({
       break;
 
     case 'sm':
-      if (!isLink) {
-        styles.push(tw`text-sm`);
-      }
+      styles.push(tw`text-sm`);
+
       if (spacing !== 'none') {
         if (spacing === 'compact') {
           styles.push(tw`px-2`);
@@ -70,9 +69,8 @@ const useButtonStyles = ({
       break;
 
     case 'xs':
-      if (!isLink) {
-        styles.push(tw`text-xs`);
-      }
+      styles.push(tw`text-xs`);
+
       if (spacing !== 'none') {
         if (spacing === 'compact') {
           styles.push(tw`px-2`);
