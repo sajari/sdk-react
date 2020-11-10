@@ -1,5 +1,6 @@
 import SEO from '../../components/SEO';
 import { useState } from 'react';
+import { Select } from '@sajari/react-components';
 
 <SEO title="useSearch" description="useSearch provides a getter & setter for the current query." />
 
@@ -42,7 +43,7 @@ function Example() {
 function Example() {
   const [tabIndex, setTabIndex] = React.useState(0);
   const queries = ['phone', 'chair', 'macbook'];
-  const { results = [] } = useSearch(queries[tabIndex]);
+  const { results = [], loading } = useSearch(queries[tabIndex]);
 
   return (
     <>
@@ -53,7 +54,8 @@ function Example() {
           <Tab>Macbook</Tab>
         </TabList>
         <div>
-          {results.length > 0 && (
+          {loading && <p className="p-4">Searching...</p>}
+          {!loading && results.length > 0 && (
             <ul className="list-disc px-5 space-y-2 mt-5">
               {results.map(({ values: { title, id } }) => (
                 <li key={id}>{title}</li>
@@ -78,22 +80,40 @@ function Example() {
     },
     'website',
   );
-  const values = new Values({ q: 'api', resultsPerPage: 3 });
+  const values = new Values({ q: 'api', resultsPerPage: 1 });
   const fields = { title: 'name' };
 
-  const { results = [] } = useSearch(values, pipeline, fields);
+  const SearchPlayground = React.memo(() => {
+    const { results = [], loading } = useSearch({ values, pipeline, fields });
 
-  return (
-    <>
-      {results.length > 0 && (
-        <ul className="list-disc px-5 space-y-2">
-          {results.map(({ values: { title, id } }) => (
-            <li key={id}>{title}</li>
-          ))}
-        </ul>
-      )}
-    </>
-  );
+    return (
+      <div className="flex flex-col space-y-4">
+        <div className="flex space-x-3 items-center">
+          <p>PageSize</p>
+          <Select
+            onChange={(e) => {
+              values.set({ resultsPerPage: Number(e.target.value) });
+            }}
+          >
+            <option value="1">1</option>
+            <option value="3">3</option>
+          </Select>
+        </div>
+        <div>
+          {loading && <p>Searching...</p>}
+          {!loading && results.length > 0 && (
+            <ul className="list-disc px-5 space-y-2">
+              {results.map(({ values: { title } }) => (
+                <li key={title}>{title}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    );
+  });
+
+  return <SearchPlayground />;
 }
 ```
 
@@ -101,8 +121,11 @@ function Example() {
 
 `useSearch` returns an object containing the following properties:
 
-| Name           | Type       | Default | Description                            |
-| -------------- | ---------- | ------- | -------------------------------------- |
-| `results`      | `Result[]` |         | An array of results that met the query |
-| `latency`      | `number`   |         | The engine latency                     |
-| `totalResults` | `number`   |         | The total count of results             |
+| Name           | Type                   | Default | Description                                                                               |
+| -------------- | ---------------------- | ------- | ----------------------------------------------------------------------------------------- |
+| `results`      | `Result[]`             |         | An array of results that met the query                                                    |
+| `latency`      | `number`               |         | The engine latency                                                                        |
+| `totalResults` | `number`               |         | The total count of results                                                                |
+| `search`       | `(q?: string) => void` |         | The search method, call without param to resend the search request with the current query |
+| `loading`      | `boolean`              |         | Is a search request being processed                                                       |
+| `error`        | `Error` \| `null`      |         | The error encountered while searching                                                     |

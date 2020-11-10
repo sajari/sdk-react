@@ -9,7 +9,7 @@ The PageSize component renders a select component for page sizes.
 ```js
 import { Results, PageSize } from '@sajari/react-search-ui';
 import { Select, Input } from '@sajari/react-components';
-import { usePageSize, useSearchContext, SearchContextProvider, Pipeline, Values } from '@sajari/react-hooks';
+import { usePageSize, useSearch, SearchContextProvider, Pipeline, Values } from '@sajari/react-hooks';
 ```
 
 ## Usage
@@ -28,7 +28,7 @@ function Example() {
   const values = new Values({ q: '' });
 
   const SearchPlayground = React.memo(() => {
-    const { search, results } = useSearchContext();
+    const { search, results } = useSearch();
     const { setPageSize } = usePageSize();
     const [query, setQuery] = React.useState('');
 
@@ -61,14 +61,9 @@ function Example() {
 }
 ```
 
-### Search on value change
-
-By default, the `PageSize` component will initiate search request whenever page size value changes, you can opt-out of that by passing `searchOnChange={false}` to `PageSize`, in that case you'll need to use the `usePageSize` hook to detect changes to `pageSize` value.
-
 ## Props
 
-| Name             | Type            | Default               | Description                                                  |
-| ---------------- | --------------- | --------------------- | ------------------------------------------------------------ |
-| `label`          | `string`        | `Size`                |                                                              |
-| `sizes`          | `Array<number>` | [10, 20, 35, 50, 100] |
-| `searchOnChange` | `boolean`       | `true`                | Whether to re-initiate search request when page size changes |
+| Name    | Type            | Default               | Description |
+| ------- | --------------- | --------------------- | ----------- |
+| `label` | `string`        | `Size`                |             |
+| `sizes` | `Array<number>` | [10, 20, 35, 50, 100] |

@@ -3,8 +3,8 @@
 import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
 import { Label, Select } from '@sajari/react-components';
-import { usePageSize, useQuery, useSearchContext } from '@sajari/react-hooks';
-import React, { useEffect } from 'react';
+import { usePageSize } from '@sajari/react-hooks';
+import React from 'react';
 import { __DEV__ } from 'sajari-react-sdk-utils';
 import tw from 'twin.macro';
 
@@ -12,17 +12,9 @@ import { PageSizeProps } from './types';
 
 const defaultSizes = [10, 20, 35, 50, 100];
 
-const PageSize: React.FC<PageSizeProps> = ({ searchOnChange = true, label = 'Show', sizes = defaultSizes }) => {
-  const { search } = useSearchContext();
+const PageSize: React.FC<PageSizeProps> = ({ label = 'Size', sizes = defaultSizes }) => {
   const { pageSize, setPageSize } = usePageSize();
-  const { query } = useQuery();
   const id = `page-size-${useId()}`;
-
-  useEffect(() => {
-    if (searchOnChange) {
-      search(query);
-    }
-  }, [pageSize]);
 
   return (
     <div css={tw`flex space-x-4`}>

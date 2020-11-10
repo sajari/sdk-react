@@ -75,6 +75,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
   instant: instantProp,
   searchOnLoad,
 }) => {
+  const [searching, setSearching] = useState(false);
   const [searchState, setSearchState] = useState(defaultState);
   const [instantState, setInstantState] = useState(defaultState);
   const instant = useRef(instantProp);
@@ -97,13 +98,14 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
     const unregisterFunctions: UnlistenFn[] = [];
 
     unregisterFunctions.push(
-      search.pipeline.listen(EVENT_RESPONSE_UPDATED, (response: Response) =>
+      search.pipeline.listen(EVENT_RESPONSE_UPDATED, (response: Response) => {
+        setSearching(false);
         setSearchState((prevState) => ({
           ...prevState,
           response,
           ...responseUpdatedListener(search.values, prevState.config, response),
-        })),
-      ),
+        }));
+      }),
     );
 
     unregisterFunctions.push(
@@ -158,6 +160,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
   const searchFn = useCallback(
     (key: 'search' | 'instant') =>
       debounce((query: string, override: boolean = false) => {
+        setSearching(true);
         const func = key === 'instant' ? instant.current : search;
         const state = key === 'instant' ? instantState : searchState;
         const { pipeline, values } = func as ProviderPipelineConfig;
@@ -214,6 +217,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
         search: searchFn('search'),
         clear: clear('search'),
         fields: search.fields,
+        searching,
       },
       instant: {
         ...state.instant,

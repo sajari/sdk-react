@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
-import { Client } from '@sajari/sdk-js';
+import { Client, RequestError } from '@sajari/sdk-js';
 
 import { EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED, EVENT_SEARCH_SENT } from '../events';
 import { Analytics, GoogleAnalytics } from './analytics';
@@ -149,8 +149,6 @@ export class Pipeline {
           new Map(Object.entries(response)),
           new Map(Object.entries(responseValues)),
         );
-
-        this._emitResponseUpdated(this.response);
       })
       .catch((error) => {
         console.error(error);
@@ -159,7 +157,10 @@ export class Pipeline {
           return;
         }
 
-        this.response = new Response(null, new Map(Object.entries(values)), undefined, undefined);
+        this.response = new Response(error, new Map(Object.entries(values)), undefined, undefined);
+      })
+      .finally(() => {
+        this._emitResponseUpdated(this.response);
       });
     this._emitSearchSent(values);
   }
