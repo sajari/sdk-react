@@ -1,18 +1,28 @@
-import { FilterItem } from '@sajari/react-hooks';
+/**
+ * Sort an array based on a property of child item
+ * @param {Array} list
+ * @param {Boolean} asc - Ascending order?
+ * @param {String} prop - Child item property to sort on
+ * @param {String} pinKey - Property of object to get comparation in pinned array
+ * @param {Array} pinned - Pin some items to the top (handy for checkbox lists where you may want to pin selected to the top)
+ */
+export function sortList(
+  list: Record<string, any>[],
+  asc: boolean = true,
+  prop: string,
+  pinKey: string,
+  pinned: string[] = [],
+) {
+  const sortedList = [...list];
 
-// Move selected items to top
-export function sortList(list: FilterItem[], selected: string[]) {
-  const sortedList: FilterItem[] = [];
-  let count = 0;
-  list.forEach((item) => {
-    if (selected.includes(item.label)) {
-      sortedList.splice(count, 0, item);
-      count += 1;
-      return;
-    }
+  sortedList
+    .sort((a, b) => {
+      const l = a[prop];
+      const r = b[prop];
 
-    sortedList.push(item);
-  });
+      return asc ? l - r : r - l;
+    })
+    .sort((a, b) => pinned.indexOf(b[pinKey]) - pinned.indexOf(a[pinKey]));
 
   return sortedList;
 }

@@ -1,8 +1,7 @@
-/* eslint-disable react/jsx-curly-brace-presence */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { Button, Checkbox, CheckboxGroup, Radio, RadioGroup } from '@sajari/react-components';
-import { useFilter } from '@sajari/react-hooks';
+import { useFilter, useQuery } from '@sajari/react-hooks';
 import { useCallback, useEffect, useState } from 'react';
 import tw from 'twin.macro';
 
@@ -23,17 +22,15 @@ const ListFilter = ({
   itemRender,
 }: Omit<ListFilterProps, 'type'>) => {
   const [query, setQuery] = useState('');
+  const { query: q } = useQuery();
   const [expanded, setExpanded] = useState(false);
   const { options, reset, setSelected, selected, multi } = useFilter(name);
   const toggleExpanded = useCallback(() => setExpanded((prev) => !prev), []);
 
   useEffect(() => {
     setQuery('');
-  }, [options]);
-
-  useEffect(() => {
     setExpanded(false);
-  }, [query, selected, options]);
+  }, [q]);
 
   if (options.length === 0) {
     return null;
@@ -43,7 +40,7 @@ const ListFilter = ({
   const filtered = searchable ? options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase())) : options;
   const len = filtered.length;
   const slice = len > limit;
-  const sorted = sortable ? sortList(filtered, selected) : filtered;
+  const sorted = sortable ? sortList(filtered, false, 'count', 'label', selected) : filtered;
   const sliced = slice && !expanded ? sorted.slice(0, limit) : sorted;
   const Icon = expanded ? SmallChevronUp : SmallChevronDown;
 
