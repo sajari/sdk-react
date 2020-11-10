@@ -15,8 +15,10 @@ export type RangeInputProps = {
   max?: number;
   /** The range value */
   value?: [number] | Range;
-  /** The onChange handler */
+  /** Called once the handle has been released */
   onChange?: (value: [number] | Range) => void;
+  /** Called on every value change */
+  onInput?: (value: [number] | Range) => void;
   /** RangeFilter object  */
   filter?: RangeFilter;
   /** Left custom input */

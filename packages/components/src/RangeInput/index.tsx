@@ -17,6 +17,7 @@ const RangeInput = React.forwardRef(
     {
       filter,
       onChange = defaultParams.onChange,
+      onInput = defaultParams.onInput,
       value = defaultParams.value,
       min: minProps = defaultParams.min,
       max: maxProps = defaultParams.max,
@@ -28,30 +29,40 @@ const RangeInput = React.forwardRef(
     const isSingleHandle = value.length === 1;
     const [min, max] = filter?.limit() ?? [minProps, maxProps];
     const [range, setRange] = React.useState(filter?.getRange() ?? value);
+    const mapRange = (v: number[]) => v.map(Number);
+    const [low, high] = mapRange(range);
+    const setValue = (newValue: any, fireOnChange = false) => {
+      setRange(newValue);
+      onInput(newValue);
+
+      if (!fireOnChange) {
+        return;
+      }
+
+      // Only update filter onChange to prevent hammering
+      if (filter) {
+        const [l, h] = mapRange(newValue);
+        filter.set(l, h);
+      }
+
+      onChange(newValue);
+    };
     const { getTrackProps, segments, handles } = useRanger({
       stepSize: 1,
       min,
       max,
       values: range,
-      onChange: setRange,
+      onDrag: setValue,
+      onChange: (val: any) => setValue(val, true),
     });
     const leftRef = React.useRef(null);
     const rightRef = React.useRef(null);
     const trackRef = React.useRef<HTMLDivElement>(null);
-    const [low, high] = range.map(Number);
-
-    React.useEffect(() => {
-      if (filter) {
-        filter.set(low, high);
-      } else {
-        onChange(range);
-      }
-    }, [range]);
 
     const handleRangeInputChange = (left: boolean) => (v: string | number) => {
       const newValue = typeof v === 'string' ? parseInt(v, 10) : v;
 
-      setRange(() => {
+      setValue(() => {
         const isNumeric = Number.isNaN(newValue);
 
         if (isSingleHandle) {
@@ -63,7 +74,7 @@ const RangeInput = React.forwardRef(
         }
 
         return [low, isNumeric ? max : newValue];
-      });
+      }, true);
     };
 
     const handleSwitchRange = () => {
@@ -72,7 +83,7 @@ const RangeInput = React.forwardRef(
       }
 
       if (low > high) {
-        setRange([high, low]);
+        setValue([high, low]);
       }
     };
 
