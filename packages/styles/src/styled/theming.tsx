@@ -1,6 +1,7 @@
 import { CacheProvider } from '@emotion/core';
 import { ThemeProvider as EmotionThemeProvider, useTheme as useEmotionTheme } from 'emotion-theming';
 import * as React from 'react';
+import { theme as twTheme } from 'twin.macro';
 
 import { merge } from '../utils/object';
 import cache from './cache';
@@ -22,9 +23,9 @@ export interface Theme {
 const defaultTheme: Theme = {
   color: {
     primary: {
-      base: 'hsl(228, 100%, 66%)',
-      text: '#fff',
-      active: 'hsl(228, 100%, 60%)',
+      base: twTheme`colors.indigo.500`,
+      text: twTheme`colors.white`,
+      active: twTheme`colors.indigo.600`,
     },
   },
 };

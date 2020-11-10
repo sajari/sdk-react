@@ -25,4 +25,8 @@ export type RangeInputProps = {
   leftInput?: (props: CustomInputProps) => React.ReactNode;
   /** Right custom input */
   rightInput?: (props: CustomInputProps) => React.ReactNode;
+  /** Show minimum and maximum value labels */
+  showLabels?: boolean;
+  /** Show inputs */
+  showInputs?: boolean;
 };

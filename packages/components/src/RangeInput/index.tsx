@@ -5,29 +5,35 @@ import React, { MouseEvent, ReactNode } from 'react';
 import { useRanger } from 'react-ranger';
 import tw from 'twin.macro';
 
+import Text from '../Text';
 import { __DEV__ } from '../utils/assertion';
 import { clamp, closest } from '../utils/number';
+import Fill from './components/Fill';
+import Handle from './components/Handle';
 import Input from './components/Input';
-import { defaultParams } from './defaults';
-import { Handle, Segment, Track } from './styled';
+import Track from './components/Track';
 import { RangeInputProps } from './types';
+
+const noop = () => {};
 
 const RangeInput = React.forwardRef(
   (
     {
       filter,
-      onChange = defaultParams.onChange,
-      onInput = defaultParams.onInput,
-      value = defaultParams.value,
-      min: minProps = defaultParams.min,
-      max: maxProps = defaultParams.max,
+      onChange = noop,
+      onInput = noop,
+      value = [25, 50],
+      min: minProp = 0,
+      max: maxProp = 100,
       leftInput: leftInputFunc,
       rightInput: rightInputFunc,
+      showInputs = true,
+      showLabels = true,
     }: RangeInputProps,
     ref?: React.Ref<HTMLDivElement>,
   ) => {
     const isSingleHandle = value.length === 1;
-    const [min, max] = filter?.limit() ?? [minProps, maxProps];
+    const [min, max] = filter?.limit() ?? [minProp, maxProp];
     const [range, setRange] = React.useState(filter?.getRange() ?? value);
     const mapRange = (v: number[]) => v.map(Number);
     const [low, high] = mapRange(range);
@@ -60,21 +66,23 @@ const RangeInput = React.forwardRef(
     const trackRef = React.useRef<HTMLDivElement>(null);
 
     const handleRangeInputChange = (left: boolean) => (v: string | number) => {
-      const newValue = typeof v === 'string' ? parseInt(v, 10) : v;
+      const updatedValue = typeof v === 'string' ? parseInt(v, 10) : v;
+      const isNumeric = Number.isNaN(updatedValue);
+      let newValue: number[] | null = null;
 
-      setValue(() => {
-        const isNumeric = Number.isNaN(newValue);
+      if (isSingleHandle) {
+        newValue = [isNumeric ? min : updatedValue];
+      } else if (left) {
+        newValue = [isNumeric ? min : updatedValue, high];
+      } else {
+        newValue = [low, isNumeric ? max : updatedValue];
+      }
 
-        if (isSingleHandle) {
-          return [isNumeric ? min : newValue];
-        }
+      if (!newValue) {
+        return;
+      }
 
-        if (left) {
-          return [isNumeric ? min : newValue, high];
-        }
-
-        return [low, isNumeric ? max : newValue];
-      }, true);
+      setValue(newValue, true);
     };
 
     const handleSwitchRange = () => {
@@ -157,36 +165,36 @@ const RangeInput = React.forwardRef(
 
     return (
       <div ref={ref} css={tw`flex flex-col`}>
-        <Track {...getTrackProps({ ref: trackRef })}>
-          {segments.map(({ getSegmentProps }, i: number) => (
-            <Segment
-              isSingleHandle={isSingleHandle}
-              index={i}
-              onClick={(e: MouseEvent<HTMLDivElement>) => handleSegmentClick(e, i)}
-              {...getSegmentProps()}
-            />
-          ))}
+        <div css={tw`flex items-center w-full mt-8 mb-4`}>
+          {showLabels && <Text css={tw`mr-2 text-xs text-gray-400`}>{min}</Text>}
+          <Track {...getTrackProps({ ref: trackRef })}>
+            {segments.map(({ getSegmentProps }, i: number) => (
+              <Fill
+                index={i}
+                isSingleHandle={isSingleHandle}
+                onClick={(e: MouseEvent<HTMLDivElement>) => handleSegmentClick(e, i)}
+                {...getSegmentProps()}
+              />
+            ))}
 
-          {handles.map(({ value: handleValue, active, getHandleProps }) => (
-            <Handle
-              active={active}
-              data-value={handleValue}
-              {...getHandleProps({
-                style: { appearance: 'none', border: 'none', background: 'transparent', outline: 'none' },
-              })}
-            />
-          ))}
-        </Track>
-
-        <div
-          css={css(
-            tw`flex flex-col items-center sm:flex-row`,
-            isSingleHandle ? tw`justify-center` : tw`justify-between`,
-          )}
-        >
-          {leftInput}
-          {isSingleHandle ? null : rightInput}
+            {handles.map(({ value: handleValue, active, getHandleProps }) => (
+              <Handle active={active} data-value={handleValue} {...getHandleProps()} />
+            ))}
+          </Track>
+          {showLabels && <Text css={tw`ml-2 text-xs text-gray-400`}>{max}</Text>}
         </div>
+
+        {showInputs && (
+          <div
+            css={css(
+              tw`flex flex-col items-center sm:flex-row`,
+              isSingleHandle ? tw`justify-center` : tw`justify-between`,
+            )}
+          >
+            {leftInput}
+            {isSingleHandle ? null : rightInput}
+          </div>
+        )}
       </div>
     );
   },
