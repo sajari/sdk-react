@@ -114,3 +114,4 @@ function useFilter(name: string) {
 }
 
 export default useFilter;
+export type { FilterItem };

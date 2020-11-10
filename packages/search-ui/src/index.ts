@@ -6,3 +6,4 @@ export { default as Results } from './Results';
 export { default as Sorting } from './Sorting';
 export { default as Summary } from './Summary';
 export { default as ViewType } from './ViewType';
+export { default as Filter } from './Filter';

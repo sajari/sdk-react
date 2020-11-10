@@ -69,25 +69,23 @@ const Layout = (props: FlexProps) => {
 };
 
 const App = ({ Component, pageProps }: AppProps) => (
-  <>
-    <SSRProvider>
-      <MDXProvider components={MDXComponents}>
-        <Head>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <meta title={title} />
-          <meta name="theme-color" content="#319795" />
-          <link rel="icon" href="/favicon.ico" />
-          <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-        </Head>
-        <DefaultSeo {...seo} />
-        <Layout>
-          <ThemeProvider>
-            <Component {...pageProps} />
-          </ThemeProvider>
-        </Layout>
-      </MDXProvider>
-    </SSRProvider>
-  </>
+  <SSRProvider>
+    <MDXProvider components={MDXComponents}>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta title={title} />
+        <meta name="theme-color" content="#319795" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+      </Head>
+      <DefaultSeo {...seo} />
+      <Layout>
+        <ThemeProvider>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </Layout>
+    </MDXProvider>
+  </SSRProvider>
 );
 
 export default App;

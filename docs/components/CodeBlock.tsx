@@ -2,7 +2,7 @@ import { mdx } from '@mdx-js/react';
 
 import * as ReactComponents from '@sajari/react-components';
 import * as ReactHooks from '@sajari/react-hooks';
-import * as ReactSDK from '@sajari/react-search-ui';
+import * as ReactSearchUI from '@sajari/react-search-ui';
 import SearchProvider from './SearchProvider';
 
 import {
@@ -19,6 +19,7 @@ import { useState } from 'react';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
 import * as ReactTable from 'react-table';
 import resolveConfig from 'tailwindcss/resolveConfig';
+import { useRouter } from 'next/router';
 
 const { theme } = resolveConfig(tailwindConfig);
 
@@ -89,6 +90,15 @@ const CodeBlock = (props: CodeBlockProps) => {
   const [editorCode, setEditorCode] = useState(children.trim());
   const language = (className && (className.replace(/language-/, '') as Language)) || 'jsx';
   const { onCopy, hasCopied } = useClipboard(editorCode);
+  const { pathname } = useRouter();
+
+  // We have to do some manual work here to avoid naming conflict between components
+  let extra = {};
+  if (pathname === '/search-ui/filter') {
+    extra = { Filter: ReactSearchUI.Filter, FilterOptions: ReactHooks.Filter };
+  } else if (pathname === '/hooks/usefilter') {
+    extra = { Filter: ReactHooks.Filter };
+  }
 
   const liveProviderProps = {
     theme: codeThemes.dark,
@@ -97,7 +107,8 @@ const CodeBlock = (props: CodeBlockProps) => {
     scope: {
       ...ReactComponents,
       ...ReactHooks,
-      ...ReactSDK,
+      ...ReactSearchUI,
+      ...extra,
       mdx,
       ReactTable,
     },
