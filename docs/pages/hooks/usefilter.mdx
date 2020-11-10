@@ -1,19 +1,413 @@
 import SEO from '../../components/SEO';
 
-<SEO title="useFilter" description="TBD" />
+<SEO title="useFilter" description="useFilter returns the filter items (current values and options)" />
 
 # useFilter
 
-TBD
+`useFilter` returns the filter items (current values and options).
+
+```js
+import { useFilter, Filter } from '@sajari/react-hooks';
+```
 
 ## Usage
 
-TBD
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const brandFilter = new Filter({
+    name: 'brand',
+    options: {
+      Apple: "brand = 'Apple'",
+      Samsung: "brand = 'Samsung'",
+      Dell: "brand = 'Dell'",
+      HP: "brand = 'HP'",
+      Garmin: "brand = 'Garmin'",
+    },
+    multi: true,
+  });
+
+  const priceFilter = new Filter({
+    name: 'price',
+    options: {
+      High: 'price >= 200',
+      Mid: 'price >= 50',
+      Low: 'price < 50',
+    },
+    multi: false,
+    initial: ['High'],
+  });
+
+  const values = new Values({ q: '' });
+
+  const FilterRender = React.memo(({ name, title }) => {
+    const { multi, options, selected, setSelected, reset } = useFilter(name);
+
+    if (options.length === 0) {
+      return null;
+    }
+
+    const Group = multi ? CheckboxGroup : RadioGroup;
+    const Control = multi ? Checkbox : Radio;
+
+    return (
+      <div className="mb-4">
+        <div className="flex items-center justify-between mb-2">
+          <Heading as="h6" className="font-medium tracking-wide text-gray-400 uppercase">
+            {title}
+          </Heading>
+          {selected.length > 0 && multi ? (
+            <button
+              className="text-xs text-blue-500 hover:underline uppercase p-0 bg-transparent focus:outline-none"
+              onClick={reset}
+            >
+              Reset
+            </button>
+          ) : null}
+        </div>
+        <Group name={name} value={selected} onChange={multi ? setSelected : (e) => setSelected([e.target.value])}>
+          {options.map(({ value, label, count }) => (
+            <div className="flex justify-between items-center" key={label + count}>
+              <Control value={label} checked={selected.includes(label)} onChange={() => {}}>
+                {label}
+              </Control>
+              <span className="ml-2 text-xs text-gray-400">{count}</span>
+            </div>
+          ))}
+        </Group>
+      </div>
+    );
+  });
+
+  const BrandFilter = () => <FilterRender name="brand" title="Brand" />;
+  const PriceFilter = () => <FilterRender name="price" title="Price (bucket)" />;
+
+  const SearchPlayground = React.memo(() => {
+    const { results, search } = useSearchContext();
+
+    return (
+      <div className="flex flex-col space-y-4">
+        <Input label="Search something" onChange={(value) => search(value)} />
+        {results ? (
+          <div className="flex -mx-3">
+            <div className="w-1/4 px-3 border-gray-100 border-r">
+              <BrandFilter />
+              <PriceFilter />
+            </div>
+            <div className="w-3/4 px-3">{results.length ? <Results /> : <div>No results 😢</div>}</div>
+          </div>
+        ) : null}
+      </div>
+    );
+  });
+
+  return (
+    <SearchContextProvider
+      search={{
+        pipeline,
+        values,
+        fields: { category: 'brand', title: 'name' },
+        filters: [priceFilter, brandFilter],
+      }}
+    >
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
+```
+
+### Count aggregate
+
+Return count aggregate values for a given facet and display them for your users.
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const categoryFilter = new Filter({
+    name: 'category',
+    field: 'level1',
+    count: true,
+    multi: true,
+  });
+
+  const priceRangeFilter = new Filter({
+    name: 'priceRange',
+    count: true,
+    field: 'price_range',
+    multi: true,
+  });
+
+  const values = new Values({ q: '' });
+
+  const FilterRender = React.memo(({ name, title }) => {
+    const { multi, options, selected, setSelected } = useFilter(name);
+
+    if (options.length === 0) {
+      return null;
+    }
+
+    const Group = multi ? CheckboxGroup : RadioGroup;
+    const Control = multi ? Checkbox : Radio;
+
+    return (
+      <div className="mb-4">
+        <div className="flex items-center justify-between mb-2">
+          <Heading as="h6" className="font-medium tracking-wide text-gray-400 uppercase">
+            {title}
+          </Heading>
+          {selected.length > 0 ? (
+            <button
+              className="text-xs text-blue-500 hover:underline uppercase p-0 bg-transparent focus:outline-none"
+              onClick={() => setSelected([])}
+            >
+              Reset
+            </button>
+          ) : null}
+        </div>
+        <Group
+          name={name}
+          value={selected}
+          onChange={(values) => setSelected(Array.isArray(values) ? values : [values])}
+        >
+          {options.map(({ value, label, count }) => (
+            <div className="flex justify-between items-center" key={label + count}>
+              <Control value={label} checked={selected.includes(label)} onChange={() => {}}>
+                {label}
+              </Control>
+              <span className="ml-2 text-xs text-gray-400">{count}</span>
+            </div>
+          ))}
+        </Group>
+      </div>
+    );
+  });
+
+  const CategogryFilter = () => <FilterRender name="category" title="Category" />;
+  const PriceRangeFilter = () => <FilterRender name="priceRange" title="Range ($)" />;
+
+  const SearchPlayground = React.memo(() => {
+    const { results, search } = useSearchContext();
+
+    return (
+      <div className="flex flex-col space-y-4">
+        <Input label="Search something" onChange={(value) => search(value)} />
+        {results ? (
+          <div className="flex -mx-3">
+            <div className="w-1/4 px-3 border-gray-100 border-r">
+              <CategogryFilter />
+              <PriceRangeFilter />
+            </div>
+            <div className="w-3/4 px-3">{results.length ? <Results /> : <div>No results 😢</div>}</div>
+          </div>
+        ) : null}
+      </div>
+    );
+  });
+
+  return (
+    <SearchContextProvider
+      search={{
+        pipeline,
+        values,
+        fields: { category: 'brand', title: 'name' },
+        filters: [priceRangeFilter, categoryFilter],
+      }}
+    >
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
+```
+
+### Customizable
+
+Output from `useFilter` can be used to customize different interfaces.
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const colorFilter = new Filter({
+    name: 'color',
+    count: true,
+    field: 'imageTags',
+    multi: true,
+    repeated: true,
+  });
+
+  const ratingFilter = new Filter({
+    name: 'rating',
+    count: true,
+    field: 'rating',
+    multi: true,
+  });
+
+  const values = new Values({ q: '' });
+
+  const RatingFilter = () => {
+    const { multi, options, selected, setSelected } = useFilter('rating');
+
+    if (options.length === 0) {
+      return null;
+    }
+
+    return (
+      <div className="mb-4">
+        <div className="flex items-center justify-between mb-2">
+          <Heading as="h6" className="font-medium tracking-wide text-gray-400 uppercase">
+            Rating
+          </Heading>
+          {selected.length > 0 ? (
+            <button
+              className="text-xs text-blue-500 hover:underline uppercase p-0 bg-transparent focus:outline-none"
+              onClick={() => setSelected([])}
+            >
+              Reset
+            </button>
+          ) : null}
+        </div>
+        <CheckboxGroup name="rating" value={selected} onChange={setSelected}>
+          {options.map(({ value, label, count }) => (
+            <div className="flex items-center justify-between" key={label + count}>
+              <Checkbox value={label} checked={selected.includes(label)} onChange={() => {}}>
+                <Rating value={label} />
+              </Checkbox>
+              <span className="ml-2 text-xs text-gray-400">{count}</span>
+            </div>
+          ))}
+        </CheckboxGroup>
+      </div>
+    );
+  };
+
+  const ColorFilter = () => {
+    const { multi, options, selected, setSelected } = useFilter('color');
+    const optionKeys = options.map((o) => o.label);
+
+    const validColors = [
+      'White',
+      'Silver',
+      'Black',
+      'Pink',
+      'Magenta',
+      'Red',
+      'Beige',
+      'Orange',
+      'Brown',
+      'Yellow',
+      'Green',
+      'Azure',
+      'Aqua',
+      'Teal',
+      'Turquoise',
+      'Blue',
+      'ElectricBlue',
+      'Lilac',
+      'Purple',
+      'Violet',
+    ].filter((c) => optionKeys.some((o) => o.includes(c)));
+
+    if (validColors.length === 0) {
+      return null;
+    }
+
+    return (
+      <div className="mb-4">
+        <div className="flex items-center justify-between mb-2">
+          <Heading as="h6" className="font-medium tracking-wide text-gray-400 uppercase">
+            Color
+          </Heading>
+          {selected.length > 0 ? (
+            <button
+              className="text-xs text-blue-500 hover:underline uppercase p-0 bg-transparent focus:outline-none"
+              onClick={() => setSelected([])}
+            >
+              Reset
+            </button>
+          ) : null}
+        </div>
+
+        <Swatch checkedColors={selected} onChange={setSelected}>
+          {validColors.map((color) => {
+            const Component = Swatch.Color[color];
+            return <Component key={color} />;
+          })}
+        </Swatch>
+      </div>
+    );
+  };
+
+  const SearchPlayground = React.memo(() => {
+    const { results, search } = useSearchContext();
+
+    return (
+      <div className="flex flex-col space-y-4">
+        <Input label="Search something" onChange={(value) => search(value)} />
+        {results ? (
+          <div className="flex -mx-3">
+            <div className="w-1/4 px-3 border-gray-100 border-r">
+              <RatingFilter />
+              <ColorFilter />
+            </div>
+            <div className="w-3/4 px-3">{results ? <Results /> : <div>No results 😢</div>}</div>
+          </div>
+        ) : null}
+      </div>
+    );
+  });
+
+  return (
+    <SearchContextProvider
+      search={{
+        pipeline,
+        values,
+        fields: { category: 'brand', title: 'name' },
+        filters: [colorFilter, ratingFilter],
+      }}
+    >
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
+```
 
 ## Anatomy
 
-TBD
+`useFilter` returns an object containing the following properties:
+
+| Name          | Type                      | Default | Description                                                |
+| ------------- | ------------------------- | ------- | ---------------------------------------------------------- |
+| `options`     | `Option[]`                |         | An array of selectable options                             |
+| `selected`    | `string[]`                |         | An array of, or single item for current selected option(s) |
+| `setSelected` | `(values:string) => void` |         | Set the selected option(s)                                 |
+| `multi`       | `boolean`                 |         | Whether the filter allows multiple selections              |
+| `reset`       | `() => void`              |         | Reset the current state to the initial state               |
 
 ## Props
 
-TBD
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+

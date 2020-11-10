@@ -1,3 +1,4 @@
+/* eslint-disable import/named */
 /* eslint-disable @typescript-eslint/no-shadow */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createContext } from 'sajari-react-sdk-utils';
@@ -6,6 +7,7 @@ import debounce from '../utils/debounce';
 import { Config, defaultConfig } from './config';
 import {
   ClickTracking,
+  Filter,
   NoTracking,
   Pipeline,
   PosNegTracking,
@@ -14,15 +16,16 @@ import {
   Response,
   Values,
 } from './controllers';
+import combineFilters from './controllers/filters/combineFilters';
 import { UnlistenFn } from './controllers/listener';
-import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from './events';
+import { EVENT_RESPONSE_UPDATED, EVENT_SELECTION_UPDATED, EVENT_VALUES_UPDATED } from './events';
 import {
   Context,
+  FieldDictionary,
   PipelineProviderState,
   ProviderPipelineConfig,
   ProviderPipelineState,
   SearchProviderValues,
-  FieldDictionary,
 } from './types';
 
 const updateState = (query: string, responseValues: Map<string, string> | undefined, config: Config) => {
@@ -97,14 +100,40 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
 
     const unregisterFunctions: UnlistenFn[] = [];
 
+    if (search.filters) {
+      const filter = combineFilters(search.filters);
+
+      unregisterFunctions.push(
+        filter.listen(EVENT_SELECTION_UPDATED, () => search.pipeline.search(search.values.get())),
+        filter.removeChildFilterListeners,
+      );
+
+      search.values.set({
+        filter: () => filter.filter(),
+        countFilters: () => filter.countFilters(),
+        buckets: () => filter.buckets(),
+        count: () => filter.count(),
+      });
+    }
+
+    let searchRenderTimer: ReturnType<typeof setTimeout>;
+
     unregisterFunctions.push(
       search.pipeline.listen(EVENT_RESPONSE_UPDATED, (response: Response) => {
-        setSearching(false);
-        setSearchState((prevState) => ({
-          ...prevState,
-          response,
-          ...responseUpdatedListener(search.values, prevState.config, response),
-        }));
+        clearTimeout(searchRenderTimer);
+
+        searchRenderTimer = setTimeout(
+          () => {
+            setSearching(false);
+            setSearchState((prevState) => ({
+              ...prevState,
+              response,
+              ...responseUpdatedListener(search.values, prevState.config, response),
+            }));
+          },
+          // Delay slightly longer if no results so if someone is typing they don't get a flash of no results
+          response.getResults()?.length === 0 ? 500 : 20,
+        );
       }),
     );
 
@@ -178,8 +207,6 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
         values.set(text);
         if (text[config.qParam]) {
           pipeline.search(values.get());
-        } else {
-          pipeline.clearResponse(values.get());
         }
       }, 50),
     [],
@@ -213,6 +240,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
       search: {
         ...state.search,
         values: search.values,
+        filters: search.filters,
         pipeline: search.pipeline,
         search: searchFn('search'),
         clear: clear('search'),
@@ -222,6 +250,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
       instant: {
         ...state.instant,
         values: instant.current?.values,
+        filters: search.filters,
         pipeline: instant.current?.pipeline,
         search: searchFn('instant'),
         clear: clear('instant'),
@@ -235,5 +264,5 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
 };
 
 export default SearchContextProvider;
-export { ClickTracking, PosNegTracking, useContext, Pipeline, Values, RangeFilter, Range, FieldDictionary };
+export { ClickTracking, PosNegTracking, useContext, Pipeline, Values, RangeFilter, Range, Filter, FieldDictionary };
 export type { SearchProviderValues };

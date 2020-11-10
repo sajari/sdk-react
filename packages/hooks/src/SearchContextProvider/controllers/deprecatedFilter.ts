@@ -1,3 +1,5 @@
+// TODO: this will be removed once rangeFilter is rewritten
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
