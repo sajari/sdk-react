@@ -42,8 +42,9 @@ const RadioGroup = forwardRef(
     const internalName = name || fallbackName;
     const validChildren = cleanChildren(children);
 
-    const clones = validChildren.map((child) =>
+    const clones = validChildren.map((child, index) =>
       cloneElement(child, {
+        key: `${internalName}-${index}`,
         name: internalName,
         onChange: internalOnChange,
         checked: child.props.value === internalValue,
