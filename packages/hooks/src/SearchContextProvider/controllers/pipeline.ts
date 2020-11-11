@@ -21,6 +21,8 @@ export class Pipeline {
 
   private pipeline: QueryPipeline;
 
+  private client: Client;
+
   private name: string;
 
   private version?: string;
@@ -66,7 +68,8 @@ export class Pipeline {
       p.version = name.version;
     }
 
-    this.pipeline = new Client(project, collection, endpoint).pipeline(p.name as string, p.version);
+    this.client = new Client(project, collection, endpoint);
+    this.pipeline = this.client.pipeline(p.name as string, p.version);
     this.name = p.name as string;
     this.version = p.version;
     this.tracking = tracking;
@@ -188,5 +191,12 @@ export class Pipeline {
    */
   public getAnalytics(): Analytics {
     return this.analytics;
+  }
+
+  /**
+   * The underlying client
+   */
+  public getClient(): Client {
+    return this.client;
   }
 }

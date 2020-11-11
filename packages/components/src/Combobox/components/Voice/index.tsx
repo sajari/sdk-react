@@ -1,4 +1,5 @@
-import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import tw from 'twin.macro';
 
 import { EmptyMic, Mic } from '../../../assets/icons';
@@ -20,7 +21,11 @@ const Voice = ({ children, onVoiceInput }: VoiceProps) => {
   return (
     <Box
       as="button"
-      css={tw`bg-transparent border-0 shadow-none cursor-pointer`}
+      type="button"
+      css={[
+        tw`transition duration-200 bg-transparent border-0 outline-none cursor-pointer`,
+        active ? tw`text-red-500` : tw`hover:text-gray-600 focus:text-gray-600`,
+      ]}
       onClick={start}
       aria-label="Search by voice"
     >

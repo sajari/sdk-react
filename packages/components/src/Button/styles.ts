@@ -137,10 +137,10 @@ const useButtonStyles = ({
       styles.push(
         tw`no-underline bg-transparent hover:underline focus:underline focus:shadow-outline focus:shadow-outline-blue`,
       );
-      styles.push(pressed ? tw`text-blue-700` : tw`text-blue-500`);
+      styles.push({ color: pressed ? theme.color.primary.active : theme.color.primary.base });
 
       if (!loading && !pressed) {
-        styles.push(tw`hover:text-blue-700 focus:text-blue-700`);
+        styles.push(`&:hover, &:focus { color: ${theme.color.primary.active} }`);
       }
       break;
 

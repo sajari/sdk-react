@@ -1,0 +1,32 @@
+import SEO from '../../components/SEO';
+
+<SEO title="useTracking" description="useTracking provides methods for enabling tracking features." />
+
+# useTracking
+
+`useTracking` provides methods for enabling tracking features.
+
+```js
+import { Results } from '@sajari/react-search-ui';
+import { Pagination, Select, Input } from '@sajari/react-components';
+import { useTracking, useSearchContext, SearchContextProvider, Pipeline, Values } from '@sajari/react-hooks';
+```
+
+## Usage
+
+For more in-depth on how to use it, please refer to the [Tracking](/tracking) section.
+
+## Anatomy
+
+`useTracking` returns an object containing the following properties:
+
+| Name                      | Type                                                                                                 | Default | Description                                                                                      |
+| ------------------------- | ---------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------ |
+| `handleResultClicked`     | `(url: string) => void`                                                                              |         | The callback to attach on result when click, can be used in conjunction with GoogleAnalytics,... |
+| `consumeInteractionToken` | `(token: string, identifier: string, weight: number,data?: Record<string, string>) => Promise<void>` |         | Method to consume pos/neg token when using PosNegTracking                                        |
+
+## Props
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+

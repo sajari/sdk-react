@@ -8,7 +8,7 @@ import { HeaderProps } from './types';
 const Header = ({ title, onReset, showReset }: HeaderProps) => {
   return (
     <div css={tw`flex items-center mb-2 justify-between leading-none`}>
-      <Heading as="h2" size="xs">
+      <Heading as="h2" size="xs" css={tw`leading-snug`}>
         {title}
       </Heading>
 

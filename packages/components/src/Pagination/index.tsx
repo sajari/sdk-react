@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import React from 'react';
 import tw from 'twin.macro';
 
 import { ChevronLeft, ChevronRight } from '../assets/icons';

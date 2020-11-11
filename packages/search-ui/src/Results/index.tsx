@@ -14,8 +14,9 @@ const Results = (props: ResultsProps) => {
 
   return (
     <div css={[styles.container]}>
-      {results?.map(({ values: { category, description, image, _id, price, rating, title, url } }) => (
+      {results?.map(({ values: { category, description, image, _id, price, rating, title, url }, token }) => (
         <Result
+          token={token}
           key={_id}
           title={title}
           url={url}

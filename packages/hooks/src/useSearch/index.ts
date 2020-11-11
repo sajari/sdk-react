@@ -6,14 +6,13 @@ import { defaultConfig } from '../SearchContextProvider/config';
 import { Response } from '../SearchContextProvider/controllers';
 import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from '../SearchContextProvider/events';
 import useQuery from '../useQuery';
-import debounce from '../utils/debounce';
 import mapResultFields from '../utils/mapResultFields';
 import { UseSearchCustomConfig, UseSearchParams, UseSearchResult } from './types';
 
 function useCustomSearch({ pipeline, variables, fields = {} }: UseSearchCustomConfig): UseSearchResult {
   const [loading, setLoading] = useState(false);
   const searchFn = useCallback(
-    debounce((q?: string) => {
+    (q?: string) => {
       setLoading(true);
       if (q === '') {
         pipeline.clearResponse(variables.get());
@@ -23,7 +22,7 @@ function useCustomSearch({ pipeline, variables, fields = {} }: UseSearchCustomCo
         }
         pipeline.search(variables.get());
       }
-    }, 50),
+    },
     [pipeline, variables],
   );
 
@@ -54,7 +53,7 @@ function useCustomSearch({ pipeline, variables, fields = {} }: UseSearchCustomCo
 function useNormalSearch(queryOverride: string = ''): UseSearchResult {
   const [error, setError] = useState<Error | null>(null);
   const firstRender = useRef(true);
-  const { query, setQuery } = useQuery();
+  const { query } = useQuery();
   const {
     search: { searching, response, fields = {}, variables, search: searchFn, config },
   } = useContext();
@@ -66,17 +65,10 @@ function useNormalSearch(queryOverride: string = ''): UseSearchResult {
     [config.pageParam]: undefined, // Exclude this from being in JSON.stringify to prevent the search being called twice
   };
 
-  const handleSearch = useCallback(
-    debounce(() => {
-      searchFn(query);
-    }, 50),
-    [query],
-  );
-
   const search = useCallback(
     (q?: string) => {
       if (q) {
-        setQuery(q);
+        searchFn(q);
       } else {
         searchFn(query);
       }
@@ -85,7 +77,7 @@ function useNormalSearch(queryOverride: string = ''): UseSearchResult {
   );
 
   useEffect(() => {
-    setQuery(queryOverride);
+    searchFn(queryOverride);
   }, [queryOverride]);
 
   useEffect(() => {
@@ -93,7 +85,7 @@ function useNormalSearch(queryOverride: string = ''): UseSearchResult {
       firstRender.current = false;
       return;
     }
-    handleSearch();
+    search();
   }, [JSON.stringify(request)]);
 
   useEffect(() => {
