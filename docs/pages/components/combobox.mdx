@@ -60,7 +60,7 @@ function Example() {
 
 ### Typeahead mode
 
-You can set `mode` to `typeahed` to render a typeahead suggestion.
+You can set `mode` to `typeahead` to render a typeahead suggestion.
 
 ```jsx
 <Combobox mode="typeahead" label="Query" name="query" placeholder="Search" completion="apple iphone" />
@@ -82,9 +82,12 @@ You can set `mode` to `typeahed` to render a typeahead suggestion.
 
 `Combobox` component props inherits the `input` element props with some additional for speech recognition and loading state
 
-| Name           | Type                      | Default | Description                                                                                                                      |
-| -------------- | ------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `loading`      | `boolean`                 | `false` | Show the spinner icon                                                                                                            |
-| `enableVoice`  | `boolean`                 | `false` | Whether to enable speech recognition ([Compatibility table](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition)) |
-| `onChange`     | `(value: string) => void` |         | The callback when the input value changes. Note: The `event` is not passed as the argument.                                      |
-| `onVoiceInput` | `(value: string) => void` |         | The callback when a voice transcript is output                                                                                   |
+| Name                | Type                      | Default | Description                                                                                                                      |
+| ------------------- | ------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `loading`           | `boolean`                 | `false` | Show the spinner icon                                                                                                            |
+| `enableVoice`       | `boolean`                 | `false` | Whether to enable speech recognition ([Compatibility table](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition)) |
+| `captureVoiceInput` | `boolean`                 | `true`  | Whether to set the combobox value to the voice input, if enabled.                                                                |
+| `onChange`          | `(value: string) => void` |         | The callback when the input value changes. Note: The `event` is not passed as the argument.                                      |
+| `onVoiceInput`      | `(value: string) => void` |         | The callback when a voice transcript is output                                                                                   |
+| `items`             | `string[]`                |         | An array of strings to use for autocomplete suggestions.                                                                         |
+| `completion`        | `string`                  |         | A string to use for a typeahead value.                                                                                           |

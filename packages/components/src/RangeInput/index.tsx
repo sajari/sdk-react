@@ -188,7 +188,7 @@ const RangeInput = React.forwardRef(
           <div
             css={css(
               tw`flex flex-col items-center sm:flex-row`,
-              isSingleHandle ? tw`justify-center` : tw`justify-between`,
+              isSingleHandle ? tw`justify-end` : tw`justify-between`,
             )}
           >
             {leftInput}

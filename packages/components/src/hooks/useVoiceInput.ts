@@ -32,7 +32,7 @@ export default function useVoiceInput(onResult?: (r: string) => void) {
 
     recognition.continuous = false;
     recognition.interimResults = false;
-    recognition.lang = 'en-US';
+    recognition.lang = navigator.language;
     recognition.start();
 
     recognition.onresult = (event) => {

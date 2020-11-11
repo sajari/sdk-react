@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
 import React from 'react';
+import { useTheme } from 'sajari-react-sdk-styles';
 import tw from 'twin.macro';
 
 import useInputStyle, { UseInputStyleProps } from '../hooks/useInputStyles';
@@ -28,7 +29,9 @@ const Checkbox = React.forwardRef((props: CheckboxProps, ref?: React.Ref<HTMLInp
     children,
     ...rest
   } = props;
+  const theme = useTheme();
 
+  // TODO: Should return all required styles
   const inputStyles = useInputStyle({
     block: true,
     type: 'checkbox',
@@ -41,7 +44,7 @@ const Checkbox = React.forwardRef((props: CheckboxProps, ref?: React.Ref<HTMLInp
       &#8203;
       {indeterminate && (
         <div css={tw`absolute inset-0 flex items-center justify-center`}>
-          <div css={tw`m-auto w-1/2 h-0.5 bg-white rounded-sm`} />
+          <div css={[tw`m-auto w-1/2 h-0.5 rounded-sm`, { backgroundColor: theme.color.primary.text }]} />
         </div>
       )}
       <input
