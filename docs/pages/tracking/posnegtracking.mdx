@@ -1,0 +1,75 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="PosNeg Tracking"
+  description="PosNeg tracking refers to the recording of variably weighted user interactions with search results."
+/>
+
+# PosNeg Tracking
+
+```js
+import { Input, Button, ButtonGroup } from '@sajari/react-components';
+import { SearchContextProvider, Pipeline, Values, PosNegTracking, useTracking } from '@sajari/react-hooks';
+```
+
+## Usage
+
+When initiating PosNeg tracking, both pos and neg tokens are generated for query-result pairs. Details can be found [here](https://www.sajari.com/docs/user-guide/analytics/posneg-tracking/)
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+    new PosNegTracking('rating'),
+  );
+
+  const values = new Values({ q: '' });
+
+  const SearchPlayground = React.memo(() => {
+    const { search, results } = useSearchContext();
+    const { consumeInteractionToken } = useTracking();
+    const [query, setQuery] = React.useState('');
+
+    return (
+      <div className="flex flex-col space-y-4">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            search(query);
+          }}
+        >
+          <Input label="Search something" value={query} onChange={(value) => setQuery(value)} />
+        </form>
+        {results ? (
+          <ul className="flex flex-col space-y-8 list-disc px-6">
+            {results.map(({ values: { title }, token }) => {
+              return (
+                <li>
+                  <div className="flex flex-col space-y-2">
+                    <h1>{title}</h1>
+                    <ButtonGroup attached>
+                      <Button onClick={() => consumeInteractionToken(token.neg, 'downvote', 1)}>Negative action</Button>
+                      <Button onClick={() => consumeInteractionToken(token.pos, 'downvote', 1)}>Positive action</Button>
+                    </ButtonGroup>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        ) : null}
+      </div>
+    );
+  });
+
+  return (
+    <SearchContextProvider search={{ pipeline, values, fields: { category: 'brand', title: 'name' } }}>
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
+```

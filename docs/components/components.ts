@@ -26,6 +26,15 @@ const searchComponents = [
   'Sorting',
   'ViewType',
 ].sort();
-const hooks = ['useFilter', 'usePageSize', 'usePagination', 'useQuery', 'useSearch', 'useSorting'].sort();
+const hooks = [
+  'useFilter',
+  'usePageSize',
+  'usePagination',
+  'useQuery',
+  'useSearch',
+  'useSorting',
+  'useTracking',
+].sort();
+const tracking = ['NoTracking', 'ClickTracking', 'PosNegTracking'];
 
-export { coreComponents, searchComponents, hooks };
+export { coreComponents, searchComponents, hooks, tracking };
