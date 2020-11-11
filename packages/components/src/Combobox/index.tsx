@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
@@ -9,25 +8,19 @@ import tw, { styled } from 'twin.macro';
 
 import { Search, Spinner } from '../assets/icons';
 import Box from '../Box';
-import useInputStyles from '../hooks/useInputStyles';
 import { __DEV__ } from '../utils/assertion';
 import Dropdown from './components/Dropdown';
 import Typeahead from './components/Typeahead';
 import Voice from './components/Voice';
 import ComboboxContextProvider from './context';
+import { useComboboxStyles } from './styles';
 import { ComboboxProps } from './types';
 
 const StyledIconContainer = styled.div<{
   left?: boolean;
-  showCancel?: boolean;
 }>`
-  ${tw`text-gray-400`}
-  ${({ left = false, showCancel = false }) =>
-    left
-      ? tw`absolute inset-y-0 left-0 flex items-center pl-3`
-      : showCancel
-      ? tw`absolute inset-y-0 right-0 flex items-center pr-8`
-      : tw`absolute inset-y-0 right-0 flex items-center pr-4`}
+  ${tw`absolute inset-y-0 flex items-center space-x-2 text-gray-400`}
+  ${({ left = false }) => (left ? tw`left-0 pl-3` : tw`right-0 pr-4`)}
 `;
 
 const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInputElement>) => {
@@ -42,13 +35,15 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     onKeyDown = () => {},
     onVoiceInput = () => {},
     enableVoice = false,
+    captureVoiceInput = true,
     loading = false,
-    value = '',
+    value: valueProp = '',
     items = [],
     completion = '',
     ...rest
   } = props;
-  const [showCancel, setShowCancel] = useState(!value);
+  const [value, setValue] = useState(valueProp);
+  useEffect(() => setValue(valueProp), [valueProp]);
 
   const {
     isOpen: open,
@@ -62,12 +57,13 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     inputValue,
   } = useCombobox({
     items,
-    initialInputValue: value.toString(),
-    onInputValueChange: (changes) => onChange(changes.inputValue),
+    inputValue: value.toString(),
+    onInputValueChange: (changes) => {
+      setValue(changes.inputValue ?? '');
+      onChange(changes.inputValue);
+    },
     onSelectedItemChange: (changes) => onChange(changes.inputValue),
   });
-
-  useEffect(() => setShowCancel(value ? value !== '' : false), [value]);
 
   const [focusWithin, setFocusWithin] = useState(false);
   const { focusWithinProps } = useFocusWithin({
@@ -86,16 +82,20 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     getItemProps,
   };
 
-  const styles = useInputStyles({ block: true, type: 'combobox' });
+  const handleVoiceInput = (input: string) => {
+    if (captureVoiceInput) {
+      setValue(input);
+    }
+    onVoiceInput(input);
+  };
+
+  const styles = useComboboxStyles({ focusWithin });
 
   return (
     <ComboboxContextProvider value={context}>
-      <Box css={tw`relative`} {...focusWithinProps}>
-        <Box
-          css={[tw`relative form-input`, styles, focusWithin ? tw`border-blue-400 shadow-outline-blue` : tw``]}
-          {...getComboboxProps()}
-        >
-          <Box as="label" css={tw`sr-only`} {...getLabelProps({ htmlFor: id })}>
+      <Box css={styles.container} {...focusWithinProps}>
+        <Box css={styles.inputContainer} {...getComboboxProps()}>
+          <Box as="label" css={styles.label} {...getLabelProps({ htmlFor: id })}>
             {label ?? placeholder}
           </Box>
 
@@ -108,7 +108,7 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
           <Box
             ref={ref}
             as="input"
-            css={[tw`form-input`, tw`absolute inset-0 w-full bg-transparent border-0 pl-9`]}
+            css={styles.input}
             {...getInputProps({
               type: 'search',
               dir: 'auto',
@@ -128,22 +128,16 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
 
                 onKeyDown(e);
               },
-              onChange: (e: ChangeEvent<HTMLInputElement>) => {
-                onChange(e.target.value);
-
-                if (!value) {
-                  setShowCancel(e.target.value !== '');
-                }
-              },
+              onChange: (e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value),
             })}
-            enterkeyhint={enterKeyHint}
+            enterKeyHint={enterKeyHint}
             {...rest}
           />
 
           {enableVoice || loading ? (
-            <StyledIconContainer showCancel={showCancel}>
-              {enableVoice && <Voice onVoiceInput={onVoiceInput} />}
+            <StyledIconContainer>
               {loading && <Spinner />}
+              {enableVoice && <Voice onVoiceInput={handleVoiceInput} />}
             </StyledIconContainer>
           ) : null}
         </Box>

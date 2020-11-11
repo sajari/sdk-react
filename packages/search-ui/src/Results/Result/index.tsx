@@ -5,7 +5,9 @@ import React from 'react';
 import { __DEV__ } from 'sajari-react-sdk-utils';
 import tw, { styled } from 'twin.macro';
 
+import { isValidURL } from '../../utils/assertion';
 import { formatNumber } from '../../utils/number';
+import { decodeHTML } from '../../utils/string';
 import useResultStyles from './styles';
 import { ResultProps } from './types';
 import { useTracking } from '@sajari/react-hooks';
@@ -44,14 +46,8 @@ const Result = React.forwardRef((props: ResultProps, ref?: React.Ref<HTMLDivElem
 
   return (
     <article {...rest} ref={ref} css={styles.container}>
-      {image && (
-        <a
-          onClick={resultClicked}
-          href={clickToken ? clickToken : url}
-          target="_blank"
-          rel="noreferrer noopener"
-          css={styles.imageContiner}
-        >
+      {isValidURL(image, true) && (
+        <a href={clickToken ? clickToken : url} target="_blank" rel="noopener" onClick={resultClicked} css={styles.imageContiner}>
           <Image src={image} css={styles.image} aspectRatio={imageAspectRatio} objectFit={imageObjectFit} />
         </a>
       )}
@@ -59,8 +55,8 @@ const Result = React.forwardRef((props: ResultProps, ref?: React.Ref<HTMLDivElem
       <div css={tw`flex-1 min-w-0`}>
         <div css={tw`flex items-start`}>
           <Heading as="h1" css={tw`flex-1`}>
-            <a onClick={resultClicked} href={clickToken ? clickToken : url} target="_blank" rel="noreferrer noopener">
-              {title}
+            <a href={clickToken ? clickToken : url} target="_blank" rel="noopener" onClick={resultClicked}>
+              {decodeHTML(title)}
             </a>
           </Heading>
 
@@ -80,7 +76,7 @@ const Result = React.forwardRef((props: ResultProps, ref?: React.Ref<HTMLDivElem
 
         {description && appearance === 'list' && (
           <Text truncate={2} css={tw`mt-1 text-sm text-gray-500`}>
-            {description}
+            {decodeHTML(description)}
           </Text>
         )}
 

@@ -16,6 +16,8 @@ interface Props {
   onVoiceInput?: (text: string) => void;
   /** Whether to enable speech recognition API */
   enableVoice?: boolean;
+  /** Whether to set the capture the voice input as the input value */
+  captureVoiceInput?: boolean;
   /** Show a loading icon */
   loading?: boolean;
   /** Autocomplete items */

@@ -27,7 +27,7 @@ const Dropdown = () => {
           const selected = highlightedIndex === index;
           const highlight = inputValue.length > 0 && value.startsWith(inputValue);
 
-          return <DropdownItem value={value} highlight={highlight} selected={selected} index={index} />;
+          return <DropdownItem value={value} highlight={highlight} selected={selected} index={index} key={value} />;
         })}
       </ul>
 

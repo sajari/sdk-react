@@ -47,6 +47,7 @@ const CheckboxGroup = ({
 
   const clones = validChildren.map((child, index) =>
     cloneElement(child, {
+      key: `${internalName}-${index}`,
       name: `${internalName}-${index}`,
       onChange: internalChange,
       checked: internalValues.includes(child.props.value),
