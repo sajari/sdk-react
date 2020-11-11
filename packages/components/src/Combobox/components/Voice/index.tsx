@@ -21,6 +21,7 @@ const Voice = ({ children, onVoiceInput }: VoiceProps) => {
   return (
     <Box
       as="button"
+      type="button"
       css={[
         tw`transition duration-200 bg-transparent border-0 outline-none cursor-pointer`,
         active ? tw`text-red-500` : tw`hover:text-gray-600 focus:text-gray-600`,
