@@ -4,7 +4,7 @@ export * from './SearchContextProvider/events';
 export {
   default as SearchContextProvider,
   SearchProviderValues,
-  Values,
+  Variables,
   Pipeline,
   Range,
   RangeFilter,

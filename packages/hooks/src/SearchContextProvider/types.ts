@@ -1,13 +1,13 @@
 import { Config } from './config';
-import { Filter, Pipeline, Response, Values } from './controllers';
+import { Filter, Pipeline, Response, Variables } from './controllers';
 
 export type SearchFn = (query: string, override?: boolean) => void;
-export type ClearFn = (values?: { [k: string]: string | undefined }) => void;
+export type ClearFn = (variables?: { [k: string]: string | undefined }) => void;
 export type ResultClickedFn = (url: string) => void;
 export type PaginateFn = (page: number) => void;
 
 export interface PipelineContextState {
-  values: Values;
+  variables: Variables;
   pipeline: Pipeline;
   response: Response | null;
   query: string;
@@ -23,7 +23,7 @@ export interface PipelineContextState {
 
 export interface ProviderPipelineConfig {
   pipeline: Pipeline;
-  values: Values;
+  variables: Variables;
   config?: Config;
   fields?: FieldDictionary;
   filters?: Filter[];

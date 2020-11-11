@@ -14,24 +14,24 @@ export class PosNegTracking extends Tracking {
 
   /**
    * Reset the tracking.
-   * @param values Key-value pair parameters to use in the pipeline.
+   * @param variables Key-value pair parameters to use in the pipeline.
    */
-  public reset(values?: TrackingValues) {
+  public reset(variables?: TrackingValues) {
     (this.clientTracking as Session).reset();
-    if (values !== undefined) {
+    if (variables !== undefined) {
       // eslint-disable-next-line no-underscore-dangle
-      this._emitTrackingReset(values);
+      this._emitTrackingReset(variables);
     }
   }
 
   /**
    * Construct a tracking session to be used in a search.
-   * @param values Key-value pair parameters to use in the pipeline.
+   * @param variables Key-value pair parameters to use in the pipeline.
    */
-  public next(values: TrackingValues) {
+  public next(variables: TrackingValues) {
     if (this.clientTracking === null) {
       throw new Error('clientTracking is null');
     }
-    return this.clientTracking.next(values);
+    return this.clientTracking.next(variables);
   }
 }

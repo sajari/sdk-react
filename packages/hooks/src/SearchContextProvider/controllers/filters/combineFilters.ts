@@ -49,7 +49,7 @@ export default function combineFilters(filters: Filter[], joinOperator: JoinOper
     removeListenerFuncs.forEach((fn) => fn());
   }
 
-  // Generate filter field from non aggregate count Filter(s) for Values object
+  // Generate filter field from non aggregate count Filter(s) for Variables object
   const filter = () => {
     return filters
       .filter((f) => !f.getCount())
@@ -58,7 +58,7 @@ export default function combineFilters(filters: Filter[], joinOperator: JoinOper
       .join(` ${joinOperator} `);
   };
 
-  // Generate buckets field from non aggregate count Filter(s) for Values object
+  // Generate buckets field from non aggregate count Filter(s) for Variables object
   const buckets = () => {
     return filters
       .filter((f) => !f.getCount())
@@ -67,7 +67,7 @@ export default function combineFilters(filters: Filter[], joinOperator: JoinOper
       .join(',');
   };
 
-  // Generate countFilters field from aggregate count Filter(s) for Values object
+  // Generate countFilters field from aggregate count Filter(s) for Variables object
   const countFilters = () => {
     return filters
       .filter((f) => f.getCount())
@@ -75,7 +75,7 @@ export default function combineFilters(filters: Filter[], joinOperator: JoinOper
       .join(',');
   };
 
-  // Generate count field from aggregate count Filter(s) for Values object
+  // Generate count field from aggregate count Filter(s) for Variables object
   const count = () => {
     return filters
       .filter((f) => f.getCount())

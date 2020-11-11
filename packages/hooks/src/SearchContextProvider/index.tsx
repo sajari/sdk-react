@@ -14,7 +14,7 @@ import {
   Range,
   RangeFilter,
   Response,
-  Values,
+  Variables,
 } from './controllers';
 import combineFilters from './controllers/filters/combineFilters';
 import { UnlistenFn } from './controllers/listener';
@@ -45,15 +45,15 @@ const updateState = (query: string, responseValues: Map<string, string> | undefi
   };
 };
 
-const responseUpdatedListener = (values: Values, config: Config, response: Response) => {
-  const query = values.get()[config.qParam] || '';
+const responseUpdatedListener = (variables: Variables, config: Config, response: Response) => {
+  const query = variables.get()[config.qParam] || '';
   const responseValues = response.getValues();
 
   return updateState(query, responseValues, config);
 };
 
-const valuesUpdatedListener = (values: Values, pipeline: Pipeline, config: Config) => {
-  const query = values.get()[config.qParam] || '';
+const valuesUpdatedListener = (variables: Variables, pipeline: Pipeline, config: Config) => {
+  const query = variables.get()[config.qParam] || '';
   const responseValues = pipeline.getResponse().getValues();
 
   return updateState(query, responseValues, config);
@@ -89,7 +89,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
     setSearchState((state) => ({
       ...state,
       response,
-      query: search.values.get()[mergedConfig.qParam] || '',
+      query: search.variables.get()[mergedConfig.qParam] || '',
       config: mergedConfig,
     }));
 
@@ -104,11 +104,11 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
       const filter = combineFilters(search.filters);
 
       unregisterFunctions.push(
-        filter.listen(EVENT_SELECTION_UPDATED, () => search.pipeline.search(search.values.get())),
+        filter.listen(EVENT_SELECTION_UPDATED, () => search.pipeline.search(search.variables.get())),
         filter.removeChildFilterListeners,
       );
 
-      search.values.set({
+      search.variables.set({
         filter: () => filter.filter(),
         countFilters: () => filter.countFilters(),
         buckets: () => filter.buckets(),
@@ -128,7 +128,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
             setSearchState((prevState) => ({
               ...prevState,
               response,
-              ...responseUpdatedListener(search.values, prevState.config, response),
+              ...responseUpdatedListener(search.variables, prevState.config, response),
             }));
           },
           // Delay slightly longer if no results so if someone is typing they don't get a flash of no results
@@ -138,10 +138,10 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
     );
 
     unregisterFunctions.push(
-      search.values.listen(EVENT_VALUES_UPDATED, () =>
+      search.variables.listen(EVENT_VALUES_UPDATED, () =>
         setSearchState((prevState) => ({
           ...prevState,
-          ...valuesUpdatedListener(search.values, search.pipeline, prevState.config),
+          ...valuesUpdatedListener(search.variables, search.pipeline, prevState.config),
         })),
       ),
     );
@@ -150,7 +150,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
       const { project, collection, endpoint } = search.pipeline.config;
       instant.current = {
         pipeline: new Pipeline({ project, collection, endpoint }, 'autocomplete', new NoTracking()),
-        values: new Values(),
+        variables: new Variables(),
       };
     }
 
@@ -159,17 +159,17 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
         setInstantState((prevState) => ({
           ...prevState,
           response,
-          ...responseUpdatedListener((instant.current as ProviderPipelineConfig).values, prevState.config, response),
+          ...responseUpdatedListener((instant.current as ProviderPipelineConfig).variables, prevState.config, response),
         })),
       ),
     );
 
     unregisterFunctions.push(
-      instant.current.values.listen(EVENT_VALUES_UPDATED, () =>
+      instant.current.variables.listen(EVENT_VALUES_UPDATED, () =>
         setInstantState((prevState) => ({
           ...prevState,
           ...valuesUpdatedListener(
-            (instant.current as ProviderPipelineConfig).values,
+            (instant.current as ProviderPipelineConfig).variables,
             (instant.current as ProviderPipelineConfig).pipeline,
             prevState.config,
           ),
@@ -178,7 +178,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
     );
 
     if (searchOnLoad) {
-      search.pipeline.search(search.values.get());
+      search.pipeline.search(search.variables.get());
     }
 
     return () => {
@@ -192,7 +192,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
         setSearching(true);
         const func = key === 'instant' ? instant.current : search;
         const state = key === 'instant' ? instantState : searchState;
-        const { pipeline, values } = func as ProviderPipelineConfig;
+        const { pipeline, variables } = func as ProviderPipelineConfig;
         const { config } = state;
 
         const text = {
@@ -204,9 +204,9 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
           text[config.qOverrideParam] = 'true';
         }
 
-        values.set(text);
+        variables.set(text);
         if (text[config.qParam]) {
-          pipeline.search(values.get());
+          pipeline.search(variables.get());
         }
       }, 50),
     [],
@@ -215,21 +215,21 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
   const clear = useCallback(
     (key: 'search' | 'instant') => (vals?: { [k: string]: string | undefined }) => {
       const func = key === 'instant' ? instant.current : search;
-      const { pipeline, values } = func as ProviderPipelineConfig;
+      const { pipeline, variables } = func as ProviderPipelineConfig;
 
       if (vals !== undefined) {
-        values.set(vals);
+        variables.set(vals);
       }
-      pipeline.clearResponse(values.get());
+      pipeline.clearResponse(variables.get());
     },
     [],
   );
 
   const handlePaginate = (page: number) => {
-    const { pipeline, values } = search;
+    const { pipeline, variables } = search;
 
-    values.set({ page: String(page) });
-    pipeline.search(values.get());
+    variables.set({ page: String(page) });
+    pipeline.search(variables.get());
   };
 
   const handleResultClicked = useCallback((url: string) => search.pipeline.emitResultClicked(url), []);
@@ -239,7 +239,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
       ...state,
       search: {
         ...state.search,
-        values: search.values,
+        variables: search.variables,
         filters: search.filters,
         pipeline: search.pipeline,
         search: searchFn('search'),
@@ -249,7 +249,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
       },
       instant: {
         ...state.instant,
-        values: instant.current?.values,
+        variables: instant.current?.variables,
         filters: search.filters,
         pipeline: instant.current?.pipeline,
         search: searchFn('instant'),
@@ -264,5 +264,5 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
 };
 
 export default SearchContextProvider;
-export { ClickTracking, PosNegTracking, useContext, Pipeline, Values, RangeFilter, Range, Filter, FieldDictionary };
+export { ClickTracking, PosNegTracking, useContext, Pipeline, Variables, RangeFilter, Range, Filter, FieldDictionary };
 export type { SearchProviderValues };

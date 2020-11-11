@@ -102,9 +102,9 @@ export class Pipeline {
    * Emits a search event to the search event listener.
    * @private
    */
-  public _emitSearchSent(values: { [k: string]: string }) {
+  public _emitSearchSent(variables: { [k: string]: string }) {
     (this.listeners.get(EVENT_SEARCH_SENT) as Listener).notify((listener) => {
-      listener(values);
+      listener(variables);
     });
   }
 
@@ -130,14 +130,14 @@ export class Pipeline {
 
   /**
    * Perform a search.
-   * @param values Key-value parameters to pass to the pipeline.
+   * @param variables Key-value parameters to pass to the pipeline.
    */
-  public search(values: { [k: string]: string }) {
+  public search(variables: { [k: string]: string }) {
     this.searchCount += 1;
     const currentSearch = this.searchCount;
 
     this.pipeline
-      .search(values, this.tracking.next(values))
+      .search(variables, this.tracking.next(variables))
       .then(([response, responseValues]) => {
         if (currentSearch < this.searchCount) {
           return;
@@ -145,7 +145,7 @@ export class Pipeline {
 
         this.response = new Response(
           null,
-          new Map(Object.entries(values)),
+          new Map(Object.entries(variables)),
           new Map(Object.entries(response)),
           new Map(Object.entries(responseValues)),
         );
@@ -157,20 +157,20 @@ export class Pipeline {
           return;
         }
 
-        this.response = new Response(error, new Map(Object.entries(values)), undefined, undefined);
+        this.response = new Response(error, new Map(Object.entries(variables)), undefined, undefined);
       })
       .finally(() => {
         this._emitResponseUpdated(this.response);
       });
-    this._emitSearchSent(values);
+    this._emitSearchSent(variables);
   }
 
   /**
-   * Clears the error, response, and response values from this object.
-   * @param values Key-value pair parameters.
+   * Clears the error, response, and response variables from this object.
+   * @param variables Key-value pair parameters.
    */
-  public clearResponse(values: { [k: string]: string }) {
-    this.tracking.next(values);
+  public clearResponse(variables: { [k: string]: string }) {
+    this.tracking.next(variables);
     this.searchCount += 1;
     this.response = new Response(null);
     this._emitResponseUpdated(this.response);

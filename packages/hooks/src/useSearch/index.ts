@@ -10,21 +10,21 @@ import debounce from '../utils/debounce';
 import mapResultFields from '../utils/mapResultFields';
 import { UseSearchCustomConfig, UseSearchParams, UseSearchResult } from './types';
 
-function useCustomSearch({ pipeline, values, fields = {} }: UseSearchCustomConfig): UseSearchResult {
+function useCustomSearch({ pipeline, variables, fields = {} }: UseSearchCustomConfig): UseSearchResult {
   const [loading, setLoading] = useState(false);
   const searchFn = useCallback(
     debounce((q?: string) => {
       setLoading(true);
       if (q === '') {
-        pipeline.clearResponse(values.get());
+        pipeline.clearResponse(variables.get());
       } else {
         if (q) {
-          values.set({ [defaultConfig.qParam]: q });
+          variables.set({ [defaultConfig.qParam]: q });
         }
-        pipeline.search(values.get());
+        pipeline.search(variables.get());
       }
     }, 50),
-    [pipeline, values],
+    [pipeline, variables],
   );
 
   const [searchOutput, setSearchOutput] = useState<Omit<UseSearchResult, 'loading'>>({ search: searchFn, error: null });
@@ -43,7 +43,7 @@ function useCustomSearch({ pipeline, values, fields = {} }: UseSearchCustomConfi
   }, []);
 
   useEffect(() => {
-    return values.listen(EVENT_VALUES_UPDATED, () => {
+    return variables.listen(EVENT_VALUES_UPDATED, () => {
       searchFn();
     });
   }, []);
@@ -56,13 +56,13 @@ function useNormalSearch(queryOverride: string = ''): UseSearchResult {
   const firstRender = useRef(true);
   const { query, setQuery } = useQuery();
   const {
-    search: { searching, response, fields = {}, values, search: searchFn, config },
+    search: { searching, response, fields = {}, variables, search: searchFn, config },
   } = useContext();
 
   const results = response?.getResults();
 
   const request = {
-    ...values.get(),
+    ...variables.get(),
     [config.pageParam]: undefined, // Exclude this from being in JSON.stringify to prevent the search being called twice
   };
 
@@ -122,7 +122,7 @@ function useNormalSearch(queryOverride: string = ''): UseSearchResult {
 }
 
 function useSearch(params?: UseSearchParams) {
-  if (params !== undefined && typeof params === 'object' && 'pipeline' in params && 'values' in params) {
+  if (params !== undefined && typeof params === 'object' && 'pipeline' in params && 'variables' in params) {
     return useCustomSearch(params);
   }
   return useNormalSearch(params);

@@ -1,4 +1,4 @@
-import { Pipeline, SearchContextProvider, Values, SearchProviderValues, FieldDictionary } from '@sajari/react-hooks';
+import { Pipeline, SearchContextProvider, Variables, SearchProviderValues, FieldDictionary } from '@sajari/react-hooks';
 import { useRef } from 'react';
 
 const SearchProvider: React.FC = ({ children }) => {
@@ -11,7 +11,7 @@ const SearchProvider: React.FC = ({ children }) => {
       },
       'query',
     ),
-    values: new Values({ q: '' }),
+    variables: new Variables({ q: '' }),
     fields: new FieldDictionary({
       category: (data) => data.level4 || data.level3 || data.level2 || data.level1,
       title: 'name',

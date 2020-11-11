@@ -24,7 +24,7 @@ function Example() {
     'query',
   );
 
-  const values = new Values({ q: '' });
+  const variables = new Variables({ q: '' });
 
   const SearchPlayground = React.memo(() => {
     useSearch('iphone');
@@ -33,7 +33,7 @@ function Example() {
   });
 
   return (
-    <SearchContextProvider search={{ pipeline, values, fields: { category: 'brand', title: 'name' } }}>
+    <SearchContextProvider search={{ pipeline, variables, fields: { category: 'brand', title: 'name' } }}>
       <SearchPlayground />
     </SearchContextProvider>
   );
