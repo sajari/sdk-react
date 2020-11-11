@@ -1,4 +1,4 @@
-import { Pipeline, SearchContextProvider, Values } from '@sajari/react-hooks';
+import { Pipeline, SearchContextProvider, Variables } from '@sajari/react-hooks';
 import * as React from 'react';
 import { ThemeProvider } from 'sajari-react-sdk-styles';
 
@@ -20,5 +20,5 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
 );
 
 export default ContextProvider;
-export { Pipeline, Values };
+export { Pipeline, Variables };
 export type { ContextProviderValues };

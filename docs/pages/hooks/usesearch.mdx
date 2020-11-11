@@ -14,7 +14,7 @@ import { useSearch } from '@sajari/react-hooks';
 
 ## Usage
 
-Returns results for the current query. By default it will use the Values and Pipeline from the context:
+Returns results for the current query. By default it will use the Variables and Pipeline from the context:
 
 ```jsx
 // TODO: use Results component once done mapping with the response from backend
@@ -69,7 +69,7 @@ function Example() {
 }
 ```
 
-### Optionally pass in Values or Pipeline:
+### Optionally pass in Variables or Pipeline:
 
 ```jsx
 function Example() {
@@ -80,11 +80,11 @@ function Example() {
     },
     'website',
   );
-  const values = new Values({ q: 'api', resultsPerPage: 1 });
+  const variables = new Variables({ q: 'api', resultsPerPage: 1 });
   const fields = { title: 'name' };
 
   const SearchPlayground = React.memo(() => {
-    const { results = [], loading } = useSearch({ values, pipeline, fields });
+    const { results = [], loading } = useSearch({ variables, pipeline, fields });
 
     return (
       <div className="flex flex-col space-y-4">
@@ -92,7 +92,7 @@ function Example() {
           <p>PageSize</p>
           <Select
             onChange={(e) => {
-              values.set({ resultsPerPage: Number(e.target.value) });
+              variables.set({ resultsPerPage: Number(e.target.value) });
             }}
           >
             <option value="1">1</option>

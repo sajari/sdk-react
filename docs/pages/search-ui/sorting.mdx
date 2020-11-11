@@ -9,7 +9,7 @@ The Sorting component renders a select component for sorting options.
 ```js
 import { Results } from '@sajari/react-search-ui';
 import { Select, Input } from '@sajari/react-components';
-import { Sorting, useSearch, SearchContextProvider, Pipeline, Values } from '@sajari/react-hooks';
+import { Sorting, useSearch, SearchContextProvider, Pipeline, Variables } from '@sajari/react-hooks';
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ function Example() {
     'query',
   );
 
-  const values = new Values({ q: '' });
+  const variables = new Variables({ q: '' });
 
   const SearchPlayground = React.memo(() => {
     const { search, results } = useSearch();
@@ -62,7 +62,7 @@ function Example() {
   });
 
   return (
-    <SearchContextProvider search={{ pipeline, values, fields: { category: 'brand', title: 'name' } }}>
+    <SearchContextProvider search={{ pipeline, variables, fields: { category: 'brand', title: 'name' } }}>
       <SearchPlayground />
     </SearchContextProvider>
   );

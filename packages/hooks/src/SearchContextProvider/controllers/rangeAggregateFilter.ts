@@ -5,7 +5,7 @@ import { Aggregates } from '@sajari/sdk-js';
 import { EVENT_RESPONSE_UPDATED, EVENT_SEARCH_SENT } from '../events';
 import { Pipeline } from './pipeline';
 import { Range, RangeFilter } from './rangeFilter';
-import { Values } from './values';
+import { Variables } from './variables';
 
 export type LimitUpdateListener = ({ bounce, range }: { bounce: Range; range: Range }) => void;
 
@@ -19,11 +19,11 @@ export class RangeAggregateFilter extends RangeFilter {
 
   private _limitChangeListeners: LimitUpdateListener[] = [];
 
-  constructor(field: string, pipeline: Pipeline, values: Values) {
+  constructor(field: string, pipeline: Pipeline, variables: Variables) {
     super(field, [0, 0]);
 
     this._field = field;
-    this._addMinMaxToValues(values);
+    this._addMinMaxToValues(variables);
     pipeline.listen(EVENT_SEARCH_SENT, (sent) => {
       const { q, count } = sent;
       if (this._prevInput !== q || (this._count === '' && count !== '')) {
@@ -80,17 +80,17 @@ export class RangeAggregateFilter extends RangeFilter {
     return [min, max];
   }
 
-  private _addMinMaxToValues(values: Values) {
-    const { min, max } = values.get();
+  private _addMinMaxToValues(variables: Variables) {
+    const { min, max } = variables.get();
     const minFields = typeof min === 'string' ? min.split(',') : [];
     if (!minFields.includes(this._field)) {
       minFields.push(this._field);
-      values.set({ min: minFields.join(',') });
+      variables.set({ min: minFields.join(',') });
     }
     const maxFields = typeof max === 'string' ? max.split(',') : [];
     if (!maxFields.includes(this._field)) {
       maxFields.push(this._field);
-      values.set({ max: maxFields.join(',') });
+      variables.set({ max: maxFields.join(',') });
     }
   }
 }

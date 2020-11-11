@@ -47,7 +47,7 @@ function Example() {
     initial: ['High'],
   });
 
-  const values = new Values({ q: '' });
+  const variables = new Variables({ q: '' });
 
   const SearchPlayground = React.memo(() => {
     const { results, search } = useSearchContext();
@@ -72,7 +72,7 @@ function Example() {
     <SearchContextProvider
       search={{
         pipeline,
-        values,
+        variables,
         fields: { category: 'brand', title: 'name' },
         filters: [priceFilter, brandFilter],
       }}
@@ -110,7 +110,7 @@ function Example() {
     multi: true,
   });
 
-  const values = new Values({ q: '' });
+  const variables = new Variables({ q: '' });
 
   const SearchPlayground = React.memo(() => {
     const { results, search } = useSearchContext();
@@ -135,7 +135,7 @@ function Example() {
     <SearchContextProvider
       search={{
         pipeline,
-        values,
+        variables,
         fields: { category: 'brand', title: 'name' },
         filters: [priceRangeFilter, categoryFilter],
       }}
@@ -166,7 +166,7 @@ function Example() {
     multi: true,
   });
 
-  const values = new Values({ q: '' });
+  const variables = new Variables({ q: '' });
 
   const SearchPlayground = React.memo(() => {
     const { results, search } = useSearchContext();
@@ -195,7 +195,7 @@ function Example() {
     <SearchContextProvider
       search={{
         pipeline,
-        values,
+        variables,
         fields: { category: 'brand', title: 'name' },
         filters: [ratingFilter],
       }}
@@ -227,7 +227,7 @@ function Example() {
     repeated: true,
   });
 
-  const values = new Values({ q: '' });
+  const variables = new Variables({ q: '' });
 
   const SearchPlayground = React.memo(() => {
     const { results, search } = useSearchContext();
@@ -251,7 +251,7 @@ function Example() {
     <SearchContextProvider
       search={{
         pipeline,
-        values,
+        variables,
         fields: { category: 'brand', title: 'name' },
         filters: [colorFilter],
       }}

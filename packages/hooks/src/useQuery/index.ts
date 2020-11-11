@@ -4,11 +4,11 @@ import { useContext } from '../SearchContextProvider';
 
 function useQuery() {
   const {
-    search: { values, query },
+    search: { variables, query },
   } = useContext();
 
   const setQuery = useCallback((q: string) => {
-    values.set({ q });
+    variables.set({ q });
   }, []);
 
   return { query, setQuery };

@@ -7,18 +7,18 @@ function usePageSize(): UsePageSizeResult {
   const {
     search: {
       config: { resultsPerPageParam },
-      values,
+      variables,
     },
   } = useContext();
 
   const setPageSize = React.useCallback(
     (size: number) => {
-      values.set({ [resultsPerPageParam]: size });
+      variables.set({ [resultsPerPageParam]: size });
     },
-    [values],
+    [variables],
   );
 
-  const pageSize = parseInt(values.get()[resultsPerPageParam], 10);
+  const pageSize = parseInt(variables.get()[resultsPerPageParam], 10);
 
   return {
     pageSize: Number.isNaN(pageSize) ? 10 : pageSize,

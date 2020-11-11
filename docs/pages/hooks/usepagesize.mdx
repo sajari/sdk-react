@@ -9,7 +9,7 @@ import SEO from '../../components/SEO';
 ```js
 import { Results } from '@sajari/react-search-ui';
 import { Pagination, Select, Input } from '@sajari/react-components';
-import { usePageSize, useSearch, SearchContextProvider, Pipeline, Values } from '@sajari/react-hooks';
+import { usePageSize, useSearch, SearchContextProvider, Pipeline, Variables } from '@sajari/react-hooks';
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ function Example() {
     'query',
   );
 
-  const values = new Values({ q: '' });
+  const variables = new Variables({ q: '' });
 
   const SearchPlayground = React.memo(() => {
     const { search, results } = useSearch();
@@ -62,7 +62,7 @@ function Example() {
     <SearchContextProvider
       search={{
         pipeline,
-        values,
+        variables,
         fields: {
           category: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
           title: 'name',
