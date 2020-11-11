@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import { Text } from '@sajari/react-components';
-import { useSearch } from '@sajari/react-hooks';
+import { useSearchContext } from '@sajari/react-hooks';
 import React, { HTMLAttributes } from 'react';
 
 const Summary = (props: HTMLAttributes<HTMLElement>) => {
-  const { latency, totalResults } = useSearch();
+  const { latency, totalResults } = useSearchContext();
 
   if (!totalResults) {
     return null;
