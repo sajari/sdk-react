@@ -15,12 +15,53 @@ import { ViewType } from 'sajari/react-search-ui';
 ## Usage
 
 ```jsx
-<ViewType />
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const variables = new Variables({ q: '' });
+
+  const SearchPlayground = React.memo(() => {
+    const { results } = useSearch();
+    const [type, setType] = React.useState('list');
+
+    return (
+      <div className="flex flex-col space-y-4">
+        <div>
+          <ViewType onChange={setType} />
+        </div>
+        {results ? <Results appearance={type} /> : null}
+      </div>
+    );
+  });
+
+  return (
+    <SearchContextProvider
+      search={{
+        pipeline,
+        variables,
+        fields: {
+          category: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+          title: 'name',
+        },
+      }}
+    >
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
 ```
 
 ## Props
 
-| Name          | Type                 | Default  | Description |
-| ------------- | -------------------- | -------- | ----------- |
-| `label`       | `string`             | `"View"` |             |
-| `defaultView` | `"list"` \| `"grid"` | `"list"` |             |
+| Name          | Type                                 | Default    | Description |
+| ------------- | ------------------------------------ | ---------- | ----------- |
+| `label`       | `string`                             | `"View"`   |             |
+| `defaultView` | `"list"` \| `"grid"`                 | `"list"`   |             |
+| `onChange`    | `(type: "list"` \| `"grid") => void` | `() => {}` |             |
