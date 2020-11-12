@@ -69,7 +69,7 @@ export const Color = ({
     ref,
   );
 
-  const { focusProps, focusRingStyles } = useFocusRingStyles({ color: border });
+  const { focusProps, focusRingStyles } = useFocusRingStyles({ color: border.toString() });
 
   return (
     <StyledLabel bg={bg} border={border} textColor={color} rounded={rounded} css={focusRingStyles}>
