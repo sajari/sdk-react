@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { createContext } from 'sajari-react-sdk-utils';
 
+import { isEmpty } from '../utils/assertion';
 import debounce from '../utils/debounce';
 import { Config, defaultConfig } from './config';
 import {
@@ -205,9 +206,11 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
         }
 
         variables.set(text);
-        if (text[config.qParam]) {
-          pipeline.search(variables.get());
+        const { filter } = variables.get();
+        if (isEmpty(filter)) {
+          variables.set({ filter: '_id != ""' });
         }
+        pipeline.search(variables.get());
       }, 50),
     [],
   );
