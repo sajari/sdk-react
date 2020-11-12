@@ -174,7 +174,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
           {ticks.map(({ value: tickValue, getTickProps }) => (
             <Text
               css={[
-                tw`w-10 mb-2.5 text-xs text-center text-gray-400 after:(content w-0 border-r border-gray-300 h-2 absolute)`,
+                tw`w-10 mb-2.5 text-xs text-center text-gray-400 after:(content w-0 border-r border-gray-300 h-1.5 absolute)`,
                 { bottom: '100%' },
                 '&::after { left: 50%; top: 100% }',
               ]}

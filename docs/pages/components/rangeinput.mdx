@@ -21,7 +21,7 @@ import { RangeFilter, EVENT_SELECTION_UPDATED } from '@sajari/react-hooks';
 ```jsx
 function Example() {
   const rangeFilter = new RangeFilter('range', [0, 500]);
-  rangeFilter.set(200, 300);
+  rangeFilter.set(150, 350);
   const [filterOutput, setFilterOutput] = React.useState(rangeFilter.filter());
 
   rangeFilter.listen(EVENT_SELECTION_UPDATED, () => {
@@ -81,7 +81,7 @@ In case you don't want to depend on `RangeFilter`, you can opt-out of that by pa
 
 ```jsx
 function Example() {
-  const [range, setRange] = React.useState([100, 200]);
+  const [range, setRange] = React.useState([125, 225]);
   const [handler, setHandler] = React.useState('onInput');
 
   const handleInput = (value) => {

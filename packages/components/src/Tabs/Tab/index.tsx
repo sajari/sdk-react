@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import { mergeProps } from '@react-aria/utils';
 import React from 'react';
 
 import Box from '../../Box';
@@ -9,7 +10,7 @@ import { TabProps } from './types';
 
 const Tab = React.forwardRef((props: TabProps, ref?: React.Ref<HTMLButtonElement>) => {
   const { selected, disabled, id, ...rest } = props;
-  const styles = useTabStyles(props);
+  const { styles, focusRingProps } = useTabStyles(props);
 
   return (
     <Box
@@ -24,7 +25,7 @@ const Tab = React.forwardRef((props: TabProps, ref?: React.Ref<HTMLButtonElement
       aria-disabled={disabled}
       aria-controls={`panel-${id}`}
       css={styles}
-      {...rest}
+      {...mergeProps(rest, focusRingProps)}
     />
   );
 });

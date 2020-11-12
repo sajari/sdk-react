@@ -94,10 +94,18 @@ const CodeBlock = (props: CodeBlockProps) => {
 
   // We have to do some manual work here to avoid naming conflict between components
   let extra = {};
-  if (pathname === '/search-ui/filter') {
-    extra = { Filter: ReactSearchUI.Filter, FilterOptions: ReactHooks.Filter };
-  } else if (pathname === '/hooks/usefilter') {
-    extra = { Filter: ReactHooks.Filter };
+
+  switch (pathname) {
+    case '/search-ui/filter':
+      extra = { Filter: ReactSearchUI.Filter, FilterOptions: ReactHooks.Filter };
+      break;
+
+    case '/hooks/usefilter':
+      extra = { Filter: ReactHooks.Filter };
+      break;
+
+    case '/components/pagination':
+      extra = { Pagination: ReactComponents.Pagination };
   }
 
   const liveProviderProps = {

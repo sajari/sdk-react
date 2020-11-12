@@ -7,7 +7,7 @@ export interface ColorProps {
   /** Background color */
   bg: string | ThemeStyle;
   /** Check icon color */
-  color: string | ThemeStyle;
+  color?: string | ThemeStyle;
   /** Border color, defaults to background color */
   border?: string | ThemeStyle;
   /** Border radius */

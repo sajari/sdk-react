@@ -19,30 +19,28 @@ import { Swatch } from '@sajari/react-components';
 function BasicUsage() {
   const [checkedColors, setCheckedColors] = React.useState([]);
   return (
-    <div style={{ display: 'flex' }}>
-      <Swatch checkedColors={checkedColors} onChange={setCheckedColors}>
-        <Swatch.Color.White />
-        <Swatch.Color.Silver />
-        <Swatch.Color.Black />
-        <Swatch.Color.Pink />
-        <Swatch.Color.Magenta />
-        <Swatch.Color.Red />
-        <Swatch.Color.Beige />
-        <Swatch.Color.Orange />
-        <Swatch.Color.Brown />
-        <Swatch.Color.Yellow />
-        <Swatch.Color.Green />
-        <Swatch.Color.Azure />
-        <Swatch.Color.Aqua />
-        <Swatch.Color.Teal />
-        <Swatch.Color.Turquoise />
-        <Swatch.Color.Blue />
-        <Swatch.Color.ElectricBlue />
-        <Swatch.Color.Lilac />
-        <Swatch.Color.Purple />
-        <Swatch.Color.Violet />
-      </Swatch>
-    </div>
+    <Swatch checkedColors={checkedColors} onChange={setCheckedColors}>
+      <Swatch.Color.White />
+      <Swatch.Color.Silver />
+      <Swatch.Color.Black />
+      <Swatch.Color.Pink />
+      <Swatch.Color.Magenta />
+      <Swatch.Color.Red />
+      <Swatch.Color.Beige />
+      <Swatch.Color.Orange />
+      <Swatch.Color.Brown />
+      <Swatch.Color.Yellow />
+      <Swatch.Color.Green />
+      <Swatch.Color.Azure />
+      <Swatch.Color.Aqua />
+      <Swatch.Color.Teal />
+      <Swatch.Color.Turquoise />
+      <Swatch.Color.Blue />
+      <Swatch.Color.ElectricBlue />
+      <Swatch.Color.Lilac />
+      <Swatch.Color.Purple />
+      <Swatch.Color.Violet />
+    </Swatch>
   );
 }
 ```
@@ -55,15 +53,13 @@ You can use the pre-defined set of colors by using the syntax `<Swatch.Color.{Co
 function CustomColor() {
   const [checkedColors, setCheckedColors] = React.useState([]);
   return (
-    <div style={{ display: 'flex' }}>
-      <Swatch checkedColors={checkedColors} onChange={setCheckedColors}>
-        <Swatch.Color id="hex" bg="#f56565" />
-        <Swatch.Color id="rgb" bg="rgb(45, 100, 219)" />
-        <Swatch.Color id="rgba" bg="rgba(45, 100, 219, 0.5)" />
-        <Swatch.Color id="hsl" bg="hsl(309, 35%, 69%)" />
-        <Swatch.Color id="css" bg="blue" />
-      </Swatch>
-    </div>
+    <Swatch checkedColors={checkedColors} onChange={setCheckedColors}>
+      <Swatch.Color id="hex" bg="#f56565" />
+      <Swatch.Color id="rgb" bg="rgb(45, 100, 219)" />
+      <Swatch.Color id="rgba" bg="rgba(45, 100, 219, 0.5)" />
+      <Swatch.Color id="hsl" bg="hsl(309, 35%, 69%)" />
+      <Swatch.Color id="css" bg="blue" />
+    </Swatch>
   );
 }
 ```
@@ -79,9 +75,9 @@ function CustomColor() {
 
 ### Swatch.Color
 
-| Name     | Type     | Default | Description                                                                            |
-| -------- | -------- | ------- | -------------------------------------------------------------------------------------- |
-| `id`     | `string` |         | The id of the color                                                                    |
-| `bg`     | `string` |         | The background color, see above for accepted formats                                   |
-| `color`  | `string` |         | The color of the checkmark when that color is selected, see above for accepted formats |
-| `border` | `string` |         | The border color, defaults to `bg` if not specified, see above for accepted formats    |
+| Name     | Type     | Default | Description                                                                                                                                         |
+| -------- | -------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`     | `string` |         | The id of the color.                                                                                                                                |
+| `bg`     | `string` |         | The background color. See above for accepted formats.                                                                                               |
+| `color`  | `string` |         | The color of the checkmark when that color is selected. Defaults to being calculated based on the background color. See above for accepted formats. |
+| `border` | `string` |         | The border color. Defaults to using `bg` darkened by 10% if not specified. See above for accepted formats.                                          |

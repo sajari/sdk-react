@@ -44,13 +44,16 @@ const StyledLabel = styled.label<{
   border-color: ${({ border }) => border};
 `;
 
-export const Color = ({
-  id,
-  bg,
-  color = new ColorClass(bg).isLight() ? '#000' : '#fff',
-  border = new ColorClass(bg).hsl().darken(0.1).string(),
-  rounded = 'md',
-}: ColorProps) => {
+export const Color = (props: ColorProps) => {
+  const {
+    id,
+    bg,
+    color = new ColorClass(bg).isLight()
+      ? new ColorClass(bg).lightness(25).string()
+      : new ColorClass(bg).lightness(85).string(),
+    border = new ColorClass(bg).darken(0.1).string(),
+    rounded = 'md',
+  } = props;
   const ref = React.useRef<HTMLInputElement>(null);
   const { state, setState } = useSwatchContext();
   const toggleState = useToggleState();

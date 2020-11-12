@@ -29,7 +29,11 @@ function Example() {
   const SearchPlayground = React.memo(() => {
     useSearch('iphone');
 
-    return <Pagination />;
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <Pagination />
+      </div>
+    );
   });
 
   return (

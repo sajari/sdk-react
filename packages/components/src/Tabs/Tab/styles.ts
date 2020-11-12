@@ -2,6 +2,7 @@ import { css } from '@emotion/core';
 import { useTheme } from 'sajari-react-sdk-styles';
 import tw, { TwStyle } from 'twin.macro';
 
+import useFocusRingStyles from '../../hooks/useFocusRingStyles';
 import { useTabContext } from '../context';
 import { TabProps } from './types';
 
@@ -9,10 +10,11 @@ export default function useTabStyles(props: TabProps) {
   const { selected, disabled } = props;
   const { fitted } = useTabContext();
   const theme = useTheme();
+  const { focusProps: focusRingProps, focusRingStyles } = useFocusRingStyles({ rounded: 'none' });
   const styles: (TwStyle | string)[] = [];
 
   styles.push(
-    tw`px-4 py-3 m-0 -mb-px text-gray-500 bg-transparent border-0 border-b-2 border-transparent border-solid focus:outline-none`,
+    tw`relative px-4 py-3 m-0 -mb-px text-gray-500 bg-transparent border-0 border-b-2 border-transparent border-solid focus:outline-none`,
   );
 
   if (!selected) {
@@ -31,5 +33,5 @@ export default function useTabStyles(props: TabProps) {
     styles.push(`color: ${theme.color.primary.base}; border-bottom-color: ${theme.color.primary.base};`);
   }
 
-  return css(styles);
+  return { styles: [css(styles), focusRingStyles], focusRingProps };
 }
