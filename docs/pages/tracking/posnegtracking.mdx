@@ -9,7 +9,7 @@ import SEO from '../../components/SEO';
 
 ```js
 import { Input, Button, ButtonGroup } from '@sajari/react-components';
-import { SearchContextProvider, Pipeline, Values, PosNegTracking, useTracking } from '@sajari/react-hooks';
+import { SearchContextProvider, Pipeline, Variables, PosNegTracking, useTracking } from '@sajari/react-hooks';
 ```
 
 ## Usage
@@ -28,7 +28,7 @@ function Example() {
     new PosNegTracking('rating'),
   );
 
-  const values = new Values({ q: '' });
+  const values = new Variables({ q: '' });
 
   const SearchPlayground = React.memo(() => {
     const { search, results } = useSearchContext();
