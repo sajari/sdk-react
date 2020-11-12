@@ -5,6 +5,7 @@ import { useId } from '@reach/auto-id';
 import React from 'react';
 import tw from 'twin.macro';
 
+import Box from '../Box';
 import useInputStyle, { UseInputStyleProps } from '../hooks/useInputStyles';
 import Label from '../Label';
 import { __DEV__ } from '../utils/assertion';
@@ -30,34 +31,37 @@ const Radio = React.forwardRef((props: RadioProps, ref?: React.Ref<HTMLInputElem
     ...rest
   } = props;
 
-  const inputStyles = useInputStyle({
+  const { styles, focusRingStyles, focusProps } = useInputStyle({
     block: true,
     type: 'radio',
     ...props,
   } as UseInputStyleProps);
 
   const comp = (
-    <div css={tw`items-center inline-flex`} {...(!children ? rest : {})}>
+    <Box css={tw`inline-flex items-center`} {...(!children ? rest : {})}>
       &#8203;
-      <input
-        ref={ref}
-        type="radio"
-        id={id}
-        name={name}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-        onFocus={onFocus}
-        defaultChecked={defaultChecked}
-        checked={checked}
-        disabled={disabled}
-        readOnly={readOnly}
-        aria-label={ariaLabel}
-        aria-labelledby={ariaLabelledBy}
-        aria-invalid={invalid}
-        css={[tw`form-radio`, inputStyles]}
-      />
-    </div>
+      <Box as="span" css={[tw`relative`, focusRingStyles]}>
+        <input
+          ref={ref}
+          type="radio"
+          id={id}
+          name={name}
+          value={value}
+          onChange={onChange}
+          onBlur={onBlur}
+          onFocus={onFocus}
+          defaultChecked={defaultChecked}
+          checked={checked}
+          disabled={disabled}
+          readOnly={readOnly}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabelledBy}
+          aria-invalid={invalid}
+          css={[tw`form-radio`, styles]}
+          {...focusProps}
+        />
+      </Box>
+    </Box>
   );
 
   if (!children) {
@@ -65,13 +69,13 @@ const Radio = React.forwardRef((props: RadioProps, ref?: React.Ref<HTMLInputElem
   }
 
   return (
-    <div css={tw`flex items-center`} {...rest}>
+    <Box css={tw`flex items-center`} {...rest}>
       {comp}
 
       <Label htmlFor={id} css={[tw`ml-2`, invalid ? tw`text-red-500` : []]}>
         {children}
       </Label>
-    </div>
+    </Box>
   );
 });
 

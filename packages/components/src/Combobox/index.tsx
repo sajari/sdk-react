@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
-import { useFocusWithin } from '@react-aria/interactions';
+import { mergeProps } from '@react-aria/utils';
 import { useCombobox } from 'downshift';
 import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import tw, { styled } from 'twin.macro';
@@ -65,11 +65,6 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     onSelectedItemChange: (changes) => onChange(changes.inputValue),
   });
 
-  const [focusWithin, setFocusWithin] = useState(false);
-  const { focusWithinProps } = useFocusWithin({
-    onFocusWithinChange: (isFocusWithin) => setFocusWithin(isFocusWithin),
-  });
-
   const context = {
     mode,
     inputValue,
@@ -89,11 +84,11 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     onVoiceInput(input);
   };
 
-  const styles = useComboboxStyles({ focusWithin });
+  const { styles, focusProps } = useComboboxStyles();
 
   return (
     <ComboboxContextProvider value={context}>
-      <Box css={styles.container} {...focusWithinProps}>
+      <Box css={styles.container}>
         <Box css={styles.inputContainer} {...getComboboxProps()}>
           <Box as="label" css={styles.label} {...getLabelProps({ htmlFor: id })}>
             {label ?? placeholder}
@@ -109,27 +104,30 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
             ref={ref}
             as="input"
             css={styles.input}
-            {...getInputProps({
-              type: 'search',
-              dir: 'auto',
-              placeholder,
-              'aria-invalid': invalid,
-              autoCapitalize: 'off',
-              autoComplete: 'off',
-              autoCorrect: 'off',
-              spellCheck: 'false',
-              inputMode: 'search',
-              onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => {
-                // Don't supress native form submission when 'Enter' key is pressed
-                // Only if the user isn't focused on an item in the suggestions
-                if (e.key === 'Enter' && highlightedIndex === -1) {
-                  (e.nativeEvent as any).preventDownshiftDefault = true;
-                }
+            {...mergeProps(
+              getInputProps({
+                type: 'search',
+                dir: 'auto',
+                placeholder,
+                'aria-invalid': invalid,
+                autoCapitalize: 'off',
+                autoComplete: 'off',
+                autoCorrect: 'off',
+                spellCheck: 'false',
+                inputMode: 'search',
+                onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => {
+                  // Don't supress native form submission when 'Enter' key is pressed
+                  // Only if the user isn't focused on an item in the suggestions
+                  if (e.key === 'Enter' && highlightedIndex === -1) {
+                    (e.nativeEvent as any).preventDownshiftDefault = true;
+                  }
 
-                onKeyDown(e);
-              },
-              onChange: (e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value),
-            })}
+                  onKeyDown(e);
+                },
+                onChange: (e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value),
+              }),
+              focusProps,
+            )}
             enterKeyHint={enterKeyHint}
             {...rest}
           />

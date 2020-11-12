@@ -1,24 +1,17 @@
-import Color from 'color';
-import { useTheme } from 'sajari-react-sdk-styles';
 import tw from 'twin.macro';
 
+import useFocusRingStyles from '../hooks/useFocusRingStyles';
 import { mapStyles } from '../utils/style-props';
 
-interface UseComboboxStylesProps {
-  focusWithin: boolean;
-}
-
-export function useComboboxStyles(props: UseComboboxStylesProps) {
-  const { focusWithin } = props;
-  const theme = useTheme();
-  const color = new Color(theme.color.primary.base);
+export function useComboboxStyles() {
+  const { focusProps, focusRingStyles } = useFocusRingStyles();
 
   const styles = {
     container: [tw`relative`],
     inputContainer: [
       tw`form-input`,
       tw`relative transition-all duration-150 bg-white border border-gray-200 pl-9`,
-      focusWithin ? { borderColor: theme.color.primary.base, boxShadow: `0 0 0 3px ${color.alpha(0.45).hsl()}` } : '',
+      ...focusRingStyles,
     ],
     label: [tw`sr-only`],
     input: [
@@ -39,5 +32,5 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
     ],
   };
 
-  return mapStyles(styles);
+  return { styles: mapStyles(styles), focusProps };
 }

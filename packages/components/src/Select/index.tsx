@@ -12,10 +12,14 @@ import { SelectProps } from './types';
 
 const Select = React.forwardRef((props: SelectProps, ref?: React.Ref<HTMLSelectElement>) => {
   const { id = `select-${useId()}`, children, disabled, invalid, placeholder, label, ...rest } = props;
-  const styles = useInputStyle({ block: true, type: 'select', ...props } as UseInputStyleProps);
+  const { styles, focusRingStyles, focusProps } = useInputStyle({
+    block: true,
+    type: 'select',
+    ...props,
+  } as UseInputStyleProps);
 
   return (
-    <React.Fragment>
+    <Box css={[tw`relative`, focusRingStyles]}>
       {label && (
         <Label visuallyHidden htmlFor={id}>
           {label}
@@ -30,12 +34,13 @@ const Select = React.forwardRef((props: SelectProps, ref?: React.Ref<HTMLSelectE
         disabled={disabled}
         aria-invalid={invalid}
         css={[tw`form-select`, styles]}
+        {...focusProps}
         {...rest}
       >
         {placeholder && <option value="">{placeholder}</option>}
         {children}
       </Box>
-    </React.Fragment>
+    </Box>
   );
 });
 

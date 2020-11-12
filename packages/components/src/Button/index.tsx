@@ -42,7 +42,7 @@ const Button = React.forwardRef((props: ButtonProps, ref?: React.Ref<HTMLElement
     onBlur: () => setFocused(false),
   });
 
-  const styles = useButtonStyles({
+  const { styles, focusRingProps } = useButtonStyles({
     pressed,
     appearance,
     disabled,
@@ -54,7 +54,7 @@ const Button = React.forwardRef((props: ButtonProps, ref?: React.Ref<HTMLElement
     hovered,
   });
 
-  const customProps = mergeProps(buttonProps, focusProps, hoverProps);
+  const customProps = mergeProps(buttonProps, focusProps, hoverProps, focusRingProps);
 
   // TODO: we want to toggle CSS classes based on the state change, for example
   // {'sj-button--hovered': hovered, 'sj-button--focused': focused}

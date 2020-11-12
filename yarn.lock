@@ -2824,6 +2824,17 @@
     "@react-types/shared" "^3.2.1"
     clsx "^1.1.1"
 
+"@react-aria/focus@^3.2.3":
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/@react-aria/focus/-/focus-3.2.3.tgz#3e4137498a7fb5235d056c30fd94ab4a82e73aea"
+  integrity sha512-+OWmJMivrq3f8ApWihH1KJYqYj3rZV34YJORacBohcAsF1Qd1V1/P+w3dMkf24kV0wqAiWePCF1FwgnrL/rYzQ==
+  dependencies:
+    "@babel/runtime" "^7.6.2"
+    "@react-aria/interactions" "^3.3.0"
+    "@react-aria/utils" "^3.4.0"
+    "@react-types/shared" "^3.3.0"
+    clsx "^1.1.1"
+
 "@react-aria/i18n@^3.1.2":
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/@react-aria/i18n/-/i18n-3.1.2.tgz#a59fcd14f985aaa9047fcf3ff0d17fedfa26521e"

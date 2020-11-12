@@ -2,25 +2,25 @@ import { css } from '@emotion/core';
 import { useTheme } from 'sajari-react-sdk-styles';
 import tw, { TwStyle } from 'twin.macro';
 
+import useFocusRingStyles from '../hooks/useFocusRingStyles';
 import { ButtonProps } from './types';
 
-const useButtonStyles = ({
-  size,
-  fullWidth,
-  appearance,
-  spacing,
-  disabled,
-  loading,
-  pressed,
-  focused,
-  hovered,
-}: ButtonProps & { pressed: boolean; hovered: boolean; focused: boolean }) => {
+interface UseButtonStylesProps extends ButtonProps {
+  pressed: boolean;
+  hovered: boolean;
+  focused: boolean;
+}
+
+const useButtonStyles = (props: UseButtonStylesProps) => {
+  const { size, fullWidth, appearance, spacing, disabled, loading, pressed, focused, hovered } = props;
   const theme = useTheme();
   const isLink = (['link', 'subtle-link'] as Array<ButtonProps['apperance']>).includes(appearance);
   const styles: (string | TwStyle)[] = [];
+  const { focusProps: focusRingProps, focusRingStyles } = useFocusRingStyles();
+  const returnStyles = (val: typeof styles) => ({ styles: [css(val), focusRingStyles], focusRingProps });
 
   styles.push(
-    tw`items-center justify-center no-underline transition duration-150 ease-in-out border border-transparent border-solid cursor-pointer focus:outline-none`,
+    tw`relative items-center justify-center no-underline transition duration-150 ease-in-out border border-transparent border-solid cursor-pointer focus:outline-none`,
   );
 
   if (!isLink) {
@@ -107,7 +107,7 @@ const useButtonStyles = ({
         break;
     }
 
-    return css(styles);
+    return returnStyles(styles);
   }
 
   switch (appearance) {
@@ -125,18 +125,14 @@ const useButtonStyles = ({
       break;
 
     case 'default':
-      styles.push(
-        tw`text-gray-500 bg-white border-gray-200 shadow-sm focus:border-gray-400 hover:bg-gray-100 focus:bg-white focus:shadow-outline-gray`,
-      );
+      styles.push(tw`text-gray-500 bg-white border-gray-200 shadow-sm hover:bg-gray-100`);
       if (pressed) {
         styles.push(tw`bg-gray-100`);
       }
       break;
 
     case 'link':
-      styles.push(
-        tw`no-underline bg-transparent hover:underline focus:underline focus:shadow-outline focus:shadow-outline-blue`,
-      );
+      styles.push(tw`no-underline bg-transparent hover:underline focus:underline`);
       styles.push({ color: pressed ? theme.color.primary.active : theme.color.primary.base });
 
       if (!loading && !pressed) {
@@ -145,9 +141,7 @@ const useButtonStyles = ({
       break;
 
     case 'subtle-link':
-      styles.push(
-        tw`no-underline bg-transparent hover:underline focus:underline focus:shadow-outline focus:shadow-outline-gray`,
-      );
+      styles.push(tw`no-underline bg-transparent hover:underline focus:underline`);
 
       styles.push(pressed ? tw`text-gray-700` : tw`text-gray-500`);
 
@@ -159,7 +153,7 @@ const useButtonStyles = ({
       break;
   }
 
-  return css(styles);
+  return returnStyles(styles);
 };
 
 export default useButtonStyles;
