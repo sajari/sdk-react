@@ -2,7 +2,7 @@
 import { css, jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
 import { Button, ButtonGroup, Label } from '@sajari/react-components';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { __DEV__ } from 'sajari-react-sdk-utils';
 import tw from 'twin.macro';
 
@@ -11,9 +11,12 @@ import { ListViewType, ViewTypeProps } from './types';
 
 const styles = [tw`transition-colors duration-300 ease-out fill-current`];
 
-const ViewType: React.FC<ViewTypeProps> = ({ defaultView = 'list', label = 'View' }) => {
+const ViewType: React.FC<ViewTypeProps> = ({ defaultView = 'list', label = 'View', onChange = () => {} }) => {
   const [type, setType] = useState<ListViewType>(defaultView);
   const id = `view-type-${useId()}`;
+  useEffect(() => {
+    onChange(type);
+  }, [type]);
   return (
     <div css={tw`flex space-x-4`}>
       <Label htmlFor={id}>{label}</Label>
