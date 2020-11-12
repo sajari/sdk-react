@@ -8,11 +8,19 @@ export interface CustomInputProps {
   ) => TextFieldAria & { ref: React.MutableRefObject<HTMLInputElement | null> };
 }
 
-export type RangeInputProps = {
-  /** The min range */
+export interface RangeInputProps {
+  /** The minimum permitted value */
   min?: number;
-  /** The max range */
+  /** The maximum permitted value */
   max?: number;
+  /** The stepping interval, used both for user interface and validation purposes */
+  step?: number;
+  /** An array of custom steps to use. This will override step. */
+  steps?: number[];
+  /** The interval to show small ticks */
+  tick?: number;
+  /** An array of custom ticks to use. This will override tick. */
+  ticks?: number[];
   /** The range value */
   value?: [number] | Range;
   /** Called once the handle has been released */
@@ -25,8 +33,6 @@ export type RangeInputProps = {
   leftInput?: (props: CustomInputProps) => React.ReactNode;
   /** Right custom input */
   rightInput?: (props: CustomInputProps) => React.ReactNode;
-  /** Show minimum and maximum value labels */
-  showLabels?: boolean;
   /** Show inputs */
   showInputs?: boolean;
-};
+}

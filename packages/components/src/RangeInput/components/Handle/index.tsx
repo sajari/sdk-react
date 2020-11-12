@@ -19,7 +19,7 @@ const Fill = React.forwardRef((props: Props, ref?: React.Ref<HTMLButtonElement>)
     <button
       type="button"
       css={[
-        tw`w-4 h-4 transition duration-200 bg-white border-none rounded-full outline-none appearance-none cursor-pointer before:(absolute transform -translate-x-1/2 text-sm pb-2 text-center transition-opacity duration-200)`,
+        tw`w-4 h-4 transition duration-200 bg-white border-none rounded-full outline-none appearance-none cursor-pointer before:(absolute transform -translate-x-1/2 text-xs px-1 rounded mb-1 bg-gray-900 bg-opacity-75 text-white text-center transition-opacity duration-200)`,
         {
           boxShadow: `inset 0 0 0 1px ${colorShadow.alpha(0.15).hsl()},
               inset 0 -1px 0 ${colorShadow.alpha(0.15).hsl()},

@@ -23,3 +23,39 @@ export function closest(target: number, values: number[]) {
   const match = values.reduce((prev, value) => (Math.abs(value - target) < Math.abs(prev - target) ? value : prev));
   return [values.indexOf(match), match];
 }
+
+/**
+ * Get the number of decimal places
+ * @param value
+ */
+export function getDecimalPlaces(value: number) {
+  const match = `${value}`.match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+
+  if (!match) {
+    return 0;
+  }
+
+  return Math.max(
+    0,
+    // Number of digits right of decimal point.
+    (match[1] ? match[1].length : 0) -
+      // Adjust for scientific notation.
+      (match[2] ? +match[2] : 0),
+  );
+}
+
+/**
+ * Round to the nearest step
+ * @param number
+ * @param step
+ */
+export function round(number: number, step: number) {
+  if (step < 1) {
+    const places = getDecimalPlaces(step);
+    return parseFloat(number.toFixed(places));
+  }
+
+  return Math.round(number / step) * step;
+}
+
+export default { getDecimalPlaces, round };

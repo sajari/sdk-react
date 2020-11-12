@@ -30,7 +30,7 @@ function Example() {
 
   return (
     <div className="flex flex-col">
-      <RangeInput filter={rangeFilter} />
+      <RangeInput filter={rangeFilter} step={25} tick={100} />
       <pre className="self-center">"{filterOutput}"</pre>
     </div>
   );
@@ -124,13 +124,17 @@ function Example() {
 
 ## Props
 
-| Name         | Type                                     | Default    | Description                                                                                                                                |
-| ------------ | ---------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `min`        | `number`                                 | `0`        | The min range, used when you want to use the component without RangeFilter                                                                 |
-| `max`        | `number`                                 | `100`      | The max range, used when you want to use the component without RangeFilter                                                                 |
-| `value`      | `[number, number]`                       | `[25, 50]` | The current value of the range input, used when you want to use the component without RangeFilter                                          |
-| `onChange`   | `(value: [number, number]) => void`      | `() => {}` | A callback, called **after** the value has changed and the handle is released. Used when you want to use the component without RangeFilter |
-| `onInput`    | `(value: [number, number]) => void`      | `() => {}` | A callback, called **as** the value changes, while dragging. Used when you want to use the component without RangeFilter                   |
-| `filter`     | `RangeFilter`                            |            | The RangeFilter object                                                                                                                     |
-| `leftInput`  | `({ getProps, ref }) => React.ReactNode` | `<Input/>` | The left input to set the range's min value                                                                                                |
-| `rightInput` | `({ getProps, ref }) => React.ReactNode` | `<Input/>` | The right input to set the range's min value                                                                                               |
+| Name         | Type                                     | Default     | Description                                                                                                                                 |
+| ------------ | ---------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `min`        | `number`                                 | `0`         | The min range, used when you want to use the component without RangeFilter.                                                                 |
+| `max`        | `number`                                 | `100`       | The max range, used when you want to use the component without RangeFilter.                                                                 |
+| `step`       | `number`                                 | `1`         | The stepping interval, used both for user interface and validation purposes.                                                                |
+| `steps`      | `number[]`                               | `1`         | An array of custom steps to use. This will override `step`.                                                                                 |
+| `value`      | `[number, number]`                       | `[25, 50]`  | The current value of the range input, used when you want to use the component without RangeFilter.                                          |
+| `tick`       | `number`                                 |             | The interval to show small value ticks.                                                                                                     |
+| `ticks`      | `number[]`                               | `[min,max]` | An array of custom ticks to use. This will override `tick`. The default value is also overridden if `tick` is set.                          |
+| `onChange`   | `(value: [number, number]) => void`      | `() => {}`  | A callback, called **after** the value has changed and the handle is released. Used when you want to use the component without RangeFilter. |
+| `onInput`    | `(value: [number, number]) => void`      | `() => {}`  | A callback, called **as** the value changes, while dragging. Used when you want to use the component without RangeFilter.                   |
+| `filter`     | `RangeFilter`                            |             | The RangeFilter object.                                                                                                                     |
+| `leftInput`  | `({ getProps, ref }) => React.ReactNode` | `<Input/>`  | The left input to set the range's low value if dual handle, or value if single handle.                                                      |
+| `rightInput` | `({ getProps, ref }) => React.ReactNode` | `<Input/>`  | The right input to set the range's high value.                                                                                              |
