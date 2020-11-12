@@ -1,0 +1,101 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="useVariables"
+  description="useVariables provide a way for user to modify the Variables instance directly."
+/>
+
+# useVariables
+
+`useVariables` provide a way for user to modify the Variables instance directly.
+
+```js
+import { useVariables, SearchContextProvider } from '@sajari/react-hooks';
+```
+
+## Usage
+
+The `get()` method return the variables as an object.
+
+```jsx
+function Example() {
+  const { variables } = useVariables();
+
+  return <code>{JSON.stringify(variables.get())}</code>;
+}
+```
+
+### Setting value
+
+Use `set()` method to set value.
+
+You can in fact set any arbitrary key/value pair but some propertys are reserved and will be picked up by the pipeline backend.
+
+The following key/value pairs are reserved:
+
+```js
+{
+  "q": "String - The query string",
+  "q.override": "Boolean - TBD",
+  "q.suggestions": "TBD",
+  "resultsPerPage": "Number - number of result per page",
+  "page": "Number - the page number"
+}
+```
+
+The object passed in will be merged with the current value, any key with `undefined` value will remove that key from the `Variables` instance.
+
+```jsx
+function Example() {
+  const { variables } = useVariables();
+
+  return (
+    <div className="flex flex-col space-y-2">
+      <ButtonGroup attached>
+        <Button onClick={() => variables.set({ foo: 'bar' })}>foo = bar</Button>
+        <Button onClick={() => variables.set({ foo: 'baz' })}>foo = baz</Button>
+        <Button onClick={() => variables.set({ foo: undefined })}>Unset foo</Button>
+      </ButtonGroup>
+      <code>{JSON.stringify(variables.get())}</code>
+    </div>
+  );
+}
+```
+
+### Listening
+
+You can also attach callback to the `Variables` instance when something changes. The return value of `listen()` is a unlisten function making it easy to cleanup.
+
+```jsx
+function Example() {
+  const { variables } = useVariables();
+
+  React.useEffect(() => {
+    return variables.listen('values-changed', () => console.log(variables.get()));
+  }, []);
+
+  return (
+    <div className="flex flex-col space-y-2">
+      <ButtonGroup attached>
+        <Button onClick={() => variables.set({ q: 'iphone' })}>Search for "iphone"</Button>
+        <Button onClick={() => variables.set({ q: 'macbook' })}>Search for "macbook"</Button>
+      </ButtonGroup>
+      <p>Check your console!</p>
+    </div>
+  );
+}
+```
+
+## Anatomy
+
+`useVariables` returns an object containing the following properties:
+
+| Name        | Type        | Default | Description              |
+| ----------- | ----------- | ------- | ------------------------ |
+| `variables` | `Variables` |         | The `Variables` instance |
+
+## Props
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+
