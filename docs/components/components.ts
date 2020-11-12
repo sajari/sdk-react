@@ -34,6 +34,7 @@ const hooks = [
   'useSearch',
   'useSorting',
   'useTracking',
+  'useVariables',
 ].sort();
 const tracking = ['NoTracking', 'ClickTracking', 'PosNegTracking'];
 
