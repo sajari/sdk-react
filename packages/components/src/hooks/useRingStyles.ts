@@ -19,9 +19,9 @@ export default function useRingStyles(props?: UseRingStylesProps) {
     let borderColor = color;
 
     if (disabled) {
-      borderColor = twTheme`colors.gray.500`;
+      borderColor = twTheme`colors.gray.500`.toString();
     } else if (invalid) {
-      borderColor = twTheme`colors.red.500`;
+      borderColor = twTheme`colors.red.500`.toString();
     }
 
     let borderRadius;

@@ -23,9 +23,9 @@ export interface Theme {
 const defaultTheme: Theme = {
   color: {
     primary: {
-      base: twTheme`colors.indigo.500`,
-      text: twTheme`colors.white`,
-      active: twTheme`colors.indigo.600`,
+      base: twTheme`colors.indigo.500`.toString(),
+      text: twTheme`colors.white`.toString(),
+      active: twTheme`colors.indigo.600`.toString(),
     },
   },
 };
