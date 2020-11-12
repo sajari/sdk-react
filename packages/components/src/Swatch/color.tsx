@@ -4,7 +4,7 @@ import { jsx } from '@emotion/core';
 import { useSwitch } from '@react-aria/switch';
 import { useToggleState } from '@react-stately/toggle';
 import ColorClass from 'color';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { __DEV__ } from 'sajari-react-sdk-utils';
 import tw, { styled } from 'twin.macro';
 
@@ -53,22 +53,19 @@ export const Color = ({
 }: ColorProps) => {
   const ref = React.useRef<HTMLInputElement>(null);
   const { state, setState } = useSwatchContext();
-  const tempState = useToggleState({
-    isSelected: state.includes(id),
-    onChange: (isSelected) => {
-      const newState = isSelected ? [...state, id] : state.filter((i) => i !== id);
-      setState(newState);
-    },
-  });
-
+  const toggleState = useToggleState();
+  const checked = state.includes(id);
+  const toggle = useCallback(() => setState(checked ? state.filter((i) => i !== id) : [...state, id]), [
+    checked,
+    state,
+  ]);
   const { inputProps } = useSwitch(
     {
-      isSelected: tempState.isSelected,
-      value: String(tempState.isSelected),
+      value: String(checked),
       'aria-label': id,
       name: id,
     },
-    tempState,
+    toggleState,
     ref,
   );
 
@@ -79,8 +76,16 @@ export const Color = ({
       <Box as="span" css={tw`sr-only`}>
         {id}
       </Box>
-      <Box as="input" css={tw`sr-only`} {...inputProps} {...focusProps} ref={ref} />
-      <Check css={tempState.isSelected ? tw`opacity-100 fill-current` : tw`opacity-0 fill-current`} />
+      <Box
+        as="input"
+        css={tw`sr-only`}
+        {...inputProps}
+        {...focusProps}
+        ref={ref}
+        aria-checked={checked}
+        onClick={toggle}
+      />
+      <Check css={checked ? tw`opacity-100 fill-current` : tw`opacity-0 fill-current`} />
     </StyledLabel>
   );
 };
@@ -90,6 +95,7 @@ if (__DEV__) {
 }
 
 /** We're doing it manually rather a for loop because this enables code completion */
+
 Color.White = (overridingProps: ColorProps) => Color.call(null, { ...colors[0], ...overridingProps });
 
 Color.Silver = (overridingProps: ColorProps) => Color.call(null, { ...colors[1], ...overridingProps });
