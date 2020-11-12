@@ -17,16 +17,24 @@ const StyledBox = styled<any>(Box, { shouldForwardProp: (prop) => prop !== 'atta
   & > button {
     :first-of-type {
       ${(props) =>
-        props.attached ? (props.inline ? tw`rounded-none rounded-l-md` : tw`rounded-none rounded-t-md`) : tw``}
+        props.attached
+          ? props.inline
+            ? tw`rounded-none rounded-l-md after:(rounded-none rounded-l-lg)`
+            : tw`rounded-none rounded-t-md after:(rounded-none rounded-t-lg)`
+          : tw``}
     }
 
     :last-of-type {
       ${(props) =>
-        props.attached ? (props.inline ? tw`rounded-none rounded-r-md` : tw`rounded-none rounded-b-md`) : tw``}
+        props.attached
+          ? props.inline
+            ? tw`rounded-none rounded-r-md after:(rounded-none rounded-r-lg)`
+            : tw`rounded-none rounded-b-md after:(rounded-none rounded-b-lg)`
+          : tw``}
     }
 
     :not(:last-of-type):not(:first-of-type) {
-      ${(props) => (props.attached ? tw`rounded-none focus:rounded-none` : tw``)};
+      ${(props) => (props.attached ? tw`rounded-none  after:(rounded-none)` : tw``)};
     }
 
     ${tw`focus:z-10`};
