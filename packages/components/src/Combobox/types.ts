@@ -2,6 +2,13 @@ import React from 'react';
 
 export type ComboboxMode = 'standard' | 'typeahead' | 'suggestions' | 'results';
 
+export interface ResultItem {
+  title: string;
+  url?: string;
+  description?: string;
+  image?: string;
+}
+
 interface Props {
   /** The mode for the combobox to operate */
   mode?: ComboboxMode;
@@ -21,7 +28,7 @@ interface Props {
   /** Show a loading icon */
   loading?: boolean;
   /** Autocomplete items */
-  items?: Array<string>;
+  items?: string[] | ResultItem[];
   /** Called when the value changes  */
   onChange?: (value?: string) => void;
   /** The typeahead completion value */

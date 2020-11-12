@@ -1,13 +1,13 @@
 import { createContext } from '@sajari/react-sdk-utils';
 import { PropGetters } from 'downshift';
 
-import { ComboboxMode } from './types';
+import { ComboboxMode, ComboboxProps } from './types';
 
 interface ComboboxContextProps {
   mode: ComboboxMode;
   inputValue: string;
   open: boolean;
-  items: Array<string>;
+  items: ComboboxProps['items'];
   completion: string;
   getItemProps: PropGetters<any>['getItemProps'];
   getMenuProps: PropGetters<any>['getMenuProps'];
@@ -15,6 +15,7 @@ interface ComboboxContextProps {
   selectedItem: any;
   showDropdownTips: boolean;
   showPoweredBy: boolean;
+  typedInputValue: string;
 }
 
 const [ComboboxContextProvider, useComboboxContext] = createContext<ComboboxContextProps>({

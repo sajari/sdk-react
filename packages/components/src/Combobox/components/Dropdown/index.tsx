@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import React from 'react';
 import tw from 'twin.macro';
 
 import { IconDownKey, IconEnterKey, IconUpKey } from '../../../assets/icons';
@@ -8,14 +9,16 @@ import Box from '../../../Box';
 import PoweredBy from '../../../PoweredBy';
 import Text from '../../../Text';
 import { useComboboxContext } from '../../context';
+import { ResultItem } from '../../types';
 import DropdownItem from '../DropdownItem';
+import DropdownResult from '../DropdownResult';
 import { useDropdownStyles } from './styles';
 
 const Dropdown = () => {
   const {
     mode,
     open,
-    items,
+    items = [],
     inputValue,
     highlightedIndex,
     getMenuProps,
@@ -25,6 +28,24 @@ const Dropdown = () => {
   const shown = (mode === 'results' || mode === 'suggestions') && open && items.length > 0;
   const styles = useDropdownStyles({ shown });
   const label = mode === 'results' ? 'Results' : 'Suggestions';
+  let listRender: React.ReactNode = null;
+  if (mode === 'results') {
+    listRender = (items as ResultItem[]).map((item, index) => {
+      const selected = highlightedIndex === index;
+
+      return <DropdownResult value={item} selected={selected} index={index} key={`${item.title}-${index}`} />;
+    });
+  } else {
+    listRender = (items as string[]).map((item, index) => {
+      const value = item;
+      const selected = highlightedIndex === index;
+      const highlight = inputValue.length > 0 && value.startsWith(inputValue);
+
+      return (
+        <DropdownItem value={value} highlight={highlight} selected={selected} index={index} key={`${value}-${index}`} />
+      );
+    });
+  }
 
   return (
     <Box css={styles.container}>
@@ -33,20 +54,7 @@ const Dropdown = () => {
       </Text>
 
       <ul {...getMenuProps()} css={styles.items}>
-        {items.map((value, index) => {
-          const selected = highlightedIndex === index;
-          const highlight = inputValue.length > 0 && value.startsWith(inputValue);
-
-          return (
-            <DropdownItem
-              value={value}
-              highlight={highlight}
-              selected={selected}
-              index={index}
-              key={`${value}-${index}`}
-            />
-          );
-        })}
+        {listRender}
       </ul>
 
       {(showDropdownTips || showPoweredBy) && (
