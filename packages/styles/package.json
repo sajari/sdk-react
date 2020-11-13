@@ -1,8 +1,8 @@
 {
   "name": "sajari-react-sdk-styles",
   "version": "0.0.0",
-  "private": true,
   "description": "TBD",
+  "private": true,
   "repository": {
     "type": "git",
     "directory": "packages/styles"

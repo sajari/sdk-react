@@ -47,7 +47,8 @@
     "build:docs": "lerna exec --scope=sajari-sdk-docs -- yarn build",
     "format": "prettier -c --write \"*/**\"",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "lint:fix": "eslint --fix .",
+    "release": "yarn build && lerna publish"
   },
   "workspaces": [
     "packages/*",

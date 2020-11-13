@@ -1,7 +1,7 @@
 {
   "name": "@sajari/react-hooks",
-  "version": "0.0.0",
-  "description": "TBD",
+  "version": "0.1.0-beta.0",
+  "description": "Easy to use hooks that allow you to build a powerful search interface powered by Sajari using any component library.",
   "scripts": {
     "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
     "build": "tsdx build --tsconfig tsconfig.build.json",

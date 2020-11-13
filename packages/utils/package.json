@@ -2,6 +2,7 @@
   "name": "sajari-react-sdk-utils",
   "version": "0.0.0",
   "description": "TBD",
+  "private": true,
   "repository": {
     "type": "git",
     "directory": "packages/utils"
