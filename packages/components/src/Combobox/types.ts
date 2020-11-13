@@ -26,6 +26,8 @@ interface Props {
   onChange?: (value?: string) => void;
   /** The typeahead completion value */
   completion?: string;
+  /** The size of the combobox input */
+  size?: 'sm' | 'md' | 'lg';
 }
 
 type HtmlAttributes = Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof Props>;

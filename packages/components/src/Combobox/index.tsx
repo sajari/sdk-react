@@ -40,6 +40,7 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     value: valueProp = '',
     items = [],
     completion = '',
+    size = 'md',
     ...rest
   } = props;
   const [value, setValue] = useState(valueProp);
@@ -84,7 +85,7 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     onVoiceInput(input);
   };
 
-  const { styles, focusProps } = useComboboxStyles();
+  const { styles, focusProps } = useComboboxStyles({ size });
 
   return (
     <ComboboxContextProvider value={context}>
