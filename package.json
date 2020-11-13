@@ -48,7 +48,7 @@
     "format": "prettier -c --write \"*/**\"",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "publish": "lerna publish"
+    "release": "lerna publish"
   },
   "workspaces": [
     "packages/*",
