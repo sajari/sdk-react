@@ -1,6 +1,6 @@
 {
-  "version": "0.0.0",
   "registry": "https://registry.npmjs.org/",
+  "version": "independent",
   "publishConfig": {
     "access": "public"
   },
