@@ -29,10 +29,10 @@ function Example() {
     new ClickTracking(),
   );
 
-  const values = new Variables({ q: '' });
+  const variables = new Variables({ q: '' });
 
   const SearchPlayground = React.memo(() => {
-    const { search, results } = useSearchContext();
+    const { search, results } = useSearch();
     const [query, setQuery] = React.useState('');
 
     return (
@@ -51,7 +51,7 @@ function Example() {
   });
 
   return (
-    <SearchContextProvider search={{ pipeline, values, fields: { category: 'brand', title: 'name' } }}>
+    <SearchContextProvider search={{ pipeline, variables, fields: { category: 'brand', title: 'name' } }}>
       <SearchPlayground />
     </SearchContextProvider>
   );
