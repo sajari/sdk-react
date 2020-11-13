@@ -1,6 +1,6 @@
 {
   "name": "@sajari/react-components",
-  "version": "0.1.0-beta.0",
+  "version": "0.1.0-alpha.0",
   "description": "Core components that allow you to build a beautiful search interface with any back end.",
   "repository": {
     "type": "git",
