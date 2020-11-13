@@ -1,6 +1,6 @@
 import { Pipeline, SearchContextProvider, Variables } from '@sajari/react-hooks';
+import { ThemeProvider } from '@sajari/react-sdk-utils';
 import * as React from 'react';
-import { ThemeProvider } from 'sajari-react-sdk-styles';
 
 import { ContextProviderValues } from './types';
 

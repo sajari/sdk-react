@@ -1,6 +1,6 @@
 import createCache from '@emotion/cache';
 
-import { replaceAll } from '../utils/string';
+import { replaceAll } from '../string';
 
 const disablePrefix = ['letter-spacing'];
 

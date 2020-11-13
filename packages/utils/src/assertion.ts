@@ -26,5 +26,3 @@ export const isEmpty = (value: any) => {
   }
   return false;
 };
-
-export const __DEV__ = process.env.NODE_ENV !== 'production';

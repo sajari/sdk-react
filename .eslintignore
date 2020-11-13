@@ -12,3 +12,4 @@ types/**
 # enable linter later
 docs/**
 example/**
+coverage

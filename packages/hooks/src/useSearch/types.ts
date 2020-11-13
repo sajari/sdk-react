@@ -1,4 +1,5 @@
 import { Result } from '@sajari/sdk-js';
+
 import { Pipeline, Variables } from '../SearchContextProvider';
 import { Fields } from '../SearchContextProvider/types';
 

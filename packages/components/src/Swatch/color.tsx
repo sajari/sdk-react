@@ -3,9 +3,9 @@
 import { jsx } from '@emotion/core';
 import { useSwitch } from '@react-aria/switch';
 import { useToggleState } from '@react-stately/toggle';
+import { __DEV__ } from '@sajari/react-sdk-utils';
 import ColorClass from 'color';
 import React, { useCallback } from 'react';
-import { __DEV__ } from 'sajari-react-sdk-utils';
 import tw, { styled } from 'twin.macro';
 
 import { Check } from '../assets/icons';

@@ -1,6 +1,6 @@
 import { css } from '@emotion/core';
+import { useTheme } from '@sajari/react-sdk-utils';
 import Color from 'color';
-import { useTheme } from 'sajari-react-sdk-styles';
 import tw, { TwStyle } from 'twin.macro';
 
 import useFocusRingStyles from './useFocusRingStyles';

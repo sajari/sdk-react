@@ -1,8 +1,7 @@
 {
-  "name": "sajari-react-sdk-utils",
+  "name": "@sajari/react-sdk-utils",
   "version": "1.0.0-alpha.0",
   "description": "TBD",
-  "private": true,
   "repository": {
     "type": "git",
     "directory": "packages/utils"
@@ -22,7 +21,19 @@
     "dist"
   ],
   "peerDependencies": {
+    "@emotion/core": "> 10",
+    "@emotion/styled": "> 10",
+    "@tailwindcss/ui": "^0.6.2",
+    "emotion-theming": "> 10",
     "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@emotion/core": "^10.1.0",
+    "@emotion/styled": "^10.0.27",
+    "emotion-theming": "^10.0.27",
+    "tailwindcss": "^1.9.6",
+    "tailwindcss-filters": "^3.0.0",
+    "tailwindcss-truncate-multiline": "^1.0.3"
   },
   "dependencies": {
     "tslib": "^2.0.3"

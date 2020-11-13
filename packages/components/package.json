@@ -39,8 +39,7 @@
     "color": "^3.1.3",
     "downshift": "^6.0.6",
     "react-ranger": "^2.1.0",
-    "sajari-react-sdk-styles": "^1.0.0-alpha.0",
-    "sajari-react-sdk-utils": "^1.0.0-alpha.0",
+    "@sajari/react-sdk-utils": "^1.0.0-alpha.0",
     "tailwindcss-filters": "^3.0.0",
     "tailwindcss-truncate-multiline": "^1.0.3",
     "tslib": "^2.0.3"

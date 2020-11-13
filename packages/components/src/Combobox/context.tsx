@@ -1,5 +1,5 @@
+import { createContext } from '@sajari/react-sdk-utils';
 import { PropGetters } from 'downshift';
-import { createContext } from 'sajari-react-sdk-utils';
 
 import { ComboboxMode } from './types';
 

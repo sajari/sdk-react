@@ -1,7 +1,7 @@
 /* eslint-disable import/named */
 /* eslint-disable @typescript-eslint/no-shadow */
+import { createContext } from '@sajari/react-sdk-utils';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { createContext } from 'sajari-react-sdk-utils';
 
 import { isEmpty } from '../utils/assertion';
 import debounce from '../utils/debounce';

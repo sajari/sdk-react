@@ -19,7 +19,7 @@
   "dependencies": {
     "@sajari/sdk-js": "next",
     "js-cookie": "^2.2.1",
-    "sajari-react-sdk-utils": "^1.0.0-alpha.0",
+    "@sajari/react-sdk-utils": "^1.0.0-alpha.0",
     "tslib": "^2.0.3"
   },
   "devDependencies": {

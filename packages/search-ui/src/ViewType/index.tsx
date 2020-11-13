@@ -2,8 +2,8 @@
 import { css, jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
 import { Button, ButtonGroup, Label } from '@sajari/react-components';
+import { __DEV__ } from '@sajari/react-sdk-utils';
 import React, { useEffect, useState } from 'react';
-import { __DEV__ } from 'sajari-react-sdk-utils';
 import tw from 'twin.macro';
 
 import { SmallGrid, SmallList } from '../assets/icons';
