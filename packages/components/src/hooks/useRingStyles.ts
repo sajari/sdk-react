@@ -1,5 +1,5 @@
+import { useTheme } from '@sajari/react-sdk-utils';
 import Color from 'color';
-import { useTheme } from 'sajari-react-sdk-styles';
 import tw, { theme as twTheme, TwStyle } from 'twin.macro';
 
 export interface UseRingStylesProps {

@@ -5,7 +5,7 @@ import { Box, Flex, FlexProps, Heading, Logomark } from '@sajari-ui/core';
 import { DefaultSeo } from 'next-seo';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { ThemeProvider } from 'sajari-react-sdk-styles';
+import { ThemeProvider } from '@sajari/react-sdk-utils';
 
 import MDXComponents from '../components/MDXComponents';
 import MobileNav from '../components/Navigation/MobileNav';

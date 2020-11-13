@@ -1,5 +1,5 @@
+import { filterObject } from '@sajari/react-sdk-utils';
 import React from 'react';
-import { filterObject } from 'sajari-react-sdk-styles';
 
 import { PropsWithAs } from '../types/component-as';
 import { forwardRefWithAs } from '../utils/react-helpers';

@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { Image, Rating, Text } from '@sajari/react-components';
+import { useTracking } from '@sajari/react-hooks';
+import { __DEV__ } from '@sajari/react-sdk-utils';
 import React from 'react';
-import { __DEV__ } from 'sajari-react-sdk-utils';
 import tw, { styled } from 'twin.macro';
 
 import { isValidURL } from '../../utils/assertion';
@@ -10,7 +11,6 @@ import { formatNumber } from '../../utils/number';
 import { decodeHTML } from '../../utils/string';
 import useResultStyles from './styles';
 import { ResultProps } from './types';
-import { useTracking } from '@sajari/react-hooks';
 
 const Heading = styled(Text)`
   ${tw`font-medium text-gray-900`}
@@ -34,20 +34,21 @@ const Result = React.forwardRef((props: ResultProps, ref?: React.Ref<HTMLDivElem
   } = props;
   const styles = useResultStyles({ ...props, appearance });
   const { handleResultClicked } = useTracking();
-
   let clickToken;
   if (token && 'click' in token) {
     clickToken = token.click;
   }
 
   const resultClicked = React.useCallback(() => {
-    url && handleResultClicked(url);
+    if (url) {
+      handleResultClicked(url);
+    }
   }, []);
 
   return (
     <article {...rest} ref={ref} css={styles.container}>
       {isValidURL(image, true) && (
-        <a href={clickToken ? clickToken : url} target="_blank" rel="noopener" onClick={resultClicked} css={styles.imageContiner}>
+        <a href={clickToken || url} target="_blank" rel="noreferrer" onClick={resultClicked} css={styles.imageContiner}>
           <Image src={image} css={styles.image} aspectRatio={imageAspectRatio} objectFit={imageObjectFit} />
         </a>
       )}
@@ -55,7 +56,7 @@ const Result = React.forwardRef((props: ResultProps, ref?: React.Ref<HTMLDivElem
       <div css={tw`flex-1 min-w-0`}>
         <div css={tw`flex items-start`}>
           <Heading as="h1" css={tw`flex-1`}>
-            <a href={clickToken ? clickToken : url} target="_blank" rel="noopener" onClick={resultClicked}>
+            <a href={clickToken || url} target="_blank" rel="noreferrer" onClick={resultClicked}>
               {decodeHTML(title)}
             </a>
           </Heading>

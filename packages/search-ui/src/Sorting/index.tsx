@@ -4,8 +4,8 @@ import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
 import { Label, Select } from '@sajari/react-components';
 import { useSorting } from '@sajari/react-hooks';
+import { __DEV__ } from '@sajari/react-sdk-utils';
 import React from 'react';
-import { __DEV__ } from 'sajari-react-sdk-utils';
 import tw from 'twin.macro';
 
 import { SortingProps, SortOption } from './types';

@@ -1,1 +1,1 @@
-# sajari-react-sdk-utils
+# @sajari/react-sdk-utils

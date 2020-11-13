@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { __DEV__ } from 'sajari-react-sdk-utils';
+import { __DEV__ } from '@sajari/react-sdk-utils';
 import tw from 'twin.macro';
 
 import Box from '../Box';

@@ -1,4 +1,4 @@
-import { createContext } from 'sajari-react-sdk-utils';
+import { createContext } from '@sajari/react-sdk-utils';
 
 import { TabsContextOptions } from './types';
 

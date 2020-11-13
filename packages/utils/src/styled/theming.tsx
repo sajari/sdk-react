@@ -3,7 +3,7 @@ import { ThemeProvider as EmotionThemeProvider, useTheme as useEmotionTheme } fr
 import * as React from 'react';
 import { theme as twTheme } from 'twin.macro';
 
-import { merge } from '../utils/object';
+import { merge } from '../object';
 import cache from './cache';
 
 type DeepPartial<T> = {

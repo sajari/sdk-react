@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import { useTheme } from '@sajari/react-sdk-utils';
 import React from 'react';
-import { useTheme } from 'sajari-react-sdk-styles';
 import tw from 'twin.macro';
 
 interface Props {

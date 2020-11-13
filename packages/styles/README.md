@@ -1,1 +1,0 @@
-# sajari-react-sdk-styles

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
-import { Client, RequestError } from '@sajari/sdk-js';
+import { Client } from '@sajari/sdk-js';
 
 import { EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED, EVENT_SEARCH_SENT } from '../events';
 import { Analytics, GoogleAnalytics } from './analytics';

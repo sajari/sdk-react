@@ -1,6 +1,6 @@
 import { Combobox } from '@sajari/react-components';
+import { __DEV__ } from '@sajari/react-sdk-utils';
 import React from 'react';
-import { __DEV__ } from 'sajari-react-sdk-utils';
 
 import { InputProps } from './types';
 
