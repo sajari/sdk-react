@@ -13,6 +13,8 @@ interface ComboboxContextProps {
   getMenuProps: PropGetters<any>['getMenuProps'];
   highlightedIndex: number;
   selectedItem: any;
+  showDropdownTips: boolean;
+  showPoweredBy: boolean;
 }
 
 const [ComboboxContextProvider, useComboboxContext] = createContext<ComboboxContextProps>({

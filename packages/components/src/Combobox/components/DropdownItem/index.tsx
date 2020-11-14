@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 import React from 'react';
 import tw from 'twin.macro';
 
-import { EnterKey } from '../../../assets/icons';
+import { IconEnterKey } from '../../../assets/icons';
 import Box from '../../../Box';
 import { useComboboxContext } from '../../context';
 import { useDropdownItemStyles } from './styles';
@@ -11,7 +11,7 @@ import { DropdownItemProps } from './types';
 
 const DropdownItem = (props: DropdownItemProps) => {
   const { highlight, value, index, selected } = props;
-  const { inputValue, getItemProps } = useComboboxContext();
+  const { inputValue, getItemProps, showDropdownTips } = useComboboxContext();
   const styles = useDropdownItemStyles(props);
 
   // Highlight the suggested text rather than their input
@@ -43,10 +43,12 @@ const DropdownItem = (props: DropdownItemProps) => {
     >
       <Box as="span">{renderContent()}</Box>
 
-      <Box as="span" css={[styles.label, selected ? tw`opacity-100` : tw`opacity-0`]}>
-        Select
-        <EnterKey css={tw`ml-2`} />
-      </Box>
+      {showDropdownTips && (
+        <Box as="span" css={[styles.label, selected ? tw`opacity-100` : tw`opacity-0`]}>
+          Select
+          <IconEnterKey css={tw`ml-2`} />
+        </Box>
+      )}
     </Box>
   );
 };

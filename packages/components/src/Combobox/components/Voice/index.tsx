@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import tw from 'twin.macro';
 
-import { EmptyMic, Mic } from '../../../assets/icons';
+import { IconEmptyMic, IconMic } from '../../../assets/icons';
 import Box from '../../../Box';
 import useVoiceInput from '../../../hooks/useVoiceInput';
 import { VoiceProps } from './types';
@@ -29,7 +29,7 @@ const Voice = ({ children, onVoiceInput }: VoiceProps) => {
       onClick={start}
       aria-label="Search by voice"
     >
-      {active ? <Mic /> : <EmptyMic />}
+      {active ? <IconMic /> : <IconEmptyMic />}
     </Box>
   );
 };

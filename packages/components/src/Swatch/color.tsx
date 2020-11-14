@@ -8,7 +8,7 @@ import ColorClass from 'color';
 import React, { useCallback } from 'react';
 import tw, { styled } from 'twin.macro';
 
-import { Check } from '../assets/icons';
+import { IconCheck } from '../assets/icons';
 import Box from '../Box';
 import useFocusRingStyles from '../hooks/useFocusRingStyles';
 import { colors } from './colors';
@@ -88,7 +88,7 @@ export const Color = (props: ColorProps) => {
         aria-checked={checked}
         onClick={toggle}
       />
-      <Check css={checked ? tw`opacity-100 fill-current` : tw`opacity-0 fill-current`} />
+      <IconCheck css={checked ? tw`opacity-100 fill-current` : tw`opacity-0 fill-current`} />
     </StyledLabel>
   );
 };

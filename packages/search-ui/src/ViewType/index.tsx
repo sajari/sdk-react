@@ -6,7 +6,7 @@ import { __DEV__ } from '@sajari/react-sdk-utils';
 import React, { useEffect, useState } from 'react';
 import tw from 'twin.macro';
 
-import { SmallGrid, SmallList } from '../assets/icons';
+import { IconSmallGrid, IconSmallList } from '../assets/icons';
 import { ListViewType, ViewTypeProps } from './types';
 
 const styles = [tw`transition-colors duration-300 ease-out fill-current`];
@@ -22,10 +22,10 @@ const ViewType: React.FC<ViewTypeProps> = ({ defaultView = 'list', label = 'View
       <Label htmlFor={id}>{label}</Label>
       <ButtonGroup id={id} attached>
         <Button onClick={() => setType('grid')} appearance={type === 'grid' ? 'primary' : undefined}>
-          <SmallGrid css={css([...styles, ...(type === 'grid' ? [tw`text-white`] : [])])} />
+          <IconSmallGrid css={css([...styles, ...(type === 'grid' ? [tw`text-white`] : [])])} />
         </Button>
         <Button onClick={() => setType('list')} appearance={type === 'list' ? 'primary' : undefined}>
-          <SmallList css={css([...styles, ...(type === 'list' ? [tw`text-white`] : [])])} />
+          <IconSmallList css={css([...styles, ...(type === 'list' ? [tw`text-white`] : [])])} />
         </Button>
       </ButtonGroup>
     </div>

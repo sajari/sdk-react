@@ -9,10 +9,10 @@ export function useDropdownItemStyles(props: DropdownItemProps) {
   const { selected } = props;
   const styles: Record<string, (TwStyle | string)[]> = {
     item: [
-      tw`flex items-center w-full px-3 py-2 leading-5 text-left transition-all duration-75 rounded cursor-pointer`,
+      tw`flex items-center w-full px-2 py-1 leading-5 text-left transition-all duration-75 rounded cursor-pointer`,
     ],
     highlight: [tw`font-semibold`],
-    label: [tw`flex items-center ml-auto text-sm text-gray-400 transition-opacity duration-75`],
+    label: [tw`flex items-center ml-auto text-xs text-gray-400 transition-opacity duration-75`],
   };
 
   if (selected) {

@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import tw from 'twin.macro';
 
-import { ChevronLeft, ChevronRight } from '../assets/icons';
+import { IconChevronLeft, IconChevronRight } from '../assets/icons';
 import Box from '../Box';
 import Button from '../Button';
 import ButtonGroup from '../ButtonGroup';
@@ -107,7 +107,7 @@ const Pagination = (props: PaginationProps) => {
         label="Previous"
       >
         &#8203;
-        <ChevronLeft />
+        <IconChevronLeft />
       </Button>
 
       {getButtons(page, pageCount, changeHandler)}
@@ -119,7 +119,7 @@ const Pagination = (props: PaginationProps) => {
         label="Next"
       >
         &#8203;
-        <ChevronRight />
+        <IconChevronRight />
       </Button>
     </ButtonGroup>
   );

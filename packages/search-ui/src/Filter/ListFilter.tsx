@@ -5,7 +5,7 @@ import { useFilter, useQuery } from '@sajari/react-hooks';
 import { useCallback, useEffect, useState } from 'react';
 import tw from 'twin.macro';
 
-import { SmallChevronDown, SmallChevronUp } from '../assets/icons';
+import { IconSmallChevronDown, IconSmallChevronUp } from '../assets/icons';
 import Input from '../Input';
 import Box from './Box';
 import { ListFilterProps } from './types';
@@ -42,10 +42,10 @@ const ListFilter = ({
   const slice = len > limit;
   const sorted = sortable ? sortList(filtered, false, 'count', 'label', selected) : filtered;
   const sliced = slice && !expanded ? sorted.slice(0, limit) : sorted;
-  const Icon = expanded ? SmallChevronUp : SmallChevronDown;
+  const Icon = expanded ? IconSmallChevronUp : IconSmallChevronDown;
 
   const innerList = sliced.map(({ label, count }) => (
-    <div className="flex justify-between items-center" key={label + count}>
+    <div className="flex items-center justify-between" key={label + count}>
       <Control value={label} checked={selected.includes(label)} onChange={noop} css={tw`text-sm`}>
         {typeof itemRender === 'function' ? itemRender(label) : label}
       </Control>
@@ -59,6 +59,7 @@ const ListFilter = ({
         <div css={tw`mb-2`}>
           <Input
             value={query}
+            size="sm"
             onChange={(value) => {
               setQuery(value || '');
             }}

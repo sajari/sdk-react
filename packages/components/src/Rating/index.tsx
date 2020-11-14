@@ -4,7 +4,7 @@ import { jsx } from '@emotion/core';
 import React from 'react';
 import tw, { styled } from 'twin.macro';
 
-import { Star } from '../assets/icons';
+import { IconStar } from '../assets/icons';
 import { __DEV__ } from '../utils/assertion';
 import { toRatingArray } from '../utils/rating';
 import { RatingItem } from './RatingItem';
@@ -22,7 +22,7 @@ const Rating = React.forwardRef(
     {
       value,
       children,
-      character = <Star css={tw`fill-current`} />,
+      character = <IconStar css={tw`fill-current`} />,
       max = 5,
       direction = 'ltr',
       unit = 'star',

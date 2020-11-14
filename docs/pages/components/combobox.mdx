@@ -29,7 +29,18 @@ You can set `mode` to `suggestions` to render autocomplete suggstions.
 function Example() {
   const [query, setQuery] = React.useState('');
   const [value, setValue] = React.useState('');
-  const suggestions = ['apple iphone', 'apple imac', 'apple watch', 'apple mac pro', 'apple macbook pro'];
+  const suggestions = [
+    'apple ipad',
+    'apple ipod',
+    'apple imac',
+    'apple iphone',
+    'apple mac mini',
+    'apple mac pro',
+    'apple macbook pro',
+    'apple pro xdr',
+    'apple tv',
+    'apple watch',
+  ];
 
   const handleSubmit = (event) => {
     event.preventDefault();

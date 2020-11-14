@@ -4,10 +4,11 @@ import { useId } from '@reach/auto-id';
 import { mergeProps } from '@react-aria/utils';
 import { useCombobox } from 'downshift';
 import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
-import tw, { styled } from 'twin.macro';
+import tw from 'twin.macro';
 
-import { Search, Spinner } from '../assets/icons';
+import { IconSearch, IconSmallSearch, IconSpinner } from '../assets/icons';
 import Box from '../Box';
+import useVoiceInput from '../hooks/useVoiceInput';
 import { __DEV__ } from '../utils/assertion';
 import Dropdown from './components/Dropdown';
 import Typeahead from './components/Typeahead';
@@ -15,13 +16,6 @@ import Voice from './components/Voice';
 import ComboboxContextProvider from './context';
 import { useComboboxStyles } from './styles';
 import { ComboboxProps } from './types';
-
-const StyledIconContainer = styled.div<{
-  left?: boolean;
-}>`
-  ${tw`absolute inset-y-0 flex items-center space-x-2 text-gray-400`}
-  ${({ left = false }) => (left ? tw`left-0 pl-3` : tw`right-0 pr-4`)}
-`;
 
 const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInputElement>) => {
   const {
@@ -41,10 +35,13 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     items = [],
     completion = '',
     size = 'md',
+    showDropdownTips = true,
+    showPoweredBy = true,
     ...rest
   } = props;
   const [value, setValue] = useState(valueProp);
   useEffect(() => setValue(valueProp), [valueProp]);
+  const { supported: voiceSupported } = useVoiceInput();
 
   const {
     isOpen: open,
@@ -76,6 +73,8 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     highlightedIndex,
     getMenuProps,
     getItemProps,
+    showDropdownTips,
+    showPoweredBy,
   };
 
   const handleVoiceInput = (input: string) => {
@@ -85,7 +84,11 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     onVoiceInput(input);
   };
 
-  const { styles, focusProps } = useComboboxStyles({ size });
+  const { styles, focusProps } = useComboboxStyles({
+    size,
+    voiceEnabled: enableVoice && voiceSupported,
+    loading,
+  });
 
   return (
     <ComboboxContextProvider value={context}>
@@ -95,9 +98,7 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
             {label ?? placeholder}
           </Box>
 
-          <StyledIconContainer left>
-            <Search />
-          </StyledIconContainer>
+          <Box css={styles.iconContainerLeft}>{size === 'sm' ? <IconSmallSearch /> : <IconSearch />}</Box>
 
           <Typeahead />
 
@@ -134,10 +135,10 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
           />
 
           {enableVoice || loading ? (
-            <StyledIconContainer>
-              {loading && <Spinner />}
+            <Box css={styles.iconContainerRight}>
+              {loading && <IconSpinner css={size === 'sm' ? tw`w-3 h-3` : ''} />}
               {enableVoice && <Voice onVoiceInput={handleVoiceInput} />}
-            </StyledIconContainer>
+            </Box>
           ) : null}
         </Box>
 
