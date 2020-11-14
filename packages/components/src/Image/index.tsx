@@ -25,13 +25,13 @@ const Image = React.forwardRef((props: ImageProps, ref?: React.Ref<HTMLImageElem
   const { src, onError, onLoad, htmlWidth, htmlHeight, aspectRatio, objectFit, ...rest } = props;
   const imageProps = { src, onLoad, onError, htmlWidth, htmlHeight };
   const styles = useImageStyles(props);
-  const image = <Box as={NativeImage} ref={ref} css={styles} {...imageProps} {...rest} />;
+  const image = <Box as={NativeImage} ref={ref} css={styles.image} {...imageProps} {...rest} />;
 
-  if (!aspectRatio) {
-    return image;
-  }
-
-  return <AspectRatio ratio={aspectRatio}>{image}</AspectRatio>;
+  return (
+    <AspectRatio ratio={aspectRatio ?? null} css={styles.container}>
+      {image}
+    </AspectRatio>
+  );
 });
 
 if (__DEV__) {

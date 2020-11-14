@@ -18,7 +18,7 @@ const AspectRatio = React.forwardRef((props: AspectRatioProps, ref?: React.Ref<H
   const styles = useAspectRatioStyles({ ...props, ratio });
 
   return (
-    <Box ref={ref} as={as} {...rest} css={styles.parent}>
+    <Box ref={ref} as={as} {...rest} css={styles}>
       {cloneElement(child)}
     </Box>
   );

@@ -1,37 +1,44 @@
-import { css } from '@emotion/core';
-import tw, { TwStyle } from 'twin.macro';
+import tw from 'twin.macro';
 
+import { mapStyles } from '../utils/style-props';
 import { ImageProps } from './types';
 import { useHasImageLoaded } from './useHasImageLoaded';
 
 export function useImageStyles(props: ImageProps) {
   const hasLoaded = useHasImageLoaded(props);
-  const styles: TwStyle[] = [tw`transition-opacity duration-200 ease-in`, hasLoaded ? tw`opacity-100` : tw`opacity-0`];
+  const styles = {
+    container: [tw`rounded-md`, !hasLoaded ? tw`bg-gray-100` : ''],
+    image: [
+      tw`transition-opacity duration-200 ease-in`,
+      hasLoaded ? tw`opacity-100` : tw`opacity-0`,
+      { borderRadius: 'inherit' },
+    ],
+  };
 
   switch (props.objectFit) {
     case 'contain':
-      styles.push(tw`object-contain`);
+      styles.image.push(tw`object-contain`);
       break;
 
     case 'cover':
-      styles.push(tw`object-cover`);
+      styles.image.push(tw`object-cover`);
       break;
 
     case 'fill':
-      styles.push(tw`object-fill`);
+      styles.image.push(tw`object-fill`);
       break;
 
     case 'scale-down':
-      styles.push(tw`object-scale-down`);
+      styles.image.push(tw`object-scale-down`);
       break;
 
     case 'none':
-      styles.push(tw`object-none`);
+      styles.image.push(tw`object-none`);
       break;
 
     default:
       break;
   }
 
-  return css(styles);
+  return mapStyles(styles);
 }
