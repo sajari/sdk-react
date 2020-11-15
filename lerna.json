@@ -6,5 +6,11 @@
   },
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "packages": ["packages/*", "docs"]
+  "packages": ["packages/*", "docs"],
+  "command": {
+    "publish": {
+      "conventionalCommits": true,
+      "message": "pkg: publish"
+    }
+  }
 }
