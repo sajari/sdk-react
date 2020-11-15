@@ -67,7 +67,7 @@ function useNormalSearch(queryOverride: string = ''): UseSearchResult {
 
   const search = useCallback(
     (q?: string) => {
-      if (q) {
+      if (q !== undefined) {
         searchFn(q);
       } else {
         searchFn(query);
