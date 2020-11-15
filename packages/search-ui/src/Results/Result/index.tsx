@@ -16,81 +16,90 @@ const Heading = styled(Text)`
   ${tw`font-medium text-gray-900`}
 `;
 
-const Result = React.forwardRef((props: ResultProps, ref?: React.Ref<HTMLDivElement>) => {
-  const {
-    appearance = 'list',
-    title,
-    description,
-    rating,
-    category,
-    image,
-    url,
-    price,
-    ratingMax = 5,
-    imageAspectRatio = 1,
-    imageObjectFit = 'contain',
-    token,
-    ...rest
-  } = props;
-  const styles = useResultStyles({ ...props, appearance });
-  const { handleResultClicked } = useTracking();
-  let clickToken;
-  if (token && 'click' in token) {
-    clickToken = token.click;
-  }
-
-  const resultClicked = React.useCallback(() => {
-    if (url) {
-      handleResultClicked(url);
+const Result = React.memo(
+  (props: ResultProps) => {
+    const {
+      appearance = 'list',
+      title,
+      description,
+      rating,
+      category,
+      image,
+      url,
+      price,
+      ratingMax = 5,
+      imageAspectRatio = 1,
+      imageObjectFit = 'contain',
+      token,
+      ...rest
+    } = props;
+    const styles = useResultStyles({ ...props, appearance });
+    const { handleResultClicked } = useTracking();
+    let clickToken;
+    if (token && 'click' in token) {
+      clickToken = token.click;
     }
-  }, []);
 
-  return (
-    <article {...rest} ref={ref} css={styles.container}>
-      {isValidURL(image, true) && (
-        <a href={clickToken || url} target="_blank" rel="noreferrer" onClick={resultClicked} css={styles.imageContiner}>
-          <Image src={image} css={styles.image} aspectRatio={imageAspectRatio} objectFit={imageObjectFit} />
-        </a>
-      )}
+    const resultClicked = React.useCallback(() => {
+      if (url) {
+        handleResultClicked(url);
+      }
+    }, []);
 
-      <div css={tw`flex-1 min-w-0`}>
-        <div css={tw`flex items-start`}>
-          <Heading as="h1" css={tw`flex-1`}>
-            <a href={clickToken || url} target="_blank" rel="noreferrer" onClick={resultClicked}>
-              {decodeHTML(title)}
-            </a>
-          </Heading>
+    return (
+      <article {...rest} css={styles.container}>
+        {isValidURL(image, true) && (
+          <a
+            href={clickToken || url}
+            target="_blank"
+            rel="noreferrer"
+            onClick={resultClicked}
+            css={styles.imageContiner}
+          >
+            <Image src={image} css={styles.image} aspectRatio={imageAspectRatio} objectFit={imageObjectFit} />
+          </a>
+        )}
 
-          {price && appearance === 'list' && (
-            <div css={tw`ml-6`}>
-              <Text>{formatNumber(Number(price), 'USD')}</Text>
+        <div css={tw`flex-1 min-w-0`}>
+          <div css={tw`flex items-start`}>
+            <Heading as="h1" css={tw`flex-1`}>
+              <a href={clickToken || url} target="_blank" rel="noreferrer" onClick={resultClicked}>
+                {decodeHTML(title)}
+              </a>
+            </Heading>
+
+            {price && appearance === 'list' && (
+              <div css={tw`ml-6`}>
+                <Text>{formatNumber(Number(price), 'USD')}</Text>
+              </div>
+            )}
+          </div>
+
+          {(category || typeof rating === 'number') && appearance === 'list' && (
+            <div css={tw`flex items-baseline mt-1`}>
+              {category && <Text css={tw`mr-3 text-xs text-gray-400`}>{category}</Text>}
+              {typeof rating === 'number' && <Rating value={rating} max={ratingMax} />}
+            </div>
+          )}
+
+          {description && appearance === 'list' && (
+            <Text truncate={2} css={tw`mt-1 text-sm text-gray-500`}>
+              {decodeHTML(description)}
+            </Text>
+          )}
+
+          {(price || typeof rating === 'number') && appearance === 'grid' && (
+            <div css={tw`mt-1 space-y-1 text-center`}>
+              {typeof rating === 'number' && <Rating value={rating} max={ratingMax} />}
+              {price && <Text>{formatNumber(Number(price), 'USD')}</Text>}
             </div>
           )}
         </div>
-
-        {(category || typeof rating === 'number') && appearance === 'list' && (
-          <div css={tw`flex items-baseline mt-1`}>
-            {category && <Text css={tw`mr-3 text-xs text-gray-400`}>{category}</Text>}
-            {typeof rating === 'number' && <Rating value={rating} max={ratingMax} />}
-          </div>
-        )}
-
-        {description && appearance === 'list' && (
-          <Text truncate={2} css={tw`mt-1 text-sm text-gray-500`}>
-            {decodeHTML(description)}
-          </Text>
-        )}
-
-        {(price || typeof rating === 'number') && appearance === 'grid' && (
-          <div css={tw`mt-1 space-y-1 text-center`}>
-            {typeof rating === 'number' && <Rating value={rating} max={ratingMax} />}
-            {price && <Text>{formatNumber(Number(price), 'USD')}</Text>}
-          </div>
-        )}
-      </div>
-    </article>
-  );
-});
+      </article>
+    );
+  },
+  (prev, next) => JSON.stringify(prev) === JSON.stringify(next),
+);
 
 if (__DEV__) {
   Result.displayName = 'Result';
