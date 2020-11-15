@@ -190,7 +190,9 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
   const searchFn = useCallback(
     (key: 'search' | 'instant') =>
       debounce((query: string, override: boolean = false) => {
-        setSearching(true);
+        if (!searching) {
+          setSearching(true);
+        }
         const func = key === 'instant' ? instant.current : search;
         const state = key === 'instant' ? instantState : searchState;
         const { pipeline, variables } = func as ProviderPipelineConfig;
