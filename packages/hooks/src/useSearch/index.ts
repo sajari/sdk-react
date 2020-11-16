@@ -56,6 +56,7 @@ function useNormalSearch(queryOverride: string = ''): UseSearchResult {
   const { query } = useQuery();
   const {
     search: { searching, response, fields = {}, variables, search: searchFn, config },
+    instant: { search: searchInstantFn, suggestions },
   } = useContext();
 
   const results = response?.getResults();
@@ -75,6 +76,8 @@ function useNormalSearch(queryOverride: string = ''): UseSearchResult {
     },
     [query],
   );
+
+  const searchInstant = useCallback((q: string) => searchInstantFn(q), []);
 
   useEffect(() => {
     searchFn(queryOverride);
@@ -106,8 +109,10 @@ function useNormalSearch(queryOverride: string = ''): UseSearchResult {
   return {
     latency: response?.getTime(),
     totalResults: response?.getTotalResults(),
+    suggestions: suggestions ?? [],
     results: results ? mapResultFields(results, fields) : undefined,
     search,
+    searchInstant,
     loading: searching,
     error,
   };
