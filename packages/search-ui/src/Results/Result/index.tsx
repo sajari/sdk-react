@@ -30,12 +30,13 @@ const Result = React.memo(
       ratingMax = 5,
       imageAspectRatio = 1,
       imageObjectFit = 'contain',
+      currencyCode = 'USD',
       token,
       ...rest
     } = props;
     const styles = useResultStyles({ ...props, appearance });
     const { handleResultClicked } = useTracking();
-    let clickToken;
+    let clickToken: string | undefined;
     if (token && 'click' in token) {
       clickToken = token.click;
     }
@@ -70,7 +71,7 @@ const Result = React.memo(
 
             {price && appearance === 'list' && (
               <div css={tw`ml-6`}>
-                <Text>{formatNumber(Number(price), 'USD')}</Text>
+                <Text>{formatNumber(Number(price), currencyCode)}</Text>
               </div>
             )}
           </div>
@@ -91,7 +92,7 @@ const Result = React.memo(
           {(price || typeof rating === 'number') && appearance === 'grid' && (
             <div css={tw`mt-1 space-y-1 text-center`}>
               {typeof rating === 'number' && <Rating value={rating} max={ratingMax} />}
-              {price && <Text>{formatNumber(Number(price), 'USD')}</Text>}
+              {price && <Text>{formatNumber(Number(price), currencyCode)}</Text>}
             </div>
           )}
         </div>

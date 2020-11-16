@@ -5,6 +5,7 @@ export interface ResultsProps {
   ratingMax?: number;
   imageAspectRatio?: ImageProps['aspectRatio'];
   imageObjectFit?: ImageProps['objectFit'];
+  currencyCode?: string;
 }
 
 export interface ResultValues {

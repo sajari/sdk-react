@@ -5,7 +5,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { isEmpty } from '../utils/assertion';
 import debounce from '../utils/debounce';
-import { Config, defaultConfig } from './config';
 import {
   ClickTracking,
   Filter,
@@ -20,6 +19,7 @@ import {
 import combineFilters from './controllers/filters/combineFilters';
 import { UnlistenFn } from './controllers/listener';
 import { EVENT_RESPONSE_UPDATED, EVENT_SELECTION_UPDATED, EVENT_VALUES_UPDATED } from './events';
+import { defaultConfig, Config } from './config';
 import {
   Context,
   FieldDictionary,

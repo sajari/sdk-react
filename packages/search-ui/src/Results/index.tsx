@@ -10,7 +10,7 @@ import { ResultsProps, ResultValues } from './types';
 const Results = (props: ResultsProps) => {
   const { results } = useSearchContext<ResultValues>();
   const styles = useResultsStyles(props);
-  const { appearance = 'list' } = props;
+  const { appearance = 'list', ...rest } = props;
 
   return (
     <div css={[styles.container]}>
@@ -27,6 +27,7 @@ const Results = (props: ResultsProps) => {
           rating={Number(rating)}
           appearance={appearance}
           css={styles.item}
+          {...rest}
         />
       ))}
     </div>

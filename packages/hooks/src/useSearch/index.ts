@@ -2,9 +2,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useContext } from '../SearchContextProvider';
-import { defaultConfig } from '../SearchContextProvider/config';
 import { Response } from '../SearchContextProvider/controllers';
 import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from '../SearchContextProvider/events';
+import { defaultConfig } from '../SearchContextProvider/config';
 import useQuery from '../useQuery';
 import mapResultFields from '../utils/mapResultFields';
 import { UseSearchCustomConfig, UseSearchParams, UseSearchResult } from './types';
