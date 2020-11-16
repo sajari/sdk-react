@@ -33,18 +33,13 @@ function Example() {
   const SearchPlayground = React.memo(() => {
     const { search, results } = useSearch();
     const { consumeInteractionToken } = useTracking();
-    const [query, setQuery] = React.useState('');
+    const { query } = useQuery();
 
     return (
       <div className="flex flex-col space-y-4">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            search(query);
-          }}
-        >
-          <Input label="Search something" value={query} onChange={(value) => setQuery(value)} />
-        </form>
+        <div>
+          <Input label="Search something" value={query} onChange={(value) => search(value)} />
+        </div>
         {results ? (
           <ul className="flex flex-col space-y-8 list-disc px-6">
             {results.map(({ values: { title }, token }) => {

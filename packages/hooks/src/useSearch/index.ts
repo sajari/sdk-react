@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { useContext } from '../SearchContextProvider';
 import { defaultConfig } from '../SearchContextProvider/config';
@@ -52,18 +52,12 @@ function useCustomSearch({ pipeline, variables, fields = {} }: UseSearchCustomCo
 
 function useNormalSearch(queryOverride: string = ''): UseSearchResult {
   const [error, setError] = useState<Error | null>(null);
-  const firstRender = useRef(true);
   const { query } = useQuery();
   const {
-    search: { searching, response, fields = {}, variables, search: searchFn, config },
+    search: { searching, response, fields = {}, search: searchFn },
   } = useContext();
 
   const results = response?.getResults();
-
-  const request = {
-    ...variables.get(),
-    [config.pageParam]: undefined, // Exclude this from being in JSON.stringify to prevent the search being called twice
-  };
 
   const search = useCallback(
     (q?: string) => {
@@ -79,14 +73,6 @@ function useNormalSearch(queryOverride: string = ''): UseSearchResult {
   useEffect(() => {
     searchFn(queryOverride);
   }, [queryOverride]);
-
-  useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
-    search();
-  }, [JSON.stringify(request)]);
 
   useEffect(() => {
     if (response) {

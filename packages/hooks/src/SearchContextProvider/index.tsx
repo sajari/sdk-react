@@ -189,7 +189,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
 
   const searchFn = useCallback(
     (key: 'search' | 'instant') =>
-      debounce((query: string, override: boolean = false) => {
+      debounce((inputQuery?: string, override: boolean = false) => {
         if (!searching) {
           setSearching(true);
         }
@@ -199,7 +199,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
         const { config } = state;
 
         const text = {
-          [config.qParam]: query,
+          [config.qParam]: inputQuery ?? searchState.query,
           [config.qOverrideParam]: undefined,
         };
 
@@ -214,7 +214,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
         }
         pipeline.search(variables.get());
       }, 50),
-    [],
+    [searchState.query],
   );
 
   const clear = useCallback(

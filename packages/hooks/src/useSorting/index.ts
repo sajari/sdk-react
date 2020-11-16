@@ -5,10 +5,16 @@ import { UseSortingResult } from './types';
 
 function useSorting(): UseSortingResult {
   const {
-    search: { variables },
+    search: { search, variables },
   } = useContext();
 
-  const setSorting = useCallback((order: string) => variables.set({ sort: order }), [variables]);
+  const setSorting = useCallback(
+    (order: string) => {
+      variables.set({ sort: order });
+      search();
+    },
+    [variables],
+  );
 
   return {
     sorting: variables.get().sort ?? '',
