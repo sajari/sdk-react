@@ -17,9 +17,16 @@ interface MergeObject {
   [k: string]: any;
 }
 
-export const merge = (target: MergeObject, source: MergeObject) => {
-  if (!isObject(target) || !isObject(source)) {
-    return source;
+// Deep extend destination object with N more objects
+export function merge(target: MergeObject, ...sources: MergeObject[]) {
+  if (!isObject(target) || !sources.length) {
+    return target;
+  }
+
+  const source = sources.shift();
+
+  if (!source || !isObject(source)) {
+    return target;
   }
 
   Object.keys(source).forEach((key) => {
@@ -36,4 +43,4 @@ export const merge = (target: MergeObject, source: MergeObject) => {
   });
 
   return target;
-};
+}

@@ -2,9 +2,9 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { useContext } from '../SearchContextProvider';
-import { defaultConfig } from '../SearchContextProvider/config';
 import { Response } from '../SearchContextProvider/controllers';
 import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from '../SearchContextProvider/events';
+import { defaultConfig } from '../SearchContextProvider/config';
 import useQuery from '../useQuery';
 import mapResultFields from '../utils/mapResultFields';
 import { UseSearchCustomConfig, UseSearchParams, UseSearchResult } from './types';
@@ -55,6 +55,7 @@ function useNormalSearch(queryOverride: string = ''): UseSearchResult {
   const { query } = useQuery();
   const {
     search: { searching, response, fields = {}, search: searchFn },
+    instant: { search: searchInstantFn, suggestions },
   } = useContext();
 
   const results = response?.getResults();
@@ -69,6 +70,8 @@ function useNormalSearch(queryOverride: string = ''): UseSearchResult {
     },
     [query],
   );
+
+  const searchInstant = useCallback((q: string) => searchInstantFn(q), []);
 
   useEffect(() => {
     searchFn(queryOverride);
@@ -92,8 +95,10 @@ function useNormalSearch(queryOverride: string = ''): UseSearchResult {
   return {
     latency: response?.getTime(),
     totalResults: response?.getTotalResults(),
+    suggestions: suggestions ?? [],
     results: results ? mapResultFields(results, fields) : undefined,
     search,
+    searchInstant,
     loading: searching,
     error,
   };

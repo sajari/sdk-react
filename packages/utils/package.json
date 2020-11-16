@@ -1,6 +1,6 @@
 {
   "name": "@sajari/react-sdk-utils",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "TBD",
   "repository": {
     "type": "git",
@@ -30,10 +30,10 @@
     "tailwindcss-truncate-multiline": "^1.0.3"
   },
   "dependencies": {
-    "tslib": "^2.0.3",
     "@emotion/core": "^10.1.0",
     "@emotion/styled": "^10.0.27",
-    "emotion-theming": "^10.0.27"
+    "emotion-theming": "^10.0.27",
+    "tslib": "^2.0.3"
   },
   "publishConfig": {
     "access": "public"

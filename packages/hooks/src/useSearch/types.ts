@@ -16,6 +16,8 @@ export interface UseSearchResult {
   totalResults?: number;
   results?: Result[];
   search: (q?: string) => void;
+  searchInstant?: (q?: string) => void;
+  suggestions?: string[];
   loading: boolean;
   error: Error | null;
 }
