@@ -1,4 +1,5 @@
-import { Pipeline, SearchContextProvider, Variables, SearchProviderValues, FieldDictionary } from '@sajari/react-hooks';
+import { Pipeline, Variables, SearchProviderValues, FieldDictionary } from '@sajari/react-hooks';
+import { ContextProvider } from '@sajari/react-search-ui';
 import { useRef } from 'react';
 
 const SearchProvider: React.FC = ({ children }) => {
@@ -18,7 +19,7 @@ const SearchProvider: React.FC = ({ children }) => {
     }),
   });
 
-  return <SearchContextProvider search={ref.current}>{children}</SearchContextProvider>;
+  return <ContextProvider search={ref.current}>{children}</ContextProvider>;
 };
 
 export default SearchProvider;
