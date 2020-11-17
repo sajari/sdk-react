@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.4](https://github.com/sajari/sajari-sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.3...@sajari/react-hooks@1.0.0-alpha.4) (2020-11-17)
+
+### Features
+
+- expose searching flag in useSearchContext ([d4c4b77](https://github.com/sajari/sajari-sdk-react/commit/d4c4b776e09a23bc2e6a68e28042c9607c626c5e))
+
 # [1.0.0-alpha.3](https://github.com/sajari/sajari-sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.2...@sajari/react-hooks@1.0.0-alpha.3) (2020-11-17)
 
 ### Features
