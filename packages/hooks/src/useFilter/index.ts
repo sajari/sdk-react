@@ -44,7 +44,7 @@ function useFilter(name: string) {
     const fieldCount = filter.getField();
 
     if (isCount && fieldCount) {
-      const repeated = filter.isRepeated();
+      const array = filter.isArray();
       let count = {};
       ({ count } = (aggregateFilters || {})[fieldCount] || {});
       if (!count) {
@@ -55,7 +55,7 @@ function useFilter(name: string) {
       output = Object.entries(count).map(([label, count]: [string, number]) => ({
         label,
         count,
-        value: repeated ? `${fieldCount} ~ ['${label}']` : `${fieldCount} = '${label}'`,
+        value: array ? `${fieldCount} ~ ['${label}']` : `${fieldCount} = '${label}'`,
       }));
 
       filter.setOptions(output.reduce((a, c) => ({ ...a, [c.label]: c.value }), {}));

@@ -252,17 +252,13 @@ function Example() {
 
   const colorFilter = new Filter({
     name: 'color',
-    count: true,
     field: 'imageTags',
-    multi: true,
-    repeated: true,
+    array: true,
   });
 
   const ratingFilter = new Filter({
     name: 'rating',
-    count: true,
     field: 'rating',
-    multi: true,
   });
 
   const variables = new Variables({ q: '' });

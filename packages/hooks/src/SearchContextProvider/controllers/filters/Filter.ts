@@ -23,7 +23,7 @@ export default class Filter {
 
   private count: boolean;
 
-  private repeated: boolean;
+  private array: boolean;
 
   private joinOperator: JoinOperator;
 
@@ -38,12 +38,12 @@ export default class Filter {
   constructor({
     initial = [],
     joinOperator = 'OR',
-    multi = false,
+    multi = true,
     options = {},
-    repeated = false,
+    array = false,
     name,
     field,
-    count = false,
+    count = true,
   }: FilterOptions) {
     if (typeof initial === 'string') {
       initial = [initial];
@@ -64,7 +64,7 @@ export default class Filter {
     /** @private */
     this.multi = multi;
     /** @private */
-    this.repeated = repeated;
+    this.array = array;
     /** @private */
     this.joinOperator = joinOperator;
     /** @private */
@@ -146,8 +146,8 @@ export default class Filter {
     return this.current;
   }
 
-  public isRepeated() {
-    return this.repeated;
+  public isArray() {
+    return this.array;
   }
 
   public isMulti() {

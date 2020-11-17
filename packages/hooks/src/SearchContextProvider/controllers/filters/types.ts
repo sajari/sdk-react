@@ -14,7 +14,7 @@ export interface FilterOptions {
   /** A field in schema, used if count = true */
   field?: string;
   /** Whether the response of the field is an array. This setting is only applicable if count is set */
-  repeated?: boolean;
+  array?: boolean;
   /** Multiple selections allowed */
   multi?: boolean;
   /** Join operator used if multi = true */

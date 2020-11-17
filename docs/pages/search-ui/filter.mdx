@@ -33,7 +33,6 @@ function Example() {
       HP: "brand = 'HP'",
       Garmin: "brand = 'Garmin'",
     },
-    multi: true,
   });
 
   const priceFilter = new FilterOptions({
@@ -99,15 +98,11 @@ function Example() {
   const categoryFilter = new FilterOptions({
     name: 'category',
     field: 'level1',
-    count: true,
-    multi: true,
   });
 
   const priceRangeFilter = new FilterOptions({
     name: 'priceRange',
-    count: true,
     field: 'price_range',
-    multi: true,
   });
 
   const variables = new Variables({ q: '' });
@@ -161,9 +156,7 @@ function Example() {
 
   const ratingFilter = new FilterOptions({
     name: 'rating',
-    count: true,
     field: 'rating',
-    multi: true,
   });
 
   const variables = new Variables({ q: '' });
@@ -221,10 +214,8 @@ function Example() {
 
   const colorFilter = new FilterOptions({
     name: 'color',
-    count: true,
     field: 'imageTags',
-    multi: true,
-    repeated: true,
+    array: true,
   });
 
   const variables = new Variables({ q: '' });
@@ -274,9 +265,11 @@ function Example() {
 
 Exclusive props if `type` is `list`.
 
-| Name         | Type                                | Default | Description                                                                              |
-| ------------ | ----------------------------------- | ------- | ---------------------------------------------------------------------------------------- |
-| `limit`      | `number`                            | `8`     | Maxium of shown items when the list is collapsed                                         |
-| `searchable` | `boolean`                           | `false` | If true, display an input for searching through filter items                             |
-| `sortable`   | `boolean`                           | `false` | If true, sort selected items on top                                                      |
-| `renderItem` | `(value:string) => React.ReactNode` | -       | A render prop function is used to custom the item label rather than just displaying text |
+| Name            | Type                                | Default                           | Description                                                                               |
+| --------------- | ----------------------------------- | --------------------------------- | ----------------------------------------------------------------------------------------- |
+| `limit`         | `number`                            | `8`                               | Maxium of shown items when the list is collapsed.                                         |
+| `searchable`    | `boolean`                           | `false`                           | If true, display an input for searching through filter items.                             |
+| `sort`          | `'count'` \| `'alpha'` \| `'none'`  | `'count'`                         | How to sort the filter items.                                                             |
+| `sortAscending` | `boolean`                           | `true` if `sort` is not `'count'` | Whether to sort in ascending order.                                                       |
+| `pinSelected`   | `boolean`                           | `true`                            | Pin selected items to the top of the list.                                                |
+| `renderItem`    | `(value:string) => React.ReactNode` | -                                 | A render prop function is used to custom the item label rather than just displaying text. |

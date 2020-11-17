@@ -9,7 +9,7 @@ import { IconSmallChevronDown, IconSmallChevronUp } from '../assets/icons';
 import Input from '../Input';
 import Box from './Box';
 import { ListFilterProps } from './types';
-import { sortList } from './utils';
+import { pinItems, sortItems } from './utils';
 
 const noop = () => {};
 
@@ -18,7 +18,9 @@ const ListFilter = ({
   title,
   limit = 8,
   searchable = false,
-  sortable = false,
+  pinSelected = true,
+  sort = 'count',
+  sortAscending = sort !== 'count',
   itemRender,
 }: Omit<ListFilterProps, 'type'>) => {
   const [query, setQuery] = useState('');
@@ -38,18 +40,18 @@ const ListFilter = ({
 
   const Control = multi ? Checkbox : Radio;
   const filtered = searchable ? options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase())) : options;
-  const len = filtered.length;
-  const slice = len > limit;
-  const sorted = sortable ? sortList(filtered, false, 'count', 'label', selected) : filtered;
-  const sliced = slice && !expanded ? sorted.slice(0, limit) : sorted;
+  const slice = filtered.length > limit;
+  const sorted = sort !== 'none' ? sortItems(filtered, sort === 'count' ? 'count' : 'label', sortAscending) : filtered;
+  const ordered = pinSelected ? pinItems(sorted, selected, 'label') : sorted;
+  const sliced = slice && !expanded ? ordered.slice(0, limit) : ordered;
   const Icon = expanded ? IconSmallChevronUp : IconSmallChevronDown;
 
   const innerList = sliced.map(({ label, count }) => (
-    <div className="flex items-center justify-between" key={label + count}>
+    <div css={tw`flex items-center justify-between`} key={label + count}>
       <Control value={label} checked={selected.includes(label)} onChange={noop} css={tw`text-sm`}>
         {typeof itemRender === 'function' ? itemRender(label) : label}
       </Control>
-      <span className="ml-2 text-xs text-gray-400">{count}</span>
+      <span css={tw`ml-2 text-xs text-gray-400`}>{count}</span>
     </div>
   ));
 
@@ -88,7 +90,7 @@ const ListFilter = ({
             size="sm"
             spacing="none"
           >
-            {expanded ? 'Show less' : `Show ${len - limit} more`}
+            {expanded ? 'Show less' : `Show ${filtered.length - limit} more`}
             <Icon css={[tw`ml-2`, `color: ${({ theme }) => theme.colors.primary}`]} />
           </Button>
         </div>
