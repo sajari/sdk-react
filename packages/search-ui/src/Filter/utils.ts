@@ -2,27 +2,22 @@
  * Sort an array based on a property of child item
  * @param {Array} list
  * @param {Boolean} asc - Ascending order?
- * @param {String} prop - Child item property to sort on
- * @param {String} pinKey - Property of object to get comparation in pinned array
- * @param {Array} pinned - Pin some items to the top (handy for checkbox lists where you may want to pin selected to the top)
+ * @param {String} prop - Property of child object to sort on
  */
-export function sortList(
-  list: Record<string, any>[],
-  asc: boolean = true,
-  prop: string,
-  pinKey: string,
-  pinned: string[] = [],
-) {
-  const sortedList = [...list];
+export function sortItems(list: Record<string, any>[], prop?: string, asc: boolean = true) {
+  return [...list].sort((a, b) => {
+    const l = prop ? a[prop] : a;
+    const r = prop ? b[prop] : b;
+    return asc ? l - r : r - l;
+  });
+}
 
-  sortedList
-    .sort((a, b) => {
-      const l = a[prop];
-      const r = b[prop];
-
-      return asc ? l - r : r - l;
-    })
-    .sort((a, b) => pinned.indexOf(b[pinKey]) - pinned.indexOf(a[pinKey]));
-
-  return sortedList;
+/**
+ * Pin items in an array to the start
+ * @param {Array} list
+ * @param {String} pinned - Items to pin in the array
+ * @param {String} prop - Property of child object to get comparation in pinned array
+ */
+export function pinItems(list: Record<string, any>[], pinned: string[] = [], prop: string) {
+  return [...list].sort((a, b) => pinned.indexOf(b[prop]) - pinned.indexOf(a[prop]));
 }
