@@ -1,3 +1,4 @@
+import { UseComboboxReturnValue } from 'downshift';
 import React from 'react';
 
 export type ComboboxMode = 'standard' | 'typeahead' | 'suggestions' | 'results';
@@ -9,7 +10,7 @@ export interface ResultItem {
   image?: string;
 }
 
-interface Props {
+interface Props<T> {
   /** The mode for the combobox to operate */
   mode?: ComboboxMode;
   /** The state when entering an invalid input */
@@ -28,9 +29,11 @@ interface Props {
   /** Show a loading icon */
   loading?: boolean;
   /** Autocomplete items */
-  items?: string[] | ResultItem[];
+  items?: T[];
   /** Called when the value changes  */
   onChange?: (value?: string) => void;
+  /** Called when a value is selected  */
+  onSelect?: (item: T) => void;
   /** The typeahead completion value */
   completion?: string;
   /** The size of the combobox input */
@@ -39,8 +42,17 @@ interface Props {
   showDropdownTips?: boolean;
   /** Whether to show the "Powered by Sajari" in the dropdown */
   showPoweredBy?: boolean;
+  itemToString?: (item: T) => string;
+  itemToUrl?: (item: T) => string;
+  renderItem?: (params: {
+    item: T;
+    highlight: boolean;
+    index: number;
+    selected: boolean;
+    getItemProps: UseComboboxReturnValue<T>['getItemProps'];
+  }) => React.ReactNode;
 }
 
-type HtmlAttributes = Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof Props>;
+type HtmlAttributes = Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof Props<any>>;
 
-export interface ComboboxProps extends Props, HtmlAttributes {}
+export interface ComboboxProps<T> extends Props<T>, HtmlAttributes {}

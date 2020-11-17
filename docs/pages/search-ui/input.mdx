@@ -15,23 +15,33 @@ Input component is a component that is used to get user input in a text field. I
 import { Input } from 'sajari/react-search-ui';
 ```
 
-## Usage
+## Results
 
 ```jsx
-<Input label="Search something" onChange={(e) => {}} />
+<Input label="Search something" mode="results" />
 ```
 
-### Loading
+<!-- ## Usage
 
 ```jsx
-<Input loading />
+<>
+  <Input label="Search something" />
+  <div className="mt-2">
+    <Results />
+  </div>
+</>
 ```
 
-## Speech recognition
+## Suggestions
 
 ```jsx
-<Input enableVoice onVoiceInput={(text) => console.info(text)} />
-```
+<>
+  <Input label="Search something" mode="suggestions" />
+  <div className="mt-2">
+    <Results />
+  </div>
+</>
+``` -->
 
 ## Props
 
@@ -41,4 +51,4 @@ import { Input } from 'sajari/react-search-ui';
 | -------------- | --------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | `loading`      | `boolean`             | `false` | Show the spinner icon                                                                                                            |
 | `enableVoice`  | `boolean`             | `false` | Whether to enable speech recognition ([Compatibility table](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition)) |
-| `onVoiceInput` | `(r: string) => void` |         | The callback when a voice transcript is output                                                                                   |
+| `onVoiceInput` | `(r: string) => void` |         | The callback when a voice transcript is output                                                                                   | --> |

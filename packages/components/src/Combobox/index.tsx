@@ -17,7 +17,7 @@ import ComboboxContextProvider from './context';
 import { useComboboxStyles } from './styles';
 import { ComboboxProps, ResultItem } from './types';
 
-const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInputElement>) => {
+const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps<T>, ref: React.Ref<HTMLInputElement>) {
   const {
     mode = 'standard',
     label,
@@ -37,6 +37,10 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     size = 'md',
     showDropdownTips = true,
     showPoweredBy = true,
+    itemToString = (item: T) => (item as unknown) as string,
+    itemToUrl = (item: T) => ((item as unknown) as ResultItem).url as string,
+    renderItem,
+    onSelect,
     ...rest
   } = props;
   const [value, setValue] = useState(valueProp);
@@ -55,15 +59,16 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     highlightedIndex,
     inputValue,
     setInputValue,
-  } = useCombobox<string | ResultItem>({
+  } = useCombobox<T>({
     items,
-    itemToString: mode === 'results' ? (item: ResultItem) => item.title : (item: string) => item,
+    itemToString,
     inputValue: value.toString(),
     onInputValueChange: (changes) => {
       setValue(changes.inputValue ?? '');
-      onChange(changes.inputValue);
+      if (mode !== 'suggestions') {
+        onChange(changes.inputValue);
+      }
     },
-    onSelectedItemChange: (changes) => onChange(changes.inputValue),
     stateReducer: (state, { changes, type }) => {
       if (mode === 'suggestions') {
         switch (type) {
@@ -72,21 +77,22 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
               return {
                 ...changes,
                 inputValue: typedInputValue,
-                selectedItem: typedInputValue,
+                // selectedItem: typedInputValue,
                 highlightedIndex: undefined,
               };
             }
 
             if (changes.highlightedIndex !== undefined) {
               const item = (items || [])[changes.highlightedIndex];
+              const stringItem = itemToString(item);
 
-              if (typeof item !== 'string') {
+              if (typeof stringItem !== 'string') {
                 return changes;
               }
 
               return {
                 ...changes,
-                inputValue: item,
+                inputValue: stringItem,
                 selectedItem: item,
               };
             }
@@ -98,21 +104,22 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
               return {
                 ...changes,
                 inputValue: typedInputValue,
-                selectedItem: typedInputValue,
+                // selectedItem: typedInputValue,
                 highlightedIndex: undefined,
               };
             }
 
             if (changes.highlightedIndex !== undefined) {
               const item = (items || [])[changes.highlightedIndex];
+              const stringItem = itemToString(item);
 
-              if (typeof item !== 'string') {
+              if (typeof stringItem !== 'string') {
                 return changes;
               }
 
               return {
                 ...changes,
-                inputValue: item,
+                inputValue: stringItem,
                 selectedItem: item,
               };
             }
@@ -122,13 +129,15 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
           case useCombobox.stateChangeTypes.ItemMouseMove:
             if (changes.highlightedIndex !== undefined) {
               const item = (items || [])[changes.highlightedIndex];
-              if (typeof item !== 'string') {
+              const stringItem = itemToString(item);
+
+              if (typeof stringItem !== 'string') {
                 return changes;
               }
 
               return {
                 ...changes,
-                inputValue: item,
+                inputValue: stringItem,
                 selectedItem: item,
               };
             }
@@ -185,6 +194,9 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     showDropdownTips,
     showPoweredBy,
     typedInputValue,
+    renderItem,
+    itemToString,
+    itemToUrl,
   };
 
   const handleVoiceInput = (input: string) => {
@@ -235,24 +247,29 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
                   }
 
                   if (mode !== 'results' && e.key === 'Enter' && highlightedIndex > -1) {
-                    setTypedInputValue((items[highlightedIndex] as ResultItem).title);
+                    setTypedInputValue(itemToString(items[highlightedIndex]));
                   }
 
                   if (mode === 'typeahead' && e.key === 'ArrowRight') {
                     // @ts-ignore: selectionStart is a member of event.target
                     if (e.target.selectionStart === inputValue.length) {
                       if (completion.startsWith(inputValue)) {
-                        onChange(completion);
                         setInputValue(completion);
                         setTypedInputValue(completion);
                       }
                     }
                   }
 
-                  if (mode === 'results' && e.key === 'Enter' && highlightedIndex > -1) {
-                    const item = ((items as ResultItem[]) || [])[highlightedIndex];
-                    if (item !== undefined && item.url) {
-                      window.location.href = item.url;
+                  if (e.key === 'Enter' && highlightedIndex > -1) {
+                    const item = (items || [])[highlightedIndex];
+                    if (mode === 'results' && itemToUrl) {
+                      const url = itemToUrl(item);
+                      if (url) {
+                        window.location.href = url;
+                      }
+                    }
+                    if (onSelect) {
+                      onSelect(item);
                     }
                   }
 
