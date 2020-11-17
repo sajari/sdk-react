@@ -33,6 +33,7 @@ const hooks = [
   'useQuery',
   'useSearch',
   'useSorting',
+  'useAutocomplete',
   'useTracking',
   'useVariables',
 ].sort();

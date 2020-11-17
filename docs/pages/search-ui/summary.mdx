@@ -22,3 +22,47 @@ function Example() {
   return <Summary />;
 }
 ```
+
+### Override a query via autocomplete
+
+```jsx
+function Example() {
+  const { search, searchInstant } = useSearch();
+  const { query } = useQuery();
+
+  return (
+    <div className="flex flex-col space-y-3">
+      <Input
+        value={query}
+        onChange={(v) => {
+          search(v);
+          searchInstant(v); // Triggers autocomplete pipeline
+        }}
+      />
+      <Summary />
+    </div>
+  );
+}
+```
+
+### Hide the query override
+
+```jsx
+function Example() {
+  const { search, searchInstant } = useSearch();
+  const { query } = useQuery();
+
+  return (
+    <div className="flex flex-col space-y-3">
+      <Input
+        value={query}
+        onChange={(v) => {
+          search(v);
+          searchInstant(v); // Triggers autocomplete pipeline
+        }}
+      />
+      <Summary showOverride={false} />
+    </div>
+  );
+}
+```
