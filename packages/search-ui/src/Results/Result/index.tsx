@@ -7,31 +7,81 @@ import React from 'react';
 import tw, { styled } from 'twin.macro';
 
 import useResultStyles from './styles';
-import { ResultProps } from './types';
+import { ResultProps, ResultViewProps } from './types';
 
 const Heading = styled(Text)`
   ${tw`font-medium text-gray-900`}
 `;
 
+export const ResultView = (props: ResultViewProps) => {
+  const {
+    appearance = 'list',
+    title,
+    description,
+    rating,
+    category,
+    image,
+    url,
+    price,
+    ratingMax = 5,
+    imageAspectRatio = 1,
+    imageObjectFit = 'contain',
+    currencyCode = 'USD',
+    onClick,
+    ...rest
+  } = props;
+  const styles = useResultStyles({ ...props, appearance });
+
+  return (
+    <article {...rest} css={styles.container}>
+      {isValidURL(image, true) && (
+        <a href={url} target="_blank" rel="noreferrer" onClick={onClick} css={styles.imageContainer}>
+          <Image src={image} css={styles.image} aspectRatio={imageAspectRatio} objectFit={imageObjectFit} />
+        </a>
+      )}
+
+      <div css={tw`flex-1 min-w-0`}>
+        <div css={tw`flex items-start`}>
+          <Heading as="h1" css={tw`flex-1`}>
+            <a href={url} target="_blank" rel="noreferrer" onClick={onClick}>
+              {decodeHTML(title)}
+            </a>
+          </Heading>
+
+          {price && appearance === 'list' && (
+            <div css={tw`ml-6`}>
+              <Text>{formatNumber(Number(price), currencyCode)}</Text>
+            </div>
+          )}
+        </div>
+
+        {(category || typeof rating === 'number') && appearance === 'list' && (
+          <div css={tw`flex items-baseline mt-1`}>
+            {category && <Text css={tw`mr-3 text-xs text-gray-400`}>{category}</Text>}
+            {typeof rating === 'number' && <Rating value={rating} max={ratingMax} />}
+          </div>
+        )}
+
+        {description && appearance === 'list' && (
+          <Text truncate={2} css={tw`mt-1 text-sm text-gray-500`}>
+            {decodeHTML(description)}
+          </Text>
+        )}
+
+        {(price || typeof rating === 'number') && appearance === 'grid' && (
+          <div css={tw`mt-1 space-y-1 text-center`}>
+            {isNumber(rating) && <Rating value={rating} max={ratingMax} />}
+            {price && <Text>{formatNumber(Number(price), currencyCode)}</Text>}
+          </div>
+        )}
+      </div>
+    </article>
+  );
+};
+
 const Result = React.memo(
   (props: ResultProps) => {
-    const {
-      appearance = 'list',
-      title,
-      description,
-      rating,
-      category,
-      image,
-      url,
-      price,
-      ratingMax = 5,
-      imageAspectRatio = 1,
-      imageObjectFit = 'contain',
-      currencyCode = 'USD',
-      token,
-      ...rest
-    } = props;
-    const styles = useResultStyles({ ...props, appearance });
+    const { token, url, ...rest } = props;
     const { handleResultClicked } = useTracking();
     let clickToken: string | undefined;
     if (token && 'click' in token) {
@@ -44,57 +94,7 @@ const Result = React.memo(
       }
     }, []);
 
-    return (
-      <article {...rest} css={styles.container}>
-        {isValidURL(image, true) && (
-          <a
-            href={clickToken || url}
-            target="_blank"
-            rel="noreferrer"
-            onClick={resultClicked}
-            css={styles.imageContiner}
-          >
-            <Image src={image} css={styles.image} aspectRatio={imageAspectRatio} objectFit={imageObjectFit} />
-          </a>
-        )}
-
-        <div css={tw`flex-1 min-w-0`}>
-          <div css={tw`flex items-start`}>
-            <Heading as="h1" css={tw`flex-1`}>
-              <a href={clickToken || url} target="_blank" rel="noreferrer" onClick={resultClicked}>
-                {decodeHTML(title)}
-              </a>
-            </Heading>
-
-            {price && appearance === 'list' && (
-              <div css={tw`ml-6`}>
-                <Text>{formatNumber(Number(price), currencyCode)}</Text>
-              </div>
-            )}
-          </div>
-
-          {(category || typeof rating === 'number') && appearance === 'list' && (
-            <div css={tw`flex items-baseline mt-1`}>
-              {category && <Text css={tw`mr-3 text-xs text-gray-400`}>{category}</Text>}
-              {typeof rating === 'number' && <Rating value={rating} max={ratingMax} />}
-            </div>
-          )}
-
-          {description && appearance === 'list' && (
-            <Text truncate={2} css={tw`mt-1 text-sm text-gray-500`}>
-              {decodeHTML(description)}
-            </Text>
-          )}
-
-          {(price || typeof rating === 'number') && appearance === 'grid' && (
-            <div css={tw`mt-1 space-y-1 text-center`}>
-              {isNumber(rating) && <Rating value={rating} max={ratingMax} />}
-              {price && <Text>{formatNumber(Number(price), currencyCode)}</Text>}
-            </div>
-          )}
-        </div>
-      </article>
-    );
+    return <ResultView {...rest} url={clickToken || url} onClick={resultClicked} />;
   },
   (prev, next) => JSON.stringify(prev) === JSON.stringify(next),
 );

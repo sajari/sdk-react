@@ -5,7 +5,7 @@ import useFocusRingStyles from '../hooks/useFocusRingStyles';
 import { ComboboxProps } from './types';
 
 interface UseComboboxStylesProps {
-  size: ComboboxProps['size'];
+  size: ComboboxProps<any>['size'];
   voiceEnabled: boolean;
   loading: boolean;
 }
