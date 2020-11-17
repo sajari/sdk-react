@@ -27,11 +27,11 @@ const DropdownResult = (props: DropdownResultProps) => {
           <Image src={value.image} css={styles.image} aspectRatio={1} objectFit="contain" />
         </div>
 
-        <div css={tw`space-y-2`}>
-          <Heading as="h1" size="base">
+        <div css={styles.textContainer}>
+          <Heading as="h1" size="sm">
             {value.title}
           </Heading>
-          <Text truncate={2}>{value.description}</Text>
+          <Text truncate>{value.description}</Text>
         </div>
       </a>
     </Box>

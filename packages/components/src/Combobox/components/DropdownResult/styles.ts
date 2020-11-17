@@ -7,9 +7,10 @@ export function useDropdownItemStyles(props: DropdownResultProps) {
   const { selected } = props;
   const styles: Record<string, (TwStyle | string)[]> = {
     item: [
-      tw`flex items-center w-full px-2 py-1 leading-5 text-left transition-all duration-75 rounded cursor-pointer`,
+      tw`flex items-center w-full px-2 py-1 text-sm leading-5 text-left transition-all duration-75 rounded cursor-pointer`,
     ],
-    imageContainer: [tw`flex-none w-24 h-24 mr-6`],
+    imageContainer: [tw`flex-none w-12 h-12 mr-6`],
+    textContainer: [tw`min-w-0 space-y-0.5`],
   };
 
   if (selected) {
