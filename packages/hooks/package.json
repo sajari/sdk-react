@@ -16,6 +16,10 @@
     "README.md",
     "dist"
   ],
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
   "dependencies": {
     "@sajari/react-sdk-utils": "^1.0.0-alpha.2",
     "@sajari/sdk-js": "next",
@@ -25,10 +29,7 @@
   "devDependencies": {
     "@types/js-cookie": "^2.2.6"
   },
-  "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
-  },
+
   "publishConfig": {
     "access": "public"
   }

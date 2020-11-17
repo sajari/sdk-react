@@ -21,16 +21,16 @@
     "dist"
   ],
   "peerDependencies": {
-    "@tailwindcss/ui": "^0.6.2",
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@tailwindcss/ui": "^0.7.2",
     "tailwindcss": "^1.9.6",
     "tailwindcss-filters": "^3.0.0",
     "tailwindcss-truncate-multiline": "^1.0.3"
   },
   "dependencies": {
-    "@emotion/core": "^10.1.0",
+    "@emotion/core": "^10.1.1",
     "@emotion/styled": "^10.0.27",
     "emotion-theming": "^10.0.27",
     "tslib": "^2.0.3"
