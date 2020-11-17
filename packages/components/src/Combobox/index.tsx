@@ -15,7 +15,7 @@ import Typeahead from './components/Typeahead';
 import Voice from './components/Voice';
 import ComboboxContextProvider from './context';
 import { useComboboxStyles } from './styles';
-import { ComboboxProps } from './types';
+import { ComboboxProps, ResultItem } from './types';
 
 const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInputElement>) => {
   const {
@@ -40,6 +40,7 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     ...rest
   } = props;
   const [value, setValue] = useState(valueProp);
+  const [typedInputValue, setTypedInputValue] = useState(valueProp.toString());
   useEffect(() => setValue(valueProp), [valueProp]);
   const { supported: voiceSupported } = useVoiceInput();
 
@@ -53,14 +54,122 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     selectedItem,
     highlightedIndex,
     inputValue,
-  } = useCombobox({
+    setInputValue,
+  } = useCombobox<string | ResultItem>({
     items,
+    itemToString: mode === 'results' ? (item: ResultItem) => item.title : (item: string) => item,
     inputValue: value.toString(),
     onInputValueChange: (changes) => {
       setValue(changes.inputValue ?? '');
       onChange(changes.inputValue);
     },
     onSelectedItemChange: (changes) => onChange(changes.inputValue),
+    stateReducer: (state, { changes, type }) => {
+      if (mode === 'suggestions') {
+        switch (type) {
+          case useCombobox.stateChangeTypes.InputKeyDownArrowDown:
+            if (state.highlightedIndex === (items || []).length - 1) {
+              return {
+                ...changes,
+                inputValue: typedInputValue,
+                selectedItem: typedInputValue,
+                highlightedIndex: undefined,
+              };
+            }
+
+            if (changes.highlightedIndex !== undefined) {
+              const item = (items || [])[changes.highlightedIndex];
+
+              if (typeof item !== 'string') {
+                return changes;
+              }
+
+              return {
+                ...changes,
+                inputValue: item,
+                selectedItem: item,
+              };
+            }
+
+            return changes;
+
+          case useCombobox.stateChangeTypes.InputKeyDownArrowUp:
+            if (state.highlightedIndex === 0) {
+              return {
+                ...changes,
+                inputValue: typedInputValue,
+                selectedItem: typedInputValue,
+                highlightedIndex: undefined,
+              };
+            }
+
+            if (changes.highlightedIndex !== undefined) {
+              const item = (items || [])[changes.highlightedIndex];
+
+              if (typeof item !== 'string') {
+                return changes;
+              }
+
+              return {
+                ...changes,
+                inputValue: item,
+                selectedItem: item,
+              };
+            }
+
+            return changes;
+
+          case useCombobox.stateChangeTypes.ItemMouseMove:
+            if (changes.highlightedIndex !== undefined) {
+              const item = (items || [])[changes.highlightedIndex];
+              if (typeof item !== 'string') {
+                return changes;
+              }
+
+              return {
+                ...changes,
+                inputValue: item,
+                selectedItem: item,
+              };
+            }
+            return changes;
+
+          case useCombobox.stateChangeTypes.InputKeyDownEscape:
+            if (state.isOpen) {
+              return {
+                ...changes,
+                isOpen: true,
+                inputValue: typedInputValue,
+              };
+            }
+            return changes;
+
+          default:
+            return changes;
+        }
+      }
+
+      if (mode === 'results') {
+        switch (type) {
+          case useCombobox.stateChangeTypes.InputKeyDownEnter:
+            return {
+              ...changes,
+              inputValue: '',
+            };
+
+          case useCombobox.stateChangeTypes.ItemClick:
+            return {
+              ...changes,
+              inputValue: '',
+            };
+
+          default:
+            return changes;
+        }
+      }
+
+      return changes;
+    },
   });
 
   const context = {
@@ -75,6 +184,7 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
     getItemProps,
     showDropdownTips,
     showPoweredBy,
+    typedInputValue,
   };
 
   const handleVoiceInput = (input: string) => {
@@ -124,9 +234,34 @@ const Combobox = React.forwardRef((props: ComboboxProps, ref: React.Ref<HTMLInpu
                     (e.nativeEvent as any).preventDownshiftDefault = true;
                   }
 
+                  if (mode !== 'results' && e.key === 'Enter' && highlightedIndex > -1) {
+                    setTypedInputValue((items[highlightedIndex] as ResultItem).title);
+                  }
+
+                  if (mode === 'typeahead' && e.key === 'ArrowRight') {
+                    // @ts-ignore: selectionStart is a member of event.target
+                    if (e.target.selectionStart === inputValue.length) {
+                      if (completion.startsWith(inputValue)) {
+                        onChange(completion);
+                        setInputValue(completion);
+                        setTypedInputValue(completion);
+                      }
+                    }
+                  }
+
+                  if (mode === 'results' && e.key === 'Enter' && highlightedIndex > -1) {
+                    const item = ((items as ResultItem[]) || [])[highlightedIndex];
+                    if (item !== undefined && item.url) {
+                      window.location.href = item.url;
+                    }
+                  }
+
                   onKeyDown(e);
                 },
-                onChange: (e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value),
+                onChange: (e: ChangeEvent<HTMLInputElement>) => {
+                  onChange(e.target.value);
+                  setTypedInputValue(e.target.value);
+                },
               }),
               focusProps,
             )}
