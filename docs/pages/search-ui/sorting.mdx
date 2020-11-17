@@ -29,7 +29,7 @@ function Example() {
 
   const SearchPlayground = React.memo(() => {
     const { search, results } = useSearch();
-    const [query, setQuery] = React.useState('');
+    const { query } = useQuery();
 
     return (
       <div className="flex flex-col space-y-4">
@@ -46,15 +46,9 @@ function Example() {
               ]}
             />
           </div>
-          <form
-            className="w-3/5"
-            onSubmit={(e) => {
-              e.preventDefault();
-              search(query);
-            }}
-          >
-            <Input label="Search something" onChange={(value) => setQuery(value)} />
-          </form>
+          <div className="w-3/5">
+            <Input label="Search something" value={query} onChange={(value) => search(value)} />
+          </div>
         </div>
         {results ? <Results /> : null}
       </div>
