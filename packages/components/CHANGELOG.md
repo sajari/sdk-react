@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.9](https://github.com/sajari/sajari-sdk-react/compare/@sajari/react-components@1.0.0-alpha.8...@sajari/react-components@1.0.0-alpha.9) (2020-11-18)
+
+### Bug Fixes
+
+- check rating value isn’t NaN before rendering ([b810dba](https://github.com/sajari/sajari-sdk-react/commit/b810dba7c41ec01cd9e7c9606cd3fd5095117639))
+
 # [1.0.0-alpha.8](https://github.com/sajari/sajari-sdk-react/compare/@sajari/react-components@1.0.0-alpha.7...@sajari/react-components@1.0.0-alpha.8) (2020-11-18)
 
 ### Bug Fixes
