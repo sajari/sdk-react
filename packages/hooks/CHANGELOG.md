@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.7](https://github.com/sajari/sajari-sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.6...@sajari/react-hooks@1.0.0-alpha.7) (2020-11-18)
+
+**Note:** Version bump only for package @sajari/react-hooks
+
 # [1.0.0-alpha.6](https://github.com/sajari/sajari-sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.5...@sajari/react-hooks@1.0.0-alpha.6) (2020-11-17)
 
 **Note:** Version bump only for package @sajari/react-hooks
