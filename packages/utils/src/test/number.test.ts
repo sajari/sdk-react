@@ -1,4 +1,4 @@
-import { clamp } from '../number';
+import { clamp } from '../../../components/src/utils/number';
 
 test.each([
   [0, 100, 101, 100],

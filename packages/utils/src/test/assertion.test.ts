@@ -1,4 +1,4 @@
-import { isNumber } from '../assertion';
+import { isNumber } from '../../../components/src/utils/assertion';
 
 test.each([
   // valid
@@ -6,13 +6,13 @@ test.each([
   [2.4, true],
   [-0, true],
   [-0.1, true],
-  [NaN, true],
   // invalid
   ['', false],
   [{}, false],
   [[], false],
   [null, false],
   [undefined, false],
+  [NaN, false],
 ])('isNumber(%o)', (num, expected) => {
   expect(isNumber(num)).toBe(expected);
 });

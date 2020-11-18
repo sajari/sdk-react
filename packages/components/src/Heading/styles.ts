@@ -1,7 +1,7 @@
 import { css } from '@emotion/core';
 import tw from 'twin.macro';
 
-import { mapTruncateValue } from '../utils/style-props';
+import { mapTruncateValue } from '../utils/styles';
 import { HeadingElements, HeadingSizes } from './types';
 
 const mapElementToSize = (element: HeadingElements): HeadingSizes => {

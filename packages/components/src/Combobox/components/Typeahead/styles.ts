@@ -1,6 +1,5 @@
+import { mapStyles } from '@sajari/react-sdk-utils';
 import tw from 'twin.macro';
-
-import { mapStyles } from '../../../utils/style-props';
 
 export function useTypeaheadStyles() {
   const styles = {

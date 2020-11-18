@@ -1,13 +1,13 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
+import { __DEV__ } from '@sajari/react-sdk-utils';
 import React from 'react';
 import tw from 'twin.macro';
 
 import Box from '../Box';
 import useInputStyle, { UseInputStyleProps } from '../hooks/useInputStyles';
 import Label from '../Label';
-import { __DEV__ } from '../utils/assertion';
 import { SelectProps } from './types';
 
 const Select = React.forwardRef((props: SelectProps, ref?: React.Ref<HTMLSelectElement>) => {

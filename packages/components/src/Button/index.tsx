@@ -3,10 +3,10 @@ import { jsx } from '@emotion/core';
 import { useButton } from '@react-aria/button';
 import { useFocus, useHover } from '@react-aria/interactions';
 import { mergeProps } from '@react-aria/utils';
+import { mergeRefs } from '@sajari/react-sdk-utils';
 import React, { useRef } from 'react';
 
 import Box from '../Box';
-import { mergeRefs } from '../utils/react-helpers';
 import useButtonStyles from './styles';
 import { ButtonProps } from './types';
 

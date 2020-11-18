@@ -21,6 +21,7 @@ export function mapFields<T = Record<string, string | string[]>>(values: T, fiel
         value = fillTemplate<T>(template, values);
       } else if (from.startsWith('!function')) {
         const functionBody = from.replace('!function', '');
+        // eslint-disable-next-line @typescript-eslint/no-implied-eval
         const func = new Function('data', functionBody);
         value = func(values);
       } else {

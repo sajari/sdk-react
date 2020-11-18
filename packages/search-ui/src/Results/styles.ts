@@ -1,6 +1,6 @@
+import { mapStyles } from '@sajari/react-sdk-utils';
 import tw from 'twin.macro';
 
-import { mapStyles } from '../utils/style-props';
 import { ResultsProps } from './types';
 
 export default function useResultsStyles({ appearance = 'list' }: ResultsProps) {

@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 import React, { Children, cloneElement, isValidElement } from 'react';
 
 import Box from '../Box';
-import { __DEV__ } from '../utils/assertion';
+import { __DEV__ } from '@sajari/react-sdk-utils';
 import { useAspectRatioStyles } from './styles';
 import { AspectRatioProps } from './types';
 

@@ -1,14 +1,13 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
+import { __DEV__, clamp, closest, round } from '@sajari/react-sdk-utils';
 import React, { MouseEvent, ReactNode } from 'react';
 import { useRanger } from 'react-ranger';
 import tw from 'twin.macro';
 
 import Box from '../Box';
 import Text from '../Text';
-import { __DEV__ } from '../utils/assertion';
-import { clamp, closest, round } from '../utils/number';
 import Fill from './components/Fill';
 import Handle from './components/Handle';
 import Input from './components/Input';

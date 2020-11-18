@@ -1,11 +1,11 @@
 /* eslint-disable react/no-array-index-key */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import { __DEV__ } from '@sajari/react-sdk-utils';
 import React from 'react';
 import tw, { styled } from 'twin.macro';
 
 import { IconStar } from '../assets/icons';
-import { __DEV__ } from '../utils/assertion';
 import { toRatingArray } from '../utils/rating';
 import { RatingItem } from './RatingItem';
 import { ItemType, RatingItemProps, RatingProps } from './types';

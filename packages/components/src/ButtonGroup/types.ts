@@ -1,6 +1,5 @@
+import { PropsWithAs } from '@sajari/react-sdk-utils';
 import React from 'react';
-
-import { PropsWithAs } from '../types/component-as';
 
 export interface Props {
   /** Should the children be attached to each other */

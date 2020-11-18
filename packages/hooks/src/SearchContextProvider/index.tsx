@@ -1,10 +1,9 @@
 /* eslint-disable import/named */
 /* eslint-disable @typescript-eslint/no-shadow */
-import { createContext } from '@sajari/react-sdk-utils';
+import { createContext, isEmpty, useDebounce } from '@sajari/react-sdk-utils';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import { isEmpty } from '../utils/assertion';
-import debounce from '../utils/debounce';
+import { Config, defaultConfig } from './config';
 import {
   ClickTracking,
   Filter,
@@ -19,7 +18,6 @@ import {
 import combineFilters from './controllers/filters/combineFilters';
 import { UnlistenFn } from './controllers/listener';
 import { EVENT_RESPONSE_UPDATED, EVENT_SELECTION_UPDATED, EVENT_VALUES_UPDATED } from './events';
-import { defaultConfig, Config } from './config';
 import {
   Context,
   FieldDictionary,
@@ -189,7 +187,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
 
   const searchFn = useCallback(
     (key: 'search' | 'instant') =>
-      debounce((inputQuery?: string, override: boolean = false) => {
+      useDebounce((inputQuery?: string, override: boolean = false) => {
         if (!searching) {
           setSearching(true);
         }

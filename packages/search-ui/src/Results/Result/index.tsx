@@ -2,13 +2,10 @@
 import { jsx } from '@emotion/core';
 import { Image, Rating, Text } from '@sajari/react-components';
 import { useTracking } from '@sajari/react-hooks';
-import { __DEV__ } from '@sajari/react-sdk-utils';
+import { __DEV__, decodeHTML, formatNumber, isNumber, isValidURL } from '@sajari/react-sdk-utils';
 import React from 'react';
 import tw, { styled } from 'twin.macro';
 
-import { isValidURL } from '../../utils/assertion';
-import { formatNumber } from '../../utils/number';
-import { decodeHTML } from '../../utils/string';
 import useResultStyles from './styles';
 import { ResultProps } from './types';
 
@@ -91,7 +88,7 @@ const Result = React.memo(
 
           {(price || typeof rating === 'number') && appearance === 'grid' && (
             <div css={tw`mt-1 space-y-1 text-center`}>
-              {typeof rating === 'number' && <Rating value={rating} max={ratingMax} />}
+              {isNumber(rating) && <Rating value={rating} max={ratingMax} />}
               {price && <Text>{formatNumber(Number(price), currencyCode)}</Text>}
             </div>
           )}

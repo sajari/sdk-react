@@ -1,12 +1,11 @@
 /* eslint-disable no-nested-ternary */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import { __DEV__, cleanChildren } from '@sajari/react-sdk-utils';
 import React, { cloneElement } from 'react';
 import tw, { styled } from 'twin.macro';
 
 import Box from '../Box';
-import { __DEV__ } from '../utils/assertion';
-import { cleanChildren } from '../utils/react-helpers';
 import { useButtonGroupStyles } from './styles';
 import { ButtonGroupProps } from './types';
 

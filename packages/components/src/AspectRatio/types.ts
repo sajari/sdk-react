@@ -1,4 +1,4 @@
-import { PropsWithAs } from '../types/component-as';
+import { PropsWithAs } from '@sajari/react-sdk-utils';
 
 export interface Props {
   /** The aspect ratio of the Box. Common values are:
