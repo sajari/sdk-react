@@ -1,4 +1,4 @@
-import { isNumber } from '../../../components/src/utils/assertion';
+import { isNumber } from '../assertion';
 
 test.each([
   // valid
