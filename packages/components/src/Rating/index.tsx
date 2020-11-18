@@ -5,7 +5,7 @@ import { __DEV__ } from '@sajari/react-sdk-utils';
 import React from 'react';
 import tw, { styled } from 'twin.macro';
 
-import { IconStar } from '../assets/icons';
+import { IconSmallStar } from '../assets/icons';
 import { toRatingArray } from '../utils/rating';
 import { RatingItem } from './RatingItem';
 import { ItemType, RatingItemProps, RatingProps } from './types';
@@ -19,16 +19,13 @@ const StyledBox = styled.div<{ flipped: boolean }>`
 
 const Rating = React.forwardRef(
   (
-    {
-      value,
-      children,
-      character = <IconStar css={tw`fill-current`} />,
-      max = 5,
-      direction = 'ltr',
-      unit = 'star',
-    }: RatingProps,
+    { value, children, character = <IconSmallStar />, max = 5, direction = 'ltr', unit = 'star' }: RatingProps,
     ref: React.Ref<HTMLDivElement>,
   ) => {
+    if (Number.isNaN(value)) {
+      return null;
+    }
+
     const isHalf = Math.round(value) - value !== 0;
     const flipped = direction === 'rtl';
     const label = isHalf

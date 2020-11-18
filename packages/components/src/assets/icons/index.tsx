@@ -7,7 +7,7 @@ import IconEnterKey from './enter-key.svg';
 import IconMic from './mic.svg';
 import IconSearch from './search.svg';
 import IconSmallSearch from './small-search.svg';
-import IconStar from './small-star.svg';
+import IconSmallStar from './small-star.svg';
 import IconSpinner from './spinner.svg';
 import IconUpKey from './up-key.svg';
 
@@ -22,6 +22,6 @@ export {
   IconSearch,
   IconSmallSearch,
   IconSpinner,
-  IconStar,
+  IconSmallStar,
   IconUpKey,
 };
