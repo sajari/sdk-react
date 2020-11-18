@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import { __DEV__ } from '@sajari/react-sdk-utils';
 import React from 'react';
 
 import AspectRatio from '../AspectRatio';
 import Box from '../Box';
-import { __DEV__ } from '@sajari/react-sdk-utils';
 import { ImageProps } from './types';
 import { useImageStyles } from './useImageStyles';
 

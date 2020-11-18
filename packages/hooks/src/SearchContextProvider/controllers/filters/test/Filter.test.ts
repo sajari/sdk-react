@@ -9,14 +9,13 @@ describe('Filter', () => {
       Samsung: "brand = 'Samsung'",
     },
     multi: false,
+    count: false,
     initial: ['Apple'],
   });
 
   const countFilter = new Filter({
     name: 'priceRange',
-    count: true,
     field: 'price_range',
-    multi: true,
   });
 
   it('getName', () => {

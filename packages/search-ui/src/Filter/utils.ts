@@ -8,7 +8,12 @@ export function sortItems(list: Record<string, any>[], prop?: string, asc: boole
   return [...list].sort((a, b) => {
     const l = prop ? a[prop] : a;
     const r = prop ? b[prop] : b;
-    return asc ? l - r : r - l;
+    if (l === r) return 0;
+    if (asc) {
+      if (l > r) return 1;
+      return l > r ? 1 : -1;
+    }
+    return l > r ? -1 : 1;
   });
 }
 

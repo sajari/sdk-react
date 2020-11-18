@@ -1,14 +1,14 @@
 import { Result } from '@sajari/sdk-js';
 
 import { Pipeline, Variables } from '../SearchContextProvider';
-import { Fields } from '../SearchContextProvider/types';
+import { FieldDictionary } from '../SearchContextProvider/types';
 
 export type UseSearchParams = string | UseSearchCustomConfig;
 
 export type UseSearchCustomConfig = {
   pipeline: Pipeline;
   variables: Variables;
-  fields?: Record<string, string> & Fields;
+  fields?: Record<string, string> & FieldDictionary;
 };
 
 export interface UseSearchResult {

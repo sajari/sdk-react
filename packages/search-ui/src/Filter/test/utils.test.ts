@@ -1,8 +1,8 @@
 import { FilterItem } from '@sajari/react-hooks';
 
-import { sortList } from '../utils';
+import { pinItems, sortItems } from '../utils';
 
-describe('sortList', () => {
+describe('sortItems', () => {
   // Decending
   test.each([
     [
@@ -10,7 +10,6 @@ describe('sortList', () => {
         { label: 'a', count: 0 },
         { label: 'b', count: 2 },
       ],
-      ['b'],
       [
         { label: 'b', count: 2 },
         { label: 'a', count: 0 },
@@ -22,11 +21,10 @@ describe('sortList', () => {
         { label: 'b', count: 0 },
         { label: 'c', count: 0 },
       ],
-      ['a', 'c'],
       [
         { label: 'c', count: 0 },
-        { label: 'a', count: 0 },
         { label: 'b', count: 0 },
+        { label: 'a', count: 0 },
       ],
     ],
     [
@@ -35,10 +33,9 @@ describe('sortList', () => {
         { label: 'b', count: 5 },
         { label: 'c', count: 3 },
       ],
-      [],
       [
-        { label: 'b', count: 5 },
         { label: 'c', count: 3 },
+        { label: 'b', count: 5 },
         { label: 'a', count: 2 },
       ],
     ],
@@ -49,73 +46,133 @@ describe('sortList', () => {
         { label: 'c', count: 4 },
         { label: 'd', count: 3 },
       ],
-      ['d', 'b'],
       [
-        { label: 'b', count: 5 },
         { label: 'd', count: 3 },
         { label: 'c', count: 4 },
+        { label: 'b', count: 5 },
         { label: 'a', count: 2 },
       ],
     ],
-  ])("sortList(%o,false,'count','label', %o)", (list: FilterItem[], pinned, expected) => {
-    expect(sortList(list, false, 'count', 'label', pinned)).toStrictEqual(expected);
+  ])("sortItems(%o,'label', false)", (list: FilterItem[], expected) => {
+    expect(sortItems(list, 'label', false)).toStrictEqual(expected);
   });
 
   // Ascending
   test.each([
     [
       [
-        { label: 'a', count: 0 },
         { label: 'b', count: 2 },
+        { label: 'a', count: 0 },
       ],
-      ['b'],
       [
-        { label: 'b', count: 2 },
         { label: 'a', count: 0 },
+        { label: 'b', count: 2 },
       ],
     ],
     [
-      [
-        { label: 'a', count: 0 },
-        { label: 'b', count: 0 },
-        { label: 'c', count: 0 },
-      ],
-      ['a', 'c'],
       [
         { label: 'c', count: 0 },
         { label: 'a', count: 0 },
         { label: 'b', count: 0 },
       ],
-    ],
-    [
       [
-        { label: 'a', count: 2 },
-        { label: 'b', count: 5 },
-        { label: 'c', count: 3 },
-      ],
-      [],
-      [
-        { label: 'a', count: 2 },
-        { label: 'c', count: 3 },
-        { label: 'b', count: 5 },
+        { label: 'a', count: 0 },
+        { label: 'b', count: 0 },
+        { label: 'c', count: 0 },
       ],
     ],
     [
+      [
+        { label: 'd', count: 3 },
+        { label: 'b', count: 5 },
+        { label: 'a', count: 2 },
+        { label: 'c', count: 4 },
+      ],
       [
         { label: 'a', count: 2 },
         { label: 'b', count: 5 },
         { label: 'c', count: 4 },
         { label: 'd', count: 3 },
       ],
-      ['d', 'b'],
+    ],
+  ])("sortItems(%o,'label')", (list: FilterItem[], expected) => {
+    expect(sortItems(list, 'label')).toStrictEqual(expected);
+  });
+});
+
+describe('pinItems', () => {
+  test.each([
+    [
       [
-        { label: 'b', count: 5 },
-        { label: 'd', count: 3 },
-        { label: 'a', count: 2 },
-        { label: 'c', count: 4 },
+        {
+          label: 'a',
+          count: 2,
+        },
+        {
+          label: 'b',
+          count: 3,
+        },
+        {
+          label: 'c',
+          count: 4,
+        },
+      ],
+      ['b', 'c'],
+      [
+        {
+          label: 'c',
+          count: 4,
+        },
+        {
+          label: 'b',
+          count: 3,
+        },
+        {
+          label: 'a',
+          count: 2,
+        },
       ],
     ],
-  ])("sortList(%o,true,'count','label', %o)", (list: FilterItem[], pinned, expected) => {
-    expect(sortList(list, true, 'count', 'label', pinned)).toStrictEqual(expected);
+    [
+      [
+        {
+          label: 'b',
+          count: 3,
+        },
+        {
+          label: 'a',
+          count: 2,
+        },
+        {
+          label: 'd',
+          count: 5,
+        },
+        {
+          label: 'c',
+          count: 4,
+        },
+      ],
+      ['d', 'a'],
+      [
+        {
+          label: 'a',
+          count: 2,
+        },
+        {
+          label: 'd',
+          count: 5,
+        },
+        {
+          label: 'b',
+          count: 3,
+        },
+        {
+          label: 'c',
+          count: 4,
+        },
+      ],
+    ],
+  ])("pinItems(%o, %o, 'label')", (list: FilterItem[], pinned, expected) => {
+    expect(pinItems(list, pinned, 'label')).toStrictEqual(expected);
   });
 });

@@ -7,6 +7,7 @@ test.each([
   [{ max_price: 10 }, { price: ['variant_price', 'max_price'] }, { price: 10, max_price: 10 }],
   [
     { handle: 'a-sample-slug' },
+    // eslint-disable-next-line no-template-curly-in-string
     { url: '`/products/${handle}`' },
     { url: '/products/a-sample-slug', handle: 'a-sample-slug' },
   ],
