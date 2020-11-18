@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.8](https://github.com/sajari/sajari-sdk-react/compare/@sajari/react-components@1.0.0-alpha.7...@sajari/react-components@1.0.0-alpha.8) (2020-11-18)
+
+### Bug Fixes
+
+- wrong import in combobox causing docs failed to build ([#230](https://github.com/sajari/sajari-sdk-react/issues/230)) ([490bacd](https://github.com/sajari/sajari-sdk-react/commit/490bacd18d76c784148318961649f6889283360b))
+
 # [1.0.0-alpha.7](https://github.com/sajari/sajari-sdk-react/compare/@sajari/react-components@1.0.0-alpha.6...@sajari/react-components@1.0.0-alpha.7) (2020-11-18)
 
 **Note:** Version bump only for package @sajari/react-components
