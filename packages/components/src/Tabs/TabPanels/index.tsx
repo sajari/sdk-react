@@ -1,8 +1,7 @@
+import { __DEV__, cleanChildren } from '@sajari/react-sdk-utils';
 import React, { cloneElement } from 'react';
 
 import Box from '../../Box';
-import { __DEV__ } from '../../utils/assertion';
-import { cleanChildren } from '../../utils/react-helpers';
 import { useTabContext } from '../context';
 import { TabPanelsProps } from './types';
 

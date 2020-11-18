@@ -1,5 +1,9 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable @typescript-eslint/naming-convention */
+import { parseURL } from './url';
+
+export function isNumber(value: any): value is number {
+  return typeof value === 'number' && !Number.isNaN(value);
+}
+
 export function isArray<T>(value: any): value is T[] {
   return Array.isArray(value);
 }
@@ -26,3 +30,15 @@ export const isEmpty = (value: any) => {
   }
   return false;
 };
+
+/**
+ * Check if a string is a valid absolute or relative URL
+ * @param value
+ */
+export function isValidURL(value: any, allowRelative = false) {
+  if (allowRelative && value.startsWith('/')) {
+    return true;
+  }
+
+  return parseURL(value) !== null;
+}

@@ -1,7 +1,7 @@
 import { css } from '@emotion/core';
 import tw from 'twin.macro';
 
-import { mapTruncateValue } from '../utils/style-props';
+import { mapTruncateValue } from '../utils/styles';
 import { TextElements } from './types';
 
 export default function useTextStyles(as: TextElements, truncate: boolean | 2 | 3 | 4 | 5 = false) {

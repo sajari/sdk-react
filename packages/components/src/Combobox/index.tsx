@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
 import { mergeProps } from '@react-aria/utils';
+import { __DEV__ } from '@sajari/react-sdk-utils';
 import { useCombobox } from 'downshift';
 import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import tw from 'twin.macro';
@@ -9,7 +10,6 @@ import tw from 'twin.macro';
 import { IconSearch, IconSmallSearch, IconSpinner } from '../assets/icons';
 import Box from '../Box';
 import useVoiceInput from '../hooks/useVoiceInput';
-import { __DEV__ } from '../utils/assertion';
 import Dropdown from './components/Dropdown';
 import Typeahead from './components/Typeahead';
 import Voice from './components/Voice';

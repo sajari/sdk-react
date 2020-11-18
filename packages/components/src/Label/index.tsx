@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import { __DEV__ } from '@sajari/react-sdk-utils';
 import React from 'react';
 
-import { __DEV__ } from '../utils/assertion';
 import useLabelStyles from './styles';
 import { LabelProps } from './types';
 

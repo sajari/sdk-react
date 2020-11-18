@@ -1,6 +1,5 @@
 import { AriaButtonProps } from '@react-types/button';
-
-import { PropsWithAs } from '../types/component-as';
+import { PropsWithAs } from '@sajari/react-sdk-utils';
 
 export type ButtonAppearance = 'default' | 'primary' | 'link' | 'subtle-link' | 'none';
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';

@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { mergeProps } from '@react-aria/utils';
+import { __DEV__ } from '@sajari/react-sdk-utils';
 import React from 'react';
 
 import Box from '../../Box';
-import { __DEV__ } from '../../utils/assertion';
 import useTabStyles from './styles';
 import { TabProps } from './types';
 

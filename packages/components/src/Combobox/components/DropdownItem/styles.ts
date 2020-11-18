@@ -1,7 +1,6 @@
-import { useTheme } from '@sajari/react-sdk-utils';
+import { mapStyles, useTheme } from '@sajari/react-sdk-utils';
 import tw, { TwStyle } from 'twin.macro';
 
-import { mapStyles } from '../../../utils/style-props';
 import { DropdownItemProps } from './types';
 
 export function useDropdownItemStyles(props: DropdownItemProps) {

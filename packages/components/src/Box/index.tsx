@@ -1,8 +1,6 @@
-import { filterObject } from '@sajari/react-sdk-utils';
+import { filterObject, forwardRefWithAs, PropsWithAs } from '@sajari/react-sdk-utils';
 import React from 'react';
 
-import { PropsWithAs } from '../types/component-as';
-import { forwardRefWithAs } from '../utils/react-helpers';
 import blacklist from './props-blacklist';
 
 interface BoxProps {

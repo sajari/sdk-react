@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-export default function useDebounce<F extends (...args: any[]) => void>(
+export function useDebounce<F extends (...args: any[]) => void>(
   func: F,
   waitMilliseconds = 50,
   options = {

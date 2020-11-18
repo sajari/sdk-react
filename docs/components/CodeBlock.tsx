@@ -17,7 +17,6 @@ import {
 import { Language } from 'prism-react-renderer';
 import { useState } from 'react';
 import { LiveEditor, LiveError, LivePreview, LiveProvider } from 'react-live';
-import * as ReactTable from 'react-table';
 import resolveConfig from 'tailwindcss/resolveConfig';
 import { useRouter } from 'next/router';
 
@@ -118,7 +117,6 @@ const CodeBlock = (props: CodeBlockProps) => {
       ...ReactSearchUI,
       ...extra,
       mdx,
-      ReactTable,
     },
     noInline: manual,
     ...rest,

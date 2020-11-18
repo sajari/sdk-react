@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
+import { cleanChildren } from '@sajari/react-sdk-utils';
 import React, { cloneElement, useRef, useState } from 'react';
 import tw from 'twin.macro';
 
 import useSpacing from '../hooks/useSpacing';
-import { cleanChildren } from '../utils/react-helpers';
 import { CheckboxGroupProps } from './types';
 
 const CheckboxGroup = ({

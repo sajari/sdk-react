@@ -2,13 +2,13 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
+import { __DEV__ } from '@sajari/react-sdk-utils';
 import React from 'react';
 import tw from 'twin.macro';
 
 import Box from '../Box';
 import useInputStyle, { UseInputStyleProps } from '../hooks/useInputStyles';
 import Label from '../Label';
-import { __DEV__ } from '../utils/assertion';
 import { RadioProps } from './types';
 
 const Radio = React.forwardRef((props: RadioProps, ref?: React.Ref<HTMLInputElement>) => {

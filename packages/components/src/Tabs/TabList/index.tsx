@@ -1,10 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import { __DEV__, cleanChildren } from '@sajari/react-sdk-utils';
 import React, { cloneElement, useRef } from 'react';
 
 import Box from '../../Box';
-import { __DEV__ } from '../../utils/assertion';
-import { cleanChildren } from '../../utils/react-helpers';
 import { useTabContext } from '../context';
 import useTabListStyles from './styles';
 import { TabListProps } from './types';

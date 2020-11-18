@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import { __DEV__ } from '@sajari/react-sdk-utils';
 import React from 'react';
 
 import Box from '../Box';
-import { __DEV__ } from '../utils/assertion';
 import useTextStyles from './styles';
 import { Props as TextProps } from './types';
 

@@ -4,7 +4,7 @@ import React from 'react';
 
 import AspectRatio from '../AspectRatio';
 import Box from '../Box';
-import { __DEV__ } from '../utils/assertion';
+import { __DEV__ } from '@sajari/react-sdk-utils';
 import { ImageProps } from './types';
 import { useImageStyles } from './useImageStyles';
 

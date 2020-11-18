@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { Heading, Image, Text } from '@sajari/react-components';
-import tw from 'twin.macro';
 
 import Box from '../../../Box';
 import { useComboboxContext } from '../../context';
