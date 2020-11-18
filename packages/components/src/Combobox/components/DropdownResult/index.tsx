@@ -1,8 +1,10 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { Heading, Image, Text } from '@sajari/react-components';
 
 import Box from '../../../Box';
+import Heading from '../../../Heading';
+import Image from '../../../Image';
+import Text from '../../../Text';
 import { useComboboxContext } from '../../context';
 import { useDropdownItemStyles } from './styles';
 import { DropdownResultProps } from './types';
@@ -19,7 +21,6 @@ const DropdownResult = (props: DropdownResultProps) => {
         index,
         item: value,
       })}
-      key={`${value}_${index}`}
     >
       <a href={value.url} css={styles.item}>
         <div css={styles.imageContainer}>
