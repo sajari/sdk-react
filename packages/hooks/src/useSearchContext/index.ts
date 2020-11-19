@@ -12,6 +12,7 @@ function useSearchContext<T = Record<string, string | string[]>>() {
   const reqResults = response?.getResults();
 
   return {
+    queryValues: response?.getQueryValues(),
     latency: response?.getTime(),
     page,
     pageSize,
