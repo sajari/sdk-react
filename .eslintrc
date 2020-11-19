@@ -36,7 +36,8 @@
         // Sort imports
         "sort-imports": "off",
         "import/order": "off",
-        "simple-import-sort/sort": "error",
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error",
 
         // Named or default is fine
         "import/prefer-default-export": "off",
