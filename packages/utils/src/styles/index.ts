@@ -7,7 +7,7 @@ export function mapStyles(styles: Record<string, (TwStyle | string)[]>): Record<
     SerializedStyles
   >;
 }
-export { default as ThemeProvider } from './theming';
-export { useTheme, ThemeProviderProps } from './theming';
 export { default as styled } from './styled';
 export { default as tailwindConfig } from './tailwind.config';
+export { default as ThemeProvider } from './theming';
+export { ThemeProviderProps, useTheme } from './theming';

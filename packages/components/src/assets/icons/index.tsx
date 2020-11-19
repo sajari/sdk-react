@@ -21,7 +21,7 @@ export {
   IconMic,
   IconSearch,
   IconSmallSearch,
-  IconSpinner,
   IconSmallStar,
+  IconSpinner,
   IconUpKey,
 };

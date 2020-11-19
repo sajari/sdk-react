@@ -267,5 +267,5 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
 };
 
 export default SearchContextProvider;
-export { ClickTracking, PosNegTracking, useContext, Pipeline, Variables, RangeFilter, Range, Filter, FieldDictionary };
+export { ClickTracking, FieldDictionary, Filter, Pipeline, PosNegTracking, Range, RangeFilter, useContext, Variables };
 export type { SearchProviderValues };

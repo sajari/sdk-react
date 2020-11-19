@@ -104,12 +104,11 @@ Tabs.displayName = 'Tabs';
 export default Tabs;
 export type { TabsProps };
 
-export { default as Tab } from './Tab';
-export { default as TabList } from './TabList';
-export { default as TabPanel } from './TabPanel';
-export { default as TabPanels } from './TabPanels';
-
 export type { TabProps } from './Tab';
+export { default as Tab } from './Tab';
 export type { TabListProps } from './TabList';
+export { default as TabList } from './TabList';
 export type { TabPanelProps } from './TabPanel';
+export { default as TabPanel } from './TabPanel';
 export type { TabPanelsProps } from './TabPanels';
+export { default as TabPanels } from './TabPanels';
