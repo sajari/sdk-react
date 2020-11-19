@@ -9,6 +9,7 @@ describe('combineFilters', () => {
       Samsung: "brand = 'Samsung'",
     },
     multi: false,
+    count: false,
     initial: ['Apple'],
   });
 
@@ -19,22 +20,19 @@ describe('combineFilters', () => {
       Mid: 'price >= 50',
       Low: 'price < 50',
     },
+    count: false,
     multi: false,
     initial: ['High'],
   });
 
   const priceRangeFilter = new Filter({
     name: 'priceRange',
-    count: true,
     field: 'price_range',
-    multi: true,
   });
 
   const categoryFilter = new Filter({
     name: 'category',
-    count: true,
     field: 'product_cat',
-    multi: true,
   });
 
   const combination = combineFilters([brandFilter, priceFilter, priceRangeFilter, categoryFilter]);

@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import { __DEV__ } from '@sajari/react-sdk-utils';
 import React, { Children, cloneElement, isValidElement } from 'react';
 
 import Box from '../Box';
-import { __DEV__ } from '@sajari/react-sdk-utils';
 import { useAspectRatioStyles } from './styles';
 import { AspectRatioProps } from './types';
 
