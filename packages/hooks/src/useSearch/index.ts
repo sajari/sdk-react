@@ -7,7 +7,7 @@ import { Response } from '../SearchContextProvider/controllers';
 import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from '../SearchContextProvider/events';
 import useQuery from '../useQuery';
 import mapResultFields from '../utils/mapResultFields';
-import { UseSearchCustomConfig, UseSearchParams, UseSearchResult } from './types';
+import { UseSearchConfig, UseSearchCustomConfig, UseSearchParams, UseSearchResult } from './types';
 
 function useCustomSearch({ pipeline, variables, fields = {} }: UseSearchCustomConfig): UseSearchResult {
   const [loading, setLoading] = useState(false);
@@ -50,7 +50,7 @@ function useCustomSearch({ pipeline, variables, fields = {} }: UseSearchCustomCo
   return { ...searchOutput, loading };
 }
 
-function useNormalSearch(queryOverride: string = ''): UseSearchResult {
+function useNormalSearch({ queryOverride = '', allowEmptySearch = true }: UseSearchConfig): UseSearchResult {
   const [error, setError] = useState<Error | null>(null);
   const { query } = useQuery();
   const {
@@ -74,8 +74,10 @@ function useNormalSearch(queryOverride: string = ''): UseSearchResult {
   const searchInstant = useCallback((q: string) => searchInstantFn(q), []);
 
   useEffect(() => {
-    searchFn(queryOverride);
-  }, [queryOverride]);
+    if ((queryOverride === '' && allowEmptySearch) || queryOverride !== '') {
+      searchFn(queryOverride);
+    }
+  }, [queryOverride, allowEmptySearch]);
 
   useEffect(() => {
     if (response) {
@@ -108,7 +110,7 @@ function useSearch(params?: UseSearchParams) {
   if (params !== undefined && typeof params === 'object' && 'pipeline' in params && 'variables' in params) {
     return useCustomSearch(params);
   }
-  return useNormalSearch(params);
+  return useNormalSearch(params || {});
 }
 
 export default useSearch;

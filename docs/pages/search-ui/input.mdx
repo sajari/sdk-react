@@ -15,18 +15,12 @@ Input component is a component that is used to get user input in a text field. I
 import { Input } from 'sajari/react-search-ui';
 ```
 
-## Results
-
-```jsx
-<Input label="Search something" mode="results" />
-```
-
-<!-- ## Usage
+## Usage
 
 ```jsx
 <>
   <Input label="Search something" />
-  <div className="mt-2">
+  <div className="mt-4">
     <Results />
   </div>
 </>
@@ -37,11 +31,28 @@ import { Input } from 'sajari/react-search-ui';
 ```jsx
 <>
   <Input label="Search something" mode="suggestions" />
-  <div className="mt-2">
+  <div className="mt-4">
     <Results />
   </div>
 </>
-``` -->
+```
+
+## Results
+
+```jsx
+<Input label="Search something" mode="results" />
+```
+
+## Typeahead
+
+```jsx
+<>
+  <Input label="Search something" mode="typeahead" />
+  <div className="mt-4">
+    <Results />
+  </div>
+</>
+```
 
 ## Props
 

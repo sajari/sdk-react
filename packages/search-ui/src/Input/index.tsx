@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { Combobox } from '@sajari/react-components';
-import { useQuery, useSearch } from '@sajari/react-hooks';
+import { useAutocomplete, useQuery, useSearch } from '@sajari/react-hooks';
 import { __DEV__ } from '@sajari/react-sdk-utils';
 import { Result as ResultResp } from '@sajari/sdk-js';
 import React from 'react';
@@ -13,8 +12,16 @@ import { InputProps } from './types';
 
 const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInputElement>) => {
   const { placeholder = 'Search', mode = 'standard', ...rest } = props;
-  const { searchInstant, suggestions = [], results = [], search } = useSearch();
+  const { results = [], search } = useSearch({ allowEmptySearch: false });
+  const { search: searchInstant, completion, suggestions } = useAutocomplete();
   const { query } = useQuery();
+  let items: Array<any> = [];
+
+  if (mode === 'suggestions') {
+    items = suggestions;
+  } else if (mode !== 'typeahead') {
+    items = results.splice(0, 5);
+  }
 
   return (
     <Combobox
@@ -22,18 +29,27 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
       ref={ref}
       placeholder={placeholder}
       mode={mode}
-      items={mode === 'suggestions' ? suggestions : results.splice(0, 5)}
+      items={items}
       itemToString={
         mode === 'suggestions' ? (item: string) => item : (item: ResultResp) => item?.values.title.toString()
       }
+      completion={mode === 'typeahead' ? completion : ''}
       value={query}
       onChange={(value) => {
-        if (mode === 'suggestions') {
+        if (!value) {
+          return;
+        }
+        if (mode === 'suggestions' || mode === 'typeahead') {
           if (searchInstant) {
             searchInstant(value);
           }
         } else {
           search(value);
+        }
+      }}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' && mode === 'typeahead') {
+          search((e.target as HTMLInputElement).value);
         }
       }}
       onSelect={
@@ -46,7 +62,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
       itemToUrl={(item: ResultResp) => item.values.url.toString()}
       renderItem={
         mode === 'results'
-          ? ({ item, getItemProps, selected }) => {
+          ? ({ item, getItemProps, selected, index }) => {
               const {
                 values: { category, description, image, price, rating, title, url },
                 token,
@@ -54,7 +70,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
               const styles = useInputStyles({ selected });
 
               return (
-                <div {...getItemProps({ item })} css={styles.item}>
+                <div {...getItemProps({ item, index })} css={styles.item}>
                   <Result
                     token={token}
                     title={title.toString()}

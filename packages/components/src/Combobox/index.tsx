@@ -77,7 +77,6 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
               return {
                 ...changes,
                 inputValue: typedInputValue,
-                // selectedItem: typedInputValue,
                 highlightedIndex: undefined,
               };
             }
@@ -104,7 +103,6 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
               return {
                 ...changes,
                 inputValue: typedInputValue,
-                // selectedItem: typedInputValue,
                 highlightedIndex: undefined,
               };
             }
@@ -171,6 +169,15 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
               ...changes,
               inputValue: '',
             };
+
+          case useCombobox.stateChangeTypes.InputChange:
+            if (changes.inputValue === '') {
+              return {
+                ...changes,
+                isOpen: false,
+              };
+            }
+            return changes;
 
           default:
             return changes;
