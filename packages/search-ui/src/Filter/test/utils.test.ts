@@ -98,6 +98,34 @@ describe('sortItems', () => {
   ])("sortItems(%o,'label')", (list: FilterItem[], expected) => {
     expect(sortItems(list, 'label')).toStrictEqual(expected);
   });
+
+  // Numbers
+  test.each([
+    [
+      [
+        { label: 'a', count: 2 },
+        { label: 'b', count: 0 },
+      ],
+      [
+        { label: 'b', count: 0 },
+        { label: 'a', count: 2 },
+      ],
+    ],
+    [
+      [
+        { label: 'c', count: 0 },
+        { label: 'a', count: 1 },
+        { label: 'b', count: -1 },
+      ],
+      [
+        { label: 'b', count: -1 },
+        { label: 'c', count: 0 },
+        { label: 'a', count: 1 },
+      ],
+    ],
+  ])("sortItems(%o,'count')", (list: FilterItem[], expected) => {
+    expect(sortItems(list, 'count')).toStrictEqual(expected);
+  });
 });
 
 describe('pinItems', () => {

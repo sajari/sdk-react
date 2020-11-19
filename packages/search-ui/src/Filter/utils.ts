@@ -4,16 +4,21 @@
  * @param {Boolean} asc - Ascending order?
  * @param {String} prop - Property of child object to sort on
  */
+const collator = new Intl.Collator(typeof window !== 'undefined' ? window.navigator.language : 'en-US', {
+  numeric: true,
+});
+
 export function sortItems(list: Record<string, any>[], prop?: string, asc: boolean = true) {
   return [...list].sort((a, b) => {
     const l = prop ? a[prop] : a;
     const r = prop ? b[prop] : b;
-    if (l === r) return 0;
+
     if (asc) {
-      if (l > r) return 1;
-      return l > r ? 1 : -1;
+      return collator.compare(String(l), String(r));
     }
-    return l > r ? -1 : 1;
+
+    // Invert the result;
+    return collator.compare(String(r), String(l));
   });
 }
 
