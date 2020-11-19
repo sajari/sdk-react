@@ -74,13 +74,12 @@ export function formatNumber(input = 0, currencyCode = '', neutral = true) {
     return new Intl.NumberFormat().format(input);
   }
 
-  let lang = neutral ? 'en' : 'en-US';
-
-  if (navigator) {
-    lang = neutral ? navigator.language.split('-')[0] : navigator.language;
+  let language = 'en-US';
+  if (typeof window !== 'undefined') {
+    ({ language } = navigator);
   }
 
-  return new Intl.NumberFormat(lang, {
+  return new Intl.NumberFormat(neutral ? language.split('-')[0] : language, {
     style: 'currency',
     currency: currencyCode,
   }).format(input);
