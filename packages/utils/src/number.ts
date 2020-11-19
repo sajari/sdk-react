@@ -71,10 +71,14 @@ export function formatNumber(input = 0, currencyCode = '', neutral = true) {
   }
 
   if (!currencyCode) {
-    return new Intl.NumberFormat(navigator.language).format(input);
+    return new Intl.NumberFormat().format(input);
   }
 
-  const lang = neutral ? navigator.language.split('-')[0] : navigator.language;
+  let lang = neutral ? 'en' : 'en-US';
+
+  if (navigator) {
+    lang = neutral ? navigator.language.split('-')[0] : navigator.language;
+  }
 
   return new Intl.NumberFormat(lang, {
     style: 'currency',
