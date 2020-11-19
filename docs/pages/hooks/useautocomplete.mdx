@@ -1,0 +1,89 @@
+import SEO from '../../components/SEO';
+import { useState } from 'react';
+import { Select } from '@sajari/react-components';
+
+<SEO title="useAutocomplete" description="useAutocomplete provides result and method for the autocomplete pipeline." />
+
+# useAutocomplete
+
+`useAutocomplete` provides result and method for the autocomplete pipeline.
+
+```js
+import { useAutocomplete } from '@sajari/react-hooks';
+```
+
+## Usage
+
+```jsx
+function Example() {
+  const { search, results } = useSearch();
+  const { suggestions, search: searchInstant } = useAutocomplete();
+  const [query, setQuery] = React.useState('');
+
+  return (
+    <div className="flex flex-col space-y-3">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          const formData = new FormData(e.target);
+          search(formData.get('query'));
+        }}
+      >
+        <Combobox
+          mode="suggestions"
+          name="query"
+          label="Query"
+          value={query}
+          items={suggestions}
+          onChange={(value) => {
+            setQuery(value);
+            searchInstant(value);
+          }}
+        />
+      </form>
+      {results && <Results />}
+    </div>
+  );
+}
+```
+
+### Autocomplete
+
+```jsx
+function Example() {
+  const { query } = useQuery();
+  const { search } = useSearch();
+  const { completion, search: searchInstant } = useAutocomplete();
+
+  return (
+    <div className="flex flex-col space-y-3">
+      <Combobox
+        value={query}
+        onChange={(value) => {
+          search(value);
+          searchInstant(value);
+        }}
+      />
+      {completion && query.trim() !== completion && (
+        <Text>
+          Search for{' '}
+          <Button spacing="none" appearance="link" onClick={() => search(completion)}>
+            {completion}
+          </Button>{' '}
+          instead of &quot;<strong>{query}</strong>&quot;
+        </Text>
+      )}
+    </div>
+  );
+}
+```
+
+## Anatomy
+
+`useAutocomplete` returns an object containing the following properties:
+
+| Name          | Type                   | Default | Description                                                          |
+| ------------- | ---------------------- | ------- | -------------------------------------------------------------------- |
+| `suggestions` | `string[]`             |         | An array of suggestions for the query                                |
+| `completion`  | `string`               |         | A string that is predicted by the pipeline base on the current query |
+| `search`      | `(q?: string) => void` |         | Function used to search for suggestions                              |

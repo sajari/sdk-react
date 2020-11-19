@@ -22,4 +22,5 @@ export { default as useQuery } from './useQuery';
 export { default as useFilter, FilterItem } from './useFilter';
 export { default as useTracking } from './useTracking';
 export { default as useVariables } from './useVariables';
+export { default as useAutocomplete } from './useAutocomplete';
 export { Token } from '@sajari/sdk-js';
