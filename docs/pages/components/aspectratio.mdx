@@ -30,11 +30,11 @@ to the link of the video.
 
 ### Embed Image
 
-Here's how to embed an image that has a 4 by 3 aspect ratio.
+Here's how to embed an image that has a 4 by 3 aspect ratio. You can also do it directly with the [`Image`](/components/image) component via the `aspectRatio` prop.
 
 ```jsx
 <AspectRatio ratio={4 / 3}>
-  <Image src="https://source.unsplash.com/random" alt="Photo" />
+  <Image src="https://source.unsplash.com/random" alt="Photo" objectFit="cover" />
 </AspectRatio>
 ```
 

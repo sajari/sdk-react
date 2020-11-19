@@ -5,7 +5,7 @@ import { AspectRatioProps } from './types';
 
 export function useAspectRatioStyles(props: AspectRatioProps) {
   const { ratio } = props;
-  const styles: (string | TwStyle)[] = [];
+  const styles: (string | TwStyle)[] = [tw`overflow-hidden`];
 
   if (!ratio) {
     return css(styles);
