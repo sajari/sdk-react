@@ -17,54 +17,52 @@ const StyledBox = styled.div<{ flipped: boolean }>`
       : tw`inline-flex items-center space-x-1`};
 `;
 
-const Rating = React.forwardRef(
-  (
-    { value, children, character = <IconSmallStar />, max = 5, direction = 'ltr', unit = 'star' }: RatingProps,
-    ref: React.Ref<HTMLDivElement>,
-  ) => {
-    if (Number.isNaN(value)) {
-      return null;
-    }
+const Rating = React.forwardRef((props: RatingProps, ref: React.Ref<HTMLDivElement>) => {
+  const { value, children, character = <IconSmallStar />, max = 5, direction = 'ltr', unit = 'star' } = props;
 
-    const isHalf = Math.round(value) - value !== 0;
-    const flipped = direction === 'rtl';
-    const label = isHalf
-      ? `Rating: ${value} point 5 out of ${max} ${unit}s`
-      : `Rating: ${value} out of ${max} ${unit}s`;
-    const arr = toRatingArray(value, max);
+  if (Number.isNaN(value)) {
+    return null;
+  }
 
-    return (
-      <StyledBox flipped={flipped} ref={ref} role="img" aria-label={label}>
-        {arr.map((type, i) => {
-          switch (type) {
-            case ItemType.Filled:
-              return <RatingItem key={`active-rating-${i}`} index={i} count={max} character={character} active />;
-            case ItemType.HalfFilled:
-              return (
-                <RatingItem
-                  key="half-active-rating"
-                  index={Math.ceil(value) - Math.floor(value)}
-                  count={max}
-                  flipped={flipped}
-                  character={character}
-                  active
-                  half
-                />
-              );
-            case ItemType.Empty:
-              return (
-                <RatingItem key={`inactive-rating-${i}`} index={i} count={max} character={character} active={false} />
-              );
-            default:
-              return null;
-          }
-        })}
-        <span css={tw`sr-only`}>{`${value} ${unit}${value > 1 ? 's' : ''}`}</span>
-        {children}
-      </StyledBox>
-    );
-  },
-);
+  const isHalf = Math.round(value) - value !== 0;
+  const flipped = direction === 'rtl';
+  const label = isHalf ? `Rating: ${value} point 5 out of ${max} ${unit}s` : `Rating: ${value} out of ${max} ${unit}s`;
+  const arr = toRatingArray(value, max);
+
+  return (
+    <StyledBox flipped={flipped} ref={ref} role="img" aria-label={label}>
+      {arr.map((type, i) => {
+        switch (type) {
+          case ItemType.Filled:
+            return <RatingItem key={`active-rating-${i}`} index={i} count={max} character={character} active />;
+
+          case ItemType.HalfFilled:
+            return (
+              <RatingItem
+                key="half-active-rating"
+                index={Math.ceil(value) - Math.floor(value)}
+                count={max}
+                flipped={flipped}
+                character={character}
+                active
+                half
+              />
+            );
+
+          case ItemType.Empty:
+            return (
+              <RatingItem key={`inactive-rating-${i}`} index={i} count={max} character={character} active={false} />
+            );
+
+          default:
+            return null;
+        }
+      })}
+      <span css={tw`sr-only`}>{`${value} ${unit}${value > 1 ? 's' : ''}`}</span>
+      {children}
+    </StyledBox>
+  );
+});
 
 if (__DEV__) {
   Rating.displayName = 'Rating';
