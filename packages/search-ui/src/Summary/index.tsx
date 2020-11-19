@@ -1,19 +1,15 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import { Button, Text } from '@sajari/react-components';
-import { useAutocomplete, useQuery, useSearchContext } from '@sajari/react-hooks';
+import { useAutocomplete, useSearchContext } from '@sajari/react-hooks';
 import React from 'react';
 
 import { SummaryProps } from './types';
 
 const Summary = (props: SummaryProps) => {
-  const { latency, totalResults, search } = useSearchContext();
+  const { latency, totalResults, search, queryValues } = useSearchContext();
   const { showOverride = true, ...rest } = props;
-  const { query } = useQuery();
+  const query = queryValues?.get('q') ?? '';
   const { completion } = useAutocomplete();
-
-  if (!totalResults) {
-    return null;
-  }
 
   return (
     <Text {...rest}>
