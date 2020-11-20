@@ -32,7 +32,7 @@ function Example() {
 
   return (
     <div className="flex flex-col space-y-3">
-      <Input
+      <Combobox
         value={query}
         onChange={(v) => {
           search(v);
@@ -49,12 +49,12 @@ function Example() {
 
 ```jsx
 function Example() {
-  const { search, searchInstant } = useSearch();
+  const { search, searchInstant } = useSearch({ allowEmptySearch: false });
   const { query } = useQuery();
 
   return (
     <div className="flex flex-col space-y-3">
-      <Input
+      <Combobox
         value={query}
         onChange={(v) => {
           search(v);

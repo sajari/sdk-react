@@ -17,7 +17,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
 
   if (mode === 'suggestions') {
     items = suggestions;
-  } else if (mode !== 'typeahead') {
+  } else if (mode === 'results') {
     // only display 5 items
     items = results.splice(0, 5).map((result) => {
       const {

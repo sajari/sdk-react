@@ -91,11 +91,11 @@ function Example() {
   const PriceFilter = () => <FilterRender name="price" title="Price (bucket)" />;
 
   const SearchPlayground = React.memo(() => {
-    const { results, search } = useSearch();
+    const { results } = useSearch();
 
     return (
       <div className="flex flex-col space-y-4">
-        <Input label="Search something" onChange={(value) => search(value)} />
+        <Input label="Search something" />
         {results ? (
           <div className="flex -mx-3">
             <div className="w-1/4 px-3 border-gray-100 border-r">
@@ -202,11 +202,11 @@ function Example() {
   const PriceRangeFilter = () => <FilterRender name="priceRange" title="Range ($)" />;
 
   const SearchPlayground = React.memo(() => {
-    const { results, search } = useSearch();
+    const { results } = useSearch();
 
     return (
       <div className="flex flex-col space-y-4">
-        <Input label="Search something" onChange={(value) => search(value)} />
+        <Input label="Search something" />
         {results ? (
           <div className="flex -mx-3">
             <div className="w-1/4 px-3 border-gray-100 border-r">
@@ -357,11 +357,11 @@ function Example() {
   };
 
   const SearchPlayground = React.memo(() => {
-    const { results, search } = useSearch();
+    const { results } = useSearch();
 
     return (
       <div className="flex flex-col space-y-4">
-        <Input label="Search something" onChange={(value) => search(value)} />
+        <Input label="Search something" />
         {results ? (
           <div className="flex -mx-3">
             <div className="w-1/4 px-3 border-gray-100 border-r">

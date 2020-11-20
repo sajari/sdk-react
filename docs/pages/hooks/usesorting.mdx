@@ -36,7 +36,7 @@ function Example() {
   const variables = new Variables({ q: '' });
 
   const SearchPlayground = React.memo(() => {
-    const { search, results } = useSearch();
+    const { results } = useSearch();
     const { sorting, setSorting } = useSorting();
     const { query } = useQuery();
 
@@ -44,7 +44,7 @@ function Example() {
       <div className="flex flex-col space-y-4">
         <div className="flex space-x-4">
           <div className="w-3/5">
-            <Input label="Search something" value={query} onChange={(value) => search(value)} />
+            <Input label="Search something" />
           </div>
           <div className="w-2/5">
             <Select value={sorting} onChange={(e) => setSorting(e.target.value)}>
