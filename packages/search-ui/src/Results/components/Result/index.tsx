@@ -56,7 +56,7 @@ const Result = React.memo(
 
         <div css={tw`flex-1 min-w-0`}>
           <div css={tw`flex items-start`}>
-            <Heading as="h1" size="base" css={tw`flex-1`}>
+            <Heading as="h1" size="base" css={tw`flex-1 font-medium`}>
               <a href={clickToken || url} target="_blank" rel="noreferrer" onClick={resultClicked}>
                 {decodeHTML(title)}
               </a>
