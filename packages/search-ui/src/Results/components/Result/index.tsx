@@ -48,7 +48,7 @@ const Result = React.memo(
             target="_blank"
             rel="noreferrer"
             onClick={resultClicked}
-            css={styles.imageContiner}
+            css={styles.imageContainer}
           >
             <Image src={image} css={styles.image} aspectRatio={imageAspectRatio} objectFit={imageObjectFit} />
           </a>
