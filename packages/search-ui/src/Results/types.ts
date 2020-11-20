@@ -16,5 +16,5 @@ export interface ResultValues {
   description?: string;
   category?: string;
   rating?: number;
-  price?: string;
+  price?: string | string[];
 }

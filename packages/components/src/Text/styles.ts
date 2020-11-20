@@ -5,7 +5,7 @@ import { mapTruncateValue } from '../utils/styles';
 import { TextElements } from './types';
 
 export default function useTextStyles(as: TextElements, truncate: boolean | 2 | 3 | 4 | 5 = false) {
-  const props = [mapTruncateValue(truncate)];
+  const props = [tw`p-0 m-0`, mapTruncateValue(truncate)];
 
   switch (as) {
     case 'small':

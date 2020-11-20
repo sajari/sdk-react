@@ -31,10 +31,10 @@ interface UseHeadingStylesOptions {
 
 export default function useHeadingStyles(options: UseHeadingStylesOptions) {
   const { as, size = mapElementToSize(as), truncate = false } = options;
-  const styles = [mapTruncateValue(truncate), size === 'xs' ? tw`text-gray-400` : tw`text-gray-800`];
+  const styles = [tw`p-0 m-0`, mapTruncateValue(truncate), size === 'xs' ? tw`text-gray-400` : tw`text-gray-800`];
 
   if (size !== 'xs') {
-    styles.push(tw`font-semibold`);
+    styles.push(tw`font-semibold normal-case`);
   }
 
   if (size !== 'xs' && size !== 'sm' && size !== 'base') {

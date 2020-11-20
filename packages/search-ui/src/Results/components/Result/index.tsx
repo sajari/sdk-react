@@ -1,17 +1,13 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { Image, Rating, Text } from '@sajari/react-components';
+import { Heading, Image, Rating, Text } from '@sajari/react-components';
 import { useTracking } from '@sajari/react-hooks';
-import { __DEV__, decodeHTML, formatNumber, isNumber, isValidURL } from '@sajari/react-sdk-utils';
+import { __DEV__, decodeHTML, formatPrice, isNumber, isValidURL } from '@sajari/react-sdk-utils';
 import React from 'react';
-import tw, { styled } from 'twin.macro';
+import tw from 'twin.macro';
 
 import useResultStyles from './styles';
 import { ResultProps } from './types';
-
-const Heading = styled(Text)`
-  ${tw`font-medium text-gray-900`}
-`;
 
 const Result = React.memo(
   (props: ResultProps) => {
@@ -60,7 +56,7 @@ const Result = React.memo(
 
         <div css={tw`flex-1 min-w-0`}>
           <div css={tw`flex items-start`}>
-            <Heading as="h1" css={tw`flex-1`}>
+            <Heading as="h1" size="base" css={tw`flex-1 font-medium`}>
               <a href={clickToken || url} target="_blank" rel="noreferrer" onClick={resultClicked}>
                 {decodeHTML(title)}
               </a>
@@ -68,7 +64,7 @@ const Result = React.memo(
 
             {price && appearance === 'list' && (
               <div css={tw`ml-6`}>
-                <Text>{formatNumber(Number(price), currencyCode)}</Text>
+                <Text>{formatPrice(price, currencyCode)}</Text>
               </div>
             )}
           </div>
@@ -89,7 +85,7 @@ const Result = React.memo(
           {(price || typeof rating === 'number') && appearance === 'grid' && (
             <div css={tw`mt-1 space-y-1 text-center`}>
               {isNumber(rating) && <Rating value={rating} max={ratingMax} />}
-              {price && <Text>{formatNumber(Number(price), currencyCode)}</Text>}
+              {price && <Text>{formatPrice(price, currencyCode)}</Text>}
             </div>
           )}
         </div>

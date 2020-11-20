@@ -1,9 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { useSearchContext } from '@sajari/react-hooks';
-import React from 'react';
 
-import Result from './Result';
+import Result from './components/Result';
 import useResultsStyles from './styles';
 import { ResultsProps, ResultValues } from './types';
 
@@ -23,7 +22,7 @@ const Results = (props: ResultsProps) => {
           category={category?.toString()}
           description={description}
           image={image}
-          price={price?.toString()}
+          price={price}
           rating={Number(rating)}
           appearance={appearance}
           css={styles.item}

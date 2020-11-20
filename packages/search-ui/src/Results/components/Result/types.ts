@@ -1,7 +1,7 @@
 import { Token } from '@sajari/react-hooks';
 import React from 'react';
 
-import { ResultsProps, ResultValues } from '../types';
+import { ResultsProps, ResultValues } from '../../types';
 
 interface Props extends Omit<ResultValues, '_id'>, ResultsProps {
   /** The token used for tracking/analytics */

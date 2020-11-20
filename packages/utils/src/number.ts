@@ -84,3 +84,25 @@ export function formatNumber(input = 0, currencyCode = '', neutral = true) {
     currency: currencyCode,
   }).format(input);
 }
+
+/**
+ * Format a price or price range to display
+ */
+export function formatPrice(input: string | string[], currencyCode = '') {
+  const price = input;
+  const format = (value: number) => formatNumber(value, currencyCode, true);
+
+  if (!Array.isArray(price)) {
+    return format(Number(price));
+  }
+
+  const prices = price.map(Number);
+  const min = Math.min(...prices);
+  const max = Math.max(...prices);
+
+  if (min === max) {
+    return format(Number(min));
+  }
+
+  return `${format(Number(min))}–${format(Number(max))}`;
+}
