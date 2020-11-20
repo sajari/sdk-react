@@ -76,7 +76,7 @@ const Result = React.memo(
           {(category || typeof rating === 'number') && appearance === 'list' && (
             <div css={tw`flex items-baseline mt-1`}>
               {category && <Text css={tw`mr-3 text-xs text-gray-400`}>{category}</Text>}
-              {typeof rating === 'number' && <Rating value={rating} max={ratingMax} />}
+              {isNumber(rating) && <Rating value={rating} max={ratingMax} />}
             </div>
           )}
 

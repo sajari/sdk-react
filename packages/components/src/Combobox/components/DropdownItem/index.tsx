@@ -11,24 +11,25 @@ import { DropdownItemProps } from './types';
 
 const DropdownItem = (props: DropdownItemProps) => {
   const { value, index, selected } = props;
-  const { typedInputValue, getItemProps, showDropdownTips } = useComboboxContext();
+  const { typedInputValue, getItemProps, showDropdownTips, itemToString } = useComboboxContext();
+  const stringItem = itemToString(value);
   const styles = useDropdownItemStyles(props);
 
   // Highlight the suggested text rather than their input
   // https://baymard.com/blog/autocomplete-design#7-highlight-the-active-suggestion-desktop-specific
   const renderContent = () => {
-    if (typedInputValue && value.startsWith(typedInputValue)) {
+    if (typedInputValue && stringItem.startsWith(typedInputValue)) {
       return (
         <React.Fragment>
           {typedInputValue}
           <Box as="span" css={styles.highlight}>
-            {value.replace(typedInputValue, '')}
+            {stringItem.replace(typedInputValue, '')}
           </Box>
         </React.Fragment>
       );
     }
 
-    return value;
+    return stringItem;
   };
 
   return (
@@ -38,7 +39,7 @@ const DropdownItem = (props: DropdownItemProps) => {
         index,
         item: value,
       })}
-      key={`${value}_${index}`}
+      key={`${stringItem}_${index}`}
       css={styles.item}
     >
       <Box as="span">{renderContent()}</Box>
