@@ -23,7 +23,7 @@ const Results = (props: ResultsProps) => {
           category={category?.toString()}
           description={description}
           image={image}
-          price={price?.toString()}
+          price={price}
           rating={Number(rating)}
           appearance={appearance}
           css={styles.item}

@@ -15,7 +15,7 @@ export default function useResultStyles(props: ResultProps) {
   switch (appearance) {
     case 'grid':
       styles.container.push(tw`text-center`);
-      styles.imageContainer.push(tw`mb-4`);
+      styles.imageContainer.push(tw`block mb-4`);
       break;
 
     default:

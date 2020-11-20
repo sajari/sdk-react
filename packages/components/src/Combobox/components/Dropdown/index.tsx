@@ -103,7 +103,7 @@ const Dropdown = () => {
             </Box>
           )}
 
-          {showPoweredBy && <PoweredBy />}
+          {showPoweredBy && <PoweredBy css={tw`ml-auto`} />}
         </Box>
       )}
     </Box>

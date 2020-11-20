@@ -10,9 +10,7 @@ export function mapFields<T = Record<string, string | string[]>>(values: T, fiel
     (mapped, [to, from]) => {
       let value;
       if (Array.isArray(from)) {
-        const match = from.find((f) => {
-          return Object.keys(values).includes(f);
-        }) as string;
+        const match = from.find((f) => Object.keys(values).includes(f)) as string;
         value = values[match];
       } else if (typeof from === 'function') {
         value = from(values);
