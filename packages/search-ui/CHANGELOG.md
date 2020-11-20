@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.11](https://github.com/sajari/sajari-sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.10...@sajari/react-search-ui@1.0.0-alpha.11) (2020-11-20)
+
+### Bug Fixes
+
+- image styles in list view ([e8a1149](https://github.com/sajari/sajari-sdk-react/commit/e8a114991c7c8a0d0abb07546d2fccb507278848))
+
 # [1.0.0-alpha.10](https://github.com/sajari/sajari-sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.9...@sajari/react-search-ui@1.0.0-alpha.10) (2020-11-18)
 
 **Note:** Version bump only for package @sajari/react-search-ui

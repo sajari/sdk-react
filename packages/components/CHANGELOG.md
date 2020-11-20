@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.10](https://github.com/sajari/sajari-sdk-react/compare/@sajari/react-components@1.0.0-alpha.9...@sajari/react-components@1.0.0-alpha.10) (2020-11-20)
+
+### Bug Fixes
+
+- improve readability ([62cc581](https://github.com/sajari/sajari-sdk-react/commit/62cc581ad9fd504bb58d9c44eb2e10cf8ea9e227))
+- remove references to navigator ([1fdd116](https://github.com/sajari/sajari-sdk-react/commit/1fdd1166e284e5b4e7cb62cbac4bd0f9ce772130))
+
 # [1.0.0-alpha.9](https://github.com/sajari/sajari-sdk-react/compare/@sajari/react-components@1.0.0-alpha.8...@sajari/react-components@1.0.0-alpha.9) (2020-11-18)
 
 ### Bug Fixes
