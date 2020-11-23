@@ -2,10 +2,7 @@ import { filterObject, forwardRefWithAs, PropsWithAs } from '@sajari/react-sdk-u
 import React from 'react';
 
 import blacklist from './props-blacklist';
-
-interface BoxProps {
-  children?: React.ReactNode;
-}
+import { BoxProps } from './types';
 
 type DefaultElement = 'div';
 
@@ -23,3 +20,4 @@ const BoxComponent = (props: PropsWithAs<BoxProps, DefaultElement>, ref: React.R
 const Box = forwardRefWithAs<BoxProps, DefaultElement>(BoxComponent);
 
 export default Box;
+export type { BoxProps };

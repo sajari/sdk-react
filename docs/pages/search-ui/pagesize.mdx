@@ -28,7 +28,7 @@ function Example() {
   const variables = new Variables({ q: '' });
 
   const SearchPlayground = React.memo(() => {
-    const { search, results } = useSearch();
+    const { results } = useSearch();
     const { setPageSize } = usePageSize();
     const { query } = useQuery();
 
@@ -39,7 +39,7 @@ function Example() {
             <PageSize />
           </div>
           <div className="flex-1">
-            <Input label="Search something" value={query} onChange={(value) => search(value)} />
+            <Input label="Search something" />
           </div>
         </div>
         {results ? <Results /> : null}

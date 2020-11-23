@@ -13,7 +13,7 @@ function useSorting(): UseSortingResult {
       variables.set({ sort: order });
       search();
     },
-    [variables],
+    [variables, search],
   );
 
   return {
