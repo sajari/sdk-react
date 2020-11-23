@@ -46,7 +46,7 @@ function Example() {
     initial: ['High'],
   });
 
-  const variables = new Variables({ q: '' });
+  const variables = new Variables();
 
   const SearchPlayground = React.memo(() => {
     const { results } = useSearch();
@@ -105,7 +105,7 @@ function Example() {
     field: 'price_range',
   });
 
-  const variables = new Variables({ q: '' });
+  const variables = new Variables();
 
   const SearchPlayground = React.memo(() => {
     const { results, search } = useSearch();
@@ -159,7 +159,7 @@ function Example() {
     field: 'rating',
   });
 
-  const variables = new Variables({ q: '' });
+  const variables = new Variables();
 
   const SearchPlayground = React.memo(() => {
     const { results, search } = useSearch();
@@ -218,7 +218,7 @@ function Example() {
     array: true,
   });
 
-  const variables = new Variables({ q: '' });
+  const variables = new Variables();
 
   const SearchPlayground = React.memo(() => {
     const { results } = useSearch();
