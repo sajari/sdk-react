@@ -94,3 +94,9 @@ function Example() {
 | `search`       | `(q?: string) => void` |         | The search method, call without param to resend the search request with the current query |
 | `searching`    | `boolean`              |         | Is a search request being processed                                                       |
 | `error`        | `Error` \| `null`      |         | The error encountered while searching                                                     |
+
+## Params
+
+| Name | Type                                                                                                                                  | Default | Description |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------- | ------- | ----------- |
+|      | `{ pipeline: Pipeline, variables: Variables, fields: Record<string, any> }` or `{ queryOverride: string, allowEmptySearch: boolean }` |         |             |
