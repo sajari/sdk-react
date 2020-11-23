@@ -7,13 +7,17 @@ import useResultsStyles from './styles';
 import { ResultsProps, ResultValues } from './types';
 
 const Results = (props: ResultsProps) => {
-  const { results } = useSearchContext<ResultValues>();
+  const { results = [] } = useSearchContext<ResultValues>();
   const styles = useResultsStyles(props);
   const { appearance = 'list', className, ...rest } = props;
 
+  if (results.length === 0) {
+    return null;
+  }
+
   return (
     <div css={[styles.container]} className={className}>
-      {results?.map(({ values: { category, description, image, _id, price, rating, title, url }, token }) => (
+      {results.map(({ values: { category, description, image, _id, price, rating, title, url }, token }) => (
         <Result
           token={token}
           key={_id}

@@ -54,9 +54,6 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
           onChange(value);
         }
 
-        if (!value) {
-          return;
-        }
         if (mode === 'suggestions' || mode === 'typeahead') {
           if (searchInstant) {
             searchInstant(value);
