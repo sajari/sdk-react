@@ -1,12 +1,11 @@
-import { ImageProps } from '@sajari/react-components';
+import { BoxProps, ImageProps } from '@sajari/react-components';
 
-export interface ResultsProps {
+export interface ResultsProps extends BoxProps {
   appearance?: 'list' | 'grid';
   ratingMax?: number;
   imageAspectRatio?: ImageProps['aspectRatio'];
   imageObjectFit?: ImageProps['objectFit'];
   currencyCode?: string;
-  className?: string;
 }
 
 export interface ResultValues {
