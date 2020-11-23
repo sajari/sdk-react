@@ -37,7 +37,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     size = 'md',
     showDropdownTips = true,
     showPoweredBy = true,
-    itemToString = mode === 'suggestions'
+    itemToString = mode === 'results'
       ? (item: T) => ((item as unknown) as ResultItem).title
       : (item: T) => (item as unknown) as string,
     itemToUrl = (item: T) => ((item as unknown) as ResultItem).url as string,

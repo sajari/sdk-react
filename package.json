@@ -11,6 +11,7 @@
     "prepublish": "lerna run prepublish",
     "docs": "lerna exec --scope=sajari-sdk-docs -- yarn dev",
     "build:docs": "lerna exec --scope=sajari-sdk-docs -- yarn build",
+    "start:docs": "lerna exec --scope=sajari-sdk-docs -- yarn start",
     "format": "prettier -c --write \"*/**\"",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
