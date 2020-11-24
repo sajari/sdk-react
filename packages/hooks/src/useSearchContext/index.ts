@@ -6,6 +6,8 @@ import mapToObject from '../utils/mapToObject';
 function useSearchContext<T = Record<string, string | string[]>>() {
   const {
     search: { response, search, fields = {}, searching },
+    viewType,
+    setViewType,
   } = useContext();
   const { page, pageSize, totalResults, pageCount, setPage } = usePagination('search');
   const mapResponse = mapToObject(response?.getResponse() as Map<string, any> | undefined);
@@ -23,6 +25,8 @@ function useSearchContext<T = Record<string, string | string[]>>() {
     results: reqResults ? mapResultFields<T>(reqResults, fields) : undefined,
     response: mapResponse,
     searching,
+    viewType,
+    setViewType,
   };
 }
 

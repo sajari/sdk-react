@@ -28,14 +28,14 @@ function Example() {
   const variables = new Variables();
 
   const SearchPlayground = React.memo(() => {
-    const [type, setType] = React.useState('list');
+    const { results } = useSearch();
 
     return (
       <div className="flex flex-col space-y-4">
         <div>
-          <ViewType onChange={setType} />
+          <ViewType />
         </div>
-        <Results appearance={type} />
+        {results ? <Results /> : null}
       </div>
     );
   });
@@ -59,8 +59,6 @@ function Example() {
 
 ## Props
 
-| Name          | Type                                 | Default    | Description |
-| ------------- | ------------------------------------ | ---------- | ----------- |
-| `label`       | `string`                             | `"View"`   |             |
-| `defaultView` | `"list"` \| `"grid"`                 | `"list"`   |             |
-| `onChange`    | `(type: "list"` \| `"grid") => void` | `() => {}` |             |
+| Name    | Type     | Default  | Description |
+| ------- | -------- | -------- | ----------- |
+| `label` | `string` | `"View"` |             |

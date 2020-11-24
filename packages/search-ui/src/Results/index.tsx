@@ -10,8 +10,8 @@ import useResultsStyles from './styles';
 import { ResultsProps, ResultValues } from './types';
 
 const Results = (props: ResultsProps) => {
-  const { appearance = 'list', className, ...rest } = props;
-  const { results } = useSearchContext<ResultValues>();
+  const { results, viewType } = useSearchContext<ResultValues>();
+  const { appearance = viewType, className, ...rest } = props;
   const [width, setWidth] = useState(0);
   const styles = useResultsStyles({ ...props, width });
   const setDebounced = useDebounce(setWidth, 50);
