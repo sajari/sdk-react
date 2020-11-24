@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+import { defaultConfig } from '../config';
 import { EVENT_VALUES_UPDATED } from '../events';
 import { Listener, ListenerMap } from './listener';
 
@@ -20,7 +21,7 @@ export class Variables {
    */
   constructor(variables: { [k: string]: string | string[] | number | boolean | VariableFn } = {}) {
     this.listeners = new Map([[EVENT_VALUES_UPDATED, new Listener()]]);
-    this.variables = new Map(Object.entries(variables));
+    this.variables = new Map(Object.entries({ [defaultConfig.qParam]: '', ...variables }));
   }
 
   /**

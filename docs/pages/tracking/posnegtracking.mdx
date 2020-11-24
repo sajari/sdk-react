@@ -28,7 +28,7 @@ function Example() {
     new PosNegTracking('rating'),
   );
 
-  const variables = new Variables({ q: '' });
+  const variables = new Variables();
 
   const SearchPlayground = React.memo(() => {
     const { results } = useSearch({ allowEmptySearch: false });

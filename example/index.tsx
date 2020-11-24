@@ -67,7 +67,7 @@ const pipeline = new Pipeline(
   'query',
 );
 
-const variables = new Variables({ q: '' });
+const variables = new Variables();
 
 const App = () => {
   return (

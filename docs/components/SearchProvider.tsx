@@ -12,7 +12,7 @@ const SearchProvider: React.FC = ({ children }) => {
       },
       'query',
     ),
-    variables: new Variables({ q: '' }),
+    variables: new Variables(),
     fields: new FieldDictionary({
       category: (data) => data.level4 || data.level3 || data.level2 || data.level1,
       title: 'name',

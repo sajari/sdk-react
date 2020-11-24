@@ -46,7 +46,7 @@ function Example() {
     initial: ['High'],
   });
 
-  const variables = new Variables({ q: '' });
+  const variables = new Variables();
 
   const FilterRender = React.memo(({ name, title }) => {
     const { multi, options, selected, setSelected, reset } = useFilter(name);
@@ -153,7 +153,7 @@ function Example() {
     multi: true,
   });
 
-  const variables = new Variables({ q: '' });
+  const variables = new Variables();
 
   const FilterRender = React.memo(({ name, title }) => {
     const { multi, options, selected, setSelected } = useFilter(name);
@@ -261,7 +261,7 @@ function Example() {
     field: 'rating',
   });
 
-  const variables = new Variables({ q: '' });
+  const variables = new Variables();
 
   const RatingFilter = () => {
     const { multi, options, selected, setSelected } = useFilter('rating');
