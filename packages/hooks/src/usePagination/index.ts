@@ -11,7 +11,7 @@ function usePagination(key: 'search' | 'instant'): UsePaginationResult {
   const page = queryValues?.get(config.pageParam) ? parseInt(queryValues.get(config.pageParam) as string, 10) : 1;
   const resultsPerPage = queryValues?.get(config.resultsPerPageParam)
     ? parseInt(queryValues?.get(config.resultsPerPageParam) as string, 10)
-    : 10;
+    : 15;
   const totalResults = response?.getTotalResults() || 0;
   const totalPages = Math.ceil(totalResults / resultsPerPage);
   const hasNext = useMemo(() => page < totalPages, [page, totalPages]);

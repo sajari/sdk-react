@@ -21,7 +21,9 @@ export class Variables {
    */
   constructor(variables: { [k: string]: string | string[] | number | boolean | VariableFn } = {}) {
     this.listeners = new Map([[EVENT_VALUES_UPDATED, new Listener()]]);
-    this.variables = new Map(Object.entries({ [defaultConfig.qParam]: '', ...variables }));
+    this.variables = new Map(
+      Object.entries({ [defaultConfig.qParam]: '', [defaultConfig.resultsPerPageParam]: 15, ...variables }),
+    );
   }
 
   /**

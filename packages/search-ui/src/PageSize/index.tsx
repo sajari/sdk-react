@@ -10,7 +10,7 @@ import tw from 'twin.macro';
 
 import { PageSizeProps } from './types';
 
-const defaultSizes = [10, 20, 35, 50, 100];
+const defaultSizes = [15, 25, 50, 100];
 
 const PageSize: React.FC<PageSizeProps> = ({ label = 'Size', sizes = defaultSizes }) => {
   const { pageSize, setPageSize } = usePageSize();
