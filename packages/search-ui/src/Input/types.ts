@@ -12,4 +12,7 @@ export interface InputProps<T>
     | 'enableVoice'
     | 'captureVoiceInput'
     | 'onVoiceInput'
-  > {}
+    | 'mode'
+  > {
+  mode?: ComboboxProps<T>['mode'] | 'instant';
+}

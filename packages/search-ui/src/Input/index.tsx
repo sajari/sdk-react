@@ -9,7 +9,7 @@ import React from 'react';
 import { InputProps } from './types';
 
 const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInputElement>) => {
-  const { placeholder = 'Search', mode = 'standard', onChange, ...rest } = props;
+  const { placeholder = 'Search', mode = 'instant', onChange, ...rest } = props;
   const { results = [], search } = useSearch({ allowEmptySearch: false });
   const { search: searchInstant, completion, suggestions } = useAutocomplete();
   const { query } = useQuery();
@@ -45,7 +45,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
       {...rest}
       ref={ref}
       placeholder={placeholder}
-      mode={mode}
+      mode={mode as Exclude<InputProps<any>['mode'], 'instant'>}
       items={items}
       completion={mode === 'typeahead' ? completion : ''}
       value={query}
@@ -58,7 +58,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
           if (searchInstant) {
             searchInstant(value);
           }
-        } else {
+        } else if (mode === 'instant') {
           search(value);
         }
       }}
