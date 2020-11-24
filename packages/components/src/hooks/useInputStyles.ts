@@ -26,7 +26,7 @@ export default function useInputStyles(props: UseInputStyleProps) {
   const styles: (TwStyle | string)[] = [];
 
   styles.push(
-    tw`px-3 py-2 text-base leading-normal text-gray-700 transition-all duration-150 bg-white border border-gray-200 border-solid outline-none`,
+    tw`px-3 py-2 text-base leading-normal text-gray-700 transition-all duration-150 bg-white border border-gray-200 border-solid outline-none font-inherit`,
   );
 
   // Cancel out the form controls plugin styles since we use the ring

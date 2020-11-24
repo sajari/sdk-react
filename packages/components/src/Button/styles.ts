@@ -110,6 +110,10 @@ const useButtonStyles = (props: UseButtonStylesProps) => {
     return returnStyles(styles);
   }
 
+  if (spacing === 'none') {
+    styles.push(tw`p-0`);
+  }
+
   switch (appearance) {
     // TODO: test theming for primary appearance, we might want to change them later
     case 'primary':

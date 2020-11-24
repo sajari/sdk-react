@@ -46,7 +46,7 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
     container: [tw`relative`],
     inputContainer: [
       tw`form-input`,
-      tw`relative transition-all duration-150 bg-white border border-gray-200`,
+      tw`relative text-base transition-all duration-150 bg-white border border-gray-200 font-inherit`,
       ...focusRingStyles,
       ...containerStyles,
     ],
