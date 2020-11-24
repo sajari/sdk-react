@@ -1,3 +1,4 @@
+import { isNumber } from '@sajari/react-sdk-utils';
 import React from 'react';
 
 import { useContext } from '../SearchContextProvider';
@@ -23,7 +24,7 @@ function usePageSize(): UsePageSizeResult {
   const pageSize = parseInt(variables.get()[resultsPerPageParam], 10);
 
   return {
-    pageSize: Number.isNaN(pageSize) ? 10 : pageSize,
+    pageSize: isNumber(pageSize) ? pageSize : 15,
     setPageSize,
   };
 }
