@@ -30,6 +30,8 @@ export { default as RangeInput } from './RangeInput';
 export * from './RangeInput';
 export { default as Rating } from './Rating';
 export * from './Rating';
+export { default as ResizeObserver } from './ResizeObserver';
+export * from './ResizeObserver';
 export { default as Select } from './Select';
 export * from './Select';
 export { default as Swatch } from './Swatch';

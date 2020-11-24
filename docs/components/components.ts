@@ -15,6 +15,7 @@ const coreComponents = [
   'Pagination',
   'PoweredBy',
   'RangeInput',
+  'ResizeObserver',
 ].sort();
 const searchComponents = [
   'Filter',
