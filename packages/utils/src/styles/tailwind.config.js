@@ -29,6 +29,9 @@ export default {
       fontSize: {
         'code-inline': '0.9375em',
       },
+      fontFamily: {
+        inherit: 'inherit',
+      },
     },
   },
   plugins: [require('@tailwindcss/ui'), require('tailwindcss-filters'), require('tailwindcss-truncate-multiline')()],
