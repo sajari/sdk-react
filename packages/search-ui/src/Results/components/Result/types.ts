@@ -3,7 +3,8 @@ import React from 'react';
 
 import { ResultsProps, ResultValues } from '../../types';
 
-interface Props extends Omit<ResultValues, '_id'>, ResultsProps {
+interface Props extends Omit<ResultsProps, 'columns'> {
+  values: Omit<ResultValues, '_id'>;
   /** The token used for tracking/analytics */
   token?: Token;
 }

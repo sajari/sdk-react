@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { Heading, Image, Rating, Text } from '@sajari/react-components';
@@ -13,20 +14,16 @@ const Result = React.memo(
   (props: ResultProps) => {
     const {
       appearance = 'list',
-      title,
-      description,
-      rating,
-      category,
-      image,
-      url,
-      price,
       ratingMax = 5,
       imageAspectRatio = 1,
       imageObjectFit = 'contain',
       currencyCode = 'USD',
+      values,
       token,
       ...rest
     } = props;
+    const { title, description, subtitle, image, url, price } = values;
+    const rating = Number(values.rating);
     const styles = useResultStyles({ ...props, appearance });
     const { handleResultClicked } = useTracking();
     let clickToken: string | undefined;
@@ -43,13 +40,7 @@ const Result = React.memo(
     return (
       <article {...rest} css={styles.container}>
         {isValidURL(image, true) && (
-          <a
-            href={clickToken || url}
-            target="_blank"
-            rel="noreferrer"
-            onClick={resultClicked}
-            css={styles.imageContainer}
-          >
+          <a href={clickToken || url} target="_blank" onClick={resultClicked} css={styles.imageContainer}>
             <Image src={image} css={styles.image} aspectRatio={imageAspectRatio} objectFit={imageObjectFit} />
           </a>
         )}
@@ -57,7 +48,7 @@ const Result = React.memo(
         <div css={tw`flex-1 min-w-0`}>
           <div css={tw`flex items-start`}>
             <Heading as="h1" size="base" css={tw`flex-1 font-medium`}>
-              <a href={clickToken || url} target="_blank" rel="noreferrer" onClick={resultClicked}>
+              <a href={clickToken || url} target="_blank" onClick={resultClicked}>
                 {decodeHTML(title)}
               </a>
             </Heading>
@@ -69,9 +60,21 @@ const Result = React.memo(
             )}
           </div>
 
-          {(category || typeof rating === 'number') && appearance === 'list' && (
+          {(subtitle || isNumber(rating)) && appearance === 'list' && (
             <div css={tw`flex items-baseline mt-1`}>
-              {category && <Text css={tw`mr-3 text-xs text-gray-400`}>{category}</Text>}
+              {subtitle &&
+                (isValidURL(subtitle) ? (
+                  <a
+                    href={clickToken || url}
+                    target="_blank"
+                    onClick={resultClicked}
+                    css={tw`mr-3 text-xs text-gray-400`}
+                  >
+                    {subtitle}
+                  </a>
+                ) : (
+                  <Text css={tw`mr-3 text-xs text-gray-400`}>{subtitle}</Text>
+                ))}
               {isNumber(rating) && <Rating value={rating} max={ratingMax} />}
             </div>
           )}
@@ -82,7 +85,7 @@ const Result = React.memo(
             </Text>
           )}
 
-          {(price || typeof rating === 'number') && appearance === 'grid' && (
+          {(price || isNumber(rating)) && appearance === 'grid' && (
             <div css={tw`mt-1 space-y-1 text-center`}>
               {isNumber(rating) && <Rating value={rating} max={ratingMax} />}
               {price && <Text>{formatPrice(price, currencyCode)}</Text>}
