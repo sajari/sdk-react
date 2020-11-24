@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.7](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.0.0-alpha.6...@sajari/react-sdk-utils@1.0.0-alpha.7) (2020-11-24)
+
+### Features
+
+- added inherit option for fontFamily ([537cdf4](https://github.com/sajari/sdk-react/commit/537cdf41dd4cf335463d1f2a859920e8b1f5e3fa))
+
 # [1.0.0-alpha.6](https://github.com/sajari/sajari-sdk-react/compare/@sajari/react-sdk-utils@1.0.0-alpha.5...@sajari/react-sdk-utils@1.0.0-alpha.6) (2020-11-20)
 
 ### Bug Fixes

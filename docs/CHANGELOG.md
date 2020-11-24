@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.7](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.6...sajari-sdk-docs@1.0.0-alpha.7) (2020-11-24)
+
+### Features
+
+- added ResizeObserver component ([246bec5](https://github.com/sajari/sdk-react/commit/246bec5164d39c6a6a6bb27903d0690aa83b43f5))
+
 # [1.0.0-alpha.6](https://github.com/sajari/sajari-sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.5...sajari-sdk-docs@1.0.0-alpha.6) (2020-11-20)
 
 **Note:** Version bump only for package sajari-sdk-docs

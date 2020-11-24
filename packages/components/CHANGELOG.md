@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.11](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.10...@sajari/react-components@1.0.0-alpha.11) (2020-11-24)
+
+### Bug Fixes
+
+- fix issue in ResizeObserver with ref.current and ts complaining ([b29c349](https://github.com/sajari/sdk-react/commit/b29c349c3ccc687b6e040774308b0472a3b4cb00))
+- minor styling fixes ([7e2848b](https://github.com/sajari/sdk-react/commit/7e2848bd3debbb68e5e477bc66517900adf70979))
+
+### Features
+
+- added ResizeObserver component ([246bec5](https://github.com/sajari/sdk-react/commit/246bec5164d39c6a6a6bb27903d0690aa83b43f5))
+
 # [1.0.0-alpha.10](https://github.com/sajari/sajari-sdk-react/compare/@sajari/react-components@1.0.0-alpha.9...@sajari/react-components@1.0.0-alpha.10) (2020-11-20)
 
 ### Bug Fixes

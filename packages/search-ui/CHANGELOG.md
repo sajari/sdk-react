@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.12](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.11...@sajari/react-search-ui@1.0.0-alpha.12) (2020-11-24)
+
+### Features
+
+- results styling improvements ([ab89200](https://github.com/sajari/sdk-react/commit/ab89200e690e1b3cc078a3628079b6d3f416a7f6))
+
 # [1.0.0-alpha.11](https://github.com/sajari/sajari-sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.10...@sajari/react-search-ui@1.0.0-alpha.11) (2020-11-20)
 
 ### Bug Fixes
