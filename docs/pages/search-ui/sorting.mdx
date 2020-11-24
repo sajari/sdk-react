@@ -34,21 +34,19 @@ function Example() {
     return (
       <div className="flex flex-col space-y-4">
         <div className="flex space-x-4">
-          <div className="w-2/5">
-            <Sorting
-              options={[
-                { name: 'Most relavant', value: '' },
-                { name: 'Brand: A to Z', value: 'brand' },
-                { name: 'Brand: Z to A', value: '-brand' },
-                { name: 'Rating: Low to High', value: 'rating' },
-                { name: 'Rating: High to Low', value: '-rating' },
-                { name: 'Popularity', value: 'popularity' },
-              ]}
-            />
-          </div>
-          <div className="w-3/5">
+          <div className="flex-1">
             <Input label="Search something" />
           </div>
+          <Sorting
+            options={[
+              { name: 'Most relevant', value: '' },
+              { name: 'Brand: A to Z', value: 'brand' },
+              { name: 'Brand: Z to A', value: '-brand' },
+              { name: 'Rating: Low to High', value: 'rating' },
+              { name: 'Rating: High to Low', value: '-rating' },
+              { name: 'Popularity', value: 'popularity' },
+            ]}
+          />
         </div>
         {results ? <Results /> : null}
       </div>
@@ -68,4 +66,4 @@ function Example() {
 | Name      | Type                                   | Default                                | Description |
 | --------- | -------------------------------------- | -------------------------------------- | ----------- |
 | `label`   | `string`                               | `"Sort"`                               |             |
-| `options` | `Array<{name: string, value: string}>` | `[{name: "Most relavant", value: ""}]` |             |
+| `options` | `Array<{name: string, value: string}>` | `[{name: "Most relevant", value: ""}]` |             |

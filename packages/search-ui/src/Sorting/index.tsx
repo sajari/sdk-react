@@ -5,14 +5,14 @@ import { useId } from '@reach/auto-id';
 import { Label, Select } from '@sajari/react-components';
 import { useSorting } from '@sajari/react-hooks';
 import { __DEV__ } from '@sajari/react-sdk-utils';
-import React from 'react';
+import { FC } from 'react';
 import tw from 'twin.macro';
 
 import { SortingProps, SortOption } from './types';
 
-const defaultOptions: SortOption[] = [{ name: 'Most relavant', value: '' }];
+const defaultOptions: SortOption[] = [{ name: 'Most relevant', value: '' }];
 
-const Sorting: React.FC<SortingProps> = ({ label = 'Sort', options = defaultOptions }) => {
+const Sorting: FC<SortingProps> = ({ label = 'Sort', options = defaultOptions }) => {
   const { sorting, setSorting } = useSorting();
   const id = `sorting-${useId()}`;
 

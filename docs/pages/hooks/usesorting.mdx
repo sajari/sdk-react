@@ -38,7 +38,6 @@ function Example() {
   const SearchPlayground = React.memo(() => {
     const { results } = useSearch();
     const { sorting, setSorting } = useSorting();
-    const { query } = useQuery();
 
     return (
       <div className="flex flex-col space-y-4">
@@ -48,7 +47,7 @@ function Example() {
           </div>
           <div className="w-2/5">
             <Select value={sorting} onChange={(e) => setSorting(e.target.value)}>
-              <option value="">Most relavant</option>
+              <option value="">Most relevant</option>
               <option value="brand">Brand: A to Z</option>
               <option value="-brand">Brand: Z to A</option>
               <option value="rating">Rating: Low to High</option>
