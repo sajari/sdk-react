@@ -24,6 +24,7 @@ import {
   PipelineProviderState,
   ProviderPipelineConfig,
   ProviderPipelineState,
+  ResultViewType,
   SearchProviderValues,
 } from './types';
 
@@ -81,6 +82,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
   const [instantSearching, setInstantSearching] = useState(false);
   const [searchState, setSearchState] = useState(defaultState);
   const [instantState, setInstantState] = useState(defaultState);
+  const [viewType, setViewType] = useState<ResultViewType>('list');
   const instant = useRef(instantProp);
   const response = search.pipeline.getResponse();
 
@@ -263,6 +265,8 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
       },
       resultClicked: handleResultClicked,
       paginate: handlePaginate,
+      viewType,
+      setViewType,
     } as Context);
 
   return <Provider value={getContext({ instant: instantState, search: searchState })}>{children}</Provider>;

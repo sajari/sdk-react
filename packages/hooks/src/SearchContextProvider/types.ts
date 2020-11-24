@@ -5,6 +5,7 @@ export type SearchFn = (query?: string, override?: boolean) => void;
 export type ClearFn = (variables?: { [k: string]: string | undefined }) => void;
 export type ResultClickedFn = (url: string) => void;
 export type PaginateFn = (page: number) => void;
+export type ResultViewType = 'grid' | 'list';
 
 export interface PipelineContextState {
   variables: Variables;
@@ -53,6 +54,8 @@ export interface Context {
   instant: PipelineContextState;
   resultClicked: ResultClickedFn;
   paginate: PaginateFn;
+  setViewType: (v: ResultViewType) => void;
+  viewType: ResultViewType;
 }
 
 type Field = ((data: Record<string, any>) => any) | string | string[];

@@ -2,30 +2,28 @@
 import { css, jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
 import { Button, ButtonGroup, Label } from '@sajari/react-components';
+import { useSearchContext } from '@sajari/react-hooks';
 import { __DEV__ } from '@sajari/react-sdk-utils';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import tw from 'twin.macro';
 
 import { IconSmallGrid, IconSmallList } from '../assets/icons';
-import { ListViewType, ViewTypeProps } from './types';
+import { ViewTypeProps } from './types';
 
 const styles = [tw`transition-colors duration-300 ease-out fill-current`];
 
-const ViewType: React.FC<ViewTypeProps> = ({ defaultView = 'list', label = 'View', onChange = () => {} }) => {
-  const [type, setType] = useState<ListViewType>(defaultView);
+const ViewType: React.FC<ViewTypeProps> = ({ label = 'View' }) => {
   const id = `view-type-${useId()}`;
-  useEffect(() => {
-    onChange(type);
-  }, [type]);
+  const { viewType, setViewType } = useSearchContext();
   return (
     <div css={tw`flex space-x-4`}>
       <Label htmlFor={id}>{label}</Label>
       <ButtonGroup id={id} attached>
-        <Button onClick={() => setType('grid')} appearance={type === 'grid' ? 'primary' : undefined}>
-          <IconSmallGrid css={css([...styles, ...(type === 'grid' ? [tw`text-white`] : [])])} />
+        <Button onClick={() => setViewType('grid')} appearance={viewType === 'grid' ? 'primary' : undefined}>
+          <IconSmallGrid css={css([...styles, ...(viewType === 'grid' ? [tw`text-white`] : [])])} />
         </Button>
-        <Button onClick={() => setType('list')} appearance={type === 'list' ? 'primary' : undefined}>
-          <IconSmallList css={css([...styles, ...(type === 'list' ? [tw`text-white`] : [])])} />
+        <Button onClick={() => setViewType('list')} appearance={viewType === 'list' ? 'primary' : undefined}>
+          <IconSmallList css={css([...styles, ...(viewType === 'list' ? [tw`text-white`] : [])])} />
         </Button>
       </ButtonGroup>
     </div>
