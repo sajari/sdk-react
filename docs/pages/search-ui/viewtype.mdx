@@ -28,7 +28,6 @@ function Example() {
   const variables = new Variables();
 
   const SearchPlayground = React.memo(() => {
-    const { results } = useSearch();
     const [type, setType] = React.useState('list');
 
     return (
@@ -36,7 +35,7 @@ function Example() {
         <div>
           <ViewType onChange={setType} />
         </div>
-        {results ? <Results appearance={type} /> : null}
+        <Results appearance={type} />
       </div>
     );
   });
@@ -47,7 +46,7 @@ function Example() {
         pipeline,
         variables,
         fields: {
-          category: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
           title: 'name',
         },
       }}

@@ -72,7 +72,7 @@ const variables = new Variables();
 const App = () => {
   return (
     <SearchContextProvider
-      search={{ pipeline, variables, fields: new FieldDictionary({ category: 'brand', title: 'name' }) }}
+      search={{ pipeline, variables, fields: new FieldDictionary({ title: 'name', subtitle: 'brand' }) }}
     >
       <ContextProvider>
         <SearchPlayground />

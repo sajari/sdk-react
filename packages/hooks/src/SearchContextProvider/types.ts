@@ -63,39 +63,41 @@ export class FieldDictionary {
 
   title?: Field;
 
+  subtitle?: Field;
+
   description?: Field;
 
-  price?: Field;
+  image?: Field;
 
-  category?: Field;
+  // e-commerce related fields
+
+  price?: Field;
 
   rating?: Field;
 
   inventory?: Field;
-
-  image?: Field;
 
   constructor(input?: FieldDictionary) {
     const {
       id = '_id',
       url = 'url',
       title = 'title',
+      subtitle = 'subtitle',
       description = 'description',
+      image = 'image',
       price = 'price',
-      category = 'category',
       rating = 'rating',
       inventory = 'inventory',
-      image = 'image',
     } = input ?? {};
 
     this.id = id;
     this.url = url;
     this.title = title;
+    this.subtitle = subtitle;
     this.description = description;
+    this.image = image;
     this.price = price;
-    this.category = category;
     this.rating = rating;
     this.inventory = inventory;
-    this.image = image;
   }
 }

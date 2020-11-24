@@ -28,7 +28,7 @@ function Example() {
   const variables = new Variables();
 
   const SearchPlayground = React.memo(() => {
-    const { search, results } = useSearch();
+    const { search } = useSearch();
     const { pageSize, setPageSize } = usePageSize();
     const { query } = useQuery();
 
@@ -47,7 +47,7 @@ function Example() {
             </Select>
           </div>
         </div>
-        {results ? <Results /> : null}
+        <Results />
       </div>
     );
   });
@@ -58,7 +58,7 @@ function Example() {
         pipeline,
         variables,
         fields: {
-          category: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
           title: 'name',
         },
       }}

@@ -24,20 +24,23 @@ function Example() {
     'query',
   );
 
-  const variables = new Variables();
+  const variables = new Variables({ resultsPerPage: 3 });
 
   const SearchPlayground = React.memo(() => {
     useSearch('iphone');
 
     return (
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Pagination />
-      </div>
+      <>
+        <Results appearance="grid" />
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}>
+          <Pagination />
+        </div>
+      </>
     );
   });
 
   return (
-    <SearchContextProvider search={{ pipeline, variables, fields: { category: 'brand', title: 'name' } }}>
+    <SearchContextProvider search={{ pipeline, variables, fields: { title: 'name', subtitle: 'brand' } }}>
       <SearchPlayground />
     </SearchContextProvider>
   );

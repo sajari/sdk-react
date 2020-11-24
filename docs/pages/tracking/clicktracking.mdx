@@ -31,22 +31,17 @@ function Example() {
 
   const variables = new Variables();
 
-  const SearchPlayground = React.memo(() => {
-    const { results } = useSearch();
-    const { query } = useQuery();
-
-    return (
-      <div className="flex flex-col space-y-4">
-        <div>
-          <Input label="Search something" />
-        </div>
-        {results ? <Results /> : null}
+  const SearchPlayground = React.memo(() => (
+    <div className="flex flex-col space-y-4">
+      <div>
+        <Input label="Search something" />
       </div>
-    );
-  });
+      <Results />
+    </div>
+  ));
 
   return (
-    <SearchContextProvider search={{ pipeline, variables, fields: { category: 'brand', title: 'name' } }}>
+    <SearchContextProvider search={{ pipeline, variables, fields: { title: 'name', subtitle: 'brand' } }}>
       <SearchPlayground />
     </SearchContextProvider>
   );

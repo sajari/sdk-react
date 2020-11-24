@@ -42,13 +42,13 @@ function Example() {
             <Input label="Search something" />
           </div>
         </div>
-        {results ? <Results /> : null}
+        <Results />
       </div>
     );
   });
 
   return (
-    <SearchContextProvider search={{ pipeline, variables, fields: { category: 'brand', title: 'name' } }}>
+    <SearchContextProvider search={{ pipeline, variables, fields: { title: 'name', subtitle: 'brand' } }}>
       <SearchPlayground />
     </SearchContextProvider>
   );

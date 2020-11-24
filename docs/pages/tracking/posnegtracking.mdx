@@ -62,7 +62,7 @@ function Example() {
   });
 
   return (
-    <SearchContextProvider search={{ pipeline, variables, fields: { category: 'brand', title: 'name' } }}>
+    <SearchContextProvider search={{ pipeline, variables, fields: { title: 'name', subtitle: 'brand' } }}>
       <SearchPlayground />
     </SearchContextProvider>
   );
