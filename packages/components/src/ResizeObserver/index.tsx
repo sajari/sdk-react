@@ -17,17 +17,19 @@ const ResizeObserver = (props: ResizeObserverProps) => {
 
   useEffect(() => {
     if (Observer && ref.current) {
-      onReady(ref.current);
+      const target = ref.current;
+
+      onReady(target);
 
       observer.current = new Observer((entries: ResizeObserverEntry[]) => {
         entries.forEach((entry) => {
           animationFrameIds.push(
-            requestAnimationFrame(() => onResize(entry.contentRect as DOMRectReadOnly, entries, ref.current)),
+            requestAnimationFrame(() => onResize(entry.contentRect as DOMRectReadOnly, entries, target)),
           );
         });
       });
 
-      observer.current.observe(ref.current);
+      observer.current.observe(target);
     }
 
     return () => {
