@@ -43,7 +43,7 @@ function Example() {
 function Example() {
   const [tabIndex, setTabIndex] = React.useState(0);
   const queries = ['phone', 'chair', 'macbook'];
-  const { results = [], loading } = useSearch(queries[tabIndex]);
+  const { results = [], searching } = useSearch({ queryOverride: queries[tabIndex] });
 
   return (
     <>
@@ -54,8 +54,8 @@ function Example() {
           <Tab>Macbook</Tab>
         </TabList>
         <div>
-          {loading && <p className="p-4">Searching...</p>}
-          {!loading && results.length > 0 && (
+          {searching && <p className="p-4">Searching...</p>}
+          {!searching && results.length > 0 && (
             <ul className="list-disc px-5 space-y-2 mt-5">
               {results.map(({ values: { title, id } }) => (
                 <li key={id}>{title}</li>
@@ -81,10 +81,9 @@ function Example() {
     'website',
   );
   const variables = new Variables({ q: 'api', resultsPerPage: 1 });
-  const fields = { title: 'name' };
 
   const SearchPlayground = React.memo(() => {
-    const { results = [], loading } = useSearch({ variables, pipeline, fields });
+    const { results = [], searching } = useSearch({ variables, pipeline, fields: {} });
 
     return (
       <div className="flex flex-col space-y-4">
@@ -100,8 +99,8 @@ function Example() {
           </Select>
         </div>
         <div>
-          {loading && <p>Searching...</p>}
-          {!loading && results.length > 0 && (
+          {searching && <p>Searching...</p>}
+          {!searching && results.length > 0 && (
             <ul className="list-disc px-5 space-y-2">
               {results.map(({ values: { title } }) => (
                 <li key={title}>{title}</li>
@@ -127,5 +126,5 @@ function Example() {
 | `latency`      | `number`               |         | The engine latency                                                                        |
 | `totalResults` | `number`               |         | The total count of results                                                                |
 | `search`       | `(q?: string) => void` |         | The search method, call without param to resend the search request with the current query |
-| `loading`      | `boolean`              |         | Is a search request being processed                                                       |
+| `searching`    | `boolean`              |         | Is a search request being processed                                                       |
 | `error`        | `Error` \| `null`      |         | The error encountered while searching                                                     |
