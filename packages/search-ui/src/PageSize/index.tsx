@@ -12,7 +12,7 @@ import { PageSizeProps } from './types';
 
 const defaultSizes = [15, 25, 50, 100];
 
-const PageSize: React.FC<PageSizeProps> = ({ label = 'Size', sizes = defaultSizes }) => {
+const PageSize: React.FC<PageSizeProps> = ({ label = 'Show', sizes = defaultSizes }) => {
   const { pageSize, setPageSize } = usePageSize();
   const id = `page-size-${useId()}`;
 
