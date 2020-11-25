@@ -73,9 +73,9 @@ const useButtonStyles = (props: UseButtonStylesProps) => {
 
       if (spacing !== 'none') {
         if (spacing === 'compact') {
-          styles.push(tw`px-2`);
+          styles.push(tw`px-1`);
         } else {
-          styles.push(tw`px-3 py-1`);
+          styles.push(tw`px-2 py-0.5`);
         }
       }
       break;

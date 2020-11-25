@@ -6,6 +6,7 @@ import tw from 'twin.macro';
 
 import { IconDownKey, IconEnterKey, IconUpKey } from '../../../assets/icons';
 import Box from '../../../Box';
+import Link from '../../../Link';
 import PoweredBy from '../../../PoweredBy';
 import Text from '../../../Text';
 import { useComboboxContext } from '../../context';
@@ -103,7 +104,15 @@ const Dropdown = () => {
             </Box>
           )}
 
-          {showPoweredBy && <PoweredBy css={tw`ml-auto`} />}
+          {showPoweredBy && (
+            <Link
+              href="https://www.sajari.com/?utm_source=react&amp;utm_medium=referral&amp;utm_campaign=poweredby"
+              css={tw`ml-auto`}
+              target="_blank"
+            >
+              <PoweredBy />
+            </Link>
+          )}
         </Box>
       )}
     </Box>

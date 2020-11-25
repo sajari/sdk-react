@@ -45,7 +45,7 @@ export default function useRingStyles(props?: UseRingStylesProps) {
     }
 
     styles.push(
-      tw`after:(content box-content block h-full w-full border-2 p-0.5 absolute)`,
+      tw`after:(content box-content block h-full w-full border-2 border-solid p-0.5 absolute)`,
       `&::after {
           left: -0.25rem;
           top: -0.25rem;

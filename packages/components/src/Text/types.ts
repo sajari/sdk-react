@@ -9,7 +9,6 @@ export type TextElements =
   | 'h4'
   | 'h5'
   | 'h6'
-  | 'figcaption'
   | 'pre'
   | 'code'
   | 'em'
@@ -25,7 +24,7 @@ export type TextElements =
   | 'sup'
   | 'strong';
 
-export interface Props {
+export interface TextProps {
   /** Set the element that the text should render as */
   as?: TextElements;
   children?: React.ReactNode;

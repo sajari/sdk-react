@@ -12,6 +12,7 @@ export interface UseInputStyleProps {
   indeterminate?: boolean;
   block?: boolean;
   type: 'select' | 'radio' | 'checkbox';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 }
 
 export default function useInputStyles(props: UseInputStyleProps) {

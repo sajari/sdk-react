@@ -28,14 +28,12 @@ function Example() {
   const variables = new Variables();
 
   const SearchPlayground = React.memo(() => {
-    const { results } = useSearch();
+    useSearch();
 
     return (
-      <div className="flex flex-col space-y-4">
-        <div>
-          <ViewType />
-        </div>
-        {results ? <Results /> : null}
+      <div className="space-y-4">
+        <ViewType />
+        <Results />
       </div>
     );
   });
@@ -59,6 +57,7 @@ function Example() {
 
 ## Props
 
-| Name    | Type     | Default  | Description |
-| ------- | -------- | -------- | ----------- |
-| `label` | `string` | `"View"` |             |
+| Name    | Type                  | Default  | Description |
+| ------- | --------------------- | -------- | ----------- |
+| `label` | `string`              | `"View"` |             |
+| `size`  | `ButtonProps['size'[` | `'sm'`   |             |

@@ -17,8 +17,10 @@ const PageSize: React.FC<PageSizeProps> = ({ label = 'Show', sizes = defaultSize
   const id = `page-size-${useId()}`;
 
   return (
-    <div css={tw`flex space-x-4`}>
-      <Label htmlFor={id}>{label}</Label>
+    <div css={tw`flex items-center space-x-4`}>
+      <Label htmlFor={id} css={tw`text-sm text-gray-500`}>
+        {label}
+      </Label>
       <Select id={id} value={`${pageSize}`} onChange={(e) => setPageSize(parseInt(e.target.value, 10))}>
         {sizes.map((s, i) => (
           <option key={`${id}-option-${i}`} value={s}>

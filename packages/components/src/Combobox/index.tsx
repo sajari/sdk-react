@@ -35,7 +35,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     items = [],
     completion = '',
     size = 'md',
-    showDropdownTips = true,
+    showDropdownTips = false,
     showPoweredBy = true,
     itemToString = mode === 'results'
       ? (item: T) => ((item as unknown) as ResultItem).title

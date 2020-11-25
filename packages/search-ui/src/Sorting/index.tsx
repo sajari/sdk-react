@@ -17,8 +17,10 @@ const Sorting: FC<SortingProps> = ({ label = 'Sort', options = defaultOptions })
   const id = `sorting-${useId()}`;
 
   return (
-    <div css={tw`flex space-x-4`}>
-      <Label htmlFor={id}>{label}</Label>
+    <div css={tw`flex items-center space-x-4`}>
+      <Label htmlFor={id} css={tw`text-sm text-gray-500`}>
+        {label}
+      </Label>
       <Select id={id} value={sorting} onChange={(e) => setSorting(e.target.value)}>
         {options.map((s, i) => (
           <option key={`${id}-option-${i}`} value={s.value}>
