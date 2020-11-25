@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.13](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.12...@sajari/react-components@1.0.0-alpha.13) (2020-11-25)
+
+### Bug Fixes
+
+- minor styling issues ([2b2cc15](https://github.com/sajari/sdk-react/commit/2b2cc15b0233f8501bc9b9168f7fb01bce0e04cf))
+
 # [1.0.0-alpha.12](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.11...@sajari/react-components@1.0.0-alpha.12) (2020-11-25)
 
 ### Bug Fixes
