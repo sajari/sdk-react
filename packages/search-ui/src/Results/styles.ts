@@ -88,7 +88,7 @@ export default function useResultsStyles({
 
     // TODO: These sort of helpers should go in utils ideally, or find a better way to handle this
     let columns: ColumnValue = 1;
-    let gap: GapValue = 4;
+    let gap: GapValue = 8;
 
     if (columnsProp) {
       if (isNumber(columnsProp)) {
@@ -194,7 +194,7 @@ export default function useResultsStyles({
         styles.container.push(tw`gap-12`);
         break;
       default:
-        styles.container.push(tw`gap-4`);
+        styles.container.push(tw`gap-8`);
         break;
     }
   }
