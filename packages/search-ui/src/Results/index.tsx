@@ -16,7 +16,7 @@ const Results = (props: ResultsProps) => {
   const { query } = useQuery();
   const { appearance = viewType, className, ...rest } = props;
   const [width, setWidth] = useState(0);
-  const styles = useResultsStyles({ ...props, width });
+  const styles = useResultsStyles({ ...props, appearance, width });
   const setDebounced = useDebounce(setWidth, 50);
 
   // We've not searched yet
