@@ -1,4 +1,7 @@
-export interface PaginationProps {
+import { BoxProps } from '../Box';
+import { ButtonProps } from '../Button';
+
+export interface PaginationProps extends BoxProps, Pick<ButtonProps, 'pressedClassName'> {
   /** The total number of pages */
   pageCount?: number;
   /** The total number of results (used to calculate page count if not set) */
@@ -19,4 +22,14 @@ export interface PaginationProps {
     page?: string;
     current?: string;
   };
+  /** The classname for button */
+  buttonClassName?: string;
+  /** The classname for next button */
+  nextClassName?: string;
+  /** The classname for previous button */
+  prevClassName?: string;
+  /** The classname for ellipsis spacer */
+  spacerEllipsisClassName?: string;
+  /** The classname for current page */
+  activeClassName?: string;
 }

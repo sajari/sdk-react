@@ -1,6 +1,8 @@
 import React from 'react';
 
-export interface RatingProps {
+import { BoxProps } from '../Box';
+
+export interface RatingProps extends BoxProps {
   /** The rating value, accepts decimal to represent half rating */
   value: number;
   /** Maxium level, used to fill in the empty stars */
@@ -13,9 +15,12 @@ export interface RatingProps {
   direction?: 'ltr' | 'rtl';
   /** Unit, used for labeling, default to "stars" */
   unit?: string;
+  ratingItemClassName?: string;
+  activeRatingItemClassName?: string;
+  activeHalfRatingItemClassName?: string;
 }
 
-export interface InternalRatingItemProps {
+export interface InternalRatingItemProps extends BoxProps {
   /** Index */
   index: number;
   /** Total count */

@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { __DEV__, cleanChildren } from '@sajari/react-sdk-utils';
+import { __DEV__, cleanChildren, getStylesObject } from '@sajari/react-sdk-utils';
 import React, { cloneElement } from 'react';
 import tw, { styled } from 'twin.macro';
 
@@ -41,20 +41,38 @@ const StyledBox = styled<any>(Box, { shouldForwardProp: (prop) => prop !== 'atta
 `;
 
 const ButtonGroup = React.forwardRef((props: ButtonGroupProps, ref?: React.Ref<HTMLDivElement>) => {
-  const { attached = false, fullWidth, inline = true, children, as = 'div', ...rest } = props;
-  const buttonGroupStyles = useButtonGroupStyles({ attached, inline });
+  const {
+    attached = false,
+    fullWidth,
+    inline = true,
+    children,
+    as = 'div',
+    disableDefaultStyles = false,
+    styles: stylesProp,
+    ...rest
+  } = props;
+  const styles = getStylesObject({ container: useButtonGroupStyles({ attached, inline }) }, disableDefaultStyles);
   const validChildren = cleanChildren(children);
 
   // TODO: handle case where child is Tooltip
   const clones = validChildren.map((child) =>
     cloneElement(child, {
       fullWidth,
+      disableDefaultStyles,
       ...child.props,
     }),
   );
 
+  if (disableDefaultStyles) {
+    return (
+      <Box as={as} ref={ref} css={stylesProp} {...rest}>
+        {clones}
+      </Box>
+    );
+  }
+
   return (
-    <StyledBox attached={attached} inline={inline} as={as} ref={ref} css={buttonGroupStyles} {...rest}>
+    <StyledBox attached={attached} inline={inline} as={as} ref={ref} css={[styles.container, stylesProp]} {...rest}>
       {clones}
     </StyledBox>
   );

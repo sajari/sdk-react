@@ -21,6 +21,13 @@ const Result = React.memo(
       token,
       onClick = () => {},
       forceImage,
+      headingClassName,
+      priceClassName,
+      subTitleClassName,
+      ratingClassName,
+      descriptionClassName,
+      disableDefaultStyles,
+      styles: stylesProp,
       ...rest
     } = props;
     const { title, description, subtitle, image, url, price } = values;
@@ -58,7 +65,7 @@ const Result = React.memo(
     }, [appearance]);
 
     return (
-      <article {...rest} css={styles.container}>
+      <article {...rest} css={[styles.container, stylesProp]}>
         {(isValidURL(image, true) || forceImage) && (
           <Link href={clickToken || url} target="_blank" onClick={resultClicked} css={styles.imageContainer}>
             <Image src={image} css={styles.image} aspectRatio={imageAspectRatio} objectFit={imageObjectFit} />
@@ -67,21 +74,21 @@ const Result = React.memo(
 
         <div css={tw`flex-1 min-w-0`}>
           <div css={tw`flex items-start`}>
-            <Heading as="h1" size="base" css={[tw`flex-1 font-medium`]}>
+            <Heading as="h1" size="base" css={[tw`flex-1 font-medium`]} className={headingClassName}>
               <Link href={clickToken || url} target="_blank" onClick={resultClicked}>
                 {decodeHTML(title)}
               </Link>
             </Heading>
 
             {price && appearance === 'list' && (
-              <div css={tw`ml-6`}>
+              <div css={tw`ml-6`} className={priceClassName}>
                 <Text>{formatPrice(price, currencyCode)}</Text>
               </div>
             )}
           </div>
 
           {(subtitle || isNumber(rating)) && appearance === 'list' && (
-            <div css={tw`flex items-baseline mt-1`}>
+            <div css={tw`flex items-baseline mt-1`} className={subTitleClassName}>
               {subtitle &&
                 (isValidURL(subtitle) ? (
                   <Link
@@ -95,12 +102,12 @@ const Result = React.memo(
                 ) : (
                   <Text css={tw`mr-3 text-xs text-gray-400`}>{subtitle}</Text>
                 ))}
-              {isNumber(rating) && <Rating value={rating} max={ratingMax} />}
+              {isNumber(rating) && <Rating value={rating} max={ratingMax} className={ratingClassName} />}
             </div>
           )}
 
           {description && appearance === 'list' && (
-            <Text truncate={2} css={tw`mt-1 text-sm text-gray-500`}>
+            <Text truncate={2} css={tw`mt-1 text-sm text-gray-500`} className={descriptionClassName}>
               {decodeHTML(description)}
             </Text>
           )}
@@ -108,7 +115,11 @@ const Result = React.memo(
           {(price || isNumber(rating)) && appearance === 'grid' && (
             <div css={tw`mt-1 space-y-1 text-center`}>
               {isNumber(rating) && <Rating value={rating} max={ratingMax} />}
-              {price && <Text css={tw`text-gray-500`}>{formatPrice(price, currencyCode)}</Text>}
+              {price && (
+                <Text css={tw`text-gray-500`} className={priceClassName}>
+                  {formatPrice(price, currencyCode)}
+                </Text>
+              )}
             </div>
           )}
         </div>

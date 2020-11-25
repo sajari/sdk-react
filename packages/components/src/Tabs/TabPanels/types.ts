@@ -1,3 +1,5 @@
 import { HTMLAttributes } from 'react';
 
-export type TabPanelsProps = Omit<HTMLAttributes<HTMLDivElement>, 'tabIndex'>;
+import { BoxProps } from '../../Box';
+
+export interface TabPanelsProps extends BoxProps, Omit<HTMLAttributes<HTMLDivElement>, 'tabIndex'> {}

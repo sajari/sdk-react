@@ -2,13 +2,15 @@ import { AriaTextFieldOptions, TextFieldAria } from '@react-aria/textfield';
 import { Range, RangeFilter } from '@sajari/react-hooks';
 import React from 'react';
 
+import { BoxProps } from '../Box';
+
 export interface CustomInputProps {
   getProps: (
     override?: AriaTextFieldOptions,
   ) => TextFieldAria & { ref: React.MutableRefObject<HTMLInputElement | null> };
 }
 
-export interface RangeInputProps {
+export interface RangeInputProps extends BoxProps {
   /** The minimum permitted value */
   min?: number;
   /** The maximum permitted value */
@@ -35,4 +37,12 @@ export interface RangeInputProps {
   rightInput?: (props: CustomInputProps) => React.ReactNode;
   /** Show inputs */
   showInputs?: boolean;
+  /** The classname for track */
+  trackClassName?: string;
+  /** The classname for fill */
+  fillClassName?: string;
+  /** The classname for handle */
+  handleClassName?: string;
+  /** The classname for input */
+  inputClassName?: string;
 }

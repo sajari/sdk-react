@@ -1,8 +1,9 @@
 import React from 'react';
 
+import { BoxProps } from '../Box';
 import { Spacing } from '../hooks';
 
-interface Props {
+interface Props extends BoxProps {
   name?: string;
   defaultValue?: string;
   value?: string;

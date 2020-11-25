@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import { __DEV__, cleanChildren } from '@sajari/react-sdk-utils';
 import React, { cloneElement } from 'react';
 
@@ -6,7 +8,7 @@ import { useTabContext } from '../context';
 import { TabPanelsProps } from './types';
 
 const TabPanels = React.forwardRef((props: TabPanelsProps, ref?: React.Ref<HTMLDivElement>) => {
-  const { children, ...rest } = props;
+  const { children, styles: stylesProp, ...rest } = props;
   const { index: selectedIndex, selectedPanelRef, id, manual, manualIndex } = useTabContext();
   const validChildren = cleanChildren(children);
 
@@ -19,7 +21,7 @@ const TabPanels = React.forwardRef((props: TabPanelsProps, ref?: React.Ref<HTMLD
   );
 
   return (
-    <Box tabIndex={-1} ref={ref} {...rest}>
+    <Box tabIndex={-1} ref={ref} css={stylesProp} {...rest}>
       {clones}
     </Box>
   );

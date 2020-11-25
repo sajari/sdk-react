@@ -6,10 +6,12 @@ import React from 'react';
 import { LiveMessage } from 'react-aria-live';
 import { useTranslation } from 'react-i18next';
 
+import { useSearchUIContext } from '../ContextProvider';
 import { SummaryProps } from './types';
 
 const Summary = (props: SummaryProps) => {
   const { latency, totalResults, search, queryValues, searched } = useSearchContext();
+  const { disableDefaultStyles } = useSearchUIContext();
   const { showOverride = true, showLatency = false, ...rest } = props;
   const query = queryValues?.get('q') ?? '';
   const { completion } = useAutocomplete();
@@ -30,7 +32,7 @@ const Summary = (props: SummaryProps) => {
         aria-live="polite"
       />
 
-      <Text {...rest}>
+      <Text {...rest} disableDefaultStyles={disableDefaultStyles}>
         <Box
           as="span"
           dangerouslySetInnerHTML={{
@@ -45,7 +47,12 @@ const Summary = (props: SummaryProps) => {
         {completion && completion !== query.trim() && showOverride ? (
           <React.Fragment>
             {`. ${t('summary.alternative')} `}
-            <Button onClick={() => search(completion)} spacing="none" appearance="link">
+            <Button
+              onClick={() => search(completion)}
+              spacing="none"
+              appearance="link"
+              disableDefaultStyles={disableDefaultStyles}
+            >
               {completion}
             </Button>
             .

@@ -1,9 +1,10 @@
 import { HTMLAttributes } from 'react';
 
+import { BoxProps } from '../Box';
 import { CheckboxProps } from '../Checkbox';
 import { Spacing } from '../hooks';
 
-export interface Props {
+export interface Props extends BoxProps {
   name?: string;
   defaultValue?: Array<CheckboxProps['value']>;
   value?: Array<CheckboxProps['value']>;

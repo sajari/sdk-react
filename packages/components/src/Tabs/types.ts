@@ -1,6 +1,8 @@
 import React from 'react';
 
-export interface TabsProps {
+import { BoxProps } from '../Box';
+
+export interface TabsProps extends BoxProps {
   children: React.ReactNode;
   /** Callback when the index (controlled or un-controlled) changes. */
   onChange?: (index: number) => void;
@@ -33,4 +35,5 @@ export interface TabsContextOptions extends Omit<TabsProps, 'children' | 'index'
   selectedPanelRef: React.Ref<HTMLElement>;
   onFocusPanel: () => void;
   alwaysRenderChildren?: boolean;
+  disableDefaultStyles?: boolean;
 }

@@ -3,7 +3,8 @@ import { jsx } from '@emotion/core';
 import { useButton } from '@react-aria/button';
 import { useFocus, useHover } from '@react-aria/interactions';
 import { mergeProps } from '@react-aria/utils';
-import { mergeRefs } from '@sajari/react-sdk-utils';
+import { getStylesObject, mergeRefs } from '@sajari/react-sdk-utils';
+import classnames from 'classnames';
 import React, { useRef } from 'react';
 
 import Box from '../Box';
@@ -22,6 +23,10 @@ const Button = React.forwardRef((props: ButtonProps, ref?: React.Ref<HTMLElement
     fullWidth = false,
     onClick,
     children,
+    className,
+    styles: stylesProps,
+    pressedClassName = '',
+    disableDefaultStyles = false,
     ...rest
   } = props;
 
@@ -42,7 +47,7 @@ const Button = React.forwardRef((props: ButtonProps, ref?: React.Ref<HTMLElement
     onBlur: () => setFocused(false),
   });
 
-  const { styles, focusRingProps } = useButtonStyles({
+  const { styles: containerStyles, focusRingProps } = useButtonStyles({
     pressed,
     appearance,
     disabled,
@@ -55,12 +60,18 @@ const Button = React.forwardRef((props: ButtonProps, ref?: React.Ref<HTMLElement
   });
 
   const customProps = mergeProps(buttonProps, focusProps, hoverProps, focusRingProps);
+  const styles = getStylesObject({ container: containerStyles }, disableDefaultStyles);
 
-  // TODO: we want to toggle CSS classes based on the state change, for example
-  // {'sj-button--hovered': hovered, 'sj-button--focused': focused}
-  // but hold off since we're planning to put those classes in a upper ContextProvider
   return (
-    <Box as={as} ref={ownRef} {...customProps} css={styles}>
+    <Box
+      as={as}
+      ref={ownRef}
+      {...customProps}
+      css={[styles.container, stylesProps]}
+      className={classnames(className, {
+        [pressedClassName]: pressed,
+      })}
+    >
       {children}
     </Box>
   );

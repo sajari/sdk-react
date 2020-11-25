@@ -1,7 +1,9 @@
 import { PropsWithAs } from '@sajari/react-sdk-utils';
 import React from 'react';
 
-export interface Props {
+import { BoxProps } from '../Box';
+
+export interface Props extends BoxProps {
   /** Should the children be attached to each other */
   attached?: boolean;
   /** Make children fullWidth */

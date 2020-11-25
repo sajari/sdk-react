@@ -1,7 +1,7 @@
 import { Token } from '@sajari/react-hooks';
 import React from 'react';
 
-import { ResultsProps, ResultValues } from '../../types';
+import { ResultCustomClassNames, ResultsProps, ResultValues } from '../../types';
 
 interface Props extends Omit<ResultsProps, 'columns'> {
   values: Omit<ResultValues, '_id'>;
@@ -15,4 +15,4 @@ interface Props extends Omit<ResultsProps, 'columns'> {
 
 type HTMLAttributes = Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props>;
 
-export interface ResultProps extends Props, HTMLAttributes {}
+export interface ResultProps extends Props, HTMLAttributes, ResultCustomClassNames {}

@@ -14,7 +14,7 @@ const defaultSizes = [15, 25, 50, 100];
 
 const PageSize = (props: PageSizeProps) => {
   const { t } = useTranslation();
-  const { label = t('pageSize.label'), sizes = defaultSizes, size } = props;
+  const { label = t('pageSize.label'), sizes = defaultSizes, styles, size, ...rest } = props;
   const { pageSize, setPageSize } = usePageSize();
   const { searched, totalResults } = useSearchContext();
   const id = `page-size-${useId()}`;
@@ -26,7 +26,7 @@ const PageSize = (props: PageSizeProps) => {
   }
 
   return (
-    <div css={tw`flex items-center space-x-4`}>
+    <div css={[tw`flex items-center space-x-4`, styles]} {...rest}>
       <Label htmlFor={id} css={tw`text-gray-500`} size={size}>
         {label}
       </Label>

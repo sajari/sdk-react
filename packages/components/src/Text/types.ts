@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { BoxProps } from '../Box';
 import { UseTextSizeParams } from '../hooks';
 
 export type TextElement =
@@ -26,7 +27,8 @@ export type TextElement =
   | 'sup'
   | 'strong';
 
-export interface TextProps {
+export interface TextProps extends BoxProps {
+  /** Set the element that the text should render as */
   children?: React.ReactNode;
   /** Whether to truncate the text. Specify a number will use line-clamp */
   truncate?: boolean | 2 | 3 | 4 | 5;

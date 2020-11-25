@@ -1,8 +1,9 @@
 import React from 'react';
 
+import { BoxProps } from '../Box';
 import { UseTextSizeParams } from '../hooks';
 
-interface Props {
+interface Props extends BoxProps {
   /** Visually hidden label */
   visuallyHidden?: boolean;
   /** The ID of the input associated to the label */

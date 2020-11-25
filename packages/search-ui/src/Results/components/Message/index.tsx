@@ -22,6 +22,7 @@ export default (props: MessageProps) => {
       case 'error':
         return (
           <React.Fragment>
+            {/* @ts-ignore union too complex */}
             <Heading size="3xl" css={tw`text-red-500`}>
               {title}
             </Heading>

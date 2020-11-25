@@ -1,3 +1,5 @@
 import React from 'react';
 
-export interface SpinnerProps extends React.HTMLProps<SVGSVGElement> {}
+import { BoxProps } from '../Box';
+
+export interface SpinnerProps extends BoxProps, React.HTMLProps<SVGSVGElement> {}

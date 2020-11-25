@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { forwardRefWithAs, PropsWithAs } from '@sajari/react-sdk-utils';
+import { forwardRefWithAs, getStylesObject, PropsWithAs } from '@sajari/react-sdk-utils';
 import React from 'react';
 
 import Box from '../Box';
-import { TextSizes, useTextSize } from '../hooks';
+import { TextSizes } from '../hooks';
 import useHeadingStyles from './styles';
 import { HeadingElements, HeadingProps } from './types';
 
@@ -30,11 +30,17 @@ const mapElementToSize = (element: HeadingElements): TextSizes => {
 };
 
 const HeadingComponent = (props: PropsWithAs<HeadingProps, DefaultElement>, ref: React.Ref<HTMLHeadingElement>) => {
-  const { as = 'h1', size = mapElementToSize(as), truncate, ...rest } = props;
-  const styles = useHeadingStyles({ size, as, truncate });
-  const sizeStyles = useTextSize({ size });
+  const {
+    as = 'h1',
+    size = mapElementToSize(as),
+    truncate,
+    disableDefaultStyles = false,
+    styles: stylesProp,
+    ...rest
+  } = props;
+  const styles = getStylesObject(useHeadingStyles({ size, as, truncate }), disableDefaultStyles);
 
-  return <Box ref={ref} as={as} css={[styles, sizeStyles]} {...rest} />;
+  return <Box ref={ref} as={as} css={[styles.container]} {...rest} />;
 };
 
 const Heading = forwardRefWithAs<HeadingProps, DefaultElement>(HeadingComponent);

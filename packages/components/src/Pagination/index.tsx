@@ -1,13 +1,14 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { clamp } from '@sajari/react-sdk-utils';
+import { clamp, getStylesObject } from '@sajari/react-sdk-utils';
+import classnames from 'classnames';
 import tw from 'twin.macro';
 
 import { IconChevronLeft, IconChevronRight } from '../assets/icons';
 import Box from '../Box';
 import Button from '../Button';
 import ButtonGroup from '../ButtonGroup';
-import { useJustifyContent } from '../hooks';
+import usePaginationStyles from './styles';
 import { PaginationProps } from './types';
 
 const defaultI18n = {
@@ -18,10 +19,23 @@ const defaultI18n = {
   current: 'Page {{page}}, current page',
 };
 
-const getButtons = (page: number, pageCount: number, onChange: (page: number) => void, i18n: typeof defaultI18n) => {
+const getButtons = (
+  page: number,
+  pageCount: number,
+  onChange: (page: number) => void,
+  i18n: typeof defaultI18n,
+  props: PaginationProps,
+) => {
   const limit = 5;
   const middle = Math.ceil(limit / 2);
   let offset = 0;
+  const {
+    activeClassName = '',
+    spacerEllipsisClassName,
+    buttonClassName,
+    disableDefaultStyles,
+    pressedClassName = '',
+  } = props;
 
   if (pageCount > limit) {
     if (page < limit) {
@@ -62,7 +76,12 @@ const getButtons = (page: number, pageCount: number, onChange: (page: number) =>
         <Box
           as="span"
           key={`spacer-ellipsis-${index}`} // eslint-disable-line
-          css={tw`px-2 py-2 border border-gray-200 border-solid rounded-none select-none focus:z-10 bg-gray-50`}
+          css={
+            disableDefaultStyles
+              ? undefined
+              : tw`px-2 py-2 border border-gray-200 border-solid rounded-none select-none focus:z-10 bg-gray-50`
+          }
+          className={spacerEllipsisClassName}
         >
           &hellip;
         </Box>
@@ -79,6 +98,8 @@ const getButtons = (page: number, pageCount: number, onChange: (page: number) =>
         aria-current={active ? 'page' : undefined}
         aria-label={getLabel(number, active)}
         onClick={() => onChange && onChange(number)}
+        pressedClassName={pressedClassName}
+        className={classnames(buttonClassName, { [activeClassName]: active })}
       >
         {number}
       </Button>
@@ -87,10 +108,24 @@ const getButtons = (page: number, pageCount: number, onChange: (page: number) =>
 };
 
 const Pagination = (props: PaginationProps) => {
-  const { totalResults, pageSize, page, onChange, align = 'center', i18n: i18nProp } = props;
+  const {
+    totalResults,
+    pageSize,
+    page,
+    onChange,
+    i18n: i18nProp,
+    buttonClassName,
+    activeClassName,
+    nextClassName,
+    prevClassName,
+    spacerEllipsisClassName,
+    pressedClassName,
+    styles: stylesProp,
+    disableDefaultStyles = false,
+    ...rest
+  } = props;
   const i18n = { ...defaultI18n, ...i18nProp };
   let { pageCount } = props;
-  const justifyContentStyles = useJustifyContent({ align });
 
   if (!totalResults || !pageSize) {
     return null;
@@ -115,25 +150,31 @@ const Pagination = (props: PaginationProps) => {
     onChange(clamp(target, 1, pageCount));
   };
 
+  const styles = getStylesObject(usePaginationStyles(props), disableDefaultStyles);
+
   return (
-    <ButtonGroup as="nav" aria-label={i18n.label} attached css={[tw`flex`, justifyContentStyles]}>
+    <ButtonGroup as="nav" aria-label={i18n.label} attached css={[styles.container, stylesProp]} {...rest}>
       <Button
         spacing="compact"
         disabled={!hasPrevious}
         onClick={() => (hasPrevious ? changeHandler(page - 1) : {})}
         aria-label={i18n.previous}
+        className={classnames(prevClassName, buttonClassName)}
+        pressedClassName={pressedClassName}
       >
         &#8203;
         <IconChevronLeft />
       </Button>
 
-      {getButtons(page, pageCount, changeHandler, i18n)}
+      {getButtons(page, pageCount, changeHandler, i18n, props)}
 
       <Button
         spacing="compact"
         disabled={!hasNext}
         onClick={() => (hasNext ? changeHandler(page + 1) : {})}
         aria-label={i18n.next}
+        className={classnames(nextClassName, buttonClassName)}
+        pressedClassName={pressedClassName}
       >
         &#8203;
         <IconChevronRight />

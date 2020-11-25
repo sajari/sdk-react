@@ -12,17 +12,17 @@ import { ViewTypeProps } from './types';
 
 const ViewType = (props: ViewTypeProps) => {
   const { t } = useTranslation();
-  const { label = t('viewType.label'), size } = props;
+  const { label = t('viewType.label'), size, styles: stylesProp, ...rest } = props;
   const id = `view-type-${useId()}`;
   const { viewType, setViewType } = useSearchContext();
 
   return (
-    <div css={tw`flex items-center space-x-4`} aria-labelledby={id}>
+    <div css={[tw`flex items-center space-x-4`, stylesProp]} aria-labelledby={id} {...rest}>
       {/* @ts-ignore Union too complex? */}
       <Text id={id} css={tw`text-gray-500`} size={size}>
         {label}
       </Text>
-      <ButtonGroup attached>
+      <ButtonGroup id={id} attached>
         <Button
           onClick={() => setViewType('grid')}
           size={size}
