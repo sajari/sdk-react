@@ -12,21 +12,26 @@ export const isEmptyArray = (value: any) => isArray(value) && value.length === 0
 
 export const isObject = (value: any) => {
   const type = typeof value;
-  return value != null && (type === 'object' || type === 'function') && !isArray(value);
+  return value !== null && (type === 'object' || type === 'function') && !isArray(value);
 };
 
 export const isEmptyObject = (value: any) => isObject(value) && Object.keys(value).length === 0;
 
+export const isNullOrUndefined = (value: any) => value === null || typeof value === 'undefined';
+
 // Empty assertions
 export const isEmpty = (value: any) => {
+  if (isNullOrUndefined(value)) {
+    return true;
+  }
   if (isArray(value)) {
     return isEmptyArray(value);
   }
   if (isObject(value)) {
     return isEmptyObject(value);
   }
-  if (value == null || value === '') {
-    return true;
+  if (typeof value === 'string') {
+    return value.trim() === '';
   }
   return false;
 };
@@ -36,6 +41,10 @@ export const isEmpty = (value: any) => {
  * @param value
  */
 export function isValidURL(value: any, allowRelative = false) {
+  if (!value || isEmpty(value)) {
+    return false;
+  }
+
   if (allowRelative && value.startsWith('/')) {
     return true;
   }
