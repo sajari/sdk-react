@@ -52,6 +52,7 @@ export default function useRingStyles(props?: UseRingStylesProps) {
           border-color: ${new Color(borderColor)};
         }`,
       borderRadius,
+      tw`outline-none`,
     );
   }
 
