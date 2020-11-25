@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.8](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.0.0-alpha.7...@sajari/react-sdk-utils@1.0.0-alpha.8) (2020-11-25)
+
+### Bug Fixes
+
+- isEmpty handle undefined values ([5c77160](https://github.com/sajari/sdk-react/commit/5c7716005b0d98412a3c8f56e885f38ab6018f48))
+
 # [1.0.0-alpha.7](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.0.0-alpha.6...@sajari/react-sdk-utils@1.0.0-alpha.7) (2020-11-24)
 
 ### Features

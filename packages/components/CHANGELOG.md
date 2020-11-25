@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.12](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.11...@sajari/react-components@1.0.0-alpha.12) (2020-11-25)
+
+### Bug Fixes
+
+- remove outline when using ring styles ([4318667](https://github.com/sajari/sdk-react/commit/431866759ad5ce00679864b1abe1f1b352edfd3b))
+
+### Features
+
+- added Link component ([2788d3a](https://github.com/sajari/sdk-react/commit/2788d3a62e368771e18dc6e4f5e14800c0735256))
+- added Spinner component ([f1d2fa8](https://github.com/sajari/sdk-react/commit/f1d2fa8d90dbdece6c9b353a708706b6719056d2))
+
 # [1.0.0-alpha.11](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.10...@sajari/react-components@1.0.0-alpha.11) (2020-11-24)
 
 ### Bug Fixes

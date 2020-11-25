@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.10](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.9...@sajari/react-hooks@1.0.0-alpha.10) (2020-11-25)
+
+### Bug Fixes
+
+- default subtitle to url for website collections ([a06c2d0](https://github.com/sajari/sdk-react/commit/a06c2d0e44aa6f4853bfa9d327215ae992bd853b))
+
 # [1.0.0-alpha.9](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.8...@sajari/react-hooks@1.0.0-alpha.9) (2020-11-24)
 
 ### Bug Fixes

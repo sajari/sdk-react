@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.13](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.12...@sajari/react-search-ui@1.0.0-alpha.13) (2020-11-25)
+
+### Features
+
+- handle loading and no results in Results component ([2610a1a](https://github.com/sajari/sdk-react/commit/2610a1ad6c6da97ed7083b45a99eb294c1ff4554))
+- show loader in input when searching or autocompleting ([923d5a5](https://github.com/sajari/sdk-react/commit/923d5a51510e6a9b79bb4ee30a71b6edc05ef7fe))
+
 # [1.0.0-alpha.12](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.11...@sajari/react-search-ui@1.0.0-alpha.12) (2020-11-24)
 
 ### Features
