@@ -23,6 +23,6 @@ export interface UseSearchResult {
   search: (q?: string) => void;
   searchInstant?: (q?: string) => void;
   suggestions?: string[];
-  loading: boolean;
+  searching: boolean;
   error: Error | null;
 }

@@ -10,10 +10,10 @@ import mapResultFields from '../utils/mapResultFields';
 import { UseSearchConfig, UseSearchCustomConfig, UseSearchParams, UseSearchResult } from './types';
 
 function useCustomSearch({ pipeline, variables, fields = {} }: UseSearchCustomConfig): UseSearchResult {
-  const [loading, setLoading] = useState(false);
+  const [searching, setSearching] = useState(false);
   const searchFn = useCallback(
     (q?: string) => {
-      setLoading(true);
+      setSearching(true);
       if (q === '') {
         pipeline.clearResponse(variables.get());
       } else {
@@ -26,7 +26,10 @@ function useCustomSearch({ pipeline, variables, fields = {} }: UseSearchCustomCo
     [pipeline, variables],
   );
 
-  const [searchOutput, setSearchOutput] = useState<Omit<UseSearchResult, 'loading'>>({ search: searchFn, error: null });
+  const [searchOutput, setSearchOutput] = useState<Omit<UseSearchResult, 'searching'>>({
+    search: searchFn,
+    error: null,
+  });
 
   useEffect(() => {
     searchFn();
@@ -36,7 +39,7 @@ function useCustomSearch({ pipeline, variables, fields = {} }: UseSearchCustomCo
       const reqResults = response?.getResults();
       const results = reqResults ? mapResultFields(reqResults, fields) : undefined;
 
-      setLoading(false);
+      setSearching(false);
       setSearchOutput((o) => ({ ...o, results, latency, totalResults, error: response?.getError() }));
     });
   }, []);
@@ -47,7 +50,7 @@ function useCustomSearch({ pipeline, variables, fields = {} }: UseSearchCustomCo
     });
   }, []);
 
-  return { ...searchOutput, loading };
+  return { ...searchOutput, searching };
 }
 
 function useNormalSearch({ queryOverride = '', allowEmptySearch = true }: UseSearchConfig): UseSearchResult {
@@ -101,7 +104,7 @@ function useNormalSearch({ queryOverride = '', allowEmptySearch = true }: UseSea
     results: results ? mapResultFields(results, fields) : undefined,
     search,
     searchInstant,
-    loading: searching,
+    searching,
     error,
   };
 }
