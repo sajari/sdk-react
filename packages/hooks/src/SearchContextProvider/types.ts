@@ -85,7 +85,7 @@ export class FieldDictionary {
       id = '_id',
       url = 'url',
       title = 'title',
-      subtitle = 'subtitle',
+      subtitle = 'url',
       description = 'description',
       image = 'image',
       price = 'price',
