@@ -7,7 +7,7 @@ export default function useTabListStyles() {
   const { align } = useTabContext();
   const styles: TwStyle[] = [];
 
-  styles.push(tw`flex border-0 border-b border-solid border-gray-200`);
+  styles.push(tw`flex border-0 border-b border-gray-200 border-solid`);
 
   switch (align) {
     case 'center':

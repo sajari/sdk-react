@@ -14,7 +14,7 @@ const CheckboxGroup = ({
   defaultValue,
   inline,
   value: valueProp,
-  spacing = inline ? '4' : '2',
+  spacing = inline ? '4' : '1',
   children,
   ...rest
 }: CheckboxGroupProps) => {
