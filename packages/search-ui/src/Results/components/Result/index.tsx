@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-target-blank */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { Heading, Image, Rating, Text } from '@sajari/react-components';
+import { Heading, Image, Link, Rating, Text } from '@sajari/react-components';
 import { useTracking } from '@sajari/react-hooks';
 import { __DEV__, decodeHTML, formatPrice, isNumber, isValidURL } from '@sajari/react-sdk-utils';
 import React from 'react';
@@ -40,17 +40,17 @@ const Result = React.memo(
     return (
       <article {...rest} css={styles.container}>
         {isValidURL(image, true) && (
-          <a href={clickToken || url} target="_blank" onClick={resultClicked} css={styles.imageContainer}>
+          <Link href={clickToken || url} target="_blank" onClick={resultClicked} css={styles.imageContainer}>
             <Image src={image} css={styles.image} aspectRatio={imageAspectRatio} objectFit={imageObjectFit} />
-          </a>
+          </Link>
         )}
 
         <div css={tw`flex-1 min-w-0`}>
           <div css={tw`flex items-start`}>
-            <Heading as="h1" size="base" css={tw`flex-1 font-medium`}>
-              <a href={clickToken || url} target="_blank" onClick={resultClicked}>
+            <Heading as="h1" size="base" css={[tw`flex-1 font-medium`]}>
+              <Link href={clickToken || url} target="_blank" onClick={resultClicked}>
                 {decodeHTML(title)}
-              </a>
+              </Link>
             </Heading>
 
             {price && appearance === 'list' && (
@@ -64,14 +64,14 @@ const Result = React.memo(
             <div css={tw`flex items-baseline mt-1`}>
               {subtitle &&
                 (isValidURL(subtitle) ? (
-                  <a
+                  <Link
                     href={clickToken || url}
                     target="_blank"
                     onClick={resultClicked}
                     css={tw`mr-3 text-xs text-gray-400`}
                   >
                     {subtitle}
-                  </a>
+                  </Link>
                 ) : (
                   <Text css={tw`mr-3 text-xs text-gray-400`}>{subtitle}</Text>
                 ))}
