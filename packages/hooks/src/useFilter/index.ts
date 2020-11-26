@@ -1,3 +1,4 @@
+import { isNumber } from '@sajari/react-sdk-utils';
 import { CountAggregate } from '@sajari/sdk-js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
@@ -55,7 +56,7 @@ function useFilter(name: string) {
       output = Object.entries(count).map(([label, count]: [string, number]) => ({
         label,
         count,
-        value: array ? `${fieldCount} ~ ['${label}']` : `${fieldCount} = '${label}'`,
+        value: array ? `${fieldCount} ~ ["${label}"]` : `${fieldCount} = "${label}"`,
       }));
 
       filter.setOptions(output.reduce((a, c) => ({ ...a, [c.label]: c.value }), {}));
@@ -73,7 +74,7 @@ function useFilter(name: string) {
           ({ count } = aggregates?.buckets);
         }
 
-        if (typeof count === 'number') {
+        if (isNumber(count)) {
           return 0;
         }
 
