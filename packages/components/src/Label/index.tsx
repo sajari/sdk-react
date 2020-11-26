@@ -4,7 +4,7 @@ import { jsx } from '@emotion/core';
 import { __DEV__ } from '@sajari/react-sdk-utils';
 import React from 'react';
 
-import useTextSize from '../hooks/useTextSize';
+import { useTextSize } from '../hooks';
 import useLabelStyles from './styles';
 import { LabelProps } from './types';
 

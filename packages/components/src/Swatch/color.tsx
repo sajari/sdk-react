@@ -10,7 +10,7 @@ import tw, { styled } from 'twin.macro';
 
 import { IconCheck } from '../assets/icons';
 import Box from '../Box';
-import useFocusRingStyles from '../hooks/useFocusRingStyles';
+import { useFocusRingStyles } from '../hooks';
 import { colors } from './colors';
 import { useSwatchContext } from './context';
 import { ColorProps } from './types';

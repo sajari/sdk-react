@@ -6,13 +6,13 @@ import React from 'react';
 import tw from 'twin.macro';
 
 import Box from '../Box';
-import useInputStyle, { UseInputStyleProps } from '../hooks/useInputStyles';
+import { UseInputStyleProps, useInputStyles } from '../hooks';
 import Label from '../Label';
 import { SelectProps } from './types';
 
 const Select = React.forwardRef((props: SelectProps, ref?: React.Ref<HTMLSelectElement>) => {
   const { id = `select-${useId()}`, children, disabled, invalid, placeholder, label, size, ...rest } = props;
-  const { styles, focusRingStyles, focusProps } = useInputStyle({
+  const { styles, focusRingStyles, focusProps } = useInputStyles({
     block: true,
     type: 'select',
     size,

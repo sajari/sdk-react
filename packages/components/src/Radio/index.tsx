@@ -7,7 +7,7 @@ import React from 'react';
 import tw from 'twin.macro';
 
 import Box from '../Box';
-import useInputStyle, { UseInputStyleProps } from '../hooks/useInputStyles';
+import { UseInputStyleProps, useInputStyles } from '../hooks';
 import Label from '../Label';
 import { RadioProps } from './types';
 
@@ -31,7 +31,7 @@ const Radio = React.forwardRef((props: RadioProps, ref?: React.Ref<HTMLInputElem
     ...rest
   } = props;
 
-  const { styles, focusRingStyles, focusProps } = useInputStyle({
+  const { styles, focusRingStyles, focusProps } = useInputStyles({
     block: true,
     type: 'radio',
     ...props,

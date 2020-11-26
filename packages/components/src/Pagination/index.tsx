@@ -7,6 +7,7 @@ import { IconChevronLeft, IconChevronRight } from '../assets/icons';
 import Box from '../Box';
 import Button from '../Button';
 import ButtonGroup from '../ButtonGroup';
+import { useJustifyContent } from '../hooks';
 import { PaginationProps } from './types';
 
 const getButtons = (page: number, pageCount: number, onChange: (page: number) => void) => {
@@ -24,7 +25,7 @@ const getButtons = (page: number, pageCount: number, onChange: (page: number) =>
   }
 
   const items: Array<number | null> = Array.from(Array(clamp(pageCount, 0, limit))).map(
-    (value, index) => Number(index) + offset,
+    (_, index) => Number(index) + offset,
   );
 
   if (pageCount > limit) {
@@ -72,8 +73,9 @@ const getButtons = (page: number, pageCount: number, onChange: (page: number) =>
 };
 
 const Pagination = (props: PaginationProps) => {
-  const { totalResults, pageSize, page, onChange } = props;
+  const { totalResults, pageSize, page, onChange, align = 'center' } = props;
   let { pageCount } = props;
+  const justifyContentStyles = useJustifyContent({ align });
 
   if (!totalResults || !pageSize) {
     return null;
@@ -99,7 +101,7 @@ const Pagination = (props: PaginationProps) => {
   };
 
   return (
-    <ButtonGroup as="nav" aria-label="Pagination" attached>
+    <ButtonGroup as="nav" aria-label="Pagination" attached css={[tw`flex`, justifyContentStyles]}>
       <Button
         spacing="compact"
         disabled={!hasPrevious}

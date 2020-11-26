@@ -6,7 +6,7 @@ import React from 'react';
 import tw from 'twin.macro';
 
 import Box from '../Box';
-import useInputStyle, { UseInputStyleProps } from '../hooks/useInputStyles';
+import { UseInputStyleProps, useInputStyles } from '../hooks';
 import Label from '../Label';
 import { CheckboxProps } from './types';
 
@@ -32,7 +32,7 @@ const Checkbox = React.forwardRef((props: CheckboxProps, ref?: React.Ref<HTMLInp
   const theme = useTheme();
 
   // TODO: Should return all required styles
-  const { styles, focusRingStyles, focusProps } = useInputStyle({
+  const { styles, focusRingStyles, focusProps } = useInputStyles({
     type: 'checkbox',
     indeterminate,
     ...props,

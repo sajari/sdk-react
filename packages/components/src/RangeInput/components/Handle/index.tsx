@@ -4,7 +4,7 @@ import Color from 'color';
 import React from 'react';
 import tw, { theme as twTheme } from 'twin.macro';
 
-import useFocusRingStyles from '../../../hooks/useFocusRingStyles';
+import { useFocusRingStyles } from '../../../hooks';
 
 interface Props {
   active: boolean;

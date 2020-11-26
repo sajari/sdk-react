@@ -9,7 +9,7 @@ import tw from 'twin.macro';
 
 import { IconSearch, IconSmallSearch, IconSpinner } from '../assets/icons';
 import Box from '../Box';
-import useVoiceInput from '../hooks/useVoiceInput';
+import { useVoiceInput } from '../hooks';
 import Dropdown from './components/Dropdown';
 import Typeahead from './components/Typeahead';
 import Voice from './components/Voice';

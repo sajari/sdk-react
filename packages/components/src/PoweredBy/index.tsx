@@ -5,15 +5,17 @@ import React from 'react';
 
 import { LogoSajariColor, LogoSajariMono } from '../assets/logos';
 import Box from '../Box';
+import { useJustifyContent } from '../hooks';
 import usePoweredByStyles from './styles';
 import { PoweredByProps } from './types';
 
 const PoweredBy = React.forwardRef((props: PoweredByProps, ref?: React.Ref<HTMLDivElement>) => {
-  const styles = usePoweredByStyles(props);
-  const { appearance } = props;
+  const { align = 'right', appearance } = props;
+  const styles = usePoweredByStyles();
+  const justifyContentStyles = useJustifyContent({ align });
 
   return (
-    <Box ref={ref} css={styles.container} {...props}>
+    <Box ref={ref} css={[styles.container, justifyContentStyles]} {...props}>
       <Box as="span" css={styles.label}>
         Powered by
       </Box>

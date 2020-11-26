@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { UseTextSizeParams } from '../hooks/useTextSize';
+import { UseTextSizeParams } from '../hooks';
 
 export type TextElement =
   | 'small'

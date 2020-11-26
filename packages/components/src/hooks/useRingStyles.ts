@@ -24,7 +24,7 @@ export default function useRingStyles(props?: UseRingStylesProps) {
       borderColor = twTheme`colors.red.500`.toString();
     }
 
-    let borderRadius;
+    let borderRadius: TwStyle;
 
     switch (rounded) {
       case 'sm':

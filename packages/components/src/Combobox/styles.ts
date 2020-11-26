@@ -1,7 +1,7 @@
 import { mapStyles } from '@sajari/react-sdk-utils';
 import tw, { TwStyle } from 'twin.macro';
 
-import useFocusRingStyles from '../hooks/useFocusRingStyles';
+import { useFocusRingStyles } from '../hooks';
 import { ComboboxProps } from './types';
 
 interface UseComboboxStylesProps {

@@ -4,7 +4,7 @@ import tw from 'twin.macro';
 
 import { IconEmptyMic, IconMic } from '../../../assets/icons';
 import Box from '../../../Box';
-import useVoiceInput from '../../../hooks/useVoiceInput';
+import { useVoiceInput } from '../../../hooks';
 import { VoiceProps } from './types';
 
 const Voice = ({ children, onVoiceInput }: VoiceProps) => {

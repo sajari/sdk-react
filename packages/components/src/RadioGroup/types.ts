@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Spacing } from '../hooks/useSpacing';
+import { Spacing } from '../hooks';
 
 interface Props {
   name?: string;

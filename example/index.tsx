@@ -47,6 +47,7 @@ const SearchPlayground = () => {
           </ul>
         </div>
       ))}
+
       <Pagination
         page={page}
         pageSize={pageSize}

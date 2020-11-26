@@ -4,7 +4,7 @@ import { forwardRefWithAs, PropsWithAs } from '@sajari/react-sdk-utils';
 import React from 'react';
 
 import Box from '../Box';
-import useTextSize from '../hooks/useTextSize';
+import { useTextSize } from '../hooks';
 import useTextStyles from './styles';
 import { TextProps } from './types';
 

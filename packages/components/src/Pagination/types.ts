@@ -9,4 +9,6 @@ export interface PaginationProps {
   page: number;
   /** Callback for handling page change */
   onChange: (page: number) => void;
+  /** How to align the pagination */
+  align?: 'left' | 'center' | 'right';
 }

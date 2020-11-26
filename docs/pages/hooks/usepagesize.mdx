@@ -31,7 +31,7 @@ function Example() {
     const { query } = useQuery();
 
     return (
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-6">
         <div className="flex space-x-4">
           <div className="w-3/5">
             <Input value={query} onChange={(value) => search(value)} />
@@ -45,6 +45,7 @@ function Example() {
             </Select>
           </div>
         </div>
+
         <Results />
       </div>
     );

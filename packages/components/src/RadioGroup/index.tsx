@@ -5,7 +5,7 @@ import { cleanChildren } from '@sajari/react-sdk-utils';
 import React, { cloneElement, forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import tw from 'twin.macro';
 
-import useSpacing from '../hooks/useSpacing';
+import { useSpacing } from '../hooks';
 import { RadioGroupProps } from './types';
 
 const RadioGroup = forwardRef(

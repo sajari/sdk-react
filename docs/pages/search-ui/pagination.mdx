@@ -30,12 +30,10 @@ function Example() {
     useSearch('iphone');
 
     return (
-      <>
+      <div className="space-y-6">
         <Results appearance="grid" />
-        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '30px' }}>
-          <Pagination />
-        </div>
-      </>
+        <Pagination />
+      </div>
     );
   });
 
@@ -49,5 +47,6 @@ function Example() {
 
 ## Props
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
+| Name    | Type                                | Default    | Description                  |
+| ------- | ----------------------------------- | ---------- | ---------------------------- |
+| `align` | `'left'` \| `'center'` \| `'right'` | `'center'` | How to align the pagination. |

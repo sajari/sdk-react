@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { UseInputStyleProps } from '../hooks/useInputStyles';
+import { UseInputStyleProps } from '../hooks';
 
 type HtmlAttributes = Omit<React.SelectHTMLAttributes<HTMLSelectElement>, keyof Props | 'size'>;
 

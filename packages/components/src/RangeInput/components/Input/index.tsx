@@ -6,13 +6,13 @@ import React from 'react';
 import tw from 'twin.macro';
 
 import Box from '../../../Box';
-import useInputStyle, { UseInputStyleProps } from '../../../hooks/useInputStyles';
+import { UseInputStyleProps, useInputStyles } from '../../../hooks';
 import { RangeInputInputProps } from './types';
 
 const Input = (props: RangeInputInputProps) => {
   const ref = React.useRef<HTMLInputElement>(null);
   const { inputProps, labelProps } = useTextField({ ...props, type: 'number' }, ref);
-  const { styles, focusRingStyles, focusProps } = useInputStyle({
+  const { styles, focusRingStyles, focusProps } = useInputStyles({
     block: true,
     type: 'text',
     ...props,

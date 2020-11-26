@@ -92,17 +92,22 @@ function Example() {
     const { results } = useSearch();
 
     return (
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-6">
         <Input />
-        {results ? (
-          <div className="flex -mx-3">
-            <div className="w-1/4 px-3 border-gray-100 border-r">
-              <BrandFilter />
-              <PriceFilter />
-            </div>
-            <div className="w-3/4 px-3">{results.length ? <Results /> : <div>No results 😢</div>}</div>
+
+        <div className="flex -mx-3">
+          <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
+            {results && (
+              <>
+                <BrandFilter />
+                <PriceFilter />
+              </>
+            )}
           </div>
-        ) : null}
+          <div className="w-3/4 px-3">
+            <Results />
+          </div>
+        </div>
       </div>
     );
   });
@@ -200,7 +205,7 @@ function Example() {
     const { results } = useSearch();
 
     return (
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-6">
         <Input />
 
         <div className="flex -mx-3">
@@ -359,7 +364,7 @@ function Example() {
     const { results } = useSearch();
 
     return (
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-6">
         <Input />
 
         <div className="flex -mx-3">
