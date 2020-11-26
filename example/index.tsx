@@ -60,7 +60,7 @@ const SearchPlayground = () => {
 
 const pipeline = new Pipeline(
   {
-    project: '1594153711901724220',
+    account: '1594153711901724220',
     collection: 'bestbuy',
     endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
   },

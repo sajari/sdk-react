@@ -14,7 +14,7 @@ type QueryPipeline = ReturnType<Client['pipeline']>;
 
 export class Pipeline {
   public config: {
-    project: string;
+    account: string;
     collection: string;
     endpoint?: string;
   };
@@ -39,14 +39,14 @@ export class Pipeline {
 
   /**
    * Constructs a Pipeline object.
-   * @param config Project, Collection config
+   * @param config Account, Collection config
    * @param name Name of the pipeline.
    * @param [tracking=ClickTracking()] Default tracking to use in searches.
    * @param [analyticsAdapters=GoogleAnalytics]
    */
   constructor(
     config: {
-      project: string;
+      account: string;
       collection: string;
       endpoint?: string;
     },
@@ -54,7 +54,7 @@ export class Pipeline {
     tracking: ClickTracking | NoTracking = new NoTracking(),
     analyticsAdapters = [GoogleAnalytics],
   ) {
-    const { project, collection, endpoint } = config;
+    const { account, collection, endpoint } = config;
     this.config = config;
 
     const p: { name?: string; version?: string } = {
@@ -68,7 +68,7 @@ export class Pipeline {
       p.version = name.version;
     }
 
-    this.client = new Client(project, collection, endpoint);
+    this.client = new Client(account, collection, endpoint);
     this.pipeline = this.client.pipeline(p.name as string, p.version);
     this.name = p.name as string;
     this.version = p.version;
