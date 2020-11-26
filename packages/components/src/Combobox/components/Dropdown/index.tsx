@@ -104,15 +104,7 @@ const Dropdown = () => {
             </Box>
           )}
 
-          {showPoweredBy && (
-            <Link
-              href="https://www.sajari.com/?utm_source=react&amp;utm_medium=referral&amp;utm_campaign=poweredby"
-              css={tw`ml-auto`}
-              target="_blank"
-            >
-              <PoweredBy />
-            </Link>
-          )}
+          {showPoweredBy && <PoweredBy css={tw`ml-auto`} />}
         </Box>
       )}
     </Box>

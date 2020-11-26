@@ -13,17 +13,14 @@ import { PoweredBy } from '@sajari/react-search-ui';
 ## Usage
 
 ```jsx
-<>
-  <PoweredBy align="center" />
-  <PoweredBy align="center" appearance="color" />
-  <PoweredBy align="left" />
+<div className="space-x-6">
   <PoweredBy />
-</>
+  <PoweredBy appearance="color" />
+</div>
 ```
 
 ## Props
 
-| Name         | Type                      | Default | Description                       |
-| ------------ | ------------------------- | ------- | --------------------------------- |
-| `align`      | `left`, `center`, `right` | `right` | The alignment of the content.     |
-| `appearance` | `mono`, `color`           | `mono`  | The apperance of the Sajari logo. |
+| Name         | Type            | Default | Description                       |
+| ------------ | --------------- | ------- | --------------------------------- |
+| `appearance` | `mono`, `color` | `mono`  | The apperance of the Sajari logo. |

@@ -3,9 +3,9 @@ import tw from 'twin.macro';
 
 export default function usePoweredByStyles() {
   const styles = {
-    container: [tw`flex items-center m-2 text-xs text-gray-400`],
+    container: [tw`inline-flex items-center text-xs text-gray-400`],
     logo: [tw`inline-block align-middle`],
-    label: [tw`pr-1`],
+    label: [tw`pr-2`],
   };
 
   return mapStyles(styles);
