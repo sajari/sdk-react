@@ -27,28 +27,20 @@ function Example() {
 
   const variables = new Variables();
 
-  const SearchPlayground = React.memo(() => {
-    const { results } = useSearch();
-    const { setPageSize } = usePageSize();
-    const { query } = useQuery();
-
-    return (
-      <div className="flex flex-col space-y-4">
-        <div className="flex space-x-4">
-          <div className="w-1/5">
-            <PageSize />
-          </div>
-          <div className="flex-1">
-            <Input label="Search something" />
-          </div>
+  const SearchPlayground = React.memo(() => (
+    <div className="space-y-4">
+      <div className="flex items-center space-x-4">
+        <div className="flex-1">
+          <Input label="Search something" />
         </div>
-        <Results />
+        <PageSize />
       </div>
-    );
-  });
+      <Results />
+    </div>
+  ));
 
   return (
-    <SearchContextProvider search={{ pipeline, variables, fields: { title: 'name', subtitle: 'brand' } }}>
+    <SearchContextProvider search={{ pipeline, variables, fields: { title: 'name', subtitle: 'brand' } }} searchOnLoad>
       <SearchPlayground />
     </SearchContextProvider>
   );
@@ -57,7 +49,8 @@ function Example() {
 
 ## Props
 
-| Name    | Type            | Default               | Description |
-| ------- | --------------- | --------------------- | ----------- |
-| `label` | `string`        | `Show`                |             |
-| `sizes` | `Array<number>` | [10, 20, 35, 50, 100] |             |
+| Name    | Type                 | Default               | Description                   |
+| ------- | -------------------- | --------------------- | ----------------------------- |
+| `label` | `string`             | `Show`                |                               |
+| `sizes` | `Array<number>`      | [10, 20, 35, 50, 100] |                               |
+| `size`  | `sm` \| `md` \| `lg` | `md`                  | Sets the text and input size. |

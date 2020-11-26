@@ -27,28 +27,20 @@ function Example() {
 
   const variables = new Variables();
 
-  const SearchPlayground = React.memo(() => {
-    useSearch();
-
-    return (
-      <div className="space-y-4">
+  const SearchPlayground = React.memo(() => (
+    <div className="space-y-4">
+      <div className="flex items-center space-x-4">
+        <div className="flex-1">
+          <Input label="Search something" />
+        </div>
         <ViewType />
-        <Results />
       </div>
-    );
-  });
+      <Results />
+    </div>
+  ));
 
   return (
-    <SearchContextProvider
-      search={{
-        pipeline,
-        variables,
-        fields: {
-          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
-          title: 'name',
-        },
-      }}
-    >
+    <SearchContextProvider search={{ pipeline, variables, fields: { title: 'name', subtitle: 'brand' } }} searchOnLoad>
       <SearchPlayground />
     </SearchContextProvider>
   );
@@ -57,7 +49,7 @@ function Example() {
 
 ## Props
 
-| Name    | Type                  | Default  | Description |
-| ------- | --------------------- | -------- | ----------- |
-| `label` | `string`              | `"View"` |             |
-| `size`  | `ButtonProps['size'[` | `'sm'`   |             |
+| Name    | Type                 | Default  | Description                     |
+| ------- | -------------------- | -------- | ------------------------------- |
+| `label` | `string`             | `"View"` |                                 |
+| `size`  | `sm` \| `md` \| `lg` | `md`     | Sets the text and button sizes. |

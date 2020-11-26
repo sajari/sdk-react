@@ -12,14 +12,14 @@ import { ViewTypeProps } from './types';
 const styles = [tw`transition-colors duration-300 ease-out fill-current`];
 
 const ViewType = (props: ViewTypeProps) => {
-  const { label = 'View', size = 'sm' } = props;
+  const { label = 'View', size } = props;
   const id = `view-type-${useId()}`;
   const { viewType, setViewType } = useSearchContext();
 
   return (
     <div css={tw`flex items-center space-x-4`} aria-labelledby={id}>
       {/* @ts-ignore Union too complex? */}
-      <Text id={id} css={tw`text-sm text-gray-500`}>
+      <Text id={id} css={tw`text-sm text-gray-500`} size={size}>
         {label}
       </Text>
       <ButtonGroup attached>

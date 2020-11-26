@@ -5,23 +5,23 @@ import { useId } from '@reach/auto-id';
 import { Label, Select } from '@sajari/react-components';
 import { usePageSize } from '@sajari/react-hooks';
 import { __DEV__ } from '@sajari/react-sdk-utils';
-import React from 'react';
 import tw from 'twin.macro';
 
 import { PageSizeProps } from './types';
 
 const defaultSizes = [15, 25, 50, 100];
 
-const PageSize: React.FC<PageSizeProps> = ({ label = 'Show', sizes = defaultSizes }) => {
+const PageSize = (props: PageSizeProps) => {
+  const { label = 'Show', sizes = defaultSizes, size } = props;
   const { pageSize, setPageSize } = usePageSize();
   const id = `page-size-${useId()}`;
 
   return (
     <div css={tw`flex items-center space-x-4`}>
-      <Label htmlFor={id} css={tw`text-sm text-gray-500`}>
+      <Label htmlFor={id} css={tw`text-sm text-gray-500`} size={size}>
         {label}
       </Label>
-      <Select id={id} value={`${pageSize}`} onChange={(e) => setPageSize(parseInt(e.target.value, 10))} size="sm">
+      <Select id={id} value={`${pageSize}`} onChange={(e) => setPageSize(parseInt(e.target.value, 10))} size={size}>
         {sizes.map((s, i) => (
           <option key={`${id}-option-${i}`} value={s}>
             {s}

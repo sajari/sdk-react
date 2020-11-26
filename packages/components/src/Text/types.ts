@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { UseTextSizeParams } from '../hooks/useTextSize';
+
 export type TextElement =
   | 'small'
   | 'p'
@@ -28,5 +30,6 @@ export interface TextProps {
   children?: React.ReactNode;
   /** Whether to truncate the text. Specify a number will use line-clamp */
   truncate?: boolean | 2 | 3 | 4 | 5;
-  size?: 'xs' | 'sm' | 'md' | 'lg';
+  /** Specify the size of the type */
+  size?: UseTextSizeParams['size'];
 }

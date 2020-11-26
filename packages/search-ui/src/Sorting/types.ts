@@ -6,4 +6,5 @@ export type SortOption = {
 export interface SortingProps {
   label?: string;
   options?: SortOption[];
+  size?: 'sm' | 'md' | 'lg';
 }
