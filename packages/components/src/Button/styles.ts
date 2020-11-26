@@ -20,7 +20,7 @@ const useButtonStyles = (props: UseButtonStylesProps) => {
   const returnStyles = (val: typeof styles) => ({ styles: [css(val), focusRingStyles], focusRingProps });
 
   styles.push(
-    tw`relative items-center justify-center no-underline transition duration-150 ease-in-out border border-transparent border-solid cursor-pointer focus:outline-none`,
+    tw`relative items-center justify-center leading-normal no-underline transition duration-150 ease-in-out border border-transparent border-solid cursor-pointer focus:outline-none`,
   );
 
   if (!isLink) {
@@ -136,7 +136,7 @@ const useButtonStyles = (props: UseButtonStylesProps) => {
       break;
 
     case 'link':
-      styles.push(tw`no-underline bg-transparent hover:underline focus:underline`);
+      styles.push(tw`p-0 no-underline bg-transparent hover:underline focus:underline leading-inherit`);
       styles.push({ color: pressed ? theme.color.primary.active : theme.color.primary.base });
 
       if (!loading && !pressed) {
@@ -145,7 +145,7 @@ const useButtonStyles = (props: UseButtonStylesProps) => {
       break;
 
     case 'subtle-link':
-      styles.push(tw`no-underline bg-transparent hover:underline focus:underline`);
+      styles.push(tw`p-0 no-underline bg-transparent hover:underline focus:underline leading-inherit`);
 
       styles.push(pressed ? tw`text-gray-700` : tw`text-gray-500`);
 

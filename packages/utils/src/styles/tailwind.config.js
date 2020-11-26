@@ -32,6 +32,9 @@ export default {
       fontFamily: {
         inherit: 'inherit',
       },
+      lineHeight: {
+        inherit: 'inherit',
+      },
     },
   },
   plugins: [require('@tailwindcss/ui'), require('tailwindcss-filters'), require('tailwindcss-truncate-multiline')()],
