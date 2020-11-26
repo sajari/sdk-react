@@ -12,12 +12,18 @@ import useResultsStyles from './styles';
 import { ResultsProps, ResultValues } from './types';
 
 const Results = (props: ResultsProps) => {
-  const { results, viewType, searching } = useSearchContext<ResultValues>();
+  const { results, setViewType, viewType, searching } = useSearchContext<ResultValues>();
   const { query } = useQuery();
-  const { appearance = viewType, className, ...rest } = props;
+  const { defaultAppearance, appearance = viewType, className, ...rest } = props;
   const [width, setWidth] = useState(0);
   const styles = useResultsStyles({ ...props, appearance, width });
   const setDebounced = useDebounce(setWidth, 50);
+
+  React.useEffect(() => {
+    if (defaultAppearance) {
+      setViewType(defaultAppearance);
+    }
+  }, []);
 
   // We've not searched yet
   if (isNullOrUndefined(results)) {

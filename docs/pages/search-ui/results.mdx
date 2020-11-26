@@ -32,6 +32,7 @@ function Example() {
 
 ## Props
 
-| Name         | Type            | Default | Description                            |
-| ------------ | --------------- | ------- | -------------------------------------- |
-| `appearance` | `row` \| `grid` | `row`   | The layout for displaying the results. |
+| Name                | Type            | Default | Description                                                                    |
+| ------------------- | --------------- | ------- | ------------------------------------------------------------------------------ |
+| `appearance`        | `row` \| `grid` |         | The controlled value, passing this means you're ignoring the value in context. |
+| `defaultAppearance` | `row` \| `grid` |         | The uncontrolled value, will override the context value on mount.              |
