@@ -7,6 +7,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import tw from 'twin.macro';
 
+import { useSearchUIContext } from '../ContextProvider';
 import Result from './components/Result';
 import useResultsStyles from './styles';
 import { ResultsProps, ResultValues } from './types';
@@ -18,6 +19,7 @@ const Results = (props: ResultsProps) => {
   const [width, setWidth] = useState(0);
   const styles = useResultsStyles({ ...props, appearance, width });
   const { handleResultClicked } = useTracking();
+  const { ratingMax } = useSearchUIContext();
 
   React.useEffect(() => {
     if (defaultAppearance) {
@@ -62,6 +64,7 @@ const Results = (props: ResultsProps) => {
         <Result
           handleResultClicked={handleResultClicked}
           token={token}
+          ratingMax={ratingMax}
           // eslint-disable-next-line no-underscore-dangle
           key={values._id ?? i}
           values={values}
