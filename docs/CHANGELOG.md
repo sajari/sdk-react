@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.15](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.14...sajari-sdk-docs@1.0.0-alpha.15) (2020-11-26)
+
+### Features
+
+- add rating filter ([#253](https://github.com/sajari/sdk-react/issues/253)) ([3ea1dd8](https://github.com/sajari/sdk-react/commit/3ea1dd8417b034421a5d33781a190f09aaba8c91))
+- only pinSelected if item count is over limit ([33ded9a](https://github.com/sajari/sdk-react/commit/33ded9a50465af2c0a273b821a15bc879a980638))
+
 # [1.0.0-alpha.14](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.13...sajari-sdk-docs@1.0.0-alpha.14) (2020-11-26)
 
 **Note:** Version bump only for package sajari-sdk-docs

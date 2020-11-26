@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.26](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.25...@sajari/react-search-ui@1.0.0-alpha.26) (2020-11-26)
+
+### Bug Fixes
+
+- wrong use of Input component in Filter ([#252](https://github.com/sajari/sdk-react/issues/252)) ([d8cf55a](https://github.com/sajari/sdk-react/commit/d8cf55a91039bfc0077eeb65fc7d0f5127f9dfcd))
+
+### Features
+
+- add rating filter ([#253](https://github.com/sajari/sdk-react/issues/253)) ([3ea1dd8](https://github.com/sajari/sdk-react/commit/3ea1dd8417b034421a5d33781a190f09aaba8c91))
+- only pinSelected if item count is over limit ([33ded9a](https://github.com/sajari/sdk-react/commit/33ded9a50465af2c0a273b821a15bc879a980638))
+
 # [1.0.0-alpha.25](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.24...@sajari/react-search-ui@1.0.0-alpha.25) (2020-11-26)
 
 **Note:** Version bump only for package @sajari/react-search-ui
