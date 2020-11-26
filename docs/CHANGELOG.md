@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.10](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.9...sajari-sdk-docs@1.0.0-alpha.10) (2020-11-26)
+
+### Bug Fixes
+
+- useSearch ([#246](https://github.com/sajari/sdk-react/issues/246)) ([0ae10a2](https://github.com/sajari/sdk-react/commit/0ae10a2c66f2fffab3c977bb3291ff69178bf684))
+
 # [1.0.0-alpha.9](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.8...sajari-sdk-docs@1.0.0-alpha.9) (2020-11-25)
 
 ### Bug Fixes
