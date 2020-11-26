@@ -1,12 +1,11 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { Button, Checkbox, CheckboxGroup, Radio, RadioGroup } from '@sajari/react-components';
+import { Button, Checkbox, CheckboxGroup, Combobox, Radio, RadioGroup } from '@sajari/react-components';
 import { useFilter, useQuery } from '@sajari/react-hooks';
 import { useCallback, useEffect, useState } from 'react';
 import tw from 'twin.macro';
 
 import { IconSmallChevronDown, IconSmallChevronUp } from '../assets/icons';
-import Input from '../Input';
 import Box from './Box';
 import { ListFilterProps } from './types';
 import { pinItems, sortItems } from './utils';
@@ -22,6 +21,7 @@ const ListFilter = ({
   sort = 'count',
   sortAscending = sort !== 'count',
   itemRender,
+  placeholder = 'Search',
 }: Omit<ListFilterProps, 'type'>) => {
   const [query, setQuery] = useState('');
   const { query: q } = useQuery();
@@ -59,9 +59,10 @@ const ListFilter = ({
     <Box title={title} showReset={selected.length > 0 && multi} onReset={reset}>
       {searchable ? (
         <div css={tw`mb-2`}>
-          <Input
+          <Combobox
             value={query}
             size="sm"
+            placeholder={placeholder}
             onChange={(value) => {
               setQuery(value || '');
             }}
