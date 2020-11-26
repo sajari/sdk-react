@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.16](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.15...@sajari/react-components@1.0.0-alpha.16) (2020-11-26)
+
+### Bug Fixes
+
+- typescript union types complaining ([bc782f0](https://github.com/sajari/sdk-react/commit/bc782f0f0dc6664a94d6ac45c183a7151fa5a68e))
+
 # [1.0.0-alpha.15](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.14...@sajari/react-components@1.0.0-alpha.15) (2020-11-26)
 
 ### Bug Fixes
