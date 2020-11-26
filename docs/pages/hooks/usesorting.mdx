@@ -33,35 +33,33 @@ function Example() {
     'query',
   );
 
-  const variables = new Variables();
-
   const SearchPlayground = React.memo(() => {
     const { sorting, setSorting } = useSorting();
 
     return (
       <div className="flex flex-col space-y-4">
         <div className="flex space-x-4">
-          <div className="w-3/5">
-            <Input label="Search something" />
+          <div className="flex-1">
+            <Input />
           </div>
-          <div className="w-2/5">
-            <Select value={sorting} onChange={(e) => setSorting(e.target.value)}>
-              <option value="">Most relevant</option>
-              <option value="brand">Brand: A to Z</option>
-              <option value="-brand">Brand: Z to A</option>
-              <option value="rating">Rating: Low to High</option>
-              <option value="-rating">Rating: High to Low</option>
-              <option value="popularity">Popularity</option>
-            </Select>
-          </div>
+
+          <Select value={sorting} onChange={(e) => setSorting(e.target.value)}>
+            <option value="">Most relevant</option>
+            <option value="brand">Brand: A to Z</option>
+            <option value="-brand">Brand: Z to A</option>
+            <option value="rating">Rating: Low to High</option>
+            <option value="-rating">Rating: High to Low</option>
+            <option value="popularity">Popularity</option>
+          </Select>
         </div>
+
         <Results />
       </div>
     );
   });
 
   return (
-    <SearchContextProvider search={{ pipeline, variables, fields: { title: 'name', subtitle: 'brand' } }}>
+    <SearchContextProvider search={{ pipeline, fields: { title: 'name', subtitle: 'brand' } }}>
       <SearchPlayground />
     </SearchContextProvider>
   );
@@ -81,4 +79,3 @@ function Example() {
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-

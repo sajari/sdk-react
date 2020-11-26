@@ -28,36 +28,30 @@ function Example() {
     'query',
   );
 
-  const variables = new Variables();
-
   const SearchPlayground = React.memo(() => {
     const { results } = useSearch();
     const { page, setPage, pageSize, pageCount, totalResults } = usePagination('search');
     const { query } = useQuery();
 
     return (
-      <div className="flex flex-col space-y-4">
-        <div>
-          <Input label="Search something" />
-        </div>
-        {results ? (
-          <div className="flex flex-col space-y-6 items-center">
-            <Results />
-            <Pagination
-              page={page}
-              pageSize={pageSize}
-              totalResults={totalResults}
-              pageCount={pageCount}
-              onChange={setPage}
-            />
-          </div>
-        ) : null}
+      <div className="space-y-6">
+        <Input />
+
+        <Results />
+
+        <Pagination
+          page={page}
+          pageSize={pageSize}
+          totalResults={totalResults}
+          pageCount={pageCount}
+          onChange={setPage}
+        />
       </div>
     );
   });
 
   return (
-    <SearchContextProvider search={{ pipeline, variables, fields: { title: 'name', subtitle: 'brand' } }}>
+    <SearchContextProvider search={{ pipeline, fields: { title: 'name', subtitle: 'brand' } }}>
       <SearchPlayground />
     </SearchContextProvider>
   );

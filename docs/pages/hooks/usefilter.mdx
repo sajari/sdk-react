@@ -18,7 +18,7 @@ function Example() {
     {
       project: '1594153711901724220',
       collection: 'bestbuy',
-      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+      endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
     },
     'query',
   );
@@ -45,8 +45,6 @@ function Example() {
     multi: false,
     initial: ['High'],
   });
-
-  const variables = new Variables();
 
   const FilterRender = React.memo(({ name, title }) => {
     const { multi, options, selected, setSelected, reset } = useFilter(name);
@@ -95,7 +93,7 @@ function Example() {
 
     return (
       <div className="flex flex-col space-y-4">
-        <Input label="Search something" />
+        <Input />
         {results ? (
           <div className="flex -mx-3">
             <div className="w-1/4 px-3 border-gray-100 border-r">
@@ -113,7 +111,6 @@ function Example() {
     <SearchContextProvider
       search={{
         pipeline,
-        variables,
         fields: { title: 'name', subtitle: 'brand' },
         filters: [priceFilter, brandFilter],
       }}
@@ -134,7 +131,7 @@ function Example() {
     {
       project: '1594153711901724220',
       collection: 'bestbuy',
-      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+      endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
     },
     'query',
   );
@@ -152,8 +149,6 @@ function Example() {
     field: 'price_range',
     multi: true,
   });
-
-  const variables = new Variables();
 
   const FilterRender = React.memo(({ name, title }) => {
     const { multi, options, selected, setSelected } = useFilter(name);
@@ -206,16 +201,21 @@ function Example() {
 
     return (
       <div className="flex flex-col space-y-4">
-        <Input label="Search something" />
-        {results ? (
-          <div className="flex -mx-3">
-            <div className="w-1/4 px-3 border-gray-100 border-r">
-              <CategogryFilter />
-              <PriceRangeFilter />
-            </div>
-            <div className="w-3/4 px-3">{results.length ? <Results /> : <div>No results 😢</div>}</div>
+        <Input />
+
+        <div className="flex -mx-3">
+          <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
+            {results && (
+              <>
+                <CategogryFilter />
+                <PriceRangeFilter />
+              </>
+            )}
           </div>
-        ) : null}
+          <div className="w-3/4 px-3">
+            <Results />
+          </div>
+        </div>
       </div>
     );
   });
@@ -224,7 +224,6 @@ function Example() {
     <SearchContextProvider
       search={{
         pipeline,
-        variables,
         fields: { title: 'name', subtitle: 'brand' },
         filters: [priceRangeFilter, categoryFilter],
       }}
@@ -245,7 +244,7 @@ function Example() {
     {
       project: '1594153711901724220',
       collection: 'bestbuy',
-      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+      endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
     },
     'query',
   );
@@ -261,7 +260,7 @@ function Example() {
     field: 'rating',
   });
 
-  const variables = new Variables();
+
 
   const RatingFilter = () => {
     const { multi, options, selected, setSelected } = useFilter('rating');
@@ -361,16 +360,19 @@ function Example() {
 
     return (
       <div className="flex flex-col space-y-4">
-        <Input label="Search something" />
-        {results ? (
-          <div className="flex -mx-3">
-            <div className="w-1/4 px-3 border-gray-100 border-r">
+        <Input />
+
+        <div className="flex -mx-3">
+          <div className="w-1/4 px-3 border-gray-100 border-r">
+            {results && (
               <RatingFilter />
               <ColorFilter />
-            </div>
-            <div className="w-3/4 px-3">{results ? <Results /> : <div>No results 😢</div>}</div>
+            )}
           </div>
-        ) : null}
+          <div className="w-3/4 px-3">
+            <Results />
+          </div>
+        </div>
       </div>
     );
   });
@@ -406,4 +408,3 @@ function Example() {
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-

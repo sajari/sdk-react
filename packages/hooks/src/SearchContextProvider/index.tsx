@@ -86,6 +86,10 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
   const instant = useRef(instantProp);
   const response = search.pipeline.getResponse();
 
+  if (!search.variables) {
+    Object.assign(search, { variables: new Variables() });
+  }
+
   useEffect(() => {
     const mergedConfig = { ...defaultConfig, ...search.config };
     setSearchState((state) => ({

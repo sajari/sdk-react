@@ -7,9 +7,8 @@ import SEO from '../../components/SEO';
 The PageSize component renders a select component for page sizes.
 
 ```js
-import { Results, PageSize } from '@sajari/react-search-ui';
-import { Select, Input } from '@sajari/react-components';
-import { usePageSize, useSearch, SearchContextProvider, Pipeline, Variables } from '@sajari/react-hooks';
+import { Input, Results, PageSize } from '@sajari/react-search-ui';
+import { SearchContextProvider, Pipeline } from '@sajari/react-hooks';
 ```
 
 ## Usage
@@ -25,22 +24,22 @@ function Example() {
     'query',
   );
 
-  const variables = new Variables();
-
   const SearchPlayground = React.memo(() => (
     <div className="space-y-4">
       <div className="flex items-center space-x-4">
         <div className="flex-1">
-          <Input label="Search something" />
+          <Input />
         </div>
+
         <PageSize />
       </div>
+
       <Results />
     </div>
   ));
 
   return (
-    <SearchContextProvider search={{ pipeline, variables, fields: { title: 'name', subtitle: 'brand' } }} searchOnLoad>
+    <SearchContextProvider search={{ pipeline, fields: { title: 'name', subtitle: 'brand' } }} searchOnLoad>
       <SearchPlayground />
     </SearchContextProvider>
   );

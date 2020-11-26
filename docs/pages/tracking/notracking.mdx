@@ -20,24 +20,20 @@ function Example() {
     {
       project: '1594153711901724220',
       collection: 'bestbuy',
-      endpoint: '//jsonapi-us-valkyrie.sajari.net',
+      endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
     },
     'query',
   );
 
-  const variables = new Variables();
-
   const SearchPlayground = React.memo(() => (
     <div className="flex flex-col space-y-4">
-      <div>
-        <Input label="Search something" />
-      </div>
+      <Input />
       <Results />
     </div>
   ));
 
   return (
-    <SearchContextProvider search={{ pipeline, variables, fields: { title: 'name', subtitle: 'brand' } }}>
+    <SearchContextProvider search={{ pipeline, fields: { title: 'name', subtitle: 'brand' } }}>
       <SearchPlayground />
     </SearchContextProvider>
   );

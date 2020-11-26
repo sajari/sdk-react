@@ -67,13 +67,9 @@ const pipeline = new Pipeline(
   'query',
 );
 
-const variables = new Variables();
-
 const App = () => {
   return (
-    <SearchContextProvider
-      search={{ pipeline, variables, fields: new FieldDictionary({ title: 'name', subtitle: 'brand' }) }}
-    >
+    <SearchContextProvider search={{ pipeline, fields: new FieldDictionary({ title: 'name', subtitle: 'brand' }) }}>
       <ContextProvider>
         <SearchPlayground />
       </ContextProvider>

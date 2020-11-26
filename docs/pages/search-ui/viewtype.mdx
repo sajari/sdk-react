@@ -9,7 +9,8 @@ ViewType component lets user decide between viewing modes of result (list, grid)
 ## Import
 
 ```js
-import { ViewType } from 'sajari/react-search-ui';
+import { Input, Results, ViewType } from '@sajari/react-search-ui';
+import { SearchContextProvider, Pipeline } from '@sajari/react-hooks';
 ```
 
 ## Usage
@@ -25,22 +26,22 @@ function Example() {
     'query',
   );
 
-  const variables = new Variables();
-
   const SearchPlayground = React.memo(() => (
     <div className="space-y-4">
       <div className="flex items-center space-x-4">
         <div className="flex-1">
-          <Input label="Search something" />
+          <Input />
         </div>
+
         <ViewType />
       </div>
+
       <Results />
     </div>
   ));
 
   return (
-    <SearchContextProvider search={{ pipeline, variables, fields: { title: 'name', subtitle: 'brand' } }} searchOnLoad>
+    <SearchContextProvider search={{ pipeline, fields: { title: 'name', subtitle: 'brand' } }} searchOnLoad>
       <SearchPlayground />
     </SearchContextProvider>
   );

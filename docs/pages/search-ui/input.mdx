@@ -19,7 +19,7 @@ import { Input } from 'sajari/react-search-ui';
 
 ```jsx
 <>
-  <Input label="Search something" />
+  <Input />
   <Results className="mt-4" />
 </>
 ```
@@ -28,7 +28,7 @@ import { Input } from 'sajari/react-search-ui';
 
 ```jsx
 <>
-  <Input label="Search something" mode="suggestions" />
+  <Input mode="suggestions" />
   <Results className="mt-4" />
 </>
 ```
@@ -36,14 +36,14 @@ import { Input } from 'sajari/react-search-ui';
 ## Results
 
 ```jsx
-<Input label="Search something" mode="results" />
+<Input mode="results" />
 ```
 
 ## Typeahead
 
 ```jsx
 <>
-  <Input label="Search something" mode="typeahead" />
+  <Input mode="typeahead" />
   <Results className="mt-4" />
 </>
 ```
@@ -53,24 +53,10 @@ import { Input } from 'sajari/react-search-ui';
 By default `<Input />` has an additional mode `"instant"` and it is also the default value (search on change), if you want to disable it, simple change mode to `"standard"`:
 
 ```jsx
-function Example() {
-  const [value, setValue] = React.useState('');
-
-  return (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        const value = formData.get('query');
-        setValue(value);
-      }}
-      className="flex flex-col space-y-3"
-    >
-      <Input mode="standard" name="query" label="Search something" />
-      <p>You submited: {value}</p>
-    </form>
-  );
-}
+<>
+  <Input mode="standard" />
+  <Results className="mt-4" />
+</>
 ```
 
 ## Props
