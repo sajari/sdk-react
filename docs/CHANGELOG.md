@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.17](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.16...sajari-sdk-docs@1.0.0-alpha.17) (2020-11-26)
+
+### Bug Fixes
+
+- make PoweredBy compose a Link ([a8f6a4e](https://github.com/sajari/sdk-react/commit/a8f6a4e9fdc04f4f652de0f2d640487896d34c6d))
+
 # [1.0.0-alpha.16](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.15...sajari-sdk-docs@1.0.0-alpha.16) (2020-11-26)
 
 **Note:** Version bump only for package sajari-sdk-docs
