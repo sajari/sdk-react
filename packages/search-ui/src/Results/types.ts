@@ -5,6 +5,7 @@ export type GapValue = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
 export interface ResultsProps extends BoxProps {
   appearance?: 'list' | 'grid';
+  defaultAppearance?: 'list' | 'grid';
   ratingMax?: number;
   imageAspectRatio?: ImageProps['aspectRatio'];
   imageObjectFit?: ImageProps['objectFit'];

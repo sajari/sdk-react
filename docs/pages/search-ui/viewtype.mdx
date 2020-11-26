@@ -47,6 +47,41 @@ function Example() {
 }
 ```
 
+### Default ViewType
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      project: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const variables = new Variables();
+
+  const SearchPlayground = React.memo(() => (
+    <div className="space-y-4">
+      <div className="flex items-center space-x-4">
+        <div className="flex-1">
+          <Input label="Search something" />
+        </div>
+        <ViewType />
+      </div>
+      <Results defaultAppearance="grid" />
+    </div>
+  ));
+
+  return (
+    <SearchContextProvider search={{ pipeline, variables, fields: { title: 'name', subtitle: 'brand' } }} searchOnLoad>
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
+```
+
 ## Props
 
 | Name    | Type                 | Default  | Description                     |
