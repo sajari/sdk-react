@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.14](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.13...@sajari/react-hooks@1.0.0-alpha.14) (2020-11-26)
+
+### Features
+
+- don’t require variables to be set (nicer DX) ([f95fb3c](https://github.com/sajari/sdk-react/commit/f95fb3c4293bfbf540a3158d8a6d0ebfe8768858))
+
 # [1.0.0-alpha.13](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.12...@sajari/react-hooks@1.0.0-alpha.13) (2020-11-26)
 
 **Note:** Version bump only for package @sajari/react-hooks

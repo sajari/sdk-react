@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.12](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.11...sajari-sdk-docs@1.0.0-alpha.12) (2020-11-26)
+
+### Bug Fixes
+
+- results appearance ([#249](https://github.com/sajari/sdk-react/issues/249)) ([ceef5b0](https://github.com/sajari/sdk-react/commit/ceef5b0cfc71635b4a4b090abaffc20ab4a6f880))
+
+### Features
+
+- don’t require variables to be set (nicer DX) ([f95fb3c](https://github.com/sajari/sdk-react/commit/f95fb3c4293bfbf540a3158d8a6d0ebfe8768858))
+
 # [1.0.0-alpha.11](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.10...sajari-sdk-docs@1.0.0-alpha.11) (2020-11-26)
 
 ### Bug Fixes
