@@ -11,7 +11,7 @@ import { DropdownItemProps } from './types';
 
 const DropdownItem = (props: DropdownItemProps) => {
   const { value, index, selected } = props;
-  const { typedInputValue, getItemProps, showDropdownTips, itemToString } = useComboboxContext();
+  const { typedInputValue, getItemProps, showDropdownTips, itemToString, onSelect } = useComboboxContext();
   const stringItem = itemToString(value);
   const styles = useDropdownItemStyles(props);
 
@@ -38,6 +38,11 @@ const DropdownItem = (props: DropdownItemProps) => {
       {...getItemProps({
         index,
         item: value,
+        onClick: () => {
+          if (onSelect) {
+            onSelect(value);
+          }
+        },
       })}
       key={`${stringItem}_${index}`}
       css={styles.item}
