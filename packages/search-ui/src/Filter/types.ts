@@ -36,4 +36,8 @@ export interface ColorFilterProps extends BaseFilterProps {
   type: 'color';
 }
 
-export type FilterProps = ListFilterProps | ColorFilterProps;
+export interface RatingFilterProps extends BaseFilterProps {
+  type: 'rating';
+}
+
+export type FilterProps = ListFilterProps | ColorFilterProps | RatingFilterProps;

@@ -145,7 +145,7 @@ function Example() {
 }
 ```
 
-### Custom render item
+## Rating
 
 ```jsx
 function Example() {
@@ -171,14 +171,7 @@ function Example() {
         <Input />
         <div className="flex -mx-3">
           <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
-            {results && (
-              <Filter
-                type="list"
-                name="rating"
-                title="Rating"
-                itemRender={(v) => <Rating max={5} value={Number(v)} />}
-              />
-            )}
+            <Filter type="rating" name="rating" title="Rating" />
           </div>
           <div className="w-3/4 px-3">
             <Results />

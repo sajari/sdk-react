@@ -1,8 +1,13 @@
 import { Pipeline, SearchContextProvider, Variables } from '@sajari/react-hooks';
-import { ThemeProvider } from '@sajari/react-sdk-utils';
+import { createContext, ThemeProvider } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 
-import { ContextProviderValues } from './types';
+import { ContextProviderValues, SearchUIContextProviderValues } from './types';
+
+const [Provider, useSearchUIContext] = createContext<Required<SearchUIContextProviderValues>>({
+  strict: true,
+  name: 'PipelineContext',
+});
 
 const ContextProvider: React.FC<ContextProviderValues> = ({
   children,
@@ -11,14 +16,17 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
   instant,
   searchOnLoad,
   theme,
+  ratingMax = 5,
 }) => (
-  <SearchContextProvider search={search} instant={instant} searchOnLoad={searchOnLoad}>
-    <ThemeProvider theme={theme} importantStyles={importantStyles}>
-      {children}
-    </ThemeProvider>
-  </SearchContextProvider>
+  <Provider value={{ ratingMax }}>
+    <SearchContextProvider search={search} instant={instant} searchOnLoad={searchOnLoad}>
+      <ThemeProvider theme={theme} importantStyles={importantStyles}>
+        {children}
+      </ThemeProvider>
+    </SearchContextProvider>
+  </Provider>
 );
 
 export default ContextProvider;
-export { Pipeline, Variables };
+export { Pipeline, useSearchUIContext, Variables };
 export type { ContextProviderValues };
