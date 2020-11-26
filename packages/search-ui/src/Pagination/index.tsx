@@ -3,8 +3,9 @@ import { usePagination } from '@sajari/react-hooks';
 import { __DEV__ } from '@sajari/react-sdk-utils';
 import React from 'react';
 
-const Pagination: React.FC = () => {
+const Pagination = () => {
   const { page, setPage, pageSize, pageCount, totalResults } = usePagination('search');
+
   return (
     <PurePagination
       page={page}
