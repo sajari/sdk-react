@@ -22,6 +22,8 @@ export interface ListFilterProps extends BaseFilterProps {
   limit?: number;
   /** If true, display an input for searching through filter items */
   searchable?: boolean;
+  /** The placeholder for search input */
+  placeholder?: string;
   /** If true, sort selected items on top */
   pinSelected?: boolean;
   /** How to sort the items in the list */
