@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.22](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.21...@sajari/react-search-ui@1.0.0-alpha.22) (2020-11-26)
+
+### Bug Fixes
+
+- hide PageSize when not required ([2042bc2](https://github.com/sajari/sdk-react/commit/2042bc27bc9846b3e5b8b086e6683cc08740eeb4))
+- remove flash of single column in grid view ([87ac010](https://github.com/sajari/sdk-react/commit/87ac0107134d00a8c7e9e1ae2a410eaa796350be))
+
 # [1.0.0-alpha.21](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.20...@sajari/react-search-ui@1.0.0-alpha.21) (2020-11-26)
 
 ### Bug Fixes
