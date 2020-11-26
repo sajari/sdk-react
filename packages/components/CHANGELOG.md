@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.15](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.14...@sajari/react-components@1.0.0-alpha.15) (2020-11-26)
+
+### Bug Fixes
+
+- issue with size prop in Select ([7ca850f](https://github.com/sajari/sdk-react/commit/7ca850fe61d19f99204a7852889bbe2e164956b9))
+- styling updates ([83bca31](https://github.com/sajari/sdk-react/commit/83bca31c4b88d4ea565b1fbf0d1b5625a5d0ce27))
+- variables filter syntax error ([519523f](https://github.com/sajari/sdk-react/commit/519523f3aa797c93cb7815b3b90a4df50d05d4fe))
+
+### Features
+
+- added size options for view option components ([ccef487](https://github.com/sajari/sdk-react/commit/ccef487a60374d35ea5e4a08278a5d1334f5f305))
+
 # [1.0.0-alpha.14](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.13...@sajari/react-components@1.0.0-alpha.14) (2020-11-25)
 
 ### Bug Fixes

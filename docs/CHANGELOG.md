@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.11](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.10...sajari-sdk-docs@1.0.0-alpha.11) (2020-11-26)
+
+### Bug Fixes
+
+- styling updates ([83bca31](https://github.com/sajari/sdk-react/commit/83bca31c4b88d4ea565b1fbf0d1b5625a5d0ce27))
+
+### Features
+
+- added size options for view option components ([ccef487](https://github.com/sajari/sdk-react/commit/ccef487a60374d35ea5e4a08278a5d1334f5f305))
+
 # [1.0.0-alpha.10](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.9...sajari-sdk-docs@1.0.0-alpha.10) (2020-11-26)
 
 ### Bug Fixes

@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.12](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.11...@sajari/react-hooks@1.0.0-alpha.12) (2020-11-26)
+
+### Bug Fixes
+
+- variables filter syntax error ([519523f](https://github.com/sajari/sdk-react/commit/519523f3aa797c93cb7815b3b90a4df50d05d4fe))
+- variables filter syntax error ([cbc0c87](https://github.com/sajari/sdk-react/commit/cbc0c878c051b29574043b36a56a2567abcecd0d))
+
 # [1.0.0-alpha.11](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.10...@sajari/react-hooks@1.0.0-alpha.11) (2020-11-26)
 
 ### Bug Fixes
