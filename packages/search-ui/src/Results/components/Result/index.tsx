@@ -2,7 +2,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { Heading, Image, Link, Rating, Text } from '@sajari/react-components';
-import { useTracking } from '@sajari/react-hooks';
 import { __DEV__, decodeHTML, formatPrice, isNumber, isValidURL } from '@sajari/react-sdk-utils';
 import React from 'react';
 import tw from 'twin.macro';
@@ -20,12 +19,12 @@ const Result = React.memo(
       currencyCode = 'USD',
       values,
       token,
+      handleResultClicked,
       ...rest
     } = props;
     const { title, description, subtitle, image, url, price } = values;
     const rating = Number(values.rating);
     const styles = useResultStyles({ ...props, appearance });
-    const { handleResultClicked } = useTracking();
     let clickToken: string | undefined;
     if (token && 'click' in token) {
       clickToken = token.click;
@@ -35,7 +34,7 @@ const Result = React.memo(
       if (url) {
         handleResultClicked(url);
       }
-    }, []);
+    }, [url]);
 
     return (
       <article {...rest} css={styles.container}>

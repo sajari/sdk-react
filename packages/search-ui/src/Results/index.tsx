@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { Box, Heading, ResizeObserver, Spinner, Text } from '@sajari/react-components';
-import { useQuery, useSearchContext } from '@sajari/react-hooks';
+import { useQuery, useSearchContext, useTracking } from '@sajari/react-hooks';
 import { isEmpty, isNullOrUndefined, useDebounce } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { useState } from 'react';
@@ -18,6 +18,7 @@ const Results = (props: ResultsProps) => {
   const [width, setWidth] = useState(0);
   const styles = useResultsStyles({ ...props, appearance, width });
   const setDebounced = useDebounce(setWidth, 50);
+  const { handleResultClicked } = useTracking();
 
   React.useEffect(() => {
     if (defaultAppearance) {
@@ -60,6 +61,7 @@ const Results = (props: ResultsProps) => {
     <ResizeObserver onResize={(rect) => setDebounced(rect.width)} css={[styles.container]} className={className}>
       {results?.map(({ values, token }, i) => (
         <Result
+          handleResultClicked={handleResultClicked}
           token={token}
           // eslint-disable-next-line no-underscore-dangle
           key={values._id ?? i}
