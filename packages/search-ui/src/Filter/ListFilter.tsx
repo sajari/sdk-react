@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import { Button, Checkbox, CheckboxGroup, Combobox, Radio, RadioGroup } from '@sajari/react-components';
 import { useFilter, useQuery } from '@sajari/react-hooks';
+import { isBoolean } from '@sajari/react-sdk-utils';
 import { useCallback, useEffect, useState } from 'react';
 import tw from 'twin.macro';
 
@@ -12,22 +13,28 @@ import { pinItems, sortItems } from './utils';
 
 const noop = () => {};
 
-const ListFilter = ({
-  name,
-  title,
-  limit = 8,
-  searchable = false,
-  pinSelected = true,
-  sort = 'count',
-  sortAscending = sort !== 'count',
-  itemRender,
-  placeholder = 'Search',
-}: Omit<ListFilterProps, 'type'>) => {
+const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
+  const {
+    name,
+    title,
+    limit = 8,
+    searchable = false,
+    sort = 'count',
+    sortAscending = sort !== 'count',
+    itemRender,
+    placeholder = 'Search',
+  } = props;
+  let { pinSelected } = props;
   const [query, setQuery] = useState('');
   const { query: q } = useQuery();
   const [expanded, setExpanded] = useState(false);
   const { options, reset, setSelected, selected, multi } = useFilter(name);
   const toggleExpanded = useCallback(() => setExpanded((prev) => !prev), []);
+
+  // By default, pin selected items if the option count is over limit
+  if (!isBoolean(pinSelected)) {
+    pinSelected = options.length > limit;
+  }
 
   useEffect(() => {
     setQuery('');
