@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.16](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.15...@sajari/react-hooks@1.0.0-alpha.16) (2020-11-26)
+
+### Bug Fixes
+
+- resolve issue with single quotes in filter value ([5e0dc2a](https://github.com/sajari/sdk-react/commit/5e0dc2ac96f31bf244eb3fc024007bc258667902))
+
 # [1.0.0-alpha.15](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.14...@sajari/react-hooks@1.0.0-alpha.15) (2020-11-26)
 
 ### Bug Fixes
