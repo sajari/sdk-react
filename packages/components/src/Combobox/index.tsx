@@ -61,6 +61,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     highlightedIndex,
     inputValue,
     setInputValue,
+    closeMenu,
   } = useCombobox<T>({
     items,
     itemToString,
@@ -153,6 +154,12 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
             }
             return changes;
 
+          case useCombobox.stateChangeTypes.InputKeyDownEnter:
+            return {
+              ...changes,
+              isOpen: false,
+            };
+
           default:
             return changes;
         }
@@ -204,6 +211,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     showPoweredBy,
     typedInputValue,
     renderItem,
+    onSelect,
     itemToString,
     itemToUrl,
   };
@@ -253,6 +261,10 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
                   // Only if the user isn't focused on an item in the suggestions
                   if (e.key === 'Enter' && highlightedIndex === -1) {
                     (e.nativeEvent as any).preventDownshiftDefault = true;
+
+                    if (mode === 'suggestions') {
+                      closeMenu();
+                    }
                   }
 
                   if (mode !== 'results' && e.key === 'Enter' && highlightedIndex > -1) {

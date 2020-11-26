@@ -19,6 +19,7 @@ interface ComboboxContextProps<T = any> {
   renderItem?: ComboboxProps<T>['renderItem'];
   itemToString: Required<ComboboxProps<T>>['itemToString'];
   itemToUrl: Required<ComboboxProps<T>>['itemToUrl'];
+  onSelect: ComboboxProps<T>['onSelect'];
 }
 
 const [ComboboxContextProvider, useComboboxContext] = createContext<ComboboxContextProps>({

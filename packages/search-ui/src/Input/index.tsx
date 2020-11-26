@@ -59,12 +59,12 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
           if (searchInstant) {
             searchInstant(value);
           }
-        } else if (mode === 'instant') {
+        } else if (mode === 'instant' || mode === 'results') {
           search(value);
         }
       }}
       onKeyDown={(e) => {
-        if (e.key === 'Enter' && mode === 'typeahead') {
+        if (e.key === 'Enter' && (mode === 'typeahead' || mode === 'suggestions' || mode === 'standard')) {
           search((e.target as HTMLInputElement).value);
         }
       }}
