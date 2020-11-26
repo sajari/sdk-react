@@ -28,7 +28,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     steps,
     leftInput: leftInputFunc,
     rightInput: rightInputFunc,
-    showInputs = true,
+    showInputs = false,
     tick,
   } = props;
   const isSingleHandle = value.length === 1;

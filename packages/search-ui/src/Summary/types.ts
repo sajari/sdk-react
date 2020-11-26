@@ -1,8 +1,6 @@
-import { HTMLAttributes } from 'react';
+import { TextProps } from '@sajari/react-components';
 
-type Props = {
+export interface SummaryProps extends Omit<TextProps, 'children'> {
   /** Show/hide the override text */
   showOverride?: boolean;
-};
-
-export type SummaryProps = Props & HTMLAttributes<HTMLElement>;
+}

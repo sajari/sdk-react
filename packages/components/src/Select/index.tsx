@@ -11,10 +11,11 @@ import Label from '../Label';
 import { SelectProps } from './types';
 
 const Select = React.forwardRef((props: SelectProps, ref?: React.Ref<HTMLSelectElement>) => {
-  const { id = `select-${useId()}`, children, disabled, invalid, placeholder, label, ...rest } = props;
+  const { id = `select-${useId()}`, children, disabled, invalid, placeholder, label, size, ...rest } = props;
   const { styles, focusRingStyles, focusProps } = useInputStyle({
     block: true,
     type: 'select',
+    size,
     ...props,
   } as UseInputStyleProps);
 

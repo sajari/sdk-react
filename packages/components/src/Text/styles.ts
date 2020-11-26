@@ -2,9 +2,15 @@ import { css } from '@emotion/core';
 import tw from 'twin.macro';
 
 import { mapTruncateValue } from '../utils/styles';
-import { TextElements } from './types';
+import { TextElement, TextProps } from './types';
 
-export default function useTextStyles(as: TextElements, truncate: boolean | 2 | 3 | 4 | 5 = false) {
+interface UseTextStylesProps {
+  as: TextElement;
+  truncate: TextProps['truncate'];
+  size: TextProps['size'];
+}
+
+export default function useTextStyles({ as, truncate, size }: UseTextStylesProps) {
   const props = [tw`p-0 m-0`, mapTruncateValue(truncate)];
 
   switch (as) {
@@ -14,15 +20,11 @@ export default function useTextStyles(as: TextElements, truncate: boolean | 2 | 
 
     case 'pre':
     case 'code':
-      props.push(tw`font-mono`);
-      props.push(tw`text-code-inline`);
-      props.push(tw`font-normal`);
+      props.push(tw`font-mono font-normal text-code-inline`);
       break;
 
     case 'mark':
-      props.push(tw`bg-yellow-100`);
-      props.push(tw`text-gray-800`);
-      props.push(tw`px-1`);
+      props.push(tw`px-1 text-gray-800 bg-yellow-100`);
       break;
 
     default:
@@ -31,6 +33,27 @@ export default function useTextStyles(as: TextElements, truncate: boolean | 2 | 
 
   if (as === 'code') {
     props.push(tw`text-red-500`);
+  }
+
+  switch (size) {
+    case 'xs':
+      props.push(tw`text-xs`);
+      break;
+
+    case 'sm':
+      props.push(tw`text-sm`);
+      break;
+
+    case 'lg':
+      props.push(tw`text-lg`);
+      break;
+
+    case 'md':
+      props.push(tw`text-base`);
+      break;
+
+    default:
+      break;
   }
 
   return css(props);

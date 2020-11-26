@@ -30,7 +30,53 @@ function Example() {
 
   return (
     <div className="flex flex-col">
+      <RangeInput filter={rangeFilter} />
+      <pre className="self-center">"{filterOutput}"</pre>
+    </div>
+  );
+}
+```
+
+## Ticks & Steps
+
+The `step` and `tick` props to allow setting pre-determined steps and ticks in the UI. By default only the minimum and maximum values are displayed.
+
+```jsx
+function Example() {
+  const rangeFilter = new RangeFilter('range', [0, 500]);
+  rangeFilter.set(150, 350);
+  const [filterOutput, setFilterOutput] = React.useState(rangeFilter.filter());
+
+  rangeFilter.listen(EVENT_SELECTION_UPDATED, () => {
+    setFilterOutput(rangeFilter.filter());
+  });
+
+  return (
+    <div className="flex flex-col">
       <RangeInput filter={rangeFilter} step={25} tick={100} />
+      <pre className="self-center">"{filterOutput}"</pre>
+    </div>
+  );
+}
+```
+
+## Manual Inputs
+
+Setting `showInputs` will render number inputs for manual input.
+
+```jsx
+function Example() {
+  const rangeFilter = new RangeFilter('range', [0, 500]);
+  rangeFilter.set(150, 350);
+  const [filterOutput, setFilterOutput] = React.useState(rangeFilter.filter());
+
+  rangeFilter.listen(EVENT_SELECTION_UPDATED, () => {
+    setFilterOutput(rangeFilter.filter());
+  });
+
+  return (
+    <div className="flex flex-col">
+      <RangeInput filter={rangeFilter} step={25} tick={100} showInputs />
       <pre className="self-center">"{filterOutput}"</pre>
     </div>
   );
@@ -138,3 +184,4 @@ function Example() {
 | `filter`     | `RangeFilter`                            |             | The RangeFilter object.                                                                                                                     |
 | `leftInput`  | `({ getProps, ref }) => React.ReactNode` | `<Input/>`  | The left input to set the range's low value if dual handle, or value if single handle.                                                      |
 | `rightInput` | `({ getProps, ref }) => React.ReactNode` | `<Input/>`  | The right input to set the range's high value.                                                                                              |
+| `showInputs` | `boolean`                                | `false`     | Show number inputs to manually set the handle values.                                                                                       |

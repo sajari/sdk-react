@@ -28,6 +28,19 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
 
       iconContainerStyles.push(tw`px-2`);
       break;
+
+    case 'lg':
+      containerStyles.push(tw`py-3 text-lg pl-13`);
+
+      if (loading && voiceEnabled) {
+        containerStyles.push(tw`pr-15`);
+      } else if (loading || voiceEnabled) {
+        containerStyles.push(tw`pr-11`);
+      }
+
+      iconContainerStyles.push(tw`px-4`);
+      break;
+
     case 'md':
     default:
       containerStyles.push(tw`pl-9`);

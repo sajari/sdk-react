@@ -21,9 +21,21 @@ import { Combobox } from 'sajari/react-components';
 <Combobox />
 ```
 
+### Sizes
+
+Use the `size` prop to set the size of the combobox. The default is `md`.
+
+```jsx
+<div className="space-y-3">
+  <Combobox size="sm" />
+  <Combobox size="md" />
+  <Combobox size="lg" />
+</div>
+```
+
 ### Suggestions mode
 
-You can set `mode` to `suggestions` to render autocomplete suggstions.
+Set the `mode` prop to `suggestions` to render autocomplete suggstions.
 
 ```jsx
 function Example() {
@@ -49,7 +61,7 @@ function Example() {
   };
 
   return (
-    <>
+    <div className="space-y-3">
       <Text>Current query: {query}</Text>
       <Text>Current value: {value}</Text>
 
@@ -64,7 +76,7 @@ function Example() {
           onChange={setValue}
         />
       </form>
-    </>
+    </div>
   );
 }
 ```
@@ -103,7 +115,7 @@ function Example() {
 
 ### Typeahead mode
 
-You can set `mode` to `typeahead` to render a typeahead suggestion.
+Set the `mode` prop to `typeahead` to render a typeahead suggestion.
 
 ```jsx
 <Combobox mode="typeahead" label="Query" name="query" placeholder="Search" completion="apple iphone" />

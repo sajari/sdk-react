@@ -12,11 +12,11 @@ export interface UseInputStyleProps {
   indeterminate?: boolean;
   block?: boolean;
   type: 'select' | 'radio' | 'checkbox';
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'sm' | 'md' | 'lg';
 }
 
 export default function useInputStyles(props: UseInputStyleProps) {
-  const { block, disabled, indeterminate, invalid, readOnly, type } = props;
+  const { block, disabled, indeterminate, invalid, readOnly, size, type } = props;
   const { focusRingStyles, focusProps } = useFocusRingStyles({
     disabled,
     invalid,
@@ -27,8 +27,26 @@ export default function useInputStyles(props: UseInputStyleProps) {
   const styles: (TwStyle | string)[] = [];
 
   styles.push(
-    tw`px-3 py-2 text-base leading-normal text-gray-700 transition-all duration-150 bg-white border border-gray-200 border-solid outline-none font-inherit`,
+    tw`leading-normal text-gray-700 transition-all duration-150 bg-white border border-gray-200 border-solid outline-none font-inherit`,
   );
+
+  // Map the size to padding and font size
+  if (!['radio', 'checkbox'].includes(type)) {
+    switch (size) {
+      case 'lg':
+        styles.push(tw`px-4 py-3 text-lg`);
+        break;
+
+      case 'sm':
+        styles.push(tw`px-2 py-1 text-sm`);
+        break;
+
+      default:
+      case 'md':
+        styles.push(tw`px-3 py-2 text-base`);
+        break;
+    }
+  }
 
   // Cancel out the form controls plugin styles since we use the ring
   styles.push(tw`focus:outline-none focus:shadow-none focus:border-gray-200`);
@@ -80,7 +98,7 @@ export default function useInputStyles(props: UseInputStyleProps) {
   }
 
   if (type === 'select') {
-    styles.push(tw`px-10 py-2 pl-3 rounded-md`);
+    styles.push(tw`pr-10 rounded-md`);
   }
 
   return { styles: css(styles), focusRingStyles, focusProps };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type TextElements =
+export type TextElement =
   | 'small'
   | 'p'
   | 'h1'
@@ -25,9 +25,8 @@ export type TextElements =
   | 'strong';
 
 export interface TextProps {
-  /** Set the element that the text should render as */
-  as?: TextElements;
   children?: React.ReactNode;
   /** Whether to truncate the text. Specify a number will use line-clamp */
   truncate?: boolean | 2 | 3 | 4 | 5;
+  size?: 'xs' | 'sm' | 'md' | 'lg';
 }

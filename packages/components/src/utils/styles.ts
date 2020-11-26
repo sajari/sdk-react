@@ -1,7 +1,11 @@
 import { isNumber } from '@sajari/react-sdk-utils';
 import tw, { TwStyle } from 'twin.macro';
 
-export function mapTruncateValue(truncate: boolean | 2 | 3 | 4 | 5): TwStyle {
+export function mapTruncateValue(truncate: boolean | 2 | 3 | 4 | 5 | undefined): TwStyle {
+  if (!truncate) {
+    return tw``;
+  }
+
   if (truncate === true) {
     return tw`truncate`;
   }

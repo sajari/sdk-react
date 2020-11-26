@@ -21,7 +21,7 @@ const Sorting: FC<SortingProps> = ({ label = 'Sort', options = defaultOptions })
       <Label htmlFor={id} css={tw`text-sm text-gray-500`}>
         {label}
       </Label>
-      <Select id={id} value={sorting} onChange={(e) => setSorting(e.target.value)}>
+      <Select id={id} value={sorting} onChange={(e) => setSorting(e.target.value)} size="sm">
         {options.map((s, i) => (
           <option key={`${id}-option-${i}`} value={s.value}>
             {s.name}
