@@ -32,7 +32,7 @@ describe('combineFilters', () => {
 
   const categoryFilter = new Filter({
     name: 'category',
-    field: 'product_cat',
+    field: 'level1',
   });
 
   const combination = combineFilters([brandFilter, priceFilter, priceRangeFilter, categoryFilter]);
@@ -52,7 +52,7 @@ describe('combineFilters', () => {
   });
 
   it('count', () => {
-    expect(combination.count()).toBe('price_range,product_cat');
+    expect(combination.count()).toBe('price_range,level1');
   });
 
   // revalidate after filter options and current state have been updated
@@ -66,6 +66,6 @@ describe('combineFilters', () => {
       "brand_Apple:brand = 'Apple',brand_Samsung:brand = 'Samsung',price_High:price >= 200,price_Mid:price >= 50,price_Low:price < 50",
     );
     expect(combination.countFilters()).toBe('(0 - 10),');
-    expect(combination.count()).toBe('price_range,product_cat');
+    expect(combination.count()).toBe('price_range,level1');
   });
 });
