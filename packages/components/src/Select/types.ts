@@ -13,4 +13,4 @@ interface Props {
   size?: UseInputStyleProps['size'];
 }
 
-export interface SelectProps extends Props, HtmlAttributes {}
+export interface SelectProps extends HtmlAttributes, Props {}
