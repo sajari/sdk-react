@@ -153,9 +153,9 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
     );
 
     if (!instant.current) {
-      const { project, collection, endpoint } = search.pipeline.config;
+      const { account, collection, endpoint } = search.pipeline.config;
       instant.current = {
-        pipeline: new Pipeline({ project, collection, endpoint }, 'autocomplete', new NoTracking()),
+        pipeline: new Pipeline({ account, collection, endpoint }, 'autocomplete', new NoTracking()),
         variables: new Variables(),
       };
     }
