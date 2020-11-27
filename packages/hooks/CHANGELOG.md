@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.19](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.18...@sajari/react-hooks@1.0.0-alpha.19) (2020-11-27)
+
+### Features
+
+- allow blocking a field being mapped by passing false ([db644ba](https://github.com/sajari/sdk-react/commit/db644ba5a4306bd39ef4e0a89c49227312a62508))
+
 # [1.0.0-alpha.18](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.17...@sajari/react-hooks@1.0.0-alpha.18) (2020-11-26)
 
 **Note:** Version bump only for package @sajari/react-hooks

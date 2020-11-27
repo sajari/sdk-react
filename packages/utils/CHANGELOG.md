@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.11](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.0.0-alpha.10...@sajari/react-sdk-utils@1.0.0-alpha.11) (2020-11-27)
+
+### Features
+
+- allow independent aspectRatio and objectFit props on Results ([7900493](https://github.com/sajari/sdk-react/commit/79004930cde3b403d52917c50e94d92aca47e98e))
+
 # [1.0.0-alpha.10](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.0.0-alpha.9...@sajari/react-sdk-utils@1.0.0-alpha.10) (2020-11-26)
 
 ### Features

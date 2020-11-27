@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.29](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.28...@sajari/react-search-ui@1.0.0-alpha.29) (2020-11-27)
+
+### Bug Fixes
+
+- use CSS for uppercase ([83cafa6](https://github.com/sajari/sdk-react/commit/83cafa654e80084d3198160cdb155863bb5a51bb))
+
+### Features
+
+- add forceImage prop to always render an image placeholder ([8f8f5dc](https://github.com/sajari/sdk-react/commit/8f8f5dc79918fbe7d4b4c57da30d64fe937cddb5))
+- allow independent aspectRatio and objectFit props on Results ([7900493](https://github.com/sajari/sdk-react/commit/79004930cde3b403d52917c50e94d92aca47e98e))
+
 # [1.0.0-alpha.28](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.27...@sajari/react-search-ui@1.0.0-alpha.28) (2020-11-26)
 
 **Note:** Version bump only for package @sajari/react-search-ui

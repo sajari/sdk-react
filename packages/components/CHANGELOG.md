@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.23](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.22...@sajari/react-components@1.0.0-alpha.23) (2020-11-27)
+
+### Features
+
+- add forceImage prop to always render an image placeholder ([8f8f5dc](https://github.com/sajari/sdk-react/commit/8f8f5dc79918fbe7d4b4c57da30d64fe937cddb5))
+
 # [1.0.0-alpha.22](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.21...@sajari/react-components@1.0.0-alpha.22) (2020-11-26)
 
 ### Bug Fixes
