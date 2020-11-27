@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-no-target-blank */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { Heading, Image, Link, Rating, Text } from '@sajari/react-components';
-import { __DEV__, decodeHTML, formatPrice, isNumber, isValidURL } from '@sajari/react-sdk-utils';
-import React from 'react';
+import { Heading, Image, ImageProps, Link, Rating, Text } from '@sajari/react-components';
+import { __DEV__, decodeHTML, formatPrice, isNumber, isString, isValidURL } from '@sajari/react-sdk-utils';
+import React, { useMemo } from 'react';
 import tw from 'twin.macro';
 
 import useResultStyles from './styles';
@@ -14,8 +14,8 @@ const Result = React.memo(
     const {
       appearance = 'list',
       ratingMax = 5,
-      imageAspectRatio = 1,
-      imageObjectFit = 'contain',
+      imageAspectRatio: imageAspectRatioProp = 1,
+      imageObjectFit: imageObjectFitProp = 'contain',
       currencyCode = 'USD',
       values,
       token,
@@ -35,6 +35,26 @@ const Result = React.memo(
         onClick(url);
       }
     }, [url]);
+
+    const imageAspectRatio: ImageProps['aspectRatio'] = useMemo(() => {
+      const aspectRatio = imageAspectRatioProp;
+
+      if (isNumber(aspectRatio) || aspectRatio === null) {
+        return aspectRatio;
+      }
+
+      return aspectRatio[appearance];
+    }, [appearance]);
+
+    const imageObjectFit: ImageProps['objectFit'] = useMemo(() => {
+      const objectFit = imageObjectFitProp;
+
+      if (isString(objectFit) || objectFit === null) {
+        return objectFit;
+      }
+
+      return objectFit[appearance];
+    }, [appearance]);
 
     return (
       <article {...rest} css={styles.container}>

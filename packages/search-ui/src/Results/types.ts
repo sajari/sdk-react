@@ -8,8 +8,8 @@ export interface ResultsProps extends BoxProps {
   appearance?: ApperanceValue;
   defaultAppearance?: ApperanceValue;
   ratingMax?: number;
-  imageAspectRatio?: ImageProps['aspectRatio'];
-  imageObjectFit?: ImageProps['objectFit'];
+  imageAspectRatio?: ImageProps['aspectRatio'] | Record<ApperanceValue, ImageProps['aspectRatio']>;
+  imageObjectFit?: ImageProps['objectFit'] | Record<ApperanceValue, ImageProps['objectFit']>;
   currencyCode?: string;
   columnMinWidth?: number;
   columns?: ColumnValue | Record<number, ColumnValue>;

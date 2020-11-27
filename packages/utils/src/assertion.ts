@@ -1,5 +1,9 @@
 import { parseURL } from './url';
 
+export function isString(value: any): value is string {
+  return typeof value === 'string';
+}
+
 export function isBoolean(value: any): value is boolean {
   return typeof value === 'boolean';
 }
@@ -28,15 +32,19 @@ export const isEmpty = (value: any) => {
   if (isNullOrUndefined(value)) {
     return true;
   }
+
   if (isArray(value)) {
     return isEmptyArray(value);
   }
+
   if (isObject(value)) {
     return isEmptyObject(value);
   }
-  if (typeof value === 'string') {
+
+  if (isString(value)) {
     return value.trim() === '';
   }
+
   return false;
 };
 
