@@ -58,7 +58,7 @@ export interface Context {
   viewType: ResultViewType;
 }
 
-type Field = ((data: Record<string, any>) => any) | string | string[];
+type Field = ((data: Record<string, any>) => any) | string | string[] | false;
 export class FieldDictionary {
   id?: Field;
 
