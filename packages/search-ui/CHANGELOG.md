@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.31](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.30...@sajari/react-search-ui@1.0.0-alpha.31) (2020-11-27)
+
+### Bug Fixes
+
+- remove fontSize specification on PageSize and ViewType ([5e3b6ad](https://github.com/sajari/sdk-react/commit/5e3b6adecd3daf0e3f74bba1899d3896dc385ed2))
+
 # [1.0.0-alpha.30](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.29...@sajari/react-search-ui@1.0.0-alpha.30) (2020-11-27)
 
 **Note:** Version bump only for package @sajari/react-search-ui
