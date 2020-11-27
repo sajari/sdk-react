@@ -19,7 +19,7 @@ const Result = React.memo(
       currencyCode = 'USD',
       values,
       token,
-      handleResultClicked,
+      onClick = () => {},
       ...rest
     } = props;
     const { title, description, subtitle, image, url, price } = values;
@@ -32,7 +32,7 @@ const Result = React.memo(
 
     const resultClicked = React.useCallback(() => {
       if (url) {
-        handleResultClicked(url);
+        onClick(url);
       }
     }, [url]);
 

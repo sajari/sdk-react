@@ -62,7 +62,7 @@ const Results = (props: ResultsProps) => {
     <ResizeObserver onResize={(rect) => setWidth(rect.width)} css={[styles.container]} className={className}>
       {results?.map(({ values, token }, i) => (
         <Result
-          handleResultClicked={handleResultClicked}
+          onClick={handleResultClicked}
           token={token}
           ratingMax={ratingMax}
           // eslint-disable-next-line no-underscore-dangle
