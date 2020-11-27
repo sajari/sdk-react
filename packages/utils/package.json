@@ -1,7 +1,8 @@
 {
   "name": "@sajari/react-sdk-utils",
   "version": "1.0.0-alpha.10",
-  "description": "TBD",
+  "description": "Shared utils for the Sajari React packages.",
+  "sideEffects": false,
   "repository": {
     "type": "git",
     "directory": "packages/utils"
