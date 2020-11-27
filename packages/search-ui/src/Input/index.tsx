@@ -1,16 +1,19 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { Combobox } from '@sajari/react-components';
-import { useAutocomplete, useQuery, useSearch } from '@sajari/react-hooks';
+import { useAutocomplete, useQuery, useSearch, useSearchContext } from '@sajari/react-hooks';
 import { __DEV__ } from '@sajari/react-sdk-utils';
-import { Result as ResultResp } from '@sajari/sdk-js';
 import React from 'react';
 
+import { ResultValues } from '../Results/types';
+import mapResultFields from '../utils/mapResultFields';
 import { InputProps } from './types';
 
 const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInputElement>) => {
   const { placeholder = 'Search', mode = 'instant', onChange, ...rest } = props;
-  const { results = [], search, searching } = useSearch({ allowEmptySearch: false });
+  const { fields } = useSearchContext();
+  const { results: rawResults, search, searching } = useSearch({ allowEmptySearch: false });
+  const results = React.useMemo(() => mapResultFields<ResultValues>(rawResults ?? [], fields), [rawResults]);
   const { search: searchInstant, completion, suggestions } = useAutocomplete();
   const { query } = useQuery();
   let items: Array<any> = [];
@@ -23,7 +26,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
       const {
         values: { description, image, title, url },
         token,
-      } = result as ResultResp;
+      } = result;
       let clickToken: string | undefined;
 
       if (token && 'click' in token) {

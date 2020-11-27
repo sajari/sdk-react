@@ -2,12 +2,11 @@ import { isNullOrUndefined } from '@sajari/react-sdk-utils';
 
 import { useContext } from '../SearchContextProvider';
 import usePagination from '../usePagination';
-import mapResultFields from '../utils/mapResultFields';
 import mapToObject from '../utils/mapToObject';
 
-function useSearchContext<T = Record<string, string | string[]>>() {
+function useSearchContext() {
   const {
-    search: { response, search, fields = {}, searching },
+    search: { response, search, searching, fields = {} },
     viewType,
     setViewType,
   } = useContext();
@@ -24,12 +23,13 @@ function useSearchContext<T = Record<string, string | string[]>>() {
     pageCount,
     setPage,
     search,
-    results: results ? mapResultFields<T>(results, fields) : undefined,
+    results,
     response: mapResponse,
     searching,
     searched: !isNullOrUndefined(results),
     viewType,
     setViewType,
+    fields,
   };
 }
 
