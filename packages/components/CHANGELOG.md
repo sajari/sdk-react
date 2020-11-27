@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.24](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.23...@sajari/react-components@1.0.0-alpha.24) (2020-11-27)
+
+**Note:** Version bump only for package @sajari/react-components
+
 # [1.0.0-alpha.23](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.22...@sajari/react-components@1.0.0-alpha.23) (2020-11-27)
 
 ### Features
