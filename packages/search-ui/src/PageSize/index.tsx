@@ -25,7 +25,7 @@ const PageSize = (props: PageSizeProps) => {
 
   return (
     <div css={tw`flex items-center space-x-4`}>
-      <Label htmlFor={id} css={tw`text-sm text-gray-500`} size={size}>
+      <Label htmlFor={id} css={tw`text-gray-500`} size={size}>
         {label}
       </Label>
       <Select id={id} value={`${pageSize}`} onChange={(e) => setPageSize(parseInt(e.target.value, 10))} size={size}>

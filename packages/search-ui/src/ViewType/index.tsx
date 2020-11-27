@@ -19,7 +19,7 @@ const ViewType = (props: ViewTypeProps) => {
   return (
     <div css={tw`flex items-center space-x-4`} aria-labelledby={id}>
       {/* @ts-ignore Union too complex? */}
-      <Text id={id} css={tw`text-sm text-gray-500`} size={size}>
+      <Text id={id} css={tw`text-gray-500`} size={size}>
         {label}
       </Text>
       <ButtonGroup attached>
