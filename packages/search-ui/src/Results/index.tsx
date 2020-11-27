@@ -4,7 +4,6 @@ import { Box, Heading, ResizeObserver, Spinner, Text } from '@sajari/react-compo
 import { useQuery, useSearchContext, useTracking } from '@sajari/react-hooks';
 import { isEmpty, isNullOrUndefined } from '@sajari/react-sdk-utils';
 import * as React from 'react';
-import { useState } from 'react';
 import tw from 'twin.macro';
 
 import { useSearchUIContext } from '../ContextProvider';
@@ -16,10 +15,11 @@ const Results = (props: ResultsProps) => {
   const { results, setViewType, viewType, searching } = useSearchContext<ResultValues>();
   const { query } = useQuery();
   const { defaultAppearance, appearance = viewType, className, ...rest } = props;
-  const [width, setWidth] = useState(0);
+  const [width, setWidth] = React.useState(0);
   const styles = useResultsStyles({ ...props, appearance, width });
   const { handleResultClicked } = useTracking();
   const { ratingMax } = useSearchUIContext();
+  const hasImages = React.useMemo(() => results?.some((r) => r.values?.image), [results]);
 
   React.useEffect(() => {
     if (defaultAppearance) {
@@ -69,6 +69,7 @@ const Results = (props: ResultsProps) => {
           key={values._id ?? i}
           values={values}
           appearance={appearance}
+          forceImage={hasImages}
           {...rest}
         />
       ))}

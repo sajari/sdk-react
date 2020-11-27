@@ -29,7 +29,7 @@ const Image = React.forwardRef((props: ImageProps, ref?: React.Ref<HTMLImageElem
 
   return (
     <AspectRatio ratio={aspectRatio ?? null} css={styles.container}>
-      {image}
+      {src ? image : null}
     </AspectRatio>
   );
 });

@@ -20,6 +20,7 @@ const Result = React.memo(
       values,
       token,
       onClick = () => {},
+      forceImage,
       ...rest
     } = props;
     const { title, description, subtitle, image, url, price } = values;
@@ -58,7 +59,7 @@ const Result = React.memo(
 
     return (
       <article {...rest} css={styles.container}>
-        {isValidURL(image, true) && (
+        {(isValidURL(image, true) || forceImage) && (
           <Link href={clickToken || url} target="_blank" onClick={resultClicked} css={styles.imageContainer}>
             <Image src={image} css={styles.image} aspectRatio={imageAspectRatio} objectFit={imageObjectFit} />
           </Link>

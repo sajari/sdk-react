@@ -9,17 +9,21 @@ import { AspectRatioProps } from './types';
 
 const AspectRatio = React.forwardRef((props: AspectRatioProps, ref?: React.Ref<HTMLElement>) => {
   const { as = 'div', ratio = 16 / 9, children, ...rest } = props;
-  const child = Children.only<React.ReactChild>(children);
+  let child;
 
-  if (!isValidElement(child)) {
-    return null;
+  if (children) {
+    child = Children.only<React.ReactChild>(children);
+
+    if (!isValidElement(child)) {
+      return null;
+    }
   }
 
   const styles = useAspectRatioStyles({ ...props, ratio });
 
   return (
     <Box ref={ref} as={as} {...rest} css={styles}>
-      {cloneElement(child)}
+      {child ? cloneElement(child) : null}
     </Box>
   );
 });
