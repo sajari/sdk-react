@@ -84,7 +84,11 @@ function Example() {
 }
 ```
 
-### Sortable and searchable
+### Searching and Sorting
+
+Add the `searchable` prop to allow searching within the filter values. This is just a basic filter to match the term to the filter item.
+
+The sorting method used to sort the filter items can also be changed to alphabetical by setting the `sort` prop to `alpha`.
 
 ```jsx
 function Example() {
@@ -118,7 +122,7 @@ function Example() {
           <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
             {results && (
               <>
-                <Filter type="list" name="category" title="Category" searchable sortable />
+                <Filter type="list" name="category" title="Category" searchable sort="alpha" />
                 <Filter type="list" name="priceRange" title="Range ($)" />
               </>
             )}
