@@ -28,8 +28,7 @@
   "dependencies": {
     "@sajari/react-components": "^1.0.0-alpha.23",
     "@sajari/react-hooks": "^1.0.0-alpha.19",
-    "@sajari/react-sdk-utils": "^1.0.0-alpha.11",
-    "tslib": "^2.0.3"
+    "@sajari/react-sdk-utils": "^1.0.0-alpha.11"
   },
   "devDependencies": {
     "tailwindcss": "^1.9.6",

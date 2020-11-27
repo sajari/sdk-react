@@ -39,8 +39,7 @@
     "react-ranger": "^2.1.0",
     "resize-observer-polyfill": "^1.5.1",
     "tailwindcss-filters": "^3.0.0",
-    "tailwindcss-truncate-multiline": "^1.0.3",
-    "tslib": "^2.0.3"
+    "tailwindcss-truncate-multiline": "^1.0.3"
   },
   "devDependencies": {
     "tailwindcss": "^1.9.6",
