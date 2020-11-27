@@ -13,8 +13,8 @@ const Header = ({ title, onReset, showReset }: HeaderProps) => {
       </Heading>
 
       {showReset ? (
-        <Button appearance="link" size="xs" spacing="none" onClick={onReset}>
-          RESET
+        <Button appearance="link" size="xs" spacing="none" onClick={onReset} css={tw`uppercase`}>
+          Reset
         </Button>
       ) : null}
     </Box>
