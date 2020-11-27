@@ -39,11 +39,11 @@ function Example() {
 
         {results ? (
           <ul className="flex flex-col space-y-8 list-disc px-6">
-            {results.map(({ values: { title }, token }) => {
+            {results.map(({ values: { name }, token }) => {
               return (
                 <li>
                   <div className="flex flex-col space-y-2">
-                    <h1>{title}</h1>
+                    <h1>{name}</h1>
                     <ButtonGroup attached>
                       <Button onClick={() => consumeInteractionToken(token.neg, 'downvote', 1)}>Negative action</Button>
                       <Button onClick={() => consumeInteractionToken(token.pos, 'downvote', 1)}>Positive action</Button>

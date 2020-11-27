@@ -7,12 +7,16 @@ import * as React from 'react';
 import tw from 'twin.macro';
 
 import { useSearchUIContext } from '../ContextProvider';
+import mapResultFields from '../utils/mapResultFields';
 import Result from './components/Result';
 import useResultsStyles from './styles';
 import { ResultsProps, ResultValues } from './types';
 
 const Results = (props: ResultsProps) => {
-  const { results, setViewType, viewType, searching } = useSearchContext<ResultValues>();
+  const { results: rawResults, setViewType, viewType, searching, fields } = useSearchContext();
+  const results = React.useMemo(() => (rawResults ? mapResultFields<ResultValues>(rawResults, fields) : undefined), [
+    rawResults,
+  ]);
   const { query } = useQuery();
   const { defaultAppearance, appearance = viewType, className, ...rest } = props;
   const [width, setWidth] = React.useState(0);

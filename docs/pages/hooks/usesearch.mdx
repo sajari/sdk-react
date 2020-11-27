@@ -27,8 +27,8 @@ function Example() {
       <Combobox onChange={(value) => setQuery(value)} />
       {query && results.length > 0 && (
         <ul className="list-disc px-5 space-y-2 mt-5">
-          {results.map(({ values: { title, id } }) => (
-            <li key={id}>{title}</li>
+          {results.map(({ values: { name, id } }) => (
+            <li key={id}>{name}</li>
           ))}
         </ul>
       )}
@@ -57,8 +57,8 @@ function Example() {
           {searching && <p className="p-4">Searching...</p>}
           {!searching && results.length > 0 && (
             <ul className="list-disc px-5 space-y-2 mt-5">
-              {results.map(({ values: { title, id } }) => (
-                <li key={id}>{title}</li>
+              {results.map(({ values: { name, id } }) => (
+                <li key={id}>{name}</li>
               ))}
             </ul>
           )}

@@ -6,10 +6,9 @@ import { defaultConfig } from '../SearchContextProvider/config';
 import { Response } from '../SearchContextProvider/controllers';
 import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from '../SearchContextProvider/events';
 import useQuery from '../useQuery';
-import mapResultFields from '../utils/mapResultFields';
 import { UseSearchConfig, UseSearchCustomConfig, UseSearchParams, UseSearchResult } from './types';
 
-function useCustomSearch({ pipeline, variables, fields = {} }: UseSearchCustomConfig): UseSearchResult {
+function useCustomSearch({ pipeline, variables }: UseSearchCustomConfig): UseSearchResult {
   const [searching, setSearching] = useState(false);
   const searchFn = useCallback(
     (q?: string) => {
@@ -36,8 +35,7 @@ function useCustomSearch({ pipeline, variables, fields = {} }: UseSearchCustomCo
 
     return pipeline.listen(EVENT_RESPONSE_UPDATED, (response: Response) => {
       const { time: latency, totalResults } = { time: response?.getTime(), totalResults: response?.getTotalResults() };
-      const reqResults = response?.getResults();
-      const results = reqResults ? mapResultFields(reqResults, fields) : undefined;
+      const results = response?.getResults();
 
       setSearching(false);
       setSearchOutput((o) => ({ ...o, results, latency, totalResults, error: response?.getError() }));
@@ -57,7 +55,7 @@ function useNormalSearch({ queryOverride = '', allowEmptySearch = true }: UseSea
   const [error, setError] = useState<Error | null>(null);
   const { query } = useQuery();
   const {
-    search: { searching, response, fields = {}, search: searchFn },
+    search: { searching, response, search: searchFn },
     instant: { search: searchInstantFn, suggestions },
   } = useContext();
 
@@ -101,7 +99,7 @@ function useNormalSearch({ queryOverride = '', allowEmptySearch = true }: UseSea
     latency: response?.getTime(),
     totalResults: response?.getTotalResults(),
     suggestions: suggestions ?? [],
-    results: results ? mapResultFields(results, fields) : undefined,
+    results,
     search,
     searchInstant,
     searching,
