@@ -1,13 +1,15 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { __DEV__ } from '@sajari/react-sdk-utils';
+import { forwardRefWithAs, PropsWithAs } from '@sajari/react-sdk-utils';
 import React, { Children, cloneElement, isValidElement } from 'react';
 
 import Box from '../Box';
 import { useAspectRatioStyles } from './styles';
 import { AspectRatioProps } from './types';
 
-const AspectRatio = React.forwardRef((props: AspectRatioProps, ref?: React.Ref<HTMLElement>) => {
+type DefaultElement = 'div';
+
+const Component = (props: PropsWithAs<AspectRatioProps, DefaultElement>, ref: React.Ref<HTMLDivElement>) => {
   const { as = 'div', ratio = 16 / 9, children, ...rest } = props;
   let child;
 
@@ -26,11 +28,9 @@ const AspectRatio = React.forwardRef((props: AspectRatioProps, ref?: React.Ref<H
       {child ? cloneElement(child) : null}
     </Box>
   );
-});
+};
 
-if (__DEV__) {
-  AspectRatio.displayName = 'AspectRatio';
-}
+const AspectRatio = forwardRefWithAs<AspectRatioProps, DefaultElement>(Component);
 
 export default AspectRatio;
 
