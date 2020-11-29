@@ -1,9 +1,4 @@
 export default {
-  future: {
-    // removeDeprecatedGapUtilities: true,
-    // purgeLayersByDefault: true,
-  },
-  purge: [],
   theme: {
     backdropFilter: {
       none: 'none',
