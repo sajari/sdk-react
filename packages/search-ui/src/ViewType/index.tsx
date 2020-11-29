@@ -9,8 +9,6 @@ import tw from 'twin.macro';
 import { IconSmallGrid, IconSmallList } from '../assets/icons';
 import { ViewTypeProps } from './types';
 
-const styles = [tw`transition-colors duration-300 ease-out fill-current`];
-
 const ViewType = (props: ViewTypeProps) => {
   const { label = 'View', size } = props;
   const id = `view-type-${useId()}`;
@@ -29,7 +27,7 @@ const ViewType = (props: ViewTypeProps) => {
           appearance={viewType === 'grid' ? 'primary' : undefined}
         >
           &#8203;
-          <IconSmallGrid css={css([...styles, ...(viewType === 'grid' ? [tw`text-white`] : [])])} />
+          <IconSmallGrid />
         </Button>
         <Button
           onClick={() => setViewType('list')}
@@ -37,7 +35,7 @@ const ViewType = (props: ViewTypeProps) => {
           appearance={viewType === 'list' ? 'primary' : undefined}
         >
           &#8203;
-          <IconSmallList css={css([...styles, ...(viewType === 'list' ? [tw`text-white`] : [])])} />
+          <IconSmallList />
         </Button>
       </ButtonGroup>
     </div>
