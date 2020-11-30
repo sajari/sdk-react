@@ -1,0 +1,42 @@
+{
+  "translations": {
+    "errors": {
+      "authorization": "Authorization for this request failed. Please try again.",
+      "connection": "Please check your network connection and try again.",
+      "parsing": "Unable to parse response. Please try again."
+    },
+    "filter": {
+      "reset": "Reset"
+    },
+    "input": {
+      "placeholder": "Search"
+    },
+    "pageSize": {
+      "label": "Show"
+    },
+    "pagination": {
+      "label": "Pagination",
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page {{page}}",
+      "current": "Page {{page}}, current page"
+    },
+    "sorting": {
+      "label": "Sort"
+    },
+    "summary": {
+      "results": "{{count}} {{object}} for '{{query}}'",
+      "latency": "({{time}} secs)",
+      "alternative": "Search instead for"
+    },
+    "texts": {
+      "result": "result",
+      "results": "results"
+    },
+    "viewType": {
+      "label": "View",
+      "grid": "Grid",
+      "list": "List"
+    }
+  }
+}

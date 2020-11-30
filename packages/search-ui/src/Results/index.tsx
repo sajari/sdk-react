@@ -20,10 +20,10 @@ const Results = (props: ResultsProps) => {
   const { query } = useQuery();
   const { defaultAppearance, appearance = viewType, className, ...rest } = props;
   const [width, setWidth] = React.useState(0);
-  const styles = useResultsStyles({ ...props, appearance, width });
   const { handleResultClicked } = useTracking();
   const { ratingMax } = useSearchUIContext();
   const hasImages = React.useMemo(() => results?.some((r) => r.values?.image), [results]);
+  const styles = useResultsStyles({ ...props, appearance, width });
 
   React.useEffect(() => {
     if (defaultAppearance) {

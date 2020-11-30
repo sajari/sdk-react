@@ -1,7 +1,9 @@
 import { Pipeline, SearchContextProvider, Variables } from '@sajari/react-hooks';
 import { createContext, ThemeProvider } from '@sajari/react-sdk-utils';
 import * as React from 'react';
+import { I18nextProvider } from 'react-i18next';
 
+import i18n from '../i18n';
 import { ContextProviderValues, SearchUIContextProviderValues } from './types';
 
 const [Provider, useSearchUIContext] = createContext<Required<SearchUIContextProviderValues>>({
@@ -21,7 +23,7 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
   <Provider value={{ ratingMax }}>
     <SearchContextProvider search={search} instant={instant} searchOnLoad={searchOnLoad}>
       <ThemeProvider theme={theme} importantStyles={importantStyles}>
-        {children}
+        <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
       </ThemeProvider>
     </SearchContextProvider>
   </Provider>

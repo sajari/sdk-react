@@ -1,16 +1,18 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
 import { Button, ButtonGroup, Text } from '@sajari/react-components';
 import { useSearchContext } from '@sajari/react-hooks';
 import { __DEV__ } from '@sajari/react-sdk-utils';
+import { useTranslation } from 'react-i18next';
 import tw from 'twin.macro';
 
 import { IconSmallGrid, IconSmallList } from '../assets/icons';
 import { ViewTypeProps } from './types';
 
 const ViewType = (props: ViewTypeProps) => {
-  const { label = 'View', size } = props;
+  const { t } = useTranslation();
+  const { label = t('viewType.label'), size } = props;
   const id = `view-type-${useId()}`;
   const { viewType, setViewType } = useSearchContext();
 
@@ -25,6 +27,7 @@ const ViewType = (props: ViewTypeProps) => {
           onClick={() => setViewType('grid')}
           size={size}
           appearance={viewType === 'grid' ? 'primary' : undefined}
+          aria-label={t('viewType.grid')}
         >
           &#8203;
           <IconSmallGrid />
@@ -33,6 +36,7 @@ const ViewType = (props: ViewTypeProps) => {
           onClick={() => setViewType('list')}
           size={size}
           appearance={viewType === 'list' ? 'primary' : undefined}
+          aria-label={t('viewType.list')}
         >
           &#8203;
           <IconSmallList />

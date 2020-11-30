@@ -4,7 +4,7 @@ export type ColumnValue = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 export type GapValue = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 type ApperanceValue = 'list' | 'grid';
 
-export interface ResultsProps extends BoxProps {
+export interface ResultsProps extends Omit<BoxProps, 'children'> {
   appearance?: ApperanceValue;
   defaultAppearance?: ApperanceValue;
   ratingMax?: number;
@@ -14,6 +14,7 @@ export interface ResultsProps extends BoxProps {
   columnMinWidth?: number;
   columns?: ColumnValue | Record<number, ColumnValue>;
   gap?: GapValue | Record<number, GapValue>;
+  children?: (results: Record<string, any>[], appearance: ApperanceValue, index: number) => React.ReactNode;
 }
 
 export interface ResultValues {

@@ -5,6 +5,7 @@ import { useId } from '@reach/auto-id';
 import { Label, Select } from '@sajari/react-components';
 import { useSorting } from '@sajari/react-hooks';
 import { __DEV__ } from '@sajari/react-sdk-utils';
+import { useTranslation } from 'react-i18next';
 import tw from 'twin.macro';
 
 import { SortingProps, SortOption } from './types';
@@ -12,7 +13,8 @@ import { SortingProps, SortOption } from './types';
 const defaultOptions: SortOption[] = [{ name: 'Most relevant', value: '' }];
 
 const Sorting = (props: SortingProps) => {
-  const { label = 'Sort', options = defaultOptions, size } = props;
+  const { t } = useTranslation();
+  const { label = t('sorting.label'), options = defaultOptions, size } = props;
   const { sorting, setSorting } = useSorting();
   const id = `sorting-${useId()}`;
 

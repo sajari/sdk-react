@@ -4,13 +4,15 @@ import { Combobox } from '@sajari/react-components';
 import { useAutocomplete, useQuery, useSearch, useSearchContext } from '@sajari/react-hooks';
 import { __DEV__ } from '@sajari/react-sdk-utils';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { ResultValues } from '../Results/types';
 import mapResultFields from '../utils/mapResultFields';
 import { InputProps } from './types';
 
 const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInputElement>) => {
-  const { placeholder = 'Search', mode = 'instant', onChange, ...rest } = props;
+  const { t } = useTranslation();
+  const { placeholder = t('input.placeholder'), mode = 'instant', onChange, ...rest } = props;
   const { fields } = useSearchContext();
   const { results: rawResults, search, searching } = useSearch({ allowEmptySearch: false });
   const results = React.useMemo(() => mapResultFields<ResultValues>(rawResults ?? [], fields), [rawResults]);

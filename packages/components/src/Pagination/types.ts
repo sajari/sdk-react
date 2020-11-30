@@ -11,4 +11,12 @@ export interface PaginationProps {
   onChange: (page: number) => void;
   /** How to align the pagination */
   align?: 'left' | 'center' | 'right';
+  /** Internationalization */
+  i18n?: {
+    label?: string;
+    previous?: string;
+    next?: string;
+    page?: string;
+    current?: string;
+  };
 }

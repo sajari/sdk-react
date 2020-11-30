@@ -21,16 +21,38 @@ function PaginationExample() {
 }
 ```
 
+### Internationalization
+
+Internationalization is handled via the `i18n` prop. The default values are as follows:
+
+```javascript
+{
+  label: 'Pagination',
+  previous: 'Previous',
+  next: 'Next',
+  page: 'Page {{page}}',
+  current: 'Page {{page}}, current page',
+}
+```
+
+These are the placeholders available:
+
+| Name   | Properties | Description                     |
+| ------ | ---------- | ------------------------------- |
+| `page` | `page`     | The page number for the button. |
+| `page` | `current`  | The current page number.        |
+
 ## Props
 
 The Pagination component composes the `ButtonGroup` component so you can pass props for
 `ButtonGroup`.
 
-| Name           | Type                                | Default    | Description                                                               |
-| -------------- | ----------------------------------- | ---------- | ------------------------------------------------------------------------- |
-| `pageCount`    | `number`                            |            | The total number of pages.                                                |
-| `totalResults` | `number`                            |            | The total number of results (used to calculate page count if not set).    |
-| `pageSize`     | `number`                            |            | The number of results per page (used to calculate page count if not set). |
-| `page`         | `number`                            |            | The current page.                                                         |
-| `onChange`     | `function`                          |            | The callback handler. The current page is passed as the only argument.    |
-| `align`        | `'left'` \| `'center'` \| `'right'` | `'center'` | How to align the pagination.                                              |
+| Name           | Type                                | Default                                           | Description                                                               |
+| -------------- | ----------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------- |
+| `pageCount`    | `number`                            |                                                   | The total number of pages.                                                |
+| `totalResults` | `number`                            |                                                   | The total number of results (used to calculate page count if not set).    |
+| `pageSize`     | `number`                            |                                                   | The number of results per page (used to calculate page count if not set). |
+| `page`         | `number`                            |                                                   | The current page.                                                         |
+| `onChange`     | `function`                          |                                                   | The callback handler. The current page is passed as the only argument.    |
+| `align`        | `'left'` \| `'center'` \| `'right'` | `'center'`                                        | How to align the pagination.                                              |
+| `i18n`         | `object`                            | See [Internationalization](#internationalization) | Internationalization for screen readers.                                  |

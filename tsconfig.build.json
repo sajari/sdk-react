@@ -14,6 +14,7 @@
     "sourceMap": true,
     "lib": ["dom", "esnext"],
     "types": ["jest", "node", "@types/testing-library__jest-dom"],
-    "importHelpers": true
+    "importHelpers": true,
+    "resolveJsonModule": true
   }
 }

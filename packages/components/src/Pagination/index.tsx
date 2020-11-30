@@ -10,7 +10,15 @@ import ButtonGroup from '../ButtonGroup';
 import { useJustifyContent } from '../hooks';
 import { PaginationProps } from './types';
 
-const getButtons = (page: number, pageCount: number, onChange: (page: number) => void) => {
+const defaultI18n = {
+  label: 'Pagination',
+  previous: 'Previous',
+  next: 'Next',
+  page: 'Page {{page}}',
+  current: 'Page {{page}}, current page',
+};
+
+const getButtons = (page: number, pageCount: number, onChange: (page: number) => void, i18n: typeof defaultI18n) => {
   const limit = 5;
   const middle = Math.ceil(limit / 2);
   let offset = 0;
@@ -42,6 +50,12 @@ const getButtons = (page: number, pageCount: number, onChange: (page: number) =>
     }
   }
 
+  const getLabel = (number: number, active: boolean) => {
+    const template = active ? i18n.current : i18n.page;
+
+    return template.replace('{{page}}', number.toString());
+  };
+
   return items.map((item, index) => {
     if (item === null) {
       return (
@@ -63,7 +77,7 @@ const getButtons = (page: number, pageCount: number, onChange: (page: number) =>
         key={item}
         appearance={active ? 'primary' : undefined}
         aria-current={active ? 'page' : undefined}
-        aria-label={`Page ${number}${active ? ', current page' : ''}`}
+        aria-label={getLabel(number, active)}
         onClick={() => onChange && onChange(number)}
       >
         {number}
@@ -73,7 +87,8 @@ const getButtons = (page: number, pageCount: number, onChange: (page: number) =>
 };
 
 const Pagination = (props: PaginationProps) => {
-  const { totalResults, pageSize, page, onChange, align = 'center' } = props;
+  const { totalResults, pageSize, page, onChange, align = 'center', i18n: i18nProp } = props;
+  const i18n = { ...defaultI18n, ...i18nProp };
   let { pageCount } = props;
   const justifyContentStyles = useJustifyContent({ align });
 
@@ -101,24 +116,24 @@ const Pagination = (props: PaginationProps) => {
   };
 
   return (
-    <ButtonGroup as="nav" aria-label="Pagination" attached css={[tw`flex`, justifyContentStyles]}>
+    <ButtonGroup as="nav" aria-label={i18n.label} attached css={[tw`flex`, justifyContentStyles]}>
       <Button
         spacing="compact"
         disabled={!hasPrevious}
         onClick={() => (hasPrevious ? changeHandler(page - 1) : {})}
-        label="Previous"
+        aria-label={i18n.previous}
       >
         &#8203;
         <IconChevronLeft />
       </Button>
 
-      {getButtons(page, pageCount, changeHandler)}
+      {getButtons(page, pageCount, changeHandler, i18n)}
 
       <Button
         spacing="compact"
         disabled={!hasNext}
         onClick={() => (hasNext ? changeHandler(page + 1) : {})}
-        label="Next"
+        aria-label={i18n.next}
       >
         &#8203;
         <IconChevronRight />

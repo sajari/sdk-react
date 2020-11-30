@@ -28,7 +28,11 @@
   "dependencies": {
     "@sajari/react-components": "^1.0.0-alpha.24",
     "@sajari/react-hooks": "^1.0.0-alpha.20",
-    "@sajari/react-sdk-utils": "^1.0.0-alpha.12"
+    "@sajari/react-sdk-utils": "^1.0.0-alpha.12",
+    "i18next": "19.8.4",
+    "i18next-browser-languagedetector": "^6.0.1",
+    "react-aria-live": "^2.0.5",
+    "react-i18next": "^11.7.3"
   },
   "publishConfig": {
     "access": "public"
