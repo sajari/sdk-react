@@ -1,5 +1,6 @@
 import { Swatch } from '@sajari/react-components';
 import { useFilter } from '@sajari/react-hooks';
+import { isEmpty } from '@sajari/react-sdk-utils';
 import React from 'react';
 
 import Box from './Box';
@@ -12,7 +13,7 @@ const ColorFilter = ({ name, title }: Omit<ColorFilterProps, 'type'>) => {
   const optionKeys = options.map((o) => o.label);
   const filtered = colorKeys.filter((c) => optionKeys.some((o) => o.includes(c)));
 
-  if (filtered.length === 0) {
+  if (isEmpty(filtered)) {
     return null;
   }
 

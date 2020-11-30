@@ -6,7 +6,8 @@
       "generic": "Something went wrong. Please try again."
     },
     "filter": {
-      "reset": "Reset"
+      "reset": "Reset",
+      "all": "All"
     },
     "input": {
       "placeholder": "Search"

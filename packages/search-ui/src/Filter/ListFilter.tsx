@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import { Button, Checkbox, CheckboxGroup, Combobox, Radio, RadioGroup } from '@sajari/react-components';
 import { useFilter, useQuery } from '@sajari/react-hooks';
-import { isBoolean } from '@sajari/react-sdk-utils';
+import { isBoolean, isEmpty } from '@sajari/react-sdk-utils';
 import { useCallback, useEffect, useState } from 'react';
 import tw from 'twin.macro';
 
@@ -41,7 +41,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     setExpanded(false);
   }, [q]);
 
-  if (options.length === 0) {
+  if (isEmpty(options)) {
     return null;
   }
 
