@@ -206,6 +206,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
         const text = {
           [config.qParam]: inputQuery ?? searchState.query,
           [config.qOverrideParam]: undefined,
+          [config.pageParam]: undefined,
         };
 
         if (override) {
@@ -237,8 +238,9 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
 
   const handlePaginate = (page: number) => {
     const { pipeline, variables } = search;
+    const { config } = searchState;
 
-    variables.set({ page: String(page) });
+    variables.set({ [config.pageParam]: String(page) });
     pipeline.search(variables.get());
   };
 
