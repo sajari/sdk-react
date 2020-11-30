@@ -36,7 +36,7 @@ const Summary = (props: SummaryProps) => {
           dangerouslySetInnerHTML={{
             __html: t('summary.results', {
               count: totalResults.toLocaleString(),
-              object: pluralize(totalResults, t('texts.result'), t('texts.results')),
+              object: pluralize(totalResults, t('texts.result'), t('texts.results')).toLowerCase(),
               query: `<strong>${query}</strong>`,
             } as Record<string, string>),
           }}

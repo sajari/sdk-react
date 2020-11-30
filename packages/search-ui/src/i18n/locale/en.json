@@ -3,7 +3,7 @@
     "errors": {
       "authorization": "Authorization for this request failed. Please try again.",
       "connection": "Please check your network connection and try again.",
-      "parsing": "Unable to parse response. Please try again."
+      "generic": "Something went wrong. Please try again."
     },
     "filter": {
       "reset": "Reset"
@@ -21,17 +21,25 @@
       "page": "Page {{page}}",
       "current": "Page {{page}}, current page"
     },
+    "results": {
+      "empty": {
+        "title": "No results",
+        "body": "No matches were found for \"{{query}}\"."
+      }
+    },
     "sorting": {
       "label": "Sort"
     },
     "summary": {
-      "results": "{{count}} {{object}} for '{{query}}'",
+      "results": "{{count}} {{object}} for \"{{query}}\"",
       "latency": "({{time}} secs)",
       "alternative": "Search instead for"
     },
     "texts": {
-      "result": "result",
-      "results": "results"
+      "result": "Result",
+      "results": "Results",
+      "loading": "Loading",
+      "error": "Error"
     },
     "viewType": {
       "label": "View",

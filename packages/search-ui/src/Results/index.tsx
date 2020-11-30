@@ -1,19 +1,20 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { Box, Heading, ResizeObserver, Spinner, Text } from '@sajari/react-components';
+import { ResizeObserver } from '@sajari/react-components';
 import { useQuery, useSearchContext, useTracking } from '@sajari/react-hooks';
 import { isEmpty, isNullOrUndefined } from '@sajari/react-sdk-utils';
 import * as React from 'react';
-import tw from 'twin.macro';
+import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';
 import mapResultFields from '../utils/mapResultFields';
+import Message from './components/Message';
 import Result from './components/Result';
 import useResultsStyles from './styles';
 import { ResultsProps, ResultValues } from './types';
 
 const Results = (props: ResultsProps) => {
-  const { results: rawResults, setViewType, viewType, searching, fields } = useSearchContext();
+  const { results: rawResults, setViewType, viewType, searching, fields, error } = useSearchContext();
   const results = React.useMemo(() => (rawResults ? mapResultFields<ResultValues>(rawResults, fields) : undefined), [
     rawResults,
   ]);
@@ -24,12 +25,25 @@ const Results = (props: ResultsProps) => {
   const { ratingMax } = useSearchUIContext();
   const hasImages = React.useMemo(() => results?.some((r) => r.values?.image), [results]);
   const styles = useResultsStyles({ ...props, appearance, width });
+  const { t } = useTranslation();
 
   React.useEffect(() => {
     if (defaultAppearance) {
       setViewType(defaultAppearance);
     }
   }, []);
+
+  if (error) {
+    let body = t('errors.generic');
+
+    if (error.statusCode === 403) {
+      body = t('errors.authorization');
+    } else if (error.name === 'NetworkError' || error.message.startsWith('NetworkError')) {
+      body = t('errors.connection');
+    }
+
+    return <Message title={t('texts.error')} body={body} />;
+  }
 
   // We've not searched yet
   if (isNullOrUndefined(results)) {
@@ -39,26 +53,15 @@ const Results = (props: ResultsProps) => {
   // There's genuinely no results
   // Show a loader if we're refreshing from no results
   if (isEmpty(results)) {
+    if (searching) {
+      return <Message title={t('texts.loading')} appearance="loading" />;
+    }
+
     return (
-      <Box css={tw`w-full p-40 text-center`}>
-        {searching ? (
-          <Box css={tw`text-gray-500`}>
-            <Spinner css={tw`inline-block w-6 h-6`} />
-            <Text css={tw`mt-3`}>Loading...</Text>
-          </Box>
-        ) : (
-          <React.Fragment>
-            <Heading>No results</Heading>
-            <Text css={tw`text-gray-500`}>
-              {'No matches were found for '}
-              <Text as="strong" css={tw`font-medium`}>
-                {`"${query}"`}
-              </Text>
-              .
-            </Text>
-          </React.Fragment>
-        )}
-      </Box>
+      <Message
+        title={t('results.empty.title')}
+        body={t('results.empty.body', { query: `<strong>${query}</strong>` })}
+      />
     );
   }
 

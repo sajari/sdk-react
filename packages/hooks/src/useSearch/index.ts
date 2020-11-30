@@ -84,7 +84,7 @@ function useNormalSearch({ queryOverride = '', allowEmptySearch = true }: UseSea
     if (response) {
       switch (true) {
         case response.isError():
-          setError(response.getError()?.error ?? new Error('Something wrong happened.'));
+          setError(response.getError()?.error ?? new Error('Something went wrong. Please try again.'));
           break;
         case !response.isError():
           setError(null);

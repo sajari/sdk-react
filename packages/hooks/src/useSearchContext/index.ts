@@ -15,6 +15,7 @@ function useSearchContext() {
   const results = response?.getResults();
 
   return {
+    error: response?.getError(),
     queryValues: response?.getQueryValues(),
     latency: response?.getTime(),
     page,
