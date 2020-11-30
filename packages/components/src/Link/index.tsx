@@ -17,7 +17,11 @@ const Link = React.forwardRef((props: LinkProps, ref?: React.Ref<HTMLAnchorEleme
     <a
       {...mergeProps(props, focusProps)}
       ref={ref}
-      css={[tw`relative`, focusRingStyles, `&:hover, &:focus { color: ${theme.color.primary.base} }`]}
+      css={[
+        tw`relative transition-colors duration-150`,
+        focusRingStyles,
+        `&:hover, &:focus { color: ${theme.color.primary.base} }`,
+      ]}
     />
   );
 });
