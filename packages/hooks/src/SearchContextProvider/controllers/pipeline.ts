@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /* eslint-disable no-underscore-dangle */
 import { Client } from '@sajari/sdk-js';
 
@@ -154,6 +153,8 @@ export class Pipeline {
         );
       })
       .catch((error) => {
+        // TODO: Should we have a debug option to enable console logging?
+        // eslint-disable-next-line no-console
         console.error(error);
 
         if (currentSearch < this.searchCount) {
