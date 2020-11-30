@@ -6,7 +6,7 @@ import { ResultProps } from './types';
 export default function useResultStyles(props: ResultProps) {
   const { appearance } = props;
 
-  const styles: Record<string, TwStyle[]> = {
+  const styles: Record<'container' | 'imageContainer' | 'image', TwStyle[]> = {
     container: [],
     imageContainer: [],
     image: [tw`rounded-md`],

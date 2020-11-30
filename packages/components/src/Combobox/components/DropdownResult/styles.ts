@@ -5,7 +5,7 @@ import { DropdownResultProps } from './types';
 
 export function useDropdownItemStyles(props: DropdownResultProps) {
   const { selected } = props;
-  const styles: Record<string, (TwStyle | string)[]> = {
+  const styles: Record<'item' | 'imageContainer' | 'textContainer', (TwStyle | string)[]> = {
     item: [
       tw`flex items-center w-full px-2 py-1 text-sm leading-5 text-left transition-all duration-75 rounded cursor-pointer`,
     ],
