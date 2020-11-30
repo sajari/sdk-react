@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.21](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.20...@sajari/react-hooks@1.0.0-alpha.21) (2020-11-30)
+
+### Bug Fixes
+
+- not reset to page 1 if query variables changed ([#256](https://github.com/sajari/sdk-react/issues/256)) ([eabda68](https://github.com/sajari/sdk-react/commit/eabda68fc5d153b424c91f646bd9170d06e7fc02))
+
+### Features
+
+- added error handling in Results component ([3b9bedc](https://github.com/sajari/sdk-react/commit/3b9bedcd856b3b34413c8f52bb9f10f67788916c))
+
 # [1.0.0-alpha.20](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.19...@sajari/react-hooks@1.0.0-alpha.20) (2020-11-27)
 
 **Note:** Version bump only for package @sajari/react-hooks

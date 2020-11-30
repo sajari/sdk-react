@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.20](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.19...sajari-sdk-docs@1.0.0-alpha.20) (2020-11-30)
+
+### Features
+
+- added i18n support ([9a977b2](https://github.com/sajari/sdk-react/commit/9a977b29d9f430686523bf65e54e5fb5921dce51))
+
 # [1.0.0-alpha.19](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.18...sajari-sdk-docs@1.0.0-alpha.19) (2020-11-27)
 
 **Note:** Version bump only for package sajari-sdk-docs

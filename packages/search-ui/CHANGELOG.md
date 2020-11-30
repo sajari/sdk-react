@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.32](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.31...@sajari/react-search-ui@1.0.0-alpha.32) (2020-11-30)
+
+### Bug Fixes
+
+- remove redundant styles ([24e3faa](https://github.com/sajari/sdk-react/commit/24e3faaa0f8194ecdb29f7c674674ab5bd8e6911))
+- revert types change for Results ([5d6b5d2](https://github.com/sajari/sdk-react/commit/5d6b5d268ab9a688777efcb49aecd23c1ebebbc4))
+
+### Features
+
+- added error handling in Results component ([3b9bedc](https://github.com/sajari/sdk-react/commit/3b9bedcd856b3b34413c8f52bb9f10f67788916c))
+- added i18n support ([9a977b2](https://github.com/sajari/sdk-react/commit/9a977b29d9f430686523bf65e54e5fb5921dce51))
+
 # [1.0.0-alpha.31](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.30...@sajari/react-search-ui@1.0.0-alpha.31) (2020-11-27)
 
 ### Bug Fixes

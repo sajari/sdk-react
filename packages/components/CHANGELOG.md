@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.25](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.24...@sajari/react-components@1.0.0-alpha.25) (2020-11-30)
+
+### Bug Fixes
+
+- fix Heading sizing ([54d1c35](https://github.com/sajari/sdk-react/commit/54d1c35cb839cd8ceb1db7729457c6e7e6b6a575))
+- use built in for as prop support ([557260b](https://github.com/sajari/sdk-react/commit/557260b8bd3f1020fa449c780bcfb8dcdfd56402))
+
+### Features
+
+- added i18n support ([9a977b2](https://github.com/sajari/sdk-react/commit/9a977b29d9f430686523bf65e54e5fb5921dce51))
+- transition link colors ([65cd849](https://github.com/sajari/sdk-react/commit/65cd849f1748486f5f1dbe526b13a58240d83c20))
+
 # [1.0.0-alpha.24](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.23...@sajari/react-components@1.0.0-alpha.24) (2020-11-27)
 
 **Note:** Version bump only for package @sajari/react-components
