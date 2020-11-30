@@ -30,6 +30,10 @@ function Example() {
     const { pageSize, setPageSize } = usePageSize();
     const { query } = useQuery();
 
+    React.useEffect(() => {
+      search();
+    }, [pageSize]);
+
     return (
       <div className="flex flex-col space-y-6">
         <div className="flex space-x-4">

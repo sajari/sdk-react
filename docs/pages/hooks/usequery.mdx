@@ -31,7 +31,11 @@ function Example() {
 // TODO: use Results component once done mapping with the response from backend
 function Example() {
   const { query, setQuery } = useQuery();
-  const { results = [] } = useSearch();
+  const { results = [], search } = useSearch();
+
+  React.useEffect(() => {
+    search();
+  }, [query]);
 
   return (
     <>

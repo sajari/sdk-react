@@ -3,8 +3,9 @@
 import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
 import { Label, Select } from '@sajari/react-components';
-import { useSorting } from '@sajari/react-hooks';
+import { useSearchContext, useSorting } from '@sajari/react-hooks';
 import { __DEV__ } from '@sajari/react-sdk-utils';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import tw from 'twin.macro';
 
@@ -16,7 +17,12 @@ const Sorting = (props: SortingProps) => {
   const { t } = useTranslation();
   const { label = t('sorting.label'), options = defaultOptions, size } = props;
   const { sorting, setSorting } = useSorting();
+  const { search } = useSearchContext();
   const id = `sorting-${useId()}`;
+
+  React.useEffect(() => {
+    search();
+  }, [sorting]);
 
   return (
     <div css={tw`flex items-center space-x-4`}>

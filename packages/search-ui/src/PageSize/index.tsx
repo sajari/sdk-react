@@ -5,6 +5,7 @@ import { useId } from '@reach/auto-id';
 import { Label, Select } from '@sajari/react-components';
 import { usePageSize, useSearchContext } from '@sajari/react-hooks';
 import { __DEV__ } from '@sajari/react-sdk-utils';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import tw from 'twin.macro';
 
@@ -16,7 +17,7 @@ const PageSize = (props: PageSizeProps) => {
   const { t } = useTranslation();
   const { label = t('pageSize.label'), sizes = defaultSizes, size } = props;
   const { pageSize, setPageSize } = usePageSize();
-  const { searched, totalResults } = useSearchContext();
+  const { searched, totalResults, search } = useSearchContext();
   const id = `page-size-${useId()}`;
   const sizesSorted = sizes.sort((a, b) => a - b);
   const [min] = sizesSorted;
@@ -24,6 +25,10 @@ const PageSize = (props: PageSizeProps) => {
   if ((searched && totalResults === 0) || min > totalResults) {
     return null;
   }
+
+  React.useEffect(() => {
+    search();
+  }, [pageSize]);
 
   return (
     <div css={tw`flex items-center space-x-4`}>

@@ -35,6 +35,11 @@ function Example() {
 
   const SearchPlayground = React.memo(() => {
     const { sorting, setSorting } = useSorting();
+    const { search } = useSearch();
+
+    React.useEffect(() => {
+      search();
+    }, [sorting]);
 
     return (
       <div className="flex flex-col space-y-6">

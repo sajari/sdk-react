@@ -7,7 +7,6 @@ import { UsePageSizeResult } from './types';
 function usePageSize(): UsePageSizeResult {
   const {
     search: {
-      search,
       config: { resultsPerPageParam },
       variables,
     },
@@ -16,9 +15,8 @@ function usePageSize(): UsePageSizeResult {
   const setPageSize = React.useCallback(
     (size: number) => {
       variables.set({ [resultsPerPageParam]: size });
-      search();
     },
-    [variables, search],
+    [variables],
   );
 
   const pageSize = parseInt(variables.get()[resultsPerPageParam], 10);
