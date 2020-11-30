@@ -41,8 +41,10 @@ export default function useTextSize(props: UseTextSizeParams) {
 
     case 'base':
     case 'md':
-    default:
       styles.push(tw`text-base`);
+      break;
+
+    default:
       break;
   }
 
