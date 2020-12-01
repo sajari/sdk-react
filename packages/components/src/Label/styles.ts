@@ -1,7 +1,7 @@
 import { inferStylesObjectKeys, mapStyles } from '@sajari/react-sdk-utils';
 import tw from 'twin.macro';
 
-import { useTextSize } from '../hooks';
+import { useFontSize } from '../hooks';
 import { LabelProps } from './types';
 
 export default function useLabelStyles({ visuallyHidden, size }: LabelProps) {
@@ -12,7 +12,7 @@ export default function useLabelStyles({ visuallyHidden, size }: LabelProps) {
   if (visuallyHidden) {
     styles.container.push(tw`sr-only`);
   } else {
-    const sizeStyles = useTextSize({ size });
+    const sizeStyles = useFontSize({ size });
     styles.container.push(tw`inline-flex items-center cursor-pointer`);
     styles.container.push(sizeStyles as any);
   }

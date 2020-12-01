@@ -4,13 +4,13 @@ import { forwardRefWithAs, getStylesObject, PropsWithAs } from '@sajari/react-sd
 import React from 'react';
 
 import Box from '../Box';
-import { TextSizes } from '../hooks';
+import { FontSizes } from '../hooks';
 import useHeadingStyles from './styles';
 import { HeadingElements, HeadingProps } from './types';
 
 type DefaultElement = 'h1';
 
-const mapElementToSize = (element: HeadingElements): TextSizes => {
+const mapElementToSize = (element: HeadingElements): FontSizes => {
   switch (element) {
     case 'h6':
       return 'xs';

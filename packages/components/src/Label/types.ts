@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { BoxProps } from '../Box';
-import { UseTextSizeParams } from '../hooks';
+import { UseFontSizeParams } from '../hooks';
 
 interface Props extends BoxProps {
   /** Visually hidden label */
@@ -9,7 +9,7 @@ interface Props extends BoxProps {
   /** The ID of the input associated to the label */
   htmlFor: string;
   /** Specify the size of the type */
-  size?: UseTextSizeParams['size'];
+  size?: UseFontSizeParams['size'];
 }
 
 export interface LabelProps extends Props, React.HTMLAttributes<HTMLLabelElement> {}

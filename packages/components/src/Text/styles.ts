@@ -1,7 +1,7 @@
 import { mapStyles } from '@sajari/react-sdk-utils';
 import tw from 'twin.macro';
 
-import { useTextSize } from '../hooks';
+import { useFontSize } from '../hooks';
 import { mapTruncateValue } from '../utils/styles';
 import { TextElement, TextProps } from './types';
 
@@ -12,7 +12,7 @@ interface UseTextStylesProps {
 }
 
 export default function useTextStyles({ as, truncate, size }: UseTextStylesProps) {
-  const sizeStyles = useTextSize({ size });
+  const sizeStyles = useFontSize({ size });
 
   const styles = {
     container: [tw`p-0 m-0`, mapTruncateValue(truncate), sizeStyles],

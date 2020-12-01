@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { BoxProps } from '../Box';
-import { UseTextSizeParams } from '../hooks';
+import { UseFontSizeParams } from '../hooks';
 
 export type TextElement =
   | 'small'
@@ -33,5 +33,5 @@ export interface TextProps extends BoxProps {
   /** Whether to truncate the text. Specify a number will use line-clamp */
   truncate?: boolean | 2 | 3 | 4 | 5;
   /** Specify the size of the type */
-  size?: UseTextSizeParams['size'];
+  size?: UseFontSizeParams['size'];
 }

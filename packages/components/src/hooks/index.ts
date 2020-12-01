@@ -1,5 +1,7 @@
 export { default as useFocusRingStyles } from './useFocusRingStyles';
 export * from './useFocusRingStyles';
+export { default as useFontSize } from './useFontSize';
+export * from './useFontSize';
 export { default as useInputStyles } from './useInputStyles';
 export * from './useInputStyles';
 export { default as useJustifyContent } from './useJustifyContent';
@@ -8,6 +10,4 @@ export { default as useRingStyles } from './useRingStyles';
 export * from './useRingStyles';
 export { default as useSpacing } from './useSpacing';
 export * from './useSpacing';
-export { default as useTextSize } from './useTextSize';
-export * from './useTextSize';
 export { default as useVoiceInput } from './useVoiceInput';

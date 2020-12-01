@@ -1,19 +1,19 @@
 import { mapStyles } from '@sajari/react-sdk-utils';
 import tw from 'twin.macro';
 
-import { TextSizes, useTextSize } from '../hooks';
+import { FontSizes, useFontSize } from '../hooks';
 import { mapTruncateValue } from '../utils/styles';
 import { HeadingElements } from './types';
 
 interface UseHeadingStylesOptions {
   as: HeadingElements;
-  size?: TextSizes;
+  size?: FontSizes;
   truncate?: boolean | 2 | 3 | 4 | 5;
 }
 
 export default function useHeadingStyles(options: UseHeadingStylesOptions) {
   const { size, truncate = false } = options;
-  const sizeStyles = useTextSize({ size });
+  const sizeStyles = useFontSize({ size });
 
   const styles = {
     container: [

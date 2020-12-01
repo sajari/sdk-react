@@ -1,13 +1,13 @@
 import { css } from '@emotion/core';
 import tw, { TwStyle } from 'twin.macro';
 
-export type TextSizes = 'xs' | 'sm' | 'base' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
+export type FontSizes = 'xs' | 'sm' | 'base' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 
-export interface UseTextSizeParams {
-  size?: TextSizes;
+export interface UseFontSizeParams {
+  size?: FontSizes;
 }
 
-export default function useTextSize(props: UseTextSizeParams) {
+export default function useFontSize(props: UseFontSizeParams) {
   const { size } = props;
   const styles: TwStyle[] = [];
 
@@ -27,6 +27,7 @@ export default function useTextSize(props: UseTextSizeParams) {
     case 'xl':
       styles.push(tw`text-xl`);
       break;
+
     case '2xl':
       styles.push(tw`text-2xl`);
       break;
