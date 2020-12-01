@@ -28,8 +28,8 @@ const TabFilter = (props: Omit<TabFilterProps, 'type'>) => {
     >
       <TabList>
         <Tab>{t('filter.all')}</Tab>
-        {sliced.map(({ label, count }) => (
-          <Tab>{`${label} (${count.toLocaleString()})`}</Tab>
+        {sliced.map(({ label, count, value }) => (
+          <Tab key={value}>{`${label} (${count.toLocaleString()})`}</Tab>
         ))}
       </TabList>
     </Tabs>
