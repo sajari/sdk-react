@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.22](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.21...@sajari/react-hooks@1.0.0-alpha.22) (2020-12-01)
+
+### Features
+
+- added empty property to useSearchContext ([00b078d](https://github.com/sajari/sdk-react/commit/00b078d886158f1724e6781477db418687e92d81))
+
 # [1.0.0-alpha.21](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.20...@sajari/react-hooks@1.0.0-alpha.21) (2020-11-30)
 
 ### Bug Fixes

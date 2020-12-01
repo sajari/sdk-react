@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.14](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.0.0-alpha.13...@sajari/react-sdk-utils@1.0.0-alpha.14) (2020-12-01)
+
+### Features
+
+- add option to control styling of components ([#248](https://github.com/sajari/sdk-react/issues/248)) ([fbc1114](https://github.com/sajari/sdk-react/commit/fbc1114399dfefaa48d215ba628da55130915b6b))
+- made importantStyles false by default ([d610e3a](https://github.com/sajari/sdk-react/commit/d610e3a2f5d9149a185b7bcfdbd617ce2a225dcb))
+
 # [1.0.0-alpha.13](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.0.0-alpha.12...@sajari/react-sdk-utils@1.0.0-alpha.13) (2020-11-30)
 
 ### Features

@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.33](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.32...@sajari/react-search-ui@1.0.0-alpha.33) (2020-12-01)
+
+### Features
+
+- add option to control styling of components ([#248](https://github.com/sajari/sdk-react/issues/248)) ([fbc1114](https://github.com/sajari/sdk-react/commit/fbc1114399dfefaa48d215ba628da55130915b6b))
+- added TabFilter component ([#259](https://github.com/sajari/sdk-react/issues/259)) ([d19ccc7](https://github.com/sajari/sdk-react/commit/d19ccc76aebac7a26ee9386c72d4959d5d0b360e))
+
 # [1.0.0-alpha.32](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.31...@sajari/react-search-ui@1.0.0-alpha.32) (2020-11-30)
 
 ### Bug Fixes

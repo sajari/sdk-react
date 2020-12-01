@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.21](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.20...sajari-sdk-docs@1.0.0-alpha.21) (2020-12-01)
+
+### Features
+
+- add fontSize prop to Checkbox and Radio ([12a41aa](https://github.com/sajari/sdk-react/commit/12a41aa4dd2e8806ed93d803db1ef9d448fbb143))
+- added TabFilter component ([#259](https://github.com/sajari/sdk-react/issues/259)) ([d19ccc7](https://github.com/sajari/sdk-react/commit/d19ccc76aebac7a26ee9386c72d4959d5d0b360e))
+
 # [1.0.0-alpha.20](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.19...sajari-sdk-docs@1.0.0-alpha.20) (2020-11-30)
 
 ### Features

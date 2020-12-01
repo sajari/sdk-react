@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.26](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.25...@sajari/react-components@1.0.0-alpha.26) (2020-12-01)
+
+### Bug Fixes
+
+- fix textSize issue with labels ([6fffa19](https://github.com/sajari/sdk-react/commit/6fffa195e4ec599e4d1f243ef384132127bed162))
+
+### Features
+
+- add fontSize prop to Checkbox and Radio ([12a41aa](https://github.com/sajari/sdk-react/commit/12a41aa4dd2e8806ed93d803db1ef9d448fbb143))
+- add option to control styling of components ([#248](https://github.com/sajari/sdk-react/issues/248)) ([fbc1114](https://github.com/sajari/sdk-react/commit/fbc1114399dfefaa48d215ba628da55130915b6b))
+- added TabFilter component ([#259](https://github.com/sajari/sdk-react/issues/259)) ([d19ccc7](https://github.com/sajari/sdk-react/commit/d19ccc76aebac7a26ee9386c72d4959d5d0b360e))
+
 # [1.0.0-alpha.25](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.24...@sajari/react-components@1.0.0-alpha.25) (2020-11-30)
 
 ### Bug Fixes
