@@ -1,11 +1,12 @@
 import { mapStyles } from '@sajari/react-sdk-utils';
 import tw from 'twin.macro';
 
-import { UseInputStyleProps, useInputStyles } from '../hooks';
+import { useFontSize, UseInputStyleProps, useInputStyles } from '../hooks';
 import { RadioProps } from './types';
 
 export default function useRadioStyles(props: RadioProps) {
-  const { invalid = false } = props;
+  const { invalid = false, fontSize } = props;
+  const sizeStyles = useFontSize({ size: fontSize });
 
   const { styles: inputStyles, focusRingStyles, focusProps } = useInputStyles({
     block: true,
@@ -15,7 +16,7 @@ export default function useRadioStyles(props: RadioProps) {
 
   const styles = {
     container: [tw`flex items-center`],
-    label: [tw`ml-2`],
+    label: [tw`ml-2`, sizeStyles],
     componentWrapper: [tw`inline-flex items-center`],
     inputWrapper: [tw`relative`, focusRingStyles],
     input: [[tw`form-radio`, inputStyles]],

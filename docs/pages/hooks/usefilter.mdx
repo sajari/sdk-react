@@ -74,7 +74,7 @@ function Example() {
         <Group name={name} value={selected} onChange={multi ? setSelected : (e) => setSelected([e.target.value])}>
           {options.map(({ value, label, count }) => (
             <div className="flex justify-between items-center" key={label + count}>
-              <Control value={label} checked={selected.includes(label)} onChange={() => {}}>
+              <Control value={label} checked={selected.includes(label)} onChange={() => {}} fontSize="sm">
                 {label}
               </Control>
               <span className="ml-2 text-xs text-gray-400">{count}</span>
@@ -187,7 +187,7 @@ function Example() {
         >
           {options.map(({ value, label, count }) => (
             <div className="flex justify-between items-center" key={label + count}>
-              <Control value={label} checked={selected.includes(label)} onChange={() => {}}>
+              <Control value={label} checked={selected.includes(label)} onChange={() => {}} fontSize="sm">
                 {label}
               </Control>
               <span className="ml-2 text-xs text-gray-400">{count}</span>

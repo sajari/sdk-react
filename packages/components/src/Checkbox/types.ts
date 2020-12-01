@@ -9,6 +9,8 @@ interface Props extends BoxProps {
   indeterminate?: boolean;
   /** The classname for label */
   labelClassName?: string;
+  /** Specify the label's font size */
+  fontSize?: 'xs' | 'sm' | 'md' | 'lg';
 }
 
 export interface CheckboxProps extends Props, React.InputHTMLAttributes<HTMLInputElement> {}
