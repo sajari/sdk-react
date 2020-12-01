@@ -96,7 +96,7 @@ const CodeBlock = (props: CodeBlockProps) => {
 
   switch (pathname) {
     case '/search-ui/filter':
-      extra = { Filter: ReactSearchUI.Filter, FilterOptions: ReactHooks.Filter };
+      extra = { Filter: ReactSearchUI.Filter, FilterBuilder: ReactHooks.Filter };
       break;
 
     case '/hooks/usefilter':

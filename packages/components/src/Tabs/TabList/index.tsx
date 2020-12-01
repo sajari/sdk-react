@@ -104,8 +104,10 @@ const TabList = React.forwardRef((props: TabListProps, ref?: React.Ref<HTMLDivEl
   });
 
   return (
-    <Box ref={ref} role="tablist" onKeyDown={handleKeyDown} css={styles} {...rest}>
-      {clones}
+    <Box css={styles.container}>
+      <Box ref={ref} role="tablist" onKeyDown={handleKeyDown} css={styles.innerContainer} {...rest}>
+        {clones}
+      </Box>
     </Box>
   );
 });

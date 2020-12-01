@@ -1,28 +1,32 @@
-import { css } from '@emotion/core';
-import tw, { TwStyle } from 'twin.macro';
+import { mapStyles } from '@sajari/react-sdk-utils';
+import tw, { theme as twTheme, TwStyle } from 'twin.macro';
 
 import { useTabContext } from '../context';
 
 export default function useTabListStyles() {
   const { align } = useTabContext();
-  const styles: TwStyle[] = [];
-
-  styles.push(tw`flex border-0 border-b border-gray-200 border-solid`);
+  const styles: Record<string, TwStyle[]> = {
+    container: [
+      tw`overflow-auto whitespace-no-wrap`,
+      { boxShadow: `inset 0 -1px 0 ${twTheme`colors.gray.200`.toString()}` },
+    ],
+    innerContainer: [tw`flex border-0 border-b border-gray-200 border-solid`],
+  };
 
   switch (align) {
     case 'center':
-      styles.push(tw`justify-center`);
+      styles.innerContainer.push(tw`justify-center`);
       break;
 
     case 'end':
-      styles.push(tw`justify-end`);
+      styles.innerContainer.push(tw`justify-end`);
       break;
 
     default:
     case 'start':
-      styles.push(tw`justify-start`);
+      styles.innerContainer.push(tw`justify-start`);
       break;
   }
 
-  return css(styles);
+  return mapStyles(styles);
 }
