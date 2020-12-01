@@ -18,6 +18,11 @@ export interface SearchUIContextProviderValues {
       label?: string;
       buttonGroup?: string;
     };
+    pageSize?: {
+      container?: string;
+      label?: string;
+      select?: string;
+    };
   };
 }
 
