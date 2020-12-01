@@ -16,6 +16,10 @@ export function getStylesObject<T = Record<string, SerializedStyles>>(styles: T,
   return styles;
 }
 
+export function inferStylesObjectKeys<T, K = (TwStyle | string)[]>(obj: T) {
+  return (obj as unknown) as Record<keyof T, K>;
+}
+
 export { default as styled } from './styled';
 export { default as tailwindConfig } from './tailwind.config';
 export { default as ThemeProvider } from './theming';
