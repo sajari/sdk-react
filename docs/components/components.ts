@@ -39,5 +39,6 @@ const hooks = [
   'useVariables',
 ].sort();
 const tracking = ['NoTracking', 'ClickTracking', 'PosNegTracking'];
+const examples = ['Basic'];
 
-export { coreComponents, searchComponents, hooks, tracking };
+export { coreComponents, searchComponents, hooks, tracking, examples };
