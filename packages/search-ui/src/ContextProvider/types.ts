@@ -5,6 +5,11 @@ export interface SearchUIContextProviderValues {
   ratingMax?: number;
   disableDefaultStyles?: boolean;
   customClassNames?: {
+    sorting?: {
+      container?: string;
+      label?: string;
+      select?: string;
+    };
     pagination?: {
       container?: string;
       button?: string;
