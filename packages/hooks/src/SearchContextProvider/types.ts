@@ -24,7 +24,7 @@ export interface PipelineContextState {
 
 export interface ProviderPipelineConfig {
   pipeline: Pipeline;
-  variables: Variables;
+  variables?: Variables;
   config?: Config;
   fields?: FieldDictionary;
   filters?: Filter[];
