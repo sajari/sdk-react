@@ -4,6 +4,7 @@ import { jsx } from '@emotion/core';
 import { useSwitch } from '@react-aria/switch';
 import { useToggleState } from '@react-stately/toggle';
 import { __DEV__ } from '@sajari/react-sdk-utils';
+import classnames from 'classnames';
 import ColorClass from 'color';
 import React, { useCallback } from 'react';
 import tw, { styled } from 'twin.macro';
@@ -53,6 +54,8 @@ export const Color = (props: ColorProps) => {
       : new ColorClass(bg).lightness(85).string(),
     border = new ColorClass(bg).darken(0.1).string(),
     rounded = 'md',
+    checkedClassName = '',
+    className,
   } = props;
   const ref = React.useRef<HTMLInputElement>(null);
   const { state, setState } = useSwatchContext();
@@ -75,7 +78,14 @@ export const Color = (props: ColorProps) => {
   const { focusProps, focusRingStyles } = useFocusRingStyles({ color: border.toString() });
 
   return (
-    <StyledLabel bg={bg} border={border} textColor={color} rounded={rounded} css={focusRingStyles}>
+    <StyledLabel
+      bg={bg}
+      border={border}
+      textColor={color}
+      rounded={rounded}
+      css={focusRingStyles}
+      className={classnames(className, { [checkedClassName]: checked })}
+    >
       <Box as="span" css={tw`sr-only`}>
         {id}
       </Box>

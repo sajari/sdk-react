@@ -1,20 +1,23 @@
 import React from 'react';
-import { ThemeStyle } from 'twin.macro';
 
-export interface ColorProps {
+import { BoxProps } from '../Box';
+
+export interface ColorProps extends BoxProps {
   /** The identifier of the color */
   id: string;
   /** Background color */
-  bg: string | ThemeStyle;
+  bg: string;
   /** Check icon color */
-  color?: string | ThemeStyle;
+  color?: string;
   /** Border color, defaults to background color */
-  border?: string | ThemeStyle;
+  border?: string;
   /** Border radius */
   rounded?: 'sm' | 'md' | 'lg' | 'full' | 'none';
+  /** The classname for the color box being checked */
+  checkedClassName?: string;
 }
 
-export interface SwatchProps {
+export interface SwatchProps extends BoxProps {
   /** List of <Swatch.Color /> */
   children: React.ReactNode;
   /** On change handler */

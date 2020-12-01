@@ -9,9 +9,18 @@ import { colorKeys } from './colors';
 import SwatchContextProvider from './context';
 import { SwatchProps } from './types';
 
-const Swatch = ({ children, checkedColors = [], onChange = () => {} }: SwatchProps) => (
-  <SwatchContextProvider value={{ state: checkedColors, setState: onChange }}>
-    <Box css={tw`flex flex-wrap -mt-2 -ml-2`}>{children}</Box>
+const Swatch = ({
+  children,
+  checkedColors = [],
+  onChange = () => {},
+  disableDefaultStyles = false,
+  styles: stylesProp,
+  ...rest
+}: SwatchProps) => (
+  <SwatchContextProvider value={{ state: checkedColors, setState: onChange, disableDefaultStyles }}>
+    <Box css={[tw`flex flex-wrap -mt-2 -ml-2`, stylesProp]} {...rest}>
+      {children}
+    </Box>
   </SwatchContextProvider>
 );
 

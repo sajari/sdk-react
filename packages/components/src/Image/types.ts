@@ -1,10 +1,11 @@
 import React from 'react';
 
 import { AspectRatioProps } from '../AspectRatio';
+import { BoxProps } from '../Box';
 
 type HtmlAttributes = Omit<React.ImgHTMLAttributes<HTMLImageElement>, keyof Props>;
 
-interface Props {
+interface Props extends BoxProps {
   /** The alt text that describes the image */
   alt?: string;
   /** The native HTML `width` attribute to the passed to the `img` */
@@ -17,6 +18,8 @@ interface Props {
   aspectRatio?: AspectRatioProps['ratio'];
   /** Handy for use with the aspectRatio option */
   objectFit?: 'contain' | 'cover' | 'fill' | 'scale-down' | 'none';
+  /** The classname for  AspectRatio container wrapper */
+  containerClassName?: string;
 }
 
 export interface ImageProps extends HtmlAttributes, Props {}

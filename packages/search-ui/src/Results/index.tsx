@@ -19,7 +19,14 @@ const Results = (props: ResultsProps) => {
     rawResults,
   ]);
   const { query } = useQuery();
-  const { defaultAppearance, appearance = viewType, className, ...rest } = props;
+  const {
+    defaultAppearance,
+    appearance = viewType,
+    className,
+    disableDefaultStyles = false,
+    styles: stylesProp,
+    ...rest
+  } = props;
   const [width, setWidth] = React.useState(0);
   const { handleResultClicked } = useTracking();
   const { ratingMax } = useSearchUIContext();
@@ -66,7 +73,11 @@ const Results = (props: ResultsProps) => {
   }
 
   return (
-    <ResizeObserver onResize={(rect) => setWidth(rect.width)} css={[styles.container]} className={className}>
+    <ResizeObserver
+      onResize={(rect) => setWidth(rect.width)}
+      css={[styles.container, stylesProp]}
+      className={className}
+    >
       {results?.map(({ values, token }, i) => (
         <Result
           onClick={handleResultClicked}
@@ -77,6 +88,7 @@ const Results = (props: ResultsProps) => {
           values={values}
           appearance={appearance}
           forceImage={hasImages}
+          disableDefaultStyles={disableDefaultStyles}
           {...rest}
         />
       ))}

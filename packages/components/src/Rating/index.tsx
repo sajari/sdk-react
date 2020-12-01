@@ -2,6 +2,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { __DEV__ } from '@sajari/react-sdk-utils';
+import classnames from 'classnames';
 import React from 'react';
 import tw, { styled } from 'twin.macro';
 
@@ -18,7 +19,19 @@ const StyledBox = styled.div<{ flipped: boolean }>`
 `;
 
 const Rating = React.forwardRef((props: RatingProps, ref: React.Ref<HTMLDivElement>) => {
-  const { value, children, character = <IconSmallStar />, max = 5, direction = 'ltr', unit = 'star' } = props;
+  const {
+    value,
+    children,
+    character = <IconSmallStar />,
+    max = 5,
+    direction = 'ltr',
+    unit = 'star',
+    activeHalfRatingItemClassName,
+    activeRatingItemClassName,
+    ratingItemClassName,
+    styles: stylesProp,
+    ...rest
+  } = props;
 
   if (Number.isNaN(value)) {
     return null;
@@ -30,11 +43,20 @@ const Rating = React.forwardRef((props: RatingProps, ref: React.Ref<HTMLDivEleme
   const arr = toRatingArray(value, max);
 
   return (
-    <StyledBox flipped={flipped} ref={ref} role="img" aria-label={label}>
+    <StyledBox flipped={flipped} ref={ref} role="img" aria-label={label} css={stylesProp} {...rest}>
       {arr.map((type, i) => {
         switch (type) {
           case ItemType.Filled:
-            return <RatingItem key={`active-rating-${i}`} index={i} count={max} character={character} active />;
+            return (
+              <RatingItem
+                key={`active-rating-${i}`}
+                index={i}
+                count={max}
+                character={character}
+                className={classnames(ratingItemClassName, activeRatingItemClassName)}
+                active
+              />
+            );
 
           case ItemType.HalfFilled:
             return (
@@ -44,6 +66,7 @@ const Rating = React.forwardRef((props: RatingProps, ref: React.Ref<HTMLDivEleme
                 count={max}
                 flipped={flipped}
                 character={character}
+                className={classnames(ratingItemClassName, activeHalfRatingItemClassName)}
                 active
                 half
               />
@@ -51,7 +74,14 @@ const Rating = React.forwardRef((props: RatingProps, ref: React.Ref<HTMLDivEleme
 
           case ItemType.Empty:
             return (
-              <RatingItem key={`inactive-rating-${i}`} index={i} count={max} character={character} active={false} />
+              <RatingItem
+                key={`inactive-rating-${i}`}
+                index={i}
+                count={max}
+                character={character}
+                active={false}
+                className={ratingItemClassName}
+              />
             );
 
           default:

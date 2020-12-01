@@ -1,21 +1,19 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { forwardRefWithAs, PropsWithAs } from '@sajari/react-sdk-utils';
+import { forwardRefWithAs, getStylesObject, PropsWithAs } from '@sajari/react-sdk-utils';
 import React from 'react';
 
 import Box from '../Box';
-import { useTextSize } from '../hooks';
 import useTextStyles from './styles';
 import { TextProps } from './types';
 
 type DefaultElement = 'p';
 
 const TextComponent = (props: PropsWithAs<TextProps, DefaultElement>, ref: React.Ref<HTMLParagraphElement>) => {
-  const { as = 'p', size, truncate, ...rest } = props;
-  const styles = useTextStyles({ as, truncate });
-  const sizeStyles = useTextSize({ size });
+  const { as = 'p', truncate, disableDefaultStyles = false, size, styles: stylesProp, ...rest } = props;
+  const styles = getStylesObject(useTextStyles({ as, truncate, size }), disableDefaultStyles);
 
-  return <Box ref={ref} as={as} css={[styles, sizeStyles]} {...rest} />;
+  return <Box ref={ref} as={as} css={[styles.container, stylesProp]} {...rest} />;
 };
 
 const Text = forwardRefWithAs<TextProps, DefaultElement>(TextComponent);

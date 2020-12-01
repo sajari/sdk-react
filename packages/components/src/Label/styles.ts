@@ -1,16 +1,21 @@
-import { css } from '@emotion/core';
+import { mapStyles } from '@sajari/react-sdk-utils';
 import tw, { TwStyle } from 'twin.macro';
 
+import { useTextSize } from '../hooks';
 import { LabelProps } from './types';
 
-export default function useLabelStyles({ visuallyHidden }: LabelProps) {
-  const styles: TwStyle[] = [];
+export default function useLabelStyles({ visuallyHidden, size }: LabelProps) {
+  const styles: Record<'container', TwStyle[]> = {
+    container: [],
+  };
 
   if (visuallyHidden) {
-    styles.push(tw`sr-only`);
+    styles.container.push(tw`sr-only`);
   } else {
-    styles.push(tw`inline-flex items-center cursor-pointer`);
+    const sizeStyles = useTextSize({ size });
+    styles.container.push(tw`inline-flex items-center cursor-pointer`);
+    styles.container.push(sizeStyles as any);
   }
 
-  return css(styles);
+  return mapStyles(styles);
 }

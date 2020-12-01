@@ -4,12 +4,14 @@ import { __DEV__ } from '@sajari/react-sdk-utils';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useSearchUIContext } from '../ContextProvider';
 import { PaginationProps } from './types';
 
 const Pagination = (props: PaginationProps) => {
   const { t } = useTranslation();
-  const { align } = props;
+  const { align, styles } = props;
   const { page, setPage, pageSize, pageCount, totalResults } = usePagination('search');
+  const { customClassNames, disableDefaultStyles } = useSearchUIContext();
 
   return (
     <PurePagination
@@ -26,6 +28,13 @@ const Pagination = (props: PaginationProps) => {
         page: t('pagination.page'),
         current: t('pagination.current'),
       }}
+      styles={styles}
+      className={customClassNames?.pagination?.container}
+      buttonClassName={customClassNames?.pagination?.button}
+      activeClassName={customClassNames?.pagination?.active}
+      prevClassName={customClassNames?.pagination?.prev}
+      nextClassName={customClassNames?.pagination?.next}
+      disableDefaultStyles={disableDefaultStyles}
     />
   );
 };

@@ -1,29 +1,35 @@
-import { css } from '@emotion/core';
+import { mapStyles } from '@sajari/react-sdk-utils';
 import tw from 'twin.macro';
 
+import { useTextSize } from '../hooks';
 import { mapTruncateValue } from '../utils/styles';
 import { TextElement, TextProps } from './types';
 
 interface UseTextStylesProps {
   as: TextElement;
   truncate: TextProps['truncate'];
+  size: TextProps['size'];
 }
 
-export default function useTextStyles({ as, truncate }: UseTextStylesProps) {
-  const props = [tw`p-0 m-0`, mapTruncateValue(truncate)];
+export default function useTextStyles({ as, truncate, size }: UseTextStylesProps) {
+  const sizeStyles = useTextSize({ size });
+
+  const styles = {
+    container: [tw`p-0 m-0`, mapTruncateValue(truncate), sizeStyles],
+  };
 
   switch (as) {
     case 'small':
-      props.push(tw`text-sm`);
+      styles.container.push(tw`text-sm`);
       break;
 
     case 'pre':
     case 'code':
-      props.push(tw`font-mono font-normal text-code-inline`);
+      styles.container.push(tw`font-mono font-normal text-code-inline`);
       break;
 
     case 'mark':
-      props.push(tw`px-1 text-gray-800 bg-yellow-100`);
+      styles.container.push(tw`px-1 text-gray-800 bg-yellow-100`);
       break;
 
     default:
@@ -31,8 +37,8 @@ export default function useTextStyles({ as, truncate }: UseTextStylesProps) {
   }
 
   if (as === 'code') {
-    props.push(tw`text-red-500`);
+    styles.container.push(tw`text-red-500`);
   }
 
-  return css(props);
+  return mapStyles(styles);
 }

@@ -3,6 +3,7 @@ import { jsx } from '@emotion/core';
 import React from 'react';
 import tw, { styled, theme } from 'twin.macro';
 
+import Box from '../Box';
 import { InternalRatingItemProps } from './types';
 
 const StyledFirstHalf = styled.div<{ half: boolean; flipped: boolean }>`
@@ -26,13 +27,16 @@ export const RatingItem = ({
   flipped = false,
   count,
   index,
+  styles: stylesProp,
+  ...rest
 }: InternalRatingItemProps) => {
   const characterNode = typeof character === 'function' ? character({ count, index }) : character;
 
   return (
-    <div
-      css={[tw`relative m-0 p-0 inline-block`, active && !half ? tw`text-orange-400` : tw`text-gray-300`]}
+    <Box
+      css={[tw`relative m-0 p-0 inline-block`, active && !half ? tw`text-orange-400` : tw`text-gray-300`, stylesProp]}
       aria-hidden
+      {...rest}
     >
       <div aria-setsize={count} aria-posinset={index + 1}>
         <StyledFirstHalf flipped={flipped} half={half}>
@@ -40,6 +44,6 @@ export const RatingItem = ({
         </StyledFirstHalf>
         <StyledSecondHalf>{characterNode}</StyledSecondHalf>
       </div>
-    </div>
+    </Box>
   );
 };

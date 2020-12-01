@@ -1,6 +1,8 @@
 import React from 'react';
 
-interface Props {
+import { BoxProps } from '../Box';
+
+interface Props extends BoxProps {
   /** Which logo to use */
   appearance?: 'color' | 'mono';
 }

@@ -30,6 +30,11 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     rightInput: rightInputFunc,
     showInputs = false,
     tick,
+    fillClassName,
+    handleClassName,
+    trackClassName,
+    inputClassName,
+    ...rest
   } = props;
   const isSingleHandle = value.length === 1;
   const [min, max] = filter?.limit() ?? [minProp, maxProp];
@@ -131,6 +136,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
 
   const leftInputProps = {
     ...inputProps,
+    className: inputClassName,
     value: low.toString(),
     onChange: handleRangeInputChange(true),
     label: 'Range input left bound',
@@ -138,6 +144,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
 
   const rightInputProps = {
     ...inputProps,
+    className: inputClassName,
     value: (isSingleHandle ? 0 : high).toString(),
     onChange: handleRangeInputChange(false),
     label: 'Range input right bound',
@@ -167,7 +174,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
   }
 
   return (
-    <Box ref={ref} css={tw`flex flex-col`}>
+    <Box ref={ref} css={tw`flex flex-col`} {...rest}>
       <Box css={tw`w-full mt-8 mb-3`}>
         <Box css={tw`relative`}>
           {ticks.map(({ value: tickValue, getTickProps }) => (
@@ -184,12 +191,13 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
           ))}
         </Box>
 
-        <Track {...getTrackProps({ ref: trackRef })}>
+        <Track {...getTrackProps({ ref: trackRef })} className={trackClassName}>
           {segments.map(({ getSegmentProps }, i: number) => (
             <Fill
               index={i}
               isSingleHandle={isSingleHandle}
               onClick={(e: MouseEvent<HTMLDivElement>) => handleSegmentClick(e, i)}
+              className={fillClassName}
               {...getSegmentProps()}
             />
           ))}

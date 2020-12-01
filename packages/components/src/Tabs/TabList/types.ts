@@ -1,6 +1,8 @@
 import React, { HTMLAttributes } from 'react';
 
-export interface TabListProps extends Omit<HTMLAttributes<HTMLDivElement>, 'display'> {
+import { BoxProps } from '../../Box';
+
+export interface TabListProps extends BoxProps, Omit<HTMLAttributes<HTMLDivElement>, 'display'> {
   onKeyDown?: React.KeyboardEventHandler;
   onClick?: React.MouseEventHandler;
 }

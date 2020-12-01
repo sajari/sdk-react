@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { __DEV__, cleanChildren } from '@sajari/react-sdk-utils';
+import { __DEV__, cleanChildren, getStylesObject } from '@sajari/react-sdk-utils';
 import React, { cloneElement, useRef } from 'react';
 
 import Box from '../../Box';
@@ -9,8 +9,7 @@ import useTabListStyles from './styles';
 import { TabListProps } from './types';
 
 const TabList = React.forwardRef((props: TabListProps, ref?: React.Ref<HTMLDivElement>) => {
-  const { children, onKeyDown, onClick, ...rest } = props;
-  const styles = useTabListStyles();
+  const { children, onKeyDown, onClick, styles: stylesProp, ...rest } = props;
   const {
     id,
     index: selectedIndex,
@@ -19,7 +18,9 @@ const TabList = React.forwardRef((props: TabListProps, ref?: React.Ref<HTMLDivEl
     manual,
     onChangeTab,
     onFocusPanel,
+    disableDefaultStyles = false,
   } = useTabContext();
+  const styles = getStylesObject(useTabListStyles(), disableDefaultStyles);
   const allNodes = useRef<HTMLElement[]>([]);
   const validChildren = cleanChildren(children);
 

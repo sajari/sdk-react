@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
 import React, { useRef, useState } from 'react';
 
@@ -15,6 +17,8 @@ const Tabs = React.forwardRef((props: TabsProps, ref?: React.Ref<HTMLDivElement>
     align = 'start',
     fitted,
     alwaysRenderChildren,
+    disableDefaultStyles,
+    styles: stylesProp,
     ...rest
   } = props;
   const { current: isControlled } = useRef(controlledIndex != null);
@@ -88,11 +92,12 @@ const Tabs = React.forwardRef((props: TabsProps, ref?: React.Ref<HTMLDivElement>
     align,
     fitted,
     alwaysRenderChildren,
+    disableDefaultStyles,
   };
 
   return (
     <TabContextProvider value={context}>
-      <Box ref={ref} {...rest}>
+      <Box ref={ref} css={stylesProp} {...rest}>
         {children}
       </Box>
     </TabContextProvider>

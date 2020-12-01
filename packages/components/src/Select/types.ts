@@ -1,10 +1,11 @@
 import React from 'react';
 
+import { BoxProps } from '../Box';
 import { UseInputStyleProps } from '../hooks';
 
 type HtmlAttributes = Omit<React.SelectHTMLAttributes<HTMLSelectElement>, keyof Props | 'size'>;
 
-interface Props {
+interface Props extends BoxProps {
   /** The state when entering an invalid input */
   invalid?: boolean;
   /** An aria-label, also used for the placeholder if not specified */

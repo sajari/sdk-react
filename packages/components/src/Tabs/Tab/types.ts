@@ -1,6 +1,9 @@
 import { HTMLAttributes } from 'react';
 
-export interface TabProps extends HTMLAttributes<HTMLButtonElement> {
+import { BoxProps } from '../../Box';
+
+export interface TabProps extends BoxProps, HTMLAttributes<HTMLButtonElement> {
   selected?: boolean;
   disabled?: boolean;
+  selectedClassName?: string;
 }

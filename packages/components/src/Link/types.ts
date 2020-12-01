@@ -1,3 +1,5 @@
 import React from 'react';
 
-export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {}
+import { BoxProps } from '../Box';
+
+export interface LinkProps extends BoxProps, React.AnchorHTMLAttributes<HTMLAnchorElement> {}
