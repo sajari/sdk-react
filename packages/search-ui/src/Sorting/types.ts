@@ -5,7 +5,7 @@ export type SortOption = {
   value: string;
 };
 
-export interface SortingProps extends BoxProps {
+export interface SortingProps extends Omit<BoxProps, 'className'> {
   label?: string;
   options?: SortOption[];
   size?: 'sm' | 'md' | 'lg';

@@ -6,9 +6,9 @@ import { Label, Select } from '@sajari/react-components';
 import { useSorting } from '@sajari/react-hooks';
 import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import { useTranslation } from 'react-i18next';
-import tw from 'twin.macro';
 
 import { useSearchUIContext } from '../ContextProvider';
+import useSortingStyles from './styles';
 import { SortingProps, SortOption } from './types';
 
 const defaultOptions: SortOption[] = [{ name: 'Most relevant', value: '' }];
@@ -16,18 +16,20 @@ const defaultOptions: SortOption[] = [{ name: 'Most relevant', value: '' }];
 const Sorting = (props: SortingProps) => {
   const { t } = useTranslation();
   const { label = t('sorting.label'), options = defaultOptions, size, styles: stylesProp, ...rest } = props;
-  const { disableDefaultStyles = false } = useSearchUIContext();
+  const { disableDefaultStyles = false, customClassNames } = useSearchUIContext();
   const { sorting, setSorting } = useSorting();
   const id = `sorting-${useId()}`;
-
-  const styles = getStylesObject(
-    { container: [tw`flex items-center space-x-4`], label: [tw`text-sm text-gray-500`] },
-    disableDefaultStyles,
-  );
+  const styles = getStylesObject(useSortingStyles(), disableDefaultStyles);
 
   return (
-    <div css={[styles.container, stylesProp]} {...rest}>
-      <Label htmlFor={id} css={styles.label} size={size} disableDefaultStyles={disableDefaultStyles}>
+    <div css={[styles.container, stylesProp]} {...rest} className={customClassNames.sorting?.container}>
+      <Label
+        htmlFor={id}
+        css={styles.label}
+        size={size}
+        disableDefaultStyles={disableDefaultStyles}
+        className={customClassNames.sorting?.label}
+      >
         {label}
       </Label>
       <Select
@@ -36,6 +38,7 @@ const Sorting = (props: SortingProps) => {
         onChange={(e) => setSorting(e.target.value)}
         size={size}
         disableDefaultStyles={disableDefaultStyles}
+        className={customClassNames.sorting?.select}
       >
         {options.map((s, i) => (
           <option key={`${id}-option-${i}`} value={s.value}>
