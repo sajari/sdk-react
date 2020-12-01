@@ -13,6 +13,11 @@ export interface SearchUIContextProviderValues {
       prev?: string;
       spacerEllipsis?: string;
     };
+    viewType?: {
+      container?: string;
+      label?: string;
+      buttonGroup?: string;
+    };
   };
 }
 
