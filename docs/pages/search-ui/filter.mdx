@@ -71,6 +71,7 @@ function Example() {
         fields: { title: 'name', subtitle: 'brand' },
         filters: [priceFilter, brandFilter],
       }}
+      searchOnLoad
     >
       <SearchPlayground />
     </SearchContextProvider>
@@ -128,6 +129,7 @@ function Example() {
         fields: { title: 'name', subtitle: 'brand' },
         filters: [priceRangeFilter, categoryFilter],
       }}
+      searchOnLoad
     >
       <SearchPlayground />
     </SearchContextProvider>
@@ -153,23 +155,19 @@ function Example() {
     field: 'rating',
   });
 
-  const SearchPlayground = React.memo(() => {
-    const { results } = useSearch();
-
-    return (
-      <div className="flex flex-col space-y-6">
-        <Input />
-        <div className="flex -mx-3">
-          <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
-            <Filter type="rating" name="rating" title="Rating" />
-          </div>
-          <div className="w-3/4 px-3">
-            <Results />
-          </div>
+  const SearchPlayground = React.memo(() => (
+    <div className="flex flex-col space-y-6">
+      <Input />
+      <div className="flex -mx-3">
+        <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
+          <Filter type="rating" name="rating" title="Rating" />
+        </div>
+        <div className="w-3/4 px-3">
+          <Results />
         </div>
       </div>
-    );
-  });
+    </div>
+  ));
 
   return (
     <SearchContextProvider
@@ -178,6 +176,7 @@ function Example() {
         fields: { title: 'name', subtitle: 'brand' },
         filters: [ratingFilter],
       }}
+      searchOnLoad
     >
       <SearchPlayground />
     </SearchContextProvider>
@@ -226,6 +225,7 @@ function Example() {
         fields: { title: 'name', subtitle: 'brand' },
         filters: [colorFilter],
       }}
+      searchOnLoad
     >
       <SearchPlayground />
     </SearchContextProvider>
@@ -251,21 +251,17 @@ function Example() {
     field: 'level1',
   });
 
-  const SearchPlayground = React.memo(() => {
-    const { results } = useSearch();
+  const SearchPlayground = React.memo(() => (
+    <div className="flex flex-col space-y-6">
+      <div className="space-y-2">
+        <Input />
 
-    return (
-      <div className="flex flex-col space-y-6">
-        <div className="space-y-2">
-          <Input />
-
-          <Filter type="tabs" name="level1" />
-        </div>
-
-        <Results />
+        <Filter type="tabs" name="level1" />
       </div>
-    );
-  });
+
+      <Results />
+    </div>
+  ));
 
   return (
     <SearchContextProvider
@@ -274,6 +270,7 @@ function Example() {
         fields: { title: 'name', subtitle: 'brand' },
         filters: [categoryFilter],
       }}
+      searchOnLoad
     >
       <SearchPlayground />
     </SearchContextProvider>
