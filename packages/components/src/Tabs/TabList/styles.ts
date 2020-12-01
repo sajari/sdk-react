@@ -1,11 +1,11 @@
 import { mapStyles } from '@sajari/react-sdk-utils';
-import tw, { theme as twTheme, TwStyle } from 'twin.macro';
+import tw, { theme as twTheme } from 'twin.macro';
 
 import { useTabContext } from '../context';
 
 export default function useTabListStyles() {
   const { align } = useTabContext();
-  const styles: Record<string, TwStyle[]> = {
+  const styles = {
     container: [
       tw`overflow-auto whitespace-no-wrap`,
       { boxShadow: `inset 0 -1px 0 ${twTheme`colors.gray.200`.toString()}` },

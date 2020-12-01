@@ -24,7 +24,7 @@ const DropdownResult = (props: DropdownResultProps) => {
     >
       <a href={value.url} css={styles.item}>
         <div css={styles.imageContainer}>
-          <Image src={value.image} css={styles.image} aspectRatio={1} objectFit="contain" />
+          <Image src={value.image} aspectRatio={1} objectFit="contain" />
         </div>
 
         <div css={styles.textContainer}>
