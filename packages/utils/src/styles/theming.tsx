@@ -37,7 +37,7 @@ export interface ThemeProviderProps {
   theme?: DeepPartial<Theme>;
 }
 
-const ThemeProvider: React.FC<ThemeProviderProps> = ({ theme = defaultTheme, importantStyles = true, children }) => (
+const ThemeProvider: React.FC<ThemeProviderProps> = ({ theme = defaultTheme, importantStyles = false, children }) => (
   <EmotionThemeProvider theme={merge(defaultTheme, theme)}>
     {importantStyles ? <CacheProvider value={cache}>{children}</CacheProvider> : children}
   </EmotionThemeProvider>

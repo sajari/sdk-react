@@ -8,10 +8,6 @@ const cache = createCache({
   stylisPlugins: (context, content, selectors) => {
     const [selector] = selectors;
 
-    if (selector && selector.endsWith('*')) {
-      return content;
-    }
-
     switch (context) {
       case 1:
         return `${content} !important`;
