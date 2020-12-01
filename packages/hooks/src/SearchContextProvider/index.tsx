@@ -88,15 +88,22 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
   const searchInstantTimer = useRef<ReturnType<typeof setTimeout>>();
   const instant = useRef(instantProp);
   const response = search.pipeline.getResponse();
+  const variables = useRef(search.variables ?? new Variables());
+  const instantVariables = useRef(instantProp?.variables ?? new Variables());
 
   if (!search.variables && !configDone) {
-    Object.assign(search, { variables: new Variables() });
+    // For destructing down below (searchFn, clear, handlePaginate)
+    Object.assign(search, { variables: variables.current });
+  }
+  if (instantProp && !instantProp.variables && !configDone) {
+    // For destructing down below (searchFn, clear, handlePaginate)
+    Object.assign(instantProp, { variables: instantVariables.current });
   }
 
   if (search.filters && !configDone) {
     const filter = combineFilters(search.filters);
 
-    search.variables.set({
+    variables.current.set({
       filter: isEmpty(filter.filter()) ? '_id != ""' : () => filter.filter(),
       countFilters: () => filter.countFilters(),
       buckets: () => filter.buckets(),
@@ -109,7 +116,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
     setSearchState((state) => ({
       ...state,
       response,
-      query: search.variables.get()[mergedConfig.qParam] || '',
+      query: variables.current.get()[mergedConfig.qParam] || '',
       config: mergedConfig,
     }));
 
@@ -124,7 +131,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
       const filter = combineFilters(search.filters);
 
       unregisterFunctions.push(
-        filter.listen(EVENT_SELECTION_UPDATED, () => search.pipeline.search(search.variables.get())),
+        filter.listen(EVENT_SELECTION_UPDATED, () => search.pipeline.search(variables.current.get())),
         filter.removeChildFilterListeners,
       );
     }
@@ -141,7 +148,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
             setSearchState((prevState) => ({
               ...prevState,
               response,
-              ...responseUpdatedListener(search.variables, prevState.config, response),
+              ...responseUpdatedListener(variables.current, prevState.config, response),
             }));
           },
           // Delay slightly longer if no results so if someone is typing they don't get a flash of no results
@@ -151,10 +158,10 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
     );
 
     unregisterFunctions.push(
-      search.variables.listen(EVENT_VALUES_UPDATED, () =>
+      variables.current.listen(EVENT_VALUES_UPDATED, () =>
         setSearchState((prevState) => ({
           ...prevState,
-          ...valuesUpdatedListener(search.variables, search.pipeline, prevState.config),
+          ...valuesUpdatedListener(variables.current, search.pipeline, prevState.config),
         })),
       ),
     );
@@ -163,7 +170,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
       const { account, collection, endpoint } = search.pipeline.config;
       instant.current = {
         pipeline: new Pipeline({ account, collection, endpoint }, 'autocomplete', new NoTracking()),
-        variables: new Variables(),
+        variables: instantVariables.current,
       };
     }
 
@@ -173,17 +180,17 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
         setInstantState((prevState) => ({
           ...prevState,
           response,
-          ...responseUpdatedListener((instant.current as ProviderPipelineConfig).variables, prevState.config, response),
+          ...responseUpdatedListener(instantVariables.current, prevState.config, response),
         }));
       }),
     );
 
     unregisterFunctions.push(
-      instant.current.variables.listen(EVENT_VALUES_UPDATED, () =>
+      instantVariables.current.listen(EVENT_VALUES_UPDATED, () =>
         setInstantState((prevState) => ({
           ...prevState,
           ...valuesUpdatedListener(
-            (instant.current as ProviderPipelineConfig).variables,
+            instantVariables.current,
             (instant.current as ProviderPipelineConfig).pipeline,
             prevState.config,
           ),
@@ -192,7 +199,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
     );
 
     if (searchOnLoad) {
-      search.pipeline.search(search.variables.get());
+      search.pipeline.search(variables.current.get());
     }
 
     setConfigDone(true);
@@ -209,7 +216,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
       const timer = key === 'instant' ? searchInstantTimer : searchTimer;
       setSearchingState(true);
       setSearchState((state) => ({ ...state, query: inputQuery ?? state.query }));
-      const { pipeline, variables } = func as ProviderPipelineConfig;
+      const { pipeline, variables } = func as Required<ProviderPipelineConfig>;
       const { config } = state;
 
       const text = {
@@ -237,7 +244,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
   const clear = useCallback(
     (key: 'search' | 'instant') => (vals?: { [k: string]: string | undefined }) => {
       const func = key === 'instant' ? instant.current : search;
-      const { pipeline, variables } = func as ProviderPipelineConfig;
+      const { pipeline, variables } = func as Required<ProviderPipelineConfig>;
 
       if (vals !== undefined) {
         variables.set(vals);
@@ -248,7 +255,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
   );
 
   const handlePaginate = (page: number) => {
-    const { pipeline, variables } = search;
+    const { pipeline, variables } = search as Required<ProviderPipelineConfig>;
     const { config } = searchState;
 
     variables.set({ [config.pageParam]: String(page) });
@@ -262,7 +269,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
       ...state,
       search: {
         ...state.search,
-        variables: search.variables,
+        variables: variables.current,
         filters: search.filters,
         pipeline: search.pipeline,
         search: searchFn('search'),
@@ -272,7 +279,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
       },
       instant: {
         ...state.instant,
-        variables: instant.current?.variables,
+        variables: instantVariables.current,
         filters: search.filters,
         pipeline: instant.current?.pipeline,
         search: searchFn('instant'),
