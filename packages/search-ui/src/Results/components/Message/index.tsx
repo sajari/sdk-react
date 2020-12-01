@@ -1,31 +1,37 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { Box, Heading, Spinner, Text } from '@sajari/react-components';
+import { getStylesObject } from '@sajari/react-sdk-utils';
 import * as React from 'react';
-import tw from 'twin.macro';
 
+import useMessageStyles from './styles';
 import { MessageProps } from './types';
 
-export default (props: MessageProps) => {
-  const { title, body, appearance } = props;
+const Message = (props: MessageProps) => {
+  const { title, body, appearance, styles: stylesProp, disableDefaultStyles = false, ...rest } = props;
+  const styles = getStylesObject(useMessageStyles(), disableDefaultStyles);
 
   const render = () => {
     switch (appearance) {
       case 'loading':
         return (
-          <Box css={tw`text-gray-500`}>
-            <Spinner css={tw`inline-block w-6 h-6`} />
-            {body && <Text css={tw`mt-3`}>{`${body}...`}</Text>}
+          <Box css={styles.loadingWrapper}>
+            <Spinner css={styles.loadingSpinner} disableDefaultStyles={disableDefaultStyles} />
+            {body && <Text css={styles.loadingText} disableDefaultStyles={disableDefaultStyles}>{`${body}...`}</Text>}
           </Box>
         );
 
       case 'error':
         return (
           <React.Fragment>
-            <Heading size="3xl" css={tw`text-red-500`}>
+            <Heading size="3xl" css={styles.errorHeading} disableDefaultStyles={disableDefaultStyles}>
               {title}
             </Heading>
-            {body && <Text css={tw`text-gray-500`}>{body}</Text>}
+            {body && (
+              <Text css={styles.errorText} disableDefaultStyles={disableDefaultStyles}>
+                {body}
+              </Text>
+            )}
           </React.Fragment>
         );
 
@@ -33,10 +39,13 @@ export default (props: MessageProps) => {
       case 'default':
         return (
           <React.Fragment>
-            <Heading size="3xl">{title}</Heading>
+            <Heading size="3xl" disableDefaultStyles={disableDefaultStyles}>
+              {title}
+            </Heading>
             {body && (
               <Text
-                css={tw`text-gray-500`}
+                css={styles.defaultText}
+                disableDefaultStyles={disableDefaultStyles}
                 dangerouslySetInnerHTML={{
                   __html: body,
                 }}
@@ -47,5 +56,11 @@ export default (props: MessageProps) => {
     }
   };
 
-  return <Box css={tw`w-full p-40 text-center`}>{render()}</Box>;
+  return (
+    <Box css={[styles.container, stylesProp]} {...rest}>
+      {render()}
+    </Box>
+  );
 };
+
+export default Message;

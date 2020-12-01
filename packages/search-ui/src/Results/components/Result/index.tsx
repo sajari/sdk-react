@@ -2,9 +2,16 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { Heading, Image, ImageProps, Link, Rating, Text } from '@sajari/react-components';
-import { __DEV__, decodeHTML, formatPrice, isNumber, isString, isValidURL } from '@sajari/react-sdk-utils';
+import {
+  __DEV__,
+  decodeHTML,
+  formatPrice,
+  getStylesObject,
+  isNumber,
+  isString,
+  isValidURL,
+} from '@sajari/react-sdk-utils';
 import React, { useMemo } from 'react';
-import tw from 'twin.macro';
 
 import useResultStyles from './styles';
 import { ResultProps } from './types';
@@ -26,13 +33,13 @@ const Result = React.memo(
       subTitleClassName,
       ratingClassName,
       descriptionClassName,
-      disableDefaultStyles,
+      disableDefaultStyles = false,
       styles: stylesProp,
       ...rest
     } = props;
     const { title, description, subtitle, image, url, price } = values;
     const rating = Number(values.rating);
-    const styles = useResultStyles({ ...props, appearance });
+    const styles = getStylesObject(useResultStyles({ ...props, appearance }), disableDefaultStyles);
     let clickToken: string | undefined;
     if (token && 'click' in token) {
       clickToken = token.click;
@@ -67,56 +74,85 @@ const Result = React.memo(
     return (
       <article {...rest} css={[styles.container, stylesProp]}>
         {(isValidURL(image, true) || forceImage) && (
-          <Link href={clickToken || url} target="_blank" onClick={resultClicked} css={styles.imageContainer}>
-            <Image src={image} css={styles.image} aspectRatio={imageAspectRatio} objectFit={imageObjectFit} />
+          <Link
+            href={clickToken || url}
+            target="_blank"
+            onClick={resultClicked}
+            css={styles.imageContainer}
+            disableDefaultStyles={disableDefaultStyles}
+          >
+            <Image
+              src={image}
+              css={styles.image}
+              aspectRatio={imageAspectRatio}
+              objectFit={imageObjectFit}
+              disableDefaultStyles={disableDefaultStyles}
+            />
           </Link>
         )}
 
-        <div css={tw`flex-1 min-w-0`}>
-          <div css={tw`flex items-start`}>
-            <Heading as="h1" size="base" css={[tw`flex-1 font-medium`]} className={headingClassName}>
+        <div css={styles.content}>
+          <div css={styles.head}>
+            <Heading as="h1" size="base" css={styles.title} className={headingClassName}>
               <Link href={clickToken || url} target="_blank" onClick={resultClicked}>
                 {decodeHTML(title)}
               </Link>
             </Heading>
 
             {price && appearance === 'list' && (
-              <div css={tw`ml-6`} className={priceClassName}>
+              <div css={styles.listPrice} className={priceClassName}>
                 <Text>{formatPrice(price, currencyCode)}</Text>
               </div>
             )}
           </div>
 
           {(subtitle || isNumber(rating)) && appearance === 'list' && (
-            <div css={tw`flex items-baseline mt-1`} className={subTitleClassName}>
+            <div css={styles.listRating} className={subTitleClassName}>
               {subtitle &&
                 (isValidURL(subtitle) ? (
                   <Link
                     href={clickToken || url}
                     target="_blank"
                     onClick={resultClicked}
-                    css={tw`mr-3 text-xs text-gray-400`}
+                    css={styles.listLinkSubtitle}
+                    disableDefaultStyles={disableDefaultStyles}
                   >
                     {subtitle}
                   </Link>
                 ) : (
-                  <Text css={tw`mr-3 text-xs text-gray-400`}>{subtitle}</Text>
+                  <Text css={styles.listSubtitle} disableDefaultStyles={disableDefaultStyles}>
+                    {subtitle}
+                  </Text>
                 ))}
-              {isNumber(rating) && <Rating value={rating} max={ratingMax} className={ratingClassName} />}
+              {isNumber(rating) && (
+                <Rating
+                  value={rating}
+                  max={ratingMax}
+                  className={ratingClassName}
+                  disableDefaultStyles={disableDefaultStyles}
+                />
+              )}
             </div>
           )}
 
           {description && appearance === 'list' && (
-            <Text truncate={2} css={tw`mt-1 text-sm text-gray-500`} className={descriptionClassName}>
+            <Text truncate={2} css={styles.listDesc} className={descriptionClassName}>
               {decodeHTML(description)}
             </Text>
           )}
 
           {(price || isNumber(rating)) && appearance === 'grid' && (
-            <div css={tw`mt-1 space-y-1 text-center`}>
-              {isNumber(rating) && <Rating value={rating} max={ratingMax} className={ratingClassName} />}
+            <div css={styles.gridRating}>
+              {isNumber(rating) && (
+                <Rating
+                  value={rating}
+                  max={ratingMax}
+                  className={ratingClassName}
+                  disableDefaultStyles={disableDefaultStyles}
+                />
+              )}
               {price && (
-                <Text css={tw`text-gray-500`} className={priceClassName}>
+                <Text css={styles.gridPrice} className={priceClassName} disableDefaultStyles={disableDefaultStyles}>
                   {formatPrice(price, currencyCode)}
                 </Text>
               )}
