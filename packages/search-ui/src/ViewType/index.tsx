@@ -3,25 +3,44 @@ import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
 import { Button, ButtonGroup, Text } from '@sajari/react-components';
 import { useSearchContext } from '@sajari/react-hooks';
-import { __DEV__ } from '@sajari/react-sdk-utils';
+import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import { useTranslation } from 'react-i18next';
-import tw from 'twin.macro';
 
 import { IconSmallGrid, IconSmallList } from '../assets/icons';
+import { useSearchUIContext } from '../ContextProvider';
+import useViewTypeStyles from './styles';
 import { ViewTypeProps } from './types';
 
 const ViewType = (props: ViewTypeProps) => {
   const { t } = useTranslation();
+  const { customClassNames, disableDefaultStyles = false } = useSearchUIContext();
   const { label = t('viewType.label'), size, styles: stylesProp, ...rest } = props;
   const id = `view-type-${useId()}`;
   const { viewType, setViewType } = useSearchContext();
+  const styles = getStylesObject(useViewTypeStyles(), disableDefaultStyles);
 
   return (
-    <div css={[tw`flex items-center space-x-4`, stylesProp]} aria-labelledby={id} {...rest}>
-      <Text id={id} css={tw`text-gray-500`} size={size}>
+    <div
+      css={[styles.container, stylesProp]}
+      aria-labelledby={id}
+      {...rest}
+      className={customClassNames.viewType?.container}
+    >
+      <Text
+        id={id}
+        css={styles.label}
+        disableDefaultStyles={disableDefaultStyles}
+        size={size}
+        className={customClassNames.viewType?.label}
+      >
         {label}
       </Text>
-      <ButtonGroup id={id} attached>
+      <ButtonGroup
+        id={id}
+        attached
+        disableDefaultStyles={disableDefaultStyles}
+        className={customClassNames.viewType?.buttonGroup}
+      >
         <Button
           onClick={() => setViewType('grid')}
           size={size}
