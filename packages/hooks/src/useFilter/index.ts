@@ -40,7 +40,7 @@ function useFilter(name: string) {
   };
 
   const options: FilterItem[] = useMemo(() => {
-    if (!response || searching) {
+    if (!response || response?.isEmpty()) {
       return [];
     }
 
@@ -65,6 +65,7 @@ function useFilter(name: string) {
       }));
 
       filter.setOptions(temp.reduce((a, c) => ({ ...a, [c.label]: c.value }), {}));
+
       return temp;
     }
 
@@ -98,7 +99,7 @@ function useFilter(name: string) {
 
       return { label, value, count } as FilterItem;
     });
-  }, [JSON.stringify(response?.getResults()), searching]);
+  }, [JSON.stringify(response?.getResults())]);
 
   return {
     options,
