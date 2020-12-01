@@ -105,6 +105,10 @@ const CodeBlock = (props: CodeBlockProps) => {
 
     case '/components/pagination':
       extra = { Pagination: ReactComponents.Pagination };
+      break;
+    case '/examples/basic':
+      extra = { Pagination: ReactSearchUI.Pagination, Filter: ReactSearchUI.Filter, FilterBuilder: ReactHooks.Filter };
+      break;
   }
 
   const liveProviderProps = {

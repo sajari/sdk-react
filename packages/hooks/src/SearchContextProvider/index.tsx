@@ -111,6 +111,39 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
     });
   }
 
+  const searchFn = useCallback(
+    (key: 'search' | 'instant') => (inputQuery?: string, override: boolean = false) => {
+      const func = key === 'instant' ? instant.current : search;
+      const state = key === 'instant' ? instantState : searchState;
+      const setSearchingState = key === 'instant' ? setInstantSearching : setSearching;
+      const timer = key === 'instant' ? searchInstantTimer : searchTimer;
+      setSearchingState(true);
+      setSearchState((state) => ({ ...state, query: inputQuery ?? state.query }));
+      const { pipeline, variables } = func as Required<ProviderPipelineConfig>;
+      const { config } = state;
+
+      const text = {
+        [config.qParam]: inputQuery ?? variables.get()[config.qParam],
+        [config.qOverrideParam]: undefined,
+        [config.pageParam]: undefined,
+      };
+
+      // TODO(tuand): ask the backend the use of this property
+      if (override) {
+        text[config.qOverrideParam] = 'true';
+      }
+
+      variables.set(text);
+
+      // @ts-ignore
+      clearTimeout(timer.current);
+      timer.current = setTimeout(() => {
+        pipeline.search(variables.get());
+      }, 50);
+    },
+    [],
+  );
+
   useEffect(() => {
     const mergedConfig = { ...defaultConfig, ...search.config };
     setSearchState((state) => ({
@@ -131,7 +164,7 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
       const filter = combineFilters(search.filters);
 
       unregisterFunctions.push(
-        filter.listen(EVENT_SELECTION_UPDATED, () => search.pipeline.search(variables.current.get())),
+        filter.listen(EVENT_SELECTION_UPDATED, () => searchFn('search')()),
         filter.removeChildFilterListeners,
       );
     }
@@ -207,39 +240,6 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
       unregisterFunctions.forEach((fn) => fn());
     };
   }, []);
-
-  const searchFn = useCallback(
-    (key: 'search' | 'instant') => (inputQuery?: string, override: boolean = false) => {
-      const func = key === 'instant' ? instant.current : search;
-      const state = key === 'instant' ? instantState : searchState;
-      const setSearchingState = key === 'instant' ? setInstantSearching : setSearching;
-      const timer = key === 'instant' ? searchInstantTimer : searchTimer;
-      setSearchingState(true);
-      setSearchState((state) => ({ ...state, query: inputQuery ?? state.query }));
-      const { pipeline, variables } = func as Required<ProviderPipelineConfig>;
-      const { config } = state;
-
-      const text = {
-        [config.qParam]: inputQuery ?? variables.get()[config.qParam],
-        [config.qOverrideParam]: undefined,
-        [config.pageParam]: undefined,
-      };
-
-      // TODO(tuand): ask the backend the use of this property
-      if (override) {
-        text[config.qOverrideParam] = 'true';
-      }
-
-      variables.set(text);
-
-      // @ts-ignore
-      clearTimeout(timer.current);
-      timer.current = setTimeout(() => {
-        pipeline.search(variables.get());
-      }, 50);
-    },
-    [],
-  );
 
   const clear = useCallback(
     (key: 'search' | 'instant') => (vals?: { [k: string]: string | undefined }) => {

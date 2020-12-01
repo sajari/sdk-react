@@ -1,0 +1,104 @@
+import SEO from '../../components/SEO';
+
+<SEO title="Examples - Basic" description="Basic example of using the SDK" />
+
+# Basic
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const brandFilter = new FilterBuilder({
+    name: 'brand',
+    field: 'brand',
+    options: {
+      Apple: "brand = 'Apple'",
+      Samsung: "brand = 'Samsung'",
+      Dell: "brand = 'Dell'",
+      HP: "brand = 'HP'",
+      Garmin: "brand = 'Garmin'",
+    },
+    count: false,
+  });
+
+  const priceFilter = new FilterBuilder({
+    name: 'price',
+    options: {
+      High: 'price >= 200',
+      Mid: 'price >= 50',
+      Low: 'price < 50',
+    },
+    count: false,
+    multi: false,
+    initial: ['High'],
+  });
+
+  const colorFilter = new FilterBuilder({
+    name: 'color',
+    field: 'imageTags',
+    array: true,
+  });
+
+  const ratingFilter = new FilterBuilder({
+    name: 'rating',
+    field: 'rating',
+  });
+
+  const SearchPlayground = React.memo(() => (
+    <div className="flex flex-col space-y-3">
+      <Input />
+      <div className="flex justify-between items-center pb-3 border-b border-gray-100">
+        <Summary />
+        <div className="flex space-x-3">
+          <Sorting
+            options={[
+              { name: 'Most relevant', value: '' },
+              { name: 'Brand: A to Z', value: 'brand' },
+              { name: 'Brand: Z to A', value: '-brand' },
+              { name: 'Rating: Low to High', value: 'rating' },
+              { name: 'Rating: High to Low', value: '-rating' },
+              { name: 'Popularity', value: 'popularity' },
+            ]}
+          />
+          <PageSize />
+          <ViewType />
+        </div>
+      </div>
+      <div className="flex -mx-3">
+        <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
+          <Filter type="list" name="brand" title="Brand" />
+          <Filter type="list" name="price" title="Price (bucket)" />
+          <Filter type="color" name="color" title="Color" />
+          <Filter type="rating" name="rating" title="Rating" />
+        </div>
+        <div className="w-3/4 px-3">
+          <Results />
+          <div className="sticky bottom-0 p-6">
+            <Pagination />
+          </div>
+        </div>
+      </div>
+    </div>
+  ));
+
+  return (
+    <SearchContextProvider
+      search={{
+        pipeline,
+        fields: { title: 'name', subtitle: 'brand' },
+        filters: [priceFilter, brandFilter, colorFilter, ratingFilter],
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchContextProvider>
+  );
+}
+```

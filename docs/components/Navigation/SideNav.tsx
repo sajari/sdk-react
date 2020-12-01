@@ -1,7 +1,7 @@
 import { Box, BoxProps, Heading, HeadingProps } from '@sajari-ui/core';
 import React from 'react';
 
-import { coreComponents, searchComponents, hooks, tracking } from '../components';
+import { coreComponents, searchComponents, hooks, tracking, examples } from '../components';
 import { SideNavLink, stringToUrl } from './NavLink';
 
 const topNavLinks = [['Getting Started', '/'], ['Components'], ['Hooks'], ['Search UI'], ['Tracking']];
@@ -65,6 +65,20 @@ export const SideNavContent = () => (
 
       {tracking.map((name) => {
         const link = `tracking/${name}`;
+
+        return (
+          <SideNavLink key={link} href={stringToUrl(link)}>
+            {name}
+          </SideNavLink>
+        );
+      })}
+    </Box>
+
+    <Box margin="mb-10">
+      <NavGroupHeading>Examples</NavGroupHeading>
+
+      {examples.map((name) => {
+        const link = `examples/${name}`;
 
         return (
           <SideNavLink key={link} href={stringToUrl(link)}>
