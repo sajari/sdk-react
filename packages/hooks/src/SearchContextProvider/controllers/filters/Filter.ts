@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { replaceAll } from '@sajari/react-sdk-utils';
+import { isEmpty, isFunction, isString, replaceAll } from '@sajari/react-sdk-utils';
 
 import { EVENT_OPTIONS_UPDATED, EVENT_SELECTION_UPDATED } from '../../events';
 import { Listener } from '../listener';
@@ -57,9 +57,9 @@ export default class Filter {
     array = false,
     name,
     field,
-    count = true,
+    count = isEmpty(options),
   }: FilterOptions) {
-    if (typeof initial === 'string') {
+    if (isString(initial)) {
       initial = [initial];
     }
 
@@ -92,7 +92,7 @@ export default class Filter {
    * Register a listener for a specific event.
    */
   public listen(event: string, callback: (filter: Filter) => void): () => void {
-    if (events.indexOf(event) === -1) {
+    if (!events.includes(event)) {
       throw new Error(`unknown event type "${event}"`);
     }
     return this.listeners[event].listen(callback);
@@ -124,7 +124,7 @@ export default class Filter {
    * returns whether the filter is set or not.
    */
   public isSet(name: string): boolean {
-    return this.current.indexOf(name) !== -1;
+    return this.current.includes(name);
   }
 
   /**
@@ -175,10 +175,10 @@ export default class Filter {
     return this.current
       .map((c) => {
         let f = this.options[c];
-        if (typeof f === 'function') {
+        if (isFunction(f)) {
           f = f();
         }
-        if (f !== undefined && f !== '') {
+        if (!isEmpty(f)) {
           f = `(${escapeValue(f)})`;
         }
         return f;

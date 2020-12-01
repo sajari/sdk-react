@@ -8,7 +8,7 @@ import { FilterItem } from './types';
 
 function useFilter(name: string) {
   const {
-    search: { filters = [], response, searching },
+    search: { filters = [], response },
   } = useContext();
 
   const filter = useMemo(() => {

@@ -12,6 +12,10 @@ export function isNumber(value: any): value is number {
   return typeof value === 'number' && !Number.isNaN(value);
 }
 
+export function isFunction(value: any): value is () => {} {
+  return typeof value === 'function';
+}
+
 export function isArray<T>(value: any): value is T[] {
   return Array.isArray(value);
 }
