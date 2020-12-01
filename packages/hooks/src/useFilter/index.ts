@@ -1,6 +1,6 @@
 import { isNumber } from '@sajari/react-sdk-utils';
 import { CountAggregate } from '@sajari/sdk-js';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { useContext } from '../SearchContextProvider';
 import { EVENT_SELECTION_UPDATED } from '../SearchContextProvider/events';
@@ -20,7 +20,6 @@ function useFilter(name: string) {
   }
 
   const [selected, setInternalSelected] = useState(filter.get());
-  const [options, setOptions] = useState<FilterItem[]>([]);
 
   useEffect(() => {
     const removeListener = filter.listen(EVENT_SELECTION_UPDATED, () => {
@@ -32,11 +31,17 @@ function useFilter(name: string) {
     };
   }, []);
 
-  useEffect(() => {
-    let output: FilterItem[] = [];
+  const setSelected = (value: string[], merge: boolean = false) => {
+    filter.set(value, merge);
+  };
 
+  const reset = () => {
+    filter.reset();
+  };
+
+  const options: FilterItem[] = useMemo(() => {
     if (!response || searching) {
-      return;
+      return [];
     }
 
     const aggregates = response.getAggregates();
@@ -53,58 +58,47 @@ function useFilter(name: string) {
       }
 
       // eslint-disable-next-line @typescript-eslint/no-shadow
-      output = Object.entries(count).map(([label, count]: [string, number]) => ({
+      const temp = Object.entries(count).map(([label, count]: [string, number]) => ({
         label,
         count,
         value: array ? `${fieldCount} ~ ["${label}"]` : `${fieldCount} = "${label}"`,
       }));
 
-      filter.setOptions(output.reduce((a, c) => ({ ...a, [c.label]: c.value }), {}));
+      filter.setOptions(temp.reduce((a, c) => ({ ...a, [c.label]: c.value }), {}));
+      return temp;
+    }
 
-      setOptions(output);
-    } else {
-      const getBucketCount = (value: string): number => {
-        let count: number | CountAggregate = 0;
+    const getBucketCount = (value: string): number => {
+      let count: number | CountAggregate = 0;
 
-        if (Object.keys(aggregateFilters?.buckets?.count ?? {}).includes(value)) {
-          // @ts-ignore
-          ({ count } = aggregateFilters?.buckets);
-        } else if (Object.keys(aggregates?.buckets?.count ?? {}).includes(value)) {
-          // @ts-ignore
-          ({ count } = aggregates?.buckets);
-        }
-
-        if (isNumber(count)) {
-          return 0;
-        }
-
-        return (count[value] as number) ?? 0;
-      };
-
-      // Get items from aggregates for regular facets
-      // or map the bucket types to title / filter format
-      if (!aggregates?.buckets) {
-        return;
+      if (Object.keys(aggregateFilters?.buckets?.count ?? {}).includes(value)) {
+        // @ts-ignore
+        ({ count } = aggregateFilters?.buckets);
+      } else if (Object.keys(aggregates?.buckets?.count ?? {}).includes(value)) {
+        // @ts-ignore
+        ({ count } = aggregates?.buckets);
       }
 
-      output = Object.entries(filter.getOptions()).map(([label, value]) => {
-        const id = `${name}_${label}`;
-        const count = getBucketCount(id);
+      if (isNumber(count)) {
+        return 0;
+      }
 
-        return { label, value, count } as FilterItem;
-      });
+      return (count[value] as number) ?? 0;
+    };
 
-      setOptions(output);
+    // Get items from aggregates for regular facets
+    // or map the bucket types to title / filter format
+    if (!aggregates?.buckets) {
+      return [];
     }
-  }, [JSON.stringify(response?.getResults())]);
 
-  const setSelected = useCallback((value: string[], merge: boolean = false) => {
-    filter.set(value, merge);
-  }, []);
+    return Object.entries(filter.getOptions()).map(([label, value]) => {
+      const id = `${name}_${label}`;
+      const count = getBucketCount(id);
 
-  const reset = useCallback(() => {
-    filter.reset();
-  }, []);
+      return { label, value, count } as FilterItem;
+    });
+  }, [JSON.stringify(response?.getResults()), searching]);
 
   return {
     options,

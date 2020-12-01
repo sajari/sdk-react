@@ -4,7 +4,7 @@ import { useId } from '@reach/auto-id';
 import { mergeProps } from '@react-aria/utils';
 import { __DEV__ } from '@sajari/react-sdk-utils';
 import { useCombobox } from 'downshift';
-import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import tw from 'twin.macro';
 
 import { IconSearch, IconSmallSearch, IconSpinner } from '../assets/icons';
@@ -47,6 +47,11 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
   } = props;
   const [typedInputValue, setTypedInputValue] = useState(valueProp.toString());
   const { supported: voiceSupported } = useVoiceInput();
+  const [value, setValue] = useState(valueProp.toString());
+
+  useEffect(() => {
+    setValue(valueProp.toString());
+  }, [valueProp]);
 
   const {
     isOpen: open,
@@ -63,10 +68,9 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
   } = useCombobox<T>({
     items,
     itemToString,
+    inputValue: value,
     onInputValueChange: (changes) => {
-      if (mode !== 'suggestions') {
-        onChange(changes.inputValue);
-      }
+      setValue(changes.inputValue ?? '');
     },
     stateReducer: (state, { changes, type }) => {
       if (mode === 'suggestions') {
@@ -293,7 +297,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
 
                   onKeyDown(e);
                 },
-                onChange: (e: ChangeEvent<HTMLInputElement>) => {
+                onInput: (e: ChangeEvent<HTMLInputElement>) => {
                   onChange(e.target.value);
                   setTypedInputValue(e.target.value);
                 },
