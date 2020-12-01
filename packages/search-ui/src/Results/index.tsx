@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import { ResizeObserver } from '@sajari/react-components';
 import { useQuery, useSearchContext, useTracking } from '@sajari/react-hooks';
-import { isEmpty, isNullOrUndefined } from '@sajari/react-sdk-utils';
+import { getStylesObject, isEmpty, isNullOrUndefined } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -18,20 +18,13 @@ const Results = (props: ResultsProps) => {
   const results = React.useMemo(() => (rawResults ? mapResultFields<ResultValues>(rawResults, fields) : undefined), [
     rawResults,
   ]);
+  const { ratingMax, disableDefaultStyles = false, customClassNames } = useSearchUIContext();
   const { query } = useQuery();
-  const {
-    defaultAppearance,
-    appearance = viewType,
-    className,
-    disableDefaultStyles = false,
-    styles: stylesProp,
-    ...rest
-  } = props;
+  const { defaultAppearance, appearance = viewType, styles: stylesProp, ...rest } = props;
   const [width, setWidth] = React.useState(0);
   const { handleResultClicked } = useTracking();
-  const { ratingMax } = useSearchUIContext();
   const hasImages = React.useMemo(() => results?.some((r) => r.values?.image), [results]);
-  const styles = useResultsStyles({ ...props, appearance, width });
+  const styles = getStylesObject(useResultsStyles({ ...props, appearance, width }), disableDefaultStyles);
   const { t } = useTranslation();
 
   React.useEffect(() => {
@@ -49,7 +42,7 @@ const Results = (props: ResultsProps) => {
       body = t('errors.connection');
     }
 
-    return <Message title={t('texts.error')} body={body} />;
+    return <Message title={t('texts.error')} body={body} className={customClassNames.results?.errorMessage} />;
   }
 
   // We've not searched yet
@@ -61,13 +54,22 @@ const Results = (props: ResultsProps) => {
   // Show a loader if we're refreshing from no results
   if (isEmpty(results)) {
     if (searching) {
-      return <Message title={t('texts.loading')} appearance="loading" />;
+      return (
+        <Message
+          title={t('texts.loading')}
+          appearance="loading"
+          disableDefaultStyles={disableDefaultStyles}
+          className={customClassNames.results?.searchingMessage}
+        />
+      );
     }
 
     return (
       <Message
         title={t('results.empty.title')}
         body={t('results.empty.body', { query: `<strong>${query}</strong>` })}
+        disableDefaultStyles={disableDefaultStyles}
+        className={customClassNames.results?.emptyMessage}
       />
     );
   }
@@ -76,7 +78,7 @@ const Results = (props: ResultsProps) => {
     <ResizeObserver
       onResize={(rect) => setWidth(rect.width)}
       css={[styles.container, stylesProp]}
-      className={className}
+      className={customClassNames.results?.container}
     >
       {results?.map(({ values, token }, i) => (
         <Result
@@ -89,6 +91,12 @@ const Results = (props: ResultsProps) => {
           appearance={appearance}
           forceImage={hasImages}
           disableDefaultStyles={disableDefaultStyles}
+          className={customClassNames.results?.item}
+          headingClassName={customClassNames.results?.heading}
+          descriptionClassName={customClassNames.results?.description}
+          priceClassName={customClassNames.results?.price}
+          ratingClassName={customClassNames.results?.rating}
+          subTitleClassName={customClassNames.results?.subTitle}
           {...rest}
         />
       ))}

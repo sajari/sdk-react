@@ -1,5 +1,5 @@
-import { clamp, isNumber, isObject, mapStyles } from '@sajari/react-sdk-utils';
-import tw, { TwStyle } from 'twin.macro';
+import { clamp, inferStylesObjectKeys, isNumber, isObject, mapStyles } from '@sajari/react-sdk-utils';
+import tw from 'twin.macro';
 
 import { ColumnValue, GapValue, ResultsProps } from './types';
 
@@ -23,9 +23,9 @@ export default function useResultsStyles({
   gap: gapProp = appearance === 'list' ? { 0: 4, 640: 8 } : undefined,
   width,
 }: Props) {
-  const styles: Record<'container', TwStyle[]> = {
+  const styles = inferStylesObjectKeys({
     container: [],
-  };
+  });
 
   if (appearance === 'list') {
     styles.container.push(tw`flex flex-col`);
