@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.34](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.33...@sajari/react-search-ui@1.0.0-alpha.34) (2020-12-01)
+
+### Features
+
+- add option to control styles for PageSize ([#261](https://github.com/sajari/sdk-react/issues/261)) ([8fe8379](https://github.com/sajari/sdk-react/commit/8fe83797649ce4d45b5c5407e8886ff61e0a8662))
+- add option to control styles for Sorting ([#262](https://github.com/sajari/sdk-react/issues/262)) ([19bf28c](https://github.com/sajari/sdk-react/commit/19bf28c82a494c3d96235176396b097f3e927faa))
+- add option to control styles for ViewType ([#260](https://github.com/sajari/sdk-react/issues/260)) ([85cb234](https://github.com/sajari/sdk-react/commit/85cb2340c2014cb72815d7b6787aa3d10282b571))
+
 # [1.0.0-alpha.33](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.32...@sajari/react-search-ui@1.0.0-alpha.33) (2020-12-01)
 
 ### Features

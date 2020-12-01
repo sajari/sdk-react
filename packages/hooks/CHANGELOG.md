@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.23](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.22...@sajari/react-hooks@1.0.0-alpha.23) (2020-12-01)
+
+### Bug Fixes
+
+- fix issue with filters disappearing while searching ([bab000a](https://github.com/sajari/sdk-react/commit/bab000a04b57525fd00b439465dd94ceb0b974e8))
+
 # [1.0.0-alpha.22](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.21...@sajari/react-hooks@1.0.0-alpha.22) (2020-12-01)
 
 ### Features
