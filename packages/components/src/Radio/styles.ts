@@ -7,7 +7,7 @@ import { RadioProps } from './types';
 export default function useRadioStyles(props: RadioProps) {
   const { invalid = false } = props;
 
-  const { styles: inputStyles, focusRingStyles } = useInputStyles({
+  const { styles: inputStyles, focusRingStyles, focusProps } = useInputStyles({
     block: true,
     type: 'radio',
     ...props,
@@ -25,5 +25,5 @@ export default function useRadioStyles(props: RadioProps) {
     styles.label.push(tw`text-red-500`);
   }
 
-  return mapStyles(styles);
+  return { styles: mapStyles(styles), focusProps };
 }

@@ -31,7 +31,7 @@ const Pagination = (props: PaginationProps) => {
       styles={styles}
       className={customClassNames?.pagination?.container}
       buttonClassName={customClassNames?.pagination?.button}
-      pressedClassName={customClassNames?.pagination?.pressed}
+      activeClassName={customClassNames?.pagination?.active}
       prevClassName={customClassNames?.pagination?.prev}
       nextClassName={customClassNames?.pagination?.next}
       disableDefaultStyles={disableDefaultStyles}

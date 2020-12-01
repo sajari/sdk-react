@@ -114,7 +114,7 @@ const Result = React.memo(
 
           {(price || isNumber(rating)) && appearance === 'grid' && (
             <div css={tw`mt-1 space-y-1 text-center`}>
-              {isNumber(rating) && <Rating value={rating} max={ratingMax} />}
+              {isNumber(rating) && <Rating value={rating} max={ratingMax} className={ratingClassName} />}
               {price && (
                 <Text css={tw`text-gray-500`} className={priceClassName}>
                   {formatPrice(price, currencyCode)}

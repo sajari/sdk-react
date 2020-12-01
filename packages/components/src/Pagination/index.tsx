@@ -29,13 +29,7 @@ const getButtons = (
   const limit = 5;
   const middle = Math.ceil(limit / 2);
   let offset = 0;
-  const {
-    activeClassName = '',
-    spacerEllipsisClassName,
-    buttonClassName,
-    disableDefaultStyles,
-    pressedClassName = '',
-  } = props;
+  const { activeClassName = '', spacerEllipsisClassName, buttonClassName, disableDefaultStyles } = props;
 
   if (pageCount > limit) {
     if (page < limit) {
@@ -98,7 +92,6 @@ const getButtons = (
         aria-current={active ? 'page' : undefined}
         aria-label={getLabel(number, active)}
         onClick={() => onChange && onChange(number)}
-        pressedClassName={pressedClassName}
         className={classnames(buttonClassName, { [activeClassName]: active })}
       >
         {number}
@@ -119,7 +112,6 @@ const Pagination = (props: PaginationProps) => {
     nextClassName,
     prevClassName,
     spacerEllipsisClassName,
-    pressedClassName,
     styles: stylesProp,
     disableDefaultStyles = false,
     ...rest
@@ -160,7 +152,6 @@ const Pagination = (props: PaginationProps) => {
         onClick={() => (hasPrevious ? changeHandler(page - 1) : {})}
         aria-label={i18n.previous}
         className={classnames(prevClassName, buttonClassName)}
-        pressedClassName={pressedClassName}
       >
         &#8203;
         <IconChevronLeft />
@@ -174,7 +165,6 @@ const Pagination = (props: PaginationProps) => {
         onClick={() => (hasNext ? changeHandler(page + 1) : {})}
         aria-label={i18n.next}
         className={classnames(nextClassName, buttonClassName)}
-        pressedClassName={pressedClassName}
       >
         &#8203;
         <IconChevronRight />

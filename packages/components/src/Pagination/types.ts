@@ -1,7 +1,6 @@
 import { BoxProps } from '../Box';
-import { ButtonProps } from '../Button';
 
-export interface PaginationProps extends BoxProps, Pick<ButtonProps, 'pressedClassName'> {
+export interface PaginationProps extends BoxProps {
   /** The total number of pages */
   pageCount?: number;
   /** The total number of results (used to calculate page count if not set) */

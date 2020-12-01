@@ -6,8 +6,6 @@ import { TextSizes } from '../hooks';
 export type HeadingElements = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 export interface HeadingProps extends BoxProps, HTMLAttributes<HTMLHeadingElement> {
-  /** Set the element that the text should render as */
-  as?: HeadingElements;
   /** The size variant */
   size?: TextSizes;
   /** Whether to truncate the text. Specify a number will use line-clamp */

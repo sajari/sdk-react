@@ -14,7 +14,7 @@ const Component = (props: PropsWithAs<AspectRatioProps, DefaultElement>, ref: Re
   let child;
 
   if (children) {
-    child = Children.only<React.ReactChild>(children);
+    child = Children.only(children);
 
     if (!isValidElement(child)) {
       return null;

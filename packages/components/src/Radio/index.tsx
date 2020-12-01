@@ -6,7 +6,6 @@ import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import React from 'react';
 
 import Box from '../Box';
-import { UseInputStyleProps, useInputStyles } from '../hooks';
 import Label from '../Label';
 import useRadioStyles from './styles';
 import { RadioProps } from './types';
@@ -34,13 +33,8 @@ const Radio = React.forwardRef((props: RadioProps, ref?: React.Ref<HTMLInputElem
     ...rest
   } = props;
 
-  const styles = getStylesObject(useRadioStyles(props), disableDefaultStyles);
-
-  const { focusProps } = useInputStyles({
-    block: true,
-    type: 'radio',
-    ...props,
-  } as UseInputStyleProps);
+  const { styles: radioStyles, focusProps } = useRadioStyles(props);
+  const styles = getStylesObject(radioStyles, disableDefaultStyles);
 
   const comp = (
     <Box css={[styles.componentWrapper, !children && stylesProp]} {...(!children ? rest : {})}>

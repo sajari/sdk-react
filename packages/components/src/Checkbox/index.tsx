@@ -5,7 +5,6 @@ import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import React from 'react';
 
 import Box from '../Box';
-import { UseInputStyleProps, useInputStyles } from '../hooks';
 import Label from '../Label';
 import { useCheckboxStyles } from './styles';
 import { CheckboxProps } from './types';
@@ -33,13 +32,8 @@ const Checkbox = React.forwardRef((props: CheckboxProps, ref?: React.Ref<HTMLInp
     ...rest
   } = props;
 
-  const styles = getStylesObject(useCheckboxStyles(props), disableDefaultStyles);
-
-  const { focusProps } = useInputStyles({
-    type: 'checkbox',
-    indeterminate,
-    ...props,
-  } as UseInputStyleProps);
+  const { styles: checkboxStyles, focusProps } = useCheckboxStyles(props);
+  const styles = getStylesObject(checkboxStyles, disableDefaultStyles);
 
   const comp = (
     <Box css={[styles.componentWrapper, !children && stylesProp]} {...(!children ? rest : {})}>

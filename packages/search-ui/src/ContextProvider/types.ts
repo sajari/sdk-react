@@ -9,8 +9,6 @@ export interface SearchUIContextProviderValues {
       container?: string;
       button?: string;
       active?: string;
-      disabled?: string;
-      pressed?: string;
       next?: string;
       prev?: string;
       spacerEllipsis?: string;

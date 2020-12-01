@@ -8,7 +8,7 @@ export function useCheckboxStyles(props: CheckboxProps) {
   const theme = useTheme();
   const { invalid = false, indeterminate = false } = props;
 
-  const { styles: inputStyles, focusRingStyles } = useInputStyles({
+  const { styles: inputStyles, focusRingStyles, focusProps } = useInputStyles({
     type: 'checkbox',
     indeterminate,
     ...props,
@@ -28,5 +28,5 @@ export function useCheckboxStyles(props: CheckboxProps) {
     styles.label.push(tw`text-red-500`);
   }
 
-  return mapStyles(styles);
+  return { styles: mapStyles(styles), focusProps };
 }
