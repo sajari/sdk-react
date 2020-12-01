@@ -35,6 +35,7 @@ function Example() {
       HP: "brand = 'HP'",
       Garmin: "brand = 'Garmin'",
     },
+    count: false,
   });
 
   const priceFilter = new FilterBuilder({
@@ -44,6 +45,7 @@ function Example() {
       Mid: 'price >= 50',
       Low: 'price < 50',
     },
+    count: false,
     multi: false,
     initial: ['High'],
   });
