@@ -1,15 +1,15 @@
 import SEO from '../../components/SEO';
 
-<SEO title="usePageSize" description="usePageSize provides getter/setter for the resultsPerPage param." />
+<SEO title="useResultsPerPage" description="useResultsPerPage provides getter/setter for the resultsPerPage param." />
 
-# usePageSize
+# useResultsPerPage
 
-`usePageSize` provides getter/setter for the resultsPerPage param.
+`useResultsPerPage` provides getter and setter for the resultsPerPage param.
 
 ```js
 import { Results } from '@sajari/react-search-ui';
 import { Pagination, Select, Input } from '@sajari/react-components';
-import { usePageSize, useSearch, SearchContextProvider, Pipeline, Variables } from '@sajari/react-hooks';
+import { useResultsPerPage, useSearch, SearchProvider, Pipeline, Variables } from '@sajari/react-hooks';
 ```
 
 ## Usage
@@ -27,7 +27,7 @@ function Example() {
 
   const SearchPlayground = React.memo(() => {
     const { search } = useSearch();
-    const { pageSize, setPageSize } = usePageSize();
+    const { resultsPerPage, setResultsPerPage } = useResultsPerPage();
     const { query } = useQuery();
 
     return (
@@ -37,7 +37,7 @@ function Example() {
             <Input value={query} onChange={(value) => search(value)} />
           </div>
           <div className="w-2/5">
-            <Select value={`${pageSize}`} onChange={(e) => setPageSize(parseInt(e.target.value), 10)}>
+            <Select value={`${resultsPerPage}`} onChange={(e) => setResultsPerPage(parseInt(e.target.value), 10)}>
               <option value="3">3</option>
               <option value="5">5</option>
               <option value="10">10</option>
@@ -52,7 +52,7 @@ function Example() {
   });
 
   return (
-    <SearchContextProvider
+    <SearchProvider
       search={{
         pipeline,
         fields: {
@@ -62,19 +62,19 @@ function Example() {
       }}
     >
       <SearchPlayground />
-    </SearchContextProvider>
+    </SearchProvider>
   );
 }
 ```
 
 ## Anatomy
 
-`usePageSize` returns an object containing the following properties:
+`useResultsPerPage` returns an object containing the following properties:
 
-| Name          | Type                     | Default | Description                             |
-| ------------- | ------------------------ | ------- | --------------------------------------- |
-| `pageSize`    | `number`                 |         | The number of result per page           |
-| `setPageSize` | `(size: number) => void` |         | Method to set number of result per page |
+| Name                | Type                     | Default | Description                              |
+| ------------------- | ------------------------ | ------- | ---------------------------------------- |
+| `resultsPerPage`    | `number`                 |         | The number of result per page.           |
+| `setResultsPerPage` | `(size: number) => void` |         | Method to set number of result per page. |
 
 ## Props
 

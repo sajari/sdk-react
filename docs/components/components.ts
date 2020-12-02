@@ -1,4 +1,4 @@
-const coreComponents = [
+const components = [
   'AspectRatio',
   'Button',
   'ButtonGroup',
@@ -17,28 +17,30 @@ const coreComponents = [
   'RangeInput',
   'ResizeObserver',
 ].sort();
-const searchComponents = [
-  'Filter',
-  'Input',
-  'PageSize',
-  'Pagination',
-  'Results',
-  'Summary',
-  'Sorting',
-  'ViewType',
-].sort();
+
 const hooks = [
   'useFilter',
-  'usePageSize',
   'usePagination',
   'useQuery',
+  'useResultsPerPage',
   'useSearch',
   'useSorting',
   'useAutocomplete',
   'useTracking',
   'useVariables',
 ].sort();
-const tracking = ['NoTracking', 'ClickTracking', 'PosNegTracking'];
-const examples = ['Basic'];
 
-export { coreComponents, searchComponents, hooks, tracking, examples };
+const searchComponents = [
+  'Filter',
+  'Input',
+  'Pagination',
+  'Results',
+  'ResultsPerPage',
+  'Summary',
+  'Sorting',
+  'ViewType',
+].sort();
+
+const tracking = ['NoTracking', 'ClickTracking', 'PosNegTracking'];
+
+export { components, searchComponents, hooks, tracking };

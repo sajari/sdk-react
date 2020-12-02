@@ -113,7 +113,7 @@ function Example() {
   });
 
   return (
-    <SearchContextProvider
+    <SearchProvider
       search={{
         pipeline,
         fields: { title: 'name', subtitle: 'brand' },
@@ -121,7 +121,7 @@ function Example() {
       }}
     >
       <SearchPlayground />
-    </SearchContextProvider>
+    </SearchProvider>
   );
 }
 ```
@@ -226,7 +226,7 @@ function Example() {
   });
 
   return (
-    <SearchContextProvider
+    <SearchProvider
       search={{
         pipeline,
         fields: { title: 'name', subtitle: 'brand' },
@@ -234,7 +234,7 @@ function Example() {
       }}
     >
       <SearchPlayground />
-    </SearchContextProvider>
+    </SearchProvider>
   );
 }
 ```
@@ -383,7 +383,7 @@ function Example() {
   });
 
   return (
-    <SearchContextProvider
+    <SearchProvider
       search={{
         pipeline,
         variables,
@@ -392,7 +392,7 @@ function Example() {
       }}
     >
       <SearchPlayground />
-    </SearchContextProvider>
+    </SearchProvider>
   );
 }
 ```

@@ -10,13 +10,13 @@ import { PaginationProps } from './types';
 const Pagination = (props: PaginationProps) => {
   const { t } = useTranslation();
   const { align, styles } = props;
-  const { page, setPage, pageSize, pageCount, totalResults } = usePagination('search');
+  const { page, setPage, pageCount, resultsPerPage, totalResults } = usePagination('search');
   const { customClassNames, disableDefaultStyles } = useSearchUIContext();
 
   return (
     <PurePagination
       page={page}
-      pageSize={pageSize}
+      resultsPerPage={resultsPerPage}
       totalResults={totalResults}
       pageCount={pageCount}
       onChange={setPage}
@@ -44,3 +44,4 @@ if (__DEV__) {
 }
 
 export default Pagination;
+export type { PaginationProps };

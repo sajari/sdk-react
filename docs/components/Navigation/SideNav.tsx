@@ -1,7 +1,7 @@
 import { Box, BoxProps, Heading, HeadingProps } from '@sajari-ui/core';
 import React from 'react';
 
-import { coreComponents, searchComponents, hooks, tracking, examples } from '../components';
+import { components, searchComponents, hooks, tracking } from '../components';
 import { SideNavLink, stringToUrl } from './NavLink';
 
 const topNavLinks = [['Getting Started', '/'], ['Components'], ['Hooks'], ['Search UI'], ['Tracking']];
@@ -9,8 +9,8 @@ const topNavLinks = [['Getting Started', '/'], ['Components'], ['Hooks'], ['Sear
 const NavGroupHeading = (props: HeadingProps) => <Heading size="xs" as="h2" margin="mb-2" {...props} />;
 
 export const SideNavContent = () => (
-  <>
-    <Box margin="mb-8">
+  <Box space="space-y-10" margin="mb-10">
+    <Box>
       {topNavLinks.map(([name, link]) => (
         <SideNavLink key={link || name} href={link || stringToUrl(name)}>
           {name}
@@ -18,10 +18,10 @@ export const SideNavContent = () => (
       ))}
     </Box>
 
-    <Box margin="mb-10">
+    <Box>
       <NavGroupHeading>Components</NavGroupHeading>
 
-      {coreComponents.map((name) => {
+      {components.map((name) => {
         const link = `components/${name}`;
 
         return (
@@ -32,7 +32,7 @@ export const SideNavContent = () => (
       })}
     </Box>
 
-    <Box margin="mb-10">
+    <Box>
       <NavGroupHeading>Hooks</NavGroupHeading>
 
       {hooks.map((name) => {
@@ -46,7 +46,7 @@ export const SideNavContent = () => (
       })}
     </Box>
 
-    <Box margin="mb-10">
+    <Box>
       <NavGroupHeading>Search UI</NavGroupHeading>
 
       {searchComponents.map((name) => {
@@ -60,7 +60,7 @@ export const SideNavContent = () => (
       })}
     </Box>
 
-    <Box margin="mb-10">
+    <Box>
       <NavGroupHeading>Tracking</NavGroupHeading>
 
       {tracking.map((name) => {
@@ -73,21 +73,7 @@ export const SideNavContent = () => (
         );
       })}
     </Box>
-
-    <Box margin="mb-10">
-      <NavGroupHeading>Examples</NavGroupHeading>
-
-      {examples.map((name) => {
-        const link = `examples/${name}`;
-
-        return (
-          <SideNavLink key={link} href={stringToUrl(link)}>
-            {name}
-          </SideNavLink>
-        );
-      })}
-    </Box>
-  </>
+  </Box>
 );
 
 const SideNav = (props: BoxProps) => (

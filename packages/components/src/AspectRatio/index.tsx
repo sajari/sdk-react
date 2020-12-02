@@ -33,5 +33,4 @@ const Component = (props: PropsWithAs<AspectRatioProps, DefaultElement>, ref: Re
 const AspectRatio = forwardRefWithAs<AspectRatioProps, DefaultElement>(Component);
 
 export default AspectRatio;
-
 export type { AspectRatioProps };

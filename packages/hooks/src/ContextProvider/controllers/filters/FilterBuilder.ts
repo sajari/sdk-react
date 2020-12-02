@@ -22,7 +22,7 @@ const events = [EVENT_SELECTION_UPDATED, EVENT_OPTIONS_UPDATED];
 /**
  * Filter is a helper class for building filters from UI components.
  */
-export default class Filter {
+export default class FilterBuilder {
   private current: string[];
 
   private initial: string[];
@@ -91,7 +91,7 @@ export default class Filter {
   /**
    * Register a listener for a specific event.
    */
-  public listen(event: string, callback: (filter: Filter) => void): () => void {
+  public listen(event: string, callback: (filter: FilterBuilder) => void): () => void {
     if (!events.includes(event)) {
       throw new Error(`unknown event type "${event}"`);
     }

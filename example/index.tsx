@@ -1,17 +1,17 @@
 import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { ContextProvider } from '@sajari/react-search-ui';
-import { SearchContextProvider, Pipeline, Variables, useSearchContext, FieldDictionary } from '@sajari/react-hooks';
+import { SearchProvider, FieldDictionary, Pipeline, Variables } from '@sajari/react-search-ui';
+import { useSearchContext } from '@sajari/react-hooks';
 import { Pagination } from '@sajari/react-components';
 
 const SearchPlayground = () => {
-  const { search, setPage, page, pageCount, pageSize, totalResults, results } = useSearchContext<{
+  const { search, setPage, page, pageCount, resultsPerPage, totalResults, results } = useSearchContext<{
     id: string;
     free_shipping: string;
   }>();
 
-  const fromItem = pageSize * (page - 1) + 1;
+  const fromItem = resultsPerPage * (page - 1) + 1;
   const toItem = results?.length + fromItem - 1;
 
   return (
@@ -50,7 +50,7 @@ const SearchPlayground = () => {
 
       <Pagination
         page={page}
-        pageSize={pageSize}
+        resultsPerPage={resultsPerPage}
         totalResults={totalResults}
         pageCount={pageCount}
         onChange={setPage}
@@ -70,11 +70,9 @@ const pipeline = new Pipeline(
 
 const App = () => {
   return (
-    <SearchContextProvider search={{ pipeline, fields: new FieldDictionary({ title: 'name', subtitle: 'brand' }) }}>
-      <ContextProvider>
-        <SearchPlayground />
-      </ContextProvider>
-    </SearchContextProvider>
+    <SearchProvider search={{ pipeline, fields: new FieldDictionary({ title: 'name', subtitle: 'brand' }) }}>
+      <SearchPlayground />
+    </SearchProvider>
   );
 };
 

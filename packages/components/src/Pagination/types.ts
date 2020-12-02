@@ -6,7 +6,7 @@ export interface PaginationProps extends BoxProps {
   /** The total number of results (used to calculate page count if not set) */
   totalResults?: number;
   /** The number of results per page (used to calculate page count if not set) */
-  pageSize?: number;
+  resultsPerPage?: number;
   /** The current page */
   page: number;
   /** Callback for handling page change */

@@ -9,7 +9,7 @@ import SEO from '../../components/SEO';
 
 ```js
 import { Input, Button, ButtonGroup } from '@sajari/react-components';
-import { SearchContextProvider, Pipeline, Variables, PosNegTracking, useTracking } from '@sajari/react-hooks';
+import { SearchProvider, Pipeline, Variables, PosNegTracking, useTracking } from '@sajari/react-hooks';
 ```
 
 ## Usage
@@ -45,8 +45,12 @@ function Example() {
                   <div className="flex flex-col space-y-2">
                     <h1>{name}</h1>
                     <ButtonGroup attached>
-                      <Button onClick={() => consumeInteractionToken(token.neg, 'downvote', 1)}>Negative action</Button>
-                      <Button onClick={() => consumeInteractionToken(token.pos, 'downvote', 1)}>Positive action</Button>
+                      <Button onClick={() => consumeInteractionToken(token.neg, 'productView', 1)}>
+                        Negative action
+                      </Button>
+                      <Button onClick={() => consumeInteractionToken(token.pos, 'productView', 1)}>
+                        Positive action
+                      </Button>
                     </ButtonGroup>
                   </div>
                 </li>
@@ -59,9 +63,9 @@ function Example() {
   });
 
   return (
-    <SearchContextProvider search={{ pipeline, fields: { title: 'name', subtitle: 'brand' } }}>
+    <SearchProvider search={{ pipeline, fields: { title: 'name', subtitle: 'brand' } }}>
       <SearchPlayground />
-    </SearchContextProvider>
+    </SearchProvider>
   );
 }
 ```

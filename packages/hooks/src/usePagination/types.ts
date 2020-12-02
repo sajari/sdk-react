@@ -4,7 +4,7 @@ export interface UsePaginationResult {
   /** The total number of results */
   totalResults: number;
   /** The number of results per page */
-  pageSize: number;
+  resultsPerPage: number;
   /** The current page */
   page: number;
   /** A method for setting the page */

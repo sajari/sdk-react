@@ -103,7 +103,7 @@ const getButtons = (
 const Pagination = (props: PaginationProps) => {
   const {
     totalResults,
-    pageSize,
+    resultsPerPage,
     page,
     onChange,
     i18n: i18nProp,
@@ -119,12 +119,12 @@ const Pagination = (props: PaginationProps) => {
   const i18n = { ...defaultI18n, ...i18nProp };
   let { pageCount } = props;
 
-  if (!totalResults || !pageSize) {
+  if (!totalResults || !resultsPerPage) {
     return null;
   }
 
   if (!pageCount) {
-    pageCount = Math.ceil(totalResults / pageSize);
+    pageCount = Math.ceil(totalResults / resultsPerPage);
   }
 
   if (!pageCount || pageCount <= 1) {

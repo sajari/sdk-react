@@ -1,6 +1,6 @@
 import { EVENT_OPTIONS_UPDATED, EVENT_SELECTION_UPDATED } from '../../events';
 import { Listener } from '../listener';
-import Filter from './Filter';
+import FilterBuilder from './FilterBuilder';
 import { JoinOperator } from './types';
 
 const events = [EVENT_SELECTION_UPDATED, EVENT_OPTIONS_UPDATED];
@@ -16,14 +16,14 @@ const events = [EVENT_SELECTION_UPDATED, EVENT_OPTIONS_UPDATED];
  * @param  [joinOperator="AND"] Operator to apply between them ("AND" | "OR").
  * @return The resulting Filter.
  */
-export default function combineFilters(filters: Filter[], joinOperator: JoinOperator = 'AND') {
+export default function combineFilters(filters: FilterBuilder[], joinOperator: JoinOperator = 'AND') {
   const listeners = {
     [EVENT_SELECTION_UPDATED]: new Listener(),
     [EVENT_OPTIONS_UPDATED]: new Listener(),
   };
   const removeListenerFuncs: (() => void)[] = [];
 
-  function listen(event: string, callback: (filter: Filter) => void): () => void {
+  function listen(event: string, callback: (filter: FilterBuilder) => void): () => void {
     if (events.indexOf(event) === -1) {
       throw new Error(`unknown event type "${event}"`);
     }

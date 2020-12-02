@@ -8,7 +8,7 @@ The Sorting component renders a select component for sorting options.
 
 ```js
 import { Input, Results, Sorting } from '@sajari/react-search-ui';
-import { SearchContextProvider, Pipeline } from '@sajari/react-hooks';
+import { SearchProvider, Pipeline } from '@sajari/react-hooks';
 ```
 
 ## Usage
@@ -48,9 +48,9 @@ function Example() {
   ));
 
   return (
-    <SearchContextProvider search={{ pipeline, fields: { title: 'name', subtitle: 'brand' } }} searchOnLoad>
+    <SearchProvider search={{ pipeline, fields: { title: 'name', subtitle: 'brand' } }} searchOnLoad>
       <SearchPlayground />
-    </SearchContextProvider>
+    </SearchProvider>
   );
 }
 ```

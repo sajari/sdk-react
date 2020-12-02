@@ -8,7 +8,6 @@ import SEO from '../../components/SEO';
 
 ```js
 import { Filter } from '@sajari/react-search-ui';
-import { Filter as FilterBuilder } from '@sajari/react-hooks';
 ```
 
 ## Usage
@@ -65,7 +64,7 @@ function Example() {
   ));
 
   return (
-    <SearchContextProvider
+    <SearchProvider
       search={{
         pipeline,
         fields: { title: 'name', subtitle: 'brand' },
@@ -74,7 +73,7 @@ function Example() {
       searchOnLoad
     >
       <SearchPlayground />
-    </SearchContextProvider>
+    </SearchProvider>
   );
 }
 ```
@@ -123,7 +122,7 @@ function Example() {
   ));
 
   return (
-    <SearchContextProvider
+    <SearchProvider
       search={{
         pipeline,
         fields: { title: 'name', subtitle: 'brand' },
@@ -132,7 +131,7 @@ function Example() {
       searchOnLoad
     >
       <SearchPlayground />
-    </SearchContextProvider>
+    </SearchProvider>
   );
 }
 ```
@@ -170,7 +169,7 @@ function Example() {
   ));
 
   return (
-    <SearchContextProvider
+    <SearchProvider
       search={{
         pipeline,
         fields: { title: 'name', subtitle: 'brand' },
@@ -179,7 +178,7 @@ function Example() {
       searchOnLoad
     >
       <SearchPlayground />
-    </SearchContextProvider>
+    </SearchProvider>
   );
 }
 ```
@@ -219,7 +218,7 @@ function Example() {
   ));
 
   return (
-    <SearchContextProvider
+    <SearchProvider
       search={{
         pipeline,
         fields: { title: 'name', subtitle: 'brand' },
@@ -228,7 +227,7 @@ function Example() {
       searchOnLoad
     >
       <SearchPlayground />
-    </SearchContextProvider>
+    </SearchProvider>
   );
 }
 ```
@@ -264,7 +263,7 @@ function Example() {
   ));
 
   return (
-    <SearchContextProvider
+    <SearchProvider
       search={{
         pipeline,
         fields: { title: 'name', subtitle: 'brand' },
@@ -273,7 +272,7 @@ function Example() {
       searchOnLoad
     >
       <SearchPlayground />
-    </SearchContextProvider>
+    </SearchProvider>
   );
 }
 ```

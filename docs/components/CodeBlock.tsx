@@ -92,23 +92,15 @@ const CodeBlock = (props: CodeBlockProps) => {
   const { pathname } = useRouter();
 
   // We have to do some manual work here to avoid naming conflict between components
-  let extra = {};
+  let imports = {};
 
-  switch (pathname) {
-    case '/search-ui/filter':
-      extra = { Filter: ReactSearchUI.Filter, FilterBuilder: ReactHooks.Filter };
-      break;
-
-    case '/hooks/usefilter':
-      extra = { Filter: ReactHooks.Filter };
-      break;
-
-    case '/components/pagination':
-      extra = { Pagination: ReactComponents.Pagination };
-      break;
-    case '/examples/basic':
-      extra = { Pagination: ReactSearchUI.Pagination, Filter: ReactSearchUI.Filter, FilterBuilder: ReactHooks.Filter };
-      break;
+  // Fix SearchProvider and Pagination import clashes
+  if (pathname.startsWith('/components')) {
+    imports = { Pagination: ReactComponents.Pagination };
+  } else if (pathname.startsWith('/hooks')) {
+    imports = { SearchProvider: ReactHooks.SearchProvider };
+  } else if (pathname.startsWith('/search-ui')) {
+    imports = { SearchProvider: ReactSearchUI.SearchProvider };
   }
 
   const liveProviderProps = {
@@ -119,7 +111,7 @@ const CodeBlock = (props: CodeBlockProps) => {
       ...ReactComponents,
       ...ReactHooks,
       ...ReactSearchUI,
-      ...extra,
+      ...imports,
       mdx,
     },
     noInline: manual,

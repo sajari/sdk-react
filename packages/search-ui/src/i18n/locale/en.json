@@ -12,7 +12,7 @@
     "input": {
       "placeholder": "Search"
     },
-    "pageSize": {
+    "resultsPerPage": {
       "label": "Show"
     },
     "pagination": {

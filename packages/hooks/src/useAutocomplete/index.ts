@@ -1,4 +1,4 @@
-import { useContext } from '../SearchContextProvider';
+import { useContext } from '../ContextProvider';
 
 function useAutocomplete() {
   const {

@@ -1,8 +1,8 @@
 import combineFilters from '../combineFilters';
-import Filter from '../Filter';
+import FilterBuilder from '../FilterBuilder';
 
 describe('combineFilters', () => {
-  const brandFilter = new Filter({
+  const brandFilter = new FilterBuilder({
     name: 'brand',
     options: {
       Apple: "brand = 'Apple'",
@@ -13,7 +13,7 @@ describe('combineFilters', () => {
     initial: ['Apple'],
   });
 
-  const priceFilter = new Filter({
+  const priceFilter = new FilterBuilder({
     name: 'price',
     options: {
       High: 'price >= 200',
@@ -25,12 +25,12 @@ describe('combineFilters', () => {
     initial: ['High'],
   });
 
-  const priceRangeFilter = new Filter({
+  const priceRangeFilter = new FilterBuilder({
     name: 'priceRange',
     field: 'price_range',
   });
 
-  const categoryFilter = new Filter({
+  const categoryFilter = new FilterBuilder({
     name: 'category',
     field: 'level1',
   });

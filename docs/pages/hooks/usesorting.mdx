@@ -4,12 +4,12 @@ import SEO from '../../components/SEO';
 
 # useSorting
 
-`useSorting` provides getter/setter for sorting results.
+`useSorting` provides getter and setter for sorting results.
 
 ```js
 import { Results } from '@sajari/react-search-ui';
 import { Select, Input } from '@sajari/react-components';
-import { useSorting, useSearch, SearchContextProvider, Pipeline, Variables } from '@sajari/react-hooks';
+import { useSorting, useSearch, SearchProvider, Pipeline, Variables } from '@sajari/react-hooks';
 ```
 
 ## Usage
@@ -59,9 +59,9 @@ function Example() {
   });
 
   return (
-    <SearchContextProvider search={{ pipeline, fields: { title: 'name', subtitle: 'brand' } }}>
+    <SearchProvider search={{ pipeline, fields: { title: 'name', subtitle: 'brand' } }}>
       <SearchPlayground />
-    </SearchContextProvider>
+    </SearchProvider>
   );
 }
 ```

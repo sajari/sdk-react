@@ -1,4 +1,4 @@
-import { useContext } from '../SearchContextProvider';
+import { useContext } from '../ContextProvider';
 import { UseVariablesResult } from './types';
 
 function useVariables(): UseVariablesResult {
@@ -9,3 +9,4 @@ function useVariables(): UseVariablesResult {
 }
 
 export default useVariables;
+export * from './types';

@@ -6,7 +6,7 @@ import { Select } from '@sajari/react-components';
 
 # useSearch
 
-`useSearch` provides a getter & setter for the current query.
+`useSearch` provides a way to perform a search.
 
 ```js
 import { useSearch } from '@sajari/react-hooks';
@@ -88,7 +88,7 @@ function Example() {
     return (
       <div className="flex flex-col space-y-4">
         <div className="flex space-x-3 items-center">
-          <p>PageSize</p>
+          <p>Show</p>
           <Select
             onChange={(e) => {
               variables.set({ resultsPerPage: Number(e.target.value) });

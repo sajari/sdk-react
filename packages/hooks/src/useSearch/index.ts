@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import { useCallback, useEffect, useState } from 'react';
 
-import { useContext } from '../SearchContextProvider';
-import { defaultConfig } from '../SearchContextProvider/config';
-import { Response } from '../SearchContextProvider/controllers';
-import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from '../SearchContextProvider/events';
+import { useContext } from '../ContextProvider';
+import { defaultConfig } from '../ContextProvider/config';
+import { Response } from '../ContextProvider/controllers';
+import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from '../ContextProvider/events';
 import { UseSearchConfig, UseSearchCustomConfig, UseSearchParams, UseSearchResult } from './types';
 
 function useCustomSearch({ pipeline, variables }: UseSearchCustomConfig): UseSearchResult {
@@ -103,3 +103,4 @@ function useSearch(params?: UseSearchParams) {
 }
 
 export default useSearch;
+export * from './types';
