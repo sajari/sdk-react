@@ -19,12 +19,7 @@ import { Summary } from '@sajari/react-search-ui';
 function Example() {
   useSearch({ queryOverride: 'iphone' });
 
-  return (
-    <div className="flex flex-col space-y-3">
-      <Input />
-      <Summary suggest />
-    </div>
-  );
+  return <Summary />;
 }
 ```
 

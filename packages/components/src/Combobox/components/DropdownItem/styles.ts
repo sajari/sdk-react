@@ -12,14 +12,17 @@ export function useDropdownItemStyles(props: DropdownItemProps) {
     ],
     highlight: [tw`font-semibold`],
     label: [tw`flex items-center ml-auto text-xs text-gray-400 transition-opacity duration-75`],
+    iconEnter: [tw`ml-2`],
   });
 
   if (selected) {
     styles.item.push(`color: ${theme.color.primary.text}; background: ${theme.color.primary.active};`);
     styles.label.push(`color: ${theme.color.primary.text};`);
+    styles.label.push(tw`opacity-100`);
   } else {
     styles.item.push(tw`text-gray-500`);
     styles.highlight.push(tw`text-gray-900`);
+    styles.label.push(tw`opacity-0`);
   }
 
   return mapStyles(styles);

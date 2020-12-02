@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import { getStylesObject } from '@sajari/react-sdk-utils';
+import classnames from 'classnames';
 import React from 'react';
-import tw from 'twin.macro';
 
 import { IconEnterKey } from '../../../assets/icons';
 import Box from '../../../Box';
@@ -10,10 +11,22 @@ import { useDropdownItemStyles } from './styles';
 import { DropdownItemProps } from './types';
 
 const DropdownItem = (props: DropdownItemProps) => {
-  const { value, index, selected } = props;
-  const { typedInputValue, getItemProps, showDropdownTips, itemToString, onSelect } = useComboboxContext();
+  const { value, index, selected, highlight, ...rest } = props;
+  const {
+    typedInputValue,
+    getItemProps,
+    showDropdownTips,
+    itemToString,
+    onSelect,
+    disableDefaultStyles = false,
+    customClassNames: {
+      dropdownItemClassName = '',
+      dropdownSelectedItemClassName = '',
+      dropdownHighlightItemClassName = '',
+    },
+  } = useComboboxContext();
   const stringItem = itemToString(value);
-  const styles = useDropdownItemStyles(props);
+  const styles = getStylesObject(useDropdownItemStyles(props), disableDefaultStyles);
 
   // Highlight the suggested text rather than their input
   // https://baymard.com/blog/autocomplete-design#7-highlight-the-active-suggestion-desktop-specific
@@ -46,13 +59,18 @@ const DropdownItem = (props: DropdownItemProps) => {
       })}
       key={`${stringItem}_${index}`}
       css={styles.item}
+      className={classnames(dropdownItemClassName, {
+        [dropdownSelectedItemClassName]: selected,
+        [dropdownHighlightItemClassName]: highlight,
+      })}
+      {...rest}
     >
       <Box as="span">{renderContent()}</Box>
 
       {showDropdownTips && (
-        <Box as="span" css={[styles.label, selected ? tw`opacity-100` : tw`opacity-0`]}>
+        <Box as="span" css={styles.label}>
           Select
-          <IconEnterKey css={tw`ml-2`} />
+          <IconEnterKey css={styles.iconEnter} />
         </Box>
       )}
     </Box>

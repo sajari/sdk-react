@@ -14,7 +14,7 @@ import { Results } from '@sajari/react-search-ui';
 
 ```jsx
 function Example() {
-  useSearch('iphone');
+  useSearch({ queryOverride: 'iphone' });
 
   return <Results />;
 }
@@ -24,7 +24,7 @@ function Example() {
 
 ```jsx
 function Example() {
-  useSearch('macbook');
+  useSearch({ queryOverride: 'macbook' });
 
   return <Results appearance="grid" />;
 }

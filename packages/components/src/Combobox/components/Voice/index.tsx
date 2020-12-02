@@ -1,14 +1,17 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import tw from 'twin.macro';
+import { getStylesObject } from '@sajari/react-sdk-utils';
 
 import { IconEmptyMic, IconMic } from '../../../assets/icons';
 import Box from '../../../Box';
 import { useVoiceInput } from '../../../hooks';
+import { useComboboxContext } from '../../context';
+import useVoiceStyles from './styles';
 import { VoiceProps } from './types';
 
-const Voice = ({ children, onVoiceInput }: VoiceProps) => {
+const Voice = ({ children, onVoiceInput, ...rest }: VoiceProps) => {
   const { active, start, supported } = useVoiceInput(onVoiceInput);
+  const { disableDefaultStyles = false } = useComboboxContext();
 
   if (!supported) {
     return null;
@@ -18,17 +21,10 @@ const Voice = ({ children, onVoiceInput }: VoiceProps) => {
     return children({ onClick: start, active });
   }
 
+  const styles = getStylesObject(useVoiceStyles({ active }), disableDefaultStyles);
+
   return (
-    <Box
-      as="button"
-      type="button"
-      css={[
-        tw`transition duration-200 bg-transparent border-0 outline-none cursor-pointer`,
-        active ? tw`text-red-500` : tw`hover:text-gray-600 focus:text-gray-600`,
-      ]}
-      onClick={start}
-      aria-label="Search by voice"
-    >
+    <Box as="button" type="button" css={styles.container} onClick={start} aria-label="Search by voice" {...rest}>
       {active ? <IconMic /> : <IconEmptyMic />}
     </Box>
   );

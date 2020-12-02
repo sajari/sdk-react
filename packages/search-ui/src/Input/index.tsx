@@ -6,6 +6,7 @@ import { __DEV__ } from '@sajari/react-sdk-utils';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useSearchUIContext } from '../ContextProvider';
 import { ResultValues } from '../Results/types';
 import mapResultFields from '../utils/mapResultFields';
 import { InputProps } from './types';
@@ -16,6 +17,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
   const { results: rawResults, search, searching, fields } = useSearchContext();
   const results = React.useMemo(() => mapResultFields<ResultValues>(rawResults ?? [], fields), [rawResults]);
   const { search: searchInstant, completion, suggestions } = useAutocomplete();
+  const { customClassNames, disableDefaultStyles = false } = useSearchUIContext();
   const { query } = useQuery();
   let items: Array<any> = [];
 
@@ -92,6 +94,22 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
       onChange={onChangeMemoized}
       onKeyDown={onKeyDownMemoized}
       onSelect={onSelectMemoized}
+      className={customClassNames.input?.container}
+      dropdownClassName={customClassNames.input?.dropdown}
+      dropdownFooterClassName={customClassNames.input?.dropdownFooter}
+      dropdownHighlightItemClassName={customClassNames.input?.dropdownHighlightItem}
+      dropdownSelectedItemClassName={customClassNames.input?.dropdownSelectedItem}
+      dropdownItemClassName={customClassNames.input?.dropdownItem}
+      dropdownListClassName={customClassNames.input?.dropdownList}
+      inputClassName={customClassNames.input?.input}
+      inputContainerClassName={customClassNames.input?.inputContainer}
+      resultClassName={customClassNames.input?.result}
+      resultImageContainerClassName={customClassNames.input?.resultImageContainer}
+      resultTextContainerClassName={customClassNames.input?.resultTextContainer}
+      selectedResultClassName={customClassNames.input?.selectedResult}
+      typeaheadClassName={customClassNames.input?.typeahead}
+      voiceInputClassName={customClassNames.input?.voiceInput}
+      disableDefaultStyles={disableDefaultStyles}
     />
   );
 });

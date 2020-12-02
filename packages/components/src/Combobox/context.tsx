@@ -1,7 +1,7 @@
 import { createContext } from '@sajari/react-sdk-utils';
 import { PropGetters } from 'downshift';
 
-import { ComboboxMode, ComboboxProps } from './types';
+import { ComboboxCustomClassNames, ComboboxMode, ComboboxProps } from './types';
 
 interface ComboboxContextProps<T = any> {
   mode: ComboboxMode;
@@ -20,6 +20,8 @@ interface ComboboxContextProps<T = any> {
   itemToString: Required<ComboboxProps<T>>['itemToString'];
   itemToUrl: Required<ComboboxProps<T>>['itemToUrl'];
   onSelect: ComboboxProps<T>['onSelect'];
+  disableDefaultStyles: ComboboxProps<T>['disableDefaultStyles'];
+  customClassNames: ComboboxCustomClassNames;
 }
 
 const [ComboboxContextProvider, useComboboxContext] = createContext<ComboboxContextProps>({

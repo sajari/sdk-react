@@ -3,7 +3,7 @@
 import { jsx } from '@emotion/core';
 import { useSwitch } from '@react-aria/switch';
 import { useToggleState } from '@react-stately/toggle';
-import { __DEV__ } from '@sajari/react-sdk-utils';
+import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
 import ColorClass from 'color';
 import React, { useCallback } from 'react';
@@ -11,35 +11,16 @@ import tw, { styled } from 'twin.macro';
 
 import { IconCheck } from '../assets/icons';
 import Box from '../Box';
-import { useFocusRingStyles } from '../hooks';
 import { colors } from './colors';
 import { useSwatchContext } from './context';
+import useColorStyles from './styles';
 import { ColorProps } from './types';
-
-const mapBorderRadius = (rounded: ColorProps['rounded']) => {
-  switch (rounded) {
-    case 'none':
-      return tw`rounded-none`;
-    case 'sm':
-      return tw`rounded-sm`;
-    case 'lg':
-      return tw`rounded-lg`;
-    case 'full':
-      return tw`rounded-full`;
-    default:
-    case 'md':
-      return tw`rounded-md`;
-  }
-};
 
 const StyledLabel = styled.label<{
   textColor: ColorProps['color'];
   bg: ColorProps['bg'];
   border: ColorProps['border'];
-  rounded: ColorProps['rounded'];
 }>`
-  ${tw`relative flex items-center justify-center mt-2 ml-2 border border-solid cursor-pointer w-7 h-7`}
-  ${({ rounded }) => mapBorderRadius(rounded)}
   color: ${({ textColor }) => textColor};
   background-color: ${({ bg }) => bg};
   border-color: ${({ border }) => border};
@@ -58,7 +39,7 @@ export const Color = (props: ColorProps) => {
     className,
   } = props;
   const ref = React.useRef<HTMLInputElement>(null);
-  const { state, setState } = useSwatchContext();
+  const { state, setState, disableDefaultStyles = false } = useSwatchContext();
   const toggleState = useToggleState();
   const checked = state.includes(id);
   const toggle = useCallback(() => setState(checked ? state.filter((i) => i !== id) : [...state, id]), [
@@ -75,15 +56,15 @@ export const Color = (props: ColorProps) => {
     ref,
   );
 
-  const { focusProps, focusRingStyles } = useFocusRingStyles({ color: border.toString() });
+  const { styles: colorStyles, focusProps } = useColorStyles({ border, checked, rounded });
+  const styles = getStylesObject(colorStyles, disableDefaultStyles);
 
   return (
     <StyledLabel
       bg={bg}
       border={border}
       textColor={color}
-      rounded={rounded}
-      css={focusRingStyles}
+      css={styles.container}
       className={classnames(className, { [checkedClassName]: checked })}
     >
       <Box as="span" css={tw`sr-only`}>
@@ -98,7 +79,7 @@ export const Color = (props: ColorProps) => {
         aria-checked={checked}
         onClick={toggle}
       />
-      <IconCheck css={checked ? tw`opacity-100 fill-current` : tw`opacity-0 fill-current`} />
+      <IconCheck css={styles.iconCheck} />
     </StyledLabel>
   );
 };
