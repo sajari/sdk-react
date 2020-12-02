@@ -116,7 +116,10 @@ function Example() {
     <SearchProvider
       search={{
         pipeline,
-        fields: { title: 'name', subtitle: 'brand' },
+        fields: {
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        },
         filters: [priceFilter, brandFilter],
       }}
     >
@@ -229,7 +232,10 @@ function Example() {
     <SearchProvider
       search={{
         pipeline,
-        fields: { title: 'name', subtitle: 'brand' },
+        fields: {
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        },
         filters: [priceRangeFilter, categoryFilter],
       }}
     >
@@ -264,8 +270,6 @@ function Example() {
     name: 'rating',
     field: 'rating',
   });
-
-
 
   const RatingFilter = () => {
     const { multi, options, selected, setSelected } = useFilter('rating');
@@ -370,8 +374,10 @@ function Example() {
         <div className="flex -mx-3">
           <div className="w-1/4 px-3 border-gray-100 border-r">
             {results && (
-              <RatingFilter />
-              <ColorFilter />
+              <>
+                <RatingFilter />
+                <ColorFilter />
+              </>
             )}
           </div>
           <div className="w-3/4 px-3">
@@ -387,7 +393,10 @@ function Example() {
       search={{
         pipeline,
         variables,
-        fields: { title: 'name', subtitle: 'brand' },
+        fields: {
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        },
         filters: [colorFilter, ratingFilter],
       }}
     >

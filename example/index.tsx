@@ -70,7 +70,15 @@ const pipeline = new Pipeline(
 
 const App = () => {
   return (
-    <SearchProvider search={{ pipeline, fields: new FieldDictionary({ title: 'name', subtitle: 'brand' }) }}>
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+      }}
+    >
       <SearchPlayground />
     </SearchProvider>
   );

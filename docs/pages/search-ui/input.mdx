@@ -18,45 +18,183 @@ import { Input } from 'sajari/react-search-ui';
 ## Usage
 
 ```jsx
-<>
-  <Input />
-  <Results className="mt-4" />
-</>
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const SearchPlayground = React.memo(() => (
+    <div className="space-y-4">
+      <Input />
+      <Results />
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: {
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        },
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
 ```
 
 ## Suggestions
 
 ```jsx
-<>
-  <Input mode="suggestions" />
-  <Results className="mt-4" />
-</>
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const SearchPlayground = React.memo(() => (
+    <div className="space-y-4">
+      <Input mode="suggestions" />
+      <Results />
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: {
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        },
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
 ```
 
 ## Results
 
 ```jsx
-<Input mode="results" />
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const SearchPlayground = React.memo(() => <Input mode="results" />);
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: {
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        },
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
 ```
 
 ## Typeahead
 
 ```jsx
-<>
-  <Input mode="typeahead" />
-  <Results className="mt-4" />
-</>
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const SearchPlayground = React.memo(() => (
+    <div className="space-y-4">
+      <Input mode="typeahead" />
+      <Results />
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: {
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        },
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
 ```
 
 ## Standard
 
-By default `<Input />` has an additional mode `"instant"` and it is also the default value (search on change), if you want to disable it, simple change mode to `"standard"`:
+By default `<Input />` has an additional mode `"instant"` and it is also the default value (search on change). To disable it, simple change mode to `"standard"`.
 
 ```jsx
-<>
-  <Input mode="standard" />
-  <Results className="mt-4" />
-</>
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const SearchPlayground = React.memo(() => (
+    <div className="space-y-4">
+      <Input mode="standard" />
+      <Results />
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: {
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        },
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
 ```
 
 ## Props

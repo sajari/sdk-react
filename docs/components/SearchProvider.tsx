@@ -13,7 +13,7 @@ const ContextProvider: React.FC = ({ children }) => {
     ),
     variables: new Variables(),
     fields: new FieldDictionary({
-      subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1,
+      subtitle: (data: Record<string, any>) => data.level4 || data.level3 || data.level2 || data.level1,
       title: 'name',
     }),
   });
