@@ -15,7 +15,7 @@ const TabFilter = (props: Omit<TabFilterProps, 'type'>) => {
   const sorted = sort !== 'none' ? sortItems(options, sort === 'count' ? 'count' : 'label', sortAscending) : options;
   const sliced = limit && options.length > limit ? sorted.slice(0, limit) : sorted;
 
-  if (isEmpty(sliced)) {
+  if (isEmpty(sliced) || sliced.length === 1) {
     return null;
   }
 

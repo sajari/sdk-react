@@ -41,7 +41,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     setExpanded(false);
   }, [q]);
 
-  if (isEmpty(options)) {
+  if (isEmpty(options) || options.length === 1) {
     return null;
   }
 

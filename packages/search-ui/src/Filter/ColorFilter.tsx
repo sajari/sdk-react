@@ -13,7 +13,7 @@ const ColorFilter = ({ name, title }: Omit<ColorFilterProps, 'type'>) => {
   const optionKeys = options.map((o) => o.label);
   const filtered = colorKeys.filter((c) => optionKeys.some((o) => o.includes(c)));
 
-  if (isEmpty(filtered)) {
+  if (isEmpty(filtered) || filtered.length === 1) {
     return null;
   }
 
