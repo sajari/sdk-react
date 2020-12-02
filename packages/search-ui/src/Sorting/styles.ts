@@ -3,8 +3,8 @@ import tw from 'twin.macro';
 
 export default function useSortingStyles() {
   const styles = {
-    container: [tw`flex items-center space-x-4`],
-    label: [tw`text-sm text-gray-500`],
+    container: [tw`flex items-center space-x-2`],
+    label: [tw`text-gray-500`],
   };
 
   return mapStyles(styles);

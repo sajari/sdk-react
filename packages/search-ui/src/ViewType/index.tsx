@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
-import { Button, ButtonGroup, Text } from '@sajari/react-components';
+import { Box, Button, ButtonGroup, Text } from '@sajari/react-components';
 import { useSearchContext } from '@sajari/react-hooks';
 import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import { useTranslation } from 'react-i18next';
@@ -20,7 +20,7 @@ const ViewType = (props: ViewTypeProps) => {
   const styles = getStylesObject(useViewTypeStyles(), disableDefaultStyles);
 
   return (
-    <div
+    <Box
       css={[styles.container, stylesProp]}
       aria-labelledby={id}
       {...rest}
@@ -60,7 +60,7 @@ const ViewType = (props: ViewTypeProps) => {
           <IconSmallList />
         </Button>
       </ButtonGroup>
-    </div>
+    </Box>
   );
 };
 
