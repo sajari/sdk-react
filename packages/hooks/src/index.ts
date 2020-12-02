@@ -6,7 +6,7 @@ export {
   Pipeline,
   PosNegTracking,
   Range,
-  RangeFilter,
+  RangeFilterBuilder,
   default as SearchProvider,
   SearchProviderValues,
   Variables,

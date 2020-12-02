@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { Filter } from './deprecatedFilter';
+import { Filter } from './DeprecatedFilter';
 
 export function getFilterQuery(range: Range, limit: Range, field: string) {
   if (range[1] === limit[1] && range[0] === limit[0]) {
@@ -10,7 +10,7 @@ export function getFilterQuery(range: Range, limit: Range, field: string) {
 
 export type Range = [number, number];
 
-export class RangeFilter extends Filter {
+export class RangeFilterBuilder extends Filter {
   protected _field = '';
 
   protected _range = [0, 0] as Range;

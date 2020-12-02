@@ -1,7 +1,11 @@
 import {
+  ClickTracking,
   FieldDictionary,
   FilterBuilder,
   Pipeline,
+  PosNegTracking,
+  Range,
+  RangeFilterBuilder,
   SearchProvider,
   SearchProviderValues,
   Variables,
@@ -44,5 +48,17 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
 );
 
 export default ContextProvider;
-export { FieldDictionary, FilterBuilder, Pipeline, SearchProviderValues, useSearchUIContext, Variables };
+export {
+  ClickTracking,
+  FieldDictionary,
+  FilterBuilder,
+  Pipeline,
+  PosNegTracking,
+  Range,
+  RangeFilterBuilder,
+  SearchProvider,
+  SearchProviderValues,
+  useSearchUIContext,
+  Variables,
+};
 export type { ContextProviderValues };

@@ -1,5 +1,5 @@
 import { AriaTextFieldOptions, TextFieldAria } from '@react-aria/textfield';
-import { Range, RangeFilter } from '@sajari/react-hooks';
+import { Range, RangeFilterBuilder } from '@sajari/react-hooks';
 import React from 'react';
 
 import { BoxProps } from '../Box';
@@ -29,8 +29,8 @@ export interface RangeInputProps extends BoxProps {
   onChange?: (value: [number] | Range) => void;
   /** Called on every value change */
   onInput?: (value: [number] | Range) => void;
-  /** RangeFilter object  */
-  filter?: RangeFilter;
+  /** RangeFilterBuilder object  */
+  filter?: RangeFilterBuilder;
   /** Left custom input */
   leftInput?: (props: CustomInputProps) => React.ReactNode;
   /** Right custom input */

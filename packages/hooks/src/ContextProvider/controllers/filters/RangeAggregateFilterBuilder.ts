@@ -2,17 +2,17 @@
 /* eslint-disable no-underscore-dangle */
 import { Aggregates } from '@sajari/sdk-js';
 
-import { EVENT_RESPONSE_UPDATED, EVENT_SEARCH_SENT } from '../events';
-import { Pipeline } from './pipeline';
-import { Range, RangeFilter } from './rangeFilter';
-import { Variables } from './variables';
+import { EVENT_RESPONSE_UPDATED, EVENT_SEARCH_SENT } from '../../events';
+import { Pipeline } from '../pipeline';
+import { Variables } from '../variables';
+import { Range, RangeFilterBuilder } from './RangeFilterBuilder';
 
 export type LimitUpdateListener = ({ bounce, range }: { bounce: Range; range: Range }) => void;
 
 const isEmpty = (aggregates: Aggregates, field: string) =>
   !aggregates && (!aggregates[`max.${field}`] || !aggregates[`min.${field}`]);
 
-export class RangeAggregateFilter extends RangeFilter {
+export class RangeAggregateFilterBuilder extends RangeFilterBuilder {
   private _prevInput = '';
 
   private _count = '';

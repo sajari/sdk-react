@@ -11,7 +11,7 @@ import {
   Pipeline,
   PosNegTracking,
   Range,
-  RangeFilter,
+  RangeFilterBuilder,
   Response,
   Variables,
 } from './controllers';
@@ -299,7 +299,7 @@ export {
   Pipeline,
   PosNegTracking,
   Range,
-  RangeFilter,
+  RangeFilterBuilder,
   useContext,
   Variables,
 };
