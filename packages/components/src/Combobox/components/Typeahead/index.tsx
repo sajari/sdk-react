@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import tw from 'twin.macro';
+import { getStylesObject } from '@sajari/react-sdk-utils';
 
 import Box from '../../../Box';
 import { useComboboxContext } from '../../context';
@@ -17,8 +17,14 @@ export function trimPrefix(str: string, prefix: string) {
 }
 
 const Typeahead = () => {
-  const { mode, completion, inputValue } = useComboboxContext();
-  const styles = useTypeaheadStyles();
+  const {
+    mode,
+    completion,
+    inputValue,
+    disableDefaultStyles = false,
+    customClassNames: { typeaheadClassName = '' },
+  } = useComboboxContext();
+  const styles = getStylesObject(useTypeaheadStyles(), disableDefaultStyles);
   let typeaheadValue = '';
   let hiddenText = '&#8203;';
 
@@ -28,8 +34,8 @@ const Typeahead = () => {
   }
 
   return (
-    <Box css={styles.container}>
-      <Box as="span" css={tw`opacity-0`}>
+    <Box css={styles.container} className={typeaheadClassName}>
+      <Box as="span" css={styles.hidden}>
         {hiddenText}
       </Box>
       {typeaheadValue}

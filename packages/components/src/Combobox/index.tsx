@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
 import { mergeProps } from '@react-aria/utils';
-import { __DEV__ } from '@sajari/react-sdk-utils';
+import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import { useCombobox } from 'downshift';
 import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import tw from 'twin.macro';
@@ -43,6 +43,11 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     itemToUrl = (item: T) => ((item as unknown) as ResultItem).url as string,
     renderItem,
     onSelect,
+    disableDefaultStyles = false,
+    className,
+    styles: stylesProp,
+    inputClassName,
+    inputContainerClassName,
     ...rest
   } = props;
   const [typedInputValue, setTypedInputValue] = useState(valueProp.toString());
@@ -214,6 +219,8 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     onSelect,
     itemToString,
     itemToUrl,
+    disableDefaultStyles,
+    customClassNames: rest,
   };
 
   const handleVoiceInput = (input: string) => {
@@ -224,21 +231,25 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     onVoiceInput(input);
   };
 
-  const { styles, focusProps } = useComboboxStyles({
+  const { styles: comboboxStyles, focusProps } = useComboboxStyles({
     size,
     voiceEnabled: enableVoice && voiceSupported,
     loading,
   });
 
+  const styles = getStylesObject(comboboxStyles, disableDefaultStyles);
+
   return (
     <ComboboxContextProvider value={context}>
-      <Box css={styles.container}>
+      <Box css={[styles.container, stylesProp]} className={className}>
         <Box css={styles.inputContainer} {...getComboboxProps()}>
-          <Box as="label" css={styles.label} {...getLabelProps({ htmlFor: id })}>
+          <Box as="label" css={tw`sr-only`} {...getLabelProps({ htmlFor: id })}>
             {label ?? placeholder}
           </Box>
 
-          <Box css={styles.iconContainerLeft}>{size === 'sm' ? <IconSmallSearch /> : <IconSearch />}</Box>
+          <Box css={styles.iconContainerLeft} className={inputContainerClassName}>
+            {size === 'sm' ? <IconSmallSearch /> : <IconSearch />}
+          </Box>
 
           <Typeahead />
 
@@ -248,6 +259,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
             css={styles.input}
             {...mergeProps(
               getInputProps({
+                className: inputClassName,
                 type: 'search',
                 dir: 'auto',
                 placeholder,
@@ -310,7 +322,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
 
           {enableVoice || loading ? (
             <Box css={styles.iconContainerRight}>
-              {loading && <IconSpinner css={size === 'sm' ? tw`w-3 h-3` : ''} />}
+              {loading && <IconSpinner css={styles.iconSpinner} />}
               {enableVoice && <Voice onVoiceInput={handleVoiceInput} />}
             </Box>
           ) : null}

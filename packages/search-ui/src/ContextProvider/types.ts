@@ -40,6 +40,23 @@ export interface SearchUIContextProviderValues {
       label?: string;
       select?: string;
     };
+    input?: {
+      container?: string;
+      inputContainer?: string;
+      input?: string;
+      voiceInput?: string;
+      dropdown?: string;
+      dropdownItem?: string;
+      dropdownSelectedItem?: string;
+      dropdownHighlightItem?: string;
+      dropdownList?: string;
+      dropdownFooter?: string;
+      result?: string;
+      resultImageContainer?: string;
+      resultTextContainer?: string;
+      selectedResult?: string;
+      typeahead?: string;
+    };
   };
 }
 

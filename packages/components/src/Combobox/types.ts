@@ -1,6 +1,8 @@
 import { UseComboboxReturnValue } from 'downshift';
 import React from 'react';
 
+import { BoxProps } from '../Box';
+
 export type ComboboxMode = 'standard' | 'typeahead' | 'suggestions' | 'results';
 
 export interface ResultItem {
@@ -8,6 +10,37 @@ export interface ResultItem {
   url?: string;
   description?: string;
   image?: string;
+}
+
+export interface ComboboxCustomClassNames {
+  /** The classnames for the container of input */
+  inputContainerClassName?: string;
+  /** The classnames for input */
+  inputClassName?: string;
+  /** The classnames for voice input */
+  voiceInputClassName?: string;
+  /** The classnames for dropdown */
+  dropdownClassName?: string;
+  /** The classnames for dropdown item */
+  dropdownItemClassName?: string;
+  /** The classnames for selected dropdown item */
+  dropdownSelectedItemClassName?: string;
+  /** The classnames for dropdown highlighted item */
+  dropdownHighlightItemClassName?: string;
+  /** The classnames for dropdown list */
+  dropdownListClassName?: string;
+  /** The classnames for dropdown footer */
+  dropdownFooterClassName?: string;
+  /** The classnames for result item */
+  resultClassName?: string;
+  /** The classnames for result item image container */
+  resultImageContainerClassName?: string;
+  /** The classnames for result item text container */
+  resultTextContainerClassName?: string;
+  /** The classnames for selected result item */
+  selectedResultClassName?: string;
+  /** The classnames for typeahead */
+  typeaheadClassName?: string;
 }
 
 interface Props<T> {
@@ -58,4 +91,4 @@ interface Props<T> {
 
 type HtmlAttributes = Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof Props<any>>;
 
-export interface ComboboxProps<T> extends Props<T>, HtmlAttributes {}
+export interface ComboboxProps<T> extends Props<T>, BoxProps, HtmlAttributes, ComboboxCustomClassNames {}

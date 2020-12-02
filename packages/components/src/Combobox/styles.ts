@@ -1,4 +1,4 @@
-import { mapStyles } from '@sajari/react-sdk-utils';
+import { inferStylesObjectKeys, mapStyles } from '@sajari/react-sdk-utils';
 import tw, { TwStyle } from 'twin.macro';
 
 import { useFocusRingStyles } from '../hooks';
@@ -55,7 +55,7 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
       break;
   }
 
-  const styles = {
+  const styles = inferStylesObjectKeys({
     container: [tw`relative`],
     inputContainer: [
       tw`form-input`,
@@ -63,7 +63,6 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
       ...focusRingStyles,
       ...containerStyles,
     ],
-    label: [tw`sr-only`],
     iconContainerLeft: [...iconContainerStyles, tw`left-0`],
     iconContainerRight: [...iconContainerStyles, tw`right-0`],
     input: [
@@ -83,7 +82,12 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
           -webkit-appearance:none;
         }`,
     ],
-  };
+    iconSpinner: [],
+  });
+
+  if (size === 'sm') {
+    styles.iconSpinner.push(tw`w-3 h-3`);
+  }
 
   return { styles: mapStyles(styles), focusProps };
 }
