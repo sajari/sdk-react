@@ -22,25 +22,20 @@ function Example() {
 
   return (
     <div className="flex flex-col space-y-3">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          const formData = new FormData(e.target);
-          search(formData.get('query'));
+      <Combobox
+        mode="suggestions"
+        name="query"
+        label="Query"
+        value={query}
+        items={suggestions}
+        onChange={(value) => {
+          setQuery(value);
+          searchInstant(value);
         }}
-      >
-        <Combobox
-          mode="suggestions"
-          name="query"
-          label="Query"
-          value={query}
-          items={suggestions}
-          onChange={(value) => {
-            setQuery(value);
-            searchInstant(value);
-          }}
-        />
-      </form>
+        onSelect={(value) => {
+          search(value);
+        }}
+      />
       {results && <Results />}
     </div>
   );
