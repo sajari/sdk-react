@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.35](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.34...@sajari/react-search-ui@1.0.0-alpha.35) (2020-12-02)
+
+### Bug Fixes
+
+- add missing LiveAccouncer context ([08a9fa4](https://github.com/sajari/sdk-react/commit/08a9fa4638da59499f388f5d5f1f49fe8f325685))
+- don’t render if filter has one option ([42e0c65](https://github.com/sajari/sdk-react/commit/42e0c65fc1a10638dd2d2cd20966148bf88f0cfd))
+- show loader when loading first search ([fd1366d](https://github.com/sajari/sdk-react/commit/fd1366d3ab0e489ceeeb632d30c056cf3695913c))
+- show PageSize while loading ([cbcf70b](https://github.com/sajari/sdk-react/commit/cbcf70b439042e182474dad30dc5fdd96c893aa7))
+
+### Features
+
+- add option to control styles for Results ([#265](https://github.com/sajari/sdk-react/issues/265)) ([1757068](https://github.com/sajari/sdk-react/commit/1757068736045209c26ce68e781f03c2772abc50))
+- design tweaks to view options ([d19202c](https://github.com/sajari/sdk-react/commit/d19202ce37082d03931f4733e2d70f9fb65c116c))
+- don’t render view options until initial search completed ([342abe3](https://github.com/sajari/sdk-react/commit/342abe3fa06e0f3167aa53746d8a9d48b190b9a8))
+
 # [1.0.0-alpha.34](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.33...@sajari/react-search-ui@1.0.0-alpha.34) (2020-12-01)
 
 ### Features

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.15](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.0.0-alpha.14...@sajari/react-sdk-utils@1.0.0-alpha.15) (2020-12-02)
+
+### Bug Fixes
+
+- default count to false for bucket filters ([19dfdc2](https://github.com/sajari/sdk-react/commit/19dfdc2fe11539f6bbbb04077963c92fb4d02f63))
+
 # [1.0.0-alpha.14](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.0.0-alpha.13...@sajari/react-sdk-utils@1.0.0-alpha.14) (2020-12-01)
 
 ### Features
