@@ -16,7 +16,7 @@ export function useDropdownStyles({ shown = true }) {
     footerItems: [tw`flex items-center space-x-4`],
     footerIcon: [tw`mr-1.5 flex-shrink-0`],
     footerEscHint: [tw`mr-1 font-medium`],
-    powerby: [tw`ml-auto`],
+    poweredBy: [tw`ml-auto`],
   };
 
   return mapStyles(styles);

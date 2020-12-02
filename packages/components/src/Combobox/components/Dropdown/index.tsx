@@ -105,7 +105,7 @@ const Dropdown = () => {
             </Box>
           )}
 
-          {showPoweredBy && <PoweredBy css={styles.powerby} />}
+          {showPoweredBy && <PoweredBy css={styles.poweredBy} />}
         </Box>
       )}
     </Box>
