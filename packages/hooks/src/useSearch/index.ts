@@ -61,8 +61,10 @@ function useNormalSearch({ queryOverride, allowEmptySearch = true }: UseSearchCo
   const searchInstant = useCallback((q: string) => searchInstantFn(q), []);
 
   useEffect(() => {
-    if ((queryOverride === '' && allowEmptySearch) || (queryOverride && queryOverride === '')) {
-      search(queryOverride);
+    if (queryOverride !== undefined) {
+      if (allowEmptySearch || queryOverride !== '') {
+        search(queryOverride);
+      }
     } else {
       search();
     }

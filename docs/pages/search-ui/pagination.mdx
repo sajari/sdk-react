@@ -27,7 +27,7 @@ function Example() {
   const variables = new Variables({ resultsPerPage: 3 });
 
   const SearchPlayground = React.memo(() => {
-    useSearch('iphone');
+    useSearch({ queryOverride: 'iphone' });
 
     return (
       <div className="space-y-6">

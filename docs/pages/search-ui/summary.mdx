@@ -17,7 +17,7 @@ import { Summary } from '@sajari/react-search-ui';
 
 ```jsx
 function Example() {
-  useSearch('iphone');
+  useSearch({ queryOverride: 'iphone' });
 
   return <Summary />;
 }
