@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import { clamp, getStylesObject } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
+import React, { useCallback } from 'react';
 import tw from 'twin.macro';
 
 import { IconChevronLeft, IconChevronRight } from '../assets/icons';
@@ -22,7 +23,7 @@ const defaultI18n = {
 const getButtons = (
   page: number,
   pageCount: number,
-  onChange: (page: number) => void,
+  onChange: (exitEarly: boolean, page: number) => void,
   i18n: typeof defaultI18n,
   props: PaginationProps,
 ) => {
@@ -91,7 +92,7 @@ const getButtons = (
         appearance={active ? 'primary' : undefined}
         aria-current={active ? 'page' : undefined}
         aria-label={getLabel(number, active)}
-        onClick={() => onChange && onChange(number)}
+        onClick={onChange(false, number)}
         className={classnames(buttonClassName, { [activeClassName]: active })}
       >
         {number}
@@ -100,7 +101,7 @@ const getButtons = (
   });
 };
 
-const Pagination = (props: PaginationProps) => {
+const Pagination = React.memo((props: PaginationProps) => {
   const {
     totalResults,
     resultsPerPage,
@@ -135,13 +136,16 @@ const Pagination = (props: PaginationProps) => {
   const hasPrevious = page > 1;
   const hasNext = page < count;
 
-  const changeHandler = (target: number) => {
-    if (target === page) {
-      return;
-    }
+  const changeHandler = useCallback(
+    (exitEarly: boolean, target: number) => () => {
+      if (target === page || exitEarly) {
+        return;
+      }
 
-    onChange(clamp(target, 1, count));
-  };
+      onChange(clamp(target, 1, count));
+    },
+    [onChange, page],
+  );
 
   const styles = getStylesObject(usePaginationStyles(props), disableDefaultStyles);
 
@@ -150,7 +154,7 @@ const Pagination = (props: PaginationProps) => {
       <Button
         spacing="compact"
         disabled={!hasPrevious}
-        onClick={() => (hasPrevious ? changeHandler(page - 1) : {})}
+        onClick={changeHandler(hasPrevious, page - 1)}
         aria-label={i18n.previous}
         className={classnames(prevClassName, buttonClassName)}
       >
@@ -163,7 +167,7 @@ const Pagination = (props: PaginationProps) => {
       <Button
         spacing="compact"
         disabled={!hasNext}
-        onClick={() => (hasNext ? changeHandler(page + 1) : {})}
+        onClick={changeHandler(hasNext, page - 1)}
         aria-label={i18n.next}
         className={classnames(nextClassName, buttonClassName)}
       >
@@ -172,7 +176,7 @@ const Pagination = (props: PaginationProps) => {
       </Button>
     </ButtonGroup>
   );
-};
+});
 
 export default Pagination;
 export type { PaginationProps };

@@ -6,7 +6,7 @@ import { useToggleState } from '@react-stately/toggle';
 import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
 import ColorClass from 'color';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import tw, { styled } from 'twin.macro';
 
 import { IconCheck } from '../assets/icons';
@@ -26,62 +26,68 @@ const StyledLabel = styled.label<{
   border-color: ${({ border }) => border};
 `;
 
-export const Color = (props: ColorProps) => {
-  const {
+const FunctionalColor = React.memo(
+  ({
     id,
     bg,
+    border = new ColorClass(bg).darken(0.1).string(),
     color = new ColorClass(bg).isLight()
       ? new ColorClass(bg).lightness(25).string()
       : new ColorClass(bg).lightness(85).string(),
-    border = new ColorClass(bg).darken(0.1).string(),
     rounded = 'md',
-    checkedClassName = '',
     className,
-  } = props;
-  const ref = React.useRef<HTMLInputElement>(null);
-  const { state, setState, disableDefaultStyles = false } = useSwatchContext();
-  const toggleState = useToggleState();
-  const checked = state.includes(id);
-  const toggle = useCallback(() => setState(checked ? state.filter((i) => i !== id) : [...state, id]), [
+    checkedClassName = '',
     checked,
-    state,
-  ]);
-  const { inputProps } = useSwitch(
-    {
-      value: String(checked),
-      'aria-label': id,
-      name: id,
-    },
-    toggleState,
-    ref,
-  );
+    toggle,
+    disableDefaultStyles = false,
+  }: ColorProps & { checked: boolean; toggle: () => void }) => {
+    const ref = React.useRef<HTMLInputElement>(null);
+    const toggleState = useToggleState();
+    const { inputProps } = useSwitch(
+      {
+        value: String(checked),
+        'aria-label': id,
+        name: id,
+      },
+      toggleState,
+      ref,
+    );
+    // const { focusProps, focusRingStyles } = useFocusRingStyles({ color: border.toString() });
+    const { styles: colorStyles, focusProps } = useColorStyles({ border, checked, rounded });
+    const styles = getStylesObject(colorStyles, disableDefaultStyles);
 
-  const { styles: colorStyles, focusProps } = useColorStyles({ border, checked, rounded });
-  const styles = getStylesObject(colorStyles, disableDefaultStyles);
+    return (
+      <StyledLabel
+        bg={bg}
+        border={border}
+        textColor={color}
+        css={styles.container}
+        className={classnames(className, { [checkedClassName]: checked })}
+      >
+        <Box as="span" css={tw`sr-only`}>
+          {id}
+        </Box>
+        <Box
+          as="input"
+          css={tw`sr-only`}
+          {...inputProps}
+          {...focusProps}
+          ref={ref}
+          aria-checked={checked}
+          onClick={toggle}
+        />
+        <IconCheck css={styles.iconCheck} />
+      </StyledLabel>
+    );
+  },
+);
 
-  return (
-    <StyledLabel
-      bg={bg}
-      border={border}
-      textColor={color}
-      css={styles.container}
-      className={classnames(className, { [checkedClassName]: checked })}
-    >
-      <Box as="span" css={tw`sr-only`}>
-        {id}
-      </Box>
-      <Box
-        as="input"
-        css={tw`sr-only`}
-        {...inputProps}
-        {...focusProps}
-        ref={ref}
-        aria-checked={checked}
-        onClick={toggle}
-      />
-      <IconCheck css={styles.iconCheck} />
-    </StyledLabel>
-  );
+export const Color = (props: ColorProps) => {
+  const { id } = props;
+  const { state, setState, disableDefaultStyles = false } = useSwatchContext();
+  const checked = useMemo(() => state.includes(id), [state, id]);
+  const toggle = useCallback(() => setState(id), [setState, id]);
+  return <FunctionalColor {...props} disableDefaultStyles={disableDefaultStyles} toggle={toggle} checked={checked} />;
 };
 
 if (__DEV__) {
