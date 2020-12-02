@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.38](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.37...@sajari/react-search-ui@1.0.0-alpha.38) (2020-12-02)
+
+### Bug Fixes
+
+- don’t export useSearchContext from search-ui ([6d4ff49](https://github.com/sajari/sdk-react/commit/6d4ff497cae2cb19b78a5dc1b7498cddd691ad84))
+
 # [1.0.0-alpha.37](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.36...@sajari/react-search-ui@1.0.0-alpha.37) (2020-12-02)
 
 ### Bug Fixes
