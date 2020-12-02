@@ -8,7 +8,6 @@ import {
   RangeFilterBuilder,
   SearchProvider,
   SearchProviderValues,
-  useSearchContext,
   Variables,
 } from '@sajari/react-hooks';
 import { createContext, ThemeProvider } from '@sajari/react-sdk-utils';
@@ -58,7 +57,6 @@ export {
   Range,
   RangeFilterBuilder,
   SearchProviderValues,
-  useSearchContext,
   useSearchUIContext,
   Variables,
 };
