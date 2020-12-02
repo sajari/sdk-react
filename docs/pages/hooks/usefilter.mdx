@@ -7,7 +7,7 @@ import SEO from '../../components/SEO';
 `useFilter` returns the filter items (current values and options).
 
 ```js
-import { useFilter, Filter } from '@sajari/react-hooks';
+import { useFilter, FilterBuilder } from '@sajari/react-hooks';
 ```
 
 ## Usage
@@ -23,7 +23,7 @@ function Example() {
     'query',
   );
 
-  const brandFilter = new Filter({
+  const brandFilter = new FilterBuilder({
     name: 'brand',
     options: {
       Apple: "brand = 'Apple'",
@@ -35,7 +35,7 @@ function Example() {
     multi: true,
   });
 
-  const priceFilter = new Filter({
+  const priceFilter = new FilterBuilder({
     name: 'price',
     options: {
       High: 'price >= 200',
@@ -141,14 +141,14 @@ function Example() {
     'query',
   );
 
-  const categoryFilter = new Filter({
+  const categoryFilter = new FilterBuilder({
     name: 'category',
     field: 'level1',
     count: true,
     multi: true,
   });
 
-  const priceRangeFilter = new Filter({
+  const priceRangeFilter = new FilterBuilder({
     name: 'priceRange',
     count: true,
     field: 'price_range',
@@ -254,13 +254,13 @@ function Example() {
     'query',
   );
 
-  const colorFilter = new Filter({
+  const colorFilter = new FilterBuilder({
     name: 'color',
     field: 'imageTags',
     array: true,
   });
 
-  const ratingFilter = new Filter({
+  const ratingFilter = new FilterBuilder({
     name: 'rating',
     field: 'rating',
   });

@@ -47,7 +47,7 @@ export default class FilterBuilder {
    * Constructs an instance of Filter.
    *
    * @example
-   * const filter = new Filter({});
+   * const filter = new FilterBuilder({});
    */
   constructor({
     initial = [],
