@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { BoxProps } from '../Box';
+import { BorderRadiusParams } from '../hooks';
 
 export interface ColorProps extends BoxProps {
   /** The identifier of the color */
@@ -12,7 +13,7 @@ export interface ColorProps extends BoxProps {
   /** Border color, defaults to background color */
   border?: string;
   /** Border radius */
-  rounded?: 'sm' | 'md' | 'lg' | 'full' | 'none';
+  rounded?: BorderRadiusParams['rounded'];
   /** The classname for the color box being checked */
   checkedClassName?: string;
 }
