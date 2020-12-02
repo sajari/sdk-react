@@ -24,4 +24,8 @@ export interface SwatchProps extends BoxProps {
   onChange: (checkedColors: string[]) => void;
   /** Default checked colors */
   checkedColors?: string[];
+  /** The classname for color */
+  colorClassName?: string;
+  /** The classname for color that is being checked */
+  colorCheckedClassName?: string;
 }

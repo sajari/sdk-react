@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { __DEV__ } from '@sajari/react-sdk-utils';
+import { __DEV__, cleanChildren, getStylesObject } from '@sajari/react-sdk-utils';
+import { cloneElement } from 'react';
 import tw from 'twin.macro';
 
 import Box from '../Box';
@@ -13,16 +14,25 @@ const Swatch = ({
   children,
   checkedColors = [],
   onChange = () => {},
-  disableDefaultStyles = false,
   styles: stylesProp,
+  disableDefaultStyles = false,
+  colorCheckedClassName = '',
+  colorClassName = '',
   ...rest
-}: SwatchProps) => (
-  <SwatchContextProvider value={{ state: checkedColors, setState: onChange, disableDefaultStyles }}>
-    <Box css={[tw`flex flex-wrap -mt-2 -ml-2`, stylesProp]} {...rest}>
-      {children}
-    </Box>
-  </SwatchContextProvider>
-);
+}: SwatchProps) => {
+  const styles = getStylesObject({ container: tw`flex flex-wrap -mt-2 -ml-2` }, disableDefaultStyles);
+  const validChildren = cleanChildren(children);
+
+  return (
+    <SwatchContextProvider value={{ state: checkedColors, setState: onChange, disableDefaultStyles }}>
+      <Box css={[styles.container, stylesProp]} {...rest}>
+        {validChildren.map((child) =>
+          cloneElement(child, { className: colorClassName, checkedClassName: colorCheckedClassName, ...child.props }),
+        )}
+      </Box>
+    </SwatchContextProvider>
+  );
+};
 
 if (__DEV__) {
   Swatch.displayName = 'Swatch';
