@@ -27,41 +27,10 @@ function Example() {
 
 ```jsx
 function Example() {
-  const { search, searchInstant } = useSearch();
-  const { query } = useQuery();
-
   return (
     <div className="flex flex-col space-y-3">
-      <Combobox
-        value={query}
-        onChange={(v) => {
-          search(v);
-          searchInstant(v); // Triggers autocomplete pipeline
-        }}
-      />
-      <Summary />
-    </div>
-  );
-}
-```
-
-### Hide the query override
-
-```jsx
-function Example() {
-  const { search, searchInstant } = useSearch({ allowEmptySearch: false });
-  const { query } = useQuery();
-
-  return (
-    <div className="flex flex-col space-y-3">
-      <Combobox
-        value={query}
-        onChange={(v) => {
-          search(v);
-          searchInstant(v); // Triggers autocomplete pipeline
-        }}
-      />
-      <Summary showOverride={false} />
+      <Input mode="suggestions" />
+      <Summary suggest />
     </div>
   );
 }

@@ -12,7 +12,7 @@ import { SummaryProps } from './types';
 const Summary = (props: SummaryProps) => {
   const { latency, totalResults, search, queryValues, searched } = useSearchContext();
   const { disableDefaultStyles } = useSearchUIContext();
-  const { showOverride = true, showLatency = false, ...rest } = props;
+  const { suggest = false, showLatency = false, ...rest } = props;
   const query = queryValues?.get('q') ?? '';
   const { completion } = useAutocomplete();
   const { t } = useTranslation();
@@ -44,7 +44,7 @@ const Summary = (props: SummaryProps) => {
           }}
         />
         {showLatency ? ` ${t('summary.latency', { time: latency })}` : ''}
-        {completion && completion !== query.trim() && showOverride ? (
+        {completion && completion !== query.trim() && suggest ? (
           <React.Fragment>
             {`. ${t('summary.alternative')} `}
             <Button
