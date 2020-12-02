@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.37](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.36...@sajari/react-search-ui@1.0.0-alpha.37) (2020-12-02)
+
+### Bug Fixes
+
+- resolve duplicate exports ([0cb64f1](https://github.com/sajari/sdk-react/commit/0cb64f1419ebab91dc9b18df4e4c83cb8bebc709))
+
 # [1.0.0-alpha.36](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.35...@sajari/react-search-ui@1.0.0-alpha.36) (2020-12-02)
 
 **Note:** Version bump only for package @sajari/react-search-ui
