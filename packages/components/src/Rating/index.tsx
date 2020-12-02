@@ -1,22 +1,15 @@
 /* eslint-disable react/no-array-index-key */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { __DEV__ } from '@sajari/react-sdk-utils';
+import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
 import React from 'react';
-import tw, { styled } from 'twin.macro';
+import tw from 'twin.macro';
 
 import { IconSmallStar } from '../assets/icons';
 import { toRatingArray } from '../utils/rating';
 import { RatingItem } from './RatingItem';
 import { ItemType, RatingItemProps, RatingProps } from './types';
-
-const StyledBox = styled.div<{ flipped: boolean }>`
-  ${({ flipped }) =>
-    flipped
-      ? tw`inline-flex flex-row-reverse items-center space-x-1 space-x-reverse`
-      : tw`inline-flex items-center space-x-1`};
-`;
 
 const Rating = React.forwardRef((props: RatingProps, ref: React.Ref<HTMLDivElement>) => {
   const {
@@ -30,6 +23,7 @@ const Rating = React.forwardRef((props: RatingProps, ref: React.Ref<HTMLDivEleme
     activeRatingItemClassName,
     ratingItemClassName,
     styles: stylesProp,
+    disableDefaultStyles = false,
     ...rest
   } = props;
 
@@ -42,8 +36,17 @@ const Rating = React.forwardRef((props: RatingProps, ref: React.Ref<HTMLDivEleme
   const label = isHalf ? `Rating: ${value} point 5 out of ${max} ${unit}s` : `Rating: ${value} out of ${max} ${unit}s`;
   const arr = toRatingArray(value, max);
 
+  const styles = getStylesObject(
+    {
+      container: flipped
+        ? tw`inline-flex flex-row-reverse items-center space-x-1 space-x-reverse`
+        : tw`inline-flex items-center space-x-1`,
+    },
+    disableDefaultStyles,
+  );
+
   return (
-    <StyledBox flipped={flipped} ref={ref} role="img" aria-label={label} css={stylesProp} {...rest}>
+    <div ref={ref} role="img" aria-label={label} css={[styles.container, stylesProp]} {...rest}>
       {arr.map((type, i) => {
         switch (type) {
           case ItemType.Filled:
@@ -54,6 +57,7 @@ const Rating = React.forwardRef((props: RatingProps, ref: React.Ref<HTMLDivEleme
                 count={max}
                 character={character}
                 className={classnames(ratingItemClassName, activeRatingItemClassName)}
+                disableDefaultStyles={disableDefaultStyles}
                 active
               />
             );
@@ -67,6 +71,7 @@ const Rating = React.forwardRef((props: RatingProps, ref: React.Ref<HTMLDivEleme
                 flipped={flipped}
                 character={character}
                 className={classnames(ratingItemClassName, activeHalfRatingItemClassName)}
+                disableDefaultStyles={disableDefaultStyles}
                 active
                 half
               />
@@ -81,6 +86,7 @@ const Rating = React.forwardRef((props: RatingProps, ref: React.Ref<HTMLDivEleme
                 character={character}
                 active={false}
                 className={ratingItemClassName}
+                disableDefaultStyles={disableDefaultStyles}
               />
             );
 
@@ -90,7 +96,7 @@ const Rating = React.forwardRef((props: RatingProps, ref: React.Ref<HTMLDivEleme
       })}
       <span css={tw`sr-only`}>{`${value} ${unit}${value > 1 ? 's' : ''}`}</span>
       {children}
-    </StyledBox>
+    </div>
   );
 });
 
