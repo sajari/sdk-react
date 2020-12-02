@@ -23,7 +23,7 @@ const PageSize = (props: PageSizeProps) => {
   const sizesSorted = sizes.sort((a, b) => a - b);
   const [min] = sizesSorted;
 
-  if ((searched && totalResults === 0) || min > totalResults) {
+  if (searched && (totalResults === 0 || min > totalResults)) {
     return null;
   }
 
