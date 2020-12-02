@@ -1,6 +1,6 @@
 {
   "name": "@sajari/react-hooks",
-  "version": "1.0.0-alpha.24",
+  "version": "1.0.0-alpha.25",
   "description": "Easy to use hooks that allow you to build a powerful search interface powered by Sajari using any component library.",
   "sideEffects": false,
   "scripts": {
