@@ -1,7 +1,7 @@
 import { Result } from '@sajari/sdk-js';
 
-import { Pipeline, Variables } from '../SearchContextProvider';
-import { FieldDictionary } from '../SearchContextProvider/types';
+import { Pipeline, Variables } from '../ContextProvider';
+import { FieldDictionary } from '../ContextProvider/types';
 
 export type UseSearchConfig = {
   queryOverride?: string;

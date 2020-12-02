@@ -6,7 +6,7 @@ import { Select } from '@sajari/react-components';
 
 # useSearch
 
-`useSearch` provides a getter & setter for the current query.
+`useSearch` provides a way to perform a search.
 
 ```js
 import { useSearch } from '@sajari/react-hooks';
@@ -37,38 +37,6 @@ function Example() {
 }
 ```
 
-### Set a basic string query
-
-```jsx
-function Example() {
-  const [tabIndex, setTabIndex] = React.useState(0);
-  const queries = ['phone', 'chair', 'macbook'];
-  const { results = [], searching } = useSearch({ queryOverride: queries[tabIndex] });
-
-  return (
-    <>
-      <Tabs onChange={(index) => setTabIndex(index)}>
-        <TabList>
-          <Tab>Phone</Tab>
-          <Tab>Chair</Tab>
-          <Tab>Macbook</Tab>
-        </TabList>
-        <div>
-          {searching && <p className="p-4">Searching...</p>}
-          {!searching && results.length > 0 && (
-            <ul className="list-disc px-5 space-y-2 mt-5">
-              {results.map(({ values: { name, id } }) => (
-                <li key={id}>{name}</li>
-              ))}
-            </ul>
-          )}
-        </div>
-      </Tabs>
-    </>
-  );
-}
-```
-
 ### Optionally pass in Variables or Pipeline:
 
 ```jsx
@@ -88,7 +56,7 @@ function Example() {
     return (
       <div className="flex flex-col space-y-4">
         <div className="flex space-x-3 items-center">
-          <p>PageSize</p>
+          <p>Show</p>
           <Select
             onChange={(e) => {
               variables.set({ resultsPerPage: Number(e.target.value) });

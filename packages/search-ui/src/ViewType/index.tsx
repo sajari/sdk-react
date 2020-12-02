@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
 import { Box, Button, ButtonGroup, Text } from '@sajari/react-components';
 import { useSearchContext } from '@sajari/react-hooks';
-import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
+import { getStylesObject } from '@sajari/react-sdk-utils';
 import { useTranslation } from 'react-i18next';
 
 import { IconSmallGrid, IconSmallList } from '../assets/icons';
@@ -68,8 +68,5 @@ const ViewType = (props: ViewTypeProps) => {
   );
 };
 
-if (__DEV__) {
-  ViewType.displayName = 'ViewType';
-}
 export default ViewType;
 export type { ViewTypeProps };

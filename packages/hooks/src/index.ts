@@ -2,24 +2,31 @@
 export {
   ClickTracking,
   FieldDictionary,
-  Filter,
+  FilterBuilder,
   Pipeline,
   PosNegTracking,
   Range,
   RangeFilter,
-  default as SearchContextProvider,
+  default as SearchProvider,
   SearchProviderValues,
   Variables,
-} from './SearchContextProvider';
-export * from './SearchContextProvider/events';
+} from './ContextProvider';
+export * from './ContextProvider/events';
 export { default as useAutocomplete } from './useAutocomplete';
-export { FilterItem, default as useFilter } from './useFilter';
-export { default as usePageSize } from './usePageSize';
+export { default as useFilter } from './useFilter';
+export * from './useFilter';
 export { default as usePagination } from './usePagination';
+export * from './usePagination';
 export { default as useQuery } from './useQuery';
+export { default as useResultsPerPage } from './useResultsPerPage';
+export * from './useResultsPerPage';
 export { default as useSearch } from './useSearch';
+export * from './useSearch';
 export { default as useSearchContext } from './useSearchContext';
 export { default as useSorting } from './useSorting';
+export * from './useSorting';
 export { default as useTracking } from './useTracking';
+export * from './useTracking';
 export { default as useVariables } from './useVariables';
+export * from './useVariables';
 export { Token } from '@sajari/sdk-js';

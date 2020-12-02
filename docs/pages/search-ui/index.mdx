@@ -1,15 +1,183 @@
 import SEO from '../../components/SEO';
 
-<SEO title="Search UI" description="TBD" />
+<SEO title="Search UI" description="Easy to use search components to quickly build a beautiful search interface." />
 
 # Search UI
 
 ![Size](https://badgen.net/bundlephobia/minzip/@sajari/react-search-ui?cache=300)
 
-Easy to use search components to quickly build a beautiful search interface. If you've used previous versions of our SDK, you'll be most familiar with this package.
+Easy to use search components to quickly build a beautiful search interface. If you've used previous versions of our React SDK, you'll be most familiar with this package.
+
+Let's run through building an example UI using the `@sajari/react-search-ui` package.
 
 ## 1. Installing
 
-```bash readonly
+Install the package using `yarn add` or `npm install`.
+
+```bash
 yarn add @sajari/react-search-ui
+```
+
+## 2. Add some imports
+
+These will be required to build the UI.
+
+```js
+import {
+  FilterBuilder,
+  Filter,
+  Input,
+  Pagination,
+  Results,
+  ResultsPerPage,
+  SearchProvider,
+  Sorting,
+  Summary,
+  ViewType,
+} from '@sajari/react-search-ui';
+```
+
+## 3. Create a pipeline
+
+A pipeline is required to perform search queries. For this example, we'll use a demo pipeline using a Best Buy data set. Replace the values from your collection credentials.
+
+```js
+const pipeline = new Pipeline(
+  {
+    account: '1594153711901724220',
+    collection: 'bestbuy',
+    endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
+  },
+  'query',
+);
+```
+
+## 4. Create filters
+
+```js
+const brandFilter = new FilterBuilder({
+  name: 'brand',
+  field: 'brand',
+  options: {
+    Apple: "brand = 'Apple'",
+    Samsung: "brand = 'Samsung'",
+    Dell: "brand = 'Dell'",
+    HP: "brand = 'HP'",
+    Garmin: "brand = 'Garmin'",
+  },
+});
+```
+
+## 5. TBD
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const brandFilter = new FilterBuilder({
+    name: 'brand',
+    field: 'brand',
+    options: {
+      Apple: "brand = 'Apple'",
+      Samsung: "brand = 'Samsung'",
+      Dell: "brand = 'Dell'",
+      HP: "brand = 'HP'",
+      Garmin: "brand = 'Garmin'",
+    },
+  });
+
+  const priceFilter = new FilterBuilder({
+    name: 'price',
+    options: {
+      High: 'price >= 200',
+      Mid: 'price >= 50',
+      Low: 'price < 50',
+    },
+    multi: false,
+    initial: ['High'],
+  });
+
+  const colorFilter = new FilterBuilder({
+    name: 'color',
+    field: 'imageTags',
+    array: true,
+  });
+
+  const ratingFilter = new FilterBuilder({
+    name: 'rating',
+    field: 'rating',
+  });
+
+  const SearchPlayground = React.memo(() => {
+    const { searched } = useSearchContext();
+
+    return (
+      <>
+        <Input />
+
+        <div className="flex items-center justify-end mt-3">
+          <Summary size="sm" />
+
+          <div className="flex space-x-4 ml-auto">
+            <Sorting
+              options={[
+                { name: 'Most relevant', value: '' },
+                { name: 'Brand: A to Z', value: 'brand' },
+                { name: 'Brand: Z to A', value: '-brand' },
+                { name: 'Rating: Low to High', value: 'rating' },
+                { name: 'Rating: High to Low', value: '-rating' },
+                { name: 'Popularity', value: 'popularity' },
+              ]}
+              size="sm"
+            />
+            <ResultsPerPage size="sm" />
+            <ViewType size="sm" />
+          </div>
+        </div>
+
+        <div className="flex mt-6">
+          {searched && (
+            <div className="w-1/4 pr-4 border-gray-100 border-r space-y-6">
+              <Filter type="list" name="brand" title="Brand" />
+              <Filter type="list" name="price" title="Price (bucket)" />
+              <Filter type="color" name="color" title="Color" />
+              <Filter type="rating" name="rating" title="Rating" />
+            </div>
+          )}
+
+          <div className="flex-1 pl-4">
+            <Results />
+          </div>
+        </div>
+
+        <div className="sticky bottom-0 p-6">
+          <Pagination />
+        </div>
+      </>
+    );
+  });
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: {
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        },
+        filters: [priceFilter, brandFilter, colorFilter, ratingFilter],
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
 ```

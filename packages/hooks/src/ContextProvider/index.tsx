@@ -6,7 +6,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Config, defaultConfig } from './config';
 import {
   ClickTracking,
-  Filter,
+  FilterBuilder,
   NoTracking,
   Pipeline,
   PosNegTracking,
@@ -72,12 +72,7 @@ const defaultState: ProviderPipelineState = {
   config: defaultConfig,
 };
 
-const SearchContextProvider: React.FC<SearchProviderValues> = ({
-  children,
-  search,
-  instant: instantProp,
-  searchOnLoad,
-}) => {
+const ContextProvider: React.FC<SearchProviderValues> = ({ children, search, instant: instantProp, searchOnLoad }) => {
   const [searching, setSearching] = useState(false);
   const [instantSearching, setInstantSearching] = useState(false);
   const [searchState, setSearchState] = useState(defaultState);
@@ -296,6 +291,16 @@ const SearchContextProvider: React.FC<SearchProviderValues> = ({
   return <Provider value={getContext({ instant: instantState, search: searchState })}>{children}</Provider>;
 };
 
-export default SearchContextProvider;
-export { ClickTracking, FieldDictionary, Filter, Pipeline, PosNegTracking, Range, RangeFilter, useContext, Variables };
+export default ContextProvider;
+export {
+  ClickTracking,
+  FieldDictionary,
+  FilterBuilder,
+  Pipeline,
+  PosNegTracking,
+  Range,
+  RangeFilter,
+  useContext,
+  Variables,
+};
 export type { SearchProviderValues };

@@ -35,7 +35,7 @@ export interface SearchUIContextProviderValues {
       label?: string;
       buttonGroup?: string;
     };
-    pageSize?: {
+    resultsPerPage?: {
       container?: string;
       label?: string;
       select?: string;

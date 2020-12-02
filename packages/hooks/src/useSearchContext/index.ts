@@ -1,6 +1,6 @@
 import { isNullOrUndefined } from '@sajari/react-sdk-utils';
 
-import { useContext } from '../SearchContextProvider';
+import { useContext } from '../ContextProvider';
 import usePagination from '../usePagination';
 import mapToObject from '../utils/mapToObject';
 
@@ -10,7 +10,7 @@ function useSearchContext() {
     viewType,
     setViewType,
   } = useContext();
-  const { page, pageSize, totalResults, pageCount, setPage } = usePagination('search');
+  const { page, resultsPerPage, totalResults, pageCount, setPage } = usePagination('search');
   const mapResponse = mapToObject(response?.getResponse() as Map<string, any> | undefined);
   const results = response?.getResults();
 
@@ -20,7 +20,7 @@ function useSearchContext() {
     queryValues: response?.getQueryValues(),
     latency: response?.getTime(),
     page,
-    pageSize,
+    resultsPerPage,
     totalResults,
     pageCount,
     setPage,

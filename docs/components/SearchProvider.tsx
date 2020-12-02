@@ -1,8 +1,7 @@
-import { Pipeline, Variables, SearchProviderValues, FieldDictionary } from '@sajari/react-hooks';
-import { ContextProvider } from '@sajari/react-search-ui';
+import { Pipeline, Variables, SearchProviderValues, FieldDictionary, SearchProvider } from '@sajari/react-search-ui';
 import { useRef } from 'react';
 
-const SearchProvider: React.FC = ({ children }) => {
+const ContextProvider: React.FC = ({ children }) => {
   const ref = useRef<SearchProviderValues['search']>({
     pipeline: new Pipeline(
       {
@@ -14,12 +13,12 @@ const SearchProvider: React.FC = ({ children }) => {
     ),
     variables: new Variables(),
     fields: new FieldDictionary({
-      subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1,
+      subtitle: (data: Record<string, any>) => data.level4 || data.level3 || data.level2 || data.level1,
       title: 'name',
     }),
   });
 
-  return <ContextProvider search={ref.current}>{children}</ContextProvider>;
+  return <SearchProvider search={ref.current}>{children}</SearchProvider>;
 };
 
-export default SearchProvider;
+export default ContextProvider;

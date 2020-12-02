@@ -1,4 +1,4 @@
-import { useContext } from '../SearchContextProvider';
+import { useContext } from '../ContextProvider';
 import { UseTrackingResult } from './types';
 
 function useTracking(): UseTrackingResult {
@@ -14,3 +14,4 @@ function useTracking(): UseTrackingResult {
 }
 
 export default useTracking;
+export * from './types';

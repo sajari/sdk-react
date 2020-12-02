@@ -64,3 +64,4 @@ const Summary = (props: SummaryProps) => {
 };
 
 export default Summary;
+export type { SummaryProps };

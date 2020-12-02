@@ -1,4 +1,4 @@
-import { Variables } from '../SearchContextProvider';
+import { Variables } from '../ContextProvider';
 
 export interface UseVariablesResult {
   /** The Variables object */

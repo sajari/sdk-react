@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { useContext } from '../SearchContextProvider';
+import { useContext } from '../ContextProvider';
 
 function useQuery() {
   const {

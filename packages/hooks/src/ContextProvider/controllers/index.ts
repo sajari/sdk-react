@@ -1,7 +1,7 @@
 /* eslint-disable import/named */
 export { Analytics, DebugAnalytics, GoogleAnalytics } from './analytics';
 export { default as combineFilters } from './filters/combineFilters';
-export { default as Filter } from './filters/Filter';
+export { default as FilterBuilder } from './filters/FilterBuilder';
 export { Listener } from './listener';
 export { Pipeline } from './pipeline';
 export { RangeAggregateFilter } from './rangeAggregateFilter';

@@ -4,7 +4,7 @@ import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
 import { Label, Select } from '@sajari/react-components';
 import { useSearchContext, useSorting } from '@sajari/react-hooks';
-import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
+import { getStylesObject } from '@sajari/react-sdk-utils';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';
@@ -54,10 +54,6 @@ const Sorting = (props: SortingProps) => {
     </div>
   );
 };
-
-if (__DEV__) {
-  Sorting.displayName = 'Sorting';
-}
 
 export default Sorting;
 export type { SortingProps };

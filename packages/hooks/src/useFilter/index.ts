@@ -2,8 +2,8 @@ import { isNumber } from '@sajari/react-sdk-utils';
 import { CountAggregate } from '@sajari/sdk-js';
 import { useEffect, useMemo, useState } from 'react';
 
-import { useContext } from '../SearchContextProvider';
-import { EVENT_SELECTION_UPDATED } from '../SearchContextProvider/events';
+import { useContext } from '../ContextProvider';
+import { EVENT_SELECTION_UPDATED } from '../ContextProvider/events';
 import { FilterItem } from './types';
 
 function useFilter(name: string) {
@@ -111,4 +111,4 @@ function useFilter(name: string) {
 }
 
 export default useFilter;
-export type { FilterItem };
+export * from './types';

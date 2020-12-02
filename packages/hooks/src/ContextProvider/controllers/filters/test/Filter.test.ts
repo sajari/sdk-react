@@ -1,8 +1,8 @@
 import { EVENT_OPTIONS_UPDATED, EVENT_SELECTION_UPDATED } from '../../../events';
-import Filter from '../Filter';
+import FilterBuilder from '../FilterBuilder';
 
 describe('Filter', () => {
-  const brandFilter = new Filter({
+  const brandFilter = new FilterBuilder({
     name: 'brand',
     options: {
       Apple: "brand = 'Apple'",
@@ -13,7 +13,7 @@ describe('Filter', () => {
     initial: ['Apple'],
   });
 
-  const countFilter = new Filter({
+  const countFilter = new FilterBuilder({
     name: 'priceRange',
     field: 'price_range',
   });

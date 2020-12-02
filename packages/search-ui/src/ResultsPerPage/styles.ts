@@ -1,7 +1,7 @@
 import { mapStyles } from '@sajari/react-sdk-utils';
 import tw from 'twin.macro';
 
-export default function usePageSizeStyles() {
+export default function useResultsPerPageStyles() {
   const styles = {
     container: [tw`flex items-center space-x-2`],
     label: [tw`text-gray-500`],

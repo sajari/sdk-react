@@ -8,7 +8,6 @@ import SEO from '../../components/SEO';
 
 ```js
 import { Filter } from '@sajari/react-search-ui';
-import { Filter as FilterBuilder } from '@sajari/react-hooks';
 ```
 
 ## Usage
@@ -65,16 +64,19 @@ function Example() {
   ));
 
   return (
-    <SearchContextProvider
+    <SearchProvider
       search={{
         pipeline,
-        fields: { title: 'name', subtitle: 'brand' },
+        fields: {
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        },
         filters: [priceFilter, brandFilter],
       }}
       searchOnLoad
     >
       <SearchPlayground />
-    </SearchContextProvider>
+    </SearchProvider>
   );
 }
 ```
@@ -123,16 +125,19 @@ function Example() {
   ));
 
   return (
-    <SearchContextProvider
+    <SearchProvider
       search={{
         pipeline,
-        fields: { title: 'name', subtitle: 'brand' },
+        fields: {
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        },
         filters: [priceRangeFilter, categoryFilter],
       }}
       searchOnLoad
     >
       <SearchPlayground />
-    </SearchContextProvider>
+    </SearchProvider>
   );
 }
 ```
@@ -170,16 +175,19 @@ function Example() {
   ));
 
   return (
-    <SearchContextProvider
+    <SearchProvider
       search={{
         pipeline,
-        fields: { title: 'name', subtitle: 'brand' },
+        fields: {
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        },
         filters: [ratingFilter],
       }}
       searchOnLoad
     >
       <SearchPlayground />
-    </SearchContextProvider>
+    </SearchProvider>
   );
 }
 ```
@@ -219,16 +227,19 @@ function Example() {
   ));
 
   return (
-    <SearchContextProvider
+    <SearchProvider
       search={{
         pipeline,
-        fields: { title: 'name', subtitle: 'brand' },
+        fields: {
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        },
         filters: [colorFilter],
       }}
       searchOnLoad
     >
       <SearchPlayground />
-    </SearchContextProvider>
+    </SearchProvider>
   );
 }
 ```
@@ -264,16 +275,19 @@ function Example() {
   ));
 
   return (
-    <SearchContextProvider
+    <SearchProvider
       search={{
         pipeline,
-        fields: { title: 'name', subtitle: 'brand' },
+        fields: {
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        },
         filters: [categoryFilter],
       }}
       searchOnLoad
     >
       <SearchPlayground />
-    </SearchContextProvider>
+    </SearchProvider>
   );
 }
 ```

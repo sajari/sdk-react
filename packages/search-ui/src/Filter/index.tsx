@@ -23,3 +23,4 @@ const Filter = ({ type = 'list', ...rest }: FilterProps) => {
 };
 
 export default Filter;
+export * from './types';

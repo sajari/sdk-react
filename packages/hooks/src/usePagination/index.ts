@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
-import { useContext } from '../SearchContextProvider';
+import { useContext } from '../ContextProvider';
 import { UsePaginationResult } from './types';
 
 function usePagination(key: 'search' | 'instant'): UsePaginationResult {
@@ -24,7 +24,7 @@ function usePagination(key: 'search' | 'instant'): UsePaginationResult {
     pageCount: totalPages,
     totalResults,
     setPage: paginate,
-    pageSize: resultsPerPage,
+    resultsPerPage,
     hasNext,
     hasPrevious,
     nextPage,
@@ -33,3 +33,4 @@ function usePagination(key: 'search' | 'instant'): UsePaginationResult {
 }
 
 export default usePagination;
+export * from './types';

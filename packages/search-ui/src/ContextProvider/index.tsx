@@ -1,4 +1,11 @@
-import { Pipeline, SearchContextProvider, Variables } from '@sajari/react-hooks';
+import {
+  FieldDictionary,
+  FilterBuilder,
+  Pipeline,
+  SearchProvider,
+  SearchProviderValues,
+  Variables,
+} from '@sajari/react-hooks';
 import { createContext, ThemeProvider } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { LiveAnnouncer } from 'react-aria-live';
@@ -24,7 +31,7 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
   customClassNames = {},
 }) => (
   <Provider value={{ ratingMax, disableDefaultStyles, customClassNames }}>
-    <SearchContextProvider search={search} instant={instant} searchOnLoad={searchOnLoad}>
+    <SearchProvider search={search} instant={instant} searchOnLoad={searchOnLoad}>
       <LiveAnnouncer>
         <I18nextProvider i18n={i18n}>
           <ThemeProvider theme={theme} importantStyles={importantStyles}>
@@ -32,10 +39,10 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
           </ThemeProvider>
         </I18nextProvider>
       </LiveAnnouncer>
-    </SearchContextProvider>
+    </SearchProvider>
   </Provider>
 );
 
 export default ContextProvider;
-export { Pipeline, useSearchUIContext, Variables };
+export { FieldDictionary, FilterBuilder, Pipeline, SearchProviderValues, useSearchUIContext, Variables };
 export type { ContextProviderValues };

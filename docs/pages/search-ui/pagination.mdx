@@ -8,7 +8,7 @@ The Pagination component renders a pagination component with config wired in.
 
 ```js
 import { Pagination, Results } from '@sajari/react-search-ui';
-import { SearchContextProvider, useSearch } from '@sajari/react-hooks';
+import { SearchProvider, useSearch } from '@sajari/react-hooks';
 ```
 
 ## Usage
@@ -38,9 +38,18 @@ function Example() {
   });
 
   return (
-    <SearchContextProvider search={{ pipeline, variables, fields: { title: 'name', subtitle: 'brand' } }}>
+    <SearchProvider
+      search={{
+        pipeline,
+        variables,
+        fields: {
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        },
+      }}
+    >
       <SearchPlayground />
-    </SearchContextProvider>
+    </SearchProvider>
   );
 }
 ```

@@ -7,7 +7,7 @@ import SEO from '../../components/SEO';
 ```js
 import { Results } from '@sajari/react-search-ui';
 import { Input } from '@sajari/react-components';
-import { SearchContextProvider, Pipeline, Variables, ClickTracking } from '@sajari/react-hooks';
+import { SearchProvider, Pipeline, Variables, ClickTracking } from '@sajari/react-hooks';
 ```
 
 ## Usage
@@ -33,9 +33,17 @@ function Example() {
   ));
 
   return (
-    <SearchContextProvider search={{ pipeline, fields: { title: 'name', subtitle: 'brand' } }}>
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: {
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        },
+      }}
+    >
       <SearchPlayground />
-    </SearchContextProvider>
+    </SearchProvider>
   );
 }
 ```

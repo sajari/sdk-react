@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { useContext } from '../SearchContextProvider';
+import { useContext } from '../ContextProvider';
 import { UseSortingResult } from './types';
 
 function useSorting(): UseSortingResult {
@@ -23,3 +23,4 @@ function useSorting(): UseSortingResult {
 }
 
 export default useSorting;
+export * from './types';
