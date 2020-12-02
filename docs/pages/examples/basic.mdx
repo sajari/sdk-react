@@ -49,46 +49,53 @@ function Example() {
     field: 'rating',
   });
 
-  const SearchPlayground = React.memo(() => (
-    <>
-      <Input />
+  const SearchPlayground = React.memo(() => {
+    const { searched } = useSearchContext();
 
-      <div className="flex items-center justify-end mt-3">
-        <Summary size="sm" />
+    return (
+      <>
+        <Input />
 
-        <div className="flex space-x-4 ml-auto">
-          <Sorting
-            options={[
-              { name: 'Most relevant', value: '' },
-              { name: 'Brand: A to Z', value: 'brand' },
-              { name: 'Brand: Z to A', value: '-brand' },
-              { name: 'Rating: Low to High', value: 'rating' },
-              { name: 'Rating: High to Low', value: '-rating' },
-              { name: 'Popularity', value: 'popularity' },
-            ]}
-            size="sm"
-          />
-          <PageSize size="sm" />
-          <ViewType size="sm" />
-        </div>
-      </div>
+        <div className="flex items-center justify-end mt-3">
+          <Summary size="sm" />
 
-      <div className="flex mt-6">
-        <div className="w-1/4 pr-4 border-gray-100 border-r space-y-6">
-          <Filter type="list" name="brand" title="Brand" />
-          <Filter type="list" name="price" title="Price (bucket)" />
-          <Filter type="color" name="color" title="Color" />
-          <Filter type="rating" name="rating" title="Rating" />
-        </div>
-        <div className="w-3/4 pl-4 space-y-4">
-          <Results />
-          <div className="sticky bottom-0 p-6">
-            <Pagination />
+          <div className="flex space-x-4 ml-auto">
+            <Sorting
+              options={[
+                { name: 'Most relevant', value: '' },
+                { name: 'Brand: A to Z', value: 'brand' },
+                { name: 'Brand: Z to A', value: '-brand' },
+                { name: 'Rating: Low to High', value: 'rating' },
+                { name: 'Rating: High to Low', value: '-rating' },
+                { name: 'Popularity', value: 'popularity' },
+              ]}
+              size="sm"
+            />
+            <PageSize size="sm" />
+            <ViewType size="sm" />
           </div>
         </div>
-      </div>
-    </>
-  ));
+
+        <div className="flex mt-6">
+          {searched && (
+            <div className="w-1/4 pr-4 border-gray-100 border-r space-y-6">
+              <Filter type="list" name="brand" title="Brand" />
+              <Filter type="list" name="price" title="Price (bucket)" />
+              <Filter type="color" name="color" title="Color" />
+              <Filter type="rating" name="rating" title="Rating" />
+            </div>
+          )}
+          <div className="flex-1 pl-4 space-y-4">
+            <Results />
+
+            <div className="sticky bottom-0 p-6">
+              <Pagination />
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  });
 
   return (
     <SearchContextProvider
