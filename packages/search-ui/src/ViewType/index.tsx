@@ -16,8 +16,12 @@ const ViewType = (props: ViewTypeProps) => {
   const { customClassNames, disableDefaultStyles = false } = useSearchUIContext();
   const { label = t('viewType.label'), size, styles: stylesProp, ...rest } = props;
   const id = `view-type-${useId()}`;
-  const { viewType, setViewType } = useSearchContext();
+  const { viewType, setViewType, searched } = useSearchContext();
   const styles = getStylesObject(useViewTypeStyles(), disableDefaultStyles);
+
+  if (!searched) {
+    return null;
+  }
 
   return (
     <Box

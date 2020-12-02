@@ -3,7 +3,7 @@
 import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
 import { Label, Select } from '@sajari/react-components';
-import { useSorting } from '@sajari/react-hooks';
+import { useSearchContext, useSorting } from '@sajari/react-hooks';
 import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import { useTranslation } from 'react-i18next';
 
@@ -17,9 +17,14 @@ const Sorting = (props: SortingProps) => {
   const { t } = useTranslation();
   const { label = t('sorting.label'), options = defaultOptions, size, styles: stylesProp, ...rest } = props;
   const { disableDefaultStyles = false, customClassNames } = useSearchUIContext();
+  const { searched } = useSearchContext();
   const { sorting, setSorting } = useSorting();
   const id = `sorting-${useId()}`;
   const styles = getStylesObject(useSortingStyles(), disableDefaultStyles);
+
+  if (!searched) {
+    return null;
+  }
 
   return (
     <div css={[styles.container, stylesProp]} {...rest} className={customClassNames.sorting?.container}>
