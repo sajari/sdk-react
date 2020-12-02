@@ -17,7 +17,7 @@ const Message = (props: MessageProps) => {
         return (
           <Box css={styles.loadingWrapper}>
             <Spinner css={styles.loadingSpinner} disableDefaultStyles={disableDefaultStyles} />
-            {body && <Text css={styles.loadingText} disableDefaultStyles={disableDefaultStyles}>{`${body}...`}</Text>}
+            {title && <Text css={styles.loadingText} disableDefaultStyles={disableDefaultStyles}>{`${title}...`}</Text>}
           </Box>
         );
 

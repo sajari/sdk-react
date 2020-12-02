@@ -47,7 +47,14 @@ const Results = (props: ResultsProps) => {
 
   // We've not searched yet
   if (isNullOrUndefined(results)) {
-    return null;
+    return (
+      <Message
+        title={t('texts.loading')}
+        appearance="loading"
+        disableDefaultStyles={disableDefaultStyles}
+        className={customClassNames.results?.searchingMessage}
+      />
+    );
   }
 
   // There's genuinely no results
