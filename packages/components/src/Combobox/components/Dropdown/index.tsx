@@ -1,12 +1,11 @@
 /* eslint-disable react/no-array-index-key */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import { getStylesObject } from '@sajari/react-sdk-utils';
 import React from 'react';
-import tw from 'twin.macro';
 
 import { IconDownKey, IconEnterKey, IconUpKey } from '../../../assets/icons';
 import Box from '../../../Box';
-import Link from '../../../Link';
 import PoweredBy from '../../../PoweredBy';
 import Text from '../../../Text';
 import { useComboboxContext } from '../../context';
@@ -28,9 +27,11 @@ const Dropdown = () => {
     renderItem,
     itemToString,
     getItemProps,
+    disableDefaultStyles = false,
+    customClassNames: { dropdownClassName, dropdownListClassName, dropdownFooterClassName },
   } = useComboboxContext();
   const shown = (mode === 'results' || mode === 'suggestions') && open && items.length > 0;
-  const styles = useDropdownStyles({ shown });
+  const styles = getStylesObject(useDropdownStyles({ shown }), disableDefaultStyles);
   const label = mode === 'results' ? 'Results' : 'Suggestions';
   let listRender: React.ReactNode = null;
 
@@ -71,17 +72,17 @@ const Dropdown = () => {
   }
 
   return (
-    <Box css={styles.container}>
+    <Box css={styles.container} className={dropdownClassName}>
       <Text as="h6" css={styles.heading}>
         {label}
       </Text>
 
-      <ul {...getMenuProps()} css={styles.items}>
+      <ul {...getMenuProps()} css={styles.items} className={dropdownListClassName}>
         {listRender}
       </ul>
 
       {(showDropdownTips || showPoweredBy) && (
-        <Box as="footer" css={styles.footer}>
+        <Box as="footer" css={styles.footer} className={dropdownFooterClassName}>
           {showDropdownTips && (
             <Box as="span" css={styles.footerItems}>
               <Box as="span" css={styles.footerItem}>
@@ -96,7 +97,7 @@ const Dropdown = () => {
               </Box>
 
               <Box as="span" css={styles.footerItem}>
-                <Box as="span" css={tw`mr-1 font-medium`}>
+                <Box as="span" css={styles.footerEscHint}>
                   esc
                 </Box>
                 to dismiss
@@ -104,7 +105,7 @@ const Dropdown = () => {
             </Box>
           )}
 
-          {showPoweredBy && <PoweredBy css={tw`ml-auto`} />}
+          {showPoweredBy && <PoweredBy css={styles.powerby} />}
         </Box>
       )}
     </Box>
