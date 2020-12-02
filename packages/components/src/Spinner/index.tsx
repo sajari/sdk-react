@@ -7,7 +7,7 @@ import React from 'react';
 import { IconSpinner } from '../assets/icons';
 import { SpinnerProps } from './types';
 
-const Spinner = ({ styles, ...props }: SpinnerProps) => <IconSpinner css={styles} {...props} />;
+const Spinner = ({ styles, disableDefaultStyles, ...props }: SpinnerProps) => <IconSpinner css={styles} {...props} />;
 
 if (__DEV__) {
   Spinner.displayName = 'Spinner';
