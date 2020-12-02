@@ -25,7 +25,6 @@ function Example() {
       HP: "brand = 'HP'",
       Garmin: "brand = 'Garmin'",
     },
-    count: false,
   });
 
   const priceFilter = new FilterBuilder({
@@ -35,7 +34,6 @@ function Example() {
       Mid: 'price >= 50',
       Low: 'price < 50',
     },
-    count: false,
     multi: false,
     initial: ['High'],
   });
@@ -52,11 +50,13 @@ function Example() {
   });
 
   const SearchPlayground = React.memo(() => (
-    <div className="flex flex-col space-y-3">
-      <Input />
-      <div className="flex justify-between items-center pb-3 border-b border-gray-100">
-        <Summary />
-        <div className="flex space-x-3">
+    <>
+      <Input mode="suggestions" />
+
+      <div className="flex items-center justify-end mt-3">
+        <Summary size="sm" />
+
+        <div className="flex space-x-4 ml-auto">
           <Sorting
             options={[
               { name: 'Most relevant', value: '' },
@@ -66,26 +66,28 @@ function Example() {
               { name: 'Rating: High to Low', value: '-rating' },
               { name: 'Popularity', value: 'popularity' },
             ]}
+            size="sm"
           />
-          <PageSize />
-          <ViewType />
+          <PageSize size="sm" />
+          <ViewType size="sm" />
         </div>
       </div>
-      <div className="flex -mx-3">
-        <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
+
+      <div className="flex mt-6">
+        <div className="w-1/4 pr-4 border-gray-100 border-r space-y-6">
           <Filter type="list" name="brand" title="Brand" />
           <Filter type="list" name="price" title="Price (bucket)" />
           <Filter type="color" name="color" title="Color" />
           <Filter type="rating" name="rating" title="Rating" />
         </div>
-        <div className="w-3/4 px-3">
+        <div className="w-3/4 pl-4 space-y-4">
           <Results />
           <div className="sticky bottom-0 p-6">
             <Pagination />
           </div>
         </div>
       </div>
-    </div>
+    </>
   ));
 
   return (
