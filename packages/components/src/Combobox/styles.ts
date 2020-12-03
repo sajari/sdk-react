@@ -59,7 +59,7 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
     container: [tw`relative`],
     inputContainer: [
       tw`form-input`,
-      tw`relative text-base transition-all duration-150 bg-white border border-gray-200 border-solid font-inherit`,
+      tw`relative text-base transition-all duration-150 bg-white border border-gray-200 border-solid`,
       ...focusRingStyles,
       ...containerStyles,
     ],
@@ -67,7 +67,7 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
     iconContainerRight: [...iconContainerStyles, tw`right-0`],
     input: [
       tw`form-input`,
-      tw`absolute inset-0 w-full bg-transparent border-0 focus:shadow-none`,
+      tw`absolute inset-0 w-full bg-transparent border-0 focus:shadow-none font-inherit`,
       ...containerStyles,
       ` &::-ms-clear,
         &::-ms-reveal {

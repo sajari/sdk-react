@@ -93,7 +93,7 @@ export default function useInputStyles(props: UseInputStyleProps) {
   }
 
   if (type === 'select') {
-    styles.push(tw`block w-full pr-10 rounded-md`);
+    styles.push(tw`block w-full pr-10 rounded-md font-inherit`);
   }
 
   return { styles: css(styles), focusRingStyles, focusProps };

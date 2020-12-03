@@ -20,7 +20,7 @@ const useButtonStyles = (props: UseButtonStylesProps) => {
   const returnStyles = (val: typeof styles) => ({ styles: [css(val), focusRingStyles], focusRingProps });
 
   styles.push(
-    tw`relative items-center justify-center leading-normal no-underline transition duration-150 ease-in-out border border-transparent border-solid cursor-pointer focus:outline-none`,
+    tw`relative items-center justify-center leading-normal no-underline transition duration-150 ease-in-out border border-transparent border-solid cursor-pointer font-inherit focus:outline-none`,
   );
 
   if (!isLink) {
