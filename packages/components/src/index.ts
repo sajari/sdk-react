@@ -1,3 +1,11 @@
+import { isSSR } from '@sajari/react-sdk-utils';
+/** Polyfills */
+import smoothscroll from 'smoothscroll-polyfill';
+
+if (!isSSR()) {
+  smoothscroll.polyfill();
+}
+
 export { default as AspectRatio } from './AspectRatio';
 export * from './AspectRatio';
 export { default as Box } from './Box';
