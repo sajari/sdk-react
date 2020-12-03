@@ -43,6 +43,8 @@ export interface RangeInputProps extends BoxProps {
   fillClassName?: string;
   /** The classname for handle */
   handleClassName?: string;
+  /** The classname for active handle */
+  handleActiveClassName?: string;
   /** The classname for input */
   inputClassName?: string;
 }

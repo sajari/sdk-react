@@ -2,38 +2,27 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { useTextField } from '@react-aria/textfield';
+import { getStylesObject } from '@sajari/react-sdk-utils';
 import React from 'react';
 import tw from 'twin.macro';
 
 import Box from '../../../Box';
-import { UseInputStyleProps, useInputStyles } from '../../../hooks';
+import useRangeInputStyles from './styles';
 import { RangeInputInputProps } from './types';
 
 const Input = (props: RangeInputInputProps) => {
   const ref = React.useRef<HTMLInputElement>(null);
   const { inputProps, labelProps } = useTextField({ ...props, type: 'number' }, ref);
-  const { styles, focusRingStyles, focusProps } = useInputStyles({
-    block: true,
-    type: 'text',
-    ...props,
-  } as UseInputStyleProps);
-  const { label, min, max } = props;
-  // TODO: Replace the magic numbers
-  const widthStyles = { width: `${38 + max.toString().length * 12}px` };
+  const { label, min, max, disableDefaultStyles = false, styles: stylesProp, className } = props;
+  const { styles: inputStyles, focusProps } = useRangeInputStyles(props);
+  const styles = getStylesObject(inputStyles, disableDefaultStyles);
 
   return (
-    <Box css={[tw`relative`, focusRingStyles]}>
-      <label css={tw`sr-only`} {...labelProps}>
+    <Box css={[styles.container, stylesProp]} className={className}>
+      <Box as="label" css={tw`sr-only`} {...labelProps}>
         {label}
-      </label>
-      <input
-        css={[tw`form-input`, styles, tw`text-sm`, widthStyles]}
-        {...inputProps}
-        {...focusProps}
-        min={min}
-        max={max}
-        ref={ref}
-      />
+      </Box>
+      <Box as="input" css={styles.input} {...inputProps} {...focusProps} min={min} max={max} ref={ref} />
     </Box>
   );
 };

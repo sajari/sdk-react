@@ -1,6 +1,8 @@
 import { AriaTextFieldOptions } from '@react-aria/textfield';
 
-export interface RangeInputInputProps extends AriaTextFieldOptions {
+import { BoxProps } from '../../../Box';
+
+export interface RangeInputInputProps extends AriaTextFieldOptions, BoxProps {
   /** Label */
   label: string;
   /** Min value */
