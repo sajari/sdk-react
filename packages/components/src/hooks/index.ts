@@ -1,5 +1,6 @@
 export * from './useBorderRadius';
 export { default as useBorderRadius } from './useBorderRadius';
+export { default as useFirstRender } from './useFirstRender';
 export { default as useFocusRingStyles } from './useFocusRingStyles';
 export * from './useFocusRingStyles';
 export { default as useFontSize } from './useFontSize';

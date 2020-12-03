@@ -9,7 +9,7 @@ import { PaginationProps } from './types';
 
 const Pagination = (props: PaginationProps) => {
   const { t } = useTranslation();
-  const { align, styles } = props;
+  const { align, styles, scrollTarget, scrollToTop } = props;
   const { page, setPage, pageCount, resultsPerPage, totalResults } = usePagination('search');
   const { customClassNames, disableDefaultStyles } = useSearchUIContext();
 
@@ -35,6 +35,8 @@ const Pagination = (props: PaginationProps) => {
       prevClassName={customClassNames?.pagination?.prev}
       nextClassName={customClassNames?.pagination?.next}
       disableDefaultStyles={disableDefaultStyles}
+      scrollToTop={scrollToTop}
+      scrollTarget={scrollTarget}
     />
   );
 };

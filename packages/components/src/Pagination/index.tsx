@@ -1,14 +1,15 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { clamp, getStylesObject } from '@sajari/react-sdk-utils';
+import { clamp, getStylesObject, isSSR, isString } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import tw from 'twin.macro';
 
 import { IconChevronLeft, IconChevronRight } from '../assets/icons';
 import Box from '../Box';
 import Button from '../Button';
 import ButtonGroup from '../ButtonGroup';
+import { useFirstRender } from '../hooks';
 import usePaginationStyles from './styles';
 import { PaginationProps } from './types';
 
@@ -116,8 +117,23 @@ const Pagination = React.memo((props: PaginationProps) => {
     spacerEllipsisClassName,
     styles: stylesProp,
     disableDefaultStyles = false,
+    scrollTarget = isSSR() ? '' : document.body,
+    scrollToTop = false,
     ...rest
   } = props;
+  const firstRender = useFirstRender();
+
+  useEffect(() => {
+    if (firstRender || !scrollToTop || isSSR()) {
+      return;
+    }
+    let target = scrollTarget as Element | null;
+    if (isString(scrollTarget)) {
+      target = document.querySelector(scrollTarget);
+    }
+    target?.scrollIntoView({ behavior: 'smooth' });
+  }, [page]);
+
   const i18n = { ...defaultI18n, ...i18nProp };
   let count = pageCount;
 

@@ -31,4 +31,8 @@ export interface PaginationProps extends BoxProps {
   spacerEllipsisClassName?: string;
   /** The classname for current page */
   activeClassName?: string;
+  /** Scroll to specific target */
+  scrollTarget?: string | Element;
+  /** Enable scrolling */
+  scrollToTop?: boolean;
 }

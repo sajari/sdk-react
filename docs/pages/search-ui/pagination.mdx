@@ -56,6 +56,8 @@ function Example() {
 
 ## Props
 
-| Name    | Type                                | Default    | Description                  |
-| ------- | ----------------------------------- | ---------- | ---------------------------- |
-| `align` | `'left'` \| `'center'` \| `'right'` | `'center'` | How to align the pagination. |
+| Name           | Type                                | Default         | Description                                                                                                                                 |
+| -------------- | ----------------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `align`        | `'left'` \| `'center'` \| `'right'` | `'center'`      | How to align the pagination.                                                                                                                |
+| `scrollToTop`  | `boolean`                           | `false`         | Enable to scroll to top of the page after page change.                                                                                      |
+| `scrollTarget` | `string` \| `Element`               | `document.body` | Specify target to scroll to instead of `document.body`, alternatively you can also pass a string selector, if not found it will do nothing. |
