@@ -2,7 +2,7 @@ import { createContext } from '@sajari/react-sdk-utils';
 
 interface SwatchContextProps {
   state: string[];
-  setState: (checkedColors: string[]) => void;
+  setState: (color: string) => void;
   disableDefaultStyles: boolean;
 }
 

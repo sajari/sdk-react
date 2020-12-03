@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 import { Button, Checkbox, CheckboxGroup, Combobox, Radio, RadioGroup } from '@sajari/react-components';
 import { useFilter, useQuery } from '@sajari/react-hooks';
 import { isBoolean, isEmpty } from '@sajari/react-sdk-utils';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import tw from 'twin.macro';
 
 import { IconSmallChevronDown, IconSmallChevronUp } from '../assets/icons';
@@ -41,10 +41,6 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     setExpanded(false);
   }, [q]);
 
-  if (isEmpty(options) || options.length === 1) {
-    return null;
-  }
-
   const Control = multi ? Checkbox : Radio;
   const filtered = searchable ? options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase())) : options;
   const slice = filtered.length > limit;
@@ -53,14 +49,22 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   const sliced = slice && !expanded ? ordered.slice(0, limit) : ordered;
   const Icon = expanded ? IconSmallChevronUp : IconSmallChevronDown;
 
-  const innerList = sliced.map(({ label, count }) => (
-    <div css={tw`flex items-center justify-between`} key={label + count}>
-      <Control value={label} checked={selected.includes(label)} onChange={noop} css={tw`text-sm`}>
-        {typeof itemRender === 'function' ? itemRender(label) : label}
-      </Control>
-      <span css={tw`ml-2 text-xs text-gray-400`}>{count}</span>
-    </div>
-  ));
+  const innerList = useMemo(
+    () =>
+      sliced.map(({ label, count }) => (
+        <div css={tw`flex items-center justify-between`} key={label + count}>
+          <Control value={label} checked={selected.includes(label)} onChange={noop} css={tw`text-sm`}>
+            {typeof itemRender === 'function' ? itemRender(label) : label}
+          </Control>
+          <span css={tw`ml-2 text-xs text-gray-400`}>{count}</span>
+        </div>
+      )),
+    [JSON.stringify(sliced), itemRender, selected],
+  );
+
+  if (isEmpty(options) || options.length === 1) {
+    return null;
+  }
 
   return (
     <Box title={title} showReset={selected.length > 0 && multi} onReset={reset}>

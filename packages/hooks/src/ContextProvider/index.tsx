@@ -249,13 +249,16 @@ const ContextProvider: React.FC<SearchProviderValues> = ({ children, search, ins
     [],
   );
 
-  const handlePaginate = (page: number) => {
-    const { pipeline, variables } = search as Required<ProviderPipelineConfig>;
-    const { config } = searchState;
+  const handlePaginate = useCallback(
+    (page: number) => {
+      const { pipeline, variables } = search as Required<ProviderPipelineConfig>;
+      const { config } = searchState;
 
-    variables.set({ [config.pageParam]: String(page) });
-    pipeline.search(variables.get());
-  };
+      variables.set({ [config.pageParam]: String(page) });
+      pipeline.search(variables.get());
+    },
+    [search.pipeline, search.variables, searchState.config],
+  );
 
   const handleResultClicked = useCallback((url: string) => search.pipeline.emitResultClicked(url), []);
 

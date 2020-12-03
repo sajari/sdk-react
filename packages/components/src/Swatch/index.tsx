@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { __DEV__, cleanChildren, getStylesObject } from '@sajari/react-sdk-utils';
-import { cloneElement } from 'react';
+import { cloneElement, useCallback } from 'react';
 import tw from 'twin.macro';
 
 import Box from '../Box';
@@ -22,9 +22,18 @@ const Swatch = ({
 }: SwatchProps) => {
   const styles = getStylesObject({ container: tw`flex flex-wrap -mt-2 -ml-2` }, disableDefaultStyles);
   const validChildren = cleanChildren(children);
-
+  const setState = useCallback(
+    (color: string) => {
+      if (checkedColors.includes(color)) {
+        onChange(checkedColors.filter((c) => c !== color));
+      } else {
+        onChange([...checkedColors, color]);
+      }
+    },
+    [JSON.stringify(checkedColors)],
+  );
   return (
-    <SwatchContextProvider value={{ state: checkedColors, setState: onChange, disableDefaultStyles }}>
+    <SwatchContextProvider value={{ state: checkedColors, setState, disableDefaultStyles }}>
       <Box css={[styles.container, stylesProp]} {...rest}>
         {validChildren.map((child) =>
           cloneElement(child, { className: colorClassName, checkedClassName: colorCheckedClassName, ...child.props }),
