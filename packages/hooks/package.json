@@ -1,6 +1,6 @@
 {
   "name": "@sajari/react-hooks",
-  "version": "1.0.0-alpha.26",
+  "version": "1.0.0-alpha.27",
   "description": "Easy to use hooks that allow you to build a powerful search interface powered by Sajari using any component library.",
   "sideEffects": false,
   "scripts": {
@@ -22,7 +22,7 @@
     "react-dom": "^16.8.0"
   },
   "dependencies": {
-    "@sajari/react-sdk-utils": "^1.0.0-alpha.16",
+    "@sajari/react-sdk-utils": "^1.0.0-alpha.17",
     "@sajari/sdk-js": "next",
     "js-cookie": "^2.2.1"
   },
@@ -31,5 +31,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "d2b9639c742e1dace15317d57a409777cd736dee"
 }

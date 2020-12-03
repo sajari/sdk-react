@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.17](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.0.0-alpha.16...@sajari/react-sdk-utils@1.0.0-alpha.17) (2020-12-03)
+
+**Note:** Version bump only for package @sajari/react-sdk-utils
+
 # [1.0.0-alpha.16](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.0.0-alpha.15...@sajari/react-sdk-utils@1.0.0-alpha.16) (2020-12-03)
 
 ### Bug Fixes
