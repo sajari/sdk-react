@@ -144,7 +144,7 @@ const Pagination = React.memo((props: PaginationProps) => {
 
       onChange(clamp(target, 1, count));
     },
-    [onChange, page],
+    [onChange, page, count],
   );
 
   const styles = getStylesObject(usePaginationStyles(props), disableDefaultStyles);
@@ -154,7 +154,7 @@ const Pagination = React.memo((props: PaginationProps) => {
       <Button
         spacing="compact"
         disabled={!hasPrevious}
-        onClick={changeHandler(hasPrevious, page - 1)}
+        onClick={changeHandler(!hasPrevious, page - 1)}
         aria-label={i18n.previous}
         className={classnames(prevClassName, buttonClassName)}
       >
@@ -167,7 +167,7 @@ const Pagination = React.memo((props: PaginationProps) => {
       <Button
         spacing="compact"
         disabled={!hasNext}
-        onClick={changeHandler(hasNext, page - 1)}
+        onClick={changeHandler(!hasNext, page + 1)}
         aria-label={i18n.next}
         className={classnames(nextClassName, buttonClassName)}
       >
