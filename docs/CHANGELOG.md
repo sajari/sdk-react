@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.26](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.25...sajari-sdk-docs@1.0.0-alpha.26) (2020-12-03)
+
+### Bug Fixes
+
+- rename ResultsPerPage sizes prop to options for consistency ([4a2b6d4](https://github.com/sajari/sdk-react/commit/4a2b6d4fd8b60b337faeb237b53c23793b73f7ef))
+
 # [1.0.0-alpha.25](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.24...sajari-sdk-docs@1.0.0-alpha.25) (2020-12-03)
 
 **Note:** Version bump only for package sajari-sdk-docs

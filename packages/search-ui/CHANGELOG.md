@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.43](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.42...@sajari/react-search-ui@1.0.0-alpha.43) (2020-12-03)
+
+### Bug Fixes
+
+- rename ResultsPerPage sizes prop to options for consistency ([4a2b6d4](https://github.com/sajari/sdk-react/commit/4a2b6d4fd8b60b337faeb237b53c23793b73f7ef))
+
 # [1.0.0-alpha.42](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.41...@sajari/react-search-ui@1.0.0-alpha.42) (2020-12-03)
 
 ### Bug Fixes
