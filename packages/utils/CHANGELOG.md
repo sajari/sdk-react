@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.19](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.0.0-alpha.18...@sajari/react-sdk-utils@1.0.0-alpha.19) (2020-12-03)
+
+### Bug Fixes
+
+- change isEmpty to check for null and undefined ([00526a5](https://github.com/sajari/sdk-react/commit/00526a502e367d8c33efe55d4f416bd8fce5391e))
+
 # [1.0.0-alpha.18](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.0.0-alpha.17...@sajari/react-sdk-utils@1.0.0-alpha.18) (2020-12-03)
 
 ### Bug Fixes
