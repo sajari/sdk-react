@@ -3,6 +3,7 @@ import { useFilter } from '@sajari/react-hooks';
 import { isEmpty } from '@sajari/react-sdk-utils';
 import React, { useMemo } from 'react';
 
+import { useSearchUIContext } from '../ContextProvider';
 import Box from './Box';
 import { ColorFilterProps } from './types';
 
@@ -10,6 +11,7 @@ const { colorKeys } = Swatch;
 
 const ColorFilter = ({ name, title }: Omit<ColorFilterProps, 'type'>) => {
   const { options, selected, setSelected, reset } = useFilter(name);
+  const { customClassNames, disableDefaultStyles = false } = useSearchUIContext();
   const optionKeys = useMemo(() => options.map((o) => o.label), [JSON.stringify(options)]);
   const filtered = useMemo(() => colorKeys.filter((c) => optionKeys.some((o) => o.includes(c))), [
     JSON.stringify(optionKeys),
@@ -30,7 +32,14 @@ const ColorFilter = ({ name, title }: Omit<ColorFilterProps, 'type'>) => {
 
   return (
     <Box title={title} showReset={selected.length > 0} onReset={reset}>
-      <Swatch checkedColors={selected} onChange={setSelected}>
+      <Swatch
+        checkedColors={selected}
+        onChange={setSelected}
+        className={customClassNames.filter?.color?.container}
+        colorClassName={customClassNames.filter?.color?.item}
+        colorCheckedClassName={customClassNames.filter?.color?.itemChecked}
+        disableDefaultStyles={disableDefaultStyles}
+      >
         {children}
       </Swatch>
     </Box>
