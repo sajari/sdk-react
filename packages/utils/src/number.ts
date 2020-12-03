@@ -1,3 +1,5 @@
+import { isSSR } from './ssr';
+
 /**
  * Returns a number whose value is limited to the given range.
  *
@@ -75,7 +77,7 @@ export function formatNumber(input = 0, currencyCode = '', neutral = true) {
   }
 
   let language = 'en-US';
-  if (typeof window !== 'undefined') {
+  if (!isSSR()) {
     ({ language } = navigator);
   }
 

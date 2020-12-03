@@ -1,4 +1,6 @@
 /* eslint-disable no-restricted-syntax */
+import { isSSR } from '@sajari/react-sdk-utils';
+
 import { EVENT_ANALYTICS_BODY_RESET, EVENT_ANALYTICS_PAGE_CLOSED, EVENT_ANALYTICS_RESULT_CLICKED } from '../../events';
 import { UnlistenFn } from '../listener';
 import { Analytics } from './analytics';
@@ -91,7 +93,7 @@ export class GoogleAnalytics {
     this.unregisterFunctions.push(analytics.listen(EVENT_ANALYTICS_BODY_RESET, this.onBodyReset));
     this.unregisterFunctions.push(analytics.listen(EVENT_ANALYTICS_RESULT_CLICKED, this.onResultClicked));
 
-    if (typeof window !== 'undefined') {
+    if (!isSSR()) {
       if (id !== undefined) {
         this.id = id;
       } else if (isFunction(window[GoogleAnalyticsObjects.AnalyticsJS])) {
@@ -119,7 +121,7 @@ export class GoogleAnalytics {
    */
   public sendGAPageView(body: string) {
     // @ts-ignore: window is an object
-    if (this.id && typeof window !== 'undefined' && isFunction(window[this.id])) {
+    if (this.id && !isSSR() && isFunction(window[this.id])) {
       // Merge the body in with the existing query params in the url
       const pageAddress = url.augmentUri(
         // Take only the portion of the url following the domain

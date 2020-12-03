@@ -1,3 +1,5 @@
+import { isSSR } from '@sajari/react-sdk-utils';
+
 import {
   EVENT_ANALYTICS_BODY_RESET,
   EVENT_ANALYTICS_PAGE_CLOSED,
@@ -62,7 +64,7 @@ export class Analytics {
     this.bodyLabel = 'q';
     this.bodyAutocompletedLabel = 'q';
 
-    if (typeof window !== 'undefined') {
+    if (!isSSR()) {
       window.addEventListener('beforeunload', this.beforeunload);
     }
 

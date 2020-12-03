@@ -1,10 +1,12 @@
+import { isSSR } from '@sajari/react-sdk-utils';
+
 /**
  * Sort an array based on a property of child item
  * @param {Array} list
  * @param {Boolean} asc - Ascending order?
  * @param {String} prop - Property of child object to sort on
  */
-const collator = new Intl.Collator(typeof window !== 'undefined' ? window.navigator.language : 'en-US', {
+const collator = new Intl.Collator(!isSSR() ? window.navigator.language : 'en-US', {
   numeric: true,
 });
 
