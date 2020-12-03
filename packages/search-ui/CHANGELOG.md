@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.41](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.40...@sajari/react-search-ui@1.0.0-alpha.41) (2020-12-03)
+
+### Bug Fixes
+
+- inherit fontFamily in input components ([2823134](https://github.com/sajari/sdk-react/commit/2823134617c74ee65b17d160375fe48c28a37f7c))
+
 # [1.0.0-alpha.40](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.39...@sajari/react-search-ui@1.0.0-alpha.40) (2020-12-03)
 
 **Note:** Version bump only for package @sajari/react-search-ui

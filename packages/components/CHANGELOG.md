@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.32](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.31...@sajari/react-components@1.0.0-alpha.32) (2020-12-03)
+
+### Bug Fixes
+
+- inherit fontFamily in input components ([2823134](https://github.com/sajari/sdk-react/commit/2823134617c74ee65b17d160375fe48c28a37f7c))
+
 # [1.0.0-alpha.31](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.30...@sajari/react-components@1.0.0-alpha.31) (2020-12-03)
 
 **Note:** Version bump only for package @sajari/react-components
