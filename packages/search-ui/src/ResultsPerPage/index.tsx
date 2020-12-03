@@ -11,17 +11,17 @@ import { useSearchUIContext } from '../ContextProvider';
 import useResultsPerPageStyles from './styles';
 import { ResultsPerPageProps } from './types';
 
-const defaultSizes = [15, 25, 50, 100];
+const defaultOptions = [15, 25, 50, 100];
 
 const ResultsPerPage = (props: ResultsPerPageProps) => {
   const { t } = useTranslation();
   const { customClassNames, disableDefaultStyles = false } = useSearchUIContext();
-  const { label = t('resultsPerPage.label'), sizes = defaultSizes, styles: stylesProp, size, ...rest } = props;
+  const { label = t('resultsPerPage.label'), options = defaultOptions, styles: stylesProp, size, ...rest } = props;
   const { resultsPerPage, setResultsPerPage } = useResultsPerPage();
   const { searched, totalResults } = useSearchContext();
   const id = `page-size-${useId()}`;
-  const sizesSorted = sizes.sort((a, b) => a - b);
-  const [min] = sizesSorted;
+  const optionsSorted = options.sort((a, b) => a - b);
+  const [min] = optionsSorted;
 
   if (!searched || totalResults === 0 || min > totalResults) {
     return null;
@@ -48,7 +48,7 @@ const ResultsPerPage = (props: ResultsPerPageProps) => {
         disableDefaultStyles={disableDefaultStyles}
         className={customClassNames.resultsPerPage?.select}
       >
-        {sizes.map((s, i) => (
+        {optionsSorted.map((s, i) => (
           <option key={`${id}-option-${i}`} value={s}>
             {s}
           </option>
