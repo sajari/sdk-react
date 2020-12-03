@@ -4,6 +4,7 @@ import { useId } from '@reach/auto-id';
 import { cleanChildren, getStylesObject } from '@sajari/react-sdk-utils';
 import React, { cloneElement, useRef, useState } from 'react';
 
+import Box from '../Box';
 import { useCheckboxGroupStyles } from './styles';
 import { CheckboxGroupProps } from './types';
 
@@ -12,7 +13,6 @@ const CheckboxGroup = (props: CheckboxGroupProps) => {
     onChange,
     name,
     defaultValue,
-    inline,
     value: valueProp,
     children,
     styles: stylesProp,
@@ -57,9 +57,9 @@ const CheckboxGroup = (props: CheckboxGroupProps) => {
   );
 
   return (
-    <div {...rest} role="group" css={[styles.container, stylesProp]}>
+    <Box {...rest} role="group" css={[styles.container, stylesProp]}>
       {clones}
-    </div>
+    </Box>
   );
 };
 

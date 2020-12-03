@@ -5,7 +5,7 @@ import { UseInputStyleProps, useInputStyles } from '../hooks';
 import { SelectProps } from './types';
 
 export function useSelectStyles(props: SelectProps) {
-  const { styles: inputStyles, focusRingStyles } = useInputStyles({
+  const { styles: inputStyles, focusRingStyles, focusProps } = useInputStyles({
     type: 'select',
     ...props,
   } as UseInputStyleProps);
@@ -15,5 +15,5 @@ export function useSelectStyles(props: SelectProps) {
     select: [tw`form-select`, inputStyles],
   };
 
-  return mapStyles(styles);
+  return { styles: mapStyles(styles), focusProps };
 }

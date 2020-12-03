@@ -1,5 +1,9 @@
 import { parseURL } from './url';
 
+export function isNullOrUndefined(value: any): value is undefined | null {
+  return value === null || typeof value === 'undefined';
+}
+
 export function isString(value: any): value is string {
   return typeof value === 'string';
 }
@@ -20,20 +24,18 @@ export function isArray<T>(value: any): value is T[] {
   return Array.isArray(value);
 }
 
-export const isEmptyArray = (value: any) => isArray(value) && value.length === 0;
-
 export const isObject = (value: any) => {
   const type = typeof value;
   return value !== null && (type === 'object' || type === 'function') && !isArray(value);
 };
 
-export const isEmptyObject = (value: any) => isObject(value) && Object.keys(value).length === 0;
+export const isEmptyArray = (value: any) => isArray(value) && value.length === 0;
 
-export const isNullOrUndefined = (value: any) => value === null || typeof value === 'undefined';
+export const isEmptyObject = (value: any) => isObject(value) && Object.keys(value).length === 0;
 
 // Empty assertions
 export const isEmpty = (value: any) => {
-  if (isNullOrUndefined(value)) {
+  if (value === null) {
     return true;
   }
 

@@ -5,7 +5,6 @@ import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import React from 'react';
 
 import Box from '../Box';
-import { UseInputStyleProps, useInputStyles } from '../hooks';
 import Label from '../Label';
 import { useSelectStyles } from './styles';
 import { SelectProps } from './types';
@@ -23,14 +22,9 @@ const Select = React.forwardRef((props: SelectProps, ref?: React.Ref<HTMLSelectE
     disableDefaultStyles = false,
     ...rest
   } = props;
-  const { focusProps } = useInputStyles({
-    block: true,
-    type: 'select',
-    size,
-    ...props,
-  } as UseInputStyleProps);
 
-  const styles = getStylesObject(useSelectStyles(props), disableDefaultStyles);
+  const { styles: selectStyles, focusProps } = useSelectStyles(props);
+  const styles = getStylesObject(selectStyles, disableDefaultStyles);
 
   return (
     <Box css={[styles.container, stylesProp]}>

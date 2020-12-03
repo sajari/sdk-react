@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "@emotion/core": "^10.1.1",
+    "@emotion/is-prop-valid": "1.0.0",
     "@emotion/styled": "^10.0.27",
     "@tailwindcss/ui": "^0.7.2",
     "emotion-theming": "^10.0.27",

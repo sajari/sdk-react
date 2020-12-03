@@ -4,6 +4,7 @@ import { useId } from '@reach/auto-id';
 import { cleanChildren, getStylesObject } from '@sajari/react-sdk-utils';
 import React, { cloneElement, forwardRef, useImperativeHandle, useRef, useState } from 'react';
 
+import Box from '../Box';
 import useRadioGroupStyles from './styles';
 import { RadioGroupProps } from './types';
 
@@ -13,6 +14,7 @@ const RadioGroup = forwardRef((props: RadioGroupProps, ref) => {
     name,
     defaultValue,
     value: valueProp,
+    inline,
     children,
     styles: stylesProp,
     disableDefaultStyles = false,
@@ -22,6 +24,7 @@ const RadioGroup = forwardRef((props: RadioGroupProps, ref) => {
   const [value, setValue] = useState(defaultValue || null);
   const internalValue = isControlled ? valueProp : value;
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const styles = getStylesObject(useRadioGroupStyles(props), disableDefaultStyles);
 
   const internalOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!isControlled) {
@@ -66,12 +69,10 @@ const RadioGroup = forwardRef((props: RadioGroupProps, ref) => {
     [],
   );
 
-  const styles = getStylesObject(useRadioGroupStyles(props), disableDefaultStyles);
-
   return (
-    <div {...rest} ref={rootRef} role="radiogroup" css={[styles.container, stylesProp]}>
+    <Box {...rest} ref={rootRef} role="radiogroup" css={[styles.container, stylesProp]}>
       {clones}
-    </div>
+    </Box>
   );
 });
 

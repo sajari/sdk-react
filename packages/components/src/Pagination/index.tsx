@@ -105,6 +105,7 @@ const Pagination = (props: PaginationProps) => {
     totalResults,
     resultsPerPage,
     page,
+    pageCount,
     onChange,
     i18n: i18nProp,
     buttonClassName,
@@ -117,29 +118,29 @@ const Pagination = (props: PaginationProps) => {
     ...rest
   } = props;
   const i18n = { ...defaultI18n, ...i18nProp };
-  let { pageCount } = props;
+  let count = pageCount;
 
   if (!totalResults || !resultsPerPage) {
     return null;
   }
 
-  if (!pageCount) {
-    pageCount = Math.ceil(totalResults / resultsPerPage);
+  if (!count) {
+    count = Math.ceil(totalResults / resultsPerPage);
   }
 
-  if (!pageCount || pageCount <= 1) {
+  if (!count || count <= 1) {
     return null;
   }
 
   const hasPrevious = page > 1;
-  const hasNext = page < pageCount;
+  const hasNext = page < count;
 
   const changeHandler = (target: number) => {
     if (target === page) {
       return;
     }
 
-    onChange(clamp(target, 1, pageCount));
+    onChange(clamp(target, 1, count));
   };
 
   const styles = getStylesObject(usePaginationStyles(props), disableDefaultStyles);
@@ -157,7 +158,7 @@ const Pagination = (props: PaginationProps) => {
         <IconChevronLeft />
       </Button>
 
-      {getButtons(page, pageCount, changeHandler, i18n, props)}
+      {getButtons(page, count, changeHandler, i18n, props)}
 
       <Button
         spacing="compact"

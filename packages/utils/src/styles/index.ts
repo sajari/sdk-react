@@ -1,5 +1,8 @@
 import { css, SerializedStyles } from '@emotion/core';
+import isPropValid from '@emotion/is-prop-valid';
 import { TwStyle } from 'twin.macro';
+
+import { isNullOrUndefined } from '../assertion';
 
 export function mapStyles<T = Record<string, (TwStyle | string)[]>>(styles: T): Record<keyof T, SerializedStyles> {
   return Object.entries(styles).reduce((obj, [key, value]) => Object.assign(obj, { [key]: css(value) }), {}) as Record<
@@ -18,6 +21,19 @@ export function getStylesObject<T = Record<string, SerializedStyles>>(styles: T,
 
 export function inferStylesObjectKeys<T, K = (TwStyle | string)[]>(obj: T) {
   return (obj as unknown) as Record<keyof T, K>;
+}
+
+export function filterProps(props?: Record<string, any>) {
+  if (isNullOrUndefined(props)) {
+    return {};
+  }
+
+  return Object.entries(props).reduce((current, [key, value]) => {
+    if (isPropValid(key)) {
+      return { ...current, [key]: value };
+    }
+    return current;
+  }, {});
 }
 
 export { default as styled } from './styled';

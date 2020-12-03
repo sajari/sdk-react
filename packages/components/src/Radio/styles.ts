@@ -9,7 +9,6 @@ export default function useRadioStyles(props: RadioProps) {
   const sizeStyles = useFontSize({ size: fontSize });
 
   const { styles: inputStyles, focusRingStyles, focusProps } = useInputStyles({
-    block: true,
     type: 'radio',
     ...props,
   } as UseInputStyleProps);

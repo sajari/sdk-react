@@ -10,13 +10,12 @@ export interface UseInputStyleProps {
   invalid?: boolean;
   readOnly?: boolean;
   indeterminate?: boolean;
-  block?: boolean;
   type: 'select' | 'radio' | 'checkbox';
   size?: 'sm' | 'md' | 'lg';
 }
 
 export default function useInputStyles(props: UseInputStyleProps) {
-  const { block, disabled, indeterminate, invalid, readOnly, size, type } = props;
+  const { disabled, indeterminate, invalid, readOnly, size, type } = props;
   const { focusRingStyles, focusProps } = useFocusRingStyles({
     disabled,
     invalid,
@@ -50,10 +49,6 @@ export default function useInputStyles(props: UseInputStyleProps) {
 
   // Cancel out the form controls plugin styles since we use the ring
   styles.push(tw`focus:outline-none focus:shadow-none focus:border-gray-200`);
-
-  if (block) {
-    styles.push(tw`block w-full`);
-  }
 
   if (disabled || readOnly) {
     styles.push(tw`cursor-not-allowed`);
@@ -98,7 +93,7 @@ export default function useInputStyles(props: UseInputStyleProps) {
   }
 
   if (type === 'select') {
-    styles.push(tw`pr-10 rounded-md`);
+    styles.push(tw`block w-full pr-10 rounded-md`);
   }
 
   return { styles: css(styles), focusRingStyles, focusProps };
