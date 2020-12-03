@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.26](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.25...@sajari/react-hooks@1.0.0-alpha.26) (2020-12-03)
+
+### Bug Fixes
+
+- empty query search logic ([#274](https://github.com/sajari/sdk-react/issues/274)) ([37acaee](https://github.com/sajari/sdk-react/commit/37acaeefe1b2e30e97461527b4a95522e15ccef5))
+
 # [1.0.0-alpha.25](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-alpha.24...@sajari/react-hooks@1.0.0-alpha.25) (2020-12-02)
 
 **Note:** Version bump only for package @sajari/react-hooks

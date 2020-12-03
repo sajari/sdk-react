@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.16](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.0.0-alpha.15...@sajari/react-sdk-utils@1.0.0-alpha.16) (2020-12-03)
+
+### Bug Fixes
+
+- fix unwanted props leaking to the DOM ([0ad76bc](https://github.com/sajari/sdk-react/commit/0ad76bc8deddd499cc5687dfb0ca2686af3b2b22))
+
 # [1.0.0-alpha.15](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.0.0-alpha.14...@sajari/react-sdk-utils@1.0.0-alpha.15) (2020-12-02)
 
 ### Bug Fixes

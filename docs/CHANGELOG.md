@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.24](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.23...sajari-sdk-docs@1.0.0-alpha.24) (2020-12-03)
+
+### Bug Fixes
+
+- empty query search logic ([#274](https://github.com/sajari/sdk-react/issues/274)) ([37acaee](https://github.com/sajari/sdk-react/commit/37acaeefe1b2e30e97461527b4a95522e15ccef5))
+- remove redundant variables ([#272](https://github.com/sajari/sdk-react/issues/272)) ([fe57235](https://github.com/sajari/sdk-react/commit/fe57235d219c2003e56764c54958149931b5c2c6))
+- summary disable suggestion by default ([#273](https://github.com/sajari/sdk-react/issues/273)) ([7c448b8](https://github.com/sajari/sdk-react/commit/7c448b850d185b8af9616f8536c5b101ba250c0d))
+
 # [1.0.0-alpha.23](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.22...sajari-sdk-docs@1.0.0-alpha.23) (2020-12-02)
 
 **Note:** Version bump only for package sajari-sdk-docs

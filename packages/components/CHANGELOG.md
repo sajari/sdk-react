@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.30](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.29...@sajari/react-components@1.0.0-alpha.30) (2020-12-03)
+
+### Bug Fixes
+
+- don’t bleed disableDefaultStyles to DOM ([7bb188e](https://github.com/sajari/sdk-react/commit/7bb188efff2e76ec500eb8979717cb806a13e876))
+- fix unwanted props leaking to the DOM ([0ad76bc](https://github.com/sajari/sdk-react/commit/0ad76bc8deddd499cc5687dfb0ca2686af3b2b22))
+
+### Features
+
+- add option to control styles for Combobox and Input ([#275](https://github.com/sajari/sdk-react/issues/275)) ([2772197](https://github.com/sajari/sdk-react/commit/2772197939c51f4e71990bb5255fbcbde2c75950))
+- add option to control styles for Rating ([#271](https://github.com/sajari/sdk-react/issues/271)) ([e5e4fc9](https://github.com/sajari/sdk-react/commit/e5e4fc9bfefe5238ac4ea9b59157ca8653a7baaa))
+
 # [1.0.0-alpha.29](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.28...@sajari/react-components@1.0.0-alpha.29) (2020-12-02)
 
 **Note:** Version bump only for package @sajari/react-components

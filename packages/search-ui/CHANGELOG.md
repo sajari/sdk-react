@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.39](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.38...@sajari/react-search-ui@1.0.0-alpha.39) (2020-12-03)
+
+### Bug Fixes
+
+- fix unwanted props leaking to the DOM ([0ad76bc](https://github.com/sajari/sdk-react/commit/0ad76bc8deddd499cc5687dfb0ca2686af3b2b22))
+- summary disable suggestion by default ([#273](https://github.com/sajari/sdk-react/issues/273)) ([7c448b8](https://github.com/sajari/sdk-react/commit/7c448b850d185b8af9616f8536c5b101ba250c0d))
+
+### Features
+
+- add option to control styles for Combobox and Input ([#275](https://github.com/sajari/sdk-react/issues/275)) ([2772197](https://github.com/sajari/sdk-react/commit/2772197939c51f4e71990bb5255fbcbde2c75950))
+
 # [1.0.0-alpha.38](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.37...@sajari/react-search-ui@1.0.0-alpha.38) (2020-12-02)
 
 ### Bug Fixes
