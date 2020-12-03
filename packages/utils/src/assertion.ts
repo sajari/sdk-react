@@ -35,7 +35,7 @@ export const isEmptyObject = (value: any) => isObject(value) && Object.keys(valu
 
 // Empty assertions
 export const isEmpty = (value: any) => {
-  if (value === null) {
+  if (isNullOrUndefined(value)) {
     return true;
   }
 
