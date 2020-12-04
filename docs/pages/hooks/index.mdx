@@ -4,12 +4,41 @@ import SEO from '../../components/SEO';
 
 # Hooks
 
-![Size](https://badgen.net/bundlephobia/minzip/@sajari/react-hooks?cache=300)
+<div class="flex space-x-2">
+  <img src="https://badgen.net/bundlephobia/minzip/@sajari/react-hooks?cache=300" alt="Size" />
+  <img src="https://badgen.net/npm/v/@sajari/react-hooks?cache=300" alt="Latest NPM version" />
+</div>
 
 Hooks that allow you to build a search interface using any component library.
 
-## 1. Installing
+## 1. Install
 
-```bash readonly
+Install the dependency via `yarn` or `npm install`.
+
+```txt
 yarn add @sajari/react-hooks
+```
+
+## 2. Import
+
+Pick and choose the components you'd like to use and import them.
+
+```js
+import { SearchProvider, useSearch } from '@sajari/react-hooks';
+```
+
+## 3. Use
+
+Use them in your interface.
+
+In a parent component, setup the `SearchProvider`.
+
+```js
+return <SearchProvider search={{ pipeline }}>{/* Your app */}</SearchProvider>;
+```
+
+In a child component, access the hook.
+
+```js
+const { results } = useSearch();
 ```
