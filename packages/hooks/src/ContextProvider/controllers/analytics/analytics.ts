@@ -8,9 +8,9 @@ import {
   EVENT_RESULT_CLICKED,
   EVENT_TRACKING_RESET,
 } from '../../events';
-import { CallbackFn, Listener, ListenerMap } from '../listener';
-import { Pipeline } from '../pipeline';
-import { Response } from '../response';
+import { CallbackFn, Listener, ListenerMap } from '../Listener';
+import { Pipeline } from '../Pipeline';
+import { Response } from '../Response';
 import { Tracking } from '../tracking';
 
 const events = [EVENT_ANALYTICS_PAGE_CLOSED, EVENT_ANALYTICS_BODY_RESET, EVENT_ANALYTICS_RESULT_CLICKED];

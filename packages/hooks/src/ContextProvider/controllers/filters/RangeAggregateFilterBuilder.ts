@@ -3,8 +3,8 @@
 import { Aggregates } from '@sajari/sdk-js';
 
 import { EVENT_RESPONSE_UPDATED, EVENT_SEARCH_SENT } from '../../events';
-import { Pipeline } from '../pipeline';
-import { Variables } from '../variables';
+import { Pipeline } from '../Pipeline';
+import { Variables } from '../Variables';
 import { Range, RangeFilterBuilder } from './RangeFilterBuilder';
 
 export type LimitUpdateListener = ({ bounce, range }: { bounce: Range; range: Range }) => void;

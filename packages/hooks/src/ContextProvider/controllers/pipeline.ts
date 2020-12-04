@@ -1,10 +1,11 @@
 /* eslint-disable no-underscore-dangle */
+import { isString } from '@sajari/react-sdk-utils';
 import { Client } from '@sajari/sdk-js';
 
 import { EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED, EVENT_SEARCH_SENT } from '../events';
 import { Analytics, GoogleAnalytics } from './analytics';
-import { CallbackFn, Listener, ListenerMap } from './listener';
-import { Response } from './response';
+import { CallbackFn, Listener, ListenerMap } from './Listener';
+import { Response } from './Response';
 import { ClickTracking, NoTracking } from './tracking';
 
 const events = [EVENT_SEARCH_SENT, EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED];
@@ -60,7 +61,7 @@ export class Pipeline {
       name: undefined,
       version: undefined,
     };
-    if (typeof name === 'string') {
+    if (isString(name)) {
       p.name = name;
     } else if ('name' in name) {
       p.name = name.name;

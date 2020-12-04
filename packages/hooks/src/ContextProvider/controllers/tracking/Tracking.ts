@@ -4,7 +4,7 @@
 import { Session } from '@sajari/sdk-js';
 
 import { EVENT_TRACKING_RESET } from '../../events';
-import { CallbackFn, Listener, ListenerMap, UnlistenFn } from '../listener';
+import { CallbackFn, Listener, ListenerMap, UnlistenFn } from '../Listener';
 
 const events = [EVENT_TRACKING_RESET];
 

@@ -4,7 +4,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
 import { EVENT_OPTIONS_UPDATED, EVENT_SELECTION_UPDATED } from '../../events';
-import { Listener } from '../listener';
+import { Listener } from '../Listener';
 
 const events = [EVENT_SELECTION_UPDATED, EVENT_OPTIONS_UPDATED];
 

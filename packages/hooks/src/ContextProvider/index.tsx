@@ -3,7 +3,7 @@
 import { createContext, isEmpty } from '@sajari/react-sdk-utils';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import { Config, defaultConfig } from './config';
+import { Config, defaultConfig } from './Config';
 import {
   ClickTracking,
   FilterBuilder,
@@ -16,7 +16,7 @@ import {
   Variables,
 } from './controllers';
 import combineFilters from './controllers/filters/combineFilters';
-import { UnlistenFn } from './controllers/listener';
+import { UnlistenFn } from './controllers/Listener';
 import { EVENT_RESPONSE_UPDATED, EVENT_SELECTION_UPDATED, EVENT_VALUES_UPDATED } from './events';
 import {
   Context,

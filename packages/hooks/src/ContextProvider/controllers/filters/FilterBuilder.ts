@@ -2,7 +2,7 @@
 import { isEmpty, isFunction, isString, replaceAll } from '@sajari/react-sdk-utils';
 
 import { EVENT_OPTIONS_UPDATED, EVENT_SELECTION_UPDATED } from '../../events';
-import { Listener } from '../listener';
+import { Listener } from '../Listener';
 import { FilterOptions, JoinOperator, Options } from './types';
 
 // Escape any characters that will break the request

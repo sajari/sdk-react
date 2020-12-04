@@ -1,5 +1,5 @@
 import { EVENT_OPTIONS_UPDATED, EVENT_SELECTION_UPDATED } from '../../events';
-import { Listener } from '../listener';
+import { Listener } from '../Listener';
 import FilterBuilder from './FilterBuilder';
 import { JoinOperator } from './types';
 

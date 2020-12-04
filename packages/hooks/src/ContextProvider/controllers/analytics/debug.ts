@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { EVENT_ANALYTICS_BODY_RESET, EVENT_ANALYTICS_PAGE_CLOSED, EVENT_ANALYTICS_RESULT_CLICKED } from '../../events';
-import { Analytics } from './analytics';
+import { Analytics } from './Analytics';
 
 export class DebugAnalytics {
   /**

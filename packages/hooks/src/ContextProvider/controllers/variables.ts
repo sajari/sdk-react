@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
-import { defaultConfig } from '../config';
+import { defaultConfig } from '../Config';
 import { EVENT_VALUES_UPDATED } from '../events';
-import { Listener, ListenerMap } from './listener';
+import { Listener, ListenerMap } from './Listener';
 
 export type VariableFn = () => string;
 export type VariablesMap = Map<string, string | string[] | number | boolean | VariableFn>;

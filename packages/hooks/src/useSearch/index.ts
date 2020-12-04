@@ -2,7 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { useContext } from '../ContextProvider';
-import { defaultConfig } from '../ContextProvider/config';
+import { defaultConfig } from '../ContextProvider/Config';
 import { Response } from '../ContextProvider/controllers';
 import { EVENT_RESPONSE_UPDATED, EVENT_VALUES_UPDATED } from '../ContextProvider/events';
 import { UseSearchConfig, UseSearchCustomConfig, UseSearchParams, UseSearchResult } from './types';
