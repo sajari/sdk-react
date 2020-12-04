@@ -17,7 +17,7 @@ export default function useRadioStyles(props: RadioProps) {
     container: [tw`flex items-center`],
     label: [tw`ml-2`, sizeStyles],
     componentWrapper: [tw`inline-flex items-center`],
-    inputWrapper: [tw`relative`, focusRingStyles],
+    inputWrapper: [tw`relative flex`, focusRingStyles],
     input: [[tw`form-radio`, inputStyles]],
   };
 

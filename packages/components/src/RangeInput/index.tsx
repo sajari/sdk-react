@@ -133,10 +133,6 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     inputMode: 'numeric' as AriaTextFieldOptions['inputMode'],
     disableDefaultStyles,
     onBlur: handleSwitchRange,
-    css: tw`w-10`,
-    style: {
-      width: '100px',
-    },
   };
 
   const leftInputProps = {
@@ -184,11 +180,22 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     <Box ref={ref} css={[styles.container, stylesProp]} {...rest}>
       <Box css={styles.wrapper}>
         <Box css={styles.ticks}>
-          {ticks.map(({ value: tickValue, getTickProps }) => (
-            <Text css={styles.tickItem} {...getTickProps()} disableDefaultStyles={disableDefaultStyles}>
-              {tickValue}
-            </Text>
-          ))}
+          {ticks.map(({ value: tickValue, getTickProps }) => {
+            // Remove width from the styles to prevent needing !important in our styles
+            const { style, ...tickProps } = getTickProps();
+            const { width, ...tickStyles } = style;
+
+            return (
+              <Text
+                {...tickProps}
+                style={{ ...tickStyles }}
+                css={styles.tickItem}
+                disableDefaultStyles={disableDefaultStyles}
+              >
+                {tickValue}
+              </Text>
+            );
+          })}
         </Box>
 
         <Track
