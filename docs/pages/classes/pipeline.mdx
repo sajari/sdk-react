@@ -1,0 +1,105 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="Pipeline"
+  description="The Pipeline class is required to configure which pipeline to use for search queries and must be passed to the SearchProvider."
+/>
+
+# Pipeline
+
+The Pipeline class is required to configure which pipeline to use for search queries and must be passed to the `SearchProvider`.
+
+```js
+import { Pipeline } from '@sajari/react-hooks';
+// or
+import { Pipeline } from '@sajari/react-search-ui';
+```
+
+## Usage
+
+```jsx live=false
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  // ...
+
+  return <SearchProvider search={{ pipeline }}>{/* Your app */}</SearchProvider>;
+}
+```
+
+Replace the demo information with your [account ID and collection ID](https://www.sajari.com/console/collection/credentials) and [pipeline](https://www.sajari.com/console/collection/pipelines) (e.g. `'query'`) from the console.
+
+## Constructor
+
+The constructor accepts the following arguments:
+
+| Argument | Type                                                         | Default             | Description                                     |
+| -------- | ------------------------------------------------------------ | ------------------- | ----------------------------------------------- |
+| 0        | `{ account: string; collection: string; endpoint?: string;}` |                     | Account, collection and endpoint configuration. |
+| 1        | `string` \| `{ name: string; version?: string }`             |                     | The pipeline configuration.                     |
+| 2        | `ClickTracking` \| `NoTracking`                              | `new NoTracking()`  | Default tracking to use in searches.            |
+| 3        | `ClickTracking` \| `NoTracking`                              | `[GoogleAnalytics]` | Default tracking to use in searches.            |
+
+## Properties
+
+For more advanced implementations, you may want to call methods on the `Pipeline` instance.
+
+| Name                                          | Description                                                          |
+| --------------------------------------------- | -------------------------------------------------------------------- |
+| `search(variables)`                           | Perform a search.                                                    |
+| `listen(event: string, callback: () => void)` | Register a listener for a specific event.                            |
+| `clearResponse(variables)`                    | Clears the error, response, and response variables from this object. |
+| `getResponse()`                               | Returns the current response.                                        |
+| `getAnalytics()`                              | Returns the analytics adaptor connected to this pipeline.            |
+| `getClient()`                                 | Returns the underlying JavaScript SDK client.                        |
+
+### Search example
+
+To perform a search you need a dictionary of parameter key-value pairs.
+
+```jsx live=false
+const response = pipeline.search({
+  q: 'search keywords',
+  filter: "dir1='articles'",
+});
+```
+
+This will return a [`Response`](/classes/response) object.
+
+### Listen example
+
+Register listeners to be notified when search responses come back from the server, or are cleared by UI events. Every listener is passed a [`Response`](/classes/response) which wraps the server response with convenience methods:
+
+```js
+import { EVENT_RESPONSE_UPDATED } from '@sajari/react-hooks';
+// or
+import { EVENT_RESPONSE_UPDATED } from '@sajari/react-search-ui';
+
+const unregister = pipeline.listen(EVENT_RESPONSE_UPDATED, (response) => {
+  if (response.isEmpty()) {
+    // Empty response, could have been cleared via pipeline.clearResponse()
+    console.log('empty response');
+    return;
+  }
+
+  if (response.isError()) {
+    // Error response, normally due to incorrect project/collection/pipeline
+    // or transient errors contacting the server.
+    console.error('error response:', response.getError());
+    return;
+  }
+
+  response.getResults().forEach((result) => {
+    console.log(result);
+  });
+});
+
+// Sometime later...
+unregister();
+```

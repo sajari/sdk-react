@@ -48,7 +48,7 @@ const Layout = (props: FlexProps) => {
             icon="large-logo-github"
             label="GitHub"
             rounded
-            href="https://github.com/sajari/sajari-sdk-react"
+            href="https://github.com/sajari/sdk-react"
             target="_blank"
           />
 

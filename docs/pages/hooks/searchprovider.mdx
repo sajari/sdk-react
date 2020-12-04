@@ -1,0 +1,34 @@
+import SEO from '../../components/SEO';
+
+<SEO title="SearchProvider" description="The SearchProvider component..." />
+
+# SearchProvider
+
+The SearchProvider component is required for all hooks to function.
+
+```js
+import { SearchProvider } from '@sajari/react-hooks';
+```
+
+## Usage
+
+It must wrap any components where you are using hooks, usually this is done in an `App` or `index` file. You must also specify the pipeline you wish to query.
+
+```jsx live=false
+<SearchProvider
+  search={{
+    pipeline: new Pipeline(
+      {
+        account: '<Your account ID>',
+        collection: '<Your collection ID>',
+      },
+      '<Your pipeline name>',
+    ),
+  }}
+>
+  {/* Your app */}
+</SearchProvider>
+```
+
+- Replace the placeholders with your account and collection IDs from [the collection crendentials section](https://www.sajari.com/console/collection/credentials) in the console.
+- Replace the pipeline name placeholder with the pipeline you'd like to use to query.

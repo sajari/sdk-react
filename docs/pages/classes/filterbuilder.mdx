@@ -1,0 +1,103 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="FilterBuilder"
+  description="The FilterBuilder class is used to construct filters for use with the relevant SearchProvider."
+/>
+
+# FilterBuilder
+
+The FilterBuilder class is used to construct filters for use with the relevant `SearchProvider`. They can later be referenced by the [`useFilter` hook](/hooks/usefilter) or [`Filter` component](/search-ui/filter).
+
+```js
+import { FilterBuilder } from '@sajari/react-hooks';
+// or
+import { FilterBuilder } from '@sajari/react-search-ui';
+```
+
+## Usage
+
+```jsx live=false
+function Example() {
+  const brandFilter = new FilterBuilder({
+    name: 'brand',
+    field: 'brand',
+  });
+
+  const priceFilter = new FilterBuilder({
+    name: 'price',
+    options: {
+      High: 'price >= 200',
+      Mid: 'price >= 50',
+      Low: 'price < 50',
+    },
+    multi: false,
+    initial: ['High'],
+  });
+
+  // ...
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        filters: [priceFilter, brandFilter],
+      }}
+    >
+      {/* Your app */}
+    </SearchProvider>
+  );
+}
+```
+
+## Constructor
+
+The constructor accepts a single object with the following properties:
+
+| Name           | Type                                     | Default                           | Description                                                                                     |
+| -------------- | ---------------------------------------- | --------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `name`         | `string`                                 |                                   | The name of the filter. This should be unique as it will be used as a key of useFilter hook.    |
+| `field`        | `string`                                 |                                   | A field in schema, used if `count` = `true`.                                                    |
+| `options`      | `Record<string, string \| () => string>` |                                   | Dictionary of name -> filter pairs.                                                             |
+| `initial`      | `string` \| `string[]`                   |                                   | List of initially selected items.                                                               |
+| `count`        | `boolean`                                | `true` if no `options` specified. | Map to a field which aims to perform a count aggregate.                                         |
+| `array`        | `boolean`                                |                                   | Whether the response of the field is an array. This setting is only applicable if count is set. |
+| `multi`        | `boolean`                                |                                   | Multiple selections allowed.                                                                    |
+| `joinOperator` | `'OR'` \| `'AND'`                        | `'OR'`                            | Join operator used if `multi` = `true`.                                                         |
+
+## Properties
+
+For more advanced implementations, you may want to access properties on the `FilterBuilder` instance.
+
+| Name                                                               | Description                                                            |
+| ------------------------------------------------------------------ | ---------------------------------------------------------------------- |
+| `listen(event: string, callback: (filter: FilterBuilder) => void)` | Register a listener for a specific event.                              |
+| `set(values: string[], merge: boolean = false)`                    | Set the state of the filter and optionally merge current values.       |
+| `reset()`                                                          | Reset the current filter to the initial one.                           |
+| `remove(values: string[])`                                         | Remove a list of values from the current state.                        |
+| `isSet(name: string)`                                              | Returns whether the filter is set or not.                              |
+| `setOptions(options: Options, merge: boolean = false)`             | Set or merge filter options.                                           |
+| `filter()`                                                         | Builds up the filter string from the current filter and it's children. |
+| `getBuckets()`                                                     | Get the bucket definitions for the filter.                             |
+| `getName()`                                                        | Returns the `name` property of the filter.                             |
+| `getField()`                                                       | Returns the `field` property of the filter.                            |
+| `getCount()`                                                       | Returns the `count` property of the filter.                            |
+| `getOptions()`                                                     | Returns the current `options` property of the filter.                  |
+| `get()`                                                            | Returns the current selected options of the filter.                    |
+| `isArray()`                                                        | Returns the `array` property of the filter.                            |
+| `isMulti()`                                                        | Returns the `multi` property of the filter.                            |
+
+### Listen example
+
+```js
+import { EVENT_SELECTION_UPDATED } from '@sajari/react-hooks';
+// or
+import { EVENT_SELECTION_UPDATED } from '@sajari/react-search-ui';
+
+const unregister = filter.listen(EVENT_SELECTION_UPDATED, () => {
+  console.log('filter changed:', filter.filter());
+});
+
+// Sometime later...
+unregister();
+```
