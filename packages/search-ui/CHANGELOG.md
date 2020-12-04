@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.3](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-beta.2...@sajari/react-search-ui@1.0.0-beta.3) (2020-12-04)
+
+**Note:** Version bump only for package @sajari/react-search-ui
+
 # [1.0.0-beta.2](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-beta.1...@sajari/react-search-ui@1.0.0-beta.2) (2020-12-04)
 
 **Note:** Version bump only for package @sajari/react-search-ui
