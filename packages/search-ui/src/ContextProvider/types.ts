@@ -57,6 +57,35 @@ export interface SearchUIContextProviderValues {
       selectedResult?: string;
       typeahead?: string;
     };
+    filter?: {
+      box?: string;
+      header?: string;
+      title?: string;
+      resetButton?: string;
+      rating?: {
+        container?: string;
+        activeRatingItem?: string;
+        activeHalfRatingItem?: string;
+      };
+      color?: {
+        container?: string;
+        itemChecked?: string;
+        item?: string;
+      };
+      tabs?: {
+        container?: string;
+        list?: string;
+        tab?: string;
+        selectedTab?: string;
+      };
+      list?: {
+        container?: string;
+        searchFilter?: string;
+        checkboxGroup?: string;
+        radioGroup?: string;
+        toggleButton?: string;
+      };
+    };
   };
 }
 
