@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.4](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-beta.3...@sajari/react-hooks@1.0.0-beta.4) (2020-12-04)
+
+### Bug Fixes
+
+- more git naming fixes ([cf32aee](https://github.com/sajari/sdk-react/commit/cf32aee4dfa929cc501d75f6bf9c4817c8577574))
+
 # [1.0.0-beta.3](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-beta.2...@sajari/react-hooks@1.0.0-beta.3) (2020-12-04)
 
 ### Bug Fixes
