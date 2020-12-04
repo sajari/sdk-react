@@ -122,20 +122,35 @@ const Pagination = React.memo((props: PaginationProps) => {
     ...rest
   } = props;
   const firstRender = useFirstRender();
+  const styles = getStylesObject(usePaginationStyles(props), disableDefaultStyles);
 
   useEffect(() => {
     if (firstRender || !scrollToTop || isSSR()) {
       return;
     }
+
     let target = scrollTarget as Element | null;
+
     if (isString(scrollTarget)) {
       target = document.querySelector(scrollTarget);
     }
+
     target?.scrollIntoView({ behavior: 'smooth' });
   }, [page]);
 
   const i18n = { ...defaultI18n, ...i18nProp };
   let count = pageCount;
+
+  const changeHandler = useCallback(
+    (exitEarly: boolean, target: number) => () => {
+      if (target === page || exitEarly) {
+        return;
+      }
+
+      onChange(clamp(target, 1, count));
+    },
+    [onChange, page, count],
+  );
 
   if (!totalResults || !resultsPerPage) {
     return null;
@@ -151,19 +166,6 @@ const Pagination = React.memo((props: PaginationProps) => {
 
   const hasPrevious = page > 1;
   const hasNext = page < count;
-
-  const changeHandler = useCallback(
-    (exitEarly: boolean, target: number) => () => {
-      if (target === page || exitEarly) {
-        return;
-      }
-
-      onChange(clamp(target, 1, count));
-    },
-    [onChange, page, count],
-  );
-
-  const styles = getStylesObject(usePaginationStyles(props), disableDefaultStyles);
 
   return (
     <ButtonGroup as="nav" aria-label={i18n.label} attached css={[styles.container, stylesProp]} {...rest}>
