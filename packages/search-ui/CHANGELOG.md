@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.45](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.44...@sajari/react-search-ui@1.0.0-alpha.45) (2020-12-04)
+
+### Features
+
+- add option to control styles for Filter ([#280](https://github.com/sajari/sdk-react/issues/280)) ([fa7d6f5](https://github.com/sajari/sdk-react/commit/fa7d6f512ff032af523c691950a1076693129e4e))
+
 # [1.0.0-alpha.44](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-alpha.43...@sajari/react-search-ui@1.0.0-alpha.44) (2020-12-03)
 
 **Note:** Version bump only for package @sajari/react-search-ui

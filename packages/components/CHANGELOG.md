@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.35](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.34...@sajari/react-components@1.0.0-alpha.35) (2020-12-04)
+
+### Bug Fixes
+
+- issue with hook being after return null ([e046817](https://github.com/sajari/sdk-react/commit/e0468176416fa77b1b922d7b50ec6c7ba9ffbd8b))
+- pagination prev/next button ([#276](https://github.com/sajari/sdk-react/issues/276)) ([f93f08f](https://github.com/sajari/sdk-react/commit/f93f08f62aab248dff016f3db07867a657c1619e))
+- various styling fixes ([d68ba5c](https://github.com/sajari/sdk-react/commit/d68ba5cb083d773418289781b642a2bf8bbba8ad))
+
+### Features
+
+- add option to control styles for RangeInput ([#279](https://github.com/sajari/sdk-react/issues/279)) ([9950413](https://github.com/sajari/sdk-react/commit/99504137fc0d351303532a4d383029908a19a8d7))
+
 # [1.0.0-alpha.34](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.33...@sajari/react-components@1.0.0-alpha.34) (2020-12-03)
 
 **Note:** Version bump only for package @sajari/react-components

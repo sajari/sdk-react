@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.27](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.26...sajari-sdk-docs@1.0.0-alpha.27) (2020-12-04)
+
+**Note:** Version bump only for package sajari-sdk-docs
+
 # [1.0.0-alpha.26](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-alpha.25...sajari-sdk-docs@1.0.0-alpha.26) (2020-12-03)
 
 ### Bug Fixes
