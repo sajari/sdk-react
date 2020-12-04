@@ -1,10 +1,16 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+import { getStylesObject } from '@sajari/react-sdk-utils';
 import React from 'react';
-import tw from 'twin.macro';
 
-const Track = React.forwardRef((props: any, ref?: React.Ref<HTMLDivElement>) => {
-  return <div css={tw`relative flex-1 h-1`} style={{ touchAction: 'none' }} ref={ref} {...props} />;
+import Box, { BoxProps } from '../../../Box';
+import useTrackStyles from './styles';
+
+const Track = React.forwardRef((props: BoxProps, ref?: React.Ref<HTMLDivElement>) => {
+  const { disableDefaultStyles = false, styles: stylesProps, ...rest } = props;
+  const styles = getStylesObject(useTrackStyles(), disableDefaultStyles);
+
+  return <Box css={[styles.container, stylesProps]} ref={ref} {...rest} />;
 });
 
 export default Track;

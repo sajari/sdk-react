@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import { jsx } from '@emotion/core';
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
-import { __DEV__, clamp, closest, round } from '@sajari/react-sdk-utils';
+import { __DEV__, clamp, closest, getStylesObject, round } from '@sajari/react-sdk-utils';
 import React, { MouseEvent, ReactNode } from 'react';
 import { useRanger } from 'react-ranger';
 import tw from 'twin.macro';
@@ -12,6 +12,7 @@ import Fill from './components/Fill';
 import Handle from './components/Handle';
 import Input from './components/Input';
 import Track from './components/Track';
+import useRangeInputStyles from './styles';
 import { RangeInputProps } from './types';
 
 const noop = () => {};
@@ -32,8 +33,11 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     tick,
     fillClassName,
     handleClassName,
+    handleActiveClassName,
     trackClassName,
     inputClassName,
+    styles: stylesProp,
+    disableDefaultStyles = false,
     ...rest
   } = props;
   const isSingleHandle = value.length === 1;
@@ -127,6 +131,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     max,
     type: 'number',
     inputMode: 'numeric' as AriaTextFieldOptions['inputMode'],
+    disableDefaultStyles,
     onBlur: handleSwitchRange,
     css: tw`w-10`,
     style: {
@@ -173,45 +178,50 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     });
   }
 
+  const styles = getStylesObject(useRangeInputStyles({ isSingleHandle }), disableDefaultStyles);
+
   return (
-    <Box ref={ref} css={tw`flex flex-col`} {...rest}>
-      <Box css={tw`w-full mt-8 mb-3`}>
-        <Box css={tw`relative`}>
+    <Box ref={ref} css={[styles.container, stylesProp]} {...rest}>
+      <Box css={styles.wrapper}>
+        <Box css={styles.ticks}>
           {ticks.map(({ value: tickValue, getTickProps }) => (
-            <Text
-              css={[
-                tw`w-10 mb-2.5 text-xs text-center text-gray-400 after:(content w-0 border-r border-gray-300 border-solid h-1.5 absolute)`,
-                { bottom: '100%' },
-                '&::after { left: 50%; top: 100% }',
-              ]}
-              {...getTickProps()}
-            >
+            <Text css={styles.tickItem} {...getTickProps()} disableDefaultStyles={disableDefaultStyles}>
               {tickValue}
             </Text>
           ))}
         </Box>
 
-        <Track {...getTrackProps({ ref: trackRef })} className={trackClassName}>
+        <Track
+          {...getTrackProps({ ref: trackRef })}
+          className={trackClassName}
+          disableDefaultStyles={disableDefaultStyles}
+        >
           {segments.map(({ getSegmentProps }, i: number) => (
             <Fill
               index={i}
               isSingleHandle={isSingleHandle}
               onClick={(e: MouseEvent<HTMLDivElement>) => handleSegmentClick(e, i)}
+              disableDefaultStyles={disableDefaultStyles}
               className={fillClassName}
               {...getSegmentProps()}
             />
           ))}
 
           {handles.map(({ value: handleValue, active, getHandleProps }) => (
-            <Handle active={active} data-value={handleValue} {...getHandleProps()} />
+            <Handle
+              active={active}
+              data-value={handleValue}
+              activeClassName={handleActiveClassName}
+              className={handleClassName}
+              disableDefaultStyles={disableDefaultStyles}
+              {...getHandleProps()}
+            />
           ))}
         </Track>
       </Box>
 
       {showInputs && (
-        <Box
-          css={css(tw`flex flex-col items-center sm:flex-row`, isSingleHandle ? tw`justify-end` : tw`justify-between`)}
-        >
+        <Box css={styles.input}>
           {leftInput}
           {isSingleHandle ? null : rightInput}
         </Box>

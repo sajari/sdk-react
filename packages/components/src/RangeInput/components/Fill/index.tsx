@@ -1,33 +1,17 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { useTheme } from '@sajari/react-sdk-utils';
+import { getStylesObject } from '@sajari/react-sdk-utils';
 import React from 'react';
-import tw from 'twin.macro';
 
-interface Props {
-  isSingleHandle?: boolean;
-  index: number;
-}
+import Box from '../../../Box';
+import useFillStyles from './styles';
+import { FillProps } from './types';
 
-const Fill = React.forwardRef((props: Props, ref?: React.Ref<HTMLDivElement>) => {
-  const theme = useTheme();
-  const { isSingleHandle = false, index, ...rest } = props;
+const Fill = React.forwardRef((props: FillProps, ref?: React.Ref<HTMLDivElement>) => {
+  const { index, disableDefaultStyles = false, styles: stylesProp, ...rest } = props;
+  const styles = getStylesObject(useFillStyles(props), disableDefaultStyles);
 
-  return (
-    <div
-      css={[
-        tw`h-full rounded-full cursor-pointer`,
-        {
-          backgroundColor:
-            (index === 1 && !isSingleHandle) || (index === 0 && isSingleHandle)
-              ? theme.color.primary.base
-              : 'rgb(218, 223, 231)',
-        },
-      ]}
-      ref={ref}
-      {...rest}
-    />
-  );
+  return <Box css={[styles.container, stylesProp]} ref={ref} {...rest} />;
 });
 
 export default Fill;
