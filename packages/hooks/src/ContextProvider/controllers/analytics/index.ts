@@ -1,4 +1,4 @@
 /* eslint-disable import/no-cycle */
 export { Analytics } from './Analytics';
-export { DebugAnalytics } from './debug';
-export { GoogleAnalytics } from './ga';
+export { DebugAnalytics } from './DebugAnalytics';
+export { GoogleAnalytics } from './GoogleAnalytics';
