@@ -1,0 +1,16 @@
+{
+  "name": "remark-props-table",
+  "version": "1.0.0",
+  "private": "true",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {
+    "mdast-util-from-markdown": "^0.8.1",
+    "mdast-util-heading-range": "^2.1.5",
+    "react-docgen": "^5.4.0-alpha.0"
+  }
+}
