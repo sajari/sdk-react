@@ -13,10 +13,10 @@ export const RatingItem = (props: InternalRatingItemProps) => {
 
   return (
     <Box css={[styles.container, stylesProp]} aria-hidden {...rest}>
-      <div aria-setsize={count} aria-posinset={index + 1}>
-        <div css={styles.firstHalf}>{characterNode}</div>
-        <div css={styles.secondHalf}>{characterNode}</div>
-      </div>
+      <Box aria-setsize={count} aria-posinset={index + 1}>
+        <Box css={styles.firstHalf}>{characterNode}</Box>
+        <Box css={styles.secondHalf}>{characterNode}</Box>
+      </Box>
     </Box>
   );
 };

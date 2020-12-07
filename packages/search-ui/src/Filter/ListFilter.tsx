@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { Button, Checkbox, CheckboxGroup, Combobox, Radio, RadioGroup } from '@sajari/react-components';
+import { Box as CoreBox, Button, Checkbox, CheckboxGroup, Combobox, Radio, RadioGroup } from '@sajari/react-components';
 import { useFilter, useQuery } from '@sajari/react-hooks';
 import { getStylesObject, isBoolean, isEmpty, useTheme } from '@sajari/react-sdk-utils';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -67,7 +67,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   const innerList = useMemo(
     () =>
       sliced.map(({ label, count }) => (
-        <div css={styles.innerList} key={label + count}>
+        <CoreBox css={styles.innerList} key={label + count}>
           <Control
             value={label}
             checked={selected.includes(label)}
@@ -78,7 +78,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
             {typeof itemRender === 'function' ? itemRender(label) : label}
           </Control>
           <span css={styles.count}>{count}</span>
-        </div>
+        </CoreBox>
       )),
     [JSON.stringify(sliced), itemRender, selected],
   );
@@ -90,7 +90,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   return (
     <Box title={title} showReset={selected.length > 0 && multi} onReset={reset}>
       {searchable ? (
-        <div css={styles.searchWrapper}>
+        <CoreBox css={styles.searchWrapper}>
           <Combobox
             value={query}
             size="sm"
@@ -101,9 +101,10 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
             }}
             disableDefaultStyles={disableDefaultStyles}
           />
-        </div>
+        </CoreBox>
       ) : null}
-      <div id={`list-${name}`} className={customClassNames.filter?.list?.container}>
+
+      <CoreBox id={`list-${name}`} className={customClassNames.filter?.list?.container}>
         {multi ? (
           <CheckboxGroup
             value={selected}
@@ -123,10 +124,10 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
             {innerList}
           </RadioGroup>
         )}
-      </div>
+      </CoreBox>
 
       {slice ? (
-        <div css={styles.toggleButtonWrapper}>
+        <CoreBox css={styles.toggleButtonWrapper}>
           <Button
             appearance="link"
             onClick={toggleExpanded}
@@ -137,10 +138,10 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
             className={customClassNames.filter?.list?.toggleButton}
             disableDefaultStyles={disableDefaultStyles}
           >
-            {expanded ? 'Show less' : `Show ${filtered.length - limit} more`}
+            {expanded ? 'Show less' : `Show ${(filtered.length - limit).toLocaleString()} more`}
             <Icon css={styles.toggleIcon} />
           </Button>
-        </div>
+        </CoreBox>
       ) : null}
     </Box>
   );

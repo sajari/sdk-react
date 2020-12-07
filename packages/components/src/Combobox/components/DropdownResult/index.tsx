@@ -35,18 +35,18 @@ const DropdownResult = (props: DropdownResultProps) => {
       className={classnames(resultClassName, { [selectedResultClassName]: selected })}
       {...rest}
     >
-      <a href={value.url} css={styles.item}>
-        <div css={styles.imageContainer} className={resultImageContainerClassName}>
+      <Box as="a" href={value.url} css={styles.item}>
+        <Box css={styles.imageContainer} className={resultImageContainerClassName}>
           <Image src={value.image} aspectRatio={1} objectFit="contain" />
-        </div>
+        </Box>
 
-        <div css={styles.textContainer} className={resultTextContainerClassName}>
+        <Box css={styles.textContainer} className={resultTextContainerClassName}>
           <Heading as="h1" size="sm">
             {value.title}
           </Heading>
           <Text truncate>{value.description}</Text>
-        </div>
-      </a>
+        </Box>
+      </Box>
     </Box>
   );
 };

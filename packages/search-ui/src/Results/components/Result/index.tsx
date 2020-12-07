@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-target-blank */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { Heading, Image, ImageProps, Link, Rating, Text } from '@sajari/react-components';
+import { Box, Heading, Image, ImageProps, Link, Rating, Text } from '@sajari/react-components';
 import {
   __DEV__,
   decodeHTML,
@@ -72,7 +72,7 @@ const Result = React.memo(
     }, [appearance]);
 
     return (
-      <article {...rest} css={[styles.container, stylesProp]}>
+      <Box as="article" {...rest} css={[styles.container, stylesProp]}>
         {(isValidURL(image, true) || forceImage) && (
           <Link
             href={clickToken || url}
@@ -91,8 +91,8 @@ const Result = React.memo(
           </Link>
         )}
 
-        <div css={styles.content}>
-          <div css={styles.head}>
+        <Box css={styles.content}>
+          <Box css={styles.head}>
             <Heading as="h1" size="base" css={styles.title} className={headingClassName}>
               <Link href={clickToken || url} target="_blank" onClick={resultClicked}>
                 {decodeHTML(title)}
@@ -100,14 +100,14 @@ const Result = React.memo(
             </Heading>
 
             {price && appearance === 'list' && (
-              <div css={styles.listPrice} className={priceClassName}>
+              <Box css={styles.listPrice} className={priceClassName}>
                 <Text>{formatPrice(price, currencyCode)}</Text>
-              </div>
+              </Box>
             )}
-          </div>
+          </Box>
 
           {(subtitle || isNumber(rating)) && appearance === 'list' && (
-            <div css={styles.listRating} className={subTitleClassName}>
+            <Box css={styles.listRating} className={subTitleClassName}>
               {subtitle &&
                 (isValidURL(subtitle) ? (
                   <Link
@@ -132,7 +132,7 @@ const Result = React.memo(
                   disableDefaultStyles={disableDefaultStyles}
                 />
               )}
-            </div>
+            </Box>
           )}
 
           {description && appearance === 'list' && (
@@ -142,7 +142,7 @@ const Result = React.memo(
           )}
 
           {(price || isNumber(rating)) && appearance === 'grid' && (
-            <div css={styles.gridRating}>
+            <Box css={styles.gridRating}>
               {isNumber(rating) && (
                 <Rating
                   value={rating}
@@ -156,10 +156,10 @@ const Result = React.memo(
                   {formatPrice(price, currencyCode)}
                 </Text>
               )}
-            </div>
+            </Box>
           )}
-        </div>
-      </article>
+        </Box>
+      </Box>
     );
   },
   (prev, next) => JSON.stringify(prev) === JSON.stringify(next),

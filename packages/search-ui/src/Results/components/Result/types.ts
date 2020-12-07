@@ -1,9 +1,12 @@
+import { BoxProps } from '@sajari/react-components';
 import { Token } from '@sajari/react-hooks';
 import React from 'react';
 
 import { ResultsProps, ResultValues } from '../../types';
 
-interface Props extends Omit<ResultsProps, 'columns'> {
+interface Props
+  extends Pick<ResultsProps, 'appearance' | 'ratingMax' | 'imageAspectRatio' | 'imageObjectFit' | 'currencyCode'>,
+    BoxProps {
   values: Omit<ResultValues, '_id'>;
   /** The token used for tracking/analytics */
   token?: Token;

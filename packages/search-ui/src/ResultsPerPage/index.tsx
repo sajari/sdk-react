@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { useId } from '@reach/auto-id';
-import { Label, Select } from '@sajari/react-components';
+import { Box, Label, Select } from '@sajari/react-components';
 import { useResultsPerPage, useSearchContext } from '@sajari/react-hooks';
 import { getStylesObject } from '@sajari/react-sdk-utils';
 import { useTranslation } from 'react-i18next';
@@ -30,7 +30,7 @@ const ResultsPerPage = (props: ResultsPerPageProps) => {
   const styles = getStylesObject(useResultsPerPageStyles(), disableDefaultStyles);
 
   return (
-    <div css={[styles.container, stylesProp]} {...rest} className={customClassNames.resultsPerPage?.container}>
+    <Box css={[styles.container, stylesProp]} {...rest} className={customClassNames.resultsPerPage?.container}>
       <Label
         htmlFor={id}
         css={styles.label}
@@ -54,7 +54,7 @@ const ResultsPerPage = (props: ResultsPerPageProps) => {
           </option>
         ))}
       </Select>
-    </div>
+    </Box>
   );
 };
 
