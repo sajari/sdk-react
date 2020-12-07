@@ -1,4 +1,5 @@
 /* eslint-disable new-cap, no-prototype-builtins */
+import { isSSR } from '@sajari/react-sdk-utils';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 export default function useVoiceInput(onResult?: (r: string) => void) {
@@ -8,7 +9,7 @@ export default function useVoiceInput(onResult?: (r: string) => void) {
   const recognitionRef = useRef<SpeechRecognition>();
 
   useEffect(() => {
-    setSupported(window.hasOwnProperty('webkitSpeechRecognition'));
+    setSupported(!isSSR() && window.hasOwnProperty('webkitSpeechRecognition'));
   }, []);
 
   useEffect(() => {

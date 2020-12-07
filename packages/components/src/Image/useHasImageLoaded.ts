@@ -1,3 +1,4 @@
+import { isSSR } from '@sajari/react-sdk-utils';
 import { useEffect, useRef, useState } from 'react';
 
 import { ImageProps } from './types';
@@ -16,7 +17,7 @@ export function useHasImageLoaded(props: HasImageLoadedProps) {
   const [hasLoaded, setHasLoaded] = useState(false);
 
   useEffect(() => {
-    if (!src) {
+    if (!src || isSSR()) {
       return;
     }
 

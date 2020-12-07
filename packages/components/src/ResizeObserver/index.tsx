@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { __DEV__ } from '@sajari/react-sdk-utils';
+import { __DEV__, isSSR } from '@sajari/react-sdk-utils';
 import { useEffect, useRef } from 'react';
 import Observer from 'resize-observer-polyfill';
 
@@ -16,7 +16,7 @@ const ResizeObserver = (props: ResizeObserverProps) => {
   const animationFrameIds: ReturnType<typeof requestAnimationFrame>[] = [];
 
   useEffect(() => {
-    if (Observer && ref.current) {
+    if (!isSSR() && Observer && ref.current) {
       const target = ref.current;
 
       onReady(target);
