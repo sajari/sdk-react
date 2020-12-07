@@ -1,5 +1,5 @@
 import { Rating } from '@sajari/react-components';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { useSearchUIContext } from '../ContextProvider';
 import ListFilter from './ListFilter';
@@ -8,13 +8,9 @@ import { RatingFilterProps } from './types';
 const RatingFilter = ({ name, title }: Omit<RatingFilterProps, 'type'>) => {
   const { ratingMax, disableDefaultStyles, customClassNames } = useSearchUIContext();
 
-  return (
-    <ListFilter
-      name={name}
-      title={title}
-      sort="none"
-      pinSelected={false}
-      itemRender={(v) => (
+  const renderRating = useCallback(
+    (v: string) => {
+      return (
         <Rating
           max={ratingMax}
           className={customClassNames.filter?.rating?.container}
@@ -23,9 +19,12 @@ const RatingFilter = ({ name, title }: Omit<RatingFilterProps, 'type'>) => {
           value={Number(v)}
           disableDefaultStyles={disableDefaultStyles}
         />
-      )}
-    />
+      );
+    },
+    [ratingMax, JSON.stringify(customClassNames.filter?.rating), disableDefaultStyles],
   );
+
+  return <ListFilter name={name} title={title} sort="none" pinSelected={false} itemRender={renderRating} />;
 };
 
 export default RatingFilter;
