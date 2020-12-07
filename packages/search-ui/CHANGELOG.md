@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.6](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-beta.5...@sajari/react-search-ui@1.0.0-beta.6) (2020-12-07)
+
+### Bug Fixes
+
+- don’t hide Filter when only one item ([1e61940](https://github.com/sajari/sdk-react/commit/1e6194089ccd86f5ddc9c872c9710ca789960617))
+- use Box more to prevent props bleeding to DOM ([f7f6dcc](https://github.com/sajari/sdk-react/commit/f7f6dccc36244ab7f3658d378c1fb740d626f159))
+
 # [1.0.0-beta.5](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-beta.4...@sajari/react-search-ui@1.0.0-beta.5) (2020-12-04)
 
 **Note:** Version bump only for package @sajari/react-search-ui

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.2](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-beta.1...@sajari/react-components@1.0.0-beta.2) (2020-12-07)
+
+### Bug Fixes
+
+- use Box more to prevent props bleeding to DOM ([f7f6dcc](https://github.com/sajari/sdk-react/commit/f7f6dccc36244ab7f3658d378c1fb740d626f159))
+
 # [1.0.0-beta.1](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-alpha.35...@sajari/react-components@1.0.0-beta.1) (2020-12-04)
 
 **Note:** Version bump only for package @sajari/react-components

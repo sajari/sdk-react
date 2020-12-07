@@ -1,6 +1,6 @@
 {
   "name": "@sajari/react-search-ui",
-  "version": "1.0.0-beta.5",
+  "version": "1.0.0-beta.6",
   "description": "Easy to use search components to quickly build a beautiful search interface powered by Sajari.",
   "sideEffects": false,
   "repository": {
@@ -26,7 +26,7 @@
     "react-dom": "^16.8.0"
   },
   "dependencies": {
-    "@sajari/react-components": "^1.0.0-beta.1",
+    "@sajari/react-components": "^1.0.0-beta.2",
     "@sajari/react-hooks": "^1.0.0-beta.5",
     "@sajari/react-sdk-utils": "^1.0.0-beta.1",
     "i18next": "19.8.4",
