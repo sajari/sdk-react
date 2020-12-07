@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.3](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-beta.2...@sajari/react-components@1.0.0-beta.3) (2020-12-07)
+
+### Bug Fixes
+
+- remove margin on labels ([2dcb0cb](https://github.com/sajari/sdk-react/commit/2dcb0cbdd3277e941d339d417d12c751d24d69a8))
+
 # [1.0.0-beta.2](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-beta.1...@sajari/react-components@1.0.0-beta.2) (2020-12-07)
 
 ### Bug Fixes
