@@ -15,7 +15,7 @@ import { Filter } from '@sajari/react-search-ui';
 Additional imports used in the examples:
 
 ```js
-import { FilterBuilder, Input, Pipeline, Results, SearchProvider } from '@sajari/react-search-ui';
+import { FieldDictionary, FilterBuilder, Input, Pipeline, Results, SearchProvider } from '@sajari/react-search-ui';
 ```
 
 ### List
@@ -73,10 +73,10 @@ function Example() {
     <SearchProvider
       search={{
         pipeline,
-        fields: {
+        fields: new FieldDictionary({
           title: 'name',
           subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
-        },
+        }),
         filters: [priceFilter, brandFilter],
       }}
       searchOnLoad
@@ -134,10 +134,10 @@ function Example() {
     <SearchProvider
       search={{
         pipeline,
-        fields: {
+        fields: new FieldDictionary({
           title: 'name',
           subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
-        },
+        }),
         filters: [priceRangeFilter, categoryFilter],
       }}
       searchOnLoad
@@ -184,10 +184,10 @@ function Example() {
     <SearchProvider
       search={{
         pipeline,
-        fields: {
+        fields: new FieldDictionary({
           title: 'name',
           subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
-        },
+        }),
         filters: [ratingFilter],
       }}
       searchOnLoad
@@ -236,10 +236,10 @@ function Example() {
     <SearchProvider
       search={{
         pipeline,
-        fields: {
+        fields: new FieldDictionary({
           title: 'name',
           subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
-        },
+        }),
         filters: [colorFilter],
       }}
       searchOnLoad
@@ -284,10 +284,10 @@ function Example() {
     <SearchProvider
       search={{
         pipeline,
-        fields: {
+        fields: new FieldDictionary({
           title: 'name',
           subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
-        },
+        }),
         filters: [categoryFilter],
       }}
       searchOnLoad

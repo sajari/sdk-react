@@ -53,10 +53,10 @@ function Example() {
     <SearchProvider
       search={{
         pipeline,
-        fields: {
+        fields: new FieldDictionary({
           subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
           title: 'name',
-        },
+        }),
       }}
     >
       <SearchPlayground />

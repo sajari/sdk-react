@@ -48,7 +48,7 @@ function Example() {
   const variables = new Variables({ q: 'api', resultsPerPage: 1 });
 
   const SearchPlayground = React.memo(() => {
-    const { results = [], searching } = useSearch({ variables, pipeline, fields: {} });
+    const { results = [], searching } = useSearch({ variables, pipeline });
 
     return (
       <div className="flex flex-col space-y-4">

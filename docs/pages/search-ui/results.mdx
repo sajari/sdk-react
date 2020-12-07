@@ -15,7 +15,7 @@ import { Results } from '@sajari/react-search-ui';
 Additional imports used in the examples:
 
 ```js
-import { Pipeline, SearchProvider } from '@sajari/react-search-ui';
+import { FieldDictionary, Pipeline, SearchProvider } from '@sajari/react-search-ui';
 ```
 
 ```jsx
@@ -33,10 +33,10 @@ function Example() {
     <SearchProvider
       search={{
         pipeline,
-        fields: {
+        fields: new FieldDictionary({
           title: 'name',
           subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
-        },
+        }),
         variables: new Variables({
           resultsPerPage: 5,
           q: 'iphone',
@@ -67,10 +67,10 @@ function Example() {
     <SearchProvider
       search={{
         pipeline,
-        fields: {
+        fields: new FieldDictionary({
           title: 'name',
           subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
-        },
+        }),
         variables: new Variables({
           resultsPerPage: 6,
           q: 'macbook',

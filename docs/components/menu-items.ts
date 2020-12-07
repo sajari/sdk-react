@@ -53,7 +53,7 @@ const searchComponents = [
   'ViewType',
 ].sort(comparer);
 
-const classes = ['FilterBuilder', 'Pipeline', 'Response', 'Variables'].sort();
+const classes = ['FieldDictionary', 'FilterBuilder', 'Pipeline', 'Response', 'Variables'].sort();
 
 const tracking = ['NoTracking', 'ClickTracking', 'PosNegTracking'].sort();
 

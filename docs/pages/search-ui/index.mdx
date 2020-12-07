@@ -27,6 +27,7 @@ These will be required to build the UI.
 
 ```js
 import {
+  FieldDictionary,
   FilterBuilder,
   Filter,
   Input,
@@ -171,10 +172,10 @@ function Example() {
     <SearchProvider
       search={{
         pipeline,
-        fields: {
+        fields: new FieldDictionary({
           title: 'name',
           subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
-        },
+        }),
         filters: [priceFilter, brandFilter, colorFilter, ratingFilter],
       }}
       searchOnLoad

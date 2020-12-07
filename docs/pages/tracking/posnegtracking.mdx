@@ -20,7 +20,7 @@ Additional imports used in the examples:
 ```js
 import { Button, ButtonGroup } from '@sajari/react-components';
 import { useTracking, useQuery } from '@sajari/react-hooks';
-import { Input, Pipeline, Results, SearchProvider } from '@sajari/react-search-ui';
+import { FieldDictionary, Input, Pipeline, Results, SearchProvider } from '@sajari/react-search-ui';
 ```
 
 When initiating PosNeg tracking, both pos and neg tokens are generated for query-result pairs. Details can be found [here](https://www.sajari.com/docs/user-guide/analytics/posneg-tracking/)
@@ -75,10 +75,10 @@ function Example() {
     <SearchProvider
       search={{
         pipeline,
-        fields: {
+        fields: new FieldDictionary({
           title: 'name',
           subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
-        },
+        }),
       }}
     >
       <SearchPlayground />

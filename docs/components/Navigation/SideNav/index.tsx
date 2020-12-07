@@ -5,7 +5,7 @@ import { classes, components, searchComponents, hooks, tracking } from '../../me
 import { SideNavLink, stringToUrl } from '../NavLink';
 import { SideNavGroup } from './Group';
 
-const topNavLinks = [['Getting Started', '/'], ['Components'], ['Hooks'], ['Search UI'], ['Tracking']];
+const topNavLinks = [['Getting Started', '/'], ['Components'], ['Hooks'], ['Search UI'], ['Tracking'], ['Styling']];
 
 export const SideNavContent = () => (
   <Box space="space-y-10" margin="mb-10">
