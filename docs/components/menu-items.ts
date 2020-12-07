@@ -31,6 +31,7 @@ const hooks = [
   '!SearchProvider',
   'useAutocomplete',
   'useFilter',
+  'useRangeFilter',
   'usePagination',
   'useQuery',
   'useResultsPerPage',

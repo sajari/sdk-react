@@ -1,60 +1,142 @@
 /* eslint-disable no-underscore-dangle */
-import { Filter } from './DeprecatedFilter';
 
-export function getFilterQuery(range: Range, limit: Range, field: string) {
-  if (range[1] === limit[1] && range[0] === limit[0]) {
-    return '';
+import { isArray } from '@sajari/react-sdk-utils';
+
+import { EVENT_RANGE_UPDATED } from '../../events';
+import { Listener } from '../Listener';
+import { Range, RangeFilterOptions } from './types';
+
+const events = [EVENT_RANGE_UPDATED];
+
+export default class RangeFilterBuilder {
+  private initial: Range | null;
+
+  private range: Range | null;
+
+  private name: string;
+
+  private field: string;
+
+  private min: number;
+
+  private max: number;
+
+  private aggregate: boolean;
+
+  private listeners: { [k: string]: Listener };
+
+  private formatter: Required<RangeFilterOptions>['formatter'];
+
+  constructor({
+    field,
+    name,
+    initial = null,
+    min = 0,
+    max = 0,
+    aggregate = false,
+    formatter = (value: Range) => value.map((v) => Math.ceil(v)) as Range,
+  }: RangeFilterOptions) {
+    this.range = initial;
+    this.initial = initial;
+    this.name = name;
+    this.field = field;
+    this.formatter = formatter;
+    this.min = min;
+    this.max = max;
+    this.aggregate = aggregate;
+    this.listeners = {
+      [EVENT_RANGE_UPDATED]: new Listener(),
+    };
   }
-  return `(${field} >= ${range[0]} AND ${field} <= ${range[1]})`;
-}
 
-export type Range = [number, number];
-
-export class RangeFilterBuilder extends Filter {
-  protected _field = '';
-
-  protected _range = [0, 0] as Range;
-
-  protected _limit = [0, 0] as Range; // [min, max]
-
-  protected _current = '';
-
-  protected _filter = '';
-
-  constructor(field: string, limit: Range) {
-    super({}, []);
-
-    this._field = field;
-    this._limit = limit;
-    this._range = limit;
-  }
-
-  public range = () => this._range;
-
-  public filter = () => this._filter;
-
-  public limit = () => this._limit;
-
-  public get = () => (this._current === '' ? [] : [this._current]);
-
-  public getRange = () => this._range;
-
-  // @ts-ignore: override method
-  public set = (from: number, to: number) => {
-    this._range = [from, to];
-    this._filter = getFilterQuery(this._range, this._limit, this._field);
-    this._emitSelectionUpdated();
-  };
-
-  public reset = () => {
-    this._range = this._limit.map((r) => r) as Range;
-    if (this._filter !== '') {
-      this.clear();
+  /**
+   * Register a listener for a specific event.
+   */
+  public listen(event: string, callback: (filter: RangeFilterBuilder) => void): () => void {
+    if (!events.includes(event)) {
+      throw new Error(`unknown event type "${event}"`);
     }
-  };
+    return this.listeners[event].listen(callback);
+  }
 
-  public clear = () => {
-    this._filter = '';
-    this._emitSelectionUpdated();
-  };
+  public get() {
+    return this.range;
+  }
+
+  public set(range: Range | null, emitEvent = true) {
+    this.range = range ? this.formatter(range) : range;
+    if (emitEvent) {
+      this.emitRangeUpdated();
+    }
+  }
+
+  public getName() {
+    return this.name;
+  }
+
+  public getField() {
+    return this.field;
+  }
+
+  public setMin(value: number) {
+    this.min = value;
+  }
+
+  public setMax(value: number) {
+    this.max = value;
+  }
+
+  public getMinMax() {
+    return [this.min, this.max];
+  }
+
+  /**
+   * Builds up the filter string from the current state.
+   */
+  public filter() {
+    if (!this.range) {
+      return '';
+    }
+
+    return `${this.field} >= ${this.range[0]} AND ${this.field} <= ${this.range[1]}`;
+  }
+
+  public isAggregate() {
+    return this.aggregate;
+  }
+
+  /**
+   * Check if the current range is different to the initial value
+   */
+  public isChanged() {
+    if (!this.range || !this.initial) {
+      return this.range === this.initial;
+    }
+
+    return this.range[0] !== this.initial[0] || this.range[1] !== this.initial[1];
+  }
+
+  /**
+   * Reset the current state to the initial value
+   */
+  public reset(emitEvent = true) {
+    this.range = isArray(this.initial) ? [...this.initial] : this.initial;
+    if (emitEvent) {
+      this.emitRangeUpdated();
+    }
+  }
+
+  public format(value: Range) {
+    return this.formatter(value);
+  }
+
+  /**
+   * Emits a range updated event to the selection updated listener.
+   * @private
+   */
+  protected emitRangeUpdated() {
+    this.listeners[EVENT_RANGE_UPDATED].notify((listener) => {
+      listener(this);
+    });
+  }
 }

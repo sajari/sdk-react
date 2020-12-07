@@ -1,7 +1,7 @@
 import { EVENT_OPTIONS_UPDATED, EVENT_SELECTION_UPDATED } from '../../../events';
 import FilterBuilder from '../FilterBuilder';
 
-describe('Filter', () => {
+describe('FilterBuilder', () => {
   const brandFilter = new FilterBuilder({
     name: 'brand',
     options: {
@@ -37,9 +37,9 @@ describe('Filter', () => {
     brandFilter.set(['']);
     expect(brandFilter.filter()).toBe('');
     brandFilter.set(['Apple']);
-    expect(brandFilter.filter()).toBe("(brand = 'Apple')");
+    expect(brandFilter.filter()).toBe("brand = 'Apple'");
     brandFilter.set(['Samsung']);
-    expect(brandFilter.filter()).toBe("(brand = 'Samsung')");
+    expect(brandFilter.filter()).toBe("brand = 'Samsung'");
 
     countFilter.setOptions({ High: 'price >= 200', Mid: 'price >= 50' });
     countFilter.set(['High', 'Mid']);

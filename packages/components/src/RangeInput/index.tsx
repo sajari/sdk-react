@@ -2,9 +2,8 @@
 import { jsx } from '@emotion/core';
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
 import { __DEV__, clamp, closest, getStylesObject, round } from '@sajari/react-sdk-utils';
-import React, { MouseEvent, ReactNode } from 'react';
+import React, { MouseEvent, ReactNode, useEffect } from 'react';
 import { useRanger } from 'react-ranger';
-import tw from 'twin.macro';
 
 import Box from '../Box';
 import Text from '../Text';
@@ -19,7 +18,6 @@ const noop = () => {};
 
 const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTMLDivElement>) => {
   const {
-    filter,
     onChange = noop,
     onInput = noop,
     value = [25, 50],
@@ -41,9 +39,9 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     ...rest
   } = props;
   const isSingleHandle = value.length === 1;
-  const [min, max] = filter?.limit() ?? [minProp, maxProp];
+  const [min, max] = [minProp, maxProp];
   const { ticks: ticksProp = !tick ? [min, max] : undefined } = props;
-  const [range, setRange] = React.useState(filter?.getRange() ?? value);
+  const [range, setRange] = React.useState(value);
   const mapRange = (v: number[]) => v.map(Number);
   const [low, high] = mapRange(range);
   const setValue = (newValue: any, fireOnChange = false) => {
@@ -54,14 +52,13 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
       return;
     }
 
-    // Only update filter onChange to prevent hammering
-    if (filter) {
-      const [l, h] = mapRange(newValue);
-      filter.set(l, h);
-    }
-
     onChange(newValue);
   };
+
+  useEffect(() => {
+    setRange(value);
+  }, [value]);
+
   const { getTrackProps, handles, ticks, segments } = useRanger({
     stepSize: step,
     steps,
