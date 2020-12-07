@@ -17,7 +17,7 @@ const TabFilter = (props: Omit<TabFilterProps, 'type'>) => {
   const sliced = limit && options.length > limit ? sorted.slice(0, limit) : sorted;
   const { disableDefaultStyles = false, customClassNames } = useSearchUIContext();
 
-  if (isEmpty(sliced) || sliced.length === 1) {
+  if (isEmpty(sliced)) {
     return null;
   }
 

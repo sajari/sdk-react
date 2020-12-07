@@ -26,7 +26,7 @@ const ColorFilter = ({ name, title }: Omit<ColorFilterProps, 'type'>) => {
     [JSON.stringify(filtered)],
   );
 
-  if (isEmpty(filtered) || filtered.length === 1) {
+  if (isEmpty(filtered)) {
     return null;
   }
 

@@ -83,7 +83,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     [JSON.stringify(sliced), itemRender, selected],
   );
 
-  if (isEmpty(options) || options.length === 1) {
+  if (isEmpty(options)) {
     return null;
   }
 
