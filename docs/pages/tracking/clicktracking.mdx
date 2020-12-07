@@ -5,15 +5,21 @@ import SEO from '../../components/SEO';
   description="Click tracking refers to recording user click interactions alongside search results. This is usually the successful search outcome customers use to power machine learning."
 />
 
-# Click Tracking
+# ClickTracking
 
 ```js
-import { Results } from '@sajari/react-search-ui';
-import { Input } from '@sajari/react-components';
-import { SearchProvider, Pipeline, Variables, ClickTracking } from '@sajari/react-hooks';
+import { ClickTracking } from '@sajari/react-hooks';
+// or...
+import { ClickTracking } from '@sajari/react-search-ui';
 ```
 
 ## Usage
+
+Additional imports used in the examples:
+
+```js
+import { Input, Pipeline, Results, SearchProvider } from '@sajari/react-search-ui';
+```
 
 When `ClickTracking` is used, a token object containing a link will be returned for each result item. Details can be found [here](https://www.sajari.com/docs/user-guide/analytics/click-tracking/)
 

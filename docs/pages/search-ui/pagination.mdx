@@ -1,17 +1,22 @@
 import SEO from '../../components/SEO';
 
-<SEO title="Pagination" description="The Pagination component renders a pagination component with config wired in." />
+<SEO title="Pagination" description="The Pagination`component is used for paging through paged result sets." />
 
 # Pagination
 
-The Pagination component renders a pagination component with config wired in.
+The `Pagination` component is used for paging through paged result sets.
 
 ```js
-import { Pagination, Results } from '@sajari/react-search-ui';
-import { SearchProvider, useSearch } from '@sajari/react-hooks';
+import { Pagination } from '@sajari/react-search-ui';
 ```
 
 ## Usage
+
+Additional imports used in the examples:
+
+```js
+import { Pipeline, Results, SearchProvider } from '@sajari/react-search-ui';
+```
 
 ```jsx
 function Example() {
@@ -24,18 +29,14 @@ function Example() {
     'query',
   );
 
-  const variables = new Variables({ resultsPerPage: 3 });
+  const variables = new Variables({ resultsPerPage: 3, q: 'iphone' });
 
-  const SearchPlayground = React.memo(() => {
-    useSearch({ queryOverride: 'iphone' });
-
-    return (
-      <div className="space-y-6">
-        <Results appearance="grid" />
-        <Pagination />
-      </div>
-    );
-  });
+  const SearchPlayground = React.memo(() => (
+    <div className="space-y-6">
+      <Results appearance="grid" />
+      <Pagination />
+    </div>
+  ));
 
   return (
     <SearchProvider

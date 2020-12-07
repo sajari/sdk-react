@@ -1,10 +1,10 @@
 import SEO from '../../components/SEO';
 
-<SEO title="Results" description="Results is a component used to display results response from a search query." />
+<SEO title="Results" description="The Results component is used to display results response from a search query." />
 
 # Results
 
-Results is a component used to display results response from a search query.
+The `Results` component is used to display results response from a search query.
 
 ```js
 import { Results } from '@sajari/react-search-ui';
@@ -12,11 +12,41 @@ import { Results } from '@sajari/react-search-ui';
 
 ## Usage
 
+Additional imports used in the examples:
+
+```js
+import { Pipeline, SearchProvider } from '@sajari/react-search-ui';
+```
+
 ```jsx
 function Example() {
-  useSearch({ queryOverride: 'iphone' });
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
 
-  return <Results />;
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: {
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        },
+        variables: new Variables({
+          resultsPerPage: 5,
+          q: 'iphone',
+        }),
+      }}
+      searchOnLoad
+    >
+      <Results />
+    </SearchProvider>
+  );
 }
 ```
 
@@ -24,9 +54,33 @@ function Example() {
 
 ```jsx
 function Example() {
-  useSearch({ queryOverride: 'macbook' });
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
 
-  return <Results appearance="grid" />;
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: {
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        },
+        variables: new Variables({
+          resultsPerPage: 6,
+          q: 'macbook',
+        }),
+      }}
+      searchOnLoad
+    >
+      <Results appearance="grid" />
+    </SearchProvider>
+  );
 }
 ```
 

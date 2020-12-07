@@ -35,6 +35,7 @@ const hooks = [
   'useQuery',
   'useResultsPerPage',
   'useSearch',
+  'useSearchContext',
   'useSorting',
   'useTracking',
   'useVariables',

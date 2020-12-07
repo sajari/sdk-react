@@ -2,12 +2,12 @@ import SEO from '../../components/SEO';
 
 <SEO
   title="Input"
-  description="Input component is a component that is used to get user input in a text field. It is usually used together with a FormControl to provide an accessible label, validation messages, etc."
+  description="Input component is a component that is used to get user input in a text field. It can also provide suggestions, typeahead and instant search modes."
 />
 
 # Input
 
-Input component is a component that is used to get user input in a text field. It is usually used together with a FormControl to provide an accessible label, validation messages, etc.
+The `Input` component is used to capture query input via a text field. It can also provide suggestions, typeahead and instant search modes.
 
 ## Import
 
@@ -16,6 +16,12 @@ import { Input } from 'sajari/react-search-ui';
 ```
 
 ## Usage
+
+Additional imports used in the examples:
+
+```js
+import { Pipeline, Results, SearchProvider } from '@sajari/react-search-ui';
+```
 
 ```jsx
 function Example() {

@@ -4,16 +4,21 @@ import SEO from '../../components/SEO';
 
 # ViewType
 
-ViewType component lets user decide between viewing modes of result (list, grid)
+The `ViewType` component lets users toggle between viewing modes of result (`list` or `grid`).
 
 ## Import
 
 ```js
-import { Input, Results, ViewType } from '@sajari/react-search-ui';
-import { SearchProvider, Pipeline } from '@sajari/react-hooks';
+import { ViewType } from '@sajari/react-search-ui';
 ```
 
 ## Usage
+
+Additional imports used in the examples:
+
+```js
+import { Input, Pipeline, Results, SearchProvider } from '@sajari/react-search-ui';
+```
 
 ```jsx
 function Example() {

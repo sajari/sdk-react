@@ -1,6 +1,4 @@
 import SEO from '../../components/SEO';
-import { useState } from 'react';
-import { Select } from '@sajari/react-components';
 
 <SEO title="useSearch" description="useSearch provides a getter & setter for the current query." />
 
@@ -17,7 +15,6 @@ import { useSearch } from '@sajari/react-hooks';
 Returns results for the current query. By default it will use the Variables and Pipeline from the context:
 
 ```jsx
-// TODO: use Results component once done mapping with the response from backend
 function Example() {
   const { results = [] } = useSearch();
   const { query, setQuery } = useQuery();
