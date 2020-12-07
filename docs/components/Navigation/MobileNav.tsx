@@ -16,12 +16,13 @@ import TopNavItem from './TopNavItem';
 
 const useRouteChanged = (handleRouteChange: () => void) => {
   const router = useRouter();
+  const routeChangeEvent = 'routeChangeComplete';
 
   useEffect(() => {
-    router.events.on('routeChangeComplete', handleRouteChange);
+    router.events.on(routeChangeEvent, handleRouteChange);
 
     return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
+      router.events.off(routeChangeEvent, handleRouteChange);
     };
   }, [router.events, handleRouteChange]);
 };
