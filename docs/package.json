@@ -8,11 +8,10 @@
     "start": "next start"
   },
   "dependencies": {
-    "@mdx-js/loader": "^1.6.21",
-    "@mdx-js/mdx": "^1.6.21",
-    "@mdx-js/react": "^1.6.21",
+    "@mdx-js/loader": "^1.6.22",
+    "@mdx-js/mdx": "^1.6.22",
+    "@mdx-js/react": "^1.6.22",
     "@next/mdx": "^10.0.3",
-    "@react-aria/ssr": "^3.0.1",
     "@sajari-ui/core": "^0.2.0",
     "@types/mdx-js__react": "^1.5.3",
     "@types/react-table": "^7.0.25",

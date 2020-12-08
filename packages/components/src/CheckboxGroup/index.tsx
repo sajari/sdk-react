@@ -19,6 +19,7 @@ const CheckboxGroup = (props: CheckboxGroupProps) => {
     disableDefaultStyles = false,
     ...rest
   } = props;
+
   const [values, setValues] = useState(defaultValue || []);
   const { current: isControlled } = useRef(valueProp != null);
   const internalValues = (isControlled ? valueProp : values) || [];

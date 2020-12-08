@@ -33,8 +33,12 @@ Use them in your interface.
 
 In a parent component, setup the `SearchProvider`.
 
-```js
-return <SearchProvider search={{ pipeline }}>{/* Your app */}</SearchProvider>;
+```jsx live=false
+return (
+  <SearchProvider search={{ pipeline }}>
+    <YourApp />
+  </SearchProvider>
+);
 ```
 
 In a child component, access the hook.

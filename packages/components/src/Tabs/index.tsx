@@ -21,6 +21,7 @@ const Tabs = React.forwardRef((props: TabsProps, ref?: React.Ref<HTMLDivElement>
     styles: stylesProp,
     ...rest
   } = props;
+
   const { current: isControlled } = useRef(controlledIndex != null);
   const selectedPanelRef = useRef<HTMLElement>(null);
 

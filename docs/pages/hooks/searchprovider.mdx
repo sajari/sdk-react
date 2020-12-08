@@ -4,7 +4,7 @@ import SEO from '../../components/SEO';
 
 # SearchProvider
 
-The `SearchProvider` component is required for all hooks to function.
+The `SearchProvider` should be used as a wrapper for the entire application to allow hooks to function.
 
 ```js
 import { SearchProvider } from '@sajari/react-hooks';
@@ -26,7 +26,7 @@ It must wrap any components where you are using hooks, usually this is done in a
     ),
   }}
 >
-  {/* Your app */}
+  <YourApp />
 </SearchProvider>
 ```
 

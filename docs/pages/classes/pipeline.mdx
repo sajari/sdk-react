@@ -29,7 +29,11 @@ function Example() {
 
   // ...
 
-  return <SearchProvider search={{ pipeline }}>{/* Your app */}</SearchProvider>;
+  return (
+    <SearchProvider search={{ pipeline }}>
+      <YourApp />
+    </SearchProvider>
+  );
 }
 ```
 

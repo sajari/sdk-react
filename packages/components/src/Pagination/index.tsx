@@ -3,6 +3,7 @@ import { jsx } from '@emotion/core';
 import { clamp, getStylesObject, isSSR, isString } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
 import React, { useCallback, useEffect } from 'react';
+import smoothscroll from 'smoothscroll-polyfill';
 import tw from 'twin.macro';
 
 import { IconChevronLeft, IconChevronRight } from '../assets/icons';
@@ -123,6 +124,10 @@ const Pagination = React.memo((props: PaginationProps) => {
   } = props;
   const firstRender = useFirstRender();
   const styles = getStylesObject(usePaginationStyles(props), disableDefaultStyles);
+
+  if (!isSSR()) {
+    smoothscroll.polyfill();
+  }
 
   useEffect(() => {
     if (firstRender || !scrollToTop || isSSR()) {
