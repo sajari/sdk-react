@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.3](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-beta.2...sajari-sdk-docs@1.0.0-beta.3) (2020-12-08)
+
+### Features
+
+- improvements to SSR support ([729dfeb](https://github.com/sajari/sdk-react/commit/729dfebc04efadbe1db297666ebec4a104208a70))
+
 # [1.0.0-beta.2](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-beta.1...sajari-sdk-docs@1.0.0-beta.2) (2020-12-07)
 
 **Note:** Version bump only for package sajari-sdk-docs

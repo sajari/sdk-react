@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.4](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-beta.3...@sajari/react-components@1.0.0-beta.4) (2020-12-08)
+
+### Bug Fixes
+
+- more checks for SSR before possible window references ([f3bf603](https://github.com/sajari/sdk-react/commit/f3bf6032a0cf8d0a370fc6851fd228ef45792af1))
+
+### Features
+
+- improvements to SSR support ([729dfeb](https://github.com/sajari/sdk-react/commit/729dfebc04efadbe1db297666ebec4a104208a70))
+
 # [1.0.0-beta.3](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-beta.2...@sajari/react-components@1.0.0-beta.3) (2020-12-07)
 
 ### Bug Fixes
