@@ -11,6 +11,7 @@ import MobileNav from '../components/Navigation/MobileNav';
 import SideNav from '../components/Navigation/SideNav';
 import TopNavItem from '../components/Navigation/TopNavItem';
 import seo from '../seo.config';
+import { SSRProvider } from '@sajari/react-components';
 
 const title = 'React SDK';
 
@@ -67,19 +68,21 @@ const Layout = (props: FlexProps) => {
 };
 
 const App = ({ Component, pageProps }: AppProps) => (
-  <MDXProvider components={MDXComponents}>
-    <Head>
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta title={title} />
-      <meta name="theme-color" content="#319795" />
-      <link rel="icon" href="/favicon.ico" />
-      <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    </Head>
-    <DefaultSeo {...seo} />
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
-  </MDXProvider>
+  <SSRProvider>
+    <MDXProvider components={MDXComponents}>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta title={title} />
+        <meta name="theme-color" content="#319795" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+      </Head>
+      <DefaultSeo {...seo} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </MDXProvider>
+  </SSRProvider>
 );
 
 export default App;

@@ -3492,7 +3492,7 @@
     "@react-types/shared" "^3.2.1"
     "@react-types/switch" "^3.1.1"
 
-"@react-aria/utils@3.4.1":
+"@react-aria/utils@3.4.1", "@react-aria/utils@^3.4.1":
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/@react-aria/utils/-/utils-3.4.1.tgz#941479a06021de530acedfff1cce59859ca46c6d"
   integrity sha512-jG9RJF9vv6Hv/WxvdD8IZSVsLpqP6dLH9zymVd0AURQQHR8QPpm+NHRX0YYZoQR4aQpjNM7OEqMH2LuOEDQeTQ==

@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { useId } from '@reach/auto-id';
-import { mergeProps } from '@react-aria/utils';
+import { mergeProps, useId } from '@react-aria/utils';
 import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import { useCombobox } from 'downshift';
 import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';

@@ -38,6 +38,8 @@ export { default as Select } from './Select';
 export * from './Select';
 export { default as Spinner } from './Spinner';
 export * from './Spinner';
+export { default as SSRProvider } from './SSRProvider';
+export * from './SSRProvider';
 export { default as Swatch } from './Swatch';
 export * from './Swatch';
 export { default as Tabs } from './Tabs';

@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { useId } from '@reach/auto-id';
+import { useId } from '@react-aria/utils';
 import { Box, Label, Select } from '@sajari/react-components';
 import { useResultsPerPage, useSearchContext } from '@sajari/react-hooks';
 import { getStylesObject } from '@sajari/react-sdk-utils';

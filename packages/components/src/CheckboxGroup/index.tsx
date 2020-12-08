@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { useId } from '@reach/auto-id';
+import { useId } from '@react-aria/utils';
 import { cleanChildren, getStylesObject } from '@sajari/react-sdk-utils';
 import React, { cloneElement, useRef, useState } from 'react';
 

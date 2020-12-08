@@ -16,3 +16,4 @@ export { default as Summary } from './Summary';
 export * from './Summary';
 export { default as ViewType } from './ViewType';
 export * from './ViewType';
+export { SSRProvider, SSRProviderProps } from '@sajari/react-components';

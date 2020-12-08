@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/role-supports-aria-props */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { useId } from '@reach/auto-id';
+import { useId } from '@react-aria/utils';
 import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import React from 'react';
 
