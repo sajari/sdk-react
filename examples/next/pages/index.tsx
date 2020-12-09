@@ -25,16 +25,34 @@ const variables = new Variables({
 });
 
 interface Props {
-  initialResponse: {
-    queryValues: Map<string, string>;
-    response: Map<string, string>;
-    values: Map<string, string>;
+  initialResponse: string;
+}
+
+// This gets called on every request
+export async function getServerSideProps() {
+  const response = (await findResultsState({
+    search: {
+      pipeline,
+      variables,
+      fields,
+    },
+  })) as Response;
+
+  // Pass data to the page via props
+  return {
+    props: {
+      initialResponse: JSON.stringify({
+        queryValues: Object.fromEntries(response.getQueryValues()),
+        response: Object.fromEntries(response.getResponse()),
+        values: Object.fromEntries(response.getValues()),
+      }),
+    },
   };
 }
 
 const Page = (props: Props) => {
   const { initialResponse } = props;
-  const { queryValues, response, values } = initialResponse;
+  const { queryValues, response, values } = JSON.parse(initialResponse);
 
   return (
     <SearchProvider
@@ -46,31 +64,9 @@ const Page = (props: Props) => {
       // @ts-ignore
       initialResponse={new Response(null, queryValues, response, values)}
     >
-      {/* <Results appearance="grid" /> */}
+      <Results appearance="grid" />
     </SearchProvider>
   );
 };
-
-// This gets called on every request
-export async function getServerSideProps() {
-  const response = await findResultsState({
-    search: {
-      pipeline,
-      variables,
-      fields,
-    },
-  });
-
-  // Pass data to the page via props
-  return {
-    props: {
-      initialResponse: JSON.stringify({
-        queryValues: response.getQueryValues(),
-        response: response.getResponse(),
-        values: response.getValues(),
-      }),
-    },
-  };
-}
 
 export default Page;
