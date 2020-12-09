@@ -72,7 +72,13 @@ const defaultState: ProviderPipelineState = {
   config: defaultConfig,
 };
 
-const ContextProvider: React.FC<SearchProviderValues> = ({ children, search, instant: instantProp, searchOnLoad }) => {
+const ContextProvider: React.FC<SearchProviderValues> = ({
+  children,
+  search,
+  instant: instantProp,
+  searchOnLoad,
+  initialResponse = new Response(null),
+}) => {
   const [searching, setSearching] = useState(false);
   const [instantSearching, setInstantSearching] = useState(false);
   const [searchState, setSearchState] = useState(defaultState);
@@ -82,9 +88,14 @@ const ContextProvider: React.FC<SearchProviderValues> = ({ children, search, ins
   const searchTimer = useRef<ReturnType<typeof setTimeout>>();
   const searchInstantTimer = useRef<ReturnType<typeof setTimeout>>();
   const instant = useRef(instantProp);
-  const response = search.pipeline.getResponse();
   const variables = useRef(search.variables ?? new Variables());
   const instantVariables = useRef(instantProp?.variables ?? new Variables());
+  // Get the initial response
+  let response = search.pipeline.getResponse();
+  if (response.isEmpty()) {
+    console.warn(initialResponse);
+    response = initialResponse;
+  }
 
   if (!search.variables && !configDone) {
     // For destructing down below (searchFn, clear, handlePaginate)
@@ -307,6 +318,7 @@ export {
   PosNegTracking,
   Range,
   RangeFilterBuilder,
+  Response,
   useContext,
   Variables,
 };

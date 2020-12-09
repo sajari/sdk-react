@@ -8,6 +8,7 @@ export {
   PosNegTracking,
   Range,
   RangeFilterBuilder,
+  Response,
   default as SearchProvider,
   SearchProviderValues,
   Variables,

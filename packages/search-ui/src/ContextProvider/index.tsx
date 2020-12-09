@@ -29,13 +29,14 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
   importantStyles,
   instant,
   searchOnLoad,
+  initialResponse,
   theme,
   ratingMax = 5,
   disableDefaultStyles = false,
   customClassNames = {},
 }) => (
   <Provider value={{ ratingMax, disableDefaultStyles, customClassNames }}>
-    <SearchProvider search={search} instant={instant} searchOnLoad={searchOnLoad}>
+    <SearchProvider search={search} instant={instant} searchOnLoad={searchOnLoad} initialResponse={initialResponse}>
       <LiveAnnouncer>
         <I18nextProvider i18n={i18n}>
           <ThemeProvider theme={theme} importantStyles={importantStyles}>

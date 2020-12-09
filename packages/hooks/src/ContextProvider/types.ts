@@ -42,6 +42,7 @@ export interface SearchProviderValues {
   search: ProviderPipelineConfig;
   instant?: ProviderPipelineConfig;
   searchOnLoad?: boolean;
+  initialResponse?: Response;
 }
 
 export interface PipelineProviderState {
