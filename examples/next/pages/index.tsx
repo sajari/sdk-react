@@ -62,7 +62,14 @@ const Page = (props: Props) => {
         variables,
       }}
       // @ts-ignore
-      initialResponse={new Response(null, queryValues, response, values)}
+      initialResponse={
+        new Response(
+          null,
+          new Map(Object.entries(queryValues)),
+          new Map(Object.entries(response)),
+          new Map(Object.entries(values)),
+        )
+      }
     >
       <Results appearance="grid" />
     </SearchProvider>
