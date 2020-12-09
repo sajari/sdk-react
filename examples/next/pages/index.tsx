@@ -2,7 +2,8 @@
 /* eslint-disable react/no-unused-prop-types */
 import React from 'react';
 import { SearchProvider, FieldDictionary, Pipeline, Variables, Results } from '@sajari/react-search-ui';
-import { EVENT_RESPONSE_UPDATED, Response } from '@sajari/react-hooks';
+import { Response } from '@sajari/react-hooks';
+import { findResultsState } from '@sajari/server';
 
 const pipeline = new Pipeline(
   {
@@ -22,48 +23,6 @@ const variables = new Variables({
   resultsPerPage: 6,
   q: 'iphone',
 });
-
-/* class Page extends React.Component {
-  static async getServerSideProps({ asPath }) {
-    const searchState = pathToSearchState(asPath);
-    const resultsState = await findResultsState(App, {
-      ...DEFAULT_PROPS,
-      searchState,
-    });
-
-    return {
-      resultsState,
-      searchState,
-    };
-  }
-
-  onSearchStateChange = (searchState) => {
-    clearTimeout(this.debouncedSetState);
-
-    this.debouncedSetState = setTimeout(() => {
-      const href = searchStateToURL(searchState);
-
-      this.props.router.push(href, href, {
-        shallow: true,
-      });
-    }, updateAfter);
-
-    this.setState({ searchState });
-  };
-
-  render() {
-    return (
-      <SearchProvider
-        search={{
-          pipeline,
-          fields,
-        }}
-      >
-        <Results appearance="grid" />
-      </SearchProvider>
-    );
-  }
-} */
 
 interface Props {
   initialResponse: {
@@ -92,19 +51,15 @@ const Page = (props: Props) => {
   );
 };
 
-const fetchData = (): Promise<Response> =>
-  new Promise((resolve) => {
-    pipeline.listen(EVENT_RESPONSE_UPDATED, (response: Response) => {
-      resolve(response);
-    });
-
-    // Fetch data from external API
-    pipeline.search(variables.get());
-  });
-
 // This gets called on every request
 export async function getServerSideProps() {
-  const response = await fetchData();
+  const response = await findResultsState({
+    search: {
+      pipeline,
+      variables,
+      fields,
+    },
+  });
 
   // Pass data to the page via props
   return {

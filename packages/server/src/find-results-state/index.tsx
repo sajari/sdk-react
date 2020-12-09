@@ -1,15 +1,15 @@
-import { combineFilters, EVENT_RESPONSE_UPDATED, SearchProviderValues, Variables } from '@sajari/react-hooks';
+import { combineFilters, EVENT_RESPONSE_UPDATED, Response, SearchProviderValues, Variables } from '@sajari/react-hooks';
 import { isEmpty } from '@sajari/react-sdk-utils';
-import React from 'react';
-import { renderToString } from 'react-dom/server';
+// import React from 'react';
+// import { renderToString } from 'react-dom/server';
 
-function findResultsState(App: React.ElementType, props: SearchProviderValues) {
+function findResultsState(/* App: React.ElementType, */ props: SearchProviderValues): Promise<Response> {
   if (!props.search) {
     throw new Error('findResultsState requires a `search` config');
   }
 
   // Alogolia does this, although I don't understand the point of it if it's not assigning to something
-  renderToString(<App />);
+  // renderToString(<App />);
 
   const { pipeline, filters, variables = new Variables() } = props.search;
 
