@@ -1,6 +1,7 @@
 /* eslint-disable import/named */
 export {
   ClickTracking,
+  combineFilters,
   FieldDictionary,
   FilterBuilder,
   Pipeline,

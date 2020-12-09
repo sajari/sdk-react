@@ -297,6 +297,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({ children, search, ins
 export default ContextProvider;
 export {
   ClickTracking,
+  combineFilters,
   FieldDictionary,
   FilterBuilder,
   Pipeline,
