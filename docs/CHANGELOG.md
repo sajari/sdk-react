@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.4](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-beta.3...sajari-sdk-docs@1.0.0-beta.4) (2020-12-09)
+
+### Features
+
+- added SSRProvider component ([8aaa2d5](https://github.com/sajari/sdk-react/commit/8aaa2d560803479c9697756322e2689c968e9a44))
+
 # [1.0.0-beta.3](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.0.0-beta.2...sajari-sdk-docs@1.0.0-beta.3) (2020-12-08)
 
 ### Features
