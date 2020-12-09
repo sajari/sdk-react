@@ -1,6 +1,6 @@
 /* eslint-disable import/named */
 /* eslint-disable @typescript-eslint/no-shadow */
-import { createContext, isEmpty } from '@sajari/react-sdk-utils';
+import { createContext, isEmpty, isString } from '@sajari/react-sdk-utils';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { Config, defaultConfig } from './Config';
@@ -72,12 +72,28 @@ const defaultState: ProviderPipelineState = {
   config: defaultConfig,
 };
 
+// Map a serialized Response object back into a Response
+const parseResponse = (initialResponse?: string) => {
+  if (!isString(initialResponse) || isEmpty(initialResponse)) {
+    return new Response(null);
+  }
+
+  const { queryValues = {}, response = {}, values = {} } = JSON.parse(initialResponse);
+
+  return new Response(
+    null,
+    new Map(Object.entries(queryValues)),
+    new Map(Object.entries(response)),
+    new Map(Object.entries(values)),
+  );
+};
+
 const ContextProvider: React.FC<SearchProviderValues> = ({
   children,
   search,
   instant: instantProp,
   searchOnLoad,
-  initialResponse = new Response(null),
+  initialResponse,
 }) => {
   const [searching, setSearching] = useState(false);
   const [instantSearching, setInstantSearching] = useState(false);
@@ -90,11 +106,10 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
   const instant = useRef(instantProp);
   const variables = useRef(search.variables ?? new Variables());
   const instantVariables = useRef(instantProp?.variables ?? new Variables());
-  // Get the initial response
+  // Map the initial response
   let response = search.pipeline.getResponse();
   if (response.isEmpty()) {
-    console.warn(initialResponse);
-    response = initialResponse;
+    response = parseResponse(initialResponse);
   }
 
   if (!search.variables && !configDone) {

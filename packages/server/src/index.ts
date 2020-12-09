@@ -1,1 +1,2 @@
-export { default as findResultsState } from './find-results-state';
+/* eslint-disable import/prefer-default-export */
+export { default as getResponse } from './get-response';

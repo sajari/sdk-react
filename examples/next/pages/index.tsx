@@ -1,9 +1,8 @@
 /* eslint-disable react/require-default-props */
 /* eslint-disable react/no-unused-prop-types */
 import React from 'react';
-import { SearchProvider, FieldDictionary, Pipeline, Variables, Results } from '@sajari/react-search-ui';
-import { Response } from '@sajari/react-hooks';
-import { findResultsState } from '@sajari/server';
+import { SearchProvider, FieldDictionary, Pipeline, Variables, Results, Input } from '@sajari/react-search-ui';
+import { getResponse } from '@sajari/server';
 
 const pipeline = new Pipeline(
   {
@@ -30,50 +29,34 @@ interface Props {
 
 // This gets called on every request
 export async function getServerSideProps() {
-  const response = (await findResultsState({
+  const initialResponse = await getResponse({
     search: {
       pipeline,
       variables,
       fields,
     },
-  })) as Response;
+  });
 
   // Pass data to the page via props
   return {
     props: {
-      initialResponse: JSON.stringify({
-        queryValues: Object.fromEntries(response.getQueryValues()),
-        response: Object.fromEntries(response.getResponse()),
-        values: Object.fromEntries(response.getValues()),
-      }),
+      initialResponse,
     },
   };
 }
 
-const Page = (props: Props) => {
-  const { initialResponse } = props;
-  const { queryValues, response, values } = JSON.parse(initialResponse);
-
-  return (
-    <SearchProvider
-      search={{
-        pipeline,
-        fields,
-        variables,
-      }}
-      // @ts-ignore
-      initialResponse={
-        new Response(
-          null,
-          new Map(Object.entries(queryValues)),
-          new Map(Object.entries(response)),
-          new Map(Object.entries(values)),
-        )
-      }
-    >
-      <Results appearance="grid" />
-    </SearchProvider>
-  );
-};
+const Page = ({ initialResponse }: Props) => (
+  <SearchProvider
+    search={{
+      pipeline,
+      fields,
+      variables,
+    }}
+    initialResponse={initialResponse}
+  >
+    <Input />
+    <Results appearance="grid" />
+  </SearchProvider>
+);
 
 export default Page;
