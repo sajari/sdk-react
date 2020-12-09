@@ -6,9 +6,9 @@ function useTracking(): UseTrackingResult {
     resultClicked,
     search: { pipeline },
   } = useContext();
-  const client = pipeline?.getClient();
+  const client = pipeline.getClient();
   return {
-    consumeInteractionToken: client?.interactionConsume,
+    consumeInteractionToken: client.interactionConsume,
     handleResultClicked: resultClicked,
   };
 }

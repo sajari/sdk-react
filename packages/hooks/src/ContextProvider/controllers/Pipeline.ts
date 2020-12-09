@@ -6,7 +6,7 @@ import { EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED, EVENT_SEARCH_SENT } from 
 import { Analytics, GoogleAnalytics } from './analytics';
 import { CallbackFn, Listener, ListenerMap } from './Listener';
 import { Response } from './Response';
-import { ClickTracking, NoTracking } from './tracking';
+import { ClickTracking, NoTracking, PosNegTracking } from './tracking';
 
 const events = [EVENT_SEARCH_SENT, EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED];
 
@@ -51,7 +51,7 @@ export class Pipeline {
       endpoint?: string;
     },
     name: string | { name: string; version?: string },
-    tracking: ClickTracking | NoTracking = new NoTracking(),
+    tracking: ClickTracking | PosNegTracking | NoTracking = new NoTracking(),
     analyticsAdapters = [GoogleAnalytics],
   ) {
     const { account, collection, endpoint } = config;
