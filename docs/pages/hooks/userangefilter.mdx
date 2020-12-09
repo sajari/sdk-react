@@ -2,12 +2,12 @@ import SEO from '../../components/SEO';
 
 <SEO
   title="useRangeFilter"
-  description="useRangeFilter returns the filter range (current range and the limit for min and max)"
+  description="useRangeFilter returns the filter range (current range and the range for min and max)"
 />
 
 # useRangeFilter
 
-`useRangeFilter` returns the filter range (current range and the limit for min and max).
+`useRangeFilter` returns the filter range (current range and the range for min and max).
 
 ```js
 import { useRangeFilter } from '@sajari/react-hooks';
@@ -197,9 +197,11 @@ function Example() {
 
 `useRangeFilter` returns an object containing the following properties:
 
-| Name       | Type                            | Default  | Description                                  |
-| ---------- | ------------------------------- | -------- | -------------------------------------------- |
-| `range`    | `Range` or `null`               |          | The current range                            |
-| `setRange` | `(value:Range OR null) => void` |          | Method to set the range                      |
-| `limit`    | `Range`                         | `[0, 0]` | The limit [min, max] value                   |
-| `reset`    | `() => void`                    |          | Reset the current state to the initial state |
+| Name        | Type                            | Default | Description                                    |
+| ----------- | ------------------------------- | ------- | ---------------------------------------------- |
+| `range`     | `Range` or `null`               |         | The current range.                             |
+| `setRange`  | `(value:Range OR null) => void` |         | Method to set the range.                       |
+| `min`       | `number`                        |         | The min range.                                 |
+| `max`       | `number`                        |         | The max range.                                 |
+| `showReset` | `boolean`                       |         | The state for deciding to call reset function. |
+| `reset`     | `() => void`                    |         | Reset the current state to the initial state   |
