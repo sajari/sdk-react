@@ -1,6 +1,6 @@
 {
   "name": "@sajari/server",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "SSR helpers",
   "sideEffects": false,
   "repository": {
