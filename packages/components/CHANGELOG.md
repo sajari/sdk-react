@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.6](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-beta.5...@sajari/react-components@1.0.0-beta.6) (2020-12-10)
+
+### Bug Fixes
+
+- pass id to the input ([41238f4](https://github.com/sajari/sdk-react/commit/41238f451ccadb3dad3b43c9ba3e05a6ad577bbe))
+
 # [1.0.0-beta.5](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-beta.4...@sajari/react-components@1.0.0-beta.5) (2020-12-09)
 
 ### Features

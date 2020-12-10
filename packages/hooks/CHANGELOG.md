@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.7](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-beta.6...@sajari/react-hooks@1.0.0-beta.7) (2020-12-10)
+
+### Features
+
+- add support for fetching data in SSR mode ([#285](https://github.com/sajari/sdk-react/issues/285)) ([f096531](https://github.com/sajari/sdk-react/commit/f09653138017c855e83850807c2fab376a5f8842))
+- add support for SSR key/secret auth ([ae819c0](https://github.com/sajari/sdk-react/commit/ae819c0656c86cdb69981e96c6c45ef4f3469467))
+
 # [1.0.0-beta.6](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-beta.5...@sajari/react-hooks@1.0.0-beta.6) (2020-12-09)
 
 **Note:** Version bump only for package @sajari/react-hooks
