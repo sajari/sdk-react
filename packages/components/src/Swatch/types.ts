@@ -22,7 +22,7 @@ export interface SwatchProps extends BoxProps {
   /** List of <Swatch.Color /> */
   children: React.ReactNode;
   /** On change handler */
-  onChange: (checkedColors: string[]) => void;
+  onChange?: (checkedColors: string[]) => void;
   /** Default checked colors */
   checkedColors?: string[];
   /** The classname for color */

@@ -96,45 +96,48 @@ if (__DEV__) {
 
 /** We're doing it manually rather a for loop because this enables code completion */
 
-Color.White = (overridingProps: ColorProps) => Color.call(null, { ...colors[0], ...overridingProps });
+/** */
+Color.White = (overridingProps: Partial<ColorProps> = {}) => Color.call(null, { ...colors[0], ...overridingProps });
 
-Color.Silver = (overridingProps: ColorProps) => Color.call(null, { ...colors[1], ...overridingProps });
+Color.Silver = (overridingProps: Partial<ColorProps> = {}) => Color.call(null, { ...colors[1], ...overridingProps });
 
-Color.Black = (overridingProps: ColorProps) => Color.call(null, { ...colors[2], ...overridingProps });
+Color.Black = (overridingProps: Partial<ColorProps> = {}) => Color.call(null, { ...colors[2], ...overridingProps });
 
-Color.Pink = (overridingProps: ColorProps) => Color.call(null, { ...colors[3], ...overridingProps });
+Color.Pink = (overridingProps: Partial<ColorProps> = {}) => Color.call(null, { ...colors[3], ...overridingProps });
 
-Color.Magenta = (overridingProps: ColorProps) => Color.call(null, { ...colors[4], ...overridingProps });
+Color.Magenta = (overridingProps: Partial<ColorProps> = {}) => Color.call(null, { ...colors[4], ...overridingProps });
 
-Color.Red = (overridingProps: ColorProps) => Color.call(null, { ...colors[5], ...overridingProps });
+Color.Red = (overridingProps: Partial<ColorProps> = {}) => Color.call(null, { ...colors[5], ...overridingProps });
 
-Color.Beige = (overridingProps: ColorProps) => Color.call(null, { ...colors[6], ...overridingProps });
+Color.Beige = (overridingProps: Partial<ColorProps> = {}) => Color.call(null, { ...colors[6], ...overridingProps });
 
-Color.Orange = (overridingProps: ColorProps) => Color.call(null, { ...colors[7], ...overridingProps });
+Color.Orange = (overridingProps: Partial<ColorProps> = {}) => Color.call(null, { ...colors[7], ...overridingProps });
 
-Color.Brown = (overridingProps: ColorProps) => Color.call(null, { ...colors[8], ...overridingProps });
+Color.Brown = (overridingProps: Partial<ColorProps> = {}) => Color.call(null, { ...colors[8], ...overridingProps });
 
-Color.Yellow = (overridingProps: ColorProps) => Color.call(null, { ...colors[9], ...overridingProps });
+Color.Yellow = (overridingProps: Partial<ColorProps> = {}) => Color.call(null, { ...colors[9], ...overridingProps });
 
-Color.Green = (overridingProps: ColorProps) => Color.call(null, { ...colors[10], ...overridingProps });
+Color.Green = (overridingProps: Partial<ColorProps> = {}) => Color.call(null, { ...colors[10], ...overridingProps });
 
-Color.Azure = (overridingProps: ColorProps) => Color.call(null, { ...colors[11], ...overridingProps });
+Color.Azure = (overridingProps: Partial<ColorProps> = {}) => Color.call(null, { ...colors[11], ...overridingProps });
 
-Color.Aqua = (overridingProps: ColorProps) => Color.call(null, { ...colors[12], ...overridingProps });
+Color.Aqua = (overridingProps: Partial<ColorProps> = {}) => Color.call(null, { ...colors[12], ...overridingProps });
 
-Color.Teal = (overridingProps: ColorProps) => Color.call(null, { ...colors[13], ...overridingProps });
+Color.Teal = (overridingProps: Partial<ColorProps> = {}) => Color.call(null, { ...colors[13], ...overridingProps });
 
-Color.Turquoise = (overridingProps: ColorProps) => Color.call(null, { ...colors[14], ...overridingProps });
+Color.Turquoise = (overridingProps: Partial<ColorProps> = {}) =>
+  Color.call(null, { ...colors[14], ...overridingProps });
 
-Color.Blue = (overridingProps: ColorProps) => Color.call(null, { ...colors[15], ...overridingProps });
+Color.Blue = (overridingProps: Partial<ColorProps> = {}) => Color.call(null, { ...colors[15], ...overridingProps });
 
-Color.ElectricBlue = (overridingProps: ColorProps) => Color.call(null, { ...colors[16], ...overridingProps });
+Color.ElectricBlue = (overridingProps: Partial<ColorProps> = {}) =>
+  Color.call(null, { ...colors[16], ...overridingProps });
 
-Color.Lilac = (overridingProps: ColorProps) => Color.call(null, { ...colors[17], ...overridingProps });
+Color.Lilac = (overridingProps: Partial<ColorProps> = {}) => Color.call(null, { ...colors[17], ...overridingProps });
 
-Color.Purple = (overridingProps: ColorProps) => Color.call(null, { ...colors[18], ...overridingProps });
+Color.Purple = (overridingProps: Partial<ColorProps> = {}) => Color.call(null, { ...colors[18], ...overridingProps });
 
-Color.Violet = (overridingProps: ColorProps) => Color.call(null, { ...colors[19], ...overridingProps });
+Color.Violet = (overridingProps: Partial<ColorProps> = {}) => Color.call(null, { ...colors[19], ...overridingProps });
 
 export default Color;
 export type { ColorProps };
