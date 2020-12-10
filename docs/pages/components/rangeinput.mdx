@@ -26,6 +26,7 @@ function Example() {
   return (
     <div className="flex flex-col">
       <RangeInput value={range} onChange={setRange} />
+      <pre className="self-center">"[{range.toString()}]"</pre>
     </div>
   );
 }
@@ -42,6 +43,7 @@ function Example() {
   return (
     <div className="flex flex-col">
       <RangeInput value={range} onChange={setRange} step={25} tick={100} min={0} max={500} />
+      <pre className="self-center">"[{range.toString()}]"</pre>
     </div>
   );
 }
@@ -58,6 +60,7 @@ function Example() {
   return (
     <div className="flex flex-col">
       <RangeInput value={range} onChange={setRange} step={25} tick={100} showInputs min={0} max={500} />
+      <pre className="self-center">"[{range.toString()}]"</pre>
     </div>
   );
 }
@@ -78,6 +81,7 @@ function Example() {
       <RangeInput
         value={range}
         onChange={setRange}
+        showInputs
         leftInput={({ getProps, ref }) => {
           const { inputProps, labelProps } = getProps({ label: 'Custom left input' });
           return (
@@ -90,14 +94,15 @@ function Example() {
           );
         }}
       />
+      <pre className="self-center">"[{range.toString()}]"</pre>
     </div>
   );
 }
 ```
 
-### Usage without Filter controller
+### onChange vs onInput
 
-In case you don't want to depend on `RangeFilterBuilder`, you can opt-out of that by passing `limit`, `value`, `onChange` (or `onInput`) to the `RangeInput`.
+The difference between `onChange` and `onInput` callbacks, is when they are called. `onInput` will be called while the handle is being moved, and `onChange` only when the handle has been dropped.
 
 ```jsx
 function Example() {
@@ -119,6 +124,7 @@ function Example() {
         <Radio value="onChange">onChange</Radio>
       </RadioGroup>
       <RangeInput min={0} max={500} value={range} onInput={handleInput} onChange={handleChange} />
+      <pre className="self-center">"[{range.toString()}]"</pre>
     </div>
   );
 }
@@ -133,6 +139,7 @@ function Example() {
   return (
     <div className="flex flex-col space-y-4">
       <RangeInput value={range} onChange={setRange} min={0} max={500} value={range} onInput={setRange} />
+      <pre className="self-center">"[{range.toString()}]"</pre>
     </div>
   );
 }
