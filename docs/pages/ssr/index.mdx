@@ -146,6 +146,7 @@ const Page = ({ initialResponse }: Props) => (
       variables,
     }}
     initialResponse={initialResponse}
+    // If there's no initial response, revert to client-side search call
     searchOnLoad={!initialResponse}
   >
     <SSRProvider>
