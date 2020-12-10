@@ -4,6 +4,7 @@
 .eslintrc.js
 tailwind.config.js
 jest-preprocess.js
+setupFilesAfterEnv.js
 jest.config.js
 tsdx.config.js
 tsdx.config.base.js

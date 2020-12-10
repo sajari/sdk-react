@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.build.json",
-  "include": ["packages", "types", "scripts", "docs"],
+  "include": ["packages", "types", "scripts", "docs", "./types/jest-extend-expect.d.ts"],
   "compilerOptions": {
     "allowJs": false,
     "baseUrl": ".",
