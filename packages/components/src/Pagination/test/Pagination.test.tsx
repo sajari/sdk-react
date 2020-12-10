@@ -40,7 +40,7 @@ describe('Pagination', () => {
     expect(container.children).toHaveLength(0);
   });
 
-  it('Should show nothing if resutlsPerPage is not passed', () => {
+  it('Should show nothing if resultsPerPage is not passed', () => {
     const { container } = render(
       <ThemeProvider>
         <Pagination totalResults={100} page={1} onChange={jest.fn()} />
