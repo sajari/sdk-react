@@ -1,12 +1,12 @@
 import { combineFilters, EVENT_RESPONSE_UPDATED, SearchProviderValues, Variables, Response } from '@sajari/react-hooks';
 import { isEmpty } from '@sajari/react-sdk-utils';
 
-function search(props: SearchProviderValues): Promise<string | null> {
-  if (!props.search) {
+function search(props: SearchProviderValues['search']): Promise<string | null> {
+  if (!props) {
     throw new Error('findResultsState requires a `search` config');
   }
 
-  const { pipeline, filters, variables = new Variables() } = props.search;
+  const { pipeline, filters, variables = new Variables() } = props;
 
   if (filters) {
     const filter = combineFilters(filters);

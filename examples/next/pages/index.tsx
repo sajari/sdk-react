@@ -15,7 +15,6 @@ import { useSearchContext } from '@sajari/react-hooks';
 const pipelineConfig = {
   account: '1594153711901724220',
   collection: 'bestbuy',
-  endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
 };
 
 let pipeline = new Pipeline(pipelineConfig, 'query');
@@ -49,11 +48,9 @@ interface Props {
 // This gets called on every request
 export async function getServerSideProps() {
   const initialResponse = await search({
-    search: {
-      pipeline,
-      variables,
-      fields,
-    },
+    pipeline,
+    variables,
+    fields,
   });
 
   // If we couldn't get an initial response server side, render client side
