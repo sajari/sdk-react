@@ -7,7 +7,6 @@ const ContextProvider: React.FC = ({ children }) => {
       {
         account: '1594153711901724220',
         collection: 'bestbuy',
-        endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
       },
       'query',
     ),
