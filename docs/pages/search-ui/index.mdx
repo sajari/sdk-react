@@ -97,21 +97,16 @@ function Example() {
     },
   });
 
-  const priceFilter = new FilterBuilder({
-    name: 'price',
-    options: {
-      High: 'price >= 200',
-      Mid: 'price >= 50',
-      Low: 'price < 50',
-    },
-    multi: false,
-    initial: ['High'],
-  });
-
   const colorFilter = new FilterBuilder({
     name: 'color',
     field: 'imageTags',
     array: true,
+  });
+
+  const priceFilter = new RangeFilterBuilder({
+    name: 'price',
+    field: 'price',
+    aggregate: true,
   });
 
   const ratingFilter = new FilterBuilder({
@@ -150,7 +145,7 @@ function Example() {
           {searched && (
             <div className="w-1/4 pr-4 border-gray-100 border-r space-y-6">
               <Filter type="list" name="brand" title="Brand" />
-              <Filter type="list" name="price" title="Price (bucket)" />
+              <Filter type="range" name="price" title="Price" />
               <Filter type="color" name="color" title="Color" />
               <Filter type="rating" name="rating" title="Rating" />
             </div>

@@ -19,6 +19,7 @@ export * from './useFilter';
 export { default as usePagination } from './usePagination';
 export * from './usePagination';
 export { default as useQuery } from './useQuery';
+export { default as useRangeFilter } from './useRangeFilter';
 export { default as useResultsPerPage } from './useResultsPerPage';
 export * from './useResultsPerPage';
 export { default as useSearch } from './useSearch';

@@ -17,7 +17,7 @@ import {
 } from './controllers';
 import combineFilters from './controllers/filters/combineFilters';
 import { UnlistenFn } from './controllers/Listener';
-import { EVENT_RESPONSE_UPDATED, EVENT_SELECTION_UPDATED, EVENT_VALUES_UPDATED } from './events';
+import { EVENT_RANGE_UPDATED, EVENT_RESPONSE_UPDATED, EVENT_SELECTION_UPDATED, EVENT_VALUES_UPDATED } from './events';
 import {
   Context,
   FieldDictionary,
@@ -99,10 +99,12 @@ const ContextProvider: React.FC<SearchProviderValues> = ({ children, search, ins
     const filter = combineFilters(search.filters);
 
     variables.current.set({
-      filter: isEmpty(filter.filter()) ? '_id != ""' : () => filter.filter(),
+      filter: () => (isEmpty(filter.filter()) ? '_id != ""' : filter.filter()),
       countFilters: () => filter.countFilters(),
       buckets: () => filter.buckets(),
       count: () => filter.count(),
+      min: () => filter.min(),
+      max: () => filter.max(),
     });
   }
 
@@ -160,6 +162,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({ children, search, ins
 
       unregisterFunctions.push(
         filter.listen(EVENT_SELECTION_UPDATED, () => searchFn('search')()),
+        filter.listen(EVENT_RANGE_UPDATED, () => searchFn('search')()),
         filter.removeChildFilterListeners,
       );
     }

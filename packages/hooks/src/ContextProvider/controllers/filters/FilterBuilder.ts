@@ -172,19 +172,24 @@ export default class FilterBuilder {
    * Builds up the filter string from the current filter and it's children.
    */
   public filter() {
-    return this.current
+    const options = this.current
       .map((c) => {
         let f = this.options[c];
         if (isFunction(f)) {
           f = f();
         }
         if (!isEmpty(f)) {
-          f = `(${escapeValue(f)})`;
+          f = escapeValue(f);
         }
         return f;
       })
-      .filter(Boolean)
-      .join(` ${this.joinOperator} `);
+      .filter(Boolean);
+
+    if (options.length < 2) {
+      return options.join('');
+    }
+
+    return options.map((f) => `(${f})`).join(` ${this.joinOperator} `);
   }
 
   public getBuckets() {

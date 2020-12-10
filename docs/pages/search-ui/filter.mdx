@@ -298,6 +298,65 @@ function Example() {
 }
 ```
 
+### Range
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+      endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
+    },
+    'query',
+  );
+
+  const priceFilter = new RangeFilterBuilder({
+    name: 'price',
+    field: 'price',
+    aggregate: true,
+  });
+
+  const ratingFilter = new RangeFilterBuilder({
+    name: 'rating',
+    field: 'rating',
+    aggregate: true,
+  });
+
+  const SearchPlayground = React.memo(() => (
+    <div className="flex flex-col space-y-6">
+      <Input />
+
+      <div className="flex -mx-3">
+        <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
+          <Filter type="range" name="price" title="Price" />
+          <Filter type="range" name="rating" title="Rating" />
+        </div>
+        <div className="w-3/4 px-3">
+          <Results />
+        </div>
+      </div>
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+        filters: [priceFilter, ratingFilter],
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
 ## Props
 
 | Name    | Type              | Default | Description                |

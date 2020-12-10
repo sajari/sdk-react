@@ -85,6 +85,14 @@ export interface SearchUIContextProviderValues {
         radioGroup?: string;
         toggleButton?: string;
       };
+      range?: {
+        container?: string;
+        handle?: string;
+        fill?: string;
+        track?: string;
+        input?: string;
+        handleActive?: string;
+      };
     };
   };
 }

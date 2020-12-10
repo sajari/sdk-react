@@ -50,4 +50,8 @@ export interface TabFilterProps extends BaseFilterProps {
   sortAscending?: ListFilterProps['sortAscending'];
 }
 
-export type FilterProps = ListFilterProps | ColorFilterProps | RatingFilterProps | TabFilterProps;
+export interface RangeFilterProps extends BaseFilterProps {
+  type: 'range';
+}
+
+export type FilterProps = ListFilterProps | ColorFilterProps | RatingFilterProps | TabFilterProps | RangeFilterProps;

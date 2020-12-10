@@ -12,3 +12,5 @@ export const EVENT_ANALYTICS_RESULT_CLICKED = 'result-clicked-analytics';
 
 export const EVENT_SELECTION_UPDATED = 'selection-updated';
 export const EVENT_OPTIONS_UPDATED = 'options-updated';
+
+export const EVENT_RANGE_UPDATED = 'range-updated';

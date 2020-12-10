@@ -2,7 +2,7 @@ import { isNumber } from '@sajari/react-sdk-utils';
 import { CountAggregate } from '@sajari/sdk-js';
 import { useEffect, useMemo, useState } from 'react';
 
-import { useContext } from '../ContextProvider';
+import { FilterBuilder, useContext } from '../ContextProvider';
 import { EVENT_SELECTION_UPDATED } from '../ContextProvider/events';
 import { FilterItem } from './types';
 
@@ -12,7 +12,7 @@ function useFilter(name: string) {
   } = useContext();
 
   const filter = useMemo(() => {
-    return filters.filter((f) => f.getName() === name)[0];
+    return filters.filter((f) => f instanceof FilterBuilder && f.getName() === name)[0] as FilterBuilder;
   }, []);
 
   if (!filter) {
