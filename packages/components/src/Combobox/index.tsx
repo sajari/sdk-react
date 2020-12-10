@@ -258,6 +258,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
             css={styles.input}
             {...mergeProps(
               getInputProps({
+                id,
                 className: inputClassName,
                 type: 'search',
                 dir: 'auto',
