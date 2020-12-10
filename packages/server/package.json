@@ -26,13 +26,11 @@
     "react-dom": "^16.8.0"
   },
   "dependencies": {
-    "@sajari/react-components": "^1.0.0-beta.6",
     "@sajari/react-hooks": "^1.0.0-beta.7",
-    "@sajari/react-sdk-utils": "^1.0.0-beta.1",
-    "@sajari/react-search-ui": "^1.0.0-beta.10"
+    "@sajari/react-sdk-utils": "^1.0.0-beta.1"
   },
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "d2b9639c742e1dace15317d57a409777cd736dee"
+  "gitHead": "ad234f0805e6a7cea8dc5ad87bd189152875fd16"
 }
