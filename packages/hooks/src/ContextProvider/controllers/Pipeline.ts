@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { isString } from '@sajari/react-sdk-utils';
+import { isSSR, isString } from '@sajari/react-sdk-utils';
 import { Client } from '@sajari/sdk-js';
 
 import { EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED, EVENT_SEARCH_SENT } from '../events';
@@ -17,6 +17,8 @@ export class Pipeline {
     account: string;
     collection: string;
     endpoint?: string;
+    key?: string;
+    secret?: string;
   };
 
   private pipeline: QueryPipeline;
@@ -49,12 +51,14 @@ export class Pipeline {
       account: string;
       collection: string;
       endpoint?: string;
+      key?: string;
+      secret?: string;
     },
     name: string | { name: string; version?: string },
     tracking: ClickTracking | PosNegTracking | NoTracking = new NoTracking(),
     analyticsAdapters = [GoogleAnalytics],
   ) {
-    const { account, collection, endpoint } = config;
+    const { account, collection, endpoint, key, secret } = config;
     this.config = config;
 
     const p: { name?: string; version?: string } = {
@@ -68,7 +72,13 @@ export class Pipeline {
       p.version = name.version;
     }
 
-    this.client = new Client(account, collection, endpoint);
+    // Only use key/secret in SSR contexts
+    if (isSSR()) {
+      this.client = new Client(account, collection, endpoint, key, secret);
+    } else {
+      this.client = new Client(account, collection, endpoint);
+    }
+
     this.pipeline = this.client.pipeline(p.name as string, p.version);
     this.name = p.name as string;
     this.version = p.version;

@@ -3679,10 +3679,10 @@
     toasted-notes "^3.2.0"
     typescript "^4.0.5"
 
-"@sajari/sdk-js@2.0.0-alpha.14":
-  version "2.0.0-alpha.14"
-  resolved "https://registry.yarnpkg.com/@sajari/sdk-js/-/sdk-js-2.0.0-alpha.14.tgz#33f40d69c528d767d344e239d72ab40aaa6db701"
-  integrity sha512-zuhWx4daN3Az4V0JmIqIxjmvVT84xEgROjY9/uTRhsja4v0bHRKeU4gMe4eUjIMg+LM9TPMVXJxBV7TE6K/b0A==
+"@sajari/sdk-js@2.0.0-alpha.17":
+  version "2.0.0-alpha.17"
+  resolved "https://registry.yarnpkg.com/@sajari/sdk-js/-/sdk-js-2.0.0-alpha.17.tgz#8ea8fe673d16cb877528b6c57003d89a3ef8adb6"
+  integrity sha512-z6DUNN3pUBTS0u7MseyuqCSCRW6Y9w/s5BklmbWX9coKBeGGtIIcayd2eFSFQfyWZfIfM09EOALQ2MJGcUpriw==
 
 "@sinonjs/commons@^1.7.0":
   version "1.8.1"
@@ -12933,10 +12933,10 @@ react-focus-lock@^2.4.1:
     use-callback-ref "^1.2.1"
     use-sidecar "^1.0.1"
 
-react-i18next@^11.7.4:
-  version "11.7.4"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.7.4.tgz#6c0142e15652d8dd80cd7d857e36efe2e9d4d09a"
-  integrity sha512-Aq0+QVW7NMYuAtk0Stcwp4jWeNTd1p5XefAfBPcjs/4c/2duG3v3G3zdtn8fC8L4EyA/coKLwdULHI+lYTbF8w==
+react-i18next@^11.8.0:
+  version "11.8.1"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-11.8.1.tgz#bf60a03aa1522bb227a669e1b41afab25089acec"
+  integrity sha512-PbKWBphflI7la0gFc4MneeigmnCT2M/axnUUhCAz3MqfVekRdupFJFvYE25jiIMzbJcIpJeQJDfp/zyktD/O6Q==
   dependencies:
     "@babel/runtime" "^7.3.1"
     html-parse-stringify2 "2.0.1"
