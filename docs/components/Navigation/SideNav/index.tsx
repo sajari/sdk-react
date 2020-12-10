@@ -5,7 +5,15 @@ import { classes, components, searchComponents, hooks, tracking } from '../../me
 import { SideNavLink, stringToUrl } from '../NavLink';
 import { SideNavGroup } from './Group';
 
-const topNavLinks = [['Getting Started', '/'], ['Components'], ['Hooks'], ['Search UI'], ['Tracking'], ['Styling']];
+const topNavLinks = [
+  ['Getting Started', '/'],
+  ['Components'],
+  ['Hooks'],
+  ['Search UI'],
+  ['Tracking'],
+  ['Server Side Rendering', '/ssr'],
+  ['Styling'],
+];
 
 export const SideNavContent = () => (
   <Box space="space-y-10" margin="mb-10">
