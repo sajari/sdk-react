@@ -3679,10 +3679,10 @@
     toasted-notes "^3.2.0"
     typescript "^4.0.5"
 
-"@sajari/sdk-js@2.0.0-alpha.17":
-  version "2.0.0-alpha.17"
-  resolved "https://registry.yarnpkg.com/@sajari/sdk-js/-/sdk-js-2.0.0-alpha.17.tgz#8ea8fe673d16cb877528b6c57003d89a3ef8adb6"
-  integrity sha512-z6DUNN3pUBTS0u7MseyuqCSCRW6Y9w/s5BklmbWX9coKBeGGtIIcayd2eFSFQfyWZfIfM09EOALQ2MJGcUpriw==
+"@sajari/sdk-js@2.0.0-alpha.18":
+  version "2.0.0-alpha.18"
+  resolved "https://registry.yarnpkg.com/@sajari/sdk-js/-/sdk-js-2.0.0-alpha.18.tgz#049a28f81514cc2f5080a63f7dd592c09b716b1f"
+  integrity sha512-yvUiiVlmtyJk8/5MkmzBoQEBYH6P4IXOWFx7t/0G0Xqh0yikfbuEI3OXTgW2jrFarRwyG09IMgqS5N4/5n99tw==
 
 "@sinonjs/commons@^1.7.0":
   version "1.8.1"
