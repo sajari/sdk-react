@@ -45,8 +45,9 @@ export default () => (
 
 In order to render the components or use hooks while server side rendering, you need a way to fetch data. For this, you can use the `server` function from the `@sajari/server` package. It expects the same props as `SearchProvider`.
 
-Here's how it works:
+Here's how this Next.js example works:
 
+- Two pipelines are created; one using domain auth for client-side, and one passing a key/secret for server-side. The server-side pipeline will be stripped in client-side builds so your key/secret are not exposed.
 - The `search` function will return a response in JSON format, which you pass to the `SearchProvider`.
 - The `SearchProvider` then de-serializes that response and uses it for the initial state.
 - Any changes to state from that point onwards are client-side rendered.
@@ -68,17 +69,25 @@ import {
 import { search } from '@sajari/server';
 import { useSearchContext } from '@sajari/react-hooks';
 
-const pipeline = new Pipeline(
-  {
-    account: '1594153711901724220',
-    collection: 'bestbuy',
-    endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
-    // Key and secret must be populated with details from the credentials page in the Sajari console
-    key: '',
-    secret: '',
-  },
-  'query',
-);
+const pipelineConfig = {
+  account: '1594153711901724220',
+  collection: 'bestbuy',
+  endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
+};
+
+let pipeline = new Pipeline(pipelineConfig, 'query');
+
+// Next.js will remove this in client-side builds
+if (typeof window === 'undefined') {
+  pipeline = new Pipeline(
+    {
+      ...pipelineConfig,
+      key: '...',
+      secret: '...',
+    },
+    'query',
+  );
+}
 
 const fields = new FieldDictionary({
   title: 'name',

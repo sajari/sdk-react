@@ -12,17 +12,25 @@ import {
 import { search } from '@sajari/server';
 import { useSearchContext } from '@sajari/react-hooks';
 
-const pipeline = new Pipeline(
-  {
-    account: '1594153711901724220',
-    collection: 'bestbuy',
-    endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
-    // Key and secret must be populated with details from the credentials page in the Sajari console
-    key: '',
-    secret: '',
-  },
-  'query',
-);
+const pipelineConfig = {
+  account: '1594153711901724220',
+  collection: 'bestbuy',
+  endpoint: 'https://jsonapi-us-valkyrie.sajari.net',
+};
+
+let pipeline = new Pipeline(pipelineConfig, 'query');
+
+// Next.js will remove this in client-side builds
+if (typeof window === 'undefined') {
+  pipeline = new Pipeline(
+    {
+      ...pipelineConfig,
+      key: '...',
+      secret: '...',
+    },
+    'query',
+  );
+}
 
 const fields = new FieldDictionary({
   title: 'name',
