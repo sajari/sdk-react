@@ -1,6 +1,6 @@
 {
   "name": "@sajari/server",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "description": "SSR helpers",
   "sideEffects": false,
   "repository": {
@@ -26,8 +26,8 @@
     "react-dom": "^16.8.0"
   },
   "dependencies": {
-    "@sajari/react-hooks": "^1.0.0-beta.8",
-    "@sajari/react-sdk-utils": "^1.0.0-beta.1"
+    "@sajari/react-hooks": "^1.0.0-beta.9",
+    "@sajari/react-sdk-utils": "^1.0.0-beta.2"
   },
   "publishConfig": {
     "access": "public"

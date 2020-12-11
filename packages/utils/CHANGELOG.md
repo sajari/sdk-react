@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.2](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.0.0-beta.1...@sajari/react-sdk-utils@1.0.0-beta.2) (2020-12-11)
+
+### Bug Fixes
+
+- prevent decodeHTML trying to access DOM in SSR ([edb4bcf](https://github.com/sajari/sdk-react/commit/edb4bcfc1fc3b8a470908e11dc7e915e7acdfca9))
+
 # [1.0.0-beta.1](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.0.0-alpha.20...@sajari/react-sdk-utils@1.0.0-beta.1) (2020-12-04)
 
 **Note:** Version bump only for package @sajari/react-sdk-utils
