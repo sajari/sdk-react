@@ -32,3 +32,14 @@ It must wrap any components where you are using hooks, usually this is done in a
 
 - Replace the placeholders with your account and collection IDs from [the collection crendentials section](https://www.sajari.com/console/collection/credentials) in the console.
 - Replace the pipeline name placeholder with the pipeline you'd like to use to query.
+
+## Props
+
+| Name              | Type                     | Default | Description                                                                                                                            |
+| ----------------- | ------------------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `search`          | `ProviderPipelineConfig` |         | A pipeline configuration for search requests.                                                                                          |
+| `autocomplete`    | `ProviderPipelineConfig` |         | A pipeline configuration for autocomplete and typeahead requests. This is optional, by default we'll use an `autocomplete` pipeline.   |
+| `searchOnLoad`    | `boolean`                |         | Whether to search on initial load. **Note:** if you're also calling the `useSearch` hook in your app, you'll make two search requests. |
+| `initialResponse` | `string`                 |         | An initial search response in JSON format, useful for [server-side rendering](/ssr).                                                   |
+
+### ProviderPipelineConfig

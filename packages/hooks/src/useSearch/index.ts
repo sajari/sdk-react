@@ -54,7 +54,7 @@ function useNormalSearch({ queryOverride, allowEmptySearch = true }: UseSearchCo
   const [error, setError] = useState<Error | null>(null);
   const {
     search: { searching, response, search },
-    instant: { search: searchInstantFn, suggestions },
+    autocomplete: { search: searchInstantFn, suggestions },
   } = useContext();
 
   const results = response?.getResults();

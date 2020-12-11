@@ -40,19 +40,19 @@ export interface ProviderPipelineState {
 
 export interface SearchProviderValues {
   search: ProviderPipelineConfig;
-  instant?: ProviderPipelineConfig;
+  autocomplete?: ProviderPipelineConfig;
   searchOnLoad?: boolean;
   initialResponse?: string;
 }
 
 export interface PipelineProviderState {
   search: ProviderPipelineState;
-  instant: ProviderPipelineState;
+  autocomplete: ProviderPipelineState;
 }
 
 export interface Context {
   search: PipelineContextState;
-  instant: PipelineContextState;
+  autocomplete: PipelineContextState;
   resultClicked: ResultClickedFn;
   paginate: PaginateFn;
   setViewType: (v: ResultViewType) => void;

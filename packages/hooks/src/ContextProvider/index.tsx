@@ -91,21 +91,21 @@ const parseResponse = (initialResponse?: string) => {
 const ContextProvider: React.FC<SearchProviderValues> = ({
   children,
   search,
-  instant: instantProp,
+  autocomplete: autocompleteProp,
   searchOnLoad,
   initialResponse,
 }) => {
   const [searching, setSearching] = useState(false);
-  const [instantSearching, setInstantSearching] = useState(false);
+  const [autocompleteSearching, setAutocompleteSearching] = useState(false);
   const [searchState, setSearchState] = useState(defaultState);
-  const [instantState, setInstantState] = useState(defaultState);
+  const [autocompleteState, setAutocompleteState] = useState(defaultState);
   const [viewType, setViewType] = useState<ResultViewType>('list');
   const [configDone, setConfigDone] = useState(false);
   const searchTimer = useRef<ReturnType<typeof setTimeout>>();
-  const searchInstantTimer = useRef<ReturnType<typeof setTimeout>>();
-  const instant = useRef(instantProp);
+  const searchAutocompleteTimer = useRef<ReturnType<typeof setTimeout>>();
+  const autocomplete = useRef(autocompleteProp);
   const variables = useRef(search.variables ?? new Variables());
-  const instantVariables = useRef(instantProp?.variables ?? new Variables());
+  const autocompleteVariables = useRef(autocompleteProp?.variables ?? new Variables());
   // Map the initial response
   let response = search.pipeline.getResponse();
   if (response.isEmpty()) {
@@ -116,9 +116,9 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
     // For destructing down below (searchFn, clear, handlePaginate)
     Object.assign(search, { variables: variables.current });
   }
-  if (instantProp && !instantProp.variables && !configDone) {
+  if (autocompleteProp && !autocompleteProp.variables && !configDone) {
     // For destructing down below (searchFn, clear, handlePaginate)
-    Object.assign(instantProp, { variables: instantVariables.current });
+    Object.assign(autocompleteProp, { variables: autocompleteVariables.current });
   }
 
   if (search.filters && !configDone) {
@@ -135,11 +135,11 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
   }
 
   const searchFn = useCallback(
-    (key: 'search' | 'instant') => (inputQuery?: string, override: boolean = false) => {
-      const func = key === 'instant' ? instant.current : search;
-      const state = key === 'instant' ? instantState : searchState;
-      const setSearchingState = key === 'instant' ? setInstantSearching : setSearching;
-      const timer = key === 'instant' ? searchInstantTimer : searchTimer;
+    (key: 'search' | 'autocomplete') => (inputQuery?: string, override: boolean = false) => {
+      const func = key === 'autocomplete' ? autocomplete.current : search;
+      const state = key === 'autocomplete' ? autocompleteState : searchState;
+      const setSearchingState = key === 'autocomplete' ? setAutocompleteSearching : setSearching;
+      const timer = key === 'autocomplete' ? searchAutocompleteTimer : searchTimer;
       setSearchingState(true);
       setSearchState((state) => ({ ...state, query: inputQuery ?? state.query }));
       const { pipeline, variables } = func as Required<ProviderPipelineConfig>;
@@ -176,7 +176,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
       config: mergedConfig,
     }));
 
-    setInstantState((state) => ({
+    setAutocompleteState((state) => ({
       ...state,
       config: { ...defaultConfig, ...search.config },
     }));
@@ -223,32 +223,32 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
       ),
     );
 
-    if (!instant.current) {
+    if (!autocomplete.current) {
       const { account, collection, endpoint } = search.pipeline.config;
-      instant.current = {
+      autocomplete.current = {
         pipeline: new Pipeline({ account, collection, endpoint }, 'autocomplete', new NoTracking()),
-        variables: instantVariables.current,
+        variables: autocompleteVariables.current,
       };
     }
 
     unregisterFunctions.push(
-      instant.current.pipeline.listen(EVENT_RESPONSE_UPDATED, (response: Response) => {
-        setInstantSearching(false);
-        setInstantState((prevState) => ({
+      autocomplete.current.pipeline.listen(EVENT_RESPONSE_UPDATED, (response: Response) => {
+        setAutocompleteSearching(false);
+        setAutocompleteState((prevState) => ({
           ...prevState,
           response,
-          ...responseUpdatedListener(instantVariables.current, prevState.config, response),
+          ...responseUpdatedListener(autocompleteVariables.current, prevState.config, response),
         }));
       }),
     );
 
     unregisterFunctions.push(
-      instantVariables.current.listen(EVENT_VALUES_UPDATED, () =>
-        setInstantState((prevState) => ({
+      autocompleteVariables.current.listen(EVENT_VALUES_UPDATED, () =>
+        setAutocompleteState((prevState) => ({
           ...prevState,
           ...valuesUpdatedListener(
-            instantVariables.current,
-            (instant.current as ProviderPipelineConfig).pipeline,
+            autocompleteVariables.current,
+            (autocomplete.current as ProviderPipelineConfig).pipeline,
             prevState.config,
           ),
         })),
@@ -266,8 +266,8 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
   }, []);
 
   const clear = useCallback(
-    (key: 'search' | 'instant') => (vals?: { [k: string]: string | undefined }) => {
-      const func = key === 'instant' ? instant.current : search;
+    (key: 'search' | 'autocomplete') => (vals?: { [k: string]: string | undefined }) => {
+      const func = key === 'autocomplete' ? autocomplete.current : search;
       const { pipeline, variables } = func as Required<ProviderPipelineConfig>;
 
       if (vals !== undefined) {
@@ -304,15 +304,15 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
         fields: search.fields,
         searching,
       },
-      instant: {
-        ...state.instant,
-        variables: instantVariables.current,
+      autocomplete: {
+        ...state.autocomplete,
+        variables: autocompleteVariables.current,
         filters: search.filters,
-        pipeline: instant.current?.pipeline,
-        search: searchFn('instant'),
-        clear: clear('instant'),
-        fields: instant.current?.fields,
-        searching: instantSearching,
+        pipeline: autocomplete.current?.pipeline,
+        search: searchFn('autocomplete'),
+        clear: clear('autocomplete'),
+        fields: autocomplete.current?.fields,
+        searching: autocompleteSearching,
       },
       resultClicked: handleResultClicked,
       paginate: handlePaginate,
@@ -320,7 +320,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
       setViewType,
     } as Context);
 
-  return <Provider value={getContext({ instant: instantState, search: searchState })}>{children}</Provider>;
+  return <Provider value={getContext({ autocomplete: autocompleteState, search: searchState })}>{children}</Provider>;
 };
 
 export default ContextProvider;

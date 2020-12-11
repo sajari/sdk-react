@@ -27,7 +27,7 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
   children,
   search,
   importantStyles,
-  instant,
+  autocomplete,
   searchOnLoad,
   initialResponse,
   theme,
@@ -36,7 +36,12 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
   customClassNames = {},
 }) => (
   <Provider value={{ ratingMax, disableDefaultStyles, customClassNames }}>
-    <SearchProvider search={search} instant={instant} searchOnLoad={searchOnLoad} initialResponse={initialResponse}>
+    <SearchProvider
+      search={search}
+      autocomplete={autocomplete}
+      searchOnLoad={searchOnLoad}
+      initialResponse={initialResponse}
+    >
       <LiveAnnouncer>
         <I18nextProvider i18n={i18n}>
           <ThemeProvider theme={theme} importantStyles={importantStyles}>

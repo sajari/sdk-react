@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react';
 import { useContext } from '../ContextProvider';
 import { UsePaginationResult } from './types';
 
-function usePagination(key: 'search' | 'instant'): UsePaginationResult {
+function usePagination(key: 'search' | 'autocomplete'): UsePaginationResult {
   const context = useContext();
   const { paginate } = context;
   const { response, config } = context[key];
