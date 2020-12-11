@@ -75,7 +75,7 @@ const defaultState: ProviderPipelineState = {
 // Map a serialized Response object back into a Response
 const parseResponse = (initialResponse?: string) => {
   if (!isString(initialResponse) || isEmpty(initialResponse)) {
-    return new Response(null);
+    return null;
   }
 
   const { queryValues = {}, response = {}, values = {} } = JSON.parse(initialResponse);
@@ -93,11 +93,12 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
   search,
   autocomplete: autocompleteProp,
   searchOnLoad,
-  initialResponse,
+  initialResponse: initialResponseProp,
 }) => {
+  const initialResponse = parseResponse(initialResponseProp);
   const [searching, setSearching] = useState(false);
   const [autocompleteSearching, setAutocompleteSearching] = useState(false);
-  const [searchState, setSearchState] = useState(defaultState);
+  const [searchState, setSearchState] = useState({ ...defaultState, response: initialResponse });
   const [autocompleteState, setAutocompleteState] = useState(defaultState);
   const [viewType, setViewType] = useState<ResultViewType>('list');
   const [configDone, setConfigDone] = useState(false);
@@ -108,8 +109,8 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
   const autocompleteVariables = useRef(autocompleteProp?.variables ?? new Variables());
   // Map the initial response
   let response = search.pipeline.getResponse();
-  if (response.isEmpty()) {
-    response = parseResponse(initialResponse);
+  if (response.isEmpty() && initialResponse !== null) {
+    response = initialResponse;
   }
 
   if (!search.variables && !configDone) {
