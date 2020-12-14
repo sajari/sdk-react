@@ -10,6 +10,45 @@ The `SearchProvider` should be used as a wrapper for the entire application to a
 import { SearchProvider } from '@sajari/react-search-ui';
 ```
 
+## Usage
+
+It must wrap any components where you are using hooks, usually this is done in an `App` or `index` file. You must also specify the pipeline you wish to query.
+
+```jsx live=false
+<SearchProvider
+  search={{
+    pipeline: new Pipeline(
+      {
+        account: '<Your account ID>',
+        collection: '<Your collection ID>',
+      },
+      '<Your pipeline name>',
+    ),
+  }}
+>
+  <YourApp />
+</SearchProvider>
+```
+
+- Replace the placeholders with your account and collection IDs from [the collection crendentials section](https://www.sajari.com/console/collection/credentials) in the console.
+- Replace the pipeline name placeholder with the pipeline you'd like to use to query.
+
 ## Props
 
-TBD
+The `SearchProvider` exported by the `@sajari/react-search-ui` package extends the one exported by `@sajari/react-hooks`, which accepts the following props.
+
+| Name              | Type                     | Default | Description                                                                                                                          |
+| ----------------- | ------------------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `search`          | `ProviderPipelineConfig` |         | A pipeline configuration for search requests.                                                                                        |
+| `autocomplete`    | `ProviderPipelineConfig` |         | A pipeline configuration for autocomplete and typeahead requests. This is optional, by default we'll use an `autocomplete` pipeline. |
+| `searchOnLoad`    | `boolean`                |         | Whether to search on initial load.                                                                                                   |
+| `initialResponse` | `string`                 |         | An initial search response in JSON format, useful for [server-side rendering](/ssr).                                                 |
+
+In addition to these UI specific props:
+
+| Name                   | Type                    | Default | Description                                                                                                                       |
+| ---------------------- | ----------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `importantStyles`      | `boolean`               | `false` | Whether the CSS styles should use `!important` to override any other styles.                                                      |
+| `disableDefaultStyles` | `boolean`               | `false` | Whether to disable the default styling completely. This requires relying on either `customClassNames` or using element selectors. |
+| `customClassNames`     | See [styling](/styling) | `{}`    | Custom classNames to apply to the components.                                                                                     |
+| `theme`                | See [styling](/styling) |         | Custom theming to apply to the components.                                                                                        |

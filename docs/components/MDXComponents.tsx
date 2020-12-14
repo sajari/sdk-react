@@ -61,7 +61,7 @@ const MDXComponents = {
   h1: (props: HeadingProps) => <Heading as="h1" size="lg" margin="my-4" {...props} />,
   h2: (props: HeadingProps) => <DocsHeading as="h2" size="md" {...props} />,
   h3: (props: HeadingProps) => <DocsHeading as="h3" size="sm" {...props} />,
-  inlineCode: (props: TextProps) => <Text as="code" {...props} />,
+  inlineCode: (props: TextProps) => <Text as="code" {...props} textColor="text-current" />,
   code: CodeBlock,
   pre: (props: BoxProps) => <Box margin="my-8" borderRadius="rounded-md" {...props} />,
   kbd: (props: TextProps) => <Text as="kbd" {...props} />,
