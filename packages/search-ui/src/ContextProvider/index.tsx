@@ -26,12 +26,12 @@ const [Provider, useSearchUIContext] = createContext<Required<SearchUIContextPro
 const ContextProvider: React.FC<ContextProviderValues> = ({
   children,
   search,
-  importantStyles,
   autocomplete,
   searchOnLoad,
   initialResponse,
-  theme,
   ratingMax = 5,
+  theme,
+  importantStyles,
   disableDefaultStyles = false,
   customClassNames = {},
 }) => (
