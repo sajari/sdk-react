@@ -2,7 +2,6 @@ import '../app.css';
 
 import { MDXProvider } from '@mdx-js/react';
 import { Box, Flex, FlexProps, Heading, Logomark } from '@sajari-ui/core';
-import { DefaultSeo } from 'next-seo';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 
@@ -10,10 +9,7 @@ import MDXComponents from '../components/MDXComponents';
 import MobileNav from '../components/Navigation/MobileNav';
 import SideNav from '../components/Navigation/SideNav';
 import TopNavItem from '../components/Navigation/TopNavItem';
-import seo from '../seo.config';
 import { SSRProvider } from '@sajari/react-components';
-
-const title = 'React SDK';
 
 const Layout = (props: FlexProps) => {
   const { children, ...rest } = props;
@@ -40,7 +36,7 @@ const Layout = (props: FlexProps) => {
         <Flex alignItems="items-center">
           <Logomark size="sm" margin="mr-3" />
           <Heading as="h3" size="md">
-            {title}
+            React SDK
           </Heading>
         </Flex>
         <Flex alignItems="items-center" space="space-x-2">
@@ -72,12 +68,10 @@ const App = ({ Component, pageProps }: AppProps) => (
     <MDXProvider components={MDXComponents}>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta title={title} />
         <meta name="theme-color" content="#319795" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       </Head>
-      <DefaultSeo {...seo} />
       <Layout>
         <Component {...pageProps} />
       </Layout>
