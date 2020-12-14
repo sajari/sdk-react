@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.13](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-beta.12...@sajari/react-search-ui@1.0.0-beta.13) (2020-12-14)
+
+### Features
+
+- export i18n ([4f9cf50](https://github.com/sajari/sdk-react/commit/4f9cf5086b775d834924cd5e5ff971eb0b1771a8))
+- improved template literal parsing ([7469111](https://github.com/sajari/sdk-react/commit/74691119e52474b5a7d55d39619734eb4b489346))
+- RangeInput improvements ([3d2ac31](https://github.com/sajari/sdk-react/commit/3d2ac3155f74e521bbe57d75e184dcf8e0be6bcd))
+- various styling fixes ([7f41ad0](https://github.com/sajari/sdk-react/commit/7f41ad0f56be2cdf253c367312e4651fe7cf9b94))
+
 # [1.0.0-beta.12](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0-beta.11...@sajari/react-search-ui@1.0.0-beta.12) (2020-12-11)
 
 **Note:** Version bump only for package @sajari/react-search-ui

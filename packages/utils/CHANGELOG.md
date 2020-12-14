@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.3](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.0.0-beta.2...@sajari/react-sdk-utils@1.0.0-beta.3) (2020-12-14)
+
+### Features
+
+- RangeInput improvements ([3d2ac31](https://github.com/sajari/sdk-react/commit/3d2ac3155f74e521bbe57d75e184dcf8e0be6bcd))
+
 # [1.0.0-beta.2](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.0.0-beta.1...@sajari/react-sdk-utils@1.0.0-beta.2) (2020-12-11)
 
 ### Bug Fixes

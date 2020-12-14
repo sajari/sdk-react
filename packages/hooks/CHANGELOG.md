@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.10](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-beta.9...@sajari/react-hooks@1.0.0-beta.10) (2020-12-14)
+
+### Bug Fixes
+
+- rename isChanged to hasChanged on RangeFilterBuilder ([bfcc214](https://github.com/sajari/sdk-react/commit/bfcc214ca7984f642a44c7bf20b6740b15a945d9))
+- sentence case errors ([df02aac](https://github.com/sajari/sdk-react/commit/df02aacb8a3486dff318bb749fcd9613f80f995a))
+
 # [1.0.0-beta.9](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-beta.8...@sajari/react-hooks@1.0.0-beta.9) (2020-12-11)
 
 ### Bug Fixes

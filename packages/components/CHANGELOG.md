@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.8](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-beta.7...@sajari/react-components@1.0.0-beta.8) (2020-12-14)
+
+### Features
+
+- added default placeholder for Combobox ([731e19f](https://github.com/sajari/sdk-react/commit/731e19f3240521c1c37fc3963303b121255ece73))
+- RangeInput improvements ([3d2ac31](https://github.com/sajari/sdk-react/commit/3d2ac3155f74e521bbe57d75e184dcf8e0be6bcd))
+- various styling fixes ([7f41ad0](https://github.com/sajari/sdk-react/commit/7f41ad0f56be2cdf253c367312e4651fe7cf9b94))
+
 # [1.0.0-beta.7](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.0.0-beta.6...@sajari/react-components@1.0.0-beta.7) (2020-12-11)
 
 **Note:** Version bump only for package @sajari/react-components
