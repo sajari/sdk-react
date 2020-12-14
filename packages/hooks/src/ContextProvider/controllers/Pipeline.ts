@@ -106,7 +106,7 @@ export class Pipeline {
    */
   public listen(event: string, callback: CallbackFn) {
     if (events.indexOf(event) === -1) {
-      throw new Error(`unknown event type "${event}"`);
+      throw new Error(`Unknown event type "${event}"`);
     }
     return (this.listeners.get(event) as Listener).listen(callback);
   }

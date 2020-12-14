@@ -30,7 +30,7 @@ export default function combineFilters(
 
   function listen(event: string, callback: (filter: FilterBuilder) => void): () => void {
     if (events.indexOf(event) === -1) {
-      throw new Error(`unknown event type "${event}"`);
+      throw new Error(`Unknown event type "${event}"`);
     }
     return listeners[event].listen(callback);
   }
@@ -66,56 +66,50 @@ export default function combineFilters(
   }
 
   // Generate filter field from non aggregate count Filter(s) for Variables object
-  const filter = () => {
-    return filters
+  const filter = () =>
+    filters
       .filter((f) => (f instanceof FilterBuilder && !f.getCount()) || f instanceof RangeFilterBuilder)
       .map((f) => f.filter())
       .filter(Boolean)
       .map((f) => `(${f})`)
       .join(` ${joinOperator} `);
-  };
 
   // Generate buckets field from non aggregate count Filter(s) for Variables object
-  const buckets = () => {
-    return filters
+  const buckets = () =>
+    filters
       .filter((f) => f instanceof FilterBuilder && !f.getCount())
       .map((f) => f instanceof FilterBuilder && f.getBuckets())
       .filter(Boolean)
       .join(',');
-  };
 
   // Generate countFilters field from aggregate count Filter(s) for Variables object
-  const countFilters = () => {
-    return filters
+  const countFilters = () =>
+    filters
       .filter((f) => f instanceof FilterBuilder && f.getCount())
       .map((f) => f.filter())
       .join(',');
-  };
 
   // Generate count field from aggregate count Filter(s) for Variables object
-  const count = () => {
-    return filters
+  const count = () =>
+    filters
       .filter((f) => f instanceof FilterBuilder && f.getCount())
       .map((f) => f instanceof FilterBuilder && f.getField())
       .filter(Boolean)
       .join(',');
-  };
 
   // Generate min field from range Filter(s) for Variables object
-  const min = () => {
-    return filters
+  const min = () =>
+    filters
       .filter((f) => f instanceof RangeFilterBuilder && f.isAggregate())
       .map((f) => f.getField())
       .join(',');
-  };
 
   // Generate max field from range Filter(s) for Variables object
-  const max = () => {
-    return filters
+  const max = () =>
+    filters
       .filter((f) => f instanceof RangeFilterBuilder && f.isAggregate())
       .map((f) => f.getField())
       .join(',');
-  };
 
   return { filter, listen, buckets, countFilters, count, removeChildFilterListeners, max, min };
 }

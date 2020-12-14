@@ -1,5 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-
 import { isArray } from '@sajari/react-sdk-utils';
 
 import { EVENT_RANGE_UPDATED } from '../../events';
@@ -33,8 +31,8 @@ export default class RangeFilterBuilder {
     initial = null,
     min = 0,
     max = 0,
-    aggregate = false,
-    formatter = (value: Range) => value.map((v) => Math.ceil(v)) as Range,
+    aggregate = true,
+    formatter = (value: Range) => value.map(Math.round) as Range,
   }: RangeFilterOptions) {
     this.range = initial;
     this.initial = initial;
@@ -54,7 +52,7 @@ export default class RangeFilterBuilder {
    */
   public listen(event: string, callback: (filter: RangeFilterBuilder) => void): () => void {
     if (!events.includes(event)) {
-      throw new Error(`unknown event type "${event}"`);
+      throw new Error(`Unknown event type "${event}"`);
     }
     return this.listeners[event].listen(callback);
   }

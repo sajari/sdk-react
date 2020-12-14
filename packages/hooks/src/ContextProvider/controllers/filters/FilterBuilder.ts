@@ -93,7 +93,7 @@ export default class FilterBuilder {
    */
   public listen(event: string, callback: (filter: FilterBuilder) => void): () => void {
     if (!events.includes(event)) {
-      throw new Error(`unknown event type "${event}"`);
+      throw new Error(`Unknown event type "${event}"`);
     }
     return this.listeners[event].listen(callback);
   }

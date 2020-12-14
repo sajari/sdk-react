@@ -38,7 +38,7 @@ export class Variables {
    */
   public listen(event: string, callback: CallbackFn) {
     if (event !== EVENT_VALUES_UPDATED) {
-      throw new Error(`unknown event type "${event}"`);
+      throw new Error(`Unknown event type "${event}"`);
     }
     return (this.listeners.get(event) as Listener).listen(callback);
   }

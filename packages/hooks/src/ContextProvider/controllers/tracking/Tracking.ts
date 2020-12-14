@@ -31,7 +31,7 @@ export class Tracking {
    */
   public listen(event: string, callback: CallbackFn): UnlistenFn {
     if (events.indexOf(event) === -1) {
-      throw new Error(`unknown event type "${event}"`);
+      throw new Error(`Unknown event type "${event}"`);
     }
     return (this.listeners.get(event) as Listener).listen(callback);
   }
@@ -51,7 +51,7 @@ export class Tracking {
    * @param values Key-value pair parameters to use in the pipeline.
    */
   public reset(values?: TrackingValues) {
-    throw new Error("method 'reset' unimplemented");
+    throw new Error("Method 'reset' unimplemented");
   }
 
   /**
@@ -60,6 +60,6 @@ export class Tracking {
    * @return Tracking values to be used in the search request.
    */
   public next(values: TrackingValues) {
-    throw new Error("method 'next' unimplemented");
+    throw new Error("Method 'next' unimplemented");
   }
 }
