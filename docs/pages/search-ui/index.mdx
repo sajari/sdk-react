@@ -4,7 +4,7 @@ import SEO from '../../components/SEO';
 
 # Search UI
 
-<div class="flex space-x-2">
+<div className="flex space-x-2">
   <img src="https://badgen.net/bundlephobia/minzip/@sajari/react-search-ui?cache=300" alt="Size" />
   <img src="https://badgen.net/npm/v/@sajari/react-search-ui?cache=300" alt="Latest NPM version" />
 </div>
@@ -41,9 +41,9 @@ import {
 } from '@sajari/react-search-ui';
 ```
 
-## 3. Create a pipeline
+## 3. Pipeline
 
-A pipeline is required to perform search queries. For this example, we'll use a demo pipeline using a Best Buy data set. Replace the values from your collection credentials.
+A [`Pipeline`](/classes/pipeline) is required to perform search queries. For this example, we'll use a demo pipeline using a Best Buy data set. Replace the values from your collection credentials.
 
 ```js
 const pipeline = new Pipeline(
@@ -55,23 +55,126 @@ const pipeline = new Pipeline(
 );
 ```
 
-## 4. Create filters
+## 4. Fields
+
+The [`FieldDictionary`](/classes/fielddictionary) class is used to map fields in your data to the required fields to display in the UI. See the [`FieldDictionary`](/classes/fielddictionary) docs for possible properties and values.
 
 ```js
-const brandFilter = new FilterBuilder({
-  name: 'brand',
-  field: 'brand',
-  options: {
-    Apple: "brand = 'Apple'",
-    Samsung: "brand = 'Samsung'",
-    Dell: "brand = 'Dell'",
-    HP: "brand = 'HP'",
-    Garmin: "brand = 'Garmin'",
-  },
+const fields = new FieldDictionary({
+  title: 'name',
+  subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
 });
 ```
 
-## 5. TBD
+## 5. Filters
+
+Filters must be created using the [`FilterBuilder`](/classes/filterbuilder) and [`RangeFilterBuilder`](/classes/rangefilterbuilder) classes. Here we'll create some common examples for an ecommerce application:
+
+```js
+const categoryFilter = new FilterBuilder({
+  name: 'level1',
+  field: 'level1',
+});
+
+const colorFilter = new FilterBuilder({
+  name: 'color',
+  field: 'imageTags',
+  array: true,
+});
+
+const priceFilter = new RangeFilterBuilder({
+  name: 'price',
+  field: 'price',
+});
+
+const ratingFilter = new FilterBuilder({
+  name: 'rating',
+  field: 'rating',
+});
+```
+
+## 6. App
+
+Create a demo app, using the following search UI components:
+
+- [`Input`](/search-ui/input) - Used to capture query input via a text field. It can also provide suggestions, typeahead and instant search modes.
+- [`Summary`](/search-ui/summary) - Used to display display the number of results and the latency from a search query.
+- [`Sorting`](/search-ui/sorting) - Used to capture user input on how to sort search results
+- [`ResultsPerPage`](/search-ui/resultsperpage) - Used to capture user input for how many results displayed per page.
+- [`ViewType`](/search-ui/viewtype) - Used to allow toggling between viewing modes of results.
+- [`Filter`](/search-ui/filter) - Used to render filter options allowing refining of search results.
+- [`Results`](/search-ui/results) - Used to display results response from a search query.
+- [`Pagination`](/search-ui/pagination) - Used for paging through paged result sets.
+
+```jsx live=false
+const App = () => {
+  const { searched } = useSearchContext();
+
+  return (
+    <>
+      <Input />
+
+      <div className="flex items-center justify-end mt-3">
+        <Summary size="sm" />
+
+        <div className="flex space-x-4 ml-auto">
+          <Sorting
+            options={[
+              { name: 'Most relevant', value: '' },
+              { name: 'Brand: A to Z', value: 'brand' },
+              { name: 'Brand: Z to A', value: '-brand' },
+              { name: 'Rating: Low to High', value: 'rating' },
+              { name: 'Rating: High to Low', value: '-rating' },
+              { name: 'Popularity', value: 'popularity' },
+            ]}
+            size="sm"
+          />
+          <ResultsPerPage size="sm" />
+          <ViewType size="sm" />
+        </div>
+      </div>
+
+      <div className="flex mt-6">
+        {searched && (
+          <div className="w-1/4 pr-4 border-gray-100 border-r space-y-6">
+            <Filter type="list" name="level1" title="Category" searchable />
+            <Filter type="range" name="price" title="Price" format="price" />
+            <Filter type="color" name="color" title="Color" />
+            <Filter type="rating" name="rating" title="Rating" />
+          </div>
+        )}
+
+        <div className="flex-1 pl-4">
+          <Results />
+        </div>
+      </div>
+
+      <div className="sticky bottom-0 p-6">
+        <Pagination />
+      </div>
+    </>
+  );
+};
+```
+
+## 7. SearchProvider
+
+The [`SearchProvider`](/search-ui/searchprovider) should be used as a wrapper for the entire application to provide a way to share application state between components, for example, the current query, active filters or the search response. See [`SearchProvider`](/search-ui/searchprovider) for more information.
+
+```jsx live=false
+<SearchProvider
+  search={{
+    pipeline,
+    fields,
+    filters: [categoryFilter, priceFilter, colorFilter, ratingFilter],
+  }}
+  searchOnLoad
+>
+  <App />
+</SearchProvider>
+```
+
+## Completed example
 
 ```jsx
 function Example() {
@@ -83,16 +186,14 @@ function Example() {
     'query',
   );
 
-  const brandFilter = new FilterBuilder({
-    name: 'brand',
-    field: 'brand',
-    options: {
-      Apple: "brand = 'Apple'",
-      Samsung: "brand = 'Samsung'",
-      Dell: "brand = 'Dell'",
-      HP: "brand = 'HP'",
-      Garmin: "brand = 'Garmin'",
-    },
+  const fields = new FieldDictionary({
+    title: 'name',
+    subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+  });
+
+  const categoryFilter = new FilterBuilder({
+    name: 'level1',
+    field: 'level1',
   });
 
   const colorFilter = new FilterBuilder({
@@ -104,7 +205,6 @@ function Example() {
   const priceFilter = new RangeFilterBuilder({
     name: 'price',
     field: 'price',
-    aggregate: true,
   });
 
   const ratingFilter = new FilterBuilder({
@@ -112,7 +212,7 @@ function Example() {
     field: 'rating',
   });
 
-  const SearchPlayground = React.memo(() => {
+  const App = React.memo(() => {
     const { searched } = useSearchContext();
 
     return (
@@ -142,8 +242,8 @@ function Example() {
         <div className="flex mt-6">
           {searched && (
             <div className="w-1/4 pr-4 border-gray-100 border-r space-y-6">
-              <Filter type="list" name="brand" title="Brand" />
-              <Filter type="range" name="price" title="Price" />
+              <Filter type="list" name="level1" title="Category" searchable />
+              <Filter type="range" name="price" title="Price" format="price" />
               <Filter type="color" name="color" title="Color" />
               <Filter type="rating" name="rating" title="Rating" />
             </div>
@@ -165,15 +265,12 @@ function Example() {
     <SearchProvider
       search={{
         pipeline,
-        fields: new FieldDictionary({
-          title: 'name',
-          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
-        }),
-        filters: [priceFilter, brandFilter, colorFilter, ratingFilter],
+        fields,
+        filters: [categoryFilter, priceFilter, colorFilter, ratingFilter],
       }}
       searchOnLoad
     >
-      <SearchPlayground />
+      <App />
     </SearchProvider>
   );
 }

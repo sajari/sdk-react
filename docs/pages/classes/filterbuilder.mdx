@@ -56,7 +56,7 @@ The constructor accepts a single object with the following properties:
 
 | Name           | Type                                     | Default                           | Description                                                                                     |
 | -------------- | ---------------------------------------- | --------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `name`         | `string`                                 |                                   | The name of the filter. This should be unique as it will be used as a key of useFilter hook.    |
+| `name`         | `string`                                 |                                   | The name of the filter. This should be unique.                                                  |
 | `field`        | `string`                                 |                                   | A field in schema, used if `count` = `true`.                                                    |
 | `options`      | `Record<string, string \| () => string>` |                                   | Dictionary of name -> filter pairs.                                                             |
 | `initial`      | `string` \| `string[]`                   |                                   | List of initially selected items.                                                               |

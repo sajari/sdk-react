@@ -119,13 +119,11 @@ function Example() {
   const priceFilter = new RangeFilterBuilder({
     name: 'price',
     field: 'price',
-    aggregate: true,
   });
 
   const ratingFilter = new RangeFilterBuilder({
     name: 'rating',
     field: 'rating',
-    aggregate: true,
   });
 
   const FilterRender = React.memo(({ name, title }) => {

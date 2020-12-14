@@ -1,10 +1,13 @@
 import SEO from '../../components/SEO';
 
-<SEO title="Filter" description="Filter component easily allows the creation of a filter for list or color." />
+<SEO
+  title="Filter"
+  description="Filter component is used to render filter options allowing refining of search results. "
+/>
 
 # Filter
 
-`Filter` component easily allows the creation of a filter for list or color.
+The `Filter` component is used to render filter options allowing refining of search results.
 
 ```js
 import { Filter } from '@sajari/react-search-ui';
@@ -316,13 +319,11 @@ function Example() {
   const priceFilter = new RangeFilterBuilder({
     name: 'price',
     field: 'price',
-    aggregate: true,
   });
 
   const ratingFilter = new RangeFilterBuilder({
     name: 'rating',
     field: 'rating',
-    aggregate: true,
   });
 
   const SearchPlayground = React.memo(() => (

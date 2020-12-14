@@ -48,9 +48,11 @@ In addition to these extra props:
 
 | Name                   | Type                    | Default | Description                                                                                                                       |
 | ---------------------- | ----------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `importantStyles`      | `boolean`               | `false` | Whether the CSS styles should use `!important` to override any other styles.                                                      |
-| `disableDefaultStyles` | `boolean`               | `false` | Whether to disable the default styling completely. This requires relying on either `customClassNames` or using element selectors. |
+| `currencyCode`         | `string`                | `USD`   | The currency code to use for any formatted price values.                                                                          |
 | `customClassNames`     | See [styling](/styling) | `{}`    | Custom classNames to apply to the components.                                                                                     |
+| `disableDefaultStyles` | `boolean`               | `false` | Whether to disable the default styling completely. This requires relying on either `customClassNames` or using element selectors. |
+| `importantStyles`      | `boolean`               | `false` | Whether the CSS styles should use `!important` to override any other styles.                                                      |
+| `ratingMax`            | `number`                | `5`     | The maximum possible rating for any displayed ratings.                                                                            |
 | `theme`                | See [styling](/styling) |         | Custom theming to apply to the components.                                                                                        |
 
 ### ProviderPipelineConfig

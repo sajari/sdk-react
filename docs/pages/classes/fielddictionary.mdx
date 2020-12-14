@@ -19,6 +19,13 @@ import { FieldDictionary } from '@sajari/react-search-ui';
 
 ## Usage
 
+The values can be either:
+
+- A `String` - a simple mapping to a field in your schema.
+- A `Function` - the search result object is passed to the function and then a string is expected back with the value to be used.
+- An `Array` - An array in order of priority, the first match in the array will be used.
+- A string template - This can be used to inject a value into a template - e.g. `url: "/products/${handle}"`
+
 ```jsx
 function Example() {
   const pipeline = new Pipeline(
@@ -36,6 +43,8 @@ function Example() {
         fields: new FieldDictionary({
           title: 'name',
           subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+          price: ['max_price', 'price'],
+          url: 'https://www.bestbuy.com/products/${id}',
         }),
         variables: new Variables({
           resultsPerPage: 3,
