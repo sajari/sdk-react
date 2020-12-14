@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow-callback */
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { mergeProps, useId } from '@react-aria/utils';
@@ -20,7 +21,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
   const {
     mode = 'standard',
     label,
-    placeholder,
+    placeholder = 'Search',
     enterKeyHint = 'search',
     id = `combobox-${useId()}`,
     invalid,

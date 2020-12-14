@@ -30,7 +30,7 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
       break;
 
     case 'lg':
-      containerStyles.push(tw`py-3 text-lg pl-13`);
+      containerStyles.push(tw`py-3 text-lg pl-11`);
 
       if (loading && voiceEnabled) {
         containerStyles.push(tw`pr-15`);
