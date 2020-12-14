@@ -6,7 +6,7 @@ export interface RatingProps extends BoxProps {
   /** The rating value, accepts decimal to represent half rating */
   value: number;
   /** Maxium level, used to fill in the empty stars */
-  max: number;
+  max?: number;
   /** Associated text */
   children?: React.ReactNode;
   /** The icon to show, defaults to star icon */
@@ -48,4 +48,4 @@ export enum ItemType {
   Empty,
 }
 
-export class RatingMaxmiumExceededError extends Error {}
+export class RatingMaximumExceededError extends Error {}

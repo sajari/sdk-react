@@ -1,10 +1,10 @@
-import { ItemType, RatingMaxmiumExceededError } from '../Rating/types';
+import { ItemType, RatingMaximumExceededError } from '../Rating/types';
 
 export const toRatingArray: (value: number, max: number) => ItemType[] = (value, max) => {
   const isHalf = Math.round(value) - value !== 0;
 
   if (max - value < 0) {
-    throw new RatingMaxmiumExceededError();
+    throw new RatingMaximumExceededError();
   }
 
   return [

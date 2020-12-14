@@ -1,4 +1,4 @@
-import { ItemType, RatingMaxmiumExceededError } from '../../Rating/types';
+import { ItemType, RatingMaximumExceededError } from '../../Rating/types';
 import { toRatingArray } from '../rating';
 
 test.each([
@@ -20,7 +20,7 @@ test.each([
   if (willThrow) {
     expect(() => {
       toRatingArray(value, max);
-    }).toThrowError(new RatingMaxmiumExceededError());
+    }).toThrowError(new RatingMaximumExceededError());
   } else if (isValid) {
     expect(toRatingArray(value, max)).toEqual(expected);
   } else {
