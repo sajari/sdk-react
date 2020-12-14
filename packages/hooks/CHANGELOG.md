@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 1.0.0 (2020-12-14)
+
+### Features
+
+- merged v3 to master ([ba23102](https://github.com/sajari/sdk-react/commit/ba231022d78013689f69767e87b152d55ece1d6a))
+
 # [1.0.0-beta.10](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.0-beta.9...@sajari/react-hooks@1.0.0-beta.10) (2020-12-14)
 
 ### Bug Fixes
