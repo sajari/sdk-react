@@ -12,7 +12,12 @@ React provides a simple and elegant way to structure user interfaces. The Sajari
 
 There are three main packages allowing you to pick and choose the right solution for your application:
 
-<Box display="flex" space="space-x-4" margin="my-8">
+<Box
+  display="flex"
+  flexDirection={['flex-col', 'lg:flex-row']}
+  space={['space-y-4', 'lg:space-x-4', 'lg:space-y-0']}
+  margin="my-8"
+>
   <PackageTile
     href="/components"
     title="Components"
