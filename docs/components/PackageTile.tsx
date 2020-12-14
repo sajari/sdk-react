@@ -20,6 +20,7 @@ const PackageTile = ({
     textAlign="text-center"
     borderRadius="rounded-xl"
     padding="p-6"
+    // @ts-ignore Need to update sajari-ui
     backgroundColor="bg-gradient-to-br"
     gradientColorStops={gradient}
     textColor="text-white"
@@ -28,8 +29,10 @@ const PackageTile = ({
     boxShadow="shadow-md"
     transition="transition"
     transitionDuration="duration-150"
+    // @ts-ignore Need to update sajari-ui
     transform={['transform', 'focus:scale-105', 'hover:scale-105']}
   >
+    {/* @ts-ignore Need to update sajari-ui */}
     <Heading as="h1" size="lg" textColor="text-inherit">
       {title}
     </Heading>
