@@ -4,7 +4,7 @@ import SEO from '../../components/SEO';
 
 # SearchProvider
 
-The `SearchProvider` should be used as a wrapper for the entire application to allow the search UI components to function.
+The `SearchProvider` should be used as a wrapper for the entire application to provide a way to share application state between components, for example, the current query, active filters or the search response.
 
 ```js
 import { SearchProvider } from '@sajari/react-search-ui';
@@ -37,14 +37,14 @@ It must wrap any components where you are using hooks, usually this is done in a
 
 The `SearchProvider` exported by the `@sajari/react-search-ui` package extends the one exported by `@sajari/react-hooks`, which accepts the following props.
 
-| Name              | Type                     | Default | Description                                                                                                                          |
-| ----------------- | ------------------------ | ------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `search`          | `ProviderPipelineConfig` |         | A pipeline configuration for search requests.                                                                                        |
-| `autocomplete`    | `ProviderPipelineConfig` |         | A pipeline configuration for autocomplete and typeahead requests. This is optional, by default we'll use an `autocomplete` pipeline. |
-| `searchOnLoad`    | `boolean`                |         | Whether to search on initial load.                                                                                                   |
-| `initialResponse` | `string`                 |         | An initial search response in JSON format, useful for [server-side rendering](/ssr).                                                 |
+| Name              | Type                                                | Default | Description                                                                                                                          |
+| ----------------- | --------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `search`          | [`ProviderPipelineConfig`](#providerpipelineconfig) |         | A pipeline configuration for search requests.                                                                                        |
+| `autocomplete`    | [`ProviderPipelineConfig`](#providerpipelineconfig) |         | A pipeline configuration for autocomplete and typeahead requests. This is optional, by default we'll use an `autocomplete` pipeline. |
+| `searchOnLoad`    | `boolean`                                           |         | Whether to search on initial load.                                                                                                   |
+| `initialResponse` | `string`                                            |         | An initial search response in JSON format, useful for [server-side rendering](/ssr).                                                 |
 
-In addition to these UI specific props:
+In addition to these extra props:
 
 | Name                   | Type                    | Default | Description                                                                                                                       |
 | ---------------------- | ----------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------- |
@@ -52,3 +52,13 @@ In addition to these UI specific props:
 | `disableDefaultStyles` | `boolean`               | `false` | Whether to disable the default styling completely. This requires relying on either `customClassNames` or using element selectors. |
 | `customClassNames`     | See [styling](/styling) | `{}`    | Custom classNames to apply to the components.                                                                                     |
 | `theme`                | See [styling](/styling) |         | Custom theming to apply to the components.                                                                                        |
+
+### ProviderPipelineConfig
+
+| Name        | Type                                                                                                     | Default | Description                                                                                                                            |
+| ----------- | -------------------------------------------------------------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `pipeline`  | [`Pipeline`](/classes/pipeline)                                                                          |         | A pipeline configuration for search requests.                                                                                          |
+| `variables` | [`Variables`](/classes/variables)                                                                        |         | A pipeline configuration for autocomplete and typeahead requests. This is optional, by default we'll use an `autocomplete` pipeline.   |
+| `config`    | [`Config`](/classes/config)                                                                              |         | Whether to search on initial load. **Note:** if you're also calling the `useSearch` hook in your app, you'll make two search requests. |
+| `fields`    | [`FieldDictionary`](/classes/fielddictionary)                                                            |         | An initial search response in JSON format, useful for [server-side rendering](/ssr).                                                   |
+| `filters`   | `(`[`FilterBuilder`](/classes/filterbuilder) or [`RangeFilterBuilder`](/classes/rangefilterbuilder)`)[]` |         |                                                                                                                                        |

@@ -13,6 +13,7 @@ const topNavLinks = [
   ['Tracking'],
   ['Server Side Rendering', '/ssr'],
   ['Styling'],
+  ['Upgrading'],
 ];
 
 export const SideNavContent = () => (

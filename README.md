@@ -8,8 +8,6 @@ The Sajari React SDK is broken into 3 separate packages:
 
 ---
 
-**Please note:** This version is currently in _beta_. There will be bugs to fix and improvements to be made. Please contact us if you have feedback.
-
 ## Documentation
 
 Visit the [docs site](https://sajari-react-sdk-v3.netlify.app/) to learn more.
