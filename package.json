@@ -39,6 +39,7 @@
   "devDependencies": {
     "@babel/preset-react": "^7.12.10",
     "@babel/preset-typescript": "^7.12.7",
+    "@emotion/jest": "^11.1.0",
     "@svgr/rollup": "^5.5.0",
     "@testing-library/dom": "^7.29.0",
     "@testing-library/jest-dom": "^5.11.6",
