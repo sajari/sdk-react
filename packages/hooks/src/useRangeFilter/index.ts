@@ -11,11 +11,10 @@ function useRangeFilter(name: string) {
 
   const prevQuery = useRef<string | null>(null);
   const selectionUpdated = useRef<boolean>(false);
-
-  const filter = useMemo(() => {
-    return filters.filter((f) => f instanceof RangeFilterBuilder && f.getName() === name)[0] as RangeFilterBuilder;
-  }, []);
-
+  const filter = useMemo(
+    () => filters.filter((f) => f instanceof RangeFilterBuilder && f.getName() === name)[0] as RangeFilterBuilder,
+    [],
+  );
   const isAggregate = filter.isAggregate();
   const limit = filter.getMinMax();
 
@@ -72,7 +71,7 @@ function useRangeFilter(name: string) {
       return range[0] !== min || range[1] !== max;
     }
 
-    return filter.isChanged();
+    return filter.hasChanged();
   }, [range, min, max]);
 
   const reset = () => {

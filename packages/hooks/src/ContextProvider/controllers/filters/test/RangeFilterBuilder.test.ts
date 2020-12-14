@@ -67,9 +67,9 @@ describe('RangeFilterBuilder', () => {
 
   it('isChange', () => {
     priceFilter.set([5, 10]);
-    expect(priceFilter.isChanged()).toBeTruthy();
+    expect(priceFilter.hasChanged()).toBeTruthy();
     priceFilter.reset();
-    expect(priceFilter.isChanged()).not.toBeTruthy();
+    expect(priceFilter.hasChanged()).not.toBeTruthy();
   });
 
   it('set, reset should trigger EVENT_RANGE_UPDATED', () => {

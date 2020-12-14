@@ -108,7 +108,7 @@ export default class RangeFilterBuilder {
   /**
    * Check if the current range is different to the initial value
    */
-  public isChanged() {
+  public hasChanged() {
     if (!this.range || !this.initial) {
       return this.range === this.initial;
     }
