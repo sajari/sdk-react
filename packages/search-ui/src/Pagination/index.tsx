@@ -25,8 +25,8 @@ const Pagination = (props: PaginationProps) => {
         label: t('pagination.label'),
         previous: t('pagination.previous'),
         next: t('pagination.next'),
-        page: t('pagination.page'),
-        current: t('pagination.current'),
+        page: t('pagination.page', { page }),
+        current: t('pagination.current', { page }),
       }}
       styles={styles}
       className={customClassNames?.pagination?.container}
