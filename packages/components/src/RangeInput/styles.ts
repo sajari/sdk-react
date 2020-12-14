@@ -8,7 +8,7 @@ interface UseRangeInputStylesParams {
 export default function useRangeInputStyles(props: UseRangeInputStylesParams) {
   const { isSingleHandle } = props;
   const styles = {
-    container: [tw`flex flex-col`],
+    container: [tw`flex flex-col px-2`],
     wrapper: [tw`w-full mt-8 mb-3`],
     ticks: [tw`relative`],
     tickItem: [

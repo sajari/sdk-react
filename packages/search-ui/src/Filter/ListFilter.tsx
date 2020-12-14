@@ -77,7 +77,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
           >
             {typeof itemRender === 'function' ? itemRender(label) : label}
           </Control>
-          <span css={styles.count}>{count}</span>
+          <span css={styles.count}>{count.toLocaleString()}</span>
         </CoreBox>
       )),
     [JSON.stringify(sliced), itemRender, selected],

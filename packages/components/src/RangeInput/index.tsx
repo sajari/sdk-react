@@ -189,7 +189,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
                 css={styles.tickItem}
                 disableDefaultStyles={disableDefaultStyles}
               >
-                {tickValue}
+                {tickValue.toLocaleString()}
               </Text>
             );
           })}
@@ -214,7 +214,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
           {handles.map(({ value: handleValue, active, getHandleProps }) => (
             <Handle
               active={active}
-              data-value={handleValue}
+              data-value={handleValue.toLocaleString()}
               activeClassName={handleActiveClassName}
               className={handleClassName}
               disableDefaultStyles={disableDefaultStyles}

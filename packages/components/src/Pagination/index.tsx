@@ -61,9 +61,8 @@ const getButtons = (
     }
   }
 
-  const getLabel = (number: number, active: boolean) => {
+  const getARIALabel = (number: number, active: boolean) => {
     const template = active ? i18n.current : i18n.page;
-
     return template.replace('{{page}}', number.toString());
   };
 
@@ -93,11 +92,11 @@ const getButtons = (
         key={item}
         appearance={active ? 'primary' : undefined}
         aria-current={active ? 'page' : undefined}
-        aria-label={getLabel(number, active)}
+        aria-label={getARIALabel(number, active)}
         onClick={onChange(false, number)}
         className={classnames(buttonClassName, { [activeClassName]: active })}
       >
-        {number}
+        {number.toLocaleString()}
       </Button>
     );
   });
