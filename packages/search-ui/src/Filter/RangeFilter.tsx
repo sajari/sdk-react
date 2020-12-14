@@ -4,11 +4,11 @@ import React from 'react';
 
 import { useSearchUIContext } from '../ContextProvider';
 import Box from './Box';
-import { ColorFilterProps } from './types';
+import { RangeFilterProps } from './types';
 
-const RangeFilter = ({ name, title }: Omit<ColorFilterProps, 'type'>) => {
+const RangeFilter = ({ name, title, format, showInputs, step, steps, tick, ticks }: Omit<RangeFilterProps, 'type'>) => {
   const { min, max, range, setRange, reset, showReset } = useRangeFilter(name);
-  const { disableDefaultStyles = false, customClassNames } = useSearchUIContext();
+  const { disableDefaultStyles = false, customClassNames, currencyCode } = useSearchUIContext();
 
   if (!range || max === 0) {
     return null;
@@ -17,9 +17,16 @@ const RangeFilter = ({ name, title }: Omit<ColorFilterProps, 'type'>) => {
   return (
     <Box title={title} showReset={showReset} onReset={reset}>
       <RangeInput
+        format={format}
+        currencyCode={currencyCode}
         min={min}
         max={max}
         value={range}
+        step={step}
+        steps={steps}
+        tick={tick}
+        ticks={ticks}
+        showInputs={showInputs}
         onChange={setRange}
         disableDefaultStyles={disableDefaultStyles}
         className={customClassNames.filter?.range?.container}
@@ -34,4 +41,4 @@ const RangeFilter = ({ name, title }: Omit<ColorFilterProps, 'type'>) => {
 };
 
 export default RangeFilter;
-export type { ColorFilterProps };
+export type { RangeFilterProps };

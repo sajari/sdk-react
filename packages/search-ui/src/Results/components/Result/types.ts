@@ -4,9 +4,8 @@ import React from 'react';
 
 import { ResultsProps, ResultValues } from '../../types';
 
-interface Props
-  extends Pick<ResultsProps, 'appearance' | 'ratingMax' | 'imageAspectRatio' | 'imageObjectFit' | 'currencyCode'>,
-    BoxProps {
+interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | 'imageObjectFit'>, BoxProps {
+  /** Search result values */
   values: Omit<ResultValues, '_id'>;
   /** The token used for tracking/analytics */
   token?: Token;

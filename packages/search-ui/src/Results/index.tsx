@@ -18,7 +18,7 @@ const Results = (props: ResultsProps) => {
   const results = React.useMemo(() => (rawResults ? mapResultFields<ResultValues>(rawResults, fields) : undefined), [
     rawResults,
   ]);
-  const { ratingMax, disableDefaultStyles = false, customClassNames } = useSearchUIContext();
+  const { disableDefaultStyles = false, customClassNames } = useSearchUIContext();
   const { query } = useQuery();
   const { defaultAppearance, appearance = viewType, styles: stylesProp, ...rest } = props;
   const [width, setWidth] = React.useState(0);
@@ -91,7 +91,6 @@ const Results = (props: ResultsProps) => {
         <Result
           onClick={handleResultClicked}
           token={token}
-          ratingMax={ratingMax}
           // eslint-disable-next-line no-underscore-dangle
           key={values._id ?? i}
           values={values}

@@ -13,6 +13,7 @@ import {
 } from '@sajari/react-sdk-utils';
 import React, { useMemo } from 'react';
 
+import { useSearchUIContext } from '../../../ContextProvider';
 import useResultStyles from './styles';
 import { ResultProps } from './types';
 
@@ -20,10 +21,8 @@ const Result = React.memo(
   (props: ResultProps) => {
     const {
       appearance = 'list',
-      ratingMax = 5,
       imageAspectRatio: imageAspectRatioProp = 1,
       imageObjectFit: imageObjectFitProp = 'contain',
-      currencyCode = 'USD',
       values,
       token,
       onClick = () => {},
@@ -37,6 +36,7 @@ const Result = React.memo(
       styles: stylesProp,
       ...rest
     } = props;
+    const { currencyCode, ratingMax } = useSearchUIContext();
     const { title, description, subtitle, image, url, price } = values;
     const rating = Number(values.rating);
     const styles = getStylesObject(useResultStyles({ ...props, appearance }), disableDefaultStyles);

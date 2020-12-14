@@ -59,14 +59,27 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   const Control = multi ? Checkbox : Radio;
   const filtered = searchable ? options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase())) : options;
   const slice = filtered.length > limit;
-  const sorted = sort !== 'none' ? sortItems(filtered, sort === 'count' ? 'count' : 'label', sortAscending) : filtered;
-  const ordered = pinSelected ? pinItems(sorted, selected, 'label') : sorted;
-  const sliced = slice && !expanded ? ordered.slice(0, limit) : ordered;
+
+  const sortedItems = useMemo(() => {
+    let list = filtered;
+
+    if (sort !== 'none') {
+      list = sortItems(list, sort === 'count' ? 'count' : 'label', sortAscending);
+    }
+
+    if (pinSelected) {
+      list = pinItems(list, selected, 'label');
+    }
+
+    return list;
+  }, [JSON.stringify(options), JSON.stringify(selected), pinSelected, sort, sortAscending]);
+
+  const items = slice && !expanded ? sortedItems.slice(0, limit) : sortedItems;
   const Icon = expanded ? IconSmallChevronUp : IconSmallChevronDown;
 
   const innerList = useMemo(
     () =>
-      sliced.map(({ label, count }) => (
+      items.map(({ label, count }) => (
         <CoreBox css={styles.innerList} key={label + count}>
           <Control
             value={label}
@@ -80,7 +93,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
           <span css={styles.count}>{count.toLocaleString()}</span>
         </CoreBox>
       )),
-    [JSON.stringify(sliced), itemRender, selected],
+    [JSON.stringify(items), itemRender, selected],
   );
 
   if (isEmpty(options)) {
@@ -148,3 +161,4 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
 };
 
 export default ListFilter;
+export type { ListFilterProps };

@@ -30,12 +30,13 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
   searchOnLoad,
   initialResponse,
   ratingMax = 5,
+  currencyCode = 'USD',
   theme,
   importantStyles,
   disableDefaultStyles = false,
   customClassNames = {},
 }) => (
-  <Provider value={{ ratingMax, disableDefaultStyles, customClassNames }}>
+  <Provider value={{ disableDefaultStyles, currencyCode, customClassNames, ratingMax }}>
     <SearchProvider
       search={search}
       autocomplete={autocomplete}

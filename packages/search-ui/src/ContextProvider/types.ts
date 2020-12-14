@@ -2,7 +2,10 @@ import { SearchProviderValues } from '@sajari/react-hooks';
 import { ThemeProviderProps } from '@sajari/react-sdk-utils';
 
 export interface SearchUIContextProviderValues {
+  /** Maximum possible rating value */
   ratingMax?: number;
+  /** Currency code to use for any price display */
+  currencyCode?: string;
   disableDefaultStyles?: boolean;
   customClassNames?: {
     results?: {

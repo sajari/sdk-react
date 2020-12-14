@@ -11,6 +11,10 @@ export interface CustomInputProps {
 }
 
 export interface RangeInputProps extends BoxProps {
+  /** How to format the values */
+  format?: 'numeric' | 'price';
+  /** Currency code to use for price type */
+  currencyCode?: string;
   /** The minimum permitted value */
   min?: number;
   /** The maximum permitted value */

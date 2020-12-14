@@ -67,7 +67,7 @@ export function round(number: number, step: number) {
  * @param currencyCode - Optional ISO currency code (e.g. USD)
  * @param neutral - Use neutral language (e.g. `en` rather than `en-GB`). This is often useful when presenting currencies.
  */
-export function formatNumber(input = 0, currencyCode = '', neutral = true) {
+export function formatNumber(input: number, currencyCode = '', neutral = true) {
   if (typeof input !== 'number') {
     return input;
   }
@@ -90,7 +90,7 @@ export function formatNumber(input = 0, currencyCode = '', neutral = true) {
 /**
  * Format a price or price range to display
  */
-export function formatPrice(input: string | string[], currencyCode = '') {
+export function formatPrice(input: string | string[] | number, currencyCode = '') {
   const price = input;
   const format = (value: number) => formatNumber(value, currencyCode, true);
 

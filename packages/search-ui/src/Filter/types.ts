@@ -1,3 +1,4 @@
+import { RangeInputProps } from '@sajari/react-components';
 import React from 'react';
 
 export interface HeaderProps {
@@ -50,7 +51,9 @@ export interface TabFilterProps extends BaseFilterProps {
   sortAscending?: ListFilterProps['sortAscending'];
 }
 
-export interface RangeFilterProps extends BaseFilterProps {
+export interface RangeFilterProps
+  extends BaseFilterProps,
+    Pick<RangeInputProps, 'format' | 'showInputs' | 'step' | 'steps' | 'tick' | 'ticks'> {
   type: 'range';
 }
 

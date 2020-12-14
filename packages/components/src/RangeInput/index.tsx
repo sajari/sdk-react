@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
-import { __DEV__, clamp, closest, getStylesObject, round } from '@sajari/react-sdk-utils';
+import { __DEV__, clamp, closest, formatNumber, getStylesObject, round } from '@sajari/react-sdk-utils';
 import React, { MouseEvent, ReactNode, useEffect } from 'react';
 import { useRanger } from 'react-ranger';
 
@@ -18,6 +18,8 @@ const noop = () => {};
 
 const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTMLDivElement>) => {
   const {
+    format = 'numeric',
+    currencyCode = 'USD',
     onChange = noop,
     onInput = noop,
     value = [25, 50],
@@ -92,6 +94,15 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     }
 
     setValue(newValue, true);
+  };
+
+  // Format a value to be presented in the UI
+  const formatValue = (input: number) => {
+    if (format === 'price') {
+      return formatNumber(input, currencyCode).replace('.00', '');
+    }
+
+    return input.toLocaleString();
   };
 
   const handleSwitchRange = () => {
@@ -189,7 +200,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
                 css={styles.tickItem}
                 disableDefaultStyles={disableDefaultStyles}
               >
-                {tickValue.toLocaleString()}
+                {formatValue(tickValue)}
               </Text>
             );
           })}
@@ -214,7 +225,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
           {handles.map(({ value: handleValue, active, getHandleProps }) => (
             <Handle
               active={active}
-              data-value={handleValue.toLocaleString()}
+              data-value={formatValue(handleValue)}
               activeClassName={handleActiveClassName}
               className={handleClassName}
               disableDefaultStyles={disableDefaultStyles}

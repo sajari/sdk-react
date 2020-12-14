@@ -1,3 +1,4 @@
+import { FilterItem } from '@sajari/react-hooks';
 import { isSSR } from '@sajari/react-sdk-utils';
 
 /**
@@ -10,7 +11,7 @@ const collator = new Intl.Collator(!isSSR() ? window.navigator.language : 'en-US
   numeric: true,
 });
 
-export function sortItems(list: Record<string, any>[], prop?: string, asc: boolean = true) {
+export function sortItems(list: FilterItem[], prop?: string, asc: boolean = true) {
   return [...list].sort((a, b) => {
     const l = prop ? a[prop] : a;
     const r = prop ? b[prop] : b;
@@ -30,6 +31,6 @@ export function sortItems(list: Record<string, any>[], prop?: string, asc: boole
  * @param {String} pinned - Items to pin in the array
  * @param {String} prop - Property of child object to get comparation in pinned array
  */
-export function pinItems(list: Record<string, any>[], pinned: string[] = [], prop: string) {
+export function pinItems(list: FilterItem[], pinned: string[] = [], prop: string) {
   return [...list].sort((a, b) => pinned.indexOf(b[prop]) - pinned.indexOf(a[prop]));
 }
