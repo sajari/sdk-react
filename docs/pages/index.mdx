@@ -1,5 +1,6 @@
 import SEO from '../components/SEO';
 import { Box, Heading, Text } from '@sajari-ui/core';
+import PackageTile from '../components/PackageTile';
 
 <SEO title="Getting Started" description="Build a beautiful search interface using our powerful React SDK." />
 
@@ -9,75 +10,27 @@ The Sajari React SDK is a library of React Hooks & Components to help build fast
 
 React provides a simple and elegant way to structure user interfaces. The Sajari React SDK provides a way to seamlessly integrate the Sajari platform into any web-based app through the use of easily composable Components.
 
-There are three packages allowing you to pick and choose the right solution for your application:
+There are three main packages allowing you to pick and choose the right solution for your application:
 
 <Box display="flex" space="space-x-4" margin="my-8">
-  <Box
-    as="a"
+  <PackageTile
     href="/components"
-    flex="flex-1"
-    textAlign="text-center"
-    borderRadius="rounded-xl"
-    padding="p-6"
-    backgroundColor="bg-gradient-to-br"
-    gradientColorStops={['from-red-400', 'to-red-500']}
-    textColor="text-white"
-    space="space-y-4"
-    style={{ textShadow: '0 1px 3px rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,.06)' }}
-    boxShadow="shadow-md"
-    transition="transition"
-    transitionDuration="duration-150"
-    transform={['transform', 'focus:scale-105', 'hover:scale-105']}
-  >
-    <Heading as="h1" size="lg" textColor="text-inherit">
-      Components
-    </Heading>
-    <Text>Core components that allow you to build a beautiful search interface with any back end.</Text>
-  </Box>
-  <Box
-    as="a"
+    title="Components"
+    description="Core components that allow you to build a beautiful search interface with any back end."
+    gradient={['from-red-400', 'to-red-500']}
+  />
+  <PackageTile
     href="/hooks"
-    flex="flex-1"
-    textAlign="text-center"
-    borderRadius="rounded-xl"
-    padding="p-6"
-    backgroundColor="bg-gradient-to-br"
-    gradientColorStops={['from-green-400', 'to-green-500']}
-    textColor="text-white"
-    space="space-y-4"
-    style={{ textShadow: '0 1px 3px rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,.06)' }}
-    boxShadow="shadow-md"
-    transition="transition"
-    transitionDuration="duration-150"
-    transform={['transform', 'focus:scale-105', 'hover:scale-105']}
-  >
-    <Heading as="h1" size="lg" textColor="text-inherit">
-      Hooks
-    </Heading>
-    <Text>React hooks that allow you to build a Sajari-powered search interface using any component library.</Text>
-  </Box>
-  <Box
-    as="a"
+    title="Hooks"
+    description="React hooks that allow you to build a Sajari-powered search interface using any component library."
+    gradient={['from-green-400', 'to-green-500']}
+  />
+  <PackageTile
     href="/search-ui"
-    flex="flex-1"
-    textAlign="text-center"
-    borderRadius="rounded-xl"
-    padding="p-6"
-    backgroundColor="bg-gradient-to-br"
-    gradientColorStops={['from-blue-400', 'to-blue-500']}
-    textColor="text-white"
-    space="space-y-4"
-    style={{ textShadow: '0 1px 3px rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,.06)' }}
-    boxShadow="shadow-md"
-    transition="transition"
-    transitionDuration="duration-150"
-    transform={['transform', 'focus:scale-105', 'hover:scale-105']}
-  >
-    <Heading as="h1" size="lg" textColor="text-inherit">
-      Search UI
-    </Heading>
-    <Text>Easy to use search components to quickly build a beautiful Sajari-powered search interface.</Text>
-  </Box>
+    title="Search UI"
+    description="Easy to use search components to quickly build a beautiful Sajari-powered search interface."
+    gradient={['from-blue-400', 'to-blue-500']}
+  />
 </Box>
 
 ---
