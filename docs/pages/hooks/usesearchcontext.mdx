@@ -1,0 +1,106 @@
+import SEO from '../../components/SEO';
+
+<SEO title="useSearchContext" description="useSearchContext will return the data from the current search." />
+
+# useSearchContext
+
+`useSearchContext` will return the data from the current search. The benefit of using this hook rather than the `useSearch` hook, is that it is side effect free, meaning calling `useSearchContext` will not perform a new search.
+
+```js
+import { useSearchContext } from '@sajari/react-hooks';
+```
+
+## Usage
+
+Additional imports used in the examples:
+
+```js
+import { FieldDictionary, Pipeline, SearchProvider } from '@sajari/react-search-ui';
+```
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const SearchPlayground = React.memo(() => {
+    const {
+      empty,
+      error,
+      latency,
+      page,
+      pageCount,
+      queryValues,
+      results,
+      resultsPerPage,
+      searched,
+      searching,
+      totalResults,
+    } = useSearchContext();
+
+    return (
+      <pre className="text-code overflow-auto">
+        {JSON.stringify(
+          {
+            empty,
+            error,
+            latency,
+            page,
+            pageCount,
+            queryValues,
+            results,
+            resultsPerPage,
+            searched,
+            searching,
+            totalResults,
+          },
+          null,
+          2,
+        )}
+      </pre>
+    );
+  });
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+        variables: new Variables({
+          resultsPerPage: 6,
+          q: 'macbook',
+        }),
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
+## Anatomy
+
+`useSearchContext` returns an object containing the following properties:
+
+| Name             | Type                  | Default | Description                                                      |
+| ---------------- | --------------------- | ------- | ---------------------------------------------------------------- |
+| `empty`          | `boolean`             |         | If the response was empty, indicating an issue with the request. |
+| `error`          | `Error` \| `null`     |         | The error encountered while searching.                           |
+| `latency`        | `number`              |         | The engine latency.                                              |
+| `page`           | `number`              |         | The current page.                                                |
+| `pageCount`      | `number`              |         | The total number of pages.                                       |
+| `queryValues`    | `Map<string, string>` |         | The query values from the response.                              |
+| `results`        | `Result[]`            |         | An array of results that met the query.                          |
+| `resultsPerPage` | `number`              |         | The number of results returned per page.                         |
+| `searched`       | `boolean`             |         | If an initial search has been performed.                         |
+| `searching`      | `boolean`             |         | Is a search request being processed.                             |
+| `totalResults`   | `number`              |         | The total count of results.                                      |

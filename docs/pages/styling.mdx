@@ -1,0 +1,234 @@
+import SEO from '../components/SEO';
+
+<SEO
+  title="Styling"
+  description="How to style the React components in the react-search-ui and react-components packages."
+/>
+
+# Styling
+
+This document outlines how to control the styling of the the React components in the `@sajari/react-search-ui` package.
+
+You have several options for styling which can also be combined if required:
+
+- [Set basic color options](#set-basic-color-options)
+- [Disable the default styling](#disabling-the-default-styling)
+- [Add custom classNames](#adding-custom-classnames)
+
+Or if you want complete control of rendering and styling, you should use the `@sajari/react-hooks` package with your own components.
+
+## Set basic color options
+
+You can set basic color options via the `theme` prop on the `SearchProvider`. Currently this is only for the primary actions but we will add more soon.
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+        variables: new Variables({
+          resultsPerPage: 2,
+          q: 'iphone',
+        }),
+      }}
+      searchOnLoad
+      theme={{
+        color: {
+          primary: {
+            base: '#10B981',
+            active: '#059669',
+            text: '#ffffff',
+          },
+        },
+      }}
+    >
+      <Results />
+    </SearchProvider>
+  );
+}
+```
+
+## Disabling the default styling
+
+To disable the default styles provided by the package, add the `disableDefaultStyles` to your `SearchProvider`.
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+        variables: new Variables({
+          resultsPerPage: 2,
+          q: 'iphone',
+        }),
+      }}
+      searchOnLoad
+      disableDefaultStyles
+    >
+      <Results />
+    </SearchProvider>
+  );
+}
+```
+
+## Adding custom classNames
+
+It's possible to add classnames to components via the `customClassNames` prop on `SearchProvider`.
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+        variables: new Variables({
+          resultsPerPage: 2,
+          q: 'iphone',
+        }),
+      }}
+      searchOnLoad
+      customClassNames
+    >
+      <Results />
+    </SearchProvider>
+  );
+}
+```
+
+### Available classNames
+
+```ts
+customClassNames?: {
+  results?: {
+    container?: string;
+    item?: string;
+    heading?: string;
+    price?: string;
+    subTitle?: string;
+    rating?: string;
+    description?: string;
+    searchingMessage?: string;
+    emptyMessage?: string;
+    errorMessage?: string;
+  };
+  sorting?: {
+    container?: string;
+    label?: string;
+    select?: string;
+  };
+  pagination?: {
+    container?: string;
+    button?: string;
+    active?: string;
+    next?: string;
+    prev?: string;
+    spacerEllipsis?: string;
+  };
+  viewType?: {
+    container?: string;
+    label?: string;
+    buttonGroup?: string;
+  };
+  resultsPerPage?: {
+    container?: string;
+    label?: string;
+    select?: string;
+  };
+  input?: {
+    container?: string;
+    inputContainer?: string;
+    input?: string;
+    voiceInput?: string;
+    dropdown?: string;
+    dropdownItem?: string;
+    dropdownSelectedItem?: string;
+    dropdownHighlightItem?: string;
+    dropdownList?: string;
+    dropdownFooter?: string;
+    result?: string;
+    resultImageContainer?: string;
+    resultTextContainer?: string;
+    selectedResult?: string;
+    typeahead?: string;
+  };
+  filter?: {
+    box?: string;
+    header?: string;
+    title?: string;
+    resetButton?: string;
+    rating?: {
+      container?: string;
+      activeRatingItem?: string;
+      activeHalfRatingItem?: string;
+    };
+    color?: {
+      container?: string;
+      itemChecked?: string;
+      item?: string;
+    };
+    tabs?: {
+      container?: string;
+      list?: string;
+      tab?: string;
+      selectedTab?: string;
+    };
+    list?: {
+      container?: string;
+      searchFilter?: string;
+      checkboxGroup?: string;
+      radioGroup?: string;
+      toggleButton?: string;
+    };
+    range?: {
+      container?: string;
+      handle?: string;
+      fill?: string;
+      track?: string;
+      input?: string;
+      handleActive?: string;
+    };
+  };
+};
+```
+
+## !important Styles
+
+It's also possible to add `!important` to the provided styles by adding the `importantStyles` prop on the `SearchProvider`. This can often override any CSS clashes that usually result in strange styling.

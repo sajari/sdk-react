@@ -1,0 +1,37 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="ResizeObserver"
+  description="The ResizeObserver component is used for listening to resize events on a container."
+/>
+
+# ResizeObserver
+
+The `ResizeObserver` component is used for listening to resize events on a container.
+
+```js
+import { ResizeObserver } from '@sajari/react-components';
+```
+
+## Usage
+
+```jsx
+function Example() {
+  const [ready, setReady] = React.useState(false);
+  const [width, setWidth] = React.useState(0);
+
+  return (
+    <ResizeObserver onReady={() => setReady(true)} onResize={(rect) => setWidth(rect.width)}>
+      <Text>{!ready ? 'Loading...' : `Width: ${width}`}</Text>
+    </ResizeObserver>
+  );
+}
+```
+
+## Props
+
+| Name       | Type                                                                                       | Default | Description                                                              |
+| ---------- | ------------------------------------------------------------------------------------------ | ------- | ------------------------------------------------------------------------ |
+| `onReady`  | `(element: HTMLDivElement) => void`                                                        |         | Callback when the component has mounted and ResizeObserver is listening. |
+| `onResize` | `(rect: DOMRectReadOnly, entries: ResizeObserverEntry[], element: HTMLDivElement) => void` |         | Callback when the component has mounted and ResizeObserver is listening. |
+| `children` | `React.ReactNode`                                                                          | `null`  |                                                                          |

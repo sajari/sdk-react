@@ -1,0 +1,73 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="ResultsPerPage"
+  description="The ResultsPerPage component is used to capture user input for how many results displayed per page."
+/>
+
+# ResultsPerPage
+
+The `ResultsPerPage` component is used to capture user input for how many results displayed per page.
+
+```js
+import { ResultsPerPage } from '@sajari/react-search-ui';
+```
+
+## Usage
+
+Additional imports used in the examples:
+
+```js
+import { FieldDictionary, Input, Pagination, Pipeline, Results, SearchProvider } from '@sajari/react-search-ui';
+```
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const SearchPlayground = React.memo(() => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4">
+        <div className="flex-1">
+          <Input />
+        </div>
+
+        <ResultsPerPage />
+      </div>
+
+      <Results />
+
+      <Pagination />
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
+## Props
+
+| Name      | Type                 | Default               | Description                   |
+| --------- | -------------------- | --------------------- | ----------------------------- |
+| `label`   | `string`             | `Show`                |                               |
+| `options` | `Array<number>`      | [10, 20, 35, 50, 100] |                               |
+| `size`    | `sm` \| `md` \| `lg` | `md`                  | Sets the text and input size. |

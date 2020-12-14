@@ -1,0 +1,42 @@
+{
+  "name": "@sajari/react-search-ui",
+  "version": "1.0.0-beta.13",
+  "description": "Easy to use search components to quickly build a beautiful search interface powered by Sajari.",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "directory": "packages/search-ui"
+  },
+  "scripts": {
+    "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
+    "build": "tsdx build --tsconfig tsconfig.build.json",
+    "test": "jest",
+    "test:ci": "jest --env=jsdom --coverage --watchAll=false --maxWorkers=2",
+    "prepublish": "yarn build"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "README.md",
+    "dist"
+  ],
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "dependencies": {
+    "@react-aria/utils": "3.4.1",
+    "@sajari/react-components": "^1.0.0-beta.8",
+    "@sajari/react-hooks": "^1.0.0-beta.10",
+    "@sajari/react-sdk-utils": "^1.0.0-beta.3",
+    "i18next": "19.8.4",
+    "i18next-browser-languagedetector": "^6.0.1",
+    "react-aria-live": "^2.0.5",
+    "react-i18next": "^11.8.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "d2b9639c742e1dace15317d57a409777cd736dee"
+}

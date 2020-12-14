@@ -1,0 +1,392 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="Filter"
+  description="Filter component is used to render filter options allowing refining of search results. "
+/>
+
+# Filter
+
+The `Filter` component is used to render filter options allowing refining of search results.
+
+```js
+import { Filter } from '@sajari/react-search-ui';
+```
+
+## Usage
+
+Additional imports used in the examples:
+
+```js
+import {
+  FieldDictionary,
+  FilterBuilder,
+  Input,
+  Pipeline,
+  RangeFilterBuilder,
+  Results,
+  SearchProvider,
+} from '@sajari/react-search-ui';
+```
+
+### List
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const brandFilter = new FilterBuilder({
+    name: 'brand',
+    options: {
+      Apple: "brand = 'Apple'",
+      Samsung: "brand = 'Samsung'",
+      Dell: "brand = 'Dell'",
+      HP: "brand = 'HP'",
+      Garmin: "brand = 'Garmin'",
+    },
+  });
+
+  const priceFilter = new FilterBuilder({
+    name: 'price',
+    options: {
+      High: 'price >= 200',
+      Mid: 'price >= 50',
+      Low: 'price < 50',
+    },
+    multi: false,
+    initial: ['High'],
+  });
+
+  const SearchPlayground = React.memo(() => (
+    <div className="flex flex-col space-y-6">
+      <Input />
+
+      <div className="flex -mx-3">
+        <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
+          <Filter type="list" name="brand" title="Brand" />
+          <Filter type="list" name="price" title="Price (bucket)" />
+        </div>
+        <div className="w-3/4 px-3">
+          <Results />
+        </div>
+      </div>
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+        filters: [priceFilter, brandFilter],
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
+### List: Searching and Sorting
+
+Add the `searchable` prop to allow searching within the filter values. This is just a basic filter to match the term to the filter item.
+
+The sorting method used to sort the filter items can also be changed to alphabetical by setting the `sort` prop to `alpha`.
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const categoryFilter = new FilterBuilder({
+    name: 'category',
+    field: 'level1',
+  });
+
+  const priceRangeFilter = new FilterBuilder({
+    name: 'priceRange',
+    field: 'price_range',
+  });
+
+  const SearchPlayground = React.memo(() => (
+    <div className="flex flex-col space-y-6">
+      <Input />
+
+      <div className="flex -mx-3">
+        <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
+          <Filter type="list" name="category" title="Category" searchable sort="alpha" />
+          <Filter type="list" name="priceRange" title="Range ($)" />
+        </div>
+        <div className="w-3/4 px-3">
+          <Results />
+        </div>
+      </div>
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+        filters: [priceRangeFilter, categoryFilter],
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
+### Rating
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const ratingFilter = new FilterBuilder({
+    name: 'rating',
+    field: 'rating',
+  });
+
+  const SearchPlayground = React.memo(() => (
+    <div className="flex flex-col space-y-6">
+      <Input />
+      <div className="flex -mx-3">
+        <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
+          <Filter type="rating" name="rating" title="Rating" />
+        </div>
+        <div className="w-3/4 px-3">
+          <Results />
+        </div>
+      </div>
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+        filters: [ratingFilter],
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
+### Color
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const colorFilter = new FilterBuilder({
+    name: 'color',
+    field: 'imageTags',
+    array: true,
+  });
+
+  const SearchPlayground = React.memo(() => (
+    <div className="flex flex-col space-y-6">
+      <Input />
+
+      <div className="flex -mx-3">
+        <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
+          <Filter type="color" name="color" title="Color" />
+        </div>
+        <div className="w-3/4 px-3">
+          <Results />
+        </div>
+      </div>
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+        filters: [colorFilter],
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
+### Tabs
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const categoryFilter = new FilterBuilder({
+    name: 'level1',
+    field: 'level1',
+  });
+
+  const SearchPlayground = React.memo(() => (
+    <div className="flex flex-col space-y-6">
+      <div className="space-y-2">
+        <Input />
+
+        <Filter type="tabs" name="level1" />
+      </div>
+
+      <Results />
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+        filters: [categoryFilter],
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
+### Range
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const priceFilter = new RangeFilterBuilder({
+    name: 'price',
+    field: 'price',
+  });
+
+  const ratingFilter = new RangeFilterBuilder({
+    name: 'rating',
+    field: 'rating',
+  });
+
+  const SearchPlayground = React.memo(() => (
+    <div className="flex flex-col space-y-6">
+      <Input />
+
+      <div className="flex -mx-3">
+        <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
+          <Filter type="range" name="price" title="Price" />
+          <Filter type="range" name="rating" title="Rating" />
+        </div>
+        <div className="w-3/4 px-3">
+          <Results />
+        </div>
+      </div>
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+        filters: [priceFilter, ratingFilter],
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
+## Props
+
+| Name    | Type              | Default | Description                |
+| ------- | ----------------- | ------- | -------------------------- |
+| `name`  | `string`          | -       | The name of a given Filter |
+| `title` | `string`          | -       | Title of the filter list   |
+| `type`  | `list` or `color` | `list`  | Title of the filter list   |
+
+### List
+
+Exclusive props if `type` is `list`.
+
+| Name            | Type                                | Default                             | Description                                                                               |
+| --------------- | ----------------------------------- | ----------------------------------- | ----------------------------------------------------------------------------------------- |
+| `limit`         | `number`                            | `8`                                 | Maximum number of items to show if the list is collapsed.                                 |
+| `searchable`    | `boolean`                           | `false`                             | If true, display an input for searching through items.                                    |
+| `sort`          | `'count'` \| `'alpha'` \| `'none'`  | `'count'`                           | How to sort the items.                                                                    |
+| `sortAscending` | `boolean`                           | `true` if `sort` is not `'count'`   | Whether to sort in ascending order.                                                       |
+| `pinSelected`   | `boolean`                           | `true` if items count over `limit`. | Pin selected items to the top of the list.                                                |
+| `renderItem`    | `(value:string) => React.ReactNode` | -                                   | A render prop function is used to custom the item label rather than just displaying text. |
+
+### Tabs
+
+Exclusive props if `type` is `tabs`.
+
+| Name            | Type                               | Default                           | Description                         |
+| --------------- | ---------------------------------- | --------------------------------- | ----------------------------------- |
+| `limit`         | `number`                           | `15`                              | Maximum number of tabs.             |
+| `sort`          | `'count'` \| `'alpha'` \| `'none'` | `'count'`                         | How to sort the tabs.               |
+| `sortAscending` | `boolean`                          | `true` if `sort` is not `'count'` | Whether to sort in ascending order. |

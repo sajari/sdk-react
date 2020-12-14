@@ -1,0 +1,76 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="FieldDictionary"
+  description="The FieldDictionary class is used to map fields in your data to the required fields to display in the UI. "
+/>
+
+# FieldDictionary
+
+The `FieldDictionary` class is used to map fields in your data to the required fields to display in the UI.
+
+In previous versions, this mapping was done via the `Results` component. Now it's provided via the `fields` property into the `SearchProvider` instead.
+
+**Note:** This is not required with the `@sajari/react-hooks` package.
+
+```js
+import { FieldDictionary } from '@sajari/react-search-ui';
+```
+
+## Usage
+
+The values can be either:
+
+- A `String` - a simple mapping to a field in your schema.
+- A `Function` - the search result object is passed to the function and then a string is expected back with the value to be used.
+- An `Array` - An array in order of priority, the first match in the array will be used.
+- A string template - This can be used to inject a value into a template - e.g. `url: "/products/${handle}"`
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+          price: ['max_price', 'price'],
+          url: 'https://www.bestbuy.com/products/${id}',
+        }),
+        variables: new Variables({
+          resultsPerPage: 3,
+          q: 'macbook',
+        }),
+      }}
+      searchOnLoad
+    >
+      <Results />
+    </SearchProvider>
+  );
+}
+```
+
+## Defaults
+
+By default, the fields for a website search collection are used.
+
+| Field         | Default         | Description                                              |
+| ------------- | --------------- | -------------------------------------------------------- |
+| `id`          | `'_id'`         | Unique identifier for the record.                        |
+| `url`         | `'url'`         | URL for the record, required for links in results.       |
+| `title`       | `'title'`       | The main title for the result.                           |
+| `subtitle`    | `'url'`         | The subtitle. Often a brand, category, or the URL.       |
+| `description` | `'description'` | A description to display beneath the title and subtitle. |
+| `image `      | `'image'`       | An image, if applicable.                                 |
+| `price`       | `'price'`       | A price, if applicable.                                  |
+| `rating`      | `'rating'`      | A rating, if applicable.                                 |
+| `inventory`   | `'inventory'`   | Stock level, if applicable.                              |

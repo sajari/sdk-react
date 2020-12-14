@@ -1,0 +1,152 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="Combobox"
+  description="The Combobox component is used to capture query input via a text field. It can also provide suggestions, typeahead and instant search modes."
+/>
+
+# Combobox
+
+The `Combobox` component is used to capture query input via a text field. It can also provide suggestions, typeahead and instant search modes.
+
+## Import
+
+```js
+import { Combobox } from 'sajari/react-components';
+```
+
+## Usage
+
+```jsx
+<Combobox />
+```
+
+### Sizes
+
+Use the `size` prop to set the size of the combobox. The default is `md`.
+
+```jsx
+<div className="space-y-3">
+  <Combobox size="sm" />
+  <Combobox size="md" />
+  <Combobox size="lg" />
+</div>
+```
+
+### Suggestions mode
+
+Set the `mode` prop to `suggestions` to render autocomplete suggstions.
+
+```jsx
+function Example() {
+  const [query, setQuery] = React.useState('');
+  const [value, setValue] = React.useState('');
+  const suggestions = [
+    'apple ipad',
+    'apple ipod',
+    'apple imac',
+    'apple iphone',
+    'apple mac mini',
+    'apple mac pro',
+    'apple macbook pro',
+    'apple pro xdr',
+    'apple tv',
+    'apple watch',
+  ];
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    setQuery(formData.get('query'));
+  };
+
+  return (
+    <div className="space-y-3">
+      <Text>Current query: {query}</Text>
+      <Text>Current value: {value}</Text>
+
+      <form onSubmit={handleSubmit}>
+        <Combobox
+          mode="suggestions"
+          label="Query"
+          name="query"
+          value={query}
+          placeholder="Search"
+          items={suggestions}
+          onChange={setValue}
+        />
+      </form>
+    </div>
+  );
+}
+```
+
+### Results mode
+
+```jsx
+function Example() {
+  const items = [
+    {
+      title: 'HEXBUG - Battle Spider Battle Ground - Multi',
+      image: 'https://cdn.sajari.net/demos/bestbuy/images/5235810_sb.jpg',
+      url: 'https://example.com',
+      description:
+        'Experience a revolutionary fight with this Hexbug Battle Spider Battle Ground. Two remote control spiders fight to the end with infrared sensors that have 1.5-meter fire ranges. Each spider has a 360-degree rotating head and LED eyes that let you steer it toward its opponent. This Hexbug Battle Spider Battle Ground comes with 15 walls for a fun, challenging match.',
+    },
+    {
+      title: 'Beats by Dr. Dre - Beats Studio Wireless Over-Ear Headphones - Unity Edition Red White Blue',
+      image: 'https://cdn.sajari.net/demos/bestbuy/images/5655629_rb.jpg',
+      url: 'https://example.com',
+      description:
+        'Beats Studio Wireless Unity Edition combines iconic Beats sound and design with country pride elements. Each headphone incorporates country-inspired graphic elements with a unifying black band for a signature Beats look.',
+    },
+    {
+      title: 'Epson - 664 Ink Bottle - Cyan',
+      image: 'https://cdn.sajari.net/demos/bestbuy/images/4274202_sb.jpg',
+      url: 'https://example.com',
+      description:
+        'Print documents, flyers and brochures in vibrant color with this Epson 664 high-yield ink bottle, which works with select Epson EcoTank printers, including ET-2500, ET-2550, ET-4500 and ET-4550.',
+    },
+  ];
+
+  return <Combobox mode="results" placeholder="Search" items={items} />;
+}
+```
+
+### Typeahead mode
+
+Set the `mode` prop to `typeahead` to render a typeahead suggestion.
+
+```jsx
+<Combobox mode="typeahead" label="Query" name="query" placeholder="Search" completion="apple iphone" />
+```
+
+### Loading
+
+```jsx
+<Combobox loading />
+```
+
+## Speech recognition
+
+```jsx
+<Combobox enableVoice />
+```
+
+## Props
+
+`Combobox` component props inherits the `input` element props with some additional for speech recognition and loading state
+
+| Name                | Type                                                            | Default      | Description                                                                                                                                                                                                                                                                                               |
+| ------------------- | --------------------------------------------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mode`              | `'standard'` \| `'typeahead'` \| `'suggestions'` \| `'results'` | `'standard'` | The mode of the combobox. `'standard'` will operate as a normal text input. `'typeahead`' will provide an inline completion suggestion. `'suggestions'` will provide an autocomplete menu with options to select. `'results'` will perform a full search using the provided term and render full results. |
+| `loading`           | `boolean`                                                       | `false`      | Show the spinner icon                                                                                                                                                                                                                                                                                     |
+| `enableVoice`       | `boolean`                                                       | `false`      | Whether to enable speech recognition ([Compatibility table](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition))                                                                                                                                                                          |
+| `captureVoiceInput` | `boolean`                                                       | `true`       | Whether to set the combobox value to the voice input, if enabled.                                                                                                                                                                                                                                         |
+| `onChange`          | `(value: string) => void`                                       |              | The callback when the input value changes. Note: The `event` is not passed as the argument.                                                                                                                                                                                                               |
+| `onVoiceInput`      | `(value: string) => void`                                       |              | The callback when a voice transcript is output                                                                                                                                                                                                                                                            |
+| `items`             | `string[]`                                                      |              | An array of strings to use for autocomplete suggestions.                                                                                                                                                                                                                                                  |
+| `completion`        | `string`                                                        |              | A string to use for a typeahead value.                                                                                                                                                                                                                                                                    |
+| `itemToString`      | `(item:T) => string`                                            |              | A callback to convert item (object) to string                                                                                                                                                                                                                                                             |
+| `itemToUrl`         | `(item:T) => string`                                            |              | A callback to get/compute url from item object for results mode.                                                                                                                                                                                                                                          |
+| `renderItem`        | `(params) => React.ReactNode`                                   |              | A render prop function for customizing result item view                                                                                                                                                                                                                                                   |

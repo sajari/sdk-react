@@ -1,0 +1,96 @@
+import SEO from '../../components/SEO';
+
+<SEO title="useSearch" description="useSearch provides a getter & setter for the current query." />
+
+# useSearch
+
+`useSearch` provides a way to perform a search.
+
+```js
+import { useSearch } from '@sajari/react-hooks';
+```
+
+## Usage
+
+Returns results for the current query. By default it will use the Variables and Pipeline from the context:
+
+```jsx
+function Example() {
+  const { results = [] } = useSearch();
+  const { query, setQuery } = useQuery();
+
+  return (
+    <>
+      <Combobox onChange={(value) => setQuery(value)} />
+
+      {query && results.length > 0 && (
+        <ul className="list-disc px-5 space-y-2 mt-5">
+          {results.map(({ values: { name, id } }) => (
+            <li key={id}>{name}</li>
+          ))}
+        </ul>
+      )}
+    </>
+  );
+}
+```
+
+### Optionally pass in Variables or Pipeline:
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: 'sajariptyltd',
+      collection: 'sajari-com',
+    },
+    'website',
+  );
+  const variables = new Variables({ q: 'api', resultsPerPage: 1 });
+
+  const SearchPlayground = React.memo(() => {
+    const { results = [], searching } = useSearch({ variables, pipeline });
+
+    return (
+      <div className="flex flex-col space-y-4">
+        <div className="flex space-x-3 items-center">
+          <p>Show</p>
+          <Select
+            onChange={(e) => {
+              variables.set({ resultsPerPage: Number(e.target.value) });
+            }}
+          >
+            <option value="1">1</option>
+            <option value="3">3</option>
+          </Select>
+        </div>
+        <div>
+          {searching && <p>Searching...</p>}
+          {!searching && results.length > 0 && (
+            <ul className="list-disc px-5 space-y-2">
+              {results.map(({ values: { title } }) => (
+                <li key={title}>{title}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    );
+  });
+
+  return <SearchPlayground />;
+}
+```
+
+## Anatomy
+
+`useSearch` returns an object containing the following properties:
+
+| Name           | Type                   | Default | Description                                                                               |
+| -------------- | ---------------------- | ------- | ----------------------------------------------------------------------------------------- |
+| `results`      | `Result[]`             |         | An array of results that met the query                                                    |
+| `latency`      | `number`               |         | The engine latency                                                                        |
+| `totalResults` | `number`               |         | The total count of results                                                                |
+| `search`       | `(q?: string) => void` |         | The search method, call without param to resend the search request with the current query |
+| `searching`    | `boolean`              |         | Is a search request being processed                                                       |
+| `error`        | `Error` \| `null`      |         | The error encountered while searching                                                     |

@@ -1,0 +1,208 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="Input"
+  description="Input component is a component that is used to get user input in a text field. It can also provide suggestions, typeahead and instant search modes."
+/>
+
+# Input
+
+The `Input` component is used to capture query input via a text field. It can also provide suggestions, typeahead and instant search modes.
+
+## Import
+
+```js
+import { Input } from 'sajari/react-search-ui';
+```
+
+## Usage
+
+Additional imports used in the examples:
+
+```js
+import { FieldDictionary, Pipeline, Results, SearchProvider } from '@sajari/react-search-ui';
+```
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const SearchPlayground = React.memo(() => (
+    <div className="space-y-4">
+      <Input />
+      <Results />
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
+## Suggestions
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const SearchPlayground = React.memo(() => (
+    <div className="space-y-4">
+      <Input mode="suggestions" />
+      <Results />
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
+## Results
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const SearchPlayground = React.memo(() => <Input mode="results" />);
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
+## Typeahead
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const SearchPlayground = React.memo(() => (
+    <div className="space-y-4">
+      <Input mode="typeahead" />
+      <Results />
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
+## Standard
+
+By default `<Input />` has an additional mode `"instant"` and it is also the default value (search on change). To disable it, simple change mode to `"standard"`.
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const SearchPlayground = React.memo(() => (
+    <div className="space-y-4">
+      <Input mode="standard" />
+      <Results />
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
+## Props
+
+`Input` component props inherits the `input` element props with some additional for speech recognition and loading state
+
+| Name       | Type                                                            | Default      | Description                                                                                                                                                                                                                                                                                               |
+| ---------- | --------------------------------------------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mode`     | `'standard'` \| `'typeahead'` \| `'suggestions'` \| `'results'` | `'standard'` | The mode of the combobox. `'standard'` will operate as a normal text input. `'typeahead`' will provide an inline completion suggestion. `'suggestions'` will provide an autocomplete menu with options to select. `'results'` will perform a full search using the provided term and render full results. |
+| `onChange` | `(value: string) => void`                                       |              | The callback when the input value changes. Note: The `event` is not passed as the argument.                                                                                                                                                                                                               |

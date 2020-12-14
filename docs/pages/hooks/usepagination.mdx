@@ -1,0 +1,86 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="usePagination"
+  description="usePagination provides conveniences that allow user to integrate the Pagination component with the search context on the fly."
+/>
+
+# usePagination
+
+`usePagination` provides conveniences that allow user to integrate the Pagination component with the search context on the fly.
+
+```js
+import { usePagination } from '@sajari/react-hooks';
+```
+
+## Usage
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const SearchPlayground = React.memo(() => {
+    const { results } = useSearch();
+    const { page, setPage, resultsPerPage, pageCount, totalResults } = usePagination('search');
+    const { query } = useQuery();
+
+    return (
+      <div className="space-y-6">
+        <Input />
+
+        <Results />
+
+        <Pagination
+          page={page}
+          resultsPerPage={resultsPerPage}
+          totalResults={totalResults}
+          pageCount={pageCount}
+          onChange={setPage}
+        />
+      </div>
+    );
+  });
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+      }}
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
+## Anatomy
+
+`usePagination` returns an object containing the following properties:
+
+| Name             | Type                        | Default | Description                                                 |
+| ---------------- | --------------------------- | ------- | ----------------------------------------------------------- |
+| `pageCount`      | `number`                    | `0`     | The number of pages                                         |
+| `totalResults`   | `number`                    | `0`     | The total number of results                                 |
+| `resultsPerPage` | `number`                    | `10`    | The number of results per page                              |
+| `page`           | `number`                    | `1`     | The current page                                            |
+| `setPage`        | `(pageNum: number) => void` |         | A method for setting the page                               |
+| `hasNext`        | `boolean`                   |         | A boolean to determine if there is a next page              |
+| `hasPrevious`    | `boolean`                   |         | A boolean to determine if there is a previous page          |
+| `nextPage`       | `() => void`                |         | Go to next page, do nothing if `hasNext` is `false`         |
+| `previousPage`   | `() => void`                |         | Go to previous page, do nothing if `hasPrevious` is `false` |
+
+## Props
+
+| Name  | Type                           | Default | Description     |
+| ----- | ------------------------------ | ------- | --------------- |
+| `key` | `"search"` \| `"autocomplete"` |         | The search mode |

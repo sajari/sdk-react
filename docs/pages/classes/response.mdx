@@ -1,0 +1,24 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="Response"
+  description="The Response class is returned when performing advanced Pipeline methods or handling raw responses."
+/>
+
+# Response
+
+The `Response` class is returned when performing **advanced** [Pipeline](/classes/pipeline) methods or handling raw responses.
+
+# Properties
+
+| Name                    | Description                                                                                        |
+| ----------------------- | -------------------------------------------------------------------------------------------------- |
+| `isEmpty()`             | Returns `true` if the response is empty (i.e. as a result of a call to `Pipeline.clearResponse()`) |
+| `isError()`             | Returns `true` if the response is an error response.                                               |
+| `getError()`            | Returns the underlying error.                                                                      |
+| `getResponse()`         | Returns the full search response.                                                                  |
+| `getResults()`          | Returns the search results from the response.                                                      |
+| `getTotalResults()`     | Returns the total results found.                                                                   |
+| `getTime()`             | Returns the total query time.                                                                      |
+| `getAggregates()`       | Returns aggregate data attached to response.                                                       |
+| `getAggregateFilters()` | Returns aggregate filters data attached to response.                                               |

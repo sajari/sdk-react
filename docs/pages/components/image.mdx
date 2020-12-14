@@ -1,0 +1,38 @@
+import SEO from '../../components/SEO';
+
+# Image
+
+The `Image` component is used to display images.
+
+## Import
+
+```js
+import { Image } from 'sajari/react-components';
+```
+
+## Usage
+
+```jsx
+<Image src="https://source.unsplash.com/user/erondu?1" htmlWidth="1080" htmlHeight="720" alt="Unplash photo" />
+```
+
+### Force an aspect ratio
+
+This is useful if you want to crop the image or you don't know the dimensions of an image.
+
+```jsx
+<Image src="https://source.unsplash.com/random" alt="Unplash photo" aspectRatio={1} objectFit="cover" />
+```
+
+## Props
+
+| Name          | Type                                                               | Default | Description                                                     |
+| ------------- | ------------------------------------------------------------------ | ------- | --------------------------------------------------------------- |
+| `src`         | `string`                                                           |         | The path to the image source.                                   |
+| `alt`         | `string`                                                           |         | The alt text that describes the image.                          |
+| `onLoad`      | `function`                                                         |         | A callback for when the image `src` has been loaded.            |
+| `onError`     | `function`                                                         |         | A callback for when there was an error loading the image `src`. |
+| `htmlWidth`   | `string` \| `number`                                               |         | The native HTML width attribute of the `img` element.           |
+| `htmlHeight`  | `string` \| `number`                                               |         | The native HTML height attribute of the `img` element.          |
+| `aspectRatio` | `AspectRatioProps['ratio']`                                        |         | Force the image to render at a certain aspect ratio.            |
+| `objectFit`   | `'contain'` \| `'cover'` \| `'fill'` \| `'scale-down'` \| `'none'` |         | Force the image to render at a certain aspect ratio.            |

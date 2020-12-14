@@ -1,0 +1,79 @@
+import SEO from '../../components/SEO';
+
+<SEO title="useResultsPerPage" description="useResultsPerPage provides getter/setter for the resultsPerPage param." />
+
+# useResultsPerPage
+
+`useResultsPerPage` provides getter and setter for the resultsPerPage param.
+
+```js
+import { useResultsPerPage } from '@sajari/react-hooks';
+```
+
+## Usage
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const SearchPlayground = React.memo(() => {
+    const { search } = useSearch();
+    const { resultsPerPage, setResultsPerPage } = useResultsPerPage();
+    const { query } = useQuery();
+
+    return (
+      <div className="flex flex-col space-y-6">
+        <div className="flex space-x-4">
+          <div className="w-3/5">
+            <Input value={query} onChange={(value) => search(value)} />
+          </div>
+          <div className="w-2/5">
+            <Select value={`${resultsPerPage}`} onChange={(e) => setResultsPerPage(parseInt(e.target.value), 10)}>
+              <option value="3">3</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+            </Select>
+          </div>
+        </div>
+
+        <Results />
+      </div>
+    );
+  });
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+          title: 'name',
+        }),
+      }}
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
+## Anatomy
+
+`useResultsPerPage` returns an object containing the following properties:
+
+| Name                | Type                     | Default | Description                              |
+| ------------------- | ------------------------ | ------- | ---------------------------------------- |
+| `resultsPerPage`    | `number`                 |         | The number of result per page.           |
+| `setResultsPerPage` | `(size: number) => void` |         | Method to set number of result per page. |
+
+## Props
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |

@@ -1,0 +1,77 @@
+import SEO from '../../components/SEO';
+
+<SEO title="Sorting" description="The Sorting component is used to capture user input on how to sort search results." />
+
+# Sorting
+
+The `Sorting` component is used to capture user input on how to sort search results.
+
+```js
+import { Sorting } from '@sajari/react-search-ui';
+```
+
+## Usage
+
+Additional imports used in the examples:
+
+```js
+import { FieldDictionary, Input, Pipeline, Results, SearchProvider } from '@sajari/react-search-ui';
+```
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const SearchPlayground = React.memo(() => (
+    <div className="space-y-6">
+      <div className="flex items-center space-x-4">
+        <div className="flex-1">
+          <Input />
+        </div>
+
+        <Sorting
+          options={[
+            { name: 'Most relevant', value: '' },
+            { name: 'Brand: A to Z', value: 'brand' },
+            { name: 'Brand: Z to A', value: '-brand' },
+            { name: 'Rating: Low to High', value: 'rating' },
+            { name: 'Rating: High to Low', value: '-rating' },
+            { name: 'Popularity', value: 'popularity' },
+          ]}
+        />
+      </div>
+
+      <Results />
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
+## Props
+
+| Name      | Type                                   | Default                                | Description                   |
+| --------- | -------------------------------------- | -------------------------------------- | ----------------------------- |
+| `label`   | `string`                               | `"Sort"`                               |                               |
+| `options` | `Array<{name: string, value: string}>` | `[{name: "Most relevant", value: ""}]` |                               |
+| `size`    | `sm` \| `md` \| `lg`                   | `md`                                   | Sets the text and input size. |

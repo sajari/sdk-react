@@ -1,0 +1,97 @@
+{
+  "extends": ["airbnb-typescript", "prettier"],
+  "plugins": ["simple-import-sort", "import", "prettier"],
+  "env": {
+    "jest": true,
+    "browser": true
+  },
+  "overrides": [
+    {
+      "files": [
+        "packages/components/src/**/**/*.ts",
+        "packages/components/src/**/**/*.tsx",
+        "packages/hooks/src/**/**/*.ts",
+        "packages/hooks/src/**/**/*.tsx",
+        "packages/search-ui/src/**/**/*.ts",
+        "packages/search-ui/src/**/**/*.tsx",
+        "packages/utils/src/**/**/*.ts",
+        "packages/utils/src/**/**/*.tsx",
+        "packages/styles/src/**/**/*.ts",
+        "packages/styles/src/**/**/*.tsx"
+      ],
+      "rules": {
+        // Prettier setup
+        "prettier/prettier": "error",
+
+        // Fix up spacing between declarations
+        "padding-line-between-statements": [
+          "error",
+          {
+            "blankLine": "never",
+            "prev": ["singleline-const", "singleline-let", "singleline-var"],
+            "next": ["singleline-const", "singleline-let", "singleline-var"]
+          }
+        ],
+
+        // Sort imports
+        "sort-imports": "off",
+        "import/order": "off",
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error",
+
+        // Named or default is fine
+        "import/prefer-default-export": "off",
+
+        // TODO: We should fix up the paths so we can re-enable this rule
+        // https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/no-extraneous-dependencies.md
+        "import/no-extraneous-dependencies": "off",
+
+        // Not required with TS
+        "react/prop-types": "off",
+        "react/require-default-props": "off",
+
+        // Useful feature
+        "react/jsx-props-no-spreading": "off",
+
+        "react/react-in-jsx-scope": "off",
+
+        // Fix TypeScript extension issues
+        // https://github.com/airbnb/javascript/blob/master/packages/eslint-config-airbnb-base/rules/imports.js#L139
+        // https://stackoverflow.com/questions/59265981/typescript-eslint-missing-file-extension-ts-import-extensions
+        "import/extensions": [
+          "error",
+          "ignorePackages",
+          {
+            "js": "never",
+            "mjs": "never",
+            "jsx": "never",
+            "ts": "never",
+            "tsx": "never"
+          }
+        ],
+
+        // Let prettier take care of it
+        "@typescript-eslint/indent": "off",
+
+        // This one is annoying
+        "@typescript-eslint/explicit-function-return-type": "off",
+
+        // Dangling commas make merge/diffs easier
+        "@typescript-eslint/comma-dangle": "off"
+      }
+    }
+  ],
+  "settings": {
+    "react": {
+      "pragma": "h",
+      "version": "detect"
+    }
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "project": "./tsconfig.json"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "name": "@sajari/react-hooks",
+  "version": "1.0.0-beta.10",
+  "description": "Easy to use hooks that allow you to build a powerful search interface powered by Sajari using any component library.",
+  "sideEffects": false,
+  "scripts": {
+    "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
+    "build": "tsdx build --tsconfig tsconfig.build.json",
+    "test": "jest",
+    "test:ci": "jest --env=jsdom --coverage --watchAll=false --maxWorkers=2",
+    "prepublish": "yarn build"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "README.md",
+    "dist"
+  ],
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "dependencies": {
+    "@sajari/react-sdk-utils": "^1.0.0-beta.3",
+    "@sajari/sdk-js": "2.0.0-alpha.18",
+    "js-cookie": "^2.2.1"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "^2.2.6"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "d2b9639c742e1dace15317d57a409777cd736dee"
+}

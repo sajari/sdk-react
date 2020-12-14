@@ -1,0 +1,58 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="Click Tracking"
+  description="Click tracking refers to recording user click interactions alongside search results. This is usually the successful search outcome customers use to power machine learning."
+/>
+
+# ClickTracking
+
+```js
+import { ClickTracking } from '@sajari/react-hooks';
+// or...
+import { ClickTracking } from '@sajari/react-search-ui';
+```
+
+## Usage
+
+Additional imports used in the examples:
+
+```js
+import { FieldDictionary, Input, Pipeline, Results, SearchProvider } from '@sajari/react-search-ui';
+```
+
+When `ClickTracking` is used, a token object containing a link will be returned for each result item. Details can be found [here](https://www.sajari.com/docs/user-guide/analytics/click-tracking/).
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+    new ClickTracking(),
+  );
+
+  const SearchPlayground = React.memo(() => (
+    <div className="flex flex-col space-y-6">
+      <Input />
+      <Results />
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+      }}
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```

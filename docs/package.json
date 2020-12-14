@@ -1,0 +1,36 @@
+{
+  "name": "sajari-sdk-docs",
+  "version": "1.0.0-beta.8",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && next export",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@mdx-js/loader": "^1.6.22",
+    "@mdx-js/mdx": "^1.6.22",
+    "@mdx-js/react": "^1.6.22",
+    "@next/mdx": "^10.0.3",
+    "@sajari-ui/core": "^0.2.0",
+    "@types/mdx-js__react": "^1.5.3",
+    "@types/react-table": "^7.0.25",
+    "lorem-ipsum": "^2.0.3",
+    "next": "^10.0.3",
+    "next-seo": "4.17.0",
+    "prism-react-renderer": "^1.1.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-live": "^2.2.3",
+    "remark-autolink-headings": "6.0.1",
+    "remark-emoji": "2.1.0",
+    "remark-images": "2.0.0",
+    "remark-slug": "6.0.0",
+    "remark-unwrap-images": "2.0.0",
+    "tailwindcss": "^1.9.6"
+  },
+  "devDependencies": {
+    "postcss-clean": "^1.1.0",
+    "postcss-import": "^13.0.0"
+  }
+}

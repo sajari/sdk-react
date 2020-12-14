@@ -1,0 +1,36 @@
+{
+  "name": "@sajari/server",
+  "version": "1.0.0-beta.5",
+  "description": "SSR helpers",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "directory": "packages/server"
+  },
+  "scripts": {
+    "start": "tsdx watch --tsconfig tsconfig.build.json --verbose --noClean",
+    "build": "tsdx build --tsconfig tsconfig.build.json",
+    "test": "jest",
+    "test:ci": "jest --env=jsdom --coverage --watchAll=false --maxWorkers=2",
+    "prepublish": "yarn build"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "README.md",
+    "dist"
+  ],
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "dependencies": {
+    "@sajari/react-hooks": "^1.0.0-beta.10",
+    "@sajari/react-sdk-utils": "^1.0.0-beta.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "ad234f0805e6a7cea8dc5ad87bd189152875fd16"
+}

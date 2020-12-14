@@ -1,0 +1,126 @@
+import SEO from '../../components/SEO';
+
+<SEO title="Hooks" description="TBD" />
+
+# Hooks
+
+<div className="flex space-x-2">
+  <img src="https://badgen.net/bundlephobia/minzip/@sajari/react-hooks?cache=300" alt="Size" />
+  <img src="https://badgen.net/npm/v/@sajari/react-hooks?cache=300" alt="Latest NPM version" />
+</div>
+
+Hooks that allow you to build a search interface using any component library.
+
+[Hooks](https://reactjs.org/docs/hooks-intro.html) are a new addition in React 16.8. They let you use state and other React features without writing a class.
+
+## 1. Install
+
+Install the dependency via `yarn` or `npm install`.
+
+```txt
+yarn add @sajari/react-hooks
+```
+
+## 2. Import
+
+Pick and choose the components you'd like to use and import them.
+
+```js
+import { Pipeline, SearchProvider, useSearch } from '@sajari/react-hooks';
+```
+
+In this basic example, we'll also use components from the `@sajari/react-components` package:
+
+```js
+import { Combobox } from '@sajari/react-components';
+```
+
+## 3. Pipeline
+
+A [`Pipeline`](/classes/pipeline) is required to perform search queries. For this example, we'll use a demo pipeline using a Best Buy data set. Replace the values from your collection credentials.
+
+```js
+const pipeline = new Pipeline(
+  {
+    account: '1594153711901724220',
+    collection: 'bestbuy',
+  },
+  'query',
+);
+```
+
+## 4. App
+
+Use them in your app.
+
+```jsx live=false
+const App = () => {
+  const { results = [] } = useSearch();
+  const { query, setQuery } = useQuery();
+
+  return (
+    <>
+      <Combobox onChange={(value) => setQuery(value)} />
+
+      {query && results.length > 0 && (
+        <ul className="list-disc px-5 space-y-2 mt-5">
+          {results.map(({ values: { name, id } }) => (
+            <li key={id}>{name}</li>
+          ))}
+        </ul>
+      )}
+    </>
+  );
+};
+```
+
+## 5. SearchProvider
+
+The [`SearchProvider`](/hooks/searchprovider) should be used as a wrapper for the entire application to provide a way to share application state between hooks, for example, the current query, active filters or the search response. See [`SearchProvider`](/hooks/searchprovider) for more information.
+
+```jsx live=false
+return (
+  <SearchProvider search={{ pipeline }}>
+    <App />
+  </SearchProvider>
+);
+```
+
+## Completed example
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const App = () => {
+    const { results = [] } = useSearch();
+    const { query, setQuery } = useQuery();
+
+    return (
+      <>
+        <Combobox onChange={(value) => setQuery(value)} />
+
+        {query && results.length > 0 && (
+          <ul className="list-disc px-5 space-y-2 mt-5">
+            {results.map(({ values: { name, id } }) => (
+              <li key={id}>{name}</li>
+            ))}
+          </ul>
+        )}
+      </>
+    );
+  };
+
+  return (
+    <SearchProvider search={{ pipeline }}>
+      <App />
+    </SearchProvider>
+  );
+}
+```

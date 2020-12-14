@@ -1,0 +1,38 @@
+import SEO from '../../components/SEO';
+
+<SEO title="Tracking" description="TBD" />
+
+# Tracking
+
+Analytics in Sajari can give you insights into the search behavior of your users and how your content is performing.
+
+## 1. Getting Started
+
+Tracking in Sajari can be one of the following:
+
+- `NoTracking`: self-explantory, this is also the default when you create a new `Pipeline` instance
+- `ClickTracking`: records user click interactions alongside search results
+- `PosNegTracking`: refers to the recording of variably weighted user interactions with search results. This allows to record both positive and negative interactions on each search result and thus is more complex/flexible than `ClickTracking`
+
+## 2. Usage
+
+```js
+import { ClickTracking, PosNegTracking, Pipeline } from '@sajari/react-hooks';
+
+const commonConfig = {
+  account: '1594153711901724220',
+  collection: 'bestbuy',
+};
+
+const pipelineWithNoTracking = new Pipeline(commonConfig, 'query');
+const pipelineWithClickTracking = new Pipeline(commonConfig, 'query', new ClickTracking());
+const pipelineWithPosNegTracking = new Pipeline(commonConfig, 'query', new PosNegTracking('rating'));
+```
+
+Later after having received the search result, each entry will include a `token` field of that tracking type, you can then use that token to record the interactions.
+
+## 3. Example
+
+- [`NoTracking`](/tracking/notracking)
+- [`ClickTracking`](/tracking/clicktracking)
+- [`PosNegTracking`](/tracking/posnegtracking)

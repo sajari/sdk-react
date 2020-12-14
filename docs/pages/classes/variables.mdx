@@ -1,0 +1,31 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="Variables"
+  description="The Variables class is a simple key -> value pair object used for every search request. "
+/>
+
+# Variables
+
+The `Variables` class is a simple key -> value pair object used for every search request. It includes critical data such as the query, results per page, current page, etc.
+
+```js
+import { Variables } from '@sajari/react-hooks';
+// or
+import { Variables } from '@sajari/react-search-ui';
+```
+
+## Constructor
+
+The constructor will accept a single object with any properties. The proprties will vary based on your pipeline configuration but the most common implementations will use the following:
+
+Value types can be `string | string[] | number | boolean | () => string`
+
+| Name             | Default     | Description                           |
+| ---------------- | ----------- | ------------------------------------- |
+| `q`              |             | The search query.                     |
+| `q.override`     |             |                                       |
+| `q.suggestions`  |             | Dictionary of name -> filter pairs.   |
+| `filter`         | `_id != ""` | Default filter to apply.              |
+| `resultsPerPage` | `15`        | How many results to display per page. |
+| `page`           | `1`         | Which page to display.                |

@@ -1,0 +1,162 @@
+import SEO from '../components/SEO';
+
+<SEO
+  title="Server Side Rendering"
+  description="Pre-render your search interface on the server to improved perceived performance and SEO."
+/>
+
+# Server Side Rendering
+
+Server side rendering, or SSR, is the process of rendering components to HTML on the server, rather than rendering them only on the client. Static rendering is a similar approach, but pre-renders pages to HTML at build time rather than on each request. These techniques can help improve perceived loading performance and SEO. The Sajari React SDK supports both of these approaches, either through a custom implementation or via frameworks like Next.js and Gatsby.
+
+## SSRProvider
+
+In React, SSR works by rendering the component to HTML on the server, and then hydrating the DOM tree with events and state on the client. This enables applications to both render complete HTML in advance for performance and SEO, but also support rich interactions on the client.
+
+In order to make the hooks and components work with SSR, you will need to wrap your application in an SSRProvider component. This signals to all nested components that they are being rendered in an SSR context.
+
+If you're using `@sajari/search-ui`...
+
+```jsx live=false
+import { SSRProvider, SearchProvider } from '@sajari/search-ui';
+
+export default () => (
+  <SSRProvider>
+    <SearchProvider>
+      <YourApp />
+    </SearchProvider>
+  </SSRProvider>
+);
+```
+
+If you're using `@sajari/search-components` with no search logic required...
+
+```jsx live=false
+import { SSRProvider } from '@sajari/search-components';
+
+export default () => (
+  <SSRProvider>
+    <YourApp />
+  </SSRProvider>
+);
+```
+
+## Fetching data
+
+In order to render the components or use hooks while server side rendering, you need a way to fetch data. For this, you can use the `server` function from the `@sajari/server` package. It expects the same props as `SearchProvider`.
+
+Here's how this Next.js example works:
+
+- Two pipelines are created; one using domain auth for client-side, and one passing a key/secret for server-side. The server-side pipeline will be stripped in client-side builds so your key/secret are not exposed.
+- The `search` function will return a response in JSON format, which you pass to the `SearchProvider`.
+- The `SearchProvider` then de-serializes that response and uses it for the initial state.
+- Any changes to state from that point onwards are client-side rendered.
+
+You can find a full example using Next.js in `/examples/next` but here's the important part.
+
+```jsx live=false
+import React from 'react';
+import {
+  SearchProvider,
+  FieldDictionary,
+  Pipeline,
+  Variables,
+  Results,
+  Input,
+  SSRProvider,
+  Pagination,
+} from '@sajari/react-search-ui';
+import { search } from '@sajari/server';
+import { useSearchContext } from '@sajari/react-hooks';
+
+const pipelineConfig = {
+  account: '1594153711901724220',
+  collection: 'bestbuy',
+};
+
+let pipeline = new Pipeline(pipelineConfig, 'query');
+
+// Next.js will remove this in client-side builds
+if (typeof window === 'undefined') {
+  pipeline = new Pipeline(
+    {
+      ...pipelineConfig,
+      key: '...',
+      secret: '...',
+    },
+    'query',
+  );
+}
+
+const fields = new FieldDictionary({
+  title: 'name',
+  subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+});
+
+const variables = new Variables({
+  resultsPerPage: 10,
+  q: 'iphone',
+});
+
+interface Props {
+  initialResponse: string;
+}
+
+// This gets called on every request
+export async function getServerSideProps() {
+  const initialResponse = await search({
+    pipeline,
+    variables,
+    fields,
+  });
+
+  // If we couldn't get an initial response server side, render client side
+  if (initialResponse === null) {
+    return {
+      props: {
+        notFound: true,
+      },
+    };
+  }
+
+  // Pass data to the page via props
+  return {
+    props: {
+      initialResponse,
+    },
+  };
+}
+
+const RawResults = () => {
+  const { results } = useSearchContext();
+
+  return (
+    <details>
+      <summary>Raw Results</summary>
+      <pre>{JSON.stringify(results, null, 2)}</pre>
+    </details>
+  );
+};
+
+const Page = ({ initialResponse }: Props) => (
+  <SearchProvider
+    search={{
+      pipeline,
+      fields,
+      variables,
+    }}
+    initialResponse={initialResponse}
+    // If there's no initial response, revert to client-side search call
+    searchOnLoad={!initialResponse}
+  >
+    <SSRProvider>
+      <Input />
+      <Results appearance="grid" style={{ margin: '3rem 0' }} />
+      <RawResults />
+      <Pagination />
+    </SSRProvider>
+  </SearchProvider>
+);
+
+export default Page;
+```

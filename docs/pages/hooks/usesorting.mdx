@@ -1,0 +1,87 @@
+import SEO from '../../components/SEO';
+
+<SEO title="useSorting" description="useSorting provides getter/setter for sorting results." />
+
+# useSorting
+
+`useSorting` provides getter and setter for sorting results.
+
+```js
+import { useSorting } from '@sajari/react-hooks';
+```
+
+## Usage
+
+`setSorting` expects a string, and that string must satisfy the following requirements:
+
+- There must be at least one record in the collection that has that field and its corresponding value.
+- The field's value must be an `Integer`, `Float`, `Timestamp` or a `String`.
+- It must follow the syntax of `"${field}"` for ascending order of that field and `"-${field}"` for the opposite
+
+E.g. if your record contains a `rating` field, then passing `"rating"` to sort for items that have the lowest rating to highest, or `"-rating"` for highest to lowest.
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const SearchPlayground = React.memo(() => {
+    const { sorting, setSorting } = useSorting();
+
+    return (
+      <div className="flex flex-col space-y-6">
+        <div className="flex space-x-4">
+          <div className="flex-1">
+            <Input />
+          </div>
+
+          <Select value={sorting} onChange={(e) => setSorting(e.target.value)}>
+            <option value="">Most relevant</option>
+            <option value="brand">Brand: A to Z</option>
+            <option value="-brand">Brand: Z to A</option>
+            <option value="rating">Rating: Low to High</option>
+            <option value="-rating">Rating: High to Low</option>
+            <option value="popularity">Popularity</option>
+          </Select>
+        </div>
+
+        <Results />
+      </div>
+    );
+  });
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
+## Anatomy
+
+`useSorting` returns an object containing the following properties:
+
+| Name         | Type                      | Default | Description                |
+| ------------ | ------------------------- | ------- | -------------------------- |
+| `sorting`    | `sorting`                 |         | The currently sorting mode |
+| `setSorting` | `(order: string) => void` |         | Method to set sorting mode |
+
+## Props
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |

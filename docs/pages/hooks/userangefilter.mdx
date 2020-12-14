@@ -1,0 +1,203 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="useRangeFilter"
+  description="useRangeFilter returns the filter range (current range and the range for min and max)"
+/>
+
+# useRangeFilter
+
+`useRangeFilter` returns the filter range (current range and the range for min and max).
+
+```js
+import { useRangeFilter } from '@sajari/react-hooks';
+```
+
+## Usage
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const priceFilter = new RangeFilterBuilder({
+    name: 'price',
+    field: 'price',
+    min: 300,
+    max: 1000,
+    initial: [500, 700],
+  });
+
+  const ratingFilter = new RangeFilterBuilder({
+    name: 'rating',
+    field: 'rating',
+    min: 1,
+    max: 5,
+    initial: [1, 5],
+  });
+
+  const FilterRender = React.memo(({ name, title }) => {
+    const { range, setRange, min, max } = useRangeFilter(name);
+
+    if (!range) {
+      return null;
+    }
+
+    return (
+      <div className="mb-4">
+        <div className="flex items-center justify-between mb-2">
+          <Heading as="h6" className="font-medium tracking-wide text-gray-400 uppercase">
+            {title}
+          </Heading>
+        </div>
+        <RangeInput min={min} max={max} value={range} onChange={setRange} />
+      </div>
+    );
+  });
+
+  const PriceFilter = () => <FilterRender name="price" title="Price" />;
+  const RatingFilter = () => <FilterRender name="rating" title="Rating" />;
+
+  const SearchPlayground = React.memo(() => {
+    const { results } = useSearch();
+
+    return (
+      <div className="flex flex-col space-y-6">
+        <Input />
+
+        <div className="flex -mx-3">
+          <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
+            {results && (
+              <>
+                <PriceFilter />
+                <RatingFilter />
+              </>
+            )}
+          </div>
+          <div className="w-3/4 px-3">
+            <Results />
+          </div>
+        </div>
+      </div>
+    );
+  });
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+        filters: [priceFilter, ratingFilter],
+      }}
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
+## Aggregate
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const priceFilter = new RangeFilterBuilder({
+    name: 'price',
+    field: 'price',
+  });
+
+  const ratingFilter = new RangeFilterBuilder({
+    name: 'rating',
+    field: 'rating',
+  });
+
+  const FilterRender = React.memo(({ name, title }) => {
+    const { range, setRange, min, max } = useRangeFilter(name);
+
+    if (!range || max === 0) {
+      return null;
+    }
+
+    return (
+      <div className="mb-4">
+        <div className="flex items-center justify-between mb-2">
+          <Heading as="h6" className="font-medium tracking-wide text-gray-400 uppercase">
+            {title}
+          </Heading>
+        </div>
+        <RangeInput min={min} max={max} value={range} onChange={setRange} />
+      </div>
+    );
+  });
+
+  const PriceFilter = () => <FilterRender name="price" title="Price" />;
+  const RatingFilter = () => <FilterRender name="rating" title="Rating" />;
+
+  const SearchPlayground = React.memo(() => {
+    const { results } = useSearch();
+
+    return (
+      <div className="flex flex-col space-y-6">
+        <Input />
+
+        <div className="flex -mx-3">
+          <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
+            {results && (
+              <>
+                <PriceFilter />
+                <RatingFilter />
+              </>
+            )}
+          </div>
+          <div className="w-3/4 px-3">
+            <Results />
+          </div>
+        </div>
+      </div>
+    );
+  });
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+        filters: [priceFilter, ratingFilter],
+      }}
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
+## Anatomy
+
+`useRangeFilter` returns an object containing the following properties:
+
+| Name        | Type                            | Default | Description                                    |
+| ----------- | ------------------------------- | ------- | ---------------------------------------------- |
+| `range`     | `Range` or `null`               |         | The current range.                             |
+| `setRange`  | `(value:Range OR null) => void` |         | Method to set the range.                       |
+| `min`       | `number`                        |         | The min range.                                 |
+| `max`       | `number`                        |         | The max range.                                 |
+| `showReset` | `boolean`                       |         | The state for deciding to call reset function. |
+| `reset`     | `() => void`                    |         | Reset the current state to the initial state   |

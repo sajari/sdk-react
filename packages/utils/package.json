@@ -1,0 +1,42 @@
+{
+  "name": "@sajari/react-sdk-utils",
+  "version": "1.0.0-beta.3",
+  "description": "Shared utils for the Sajari React packages.",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "directory": "packages/utils"
+  },
+  "scripts": {
+    "start": "tsdx watch --tsconfig tsconfig.build.json --tsdxconfig --verbose --noClean",
+    "build": "tsdx build --tsconfig tsconfig.build.json",
+    "test": "jest",
+    "test:ci": "jest --env=jsdom --coverage --watchAll=false --maxWorkers=2",
+    "prepublish": "yarn build"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "README.md",
+    "dist"
+  ],
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "dependencies": {
+    "@emotion/core": "^10.1.1",
+    "@emotion/is-prop-valid": "1.0.0",
+    "@emotion/styled": "^10.0.27",
+    "@tailwindcss/ui": "^0.7.2",
+    "emotion-theming": "^10.0.27",
+    "tailwindcss": "^1.9.6",
+    "tailwindcss-filters": "^3.0.0",
+    "tailwindcss-truncate-multiline": "^1.0.3",
+    "twin.macro": "^1.12.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "d2b9639c742e1dace15317d57a409777cd736dee"
+}

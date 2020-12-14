@@ -1,0 +1,49 @@
+{
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+
+    // We kinda need this to pass some props on...
+    "react/jsx-props-no-spreading": "off",
+
+    // Fix label stuff
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        "labelComponents": ["Label"],
+        "controlComponents": ["Input", "Checkbox", "Combobox", "Select"],
+        "assert": "either"
+      }
+    ],
+
+    // Kinda need it 🤷🏼‍♂️
+    "@typescript-eslint/ban-ts-ignore": "off",
+
+    // Let prettier take care of it
+    "@typescript-eslint/indent": "off"
+  },
+  "settings": {
+    "react": {
+      "pragma": "h",
+      "version": "detect"
+    }
+  },
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": "off"
+      }
+    }
+  ],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "project": "./docs/tsconfig.eslint.json"
+  }
+}

@@ -1,0 +1,99 @@
+import SEO from '../../components/SEO';
+import { Button } from '@sajari/react-components';
+
+<SEO title="Pagination" description="Pagination component is used for paging through paged result sets." />
+
+# Pagination
+
+The `Pagination` component is used for paging through paged result sets.
+
+```js
+import { Pagination } from '@sajari/react-components';
+```
+
+## Usage
+
+```jsx
+function PaginationExample() {
+  const [page, setPage] = React.useState(1);
+
+  return <Pagination totalResults={1000} resultsPerPage={20} page={page} onChange={setPage} />;
+}
+```
+
+### Enable scroll
+
+By default it will scroll to `document.body`.
+
+```jsx
+function PaginationExample() {
+  const [page, setPage] = React.useState(1);
+
+  return <Pagination scrollToTop totalResults={1000} resultsPerPage={20} page={page} onChange={setPage} />;
+}
+```
+
+### Scroll target
+
+Whenever the page changes, the text `Sajari` will be scrolled into view.
+
+```jsx
+function PaginationExample() {
+  const [page, setPage] = React.useState(1);
+  useSearch({ queryOverride: 'iphone' });
+
+  return (
+    <div style={{ height: 500 }} className="w-full overflow-y-scroll">
+      <Results id="results" />
+      <div className="sticky bottom-0">
+        <Pagination
+          scrollToTop
+          scrollTarget="#results"
+          totalResults={1000}
+          resultsPerPage={20}
+          page={page}
+          onChange={setPage}
+        />
+      </div>
+    </div>
+  );
+}
+```
+
+### Internationalization
+
+Internationalization is handled via the `i18n` prop. The default values are as follows:
+
+```javascript
+{
+  label: 'Pagination',
+  previous: 'Previous',
+  next: 'Next',
+  page: 'Page {{page}}',
+  current: 'Page {{page}}, current page',
+}
+```
+
+These are the placeholders available:
+
+| Name   | Properties | Description                     |
+| ------ | ---------- | ------------------------------- |
+| `page` | `page`     | The page number for the button. |
+| `page` | `current`  | The current page number.        |
+
+## Props
+
+The Pagination component composes the `ButtonGroup` component so you can pass props for
+`ButtonGroup`.
+
+| Name             | Type                                | Default                                           | Description                                                                                                                                 |
+| ---------------- | ----------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pageCount`      | `number`                            |                                                   | The total number of pages.                                                                                                                  |
+| `totalResults`   | `number`                            |                                                   | The total number of results (used to calculate page count if not set).                                                                      |
+| `resultsPerPage` | `number`                            |                                                   | The number of results per page (used to calculate page count if not set).                                                                   |
+| `page`           | `number`                            |                                                   | The current page.                                                                                                                           |
+| `onChange`       | `function`                          |                                                   | The callback handler. The current page is passed as the only argument.                                                                      |
+| `align`          | `'left'` \| `'center'` \| `'right'` | `'center'`                                        | How to align the pagination.                                                                                                                |
+| `scrollToTop`    | `boolean`                           | `false`                                           | Enable to scroll to top of the page after page change.                                                                                      |
+| `scrollTarget`   | `string` \| `Element`               | `document.body`                                   | Specify target to scroll to instead of `document.body`, alternatively you can also pass a string selector, if not found it will do nothing. |
+| `i18n`           | `object`                            | See [Internationalization](#internationalization) | Internationalization for screen readers.                                                                                                    |

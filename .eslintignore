@@ -1,0 +1,16 @@
+**/node_modules/**
+**/build/**
+**/dist/**
+.eslintrc.js
+tailwind.config.js
+jest-preprocess.js
+setupFilesAfterEnv.js
+jest.config.js
+tsdx.config.js
+tsdx.config.base.js
+
+types/**
+# enable linter later
+docs/**
+example/**
+coverage

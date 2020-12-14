@@ -1,0 +1,43 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="Summary"
+  description="Summary is a component used to display display the number of results and the latency from a search query."
+/>
+
+# Summary
+
+The `Summary` component is used to display display the number of results and the latency from a search query.
+
+```js
+import { Summary } from '@sajari/react-search-ui';
+```
+
+## Usage
+
+Additional imports used in the examples:
+
+```js
+import { Input } from '@sajari/react-search-ui';
+```
+
+```jsx
+function Example() {
+  useSearch({ queryOverride: 'iphone' });
+
+  return <Summary />;
+}
+```
+
+### Override a query via autocomplete
+
+```jsx
+function Example() {
+  return (
+    <div className="flex flex-col space-y-3">
+      <Input mode="suggestions" />
+      <Summary suggest />
+    </div>
+  );
+}
+```

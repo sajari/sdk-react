@@ -1,0 +1,56 @@
+import SEO from '../../components/SEO';
+
+<SEO title="ButtonGroup" description="ButtonGroup component is used to group related buttons together." />
+
+# ButtonGroup
+
+The `ButtonGroup` component is used to group related `Button` components.
+
+```js
+import { Button, ButtonGroup } from '@sajari/react-components';
+```
+
+## Usage
+
+```jsx
+<ButtonGroup>
+  <Button>Button</Button>
+  <Button>Button</Button>
+</ButtonGroup>
+```
+
+### Attached
+
+Use the attached prop to attach the buttons together. This will take care of border radius of the child buttons and raise a focused button in the group so box shadow and border are layered correctly.
+
+```jsx
+function ButtonGroupExample() {
+  const [index, setIndex] = React.useState(0);
+  const activeAppearance = 'primary';
+
+  return (
+    <ButtonGroup attached>
+      <Button appearance={index === 0 ? activeAppearance : undefined} onClick={() => setIndex(0)}>
+        Button
+      </Button>
+      <Button appearance={index === 1 ? activeAppearance : undefined} onClick={() => setIndex(1)}>
+        Button
+      </Button>
+      <Button appearance={index === 2 ? activeAppearance : undefined} onClick={() => setIndex(2)}>
+        Button
+      </Button>
+      <Button appearance={index === 3 ? activeAppearance : undefined} onClick={() => setIndex(3)}>
+        Button
+      </Button>
+    </ButtonGroup>
+  );
+}
+```
+
+## Props
+
+The ButtonGroup composes the Box component so you can pass props for Box. These are props related to the Button component.
+
+| Name       | Type      | Default | Description                             |
+| ---------- | --------- | ------- | --------------------------------------- |
+| `attached` | `boolean` |         | Whether to attach the buttons together. |
