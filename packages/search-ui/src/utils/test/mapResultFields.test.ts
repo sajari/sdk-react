@@ -8,7 +8,7 @@ test.each([
   [
     { handle: 'a-sample-slug' },
     // eslint-disable-next-line no-template-curly-in-string
-    { url: '`/products/${handle}`' },
+    { url: '/products/${handle}' },
     { url: '/products/a-sample-slug', handle: 'a-sample-slug' },
   ],
   [

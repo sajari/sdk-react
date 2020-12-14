@@ -15,9 +15,8 @@ export function mapFields<T = Record<string, string | string[] | null>>(values: 
         value = values[match];
       } else if (typeof from === 'function') {
         value = from(values);
-      } else if (from.startsWith('`') && from.endsWith('`')) {
-        const template = from.substring(1, from.length - 1);
-        value = fillTemplate<T>(template, values);
+      } else if (/\${.+}/.test(from)) {
+        value = fillTemplate<T>(from, values);
       } else if (from.startsWith('!function')) {
         const functionBody = from.replace('!function', '');
         // eslint-disable-next-line @typescript-eslint/no-implied-eval
