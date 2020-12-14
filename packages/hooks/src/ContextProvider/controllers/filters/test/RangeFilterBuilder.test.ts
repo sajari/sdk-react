@@ -8,13 +8,13 @@ describe('RangeFilterBuilder', () => {
     field: 'price',
     min: 0,
     max: 500,
+    aggregate: false,
   });
 
   const ratingFilter = new RangeFilterBuilder({
     initial: [1, 3],
     name: 'rating',
     field: 'rating',
-    aggregate: true,
     min: 1,
     max: 5,
   });

@@ -40,7 +40,6 @@ describe('combineFilters', () => {
     name: 'popularity',
     field: 'popularity',
     initial: [100, 600],
-    aggregate: true,
     min: 0,
     max: 1000,
   });
@@ -51,6 +50,7 @@ describe('combineFilters', () => {
     initial: [1, 5],
     min: 1,
     max: 5,
+    aggregate: false,
   });
 
   const combination = combineFilters([
