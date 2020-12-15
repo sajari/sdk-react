@@ -37,7 +37,14 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
   customClassNames = {},
 }) => {
   const [language, setLanguage] = React.useState(i18n.language);
-  i18n.on('languageChanged', setLanguage);
+
+  React.useEffect(() => {
+    i18n.on('languageChanged', setLanguage);
+
+    return () => {
+      i18n.off('languageChanged');
+    };
+  }, []);
 
   return (
     <Provider value={{ disableDefaultStyles, currency, customClassNames, language, ratingMax }}>
