@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.1.0...@sajari/react-sdk-utils@1.1.1) (2020-12-15)
+
+### Bug Fixes
+
+- remove console log ([2b4b4c7](https://github.com/sajari/sdk-react/commit/2b4b4c7596eddf4e039ec7bad3eb1b16497be2fd))
+
 # [1.1.0](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.0.0...@sajari/react-sdk-utils@1.1.0) (2020-12-15)
 
 ### Features
