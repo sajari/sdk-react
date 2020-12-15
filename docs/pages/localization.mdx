@@ -1,0 +1,133 @@
+import SEO from '../components/SEO';
+
+<SEO
+  title="Localization"
+  description="We use i18next to handle localization of various parts of our search interfaces."
+/>
+
+# Localization
+
+We use [i18next](https://react.i18next.com/) to handle localization of various parts of our search interfaces. We export our instance of i18next so that it is possible to provide your own localizations for your search interfaces.
+
+By default we load the relevant localization dictionary based on the a user's browser settings.
+
+## Usage
+
+The default localization is as follows:
+
+```js
+{
+  common: {
+    result: 'Result',
+    results: 'Results',
+    loading: 'Loading',
+    error: 'Error',
+  },
+  errors: {
+    authorization: 'Authorization for this request failed. Please try again.',
+    connection: 'Please check your network connection and try again.',
+    generic: 'Something went wrong. Please try again.',
+  },
+  filter: {
+    reset: 'Reset',
+    all: 'All',
+  },
+  input: {
+    placeholder: 'Search',
+  },
+  resultsPerPage: {
+    label: 'Show',
+  },
+  pagination: {
+    label: 'Pagination',
+    previous: 'Previous',
+    next: 'Next',
+    page: 'Page {{page}}',
+    current: 'Page {{page}}, current page',
+  },
+  results: {
+    empty: {
+      title: 'No results',
+      body: 'No matches were found for "{{query}}".',
+    },
+  },
+  sorting: {
+    label: 'Sort',
+  },
+  summary: {
+    results: '{{count}} {{object}} for "{{query}}"',
+    latency: '({{time}} secs)',
+    alternative: 'Search instead for',
+  },
+  viewType: {
+    label: 'View',
+    grid: 'Grid',
+    list: 'List',
+  },
+}
+```
+
+To add your own translations, you an inject them somewhere in your app before rendering the components.
+
+First import our version of `i18n`:
+
+```js
+import { i18n } from '@sajari/react-search-ui';
+```
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  // Add french localizations for the summary component
+  // https://www.i18next.com/how-to/add-or-load-translations#add-after-init
+  i18n.addResources('fr', 'summary', {
+    results: '{{count}} {{object}} pour "{{query}}"',
+    latency: '({{time}} secondes)',
+    alternative: "Essayez avec l'orthographe",
+  });
+
+  i18n.addResources('fr', 'common', {
+    results: 'résultats',
+    result: 'résultat',
+  });
+
+  i18n.addResources('fr', 'input', {
+    placeholder: 'Rechercher',
+  });
+
+  const [language, setLanguage] = React.useState('en');
+
+  React.useEffect(() => {
+    i18n.changeLanguage(language);
+  }, [language]);
+
+  const SearchPlayground = () => (
+    <div className="space-y-3">
+      <RadioGroup onChange={(e) => setLanguage(e.target.value)} value={language} inline>
+        <Radio value="en">en</Radio>
+        <Radio value="fr">fr</Radio>
+      </RadioGroup>
+      <Input />
+      <Summary />
+    </div>
+  );
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```

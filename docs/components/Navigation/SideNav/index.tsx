@@ -11,6 +11,7 @@ const topNavLinks = [
   ['Hooks'],
   ['Search UI'],
   ['Tracking'],
+  ['Localization'],
   ['Server Side Rendering', '/ssr'],
   ['Styling'],
   ['Upgrading'],
