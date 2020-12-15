@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.0.0...@sajari/react-sdk-utils@1.1.0) (2020-12-15)
+
+### Features
+
+- localization improvements ([f7b5ea1](https://github.com/sajari/sdk-react/commit/f7b5ea168a09b218e4df8f405c28a847fc85dc18))
+
 # 1.0.0 (2020-12-14)
 
 ### Features
