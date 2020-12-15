@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.1.0...@sajari/react-search-ui@1.1.1) (2020-12-15)
+
+### Bug Fixes
+
+- cleanup i18n event listener on dismount ([747687d](https://github.com/sajari/sdk-react/commit/747687de05323f3a75e5c101e9ebfd79e179481f))
+
 # [1.1.0](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.0.0...@sajari/react-search-ui@1.1.0) (2020-12-15)
 
 ### Features
