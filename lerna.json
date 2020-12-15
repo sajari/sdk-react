@@ -10,7 +10,7 @@
   "command": {
     "publish": {
       "conventionalCommits": true,
-      "message": "pkg: publish"
+      "message": "chore(release): publish %s"
     }
   }
 }
