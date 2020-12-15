@@ -12,8 +12,8 @@ import mapResultFields from '../utils/mapResultFields';
 import { InputProps } from './types';
 
 const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInputElement>) => {
-  const { t } = useTranslation();
-  const { placeholder = t('input.placeholder'), mode = 'instant', onChange, ...rest } = props;
+  const { t } = useTranslation('input');
+  const { placeholder = t('placeholder'), mode = 'instant', onChange, ...rest } = props;
   const { results: rawResults, search, searching, fields } = useSearchContext();
   const results = React.useMemo(() => mapResultFields<ResultValues>(rawResults ?? [], fields), [rawResults]);
   const { search: searchInstant, completion, suggestions } = useAutocomplete();

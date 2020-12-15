@@ -18,8 +18,9 @@ const noop = () => {};
 
 const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTMLDivElement>) => {
   const {
+    language,
     format = 'numeric',
-    currencyCode = 'USD',
+    currency = 'USD',
     onChange = noop,
     onInput = noop,
     value = [25, 50],
@@ -99,10 +100,10 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
   // Format a value to be presented in the UI
   const formatValue = (input: number) => {
     if (format === 'price') {
-      return formatNumber(input, currencyCode).replace('.00', '');
+      return formatNumber(input, { style: 'currency', currency }).replace('.00', '');
     }
 
-    return input.toLocaleString();
+    return input.toLocaleString(language);
   };
 
   const handleSwitchRange = () => {

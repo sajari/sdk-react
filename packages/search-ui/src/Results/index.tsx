@@ -25,7 +25,7 @@ const Results = (props: ResultsProps) => {
   const { handleResultClicked } = useTracking();
   const hasImages = React.useMemo(() => results?.some((r) => r.values?.image), [results]);
   const styles = getStylesObject(useResultsStyles({ ...props, appearance, width }), disableDefaultStyles);
-  const { t } = useTranslation();
+  const { t } = useTranslation(['common', 'errors', 'result']);
 
   React.useEffect(() => {
     if (defaultAppearance) {
@@ -34,22 +34,22 @@ const Results = (props: ResultsProps) => {
   }, []);
 
   if (error) {
-    let body = t('errors.generic');
+    let body = t('errors:generic');
 
     if (error.statusCode === 403) {
-      body = t('errors.authorization');
+      body = t('errors:authorization');
     } else if (error.name === 'NetworkError' || error.message.startsWith('NetworkError')) {
-      body = t('errors.connection');
+      body = t('errors:connection');
     }
 
-    return <Message title={t('texts.error')} body={body} className={customClassNames.results?.errorMessage} />;
+    return <Message title={t('common:error')} body={body} className={customClassNames.results?.errorMessage} />;
   }
 
   // We've not searched yet
   if (isNullOrUndefined(results)) {
     return (
       <Message
-        title={t('texts.loading')}
+        title={t('common:loading')}
         appearance="loading"
         disableDefaultStyles={disableDefaultStyles}
         className={customClassNames.results?.searchingMessage}
@@ -63,7 +63,7 @@ const Results = (props: ResultsProps) => {
     if (searching) {
       return (
         <Message
-          title={t('texts.loading')}
+          title={t('common:loading')}
           appearance="loading"
           disableDefaultStyles={disableDefaultStyles}
           className={customClassNames.results?.searchingMessage}
@@ -73,8 +73,8 @@ const Results = (props: ResultsProps) => {
 
     return (
       <Message
-        title={t('results.empty.title')}
-        body={t('results.empty.body', { query: `<strong>${query}</strong>` })}
+        title={t('results:empty.title')}
+        body={t('results:empty.body', { query: `<strong>${query}</strong>` })}
         disableDefaultStyles={disableDefaultStyles}
         className={customClassNames.results?.emptyMessage}
       />

@@ -4,6 +4,7 @@ import { Box as CoreBox, Button, Checkbox, CheckboxGroup, Combobox, Radio, Radio
 import { useFilter, useQuery } from '@sajari/react-hooks';
 import { getStylesObject, isBoolean, isEmpty, useTheme } from '@sajari/react-sdk-utils';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import tw from 'twin.macro';
 
 import { IconSmallChevronDown, IconSmallChevronUp } from '../assets/icons';
@@ -31,8 +32,9 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   const [expanded, setExpanded] = useState(false);
   const { options, reset, setSelected, selected, multi } = useFilter(name);
   const toggleExpanded = useCallback(() => setExpanded((prev) => !prev), []);
-  const { disableDefaultStyles = false, customClassNames } = useSearchUIContext();
+  const { disableDefaultStyles = false, customClassNames, language } = useSearchUIContext();
   const theme = useTheme();
+  const { t } = useTranslation('filter');
 
   const styles = getStylesObject(
     {
@@ -90,7 +92,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
           >
             {typeof itemRender === 'function' ? itemRender(label) : label}
           </Control>
-          <span css={styles.count}>{count.toLocaleString()}</span>
+          <span css={styles.count}>{count.toLocaleString(language)}</span>
         </CoreBox>
       )),
     [JSON.stringify(items), itemRender, selected],
@@ -151,7 +153,9 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
             className={customClassNames.filter?.list?.toggleButton}
             disableDefaultStyles={disableDefaultStyles}
           >
-            {expanded ? 'Show less' : `Show ${(filtered.length - limit).toLocaleString()} more`}
+            {expanded
+              ? t('showLess')
+              : t('showMore', { count: (filtered.length - limit).toLocaleString(language) as never })}
             <Icon css={styles.toggleIcon} />
           </Button>
         </CoreBox>

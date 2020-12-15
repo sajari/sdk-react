@@ -12,9 +12,9 @@ import useViewTypeStyles from './styles';
 import { ViewTypeProps } from './types';
 
 const ViewType = (props: ViewTypeProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('viewType');
   const { customClassNames, disableDefaultStyles = false } = useSearchUIContext();
-  const { label = t('viewType.label'), size, styles: stylesProp, ...rest } = props;
+  const { label = t('label'), size, styles: stylesProp, ...rest } = props;
   const id = `view-type-${useId()}`;
   const { viewType, setViewType, searched } = useSearchContext();
   const styles = getStylesObject(useViewTypeStyles(), disableDefaultStyles);
@@ -49,7 +49,7 @@ const ViewType = (props: ViewTypeProps) => {
           onClick={() => setViewType('grid')}
           size={size}
           appearance={viewType === 'grid' ? 'primary' : undefined}
-          aria-label={t('viewType.grid')}
+          aria-label={t('grid')}
         >
           &#8203;
           <IconSmallGrid />
@@ -58,7 +58,7 @@ const ViewType = (props: ViewTypeProps) => {
           onClick={() => setViewType('list')}
           size={size}
           appearance={viewType === 'list' ? 'primary' : undefined}
-          aria-label={t('viewType.list')}
+          aria-label={t('list')}
         >
           &#8203;
           <IconSmallList />

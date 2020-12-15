@@ -11,11 +11,11 @@ import { SummaryProps } from './types';
 
 const Summary = (props: SummaryProps) => {
   const { latency, totalResults, search, queryValues, searched } = useSearchContext();
-  const { disableDefaultStyles } = useSearchUIContext();
+  const { disableDefaultStyles, language } = useSearchUIContext();
   const { suggest = false, showLatency = false, ...rest } = props;
   const query = queryValues?.get('q') ?? '';
   const { completion } = useAutocomplete();
-  const { t } = useTranslation();
+  const { t } = useTranslation(['common', 'summary']);
 
   if (!searched) {
     return null;
@@ -24,9 +24,9 @@ const Summary = (props: SummaryProps) => {
   return (
     <React.Fragment>
       <LiveMessage
-        message={t('summary.results', {
+        message={t('summary:results', {
           count: totalResults,
-          object: pluralize(totalResults, t('texts.result'), t('texts.results')),
+          object: pluralize(totalResults, t('common:result'), t('common:results')),
           query,
         })}
         aria-live="polite"
@@ -36,17 +36,17 @@ const Summary = (props: SummaryProps) => {
         <Box
           as="span"
           dangerouslySetInnerHTML={{
-            __html: t('summary.results', {
-              count: totalResults.toLocaleString(),
-              object: pluralize(totalResults, t('texts.result'), t('texts.results')).toLowerCase(),
+            __html: t('summary:results', {
+              count: totalResults.toLocaleString(language),
+              object: pluralize(totalResults, t('common:result'), t('common:results')).toLowerCase(),
               query: `<strong>${query}</strong>`,
             } as Record<string, string>),
           }}
         />
-        {showLatency ? ` ${t('summary.latency', { time: latency })}` : ''}
+        {showLatency ? ` ${t('summary:latency', { time: latency })}` : ''}
         {completion && completion !== query.trim() && suggest ? (
           <React.Fragment>
-            {`. ${t('summary.alternative')} `}
+            {`. ${t('summary:alternative')} `}
             <Button
               onClick={() => search(completion)}
               spacing="none"

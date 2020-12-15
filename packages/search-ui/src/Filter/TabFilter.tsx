@@ -11,11 +11,11 @@ import { sortItems } from './utils';
 
 const TabFilter = (props: Omit<TabFilterProps, 'type'>) => {
   const { name, title, limit = 15, sort = 'count', sortAscending = sort !== 'count' } = props;
-  const { t } = useTranslation();
+  const { t } = useTranslation('filter');
   const { options, setSelected, selected } = useFilter(name);
   const sorted = sort !== 'none' ? sortItems(options, sort === 'count' ? 'count' : 'label', sortAscending) : options;
   const sliced = limit && options.length > limit ? sorted.slice(0, limit) : sorted;
-  const { disableDefaultStyles = false, customClassNames } = useSearchUIContext();
+  const { disableDefaultStyles = false, customClassNames, language } = useSearchUIContext();
 
   if (isEmpty(sliced)) {
     return null;
@@ -36,7 +36,7 @@ const TabFilter = (props: Omit<TabFilterProps, 'type'>) => {
           className={customClassNames.filter?.tabs?.tab}
           selectedClassName={customClassNames.filter?.tabs?.selectedTab}
         >
-          {t('filter.all')}
+          {t('all')}
         </Tab>
         {sliced.map(({ label, count, value }) => (
           <Tab
@@ -44,7 +44,7 @@ const TabFilter = (props: Omit<TabFilterProps, 'type'>) => {
             className={customClassNames.filter?.tabs?.tab}
             selectedClassName={customClassNames.filter?.tabs?.selectedTab}
           >
-            {`${label} (${count.toLocaleString()})`}
+            {`${label} (${count.toLocaleString(language)})`}
           </Tab>
         ))}
       </TabList>

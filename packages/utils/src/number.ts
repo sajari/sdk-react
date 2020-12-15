@@ -1,3 +1,4 @@
+import { isNumber } from './assertion';
 import { isSSR } from './ssr';
 
 /**
@@ -60,39 +61,37 @@ export function round(number: number, step: number) {
   return Math.round(number / step) * step;
 }
 
+interface FormatNumberOptions extends Intl.NumberFormatOptions {
+  // Whether to use the neutral locale (e.g. en rather than en-US)
+  neutral?: boolean;
+  // The language to use for formatting (e.g. en or en-US)
+  language?: string;
+}
+
 /**
  * Format a number into a localised format
  *
- * @param input
- * @param currencyCode - Optional ISO currency code (e.g. USD)
- * @param neutral - Use neutral language (e.g. `en` rather than `en-GB`). This is often useful when presenting currencies.
+ * @param input - Number to format
+ * @param options - Formatting options
  */
-export function formatNumber(input: number, currencyCode = '', neutral = true) {
-  if (typeof input !== 'number') {
+export function formatNumber(input: number, options: FormatNumberOptions) {
+  const { neutral = true, language = !isSSR() ? navigator.language : 'en-US', ...rest } = options;
+
+  console.warn(language);
+
+  if (!isNumber(input)) {
     return input;
   }
 
-  if (!currencyCode) {
-    return new Intl.NumberFormat().format(input);
-  }
-
-  let language = 'en-US';
-  if (!isSSR()) {
-    ({ language } = navigator);
-  }
-
-  return new Intl.NumberFormat(neutral ? language.split('-')[0] : language, {
-    style: 'currency',
-    currency: currencyCode,
-  }).format(input);
+  return new Intl.NumberFormat(neutral ? language.split('-')[0] : language, rest).format(input);
 }
 
 /**
  * Format a price or price range to display
  */
-export function formatPrice(input: string | string[] | number, currencyCode = '') {
+export function formatPrice(input: string | string[] | number, options: Omit<FormatNumberOptions, 'style'>) {
   const price = input;
-  const format = (value: number) => formatNumber(value, currencyCode, true);
+  const format = (value: number) => formatNumber(value, { style: 'currency', ...options });
 
   if (!Array.isArray(price)) {
     return format(Number(price));

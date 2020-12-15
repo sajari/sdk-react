@@ -18,7 +18,7 @@ import { I18nextProvider } from 'react-i18next';
 import i18n from '../i18n';
 import { ContextProviderValues, SearchUIContextProviderValues } from './types';
 
-const [Provider, useSearchUIContext] = createContext<Required<SearchUIContextProviderValues>>({
+const [Provider, useSearchUIContext] = createContext<Required<SearchUIContextProviderValues> & { language?: string }>({
   strict: true,
   name: 'PipelineContext',
 });
@@ -30,29 +30,34 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
   searchOnLoad,
   initialResponse,
   ratingMax = 5,
-  currencyCode = 'USD',
+  currency = 'USD',
   theme,
   importantStyles,
   disableDefaultStyles = false,
   customClassNames = {},
-}) => (
-  <Provider value={{ disableDefaultStyles, currencyCode, customClassNames, ratingMax }}>
-    <SearchProvider
-      search={search}
-      autocomplete={autocomplete}
-      searchOnLoad={searchOnLoad}
-      initialResponse={initialResponse}
-    >
-      <LiveAnnouncer>
-        <I18nextProvider i18n={i18n}>
-          <ThemeProvider theme={theme} importantStyles={importantStyles}>
-            {children}
-          </ThemeProvider>
-        </I18nextProvider>
-      </LiveAnnouncer>
-    </SearchProvider>
-  </Provider>
-);
+}) => {
+  const [language, setLanguage] = React.useState(i18n.language);
+  i18n.on('languageChanged', setLanguage);
+
+  return (
+    <Provider value={{ disableDefaultStyles, currency, customClassNames, language, ratingMax }}>
+      <SearchProvider
+        search={search}
+        autocomplete={autocomplete}
+        searchOnLoad={searchOnLoad}
+        initialResponse={initialResponse}
+      >
+        <LiveAnnouncer>
+          <I18nextProvider i18n={i18n}>
+            <ThemeProvider theme={theme} importantStyles={importantStyles}>
+              {children}
+            </ThemeProvider>
+          </I18nextProvider>
+        </LiveAnnouncer>
+      </SearchProvider>
+    </Provider>
+  );
+};
 
 export default ContextProvider;
 export {

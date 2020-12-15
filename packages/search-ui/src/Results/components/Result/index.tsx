@@ -36,7 +36,7 @@ const Result = React.memo(
       styles: stylesProp,
       ...rest
     } = props;
-    const { currencyCode, ratingMax } = useSearchUIContext();
+    const { currency, language, ratingMax } = useSearchUIContext();
     const { title, description, subtitle, image, url, price } = values;
     const rating = Number(values.rating);
     const styles = getStylesObject(useResultStyles({ ...props, appearance }), disableDefaultStyles);
@@ -101,7 +101,7 @@ const Result = React.memo(
 
             {price && appearance === 'list' && (
               <Box css={styles.listPrice} className={priceClassName}>
-                <Text>{formatPrice(price, currencyCode)}</Text>
+                <Text>{formatPrice(price, { currency, language })}</Text>
               </Box>
             )}
           </Box>
@@ -153,7 +153,7 @@ const Result = React.memo(
               )}
               {price && (
                 <Text css={styles.gridPrice} className={priceClassName} disableDefaultStyles={disableDefaultStyles}>
-                  {formatPrice(price, currencyCode)}
+                  {formatPrice(price, { currency, language })}
                 </Text>
               )}
             </Box>

@@ -14,8 +14,8 @@ import { SortingProps, SortOption } from './types';
 const defaultOptions: SortOption[] = [{ name: 'Most relevant', value: '' }];
 
 const Sorting = (props: SortingProps) => {
-  const { t } = useTranslation();
-  const { label = t('sorting.label'), options = defaultOptions, size, styles: stylesProp, ...rest } = props;
+  const { t } = useTranslation('sorting');
+  const { label = t('label'), options = defaultOptions, size, styles: stylesProp, ...rest } = props;
   const { disableDefaultStyles = false, customClassNames } = useSearchUIContext();
   const { searched } = useSearchContext();
   const { sorting, setSorting } = useSorting();

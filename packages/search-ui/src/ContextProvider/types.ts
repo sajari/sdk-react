@@ -5,7 +5,7 @@ export interface SearchUIContextProviderValues {
   /** Maximum possible rating value */
   ratingMax?: number;
   /** Currency code to use for any price display */
-  currencyCode?: string;
+  currency?: string;
   disableDefaultStyles?: boolean;
   customClassNames?: {
     results?: {

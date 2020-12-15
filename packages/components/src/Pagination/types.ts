@@ -1,6 +1,8 @@
 import { BoxProps } from '../Box';
 
 export interface PaginationProps extends BoxProps {
+  /** ISO language code to use for i18n and formatting (e.g. en or en-US). Defaults to browser language. */
+  language?: string;
   /** The total number of pages */
   pageCount?: number;
   /** The total number of results (used to calculate page count if not set) */

@@ -14,9 +14,9 @@ import { ResultsPerPageProps } from './types';
 const defaultOptions = [15, 25, 50, 100];
 
 const ResultsPerPage = (props: ResultsPerPageProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('resultsPerPage');
   const { customClassNames, disableDefaultStyles = false } = useSearchUIContext();
-  const { label = t('resultsPerPage.label'), options = defaultOptions, styles: stylesProp, size, ...rest } = props;
+  const { label = t('label'), options = defaultOptions, styles: stylesProp, size, ...rest } = props;
   const { resultsPerPage, setResultsPerPage } = useResultsPerPage();
   const { searched, totalResults } = useSearchContext();
   const id = `page-size-${useId()}`;

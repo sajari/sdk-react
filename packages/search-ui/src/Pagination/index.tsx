@@ -8,13 +8,14 @@ import { useSearchUIContext } from '../ContextProvider';
 import { PaginationProps } from './types';
 
 const Pagination = (props: PaginationProps) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation('pagination');
   const { align, styles, scrollTarget, scrollToTop } = props;
   const { page, setPage, pageCount, resultsPerPage, totalResults } = usePagination('search');
-  const { customClassNames, disableDefaultStyles } = useSearchUIContext();
+  const { customClassNames, disableDefaultStyles, language } = useSearchUIContext();
 
   return (
     <PurePagination
+      language={language}
       page={page}
       resultsPerPage={resultsPerPage}
       totalResults={totalResults}
@@ -22,11 +23,11 @@ const Pagination = (props: PaginationProps) => {
       onChange={setPage}
       align={align}
       i18n={{
-        label: t('pagination.label'),
-        previous: t('pagination.previous'),
-        next: t('pagination.next'),
-        page: t('pagination.page', { page }),
-        current: t('pagination.current', { page }),
+        label: t('label'),
+        previous: t('previous'),
+        next: t('next'),
+        page: t('page', { page }),
+        current: t('current', { page }),
       }}
       styles={styles}
       className={customClassNames?.pagination?.container}

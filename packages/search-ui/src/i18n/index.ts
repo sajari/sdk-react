@@ -8,8 +8,6 @@ i18n.use(LanguageDetector).init({
     en,
   },
   fallbackLng: 'en',
-  ns: ['translations'],
-  defaultNS: 'translations',
   interpolation: {
     escapeValue: false,
   },

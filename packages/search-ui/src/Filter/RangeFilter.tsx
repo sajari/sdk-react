@@ -8,7 +8,7 @@ import { RangeFilterProps } from './types';
 
 const RangeFilter = ({ name, title, format, showInputs, step, steps, tick, ticks }: Omit<RangeFilterProps, 'type'>) => {
   const { min, max, range, setRange, reset, showReset } = useRangeFilter(name);
-  const { disableDefaultStyles = false, customClassNames, currencyCode } = useSearchUIContext();
+  const { disableDefaultStyles = false, customClassNames, currency, language } = useSearchUIContext();
 
   if (!range || max === 0) {
     return null;
@@ -17,8 +17,9 @@ const RangeFilter = ({ name, title, format, showInputs, step, steps, tick, ticks
   return (
     <Box title={title} showReset={showReset} onReset={reset}>
       <RangeInput
+        language={language}
         format={format}
-        currencyCode={currencyCode}
+        currency={currency}
         min={min}
         max={max}
         value={range}

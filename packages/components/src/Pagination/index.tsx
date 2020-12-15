@@ -32,7 +32,7 @@ const getButtons = (
   const limit = 5;
   const middle = Math.ceil(limit / 2);
   let offset = 0;
-  const { activeClassName = '', spacerEllipsisClassName, buttonClassName, disableDefaultStyles } = props;
+  const { activeClassName = '', spacerEllipsisClassName, buttonClassName, disableDefaultStyles, language } = props;
 
   if (pageCount > limit) {
     if (page < limit) {
@@ -96,7 +96,7 @@ const getButtons = (
         onClick={onChange(false, number)}
         className={classnames(buttonClassName, { [activeClassName]: active })}
       >
-        {number.toLocaleString()}
+        {number.toLocaleString(language)}
       </Button>
     );
   });
@@ -104,6 +104,7 @@ const getButtons = (
 
 const Pagination = React.memo((props: PaginationProps) => {
   const {
+    language,
     totalResults,
     resultsPerPage,
     page,
