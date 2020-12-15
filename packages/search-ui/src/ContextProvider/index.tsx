@@ -39,10 +39,11 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
   const [language, setLanguage] = React.useState(i18n.language);
 
   React.useEffect(() => {
-    i18n.on('languageChanged', setLanguage);
+    const event = 'languageChanged';
+    i18n.on(event, setLanguage);
 
     return () => {
-      i18n.off('languageChanged');
+      i18n.off(event);
     };
   }, []);
 
