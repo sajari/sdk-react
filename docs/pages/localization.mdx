@@ -7,13 +7,13 @@ import SEO from '../components/SEO';
 
 # Localization
 
-We use [i18next](https://react.i18next.com/) to handle localization of various parts of our search interfaces. We export our instance of i18next so that it is possible to provide your own localizations for your search interfaces.
+We use [i18next](https://react.i18next.com/) to handle localization of various parts of our `@sajari/react-search-ui` interfaces. We export our instance of i18next so that it is possible to provide your own localizations for your search interfaces.
 
 By default we load the relevant localization dictionary based on the a user's browser settings.
 
-## Usage
+## Defaults
 
-The default localization is as follows:
+The default localization is as follows, broken down by the component/namespace:
 
 ```js
 {
@@ -69,13 +69,19 @@ The default localization is as follows:
 }
 ```
 
-To add your own translations, you an inject them somewhere in your app before rendering the components.
+## Adding translations
+
+Add resources in your app before rendering the components.
 
 First import our version of `i18n`:
 
 ```js
 import { i18n } from '@sajari/react-search-ui';
 ```
+
+Then use the `addResources` method, noting the namespace you want to add the translations to.
+
+Calling `i18n.changeLanguage('fr')` will force that language (in this case, French), rather than using the browser default.
 
 ```jsx
 function Example() {
