@@ -11,9 +11,10 @@ function useFilter(name: string) {
     search: { filters = [], response },
   } = useContext();
 
-  const filter = useMemo(() => {
-    return filters.filter((f) => f instanceof FilterBuilder && f.getName() === name)[0] as FilterBuilder;
-  }, []);
+  const filter = useMemo(
+    () => filters.filter((f) => f instanceof FilterBuilder && f.getName() === name)[0] as FilterBuilder,
+    [],
+  );
 
   if (!filter) {
     throw new Error(`Filter "${name}" doesn't exist.`);

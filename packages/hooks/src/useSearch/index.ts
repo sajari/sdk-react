@@ -41,11 +41,13 @@ function useCustomSearch({ pipeline, variables }: UseSearchCustomConfig): UseSea
     });
   }, []);
 
-  useEffect(() => {
-    return variables.listen(EVENT_VALUES_UPDATED, () => {
-      searchFn();
-    });
-  }, []);
+  useEffect(
+    () =>
+      variables.listen(EVENT_VALUES_UPDATED, () => {
+        searchFn();
+      }),
+    [],
+  );
 
   return { ...searchOutput, searching };
 }

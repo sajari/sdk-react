@@ -7,18 +7,7 @@
   },
   "overrides": [
     {
-      "files": [
-        "packages/components/src/**/**/*.ts",
-        "packages/components/src/**/**/*.tsx",
-        "packages/hooks/src/**/**/*.ts",
-        "packages/hooks/src/**/**/*.tsx",
-        "packages/search-ui/src/**/**/*.ts",
-        "packages/search-ui/src/**/**/*.tsx",
-        "packages/utils/src/**/**/*.ts",
-        "packages/utils/src/**/**/*.tsx",
-        "packages/styles/src/**/**/*.ts",
-        "packages/styles/src/**/**/*.tsx"
-      ],
+      "files": ["packages/**/src/**/*.ts", "packages/**/src/**/*.tsx"],
       "rules": {
         // Prettier setup
         "prettier/prettier": "error",
@@ -50,9 +39,8 @@
         "react/prop-types": "off",
         "react/require-default-props": "off",
 
-        // Useful feature
+        // JSX
         "react/jsx-props-no-spreading": "off",
-
         "react/react-in-jsx-scope": "off",
 
         // Fix TypeScript extension issues

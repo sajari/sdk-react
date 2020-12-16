@@ -1,4 +1,4 @@
-import { combineFilters, EVENT_RESPONSE_UPDATED, SearchProviderValues, Variables, Response } from '@sajari/react-hooks';
+import { combineFilters, EVENT_RESPONSE_UPDATED, Response, SearchProviderValues, Variables } from '@sajari/react-hooks';
 import { isEmpty } from '@sajari/react-sdk-utils';
 
 function search(props: SearchProviderValues['search']): Promise<string | null> {
