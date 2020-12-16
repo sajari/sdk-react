@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { getStylesObject } from '@sajari/react-sdk-utils';
+import React from 'react';
 
 import Box from '../Box';
 import useRatingItemStyles from './styles';

@@ -1,5 +1,8 @@
 {
   "extends": "../../tsconfig.build.json",
   "files": ["./src/types/twin.d.ts"],
+  "compilerOptions": {
+    "jsx": "preserve"
+  },
   "include": ["src", "types", "../../types"]
 }

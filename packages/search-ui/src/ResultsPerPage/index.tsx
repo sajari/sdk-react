@@ -1,8 +1,7 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { useId } from '@react-aria/utils';
 import { Select } from '@sajari/react-components';
 import { useResultsPerPage, useSearchContext } from '@sajari/react-hooks';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';

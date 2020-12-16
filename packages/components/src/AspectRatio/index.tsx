@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { forwardRefWithAs, getStylesObject, PropsWithAs } from '@sajari/react-sdk-utils';
 import React, { Children, cloneElement, isValidElement } from 'react';
 

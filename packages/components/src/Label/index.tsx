@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
+
 import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import React from 'react';
 

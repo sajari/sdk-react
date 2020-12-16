@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { Box, Heading, Spinner, Text } from '@sajari/react-components';
 import { getStylesObject } from '@sajari/react-sdk-utils';
 import * as React from 'react';

@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { __DEV__, cleanChildren } from '@sajari/react-sdk-utils';
 import React, { cloneElement } from 'react';
 

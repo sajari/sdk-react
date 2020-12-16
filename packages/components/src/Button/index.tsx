@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { useButton } from '@react-aria/button';
 import { useFocus, useHover } from '@react-aria/interactions';
 import { mergeProps } from '@react-aria/utils';

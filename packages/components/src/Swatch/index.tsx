@@ -1,7 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { __DEV__, cleanChildren, getStylesObject } from '@sajari/react-sdk-utils';
-import { cloneElement, useCallback } from 'react';
+import React, { cloneElement, useCallback } from 'react';
 import tw from 'twin.macro';
 
 import Box from '../Box';

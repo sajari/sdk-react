@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { Combobox } from '@sajari/react-components';
 import { useAutocomplete, useQuery, useSearchContext } from '@sajari/react-hooks';
 import { __DEV__ } from '@sajari/react-sdk-utils';
