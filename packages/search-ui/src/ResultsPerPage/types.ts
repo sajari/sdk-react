@@ -1,7 +1,9 @@
 import { BoxProps } from '@sajari/react-components';
 
-export interface ResultsPerPageProps extends Omit<BoxProps, 'className'> {
-  label?: string;
+import { ViewOptionProps } from '../ViewOption';
+
+export interface ResultsPerPageProps
+  extends Omit<BoxProps, 'className'>,
+    Pick<ViewOptionProps, 'label' | 'size' | 'inline'> {
   options?: number[];
-  size?: 'sm' | 'md' | 'lg';
 }

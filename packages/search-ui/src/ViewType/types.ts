@@ -1,6 +1,7 @@
 import { BoxProps } from '@sajari/react-components';
 
-export interface ViewTypeProps extends Omit<BoxProps, 'className'> {
-  label?: string;
-  size?: 'sm' | 'md' | 'lg';
-}
+import { ViewOptionProps } from '../ViewOption';
+
+export interface ViewTypeProps
+  extends Omit<BoxProps, 'className'>,
+    Pick<ViewOptionProps, 'label' | 'size' | 'inline'> {}
