@@ -1,6 +1,6 @@
 import { getStylesObject } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
-import React from 'react';
+import * as React from 'react';
 
 import { IconEnterKey } from '../../../assets/icons';
 import Box from '../../../Box';

@@ -1,5 +1,5 @@
 import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
-import React from 'react';
+import * as React from 'react';
 
 import AspectRatio from '../AspectRatio';
 import Box from '../Box';

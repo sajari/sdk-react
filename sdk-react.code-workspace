@@ -22,7 +22,8 @@
 
     // Special file associations
     "files.associations": {
-      ".eslintrc": "jsonc"
+      ".eslintrc": "jsonc",
+      ".babelrc": "jsonc"
     },
 
     "editor.codeActionsOnSave": {

@@ -1,7 +1,6 @@
 /* eslint-disable react/no-array-index-key */
-
 import { getStylesObject } from '@sajari/react-sdk-utils';
-import React from 'react';
+import * as React from 'react';
 
 import { IconDownKey, IconEnterKey, IconUpKey } from '../../../assets/icons';
 import Box from '../../../Box';

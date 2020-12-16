@@ -1,7 +1,7 @@
 import { Box as CoreBox, Button, Checkbox, CheckboxGroup, Combobox, Radio, RadioGroup } from '@sajari/react-components';
 import { useFilter, useQuery } from '@sajari/react-hooks';
 import { getStylesObject, isBoolean, isEmpty, useTheme } from '@sajari/react-sdk-utils';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import tw from 'twin.macro';
 

@@ -1,9 +1,8 @@
 import { getStylesObject } from '@sajari/react-sdk-utils';
-import React from 'react';
 
-import Box from '../Box';
+import Box from '../../../Box';
+import { InternalRatingItemProps } from '../../types';
 import useRatingItemStyles from './styles';
-import { InternalRatingItemProps } from './types';
 
 export const RatingItem = (props: InternalRatingItemProps) => {
   const { character, active, count, index, styles: stylesProp, disableDefaultStyles = false, ...rest } = props;
@@ -19,3 +18,5 @@ export const RatingItem = (props: InternalRatingItemProps) => {
     </Box>
   );
 };
+
+export type { InternalRatingItemProps };

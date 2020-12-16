@@ -1,7 +1,7 @@
 import { Pagination as PurePagination } from '@sajari/react-components';
 import { usePagination } from '@sajari/react-hooks';
 import { __DEV__ } from '@sajari/react-sdk-utils';
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';

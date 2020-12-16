@@ -1,6 +1,6 @@
 import { RangeInput } from '@sajari/react-components';
 import { useRangeFilter } from '@sajari/react-hooks';
-import React from 'react';
+import * as React from 'react';
 
 import { useSearchUIContext } from '../ContextProvider';
 import Box from './Box';

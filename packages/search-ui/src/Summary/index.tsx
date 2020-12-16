@@ -2,7 +2,7 @@
 import { Box, Button, Text } from '@sajari/react-components';
 import { useAutocomplete, useSearchContext } from '@sajari/react-hooks';
 import { pluralize } from '@sajari/react-sdk-utils';
-import React from 'react';
+import * as React from 'react';
 import { LiveMessage } from 'react-aria-live';
 import { useTranslation } from 'react-i18next';
 

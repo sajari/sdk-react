@@ -1,8 +1,8 @@
 import { mapStyles } from '@sajari/react-sdk-utils';
 import tw from 'twin.macro';
 
-import { useBorderRadius, useFocusRingStyles } from '../hooks';
-import { ColorProps } from './types';
+import { useBorderRadius, useFocusRingStyles } from '../../../hooks';
+import { ColorProps } from '../../types';
 
 interface UseColorStylesParams {
   checked: boolean;

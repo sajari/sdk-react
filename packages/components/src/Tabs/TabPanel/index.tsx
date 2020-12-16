@@ -1,5 +1,5 @@
 import { __DEV__, assignRef } from '@sajari/react-sdk-utils';
-import React from 'react';
+import * as React from 'react';
 
 import Box from '../../Box';
 import { useTabContext } from '../context';

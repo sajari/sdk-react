@@ -8,12 +8,12 @@ import ColorClass from 'color';
 import React, { useCallback, useMemo } from 'react';
 import tw, { styled } from 'twin.macro';
 
-import { IconCheck } from '../assets/icons';
-import Box from '../Box';
-import { colors } from './colors';
-import { useSwatchContext } from './context';
+import { IconCheck } from '../../../assets/icons';
+import Box from '../../../Box';
+import { colors } from '../../colors';
+import { useSwatchContext } from '../../context';
+import { ColorProps } from '../../types';
 import useColorStyles from './styles';
-import { ColorProps } from './types';
 
 const StyledLabel = styled.label<{
   textColor: ColorProps['color'];

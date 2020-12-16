@@ -1,5 +1,5 @@
 import { getStylesObject } from '@sajari/react-sdk-utils';
-import React from 'react';
+import * as React from 'react';
 
 import Box, { BoxProps } from '../../../Box';
 import useTrackStyles from './styles';

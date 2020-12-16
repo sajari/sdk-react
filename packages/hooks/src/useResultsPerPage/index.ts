@@ -1,5 +1,5 @@
 import { isNumber } from '@sajari/react-sdk-utils';
-import React from 'react';
+import * as React from 'react';
 
 import { useContext } from '../ContextProvider';
 import { UseResultsPerPageResult } from './types';

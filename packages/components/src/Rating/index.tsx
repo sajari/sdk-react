@@ -1,14 +1,13 @@
 /* eslint-disable react/no-array-index-key */
-
 import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
-import React from 'react';
+import * as React from 'react';
 import tw from 'twin.macro';
 
 import { IconSmallStar } from '../assets/icons';
 import Box from '../Box';
 import { toRatingArray } from '../utils/rating';
-import { RatingItem } from './RatingItem';
+import { RatingItem } from './components/RatingItem';
 import { ItemType, RatingItemProps, RatingProps } from './types';
 
 const Rating = React.forwardRef((props: RatingProps, ref: React.Ref<HTMLDivElement>) => {

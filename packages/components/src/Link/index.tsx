@@ -2,7 +2,7 @@
 
 import { mergeProps } from '@react-aria/utils';
 import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
-import React from 'react';
+import * as React from 'react';
 
 import { useFocusRingStyles } from '../hooks';
 import useLinkStyles from './styles';

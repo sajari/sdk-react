@@ -1,6 +1,5 @@
 import { getStylesObject } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
-import React from 'react';
 
 import Box from '../../../Box';
 import Heading from '../../../Heading';

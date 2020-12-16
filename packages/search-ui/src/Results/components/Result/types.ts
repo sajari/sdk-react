@@ -1,6 +1,6 @@
 import { BoxProps } from '@sajari/react-components';
 import { Token } from '@sajari/react-hooks';
-import React from 'react';
+import * as React from 'react';
 
 import { ResultsProps, ResultValues } from '../../types';
 

@@ -1,7 +1,7 @@
 import { useId } from '@react-aria/utils';
 import { Select } from '@sajari/react-components';
 import { useSorting } from '@sajari/react-hooks';
-import React from 'react';
+import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';

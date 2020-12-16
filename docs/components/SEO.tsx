@@ -1,5 +1,5 @@
 import { NextSeo, NextSeoProps } from 'next-seo';
-import React from 'react';
+import * as React from 'react';
 
 import defaultSEO from '../seo.config';
 

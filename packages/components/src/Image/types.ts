@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { AspectRatioProps } from '../AspectRatio';
 import { BoxProps } from '../Box';

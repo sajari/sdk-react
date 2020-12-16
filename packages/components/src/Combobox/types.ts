@@ -1,5 +1,5 @@
 import { UseComboboxReturnValue } from 'downshift';
-import React from 'react';
+import * as React from 'react';
 
 import { BoxProps } from '../Box';
 

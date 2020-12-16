@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@sajari/react-sdk-utils';
 import { render } from '@testing-library/react';
-import React from 'react';
+import * as React from 'react';
 
 import Tabs, { Tab, TabList, TabPanel, TabPanels } from '..';
 

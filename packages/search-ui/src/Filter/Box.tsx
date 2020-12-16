@@ -1,5 +1,5 @@
 import { Box as CoreBox } from '@sajari/react-components';
-import React from 'react';
+import * as React from 'react';
 
 import { useSearchUIContext } from '../ContextProvider';
 import Header from './Header';

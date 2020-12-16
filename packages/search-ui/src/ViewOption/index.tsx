@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { Box, Label, Text } from '@sajari/react-components';
 import { useSearchContext } from '@sajari/react-hooks';
 import { getStylesObject } from '@sajari/react-sdk-utils';

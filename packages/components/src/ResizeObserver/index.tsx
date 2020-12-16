@@ -1,5 +1,5 @@
 import { __DEV__, isSSR } from '@sajari/react-sdk-utils';
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import Observer from 'resize-observer-polyfill';
 
 import Box from '../Box';

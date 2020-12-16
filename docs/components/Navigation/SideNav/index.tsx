@@ -1,5 +1,5 @@
 import { Box, BoxProps, Heading, HeadingProps } from '@sajari-ui/core';
-import React from 'react';
+import * as React from 'react';
 
 import { classes, components, searchComponents, hooks, tracking } from '../../menu-items';
 import { SideNavLink, stringToUrl } from '../NavLink';

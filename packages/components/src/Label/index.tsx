@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
 import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
-import React from 'react';
+import * as React from 'react';
 
 import Box from '../Box';
 import useLabelStyles from './styles';

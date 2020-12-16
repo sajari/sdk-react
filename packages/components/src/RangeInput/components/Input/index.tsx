@@ -1,8 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-
 import { useTextField } from '@react-aria/textfield';
 import { getStylesObject } from '@sajari/react-sdk-utils';
-import React from 'react';
+import * as React from 'react';
 import tw from 'twin.macro';
 
 import Box from '../../../Box';

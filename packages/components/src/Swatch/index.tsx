@@ -3,8 +3,8 @@ import React, { cloneElement, useCallback } from 'react';
 import tw from 'twin.macro';
 
 import Box from '../Box';
-import { Color } from './color';
 import { colorKeys } from './colors';
+import { Color } from './components/Color';
 import SwatchContextProvider from './context';
 import { SwatchProps } from './types';
 

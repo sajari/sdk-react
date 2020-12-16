@@ -1,5 +1,5 @@
 import { __DEV__ } from '@sajari/react-sdk-utils';
-import React from 'react';
+import * as React from 'react';
 
 import { LogoSajariColor, LogoSajariMono } from '../assets/logos';
 import Box from '../Box';

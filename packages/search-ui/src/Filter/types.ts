@@ -1,5 +1,5 @@
 import { RangeInputProps } from '@sajari/react-components';
-import React from 'react';
+import * as React from 'react';
 
 export interface HeaderProps {
   title: React.ReactNode;
