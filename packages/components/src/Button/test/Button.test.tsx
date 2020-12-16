@@ -5,6 +5,15 @@ import * as React from 'react';
 import Button from '..';
 
 describe('Button', () => {
+  test('Should match snapshot', () => {
+    const { asFragment } = render(
+      <ThemeProvider>
+        <Button>test</Button>
+      </ThemeProvider>,
+    );
+    expect(asFragment()).toMatchSnapshot();
+  });
+
   it('Should trigger click event', () => {
     const onClickSpy = jest.fn();
     const { getByRole } = render(
@@ -25,7 +34,6 @@ describe('Button', () => {
         <Button onClick={onClickSpy} disabled>
           Click me
         </Button>
-        ,
       </ThemeProvider>,
     );
     const button = getByRole('button');
@@ -41,7 +49,6 @@ describe('Button', () => {
         <Button onClick={onClickSpy} href="sajari.com" as="a">
           Click me
         </Button>
-        ,
       </ThemeProvider>,
     );
 
