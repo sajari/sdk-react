@@ -1,27 +1,24 @@
-import { ThemeProvider } from '@sajari/react-sdk-utils';
-import { render } from '@testing-library/react';
 import * as React from 'react';
 
+import { render } from '../../test/utils';
 import Tabs, { Tab, TabList, TabPanel, TabPanels } from '..';
 
 describe('Tabs', () => {
   it('Should call the onChange handler', () => {
     const setTabIndex = jest.fn();
     const { getAllByRole } = render(
-      <ThemeProvider>
-        <Tabs onChange={setTabIndex}>
-          <TabList>
-            <Tab>Red</Tab>
-            <Tab>Green</Tab>
-            <Tab>Blue</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>The Primary Colors</TabPanel>
-            <TabPanel>Are 1, 2, 3</TabPanel>
-            <TabPanel>Red, green and blue.</TabPanel>
-          </TabPanels>
-        </Tabs>
-      </ThemeProvider>,
+      <Tabs onChange={setTabIndex}>
+        <TabList>
+          <Tab>Red</Tab>
+          <Tab>Green</Tab>
+          <Tab>Blue</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>The Primary Colors</TabPanel>
+          <TabPanel>Are 1, 2, 3</TabPanel>
+          <TabPanel>Red, green and blue.</TabPanel>
+        </TabPanels>
+      </Tabs>,
     );
     const tabs = getAllByRole('tab');
     tabs[2].click();
@@ -35,20 +32,18 @@ describe('Tabs', () => {
   it('Should hide/unhide the active/inactive tabs', () => {
     const setTabIndex = jest.fn();
     const { getAllByRole } = render(
-      <ThemeProvider>
-        <Tabs onChange={setTabIndex}>
-          <TabList>
-            <Tab>Red</Tab>
-            <Tab>Green</Tab>
-            <Tab>Blue</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>The Primary Colors</TabPanel>
-            <TabPanel>Are 1, 2, 3</TabPanel>
-            <TabPanel>Red, green and blue.</TabPanel>
-          </TabPanels>
-        </Tabs>
-      </ThemeProvider>,
+      <Tabs onChange={setTabIndex}>
+        <TabList>
+          <Tab>Red</Tab>
+          <Tab>Green</Tab>
+          <Tab>Blue</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>The Primary Colors</TabPanel>
+          <TabPanel>Are 1, 2, 3</TabPanel>
+          <TabPanel>Red, green and blue.</TabPanel>
+        </TabPanels>
+      </Tabs>,
     );
     const tabs = getAllByRole('tab');
     const tabPanels = getAllByRole('tabpanel', { hidden: true });

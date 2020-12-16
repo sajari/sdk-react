@@ -1,17 +1,12 @@
-import { ThemeProvider } from '@sajari/react-sdk-utils';
-import { render } from '@testing-library/react';
 import * as React from 'react';
 
+import { render } from '../../test/utils';
 import Checkbox from '..';
 
 describe('Checkbox', () => {
   it('Should call the onChange handler', () => {
     const onChange = jest.fn();
-    const { getByText } = render(
-      <ThemeProvider>
-        <Checkbox onChange={onChange}>Suggestions</Checkbox>
-      </ThemeProvider>,
-    );
+    const { getByText } = render(<Checkbox onChange={onChange}>Suggestions</Checkbox>);
     const element = getByText('Suggestions');
     element.click();
     expect(onChange).toHaveBeenCalled();
@@ -19,10 +14,10 @@ describe('Checkbox', () => {
 
   it('Should toggle the checkbox', () => {
     const { getByText, container } = render(
-      <ThemeProvider>
+      <>
         <Checkbox>Male</Checkbox>
         <Checkbox defaultChecked>Female</Checkbox>
-      </ThemeProvider>,
+      </>,
     );
 
     const maleCheckboxLabel = getByText('Male');
@@ -40,11 +35,9 @@ describe('Checkbox', () => {
 
   it('Should have proper aria attribute when invalid', () => {
     const { container } = render(
-      <ThemeProvider>
-        <Checkbox id="invalid-checkbox" invalid>
-          Invalid
-        </Checkbox>
-      </ThemeProvider>,
+      <Checkbox id="invalid-checkbox" invalid>
+        Invalid
+      </Checkbox>,
     );
     const element = container.querySelector('input#invalid-checkbox');
     expect(element).not.toBeNull();

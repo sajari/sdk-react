@@ -1,26 +1,18 @@
-import { ThemeProvider } from '@sajari/react-sdk-utils';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import * as React from 'react';
 
+import { render } from '../../test/utils';
 import Button from '..';
 
 describe('Button', () => {
   test('Should match snapshot', () => {
-    const { asFragment } = render(
-      <ThemeProvider>
-        <Button>test</Button>
-      </ThemeProvider>,
-    );
+    const { asFragment } = render(<Button>test</Button>);
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('Should trigger click event', () => {
     const onClickSpy = jest.fn();
-    const { getByRole } = render(
-      <ThemeProvider>
-        <Button onClick={onClickSpy}>Click me</Button>
-      </ThemeProvider>,
-    );
+    const { getByRole } = render(<Button onClick={onClickSpy}>Click me</Button>);
     const button = getByRole('button');
     fireEvent.click(button);
 
@@ -30,11 +22,9 @@ describe('Button', () => {
   it('Should not response if disabled', () => {
     const onClickSpy = jest.fn();
     const { getByRole } = render(
-      <ThemeProvider>
-        <Button onClick={onClickSpy} disabled>
-          Click me
-        </Button>
-      </ThemeProvider>,
+      <Button onClick={onClickSpy} disabled>
+        Click me
+      </Button>,
     );
     const button = getByRole('button');
     fireEvent.click(button);
@@ -45,11 +35,9 @@ describe('Button', () => {
   it('Can have elementType=a with an href', () => {
     const onClickSpy = jest.fn();
     const { getByRole } = render(
-      <ThemeProvider>
-        <Button onClick={onClickSpy} href="sajari.com" as="a">
-          Click me
-        </Button>
-      </ThemeProvider>,
+      <Button onClick={onClickSpy} href="sajari.com" as="a">
+        Click me
+      </Button>,
     );
 
     const button = getByRole('button');

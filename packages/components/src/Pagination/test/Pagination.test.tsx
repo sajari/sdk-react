@@ -1,17 +1,12 @@
-import { ThemeProvider } from '@sajari/react-sdk-utils';
-import { render } from '@testing-library/react';
 import * as React from 'react';
 
+import { render } from '../../test/utils';
 import Pagination from '..';
 
 describe('Pagination', () => {
   it('Should change page with the onChange handler', () => {
     const setPage = jest.fn();
-    const { getByText } = render(
-      <ThemeProvider>
-        <Pagination totalResults={1000} resultsPerPage={20} page={1} onChange={setPage} />
-      </ThemeProvider>,
-    );
+    const { getByText } = render(<Pagination totalResults={1000} resultsPerPage={20} page={1} onChange={setPage} />);
     const pageTwo = getByText('2');
     pageTwo.click();
     expect(setPage).toHaveBeenCalledWith(2);
@@ -23,29 +18,19 @@ describe('Pagination', () => {
     const resultsPerPage = 20;
     const totalPages = Math.ceil(totalResults / resultsPerPage);
     const { getByText, queryByText } = render(
-      <ThemeProvider>
-        <Pagination totalResults={totalResults} resultsPerPage={resultsPerPage} page={1} onChange={setPage} />
-      </ThemeProvider>,
+      <Pagination totalResults={totalResults} resultsPerPage={resultsPerPage} page={1} onChange={setPage} />,
     );
     expect(getByText(totalPages)).toBeInTheDocument();
     expect(queryByText(totalPages + 1)).toBeNull();
   });
 
   it('Should show nothing if totalResults is not passed', () => {
-    const { container } = render(
-      <ThemeProvider>
-        <Pagination resultsPerPage={5} page={1} onChange={jest.fn()} />
-      </ThemeProvider>,
-    );
+    const { container } = render(<Pagination resultsPerPage={5} page={1} onChange={jest.fn()} />);
     expect(container.children).toHaveLength(0);
   });
 
   it('Should show nothing if resultsPerPage is not passed', () => {
-    const { container } = render(
-      <ThemeProvider>
-        <Pagination totalResults={100} page={1} onChange={jest.fn()} />
-      </ThemeProvider>,
-    );
+    const { container } = render(<Pagination totalResults={100} page={1} onChange={jest.fn()} />);
     expect(container.children).toHaveLength(0);
   });
 
@@ -58,9 +43,7 @@ describe('Pagination', () => {
       current: 'Trang {{page}}, trang hiện tại',
     };
     const { getByLabelText } = render(
-      <ThemeProvider>
-        <Pagination totalResults={10} resultsPerPage={5} page={1} i18n={i18n} onChange={jest.fn()} />
-      </ThemeProvider>,
+      <Pagination totalResults={10} resultsPerPage={5} page={1} i18n={i18n} onChange={jest.fn()} />,
     );
     expect(getByLabelText('Phân trang')).toBeInTheDocument();
     expect(getByLabelText('Trang trước')).toBeInTheDocument();
