@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { useId } from '@react-aria/utils';
 import React, { useRef, useState } from 'react';
 

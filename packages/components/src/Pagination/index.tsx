@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { clamp, getStylesObject, isSSR, isString } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
 import React, { useCallback, useEffect } from 'react';

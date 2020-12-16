@@ -1,6 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
+
 import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
 import React from 'react';

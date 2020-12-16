@@ -1,6 +1,5 @@
 /* eslint-disable no-nested-ternary */
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
+
 import { __DEV__, cleanChildren, getStylesObject } from '@sajari/react-sdk-utils';
 import React, { cloneElement } from 'react';
 import tw, { styled } from 'twin.macro';

@@ -1,6 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { Box as CoreBox } from '@sajari/react-components';
+import React from 'react';
 
 import { useSearchUIContext } from '../ContextProvider';
 import Header from './Header';

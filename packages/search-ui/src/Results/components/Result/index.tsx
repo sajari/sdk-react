@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-no-target-blank */
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
+
 import { Box, Heading, Image, ImageProps, Link, Rating, Text } from '@sajari/react-components';
 import {
   __DEV__,

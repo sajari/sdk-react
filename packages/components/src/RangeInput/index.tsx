@@ -1,5 +1,3 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
 import { __DEV__, clamp, closest, formatNumber, getStylesObject, round } from '@sajari/react-sdk-utils';
 import React, { MouseEvent, ReactNode, useEffect } from 'react';

@@ -1,7 +1,5 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
 import { __DEV__, isSSR } from '@sajari/react-sdk-utils';
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Observer from 'resize-observer-polyfill';
 
 import Box from '../Box';

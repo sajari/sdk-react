@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
+
 import { __DEV__ } from '@sajari/react-sdk-utils';
 import React from 'react';
 

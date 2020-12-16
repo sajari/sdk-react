@@ -1,6 +1,5 @@
 /* eslint-disable no-confusing-arrow */
-/** @jsx jsx */
-import { jsx } from '@emotion/core';
+
 import { useSwitch } from '@react-aria/switch';
 import { useToggleState } from '@react-stately/toggle';
 import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
