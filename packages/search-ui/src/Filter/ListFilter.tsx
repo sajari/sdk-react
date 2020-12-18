@@ -1,7 +1,7 @@
 import { Box as CoreBox, Button, Checkbox, CheckboxGroup, Combobox, Radio, RadioGroup } from '@sajari/react-components';
 import { useFilter, useQuery } from '@sajari/react-hooks';
 import { getStylesObject, isBoolean, isEmpty, useTheme } from '@sajari/react-sdk-utils';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import tw from 'twin.macro';
 
@@ -25,11 +25,11 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     placeholder = 'Search',
   } = props;
   let { pinSelected } = props;
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = React.useState('');
   const { query: q } = useQuery();
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = React.useState(false);
   const { options, reset, setSelected, selected, multi } = useFilter(name);
-  const toggleExpanded = useCallback(() => setExpanded((prev) => !prev), []);
+  const toggleExpanded = React.useCallback(() => setExpanded((prev) => !prev), []);
   const { disableDefaultStyles = false, customClassNames, language } = useSearchUIContext();
   const theme = useTheme();
   const { t } = useTranslation('filter');
@@ -51,7 +51,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     pinSelected = options.length > limit;
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     setQuery('');
     setExpanded(false);
   }, [q]);
@@ -60,7 +60,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   const filtered = searchable ? options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase())) : options;
   const slice = filtered.length > limit;
 
-  const sortedItems = useMemo(() => {
+  const sortedItems = React.useMemo(() => {
     let list = filtered;
 
     if (sort !== 'none') {
@@ -77,7 +77,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   const items = slice && !expanded ? sortedItems.slice(0, limit) : sortedItems;
   const Icon = expanded ? IconSmallChevronUp : IconSmallChevronDown;
 
-  const innerList = useMemo(
+  const innerList = React.useMemo(
     () =>
       items.map(({ label, count }) => (
         <CoreBox css={styles.innerList} key={label + count}>

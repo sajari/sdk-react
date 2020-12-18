@@ -1,5 +1,5 @@
 import { __DEV__, cleanChildren, getStylesObject } from '@sajari/react-sdk-utils';
-import React, { cloneElement, useCallback } from 'react';
+import * as React from 'react';
 import tw from 'twin.macro';
 
 import Box from '../Box';
@@ -20,7 +20,7 @@ const Swatch = ({
 }: SwatchProps) => {
   const styles = getStylesObject({ container: tw`flex flex-wrap -mt-2 -ml-2` }, disableDefaultStyles);
   const validChildren = cleanChildren(children);
-  const setState = useCallback(
+  const setState = React.useCallback(
     (color: string) => {
       if (checkedColors.includes(color)) {
         onChange(checkedColors.filter((c) => c !== color));
@@ -30,11 +30,16 @@ const Swatch = ({
     },
     [JSON.stringify(checkedColors)],
   );
+
   return (
     <SwatchContextProvider value={{ state: checkedColors, setState, disableDefaultStyles }}>
       <Box css={[styles.container, stylesProp]} {...rest}>
         {validChildren.map((child) =>
-          cloneElement(child, { className: colorClassName, checkedClassName: colorCheckedClassName, ...child.props }),
+          React.cloneElement(child, {
+            className: colorClassName,
+            checkedClassName: colorCheckedClassName,
+            ...child.props,
+          }),
         )}
       </Box>
     </SwatchContextProvider>

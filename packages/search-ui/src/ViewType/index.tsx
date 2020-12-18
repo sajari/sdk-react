@@ -1,6 +1,7 @@
 import { useId } from '@react-aria/utils';
 import { Button, ButtonGroup } from '@sajari/react-components';
 import { useSearchContext } from '@sajari/react-hooks';
+import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { IconSmallGrid, IconSmallList } from '../assets/icons';

@@ -1,6 +1,7 @@
 import { Tab, TabList, Tabs } from '@sajari/react-components';
 import { useFilter } from '@sajari/react-hooks';
 import { isEmpty } from '@sajari/react-sdk-utils';
+import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';

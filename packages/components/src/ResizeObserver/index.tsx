@@ -1,5 +1,5 @@
 import { __DEV__, isSSR } from '@sajari/react-sdk-utils';
-import { useEffect, useRef } from 'react';
+import * as React from 'react';
 import Observer from 'resize-observer-polyfill';
 
 import Box from '../Box';
@@ -9,11 +9,11 @@ const noop = () => {};
 
 const ResizeObserver = (props: ResizeObserverProps) => {
   const { onReady = noop, onResize = noop, children, ...rest } = props;
-  const ref = useRef<HTMLDivElement>(null);
-  const observer = useRef<Observer>();
+  const ref = React.useRef<HTMLDivElement>(null);
+  const observer = React.useRef<Observer>();
   const animationFrameIds: ReturnType<typeof requestAnimationFrame>[] = [];
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!isSSR() && Observer && ref.current) {
       const target = ref.current;
 

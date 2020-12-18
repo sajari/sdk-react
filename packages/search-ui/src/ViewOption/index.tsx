@@ -1,6 +1,7 @@
 import { Box, Label, Text } from '@sajari/react-components';
 import { useSearchContext } from '@sajari/react-hooks';
 import { getStylesObject } from '@sajari/react-sdk-utils';
+import * as React from 'react';
 
 import { useSearchUIContext } from '../ContextProvider';
 import useViewOptionStyles from './styles';

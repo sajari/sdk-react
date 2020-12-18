@@ -1,4 +1,5 @@
 import { getStylesObject } from '@sajari/react-sdk-utils';
+import * as React from 'react';
 
 import { IconEmptyMic, IconMic } from '../../../assets/icons';
 import Box from '../../../Box';

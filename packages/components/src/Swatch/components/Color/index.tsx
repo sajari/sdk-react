@@ -5,7 +5,7 @@ import { useToggleState } from '@react-stately/toggle';
 import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
 import ColorClass from 'color';
-import React, { useCallback, useMemo } from 'react';
+import * as React from 'react';
 import tw, { styled } from 'twin.macro';
 
 import { IconCheck } from '../../../assets/icons';
@@ -84,8 +84,8 @@ const FunctionalColor = React.memo(
 export const Color = (props: ColorProps) => {
   const { id } = props;
   const { state, setState, disableDefaultStyles = false } = useSwatchContext();
-  const checked = useMemo(() => state.includes(id), [state, id]);
-  const toggle = useCallback(() => setState(id), [setState, id]);
+  const checked = React.useMemo(() => state.includes(id), [state, id]);
+  const toggle = React.useCallback(() => setState(id), [setState, id]);
   return <FunctionalColor {...props} disableDefaultStyles={disableDefaultStyles} toggle={toggle} checked={checked} />;
 };
 

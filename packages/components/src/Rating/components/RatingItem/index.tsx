@@ -1,4 +1,5 @@
 import { getStylesObject } from '@sajari/react-sdk-utils';
+import * as React from 'react';
 
 import Box from '../../../Box';
 import { InternalRatingItemProps } from '../../types';
