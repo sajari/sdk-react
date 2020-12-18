@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.4](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.1.3...sajari-sdk-docs@1.1.4) (2020-12-18)
+
+### Bug Fixes
+
+- default usePagination argument to ‘search’ ([2621f46](https://github.com/sajari/sdk-react/commit/2621f46d6b000567ecc809ad34ed34e1ead02b54))
+
 ## [1.1.3](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.1.2...sajari-sdk-docs@1.1.3) (2020-12-16)
 
 **Note:** Version bump only for package sajari-sdk-docs
