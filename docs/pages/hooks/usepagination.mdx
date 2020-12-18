@@ -27,7 +27,7 @@ function Example() {
 
   const SearchPlayground = React.memo(() => {
     const { results } = useSearch();
-    const { page, setPage, resultsPerPage, pageCount, totalResults } = usePagination('search');
+    const { page, setPage, resultsPerPage, pageCount, totalResults } = usePagination();
     const { query } = useQuery();
 
     return (
@@ -81,6 +81,6 @@ function Example() {
 
 ## Props
 
-| Name  | Type                           | Default | Description     |
-| ----- | ------------------------------ | ------- | --------------- |
-| `key` | `"search"` \| `"autocomplete"` |         | The search mode |
+| Name  | Type                           | Default    | Description     |
+| ----- | ------------------------------ | ---------- | --------------- |
+| `key` | `"search"` \| `"autocomplete"` | `'search'` | The search mode |
