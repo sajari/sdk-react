@@ -22,14 +22,14 @@ const RadioGroup = forwardRef((props: RadioGroupProps, ref) => {
     'aria-labelledby': ariaLabelledBy,
     ...rest
   } = props;
-  const { current: isControlled } = useRef(valueProp != null);
+  const { current: controlled } = useRef(typeof valueProp !== 'undefined');
   const [value, setValue] = useState(defaultValue || null);
-  const internalValue = isControlled ? valueProp : value;
+  const internalValue = controlled ? valueProp : value;
   const rootRef = useRef<HTMLDivElement | null>(null);
   const styles = getStylesObject(useRadioGroupStyles(props), disableDefaultStyles);
 
   const internalOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!isControlled) {
+    if (!controlled) {
       setValue(event.target.value);
     }
     if (onChange) {

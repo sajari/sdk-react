@@ -23,8 +23,8 @@ const CheckboxGroup = (props: CheckboxGroupProps) => {
   } = props;
 
   const [values, setValues] = useState(defaultValue || []);
-  const { current: isControlled } = useRef(valueProp != null);
-  const internalValues = (isControlled ? valueProp : values) || [];
+  const { current: controlled } = useRef(typeof valueProp !== 'undefined');
+  const internalValues = (controlled ? valueProp : values) || [];
   const styles = getStylesObject(useCheckboxGroupStyles(props), disableDefaultStyles);
 
   const internalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +36,7 @@ const CheckboxGroup = (props: CheckboxGroupProps) => {
     } else {
       newValues = internalValues.filter((v) => v !== value);
     }
-    if (!isControlled) {
+    if (!controlled) {
       setValues(newValues);
     }
     if (onChange) {

@@ -31,13 +31,13 @@ const Checkbox = React.forwardRef((props: CheckboxProps, ref?: React.Ref<HTMLInp
   } = props;
 
   const [privateChecked, setPrivateChecked] = React.useState(defaultChecked ?? false);
-  const { current: isControlled } = React.useRef(checked !== null);
-  const internalChecked = (isControlled ? checked : privateChecked) ?? false;
+  const { current: controlled } = React.useRef(typeof checked !== 'undefined');
+  const internalChecked = (controlled ? checked : privateChecked) ?? false;
   const { styles: checkboxStyles, focusProps } = useCheckboxStyles(props);
   const styles = getStylesObject(checkboxStyles, disableDefaultStyles);
 
   const internalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!isControlled) {
+    if (!controlled) {
       setPrivateChecked(event.target.checked);
     }
     if (onChange) {

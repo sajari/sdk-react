@@ -11,7 +11,7 @@ import { RadioProps } from './types';
 
 const Radio = React.forwardRef((props: RadioProps, ref?: React.Ref<HTMLInputElement>) => {
   const {
-    id = `checkbox-${useId()}`,
+    id = `radio-${useId()}`,
     name,
     value,
     color,
@@ -33,13 +33,13 @@ const Radio = React.forwardRef((props: RadioProps, ref?: React.Ref<HTMLInputElem
   } = props;
 
   const [privateChecked, setPrivateChecked] = React.useState(defaultChecked ?? false);
-  const { current: isControlled } = React.useRef(checked !== null);
-  const internalChecked = (isControlled ? checked : privateChecked) ?? false;
+  const { current: controlled } = React.useRef(typeof checked !== 'undefined');
+  const internalChecked = (controlled ? checked : privateChecked) ?? false;
   const { styles: radioStyles, focusProps } = useRadioStyles(props);
   const styles = getStylesObject(radioStyles, disableDefaultStyles);
 
   const internalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (!isControlled) {
+    if (!controlled) {
       setPrivateChecked(event.target.checked);
     }
     if (onChange) {

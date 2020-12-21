@@ -20,7 +20,7 @@ const Tabs = React.forwardRef((props: TabsProps, ref?: React.Ref<HTMLDivElement>
     ...rest
   } = props;
 
-  const { current: isControlled } = useRef(controlledIndex != null);
+  const { current: controlled } = useRef(typeof controlledIndex !== 'undefined');
   const selectedPanelRef = useRef<HTMLElement>(null);
 
   const getInitialIndex = () => {
@@ -36,19 +36,19 @@ const Tabs = React.forwardRef((props: TabsProps, ref?: React.Ref<HTMLDivElement>
     if (manual) {
       return selectedIndex;
     }
-    return isControlled && typeof controlledIndex === 'number' ? controlledIndex : selectedIndex;
+    return controlled && typeof controlledIndex === 'number' ? controlledIndex : selectedIndex;
   };
 
   const [manualIndex, setManualIndex] = useState(controlledIndex || defaultIndex || 0);
   const actualIdx = getActualIdx();
-  const manualIdx = isControlled ? controlledIndex : manualIndex;
+  const manualIdx = controlled ? controlledIndex : manualIndex;
 
   const onChangeTab = (index: number) => {
-    if (!isControlled) {
+    if (!controlled) {
       setSelectedIndex(index);
     }
 
-    if (isControlled && manual) {
+    if (controlled && manual) {
       setSelectedIndex(index);
     }
 
@@ -60,7 +60,7 @@ const Tabs = React.forwardRef((props: TabsProps, ref?: React.Ref<HTMLDivElement>
   };
 
   const onManualTabChange = (index: number) => {
-    if (!isControlled) {
+    if (!controlled) {
       setManualIndex(index);
     }
 
