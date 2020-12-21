@@ -34,3 +34,11 @@ export function sortItems(list: FilterItem[], prop?: string, asc: boolean = true
 export function pinItems(list: FilterItem[], pinned: string[] = [], prop: string) {
   return [...list].sort((a, b) => pinned.indexOf(b[prop]) - pinned.indexOf(a[prop]));
 }
+
+/**
+ * Get the header ID for a name
+ * @param name - The filter's unique name
+ */
+export function getHeaderId(name: string) {
+  return `filter-${name}-label`;
+}

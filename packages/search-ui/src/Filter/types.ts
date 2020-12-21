@@ -3,6 +3,7 @@ import * as React from 'react';
 
 export interface HeaderProps {
   title: React.ReactNode;
+  name: string;
   showReset?: boolean;
   onReset?: () => void;
 }

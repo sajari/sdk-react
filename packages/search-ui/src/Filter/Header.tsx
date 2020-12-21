@@ -6,8 +6,9 @@ import tw from 'twin.macro';
 
 import { useSearchUIContext } from '../ContextProvider';
 import { HeaderProps } from './types';
+import { getHeaderId } from './utils';
 
-const Header = ({ title, onReset, showReset }: HeaderProps) => {
+const Header = ({ title, name, onReset, showReset }: HeaderProps) => {
   const { t } = useTranslation('filter');
   const { disableDefaultStyles = false, customClassNames } = useSearchUIContext();
 
@@ -27,6 +28,7 @@ const Header = ({ title, onReset, showReset }: HeaderProps) => {
         css={styles.heading}
         disableDefaultStyles={disableDefaultStyles}
         className={customClassNames.filter?.title}
+        id={getHeaderId(name)}
       >
         {title}
       </Heading>

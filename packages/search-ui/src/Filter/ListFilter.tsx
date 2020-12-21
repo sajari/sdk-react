@@ -9,7 +9,7 @@ import { IconSmallChevronDown, IconSmallChevronUp } from '../assets/icons';
 import { useSearchUIContext } from '../ContextProvider';
 import Box from './Box';
 import { ListFilterProps } from './types';
-import { pinItems, sortItems } from './utils';
+import { getHeaderId, pinItems, sortItems } from './utils';
 
 const noop = () => {};
 
@@ -101,7 +101,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   }
 
   return (
-    <Box title={title} showReset={selected.length > 0 && multi} onReset={reset}>
+    <Box title={title} name={name} showReset={selected.length > 0 && multi} onReset={reset}>
       {searchable ? (
         <CoreBox css={styles.searchWrapper}>
           <Combobox
@@ -124,6 +124,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
             onChange={setSelected}
             className={customClassNames.filter?.list?.checkboxGroup}
             disableDefaultStyles={disableDefaultStyles}
+            aria-labelledby={getHeaderId(name)}
           >
             {innerList}
           </CheckboxGroup>
@@ -133,6 +134,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
             onChange={(e) => setSelected([e.target.value])}
             className={customClassNames.filter?.list?.radioGroup}
             disableDefaultStyles={disableDefaultStyles}
+            aria-labelledby={getHeaderId(name)}
           >
             {innerList}
           </RadioGroup>

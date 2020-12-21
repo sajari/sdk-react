@@ -5,6 +5,7 @@ import * as React from 'react';
 import { useSearchUIContext } from '../ContextProvider';
 import Box from './Box';
 import { RangeFilterProps } from './types';
+import { getHeaderId } from './utils';
 
 const RangeFilter = ({ name, title, format, showInputs, step, steps, tick, ticks }: Omit<RangeFilterProps, 'type'>) => {
   const { min, max, range, setRange, reset, showReset } = useRangeFilter(name);
@@ -15,7 +16,7 @@ const RangeFilter = ({ name, title, format, showInputs, step, steps, tick, ticks
   }
 
   return (
-    <Box title={title} showReset={showReset} onReset={reset}>
+    <Box title={title} name={name} showReset={showReset} onReset={reset}>
       <RangeInput
         language={language}
         format={format}
@@ -36,6 +37,7 @@ const RangeFilter = ({ name, title, format, showInputs, step, steps, tick, ticks
         handleActiveClassName={customClassNames.filter?.range?.handleActive}
         inputClassName={customClassNames.filter?.range?.input}
         trackClassName={customClassNames.filter?.range?.track}
+        aria-labelledby={getHeaderId(name)}
       />
     </Box>
   );
