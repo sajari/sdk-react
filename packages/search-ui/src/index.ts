@@ -1,4 +1,5 @@
 export { default as SearchProvider } from './ContextProvider';
+export * from './ContextProvider';
 export { default as Filter } from './Filter';
 export * from './Filter';
 export { default as i18n } from './i18n';
