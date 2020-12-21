@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.3](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.1.2...@sajari/react-components@1.1.3) (2020-12-21)
+
+### Bug Fixes
+
+- improve accessibility of Checkbox and Radio ([1731cb2](https://github.com/sajari/sdk-react/commit/1731cb2e0112bc036ae02da41f01ce5e24bc752e))
+
 ## [1.1.2](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.1.1...@sajari/react-components@1.1.2) (2020-12-18)
 
 **Note:** Version bump only for package @sajari/react-components
