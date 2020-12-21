@@ -172,6 +172,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
 
   useEffect(() => {
     const mergedConfig = { ...defaultConfig, ...search.config };
+
     setSearchState((state) => ({
       ...state,
       response,
@@ -263,6 +264,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
     }
 
     setConfigDone(true);
+
     return () => {
       unregisterFunctions.forEach((fn) => fn());
     };
