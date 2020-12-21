@@ -1,5 +1,5 @@
 import { Box, Button, Heading } from '@sajari/react-components';
-import { getStylesObject } from '@sajari/react-sdk-utils';
+import { getStylesObject, isString } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import tw from 'twin.macro';
@@ -28,7 +28,7 @@ const Header = ({ title, name, onReset, showReset }: HeaderProps) => {
         css={styles.heading}
         disableDefaultStyles={disableDefaultStyles}
         className={customClassNames.filter?.title}
-        id={getHeaderId(name)}
+        id={isString(name) ? getHeaderId(name) : undefined}
       >
         {title}
       </Heading>
