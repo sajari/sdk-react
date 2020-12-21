@@ -1,5 +1,4 @@
 export { default as SearchProvider } from './ContextProvider';
-export * from './ContextProvider';
 export { default as Filter } from './Filter';
 export * from './Filter';
 export { default as i18n } from './i18n';
@@ -18,3 +17,17 @@ export * from './Summary';
 export { default as ViewType } from './ViewType';
 export * from './ViewType';
 export { SSRProvider, SSRProviderProps } from '@sajari/react-components';
+export {
+  ClickTracking,
+  Config,
+  FieldDictionary,
+  FilterBuilder,
+  FilterOptions,
+  Pipeline,
+  PosNegTracking,
+  Range,
+  RangeFilterBuilder,
+  RangeFilterOptions,
+  SearchProviderValues,
+  Variables,
+} from '@sajari/react-hooks';

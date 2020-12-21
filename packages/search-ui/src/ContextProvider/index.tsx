@@ -1,15 +1,4 @@
-import {
-  ClickTracking,
-  FieldDictionary,
-  FilterBuilder,
-  Pipeline,
-  PosNegTracking,
-  Range,
-  RangeFilterBuilder,
-  SearchProvider,
-  SearchProviderValues,
-  Variables,
-} from '@sajari/react-hooks';
+import { SearchProvider } from '@sajari/react-hooks';
 import { createContext, ThemeProvider } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { LiveAnnouncer } from 'react-aria-live';
@@ -68,16 +57,5 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
 };
 
 export default ContextProvider;
-export {
-  ClickTracking,
-  FieldDictionary,
-  FilterBuilder,
-  Pipeline,
-  PosNegTracking,
-  Range,
-  RangeFilterBuilder,
-  SearchProviderValues,
-  useSearchUIContext,
-  Variables,
-};
+export { SearchProvider, useSearchUIContext };
 export type { ContextProviderValues };

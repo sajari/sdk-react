@@ -6,7 +6,7 @@ import mapToObject from '../utils/mapToObject';
 
 function useSearchContext() {
   const {
-    search: { response, search, searching, fields = {} },
+    search: { config, response, search, searching, fields = {} },
     viewType,
     setViewType,
   } = useContext();
@@ -32,6 +32,7 @@ function useSearchContext() {
     viewType,
     setViewType,
     fields,
+    config,
   };
 }
 
