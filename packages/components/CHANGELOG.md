@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.4](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.1.3...@sajari/react-components@1.1.4) (2020-12-21)
+
+### Bug Fixes
+
+- fix logic to determine controlled state ([ece6e2e](https://github.com/sajari/sdk-react/commit/ece6e2e0d0bf99ee7cc206f3f4c53b360d928ad5))
+
 ## [1.1.3](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.1.2...@sajari/react-components@1.1.3) (2020-12-21)
 
 ### Bug Fixes
