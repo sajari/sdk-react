@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.7](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.1.6...@sajari/react-search-ui@1.1.7) (2020-12-21)
+
+### Bug Fixes
+
+- fix required name prop on Filter compositions ([c98024d](https://github.com/sajari/sdk-react/commit/c98024d563e2995a3152dd8d8083ec14c12b0f8a))
+
 ## [1.1.6](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.1.5...@sajari/react-search-ui@1.1.6) (2020-12-21)
 
 ### Bug Fixes
