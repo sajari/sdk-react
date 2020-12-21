@@ -30,8 +30,20 @@ const Checkbox = React.forwardRef((props: CheckboxProps, ref?: React.Ref<HTMLInp
     ...rest
   } = props;
 
+  const [privateChecked, setPrivateChecked] = React.useState(defaultChecked ?? false);
+  const { current: isControlled } = React.useRef(checked !== null);
+  const internalChecked = (isControlled ? checked : privateChecked) ?? false;
   const { styles: checkboxStyles, focusProps } = useCheckboxStyles(props);
   const styles = getStylesObject(checkboxStyles, disableDefaultStyles);
+
+  const internalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isControlled) {
+      setPrivateChecked(event.target.checked);
+    }
+    if (onChange) {
+      onChange(event);
+    }
+  };
 
   const comp = (
     <Box css={[styles.componentWrapper, !children && stylesProp]} {...(!children ? rest : {})}>
@@ -48,16 +60,16 @@ const Checkbox = React.forwardRef((props: CheckboxProps, ref?: React.Ref<HTMLInp
           id={id}
           name={name}
           value={value}
-          defaultChecked={defaultChecked}
-          checked={checked}
+          checked={internalChecked}
           disabled={disabled}
           readOnly={readOnly}
-          onChange={onChange}
+          onChange={internalChange}
           onBlur={onBlur}
           onFocus={onFocus}
           aria-invalid={invalid}
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
+          aria-checked={internalChecked}
           css={styles.input}
           {...focusProps}
         />

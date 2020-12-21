@@ -14,8 +14,6 @@ const Radio = React.forwardRef((props: RadioProps, ref?: React.Ref<HTMLInputElem
     id = `checkbox-${useId()}`,
     name,
     value,
-    'aria-label': ariaLabel,
-    'aria-labelledby': ariaLabelledBy,
     color,
     defaultChecked,
     checked,
@@ -25,6 +23,8 @@ const Radio = React.forwardRef((props: RadioProps, ref?: React.Ref<HTMLInputElem
     onChange,
     onBlur,
     onFocus,
+    'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledBy,
     children,
     labelClassName,
     styles: stylesProp,
@@ -32,8 +32,20 @@ const Radio = React.forwardRef((props: RadioProps, ref?: React.Ref<HTMLInputElem
     ...rest
   } = props;
 
+  const [privateChecked, setPrivateChecked] = React.useState(defaultChecked ?? false);
+  const { current: isControlled } = React.useRef(checked !== null);
+  const internalChecked = (isControlled ? checked : privateChecked) ?? false;
   const { styles: radioStyles, focusProps } = useRadioStyles(props);
   const styles = getStylesObject(radioStyles, disableDefaultStyles);
+
+  const internalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isControlled) {
+      setPrivateChecked(event.target.checked);
+    }
+    if (onChange) {
+      onChange(event);
+    }
+  };
 
   const comp = (
     <Box css={[styles.componentWrapper, !children && stylesProp]} {...(!children ? rest : {})}>
@@ -45,16 +57,16 @@ const Radio = React.forwardRef((props: RadioProps, ref?: React.Ref<HTMLInputElem
           id={id}
           name={name}
           value={value}
-          onChange={onChange}
+          onChange={internalChange}
           onBlur={onBlur}
           onFocus={onFocus}
-          defaultChecked={defaultChecked}
-          checked={checked}
+          checked={internalChecked}
           disabled={disabled}
           readOnly={readOnly}
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
           aria-invalid={invalid}
+          aria-checked={internalChecked}
           css={styles.input}
           {...focusProps}
         />

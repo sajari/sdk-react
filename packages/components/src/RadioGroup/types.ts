@@ -5,6 +5,7 @@ import { Spacing } from '../hooks';
 
 interface Props extends BoxProps {
   name?: string;
+  label?: string;
   defaultValue?: string;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>, value: string) => void;

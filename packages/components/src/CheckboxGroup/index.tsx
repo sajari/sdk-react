@@ -1,8 +1,10 @@
 import { useId } from '@react-aria/utils';
 import { cleanChildren, getStylesObject } from '@sajari/react-sdk-utils';
 import React, { cloneElement, useRef, useState } from 'react';
+import tw from 'twin.macro';
 
 import Box from '../Box';
+import Text from '../Text';
 import { useCheckboxGroupStyles } from './styles';
 import { CheckboxGroupProps } from './types';
 
@@ -10,11 +12,13 @@ const CheckboxGroup = (props: CheckboxGroupProps) => {
   const {
     onChange,
     name,
+    label = name,
     defaultValue,
     value: valueProp,
     children,
     styles: stylesProp,
     disableDefaultStyles = false,
+    'aria-labelledby': ariaLabelledBy,
     ...rest
   } = props;
 
@@ -30,7 +34,7 @@ const CheckboxGroup = (props: CheckboxGroupProps) => {
     if (checked) {
       newValues = [...internalValues, value];
     } else {
-      newValues = internalValues.filter((val) => val !== value);
+      newValues = internalValues.filter((v) => v !== value);
     }
     if (!isControlled) {
       setValues(newValues);
@@ -45,18 +49,29 @@ const CheckboxGroup = (props: CheckboxGroupProps) => {
   const internalName = name || fallbackName;
   const validChildren = cleanChildren(children);
 
-  const clones = validChildren.map((child, index) =>
-    cloneElement(child, {
+  const clones = validChildren.map((child, index) => {
+    const checked = internalValues.includes(child.props.value);
+
+    // TODO: Handle if the child isn't a Checkbox since this assumes it will be
+    return cloneElement(child, {
       key: `${internalName}-${index}`,
       name: `${internalName}-${index}`,
       onChange: internalChange,
-      checked: internalValues.includes(child.props.value),
+      checked,
       disableDefaultStyles,
-    }),
-  );
+    });
+  });
+
+  const labelId = `group-label-${useId()}`;
 
   return (
-    <Box {...rest} role="group" css={[styles.container, stylesProp]}>
+    <Box {...rest} role="group" aria-labelledby={ariaLabelledBy ?? labelId} css={[styles.container, stylesProp]}>
+      {label && !ariaLabelledBy && (
+        <Text id={labelId} css={tw`sr-only`}>
+          {label}
+        </Text>
+      )}
+
       {clones}
     </Box>
   );

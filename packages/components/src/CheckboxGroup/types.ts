@@ -6,6 +6,7 @@ import { Spacing } from '../hooks';
 
 export interface Props extends BoxProps {
   name?: string;
+  label?: string;
   defaultValue?: Array<CheckboxProps['value']>;
   value?: Array<CheckboxProps['value']>;
   onChange?: (value: Array<CheckboxProps['value']>) => void;
