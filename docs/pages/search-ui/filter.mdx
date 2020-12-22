@@ -119,7 +119,7 @@ function Example() {
   });
 
   const priceRangeFilter = new FilterBuilder({
-    name: 'priceRange',
+    name: 'price-range',
     field: 'price_range',
   });
 
@@ -130,7 +130,7 @@ function Example() {
       <div className="flex -mx-3">
         <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
           <Filter type="list" name="category" title="Category" searchable sort="alpha" />
-          <Filter type="list" name="priceRange" title="Range ($)" />
+          <Filter type="list" name="price-range" title="Range ($)" />
         </div>
         <div className="w-3/4 px-3">
           <Results />
