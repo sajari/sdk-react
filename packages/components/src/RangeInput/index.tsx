@@ -1,5 +1,5 @@
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
-import { __DEV__, clamp, closest, formatNumber, getStylesObject, round } from '@sajari/react-sdk-utils';
+import { __DEV__, clamp, closest, formatNumber, getStylesObject, noop, round } from '@sajari/react-sdk-utils';
 import React, { MouseEvent, ReactNode, useEffect } from 'react';
 import { useRanger } from 'react-ranger';
 
@@ -11,8 +11,6 @@ import Input from './components/Input';
 import Track from './components/Track';
 import useRangeInputStyles from './styles';
 import { RangeInputProps } from './types';
-
-const noop = () => {};
 
 const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTMLDivElement>) => {
   const {

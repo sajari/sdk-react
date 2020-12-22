@@ -1,6 +1,6 @@
 import { Box as CoreBox, Button, Checkbox, CheckboxGroup, Combobox, Radio, RadioGroup } from '@sajari/react-components';
 import { useFilter, useQuery } from '@sajari/react-hooks';
-import { getStylesObject, isBoolean, isEmpty, useTheme } from '@sajari/react-sdk-utils';
+import { getStylesObject, isBoolean, isEmpty, noop, useTheme } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import tw from 'twin.macro';
@@ -10,8 +10,6 @@ import { useSearchUIContext } from '../ContextProvider';
 import Box from './Box';
 import { ListFilterProps } from './types';
 import { getHeaderId, pinItems, sortItems } from './utils';
-
-const noop = () => {};
 
 const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   const {

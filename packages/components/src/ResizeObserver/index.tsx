@@ -1,11 +1,9 @@
-import { __DEV__, isSSR } from '@sajari/react-sdk-utils';
+import { __DEV__, isSSR, noop } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import Observer from 'resize-observer-polyfill';
 
 import Box from '../Box';
 import { ResizeObserverProps } from './types';
-
-const noop = () => {};
 
 const ResizeObserver = (props: ResizeObserverProps) => {
   const { onReady = noop, onResize = noop, children, ...rest } = props;
