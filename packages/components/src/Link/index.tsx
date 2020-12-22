@@ -4,16 +4,20 @@ import { mergeProps } from '@react-aria/utils';
 import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 
-import { useFocusRingStyles } from '../hooks';
 import useLinkStyles from './styles';
 import { LinkProps } from './types';
 
 const Link = React.forwardRef((props: LinkProps, ref?: React.Ref<HTMLAnchorElement>) => {
-  const { focusProps } = useFocusRingStyles();
   const { disableDefaultStyles = false, styles: stylesProp, ...rest } = props;
-  const styles = getStylesObject(useLinkStyles(), disableDefaultStyles);
+  const { styles, focusRingProps } = useLinkStyles();
 
-  return <a {...mergeProps(rest, focusProps)} ref={ref} css={[styles.container, stylesProp]} />;
+  return (
+    <a
+      {...mergeProps(rest, focusRingProps)}
+      ref={ref}
+      css={[getStylesObject(styles.container, disableDefaultStyles), stylesProp]}
+    />
+  );
 });
 
 if (__DEV__) {
