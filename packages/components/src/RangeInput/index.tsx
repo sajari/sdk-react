@@ -17,7 +17,7 @@ const noop = () => {};
 const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTMLDivElement>) => {
   const {
     language,
-    format = 'numeric',
+    format = 'default',
     currency = 'USD',
     onChange = noop,
     onInput = noop,

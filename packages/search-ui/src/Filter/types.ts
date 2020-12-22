@@ -32,6 +32,10 @@ export interface ListFilterProps extends BaseFilterProps {
   sort?: 'count' | 'alpha' | 'none';
   /** Sort in ascending order */
   sortAscending?: boolean;
+  /** How to format the values */
+  format?: 'default' | 'price';
+  /** Currency code to use for price type */
+  currency?: string;
 }
 
 export interface ColorFilterProps extends BaseFilterProps {

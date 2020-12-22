@@ -15,6 +15,8 @@ export default {
     all: 'All',
     showMore: 'Show {{count}} more',
     showLess: 'Show less',
+    rangeOver: 'Over {{value}}',
+    rangeUnder: 'Under {{value}}',
   },
   input: {
     placeholder: 'Search',

@@ -1,6 +1,6 @@
 import { Box as CoreBox, Button, Checkbox, CheckboxGroup, Combobox, Radio, RadioGroup } from '@sajari/react-components';
 import { useFilter, useQuery } from '@sajari/react-hooks';
-import { getStylesObject, isBoolean, isEmpty, useTheme } from '@sajari/react-sdk-utils';
+import { formatNumber, getStylesObject, isBoolean, isEmpty, useTheme } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import tw from 'twin.macro';
@@ -23,6 +23,8 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     sortAscending = sort !== 'count',
     itemRender,
     placeholder = 'Search',
+    format = 'default',
+    currency = 'USD',
   } = props;
   let { pinSelected } = props;
   const [query, setQuery] = React.useState('');
@@ -45,6 +47,30 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     },
     disableDefaultStyles,
   );
+
+  // Format a value to be presented in the UI
+  const formatValue = (input: string) => {
+    if (format === 'price') {
+      switch (true) {
+        case /\d+\s-\s\d+/gm.test(input): {
+          const [min, max] = input
+            .split(' - ')
+            .map(Number)
+            .map((n) => formatNumber(n, { style: 'currency', currency }));
+          return `${min} - ${max}`;
+        }
+        case input.startsWith('>'):
+          return t('rangeOver', { value: formatNumber(Number(input.substring(2)), { style: 'currency', currency }) });
+        case input.startsWith('<'):
+          return t('rangeUnder', { value: formatNumber(Number(input.substring(2)), { style: 'currency', currency }) });
+        default:
+          return input;
+      }
+    }
+
+    // Return unchanged if it's default
+    return input;
+  };
 
   // By default, pin selected items if the option count is over limit
   if (!isBoolean(pinSelected)) {
@@ -88,7 +114,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
             css={styles.checkbox}
             disableDefaultStyles={disableDefaultStyles}
           >
-            {typeof itemRender === 'function' ? itemRender(label) : label}
+            {typeof itemRender === 'function' ? itemRender(label) : formatValue(label)}
           </Control>
           <span css={styles.count}>{count.toLocaleString(language)}</span>
         </CoreBox>
