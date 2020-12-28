@@ -1,0 +1,12 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@1.3.0/schema.json",
+  "changelog": ["@changesets/changelog-github", { "repo": "https://github.com/sajari/sdk-react" }],
+  "commit": false,
+  "linked": [],
+  "access": "public",
+  "baseBranch": "master",
+  "ignore": [],
+  "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
+    "onlyUpdatePeerDependentsWhenOutOfRange": true
+  }
+}
