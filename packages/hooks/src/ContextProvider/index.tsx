@@ -94,6 +94,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
   children,
   search,
   autocomplete: autocompleteProp,
+  defaultFilter,
   searchOnLoad,
   initialResponse: initialResponseProp,
 }) => {
@@ -128,7 +129,10 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
     const filter = combineFilters(search.filters);
 
     variables.current.set({
-      filter: () => (isEmpty(filter.filter()) ? '_id != ""' : filter.filter()),
+      filter: () =>
+        `${defaultFilter ? `${defaultFilter.toString()} AND ` : ''}(${
+          isEmpty(filter.filter()) ? '_id != ""' : filter.filter()
+        })`,
       countFilters: () => filter.countFilters(),
       buckets: () => filter.buckets(),
       count: () => filter.count(),

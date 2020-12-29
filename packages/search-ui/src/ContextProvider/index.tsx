@@ -16,6 +16,7 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
   children,
   search,
   autocomplete,
+  defaultFilter,
   searchOnLoad,
   initialResponse,
   ratingMax = 5,
@@ -41,6 +42,7 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
       <SearchProvider
         search={search}
         autocomplete={autocomplete}
+        defaultFilter={defaultFilter}
         searchOnLoad={searchOnLoad}
         initialResponse={initialResponse}
       >
