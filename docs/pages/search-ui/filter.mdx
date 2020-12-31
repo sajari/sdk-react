@@ -360,6 +360,62 @@ function Example() {
 }
 ```
 
+### Select
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const categoryFilter = new FilterBuilder({
+    name: 'category',
+    field: 'level1',
+  });
+
+  const priceRangeFilter = new FilterBuilder({
+    name: 'price-range',
+    field: 'price_range',
+  });
+
+  const SearchPlayground = React.memo(() => (
+    <div className="flex flex-col space-y-6">
+      <Input />
+
+      <div className="flex -mx-3">
+        <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
+          <Filter type="select" name="category" title="Category" searchable sort="alpha" />
+          <Filter type="select" name="price-range" title="Range ($)" />
+        </div>
+        <div className="w-3/4 px-3">
+          <Results />
+        </div>
+      </div>
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+        filters: [priceRangeFilter, categoryFilter],
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
 ## Props
 
 | Name    | Type              | Default | Description                |
