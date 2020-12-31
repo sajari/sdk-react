@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext } from '@sajari/react-sdk-utils';
 import { PropGetters } from 'downshift';
 
@@ -9,8 +10,8 @@ interface ComboboxContextProps<T = any> {
   open: boolean;
   items: ComboboxProps<T>['items'];
   completion: string;
-  getItemProps: PropGetters<any>['getItemProps'];
-  getMenuProps: PropGetters<any>['getMenuProps'];
+  getItemProps: PropGetters<T>['getItemProps'];
+  getMenuProps: PropGetters<T>['getMenuProps'];
   highlightedIndex: number;
   selectedItem: T;
   showDropdownTips: boolean;

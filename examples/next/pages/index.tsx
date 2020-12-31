@@ -1,16 +1,16 @@
-import * as React from 'react';
+import { useSearchContext } from '@sajari/react-hooks';
 import {
-  SearchProvider,
   FieldDictionary,
-  Pipeline,
-  Variables,
-  Results,
   Input,
-  SSRProvider,
   Pagination,
+  Pipeline,
+  Results,
+  SearchProvider,
+  SSRProvider,
+  Variables,
 } from '@sajari/react-search-ui';
 import { search } from '@sajari/server';
-import { useSearchContext } from '@sajari/react-hooks';
+import * as React from 'react';
 
 const pipelineConfig = {
   account: '1594153711901724220',

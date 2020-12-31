@@ -8,4 +8,4 @@ export * from './react-helpers';
 export * from './ssr';
 export * from './string';
 export * from './styles';
-export const noop = () => {};
+export const noop = (): void => {};

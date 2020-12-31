@@ -14,6 +14,7 @@ export default function useVoiceInput(onResult?: (r: string) => void) {
 
   useEffect(() => {
     if (supported) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       recognitionRef.current = new (window as any).webkitSpeechRecognition() as SpeechRecognition;
     }
   }, [supported]);

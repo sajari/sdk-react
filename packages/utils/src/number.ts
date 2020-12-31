@@ -13,7 +13,7 @@ import { isSSR } from './ssr';
  * @returns A number in the range [min, max]
  * @type Number
  */
-export function clamp(input = 0, min = 0, max = 255) {
+export function clamp(input = 0, min = 0, max = 255): number {
   return Math.min(Math.max(input, min), max);
 }
 
@@ -22,7 +22,7 @@ export function clamp(input = 0, min = 0, max = 255) {
  * @param target The target value
  * @param values The range of values to check
  */
-export function closest(target: number, values: number[]) {
+export function closest(target: number, values: number[]): [number, number] {
   const match = values.reduce((prev, value) => (Math.abs(value - target) < Math.abs(prev - target) ? value : prev));
   return [values.indexOf(match), match];
 }
@@ -31,8 +31,8 @@ export function closest(target: number, values: number[]) {
  * Get the number of decimal places
  * @param value
  */
-export function getDecimalPlaces(value: number) {
-  const match = `${value}`.match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+export function getDecimalPlaces(value: number): number {
+  const match = /(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/.exec(value.toString());
 
   if (!match) {
     return 0;
@@ -52,7 +52,7 @@ export function getDecimalPlaces(value: number) {
  * @param number
  * @param step
  */
-export function round(number: number, step: number) {
+export function round(number: number, step: number): number {
   if (step < 1) {
     const places = getDecimalPlaces(step);
     return parseFloat(number.toFixed(places));
@@ -74,7 +74,7 @@ interface FormatNumberOptions extends Intl.NumberFormatOptions {
  * @param input - Number to format
  * @param options - Formatting options
  */
-export function formatNumber(input: number, options: FormatNumberOptions) {
+export function formatNumber(input: number, options: FormatNumberOptions): string {
   const { neutral = true, language = !isSSR() ? navigator.language : 'en-US', ...rest } = options;
 
   if (!isNumber(input)) {
@@ -87,7 +87,7 @@ export function formatNumber(input: number, options: FormatNumberOptions) {
 /**
  * Format a price or price range to display
  */
-export function formatPrice(input: string | string[] | number, options: Omit<FormatNumberOptions, 'style'>) {
+export function formatPrice(input: string | string[] | number, options: Omit<FormatNumberOptions, 'style'>): string {
   const price = input;
   const format = (value: number) => formatNumber(value, { style: 'currency', ...options });
 

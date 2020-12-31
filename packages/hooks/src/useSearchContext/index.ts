@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { isNullOrUndefined } from '@sajari/react-sdk-utils';
 
 import { useContext } from '../ContextProvider';

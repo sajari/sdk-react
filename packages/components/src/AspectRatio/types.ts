@@ -8,4 +8,4 @@ export interface Props extends BoxProps {
   ratio?: number | null;
 }
 
-export interface AspectRatioProps extends PropsWithAs<Props> {}
+export type AspectRatioProps = PropsWithAs<Props>;

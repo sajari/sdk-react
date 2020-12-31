@@ -1,10 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import './app.css';
 
+import { SSRProvider } from '@sajari/react-components';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-
-import { SSRProvider } from '@sajari/react-components';
 
 const title = 'React SDK';
 

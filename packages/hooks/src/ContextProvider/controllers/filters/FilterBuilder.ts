@@ -101,7 +101,7 @@ export default class FilterBuilder {
   /**
    * Set the state of the filter.
    */
-  public set(values: string[], merge: boolean = false) {
+  public set(values: string[], merge = false) {
     if (merge) {
       const nonDuplicate = values.filter((v) => !this.current.includes(v));
       this.current = [...this.current, ...nonDuplicate];
@@ -130,7 +130,7 @@ export default class FilterBuilder {
   /**
    * Set or merge filter options.
    */
-  public setOptions(options: Options, merge: boolean = false) {
+  public setOptions(options: Options, merge = false) {
     if (merge) {
       this.options = { ...this.options, ...options };
     } else {

@@ -1,8 +1,6 @@
-/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-explicit-any, no-console */
 export type CallbackFn = (...args: any[]) => void;
 export type UnlistenFn = () => void;
-
-export type ListenerMap = Map<string, Listener>;
 
 export class Listener {
   private listeners: CallbackFn[];
@@ -28,7 +26,7 @@ export class Listener {
   /**
    * Removes a callback from the listener.
    */
-  public unlisten(callback: CallbackFn) {
+  public unlisten(callback: CallbackFn): void {
     const index = this.listeners.indexOf(callback);
     if (index >= 0) {
       this.listeners.splice(index, 1);
@@ -40,7 +38,7 @@ export class Listener {
    * The listener is supplied as the first argument to the function.
    * @param {function(callback: Function)} fn Function to call each of the callbacks in the listener with.
    */
-  public notify(fn: (callback: CallbackFn) => void) {
+  public notify(fn: (callback: CallbackFn) => void): void {
     this.listeners.forEach((l) => {
       try {
         fn(l);
@@ -52,3 +50,5 @@ export class Listener {
     });
   }
 }
+
+export type ListenerMap = Map<string, Listener>;

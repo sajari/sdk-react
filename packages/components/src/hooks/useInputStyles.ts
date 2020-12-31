@@ -26,23 +26,23 @@ export default function useInputStyles(props: UseInputStyleProps) {
   const styles: (TwStyle | string)[] = [];
 
   styles.push(
-    tw`leading-normal text-gray-700 transition-all duration-150 bg-white border border-gray-200 border-solid outline-none font-inherit`,
+    tw`leading-normal text-gray-600 transition-all duration-150 bg-white border border-gray-200 border-solid outline-none font-inherit`,
   );
 
   // Map the size to padding and font size
   if (!['radio', 'checkbox'].includes(type)) {
     switch (size) {
       case 'lg':
-        styles.push(tw`px-4 py-3 text-lg`);
+        styles.push(tw`px-5 py-3 text-lg`);
         break;
 
       case 'sm':
-        styles.push(tw`px-2 py-1 text-sm`);
+        styles.push(tw`px-3 py-1 text-sm`);
         break;
 
       default:
       case 'md':
-        styles.push(tw`px-3 py-2 text-base`);
+        styles.push(tw`px-4 py-2 text-base`);
         break;
     }
   }
@@ -93,7 +93,7 @@ export default function useInputStyles(props: UseInputStyleProps) {
   }
 
   if (type === 'select') {
-    styles.push(tw`block w-full pr-10 rounded-md font-inherit`);
+    styles.push(tw`block w-full pr-10 font-normal text-left rounded-md`);
   }
 
   return { styles: css(styles), focusRingStyles, focusProps };

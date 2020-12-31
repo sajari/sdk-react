@@ -41,7 +41,6 @@ export default function mapResultFields<T = Record<string, string | string[]>>(
 ) {
   return results.map(({ values, ...rest }) => ({
     ...rest,
-    // @ts-ignore
-    values: mapFields<T>(values, fields),
+    values: mapFields<T>((values as unknown) as T, fields),
   }));
 }

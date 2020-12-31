@@ -23,27 +23,25 @@ export function useHasImageLoaded(props: HasImageLoadedProps) {
 
     const image = new window.Image();
 
-    image.onload = (event) => {
+    image.addEventListener('load', (event) => {
       if (ref.current) {
         setHasLoaded(true);
 
         if (onLoad) {
-          // @ts-ignore
-          onLoad(event);
+          onLoad.call(image, event);
         }
       }
-    };
+    });
 
-    image.onerror = (event) => {
+    image.addEventListener('error', (event) => {
       if (ref.current) {
         setHasLoaded(false);
 
         if (onError) {
-          // @ts-ignore
-          onError(event);
+          onError.call(image, event);
         }
       }
-    };
+    });
 
     image.src = src;
   }, [src, onLoad, onError]);

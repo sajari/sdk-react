@@ -39,7 +39,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
       checkbox: [tw`text-sm`],
       searchWrapper: [tw`mb-2`],
       toggleButtonWrapper: [tw`mt-1`],
-      toggleIcon: [tw`ml-2`, `color: ${theme.color.primary}`],
+      toggleIcon: [tw`ml-2`, `color: ${theme.color.primary.base}`],
     },
     disableDefaultStyles,
   );
@@ -78,7 +78,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   const innerList = React.useMemo(
     () =>
       items.map(({ label, count }) => (
-        <CoreBox css={styles.innerList} key={label + count}>
+        <CoreBox css={styles.innerList} key={`${label}-${count}`}>
           <Control
             value={label}
             checked={selected.includes(label)}

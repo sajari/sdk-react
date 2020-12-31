@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useRef } from 'react';
 
 export function useDebounce<F extends (...args: any[]) => void>(
@@ -14,12 +15,11 @@ export function useDebounce<F extends (...args: any[]) => void>(
     if (timeoutIdRef.current) {
       clearTimeout(timeoutIdRef.current);
     }
-    const context = this;
 
     const doLater = () => {
       timeoutIdRef.current = undefined;
       if (!options.isImmediate) {
-        func.apply(context, args);
+        func.apply(this, args);
       }
     };
 
@@ -28,7 +28,7 @@ export function useDebounce<F extends (...args: any[]) => void>(
     timeoutIdRef.current = setTimeout(doLater, waitMilliseconds);
 
     if (shouldCallNow) {
-      func.apply(context, args);
+      func.apply(this, args);
     }
   } as any;
 }

@@ -4,13 +4,13 @@ import * as React from 'react';
 
 import { IconDownKey, IconEnterKey, IconUpKey } from '../../../assets/icons';
 import Box from '../../../Box';
+import { useDropdownStyles } from '../../../hooks';
 import PoweredBy from '../../../PoweredBy';
 import Text from '../../../Text';
 import { useComboboxContext } from '../../context';
 import { ResultItem } from '../../types';
 import DropdownItem from '../DropdownItem';
 import DropdownResult from '../DropdownResult';
-import { useDropdownStyles } from './styles';
 
 const Dropdown = () => {
   const {

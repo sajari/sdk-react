@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Config } from './Config';
 import { FilterBuilder, Pipeline, RangeFilterBuilder, Response, Variables } from './controllers';
 

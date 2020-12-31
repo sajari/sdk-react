@@ -4,14 +4,19 @@ import { TwStyle } from 'twin.macro';
 
 import { isNullOrUndefined } from '../assertion';
 
-export function mapStyles<T = Record<string, (TwStyle | string)[]>>(styles: T): Record<keyof T, SerializedStyles> {
+export function mapStyles<T = Record<string, (TwStyle | string | SerializedStyles)[]>>(
+  styles: T,
+): Record<keyof T, SerializedStyles> {
   return Object.entries(styles).reduce((obj, [key, value]) => Object.assign(obj, { [key]: css(value) }), {}) as Record<
     keyof typeof styles,
     SerializedStyles
   >;
 }
 
-export function getStylesObject<T = Record<string, SerializedStyles>>(styles: T, disableDefaultStyles: boolean) {
+export function getStylesObject<T = Record<string, SerializedStyles>>(
+  styles: T,
+  disableDefaultStyles: boolean,
+): Partial<T> {
   if (disableDefaultStyles) {
     return {} as Partial<T>;
   }
@@ -19,11 +24,11 @@ export function getStylesObject<T = Record<string, SerializedStyles>>(styles: T,
   return styles;
 }
 
-export function inferStylesObjectKeys<T, K = (TwStyle | string)[]>(obj: T) {
+export function inferStylesObjectKeys<T, K = (TwStyle | string | SerializedStyles)[]>(obj: T): Record<keyof T, K> {
   return (obj as unknown) as Record<keyof T, K>;
 }
 
-export function filterProps(props?: Record<string, any>) {
+export function filterProps(props?: Record<string, never>): Record<string, never> {
   if (isNullOrUndefined(props)) {
     return {};
   }

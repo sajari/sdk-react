@@ -21,6 +21,7 @@ describe('Heading', () => {
     ['h5', '0.875rem'],
     ['h6', '0.75rem'],
   ])('<Heading as={%s}/> should have font-size %s', (asProp, expected) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { container } = render(<Heading as={asProp as React.ElementType<any>} />);
 
     expect(container.firstChild).toHaveStyleRule('font-size', expected);

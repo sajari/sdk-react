@@ -5,6 +5,7 @@ import { useFocusRingStyles } from '../hooks';
 import { ComboboxProps } from './types';
 
 interface UseComboboxStylesProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   size: ComboboxProps<any>['size'];
   voiceEnabled: boolean;
   loading: boolean;
