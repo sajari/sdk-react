@@ -1,6 +1,7 @@
 import { useId } from '@react-aria/utils';
-import { Select } from '@sajari/react-components';
+import { Option, Select } from '@sajari/react-components';
 import { useResultsPerPage, useSearchContext } from '@sajari/react-hooks';
+import { isArray } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -37,15 +38,15 @@ const ResultsPerPage = (props: ResultsPerPageProps) => {
       <Select
         id={id}
         value={`${resultsPerPage}`}
-        onChange={(e) => setResultsPerPage(parseInt(e.target.value, 10))}
+        onChange={(value) => setResultsPerPage(Number(isArray(value) ? value[0] : value))}
         size={size}
         disableDefaultStyles={disableDefaultStyles}
         className={customClassNames.resultsPerPage?.select}
       >
         {optionsSorted.map((s) => (
-          <option key={s} value={s}>
+          <Option key={s} value={s}>
             {s}
-          </option>
+          </Option>
         ))}
       </Select>
     </ViewOption>

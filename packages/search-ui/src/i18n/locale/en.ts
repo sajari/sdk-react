@@ -15,6 +15,8 @@ export default {
     all: 'All',
     showMore: 'Show {{count}} more',
     showLess: 'Show less',
+    select: 'Select a filter',
+    selected: '{{count}} filters selected',
   },
   input: {
     placeholder: 'Search',

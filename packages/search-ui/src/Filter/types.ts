@@ -58,4 +58,18 @@ export interface RangeFilterProps
   type: 'range';
 }
 
-export type FilterProps = ListFilterProps | ColorFilterProps | RatingFilterProps | TabFilterProps | RangeFilterProps;
+export interface SelectFilterProps extends BaseFilterProps {
+  type: 'select';
+  /** How to sort the items */
+  sort?: ListFilterProps['sort'];
+  /** Sort in ascending order */
+  sortAscending?: ListFilterProps['sortAscending'];
+}
+
+export type FilterProps =
+  | ColorFilterProps
+  | ListFilterProps
+  | RangeFilterProps
+  | RatingFilterProps
+  | SelectFilterProps
+  | TabFilterProps;

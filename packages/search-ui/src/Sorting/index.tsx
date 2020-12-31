@@ -1,6 +1,7 @@
 import { useId } from '@react-aria/utils';
-import { Select } from '@sajari/react-components';
+import { Option, Select } from '@sajari/react-components';
 import { useSorting } from '@sajari/react-hooks';
+import { isArray } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -30,15 +31,15 @@ const Sorting = (props: SortingProps) => {
       <Select
         id={id}
         value={sorting}
-        onChange={(e) => setSorting(e.target.value)}
+        onChange={(value) => setSorting(isArray<string>(value) ? value[0] : value)}
         size={size}
         disableDefaultStyles={disableDefaultStyles}
         className={customClassNames.sorting?.select}
       >
         {options.map((s) => (
-          <option key={s.value} value={s.value}>
+          <Option key={s.value} value={s.value}>
             {s.name}
-          </option>
+          </Option>
         ))}
       </Select>
     </ViewOption>
