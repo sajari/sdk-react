@@ -1,22 +1,20 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Children, isValidElement } from 'react';
 
-export type As<Props = Record<string, never>> = React.ElementType<Props>;
+export type As<Props = any> = React.ElementType<Props>;
 
-export type PropsWithAs<Props = Record<string, never>, Type extends As = As> = Props &
+export type PropsWithAs<Props = any, Type extends As = As> = Props &
   Omit<React.ComponentProps<Type>, 'as' | keyof Props> & {
     as?: Type;
   };
 
 export interface ComponentWithAs<Props, DefaultType extends As> {
-  // eslint-disable-next-line no-undef
   <Type extends As>(props: PropsWithAs<Props, Type> & { as: Type }): JSX.Element;
-  // eslint-disable-next-line no-undef
   (props: PropsWithAs<Props, DefaultType>): JSX.Element;
 }
 
 type ReactRef<T> = React.Ref<T> | React.RefObject<T> | React.MutableRefObject<T>;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function setRef<T = any>(ref: React.Ref<T> = null, value: T): void {
   if (!ref) {
     return;
@@ -58,14 +56,12 @@ export function assignRef(ref: React.Ref<HTMLElement>, value: HTMLElement): Retu
  * @param refs refs to assign to value to
  */
 export function mergeRefs(...refs: Array<ReactRef<HTMLElement> | undefined>) {
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   return (value: HTMLElement) => {
     refs.forEach((ref) => ref && assignRef(ref, value));
   };
 }
 
 export function forwardRefWithAs<Props, DefaultType extends As>(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component: React.ForwardRefRenderFunction<any, any>,
 ): ComponentWithAs<Props, DefaultType> {
   return (React.forwardRef(component) as unknown) as ComponentWithAs<Props, DefaultType>;
