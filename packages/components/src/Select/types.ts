@@ -32,7 +32,7 @@ interface Props extends BoxProps {
   /** The name of the input */
   name?: string;
   /** The text for the button */
-  text?: React.ReactNode | ((selected: Array<OptionProps['children']>) => React.ReactNode);
+  text?: React.ReactText | ((selected: Array<OptionProps['children']>) => React.ReactText);
   /** The size of the select */
   size?: UseInputStyleProps['size'];
   /** Handle the value changing */
