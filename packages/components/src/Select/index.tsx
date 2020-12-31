@@ -91,6 +91,10 @@ const Select = React.forwardRef((props: SelectProps, ref?: React.Ref<HTMLDivElem
     }
   };
 
+  React.useEffect(() => {
+    setSelectedItems(mapValues(value));
+  }, [value]);
+
   const {
     isOpen: open,
     getToggleButtonProps,

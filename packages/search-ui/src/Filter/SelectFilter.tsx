@@ -57,7 +57,7 @@ const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
         optionClassName={customClassNames.filter?.select?.option}
       >
         {sortedItems.map(({ value, label, count }) => (
-          <Option value={value} key={value} label={count.toLocaleString()}>
+          <Option value={label} key={value} label={count.toLocaleString()}>
             {label}
           </Option>
         ))}
