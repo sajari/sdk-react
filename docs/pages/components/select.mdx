@@ -167,7 +167,7 @@ The Select composes the `Box` component so you can pass props for `Box`. These a
 | `name`      | `string`                                                |         | The name for the select.                                                                                    |
 | `text`      | `ReactText` \| `(selected: string[]) => ReactText`      |         | The text for the select's button.                                                                           |
 | `size`      | `'sm'` \| `'md'` \| `'lg'`                              | `'md'`  | The text size for the select.                                                                               |
-| `onChange`  | `(values: string \| Array<string>) => void`             |         | A callback for when the select value changes. Note: only the value is passed.                               |
+| `onChange`  | `(values: string` \| `Array<string>) => void`           |         | A callback for when the select value changes. Note: only the value is passed.                               |
 | `value`     | `OptionProps['value']` \| `Array<OptionProps['value']>` |         | The selected values for the select. Note: if specified, `selected` on the child `<Option>` will be ignored. |
 
 ### Option Props
@@ -176,5 +176,5 @@ The Select composes the `Box` component so you can pass props for `Box`. These a
 | ---------- | -------------------- | ------- | ------------------------------------------------------------------ |
 | `children` | `string` \| `number` |         | The text to display for the option.                                |
 | `value`    | `string` \| `number` |         | The value for the option.                                          |
-| `label`:   | `string` \| `number` |         | The additional text to display for the option (useful for counts). |
+| `label`    | `string` \| `number` |         | The additional text to display for the option (useful for counts). |
 | `disabled` | `boolean`            |         | Whether the option should be disabled.                             |
