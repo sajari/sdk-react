@@ -1,5 +1,5 @@
 import { useId } from '@react-aria/utils';
-import { __DEV__, cleanChildren, getStylesObject, isArray } from '@sajari/react-sdk-utils';
+import { __DEV__, cleanChildren, getStylesObject, isArray, isString } from '@sajari/react-sdk-utils';
 import { useSelect, UseSelectState, UseSelectStateChangeOptions } from 'downshift';
 import * as React from 'react';
 
@@ -28,7 +28,7 @@ const Select = React.forwardRef((props: SelectProps, ref?: React.Ref<HTMLDivElem
     text,
     disableDefaultStyles = false,
     styles: stylesProp,
-    containerClassName,
+    className,
     buttonClassName,
     dropdownClassName,
     optionClassName,
@@ -157,9 +157,12 @@ const Select = React.forwardRef((props: SelectProps, ref?: React.Ref<HTMLDivElem
     },
   };
 
+  // Render hidden inputs for form submissions if name is set
+  const renderInputs = isString(name) && !disabled;
+
   return (
     <SelectContextProvider value={context}>
-      <Box css={[styles.container, stylesProp]} ref={ref} className={containerClassName}>
+      <Box css={[styles.container, stylesProp]} ref={ref} className={className}>
         {label && (
           <Label visuallyHidden {...getLabelProps()}>
             {label}
@@ -170,7 +173,8 @@ const Select = React.forwardRef((props: SelectProps, ref?: React.Ref<HTMLDivElem
 
         <Dropdown />
 
-        {name && !disabled && selectedItems.map((v) => <Box as="input" type="hidden" name={name} value={v} />)}
+        {renderInputs &&
+          selectedItems.map((v) => <Box as="input" type="hidden" name={name} value={v} key={`${name}-${v}`} />)}
       </Box>
     </SelectContextProvider>
   );

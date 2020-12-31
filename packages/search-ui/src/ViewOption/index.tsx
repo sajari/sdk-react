@@ -17,7 +17,7 @@ const ViewOption = (props: ViewOptionProps) => {
     size,
     styles: stylesProp,
     children,
-    containerClassName,
+    className,
     labelClassName,
     ...rest
   } = props;
@@ -38,7 +38,7 @@ const ViewOption = (props: ViewOptionProps) => {
   };
 
   return (
-    <Box css={[styles.container, stylesProp]} aria-labelledby={labelId} {...rest} className={containerClassName}>
+    <Box css={[styles.container, stylesProp]} aria-labelledby={labelId} {...rest} className={className}>
       {input ? (
         <Label htmlFor={id} {...labelProps}>
           {label}

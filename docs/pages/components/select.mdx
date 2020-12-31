@@ -148,6 +148,40 @@ An additional label can be added to an `Option` using the `label` prop.
 </Select>
 ```
 
+### Form usage
+
+The `name` prop is submitted along with the control's value when the form data is submitted.
+
+```jsx
+function Example() {
+  const [data, setData] = React.useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    setData(new URLSearchParams(data).toString());
+  };
+
+  return (
+    <div className="space-y-4">
+      <form onSubmit={handleSubmit} className="flex space-x-4">
+        <Select multiple name="options" className="flex-1">
+          <Option value="option1">Option 1</Option>
+          <Option value="option2">Option 2</Option>
+          <Option value="option3">Option 3</Option>
+        </Select>
+
+        <Button type="submit" appearance="primary">
+          Submit
+        </Button>
+      </form>
+
+      {data && <pre>{data}</pre>}
+    </div>
+  );
+}
+```
+
 ## Props
 
 The API for the `Select` and `Option` components are deliberately similar to their native equivalents (`<select>` and `<option>`).

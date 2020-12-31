@@ -51,7 +51,7 @@ const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
         disableDefaultStyles={disableDefaultStyles}
         size="sm"
         text={getSelectText}
-        containerClassName={customClassNames.filter?.select?.container}
+        className={customClassNames.filter?.select?.container}
         buttonClassName={customClassNames.filter?.select?.button}
         dropdownClassName={customClassNames.filter?.select?.dropdown}
         optionClassName={customClassNames.filter?.select?.option}

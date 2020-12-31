@@ -21,7 +21,7 @@ const ViewType = (props: ViewTypeProps) => {
       id={id}
       label={label}
       size={size}
-      containerClassName={customClassNames.sorting?.container}
+      className={customClassNames.sorting?.container}
       labelClassName={customClassNames.sorting?.label}
       {...rest}
     >

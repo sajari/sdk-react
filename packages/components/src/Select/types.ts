@@ -7,8 +7,6 @@ import { OptionProps } from './components/Option/types';
 export type Item = [OptionProps['value'], OptionProps['children']];
 
 export interface SelectCustomClassNames {
-  /** The classnames for the container of select */
-  containerClassName?: string;
   /** The classnames for the button */
   buttonClassName?: string;
   /** The classnames for dropdown container */

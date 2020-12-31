@@ -18,8 +18,14 @@ export default {
       },
     },
     extend: {
+      backgroundOpacity: {
+        85: 0.85,
+      },
       borderRadius: {
         inherit: 'inherit',
+      },
+      boxShadow: {
+        menu: 'inset 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 5px rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.1)',
       },
       fontSize: {
         'code-inline': '0.9375em',
@@ -29,6 +35,9 @@ export default {
       },
       lineHeight: {
         inherit: 'inherit',
+      },
+      minWidth: {
+        'max-content': 'max-content',
       },
     },
   },

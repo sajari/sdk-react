@@ -12,7 +12,11 @@ export function useDropdownStyles(params: UseDropdownStylesParams) {
   const { container } = useCoreDropdownStyles({ shown });
   const { focusProps: focusRingProps, focusRingStyles } = useFocusRingStyles();
   const styles = {
-    container: [tw`p-1 overflow-auto list-none focus:outline-none max-h-80`, container, focusRingStyles],
+    container: [
+      tw`p-1 overflow-auto list-none focus:outline-none max-h-80 min-w-max-content`,
+      container,
+      focusRingStyles,
+    ],
   };
 
   return { styles: mapStyles(styles), focusRingProps };
