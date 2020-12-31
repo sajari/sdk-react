@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { css, SerializedStyles } from '@emotion/core';
 import isPropValid from '@emotion/is-prop-valid';
 import { TwStyle } from 'twin.macro';
@@ -28,7 +29,7 @@ export function inferStylesObjectKeys<T, K = (TwStyle | string | SerializedStyle
   return (obj as unknown) as Record<keyof T, K>;
 }
 
-export function filterProps(props?: Record<string, never>): Record<string, never> {
+export function filterProps(props?: Record<string, any>): Record<string, any> {
   if (isNullOrUndefined(props)) {
     return {};
   }
