@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.1.4...@sajari/react-components@1.2.0) (2020-12-31)
+
+### Bug Fixes
+
+- fix issues with build ([9d799ce](https://github.com/sajari/sdk-react/commit/9d799ce8b7adca31d89662652aca815bac268488))
+- fix ring styles on Link ([a74ba8d](https://github.com/sajari/sdk-react/commit/a74ba8d11b2010a6182ccbf61fff961558d01b08))
+- use shared noop function ([4d2171f](https://github.com/sajari/sdk-react/commit/4d2171fd8a7cc3a1d524d041fd46d7e2361e4833))
+
+### Features
+
+- new custom select and select filter type ([#304](https://github.com/sajari/sdk-react/issues/304)) ([d85db03](https://github.com/sajari/sdk-react/commit/d85db034b9ea70e9f6e1d67a783c51a3a7537ec7))
+
 ## [1.1.4](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.1.3...@sajari/react-components@1.1.4) (2020-12-21)
 
 ### Bug Fixes
