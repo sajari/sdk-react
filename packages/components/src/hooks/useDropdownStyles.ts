@@ -8,7 +8,7 @@ export interface UseDropdownStylesParams {
 export function useDropdownStyles({ shown = true }: UseDropdownStylesParams) {
   const styles = {
     container: [
-      tw`absolute left-0 right-0 top-auto z-20 mt-1 bg-white rounded-md shadow-menu backdrop-blur-1 bg-opacity-75`,
+      tw`absolute left-0 right-0 top-auto z-20 mt-1 bg-white rounded-md shadow-menu backdrop-blur-1 bg-opacity-95`,
       !shown ? tw`hidden` : tw``,
     ],
     heading: [tw`px-4 pt-2 text-xs text-gray-400 font-normal`],

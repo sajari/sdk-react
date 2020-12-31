@@ -19,7 +19,7 @@ export default {
     },
     extend: {
       backgroundOpacity: {
-        85: 0.85,
+        95: 0.95,
       },
       borderRadius: {
         inherit: 'inherit',
