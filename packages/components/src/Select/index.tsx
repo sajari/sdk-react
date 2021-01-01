@@ -55,13 +55,13 @@ const Select = React.forwardRef((props: SelectProps, ref?: React.Ref<HTMLDivElem
     }
   };
 
-  const itemToString = (item: Item): string => (item ? item[0].toString() : '');
+  const itemToString = (item: Item): string => item?.value?.toString() ?? '';
 
-  // Build items from child <Option>s
+  // Build items list from children
   const items: Array<Item> = React.useMemo(
     () =>
       cleanChildren(children).reduce(
-        (out, { props: optionProps }: { props: OptionProps }) => [...out, [optionProps.value, optionProps.children]],
+        (out, { props: optionProps }: { props: OptionProps }) => [...out, optionProps],
         [] as Array<Item>,
       ),
     [children],
@@ -106,7 +106,7 @@ const Select = React.forwardRef((props: SelectProps, ref?: React.Ref<HTMLDivElem
     items,
     stateReducer,
     selectedItem: null,
-    initialHighlightedIndex: items.findIndex(([v]) => v.toString() === selectedItems[0]),
+    initialHighlightedIndex: items.findIndex(({ value: v }) => v.toString() === selectedItems[0]),
     itemToString,
     onSelectedItemChange: ({ selectedItem }) => {
       if (!selectedItem) {
@@ -135,7 +135,6 @@ const Select = React.forwardRef((props: SelectProps, ref?: React.Ref<HTMLDivElem
   const context = {
     id,
     open,
-    children,
     items,
     selectedItems,
     highlightedIndex,

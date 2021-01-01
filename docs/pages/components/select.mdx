@@ -20,9 +20,7 @@ Here's a basic usage of the Select component.
 ```jsx
 <Select>
   <Option value="option1">Option 1</Option>
-  <Option value="option2" selected>
-    Option 2
-  </Option>
+  <Option value="option2">Option 2</Option>
   <Option value="option3">Option 3</Option>
   <Option value="option4">Option 4</Option>
   <Option value="option5">Option 5</Option>
@@ -158,8 +156,7 @@ function Example() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.target);
-    setData(new URLSearchParams(data).toString());
+    setData(new URLSearchParams(new FormData(event.target)).toString());
   };
 
   return (
@@ -190,19 +187,19 @@ The API for the `Select` and `Option` components are deliberately similar to the
 
 The Select composes the `Box` component so you can pass props for `Box`. These are props related to the Select component.
 
-| Name        | Type                                                    | Default | Description                                                                                                 |
-| ----------- | ------------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------- |
-| `id`        | `string`                                                |         | The ID for associating a label to the input.                                                                |
-| `autofocus` | `boolean`                                               |         | Whether the select should receive focus when mounted.                                                       |
-| `disabled`  | `boolean`                                               |         | Whether the select should be disabled.                                                                      |
-| `invalid`   | `boolean`                                               |         | Whether the select should be marked invalid.                                                                |
-| `label`     | `string`                                                |         | An aria-label, also used for the placeholder if not specified.                                              |
-| `multiple`  | `boolean`                                               |         | Allow multiple option selection.                                                                            |
-| `name`      | `string`                                                |         | The name for the select.                                                                                    |
-| `text`      | `ReactText` \| `(selected: string[]) => ReactText`      |         | The text for the select's button.                                                                           |
-| `size`      | `'sm'` \| `'md'` \| `'lg'`                              | `'md'`  | The text size for the select.                                                                               |
-| `onChange`  | `(values: string` \| `Array<string>) => void`           |         | A callback for when the select value changes. Note: only the value is passed.                               |
-| `value`     | `OptionProps['value']` \| `Array<OptionProps['value']>` |         | The selected values for the select. Note: if specified, `selected` on the child `<Option>` will be ignored. |
+| Name        | Type                                                    | Default | Description                                                                   |
+| ----------- | ------------------------------------------------------- | ------- | ----------------------------------------------------------------------------- |
+| `id`        | `string`                                                |         | The ID for associating a label to the input.                                  |
+| `autofocus` | `boolean`                                               |         | Whether the select should receive focus when mounted.                         |
+| `disabled`  | `boolean`                                               |         | Whether the select should be disabled.                                        |
+| `invalid`   | `boolean`                                               |         | Whether the select should be marked invalid.                                  |
+| `label`     | `string`                                                |         | An aria-label, also used for the placeholder if not specified.                |
+| `multiple`  | `boolean`                                               |         | Allow multiple option selection.                                              |
+| `name`      | `string`                                                |         | The name for the select.                                                      |
+| `text`      | `ReactText` \| `(selected: string[]) => ReactText`      |         | The text for the select's button.                                             |
+| `size`      | `'sm'` \| `'md'` \| `'lg'`                              | `'md'`  | The text size for the select.                                                 |
+| `onChange`  | `(values: string` \| `Array<string>) => void`           |         | A callback for when the select value changes. Note: only the value is passed. |
+| `value`     | `OptionProps['value']` \| `Array<OptionProps['value']>` |         | The selected value(s).                                                        |
 
 ### Option Props
 

@@ -7,7 +7,6 @@ interface SelectContextProps
   extends Required<
     Pick<SelectProps, 'disabled' | 'disableDefaultStyles' | 'id' | 'invalid' | 'multiple' | 'size' | 'autofocus'>
   > {
-  children: React.ReactNode;
   text: SelectProps['text'];
   open: boolean;
   items: Array<Item>;

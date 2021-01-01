@@ -20,8 +20,8 @@ const Option = (props: OptionProps) => {
     customClassNames,
   } = useSelectContext();
   const [item, index] = React.useMemo(() => {
-    const i = items.find(([v]) => v === value) as Item;
-    const idx = items.findIndex(([v]) => v === value);
+    const i = items.find(({ value: v }) => v === value) as Item;
+    const idx = items.findIndex(({ value: v }) => v === value);
     return [i, idx];
   }, [value, JSON.stringify(items)]);
   const selected = typeof value !== 'undefined' && selectedItems.includes(value.toString());

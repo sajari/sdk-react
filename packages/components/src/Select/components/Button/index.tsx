@@ -32,7 +32,9 @@ const Button = () => {
 
   const children: React.ReactNode = React.useMemo(() => {
     if (typeof text === 'function') {
-      const selected = items.filter(([v]) => selectedItems.includes(v.toString())).map(([, label]) => label);
+      const selected = items
+        .filter(({ value: v }) => selectedItems.includes(v.toString()))
+        .map(({ children: label }) => label);
       return text(selected);
     }
 
@@ -42,11 +44,10 @@ const Button = () => {
 
     if (selectedItems.length === 1) {
       const [selectedItem] = selectedItems;
-      const item = items.find(([v]) => selectedItem === v.toString());
+      const selected = items.find(({ value: v }) => selectedItem === v.toString());
 
-      if (item) {
-        const [, t] = item;
-        return t;
+      if (selected) {
+        return selected.children;
       }
     }
 

@@ -4,7 +4,7 @@ import { BoxProps } from '../Box';
 import { UseInputStyleProps } from '../hooks';
 import { OptionProps } from './components/Option/types';
 
-export type Item = [OptionProps['value'], OptionProps['children']];
+export type Item = OptionProps;
 
 export interface SelectCustomClassNames {
   /** The classnames for the button */
