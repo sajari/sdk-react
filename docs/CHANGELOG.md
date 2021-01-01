@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.2.0...sajari-sdk-docs@1.2.1) (2021-01-01)
+
+### Bug Fixes
+
+- improvement to Select rendering ([9de9791](https://github.com/sajari/sdk-react/commit/9de9791fd607814a967b7d9736c22451fbfffc30))
+
 # [1.2.0](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.1.4...sajari-sdk-docs@1.2.0) (2020-12-31)
 
 ### Features
