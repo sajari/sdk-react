@@ -70,7 +70,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     }
 
     return list;
-  }, [JSON.stringify(options), JSON.stringify(selected), pinSelected, sort, sortAscending]);
+  }, [JSON.stringify(filtered), JSON.stringify(selected), pinSelected, sort, sortAscending]);
 
   const items = slice && !expanded ? sortedItems.slice(0, limit) : sortedItems;
   const Icon = expanded ? IconSmallChevronUp : IconSmallChevronDown;
