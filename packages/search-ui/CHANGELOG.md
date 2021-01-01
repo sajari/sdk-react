@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.2.1...@sajari/react-search-ui@1.2.2) (2021-01-01)
+
+### Bug Fixes
+
+- fix searching in ListFilter ([ba52e54](https://github.com/sajari/sdk-react/commit/ba52e54edabf0fe58e8276760ef36a9d23a818f3))
+
 ## [1.2.1](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.2.0...@sajari/react-search-ui@1.2.1) (2021-01-01)
 
 **Note:** Version bump only for package @sajari/react-search-ui
