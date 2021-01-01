@@ -26,7 +26,7 @@
     "react-dom": "^16.8.0"
   },
   "dependencies": {
-    "@react-aria/utils": "3.4.1",
+    "@react-aria/utils": "3.5.0",
     "@sajari/react-components": "^1.2.0",
     "@sajari/react-hooks": "^1.0.7",
     "@sajari/react-sdk-utils": "^1.2.0",
