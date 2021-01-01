@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.2.1...@sajari/react-components@1.2.2) (2021-01-01)
+
+### Bug Fixes
+
+- temporarily fixed issue related to upstream types breaking build ([d1d27f2](https://github.com/sajari/sdk-react/commit/d1d27f2bac1a96d4546e8dc0d15bdcc7452d369a))
+
 ## [1.2.1](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.2.0...@sajari/react-components@1.2.1) (2021-01-01)
 
 ### Bug Fixes
