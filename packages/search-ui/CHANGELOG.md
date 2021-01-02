@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.4](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.2.3...@sajari/react-search-ui@1.2.4) (2021-01-02)
+
+### Bug Fixes
+
+- collapse ListFilter when performing internal search ([7c49ac9](https://github.com/sajari/sdk-react/commit/7c49ac963ef61d69221dbf38476edc58b2dadcb2))
+- truncate Select button ([88d9300](https://github.com/sajari/sdk-react/commit/88d930078bafcdc0b37d55586709901e2e6483d4))
+
 ## [1.2.3](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.2.2...@sajari/react-search-ui@1.2.3) (2021-01-01)
 
 **Note:** Version bump only for package @sajari/react-search-ui

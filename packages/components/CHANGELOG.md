@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.3](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.2.2...@sajari/react-components@1.2.3) (2021-01-02)
+
+### Bug Fixes
+
+- truncate Select button ([88d9300](https://github.com/sajari/sdk-react/commit/88d930078bafcdc0b37d55586709901e2e6483d4))
+
 ## [1.2.2](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.2.1...@sajari/react-components@1.2.2) (2021-01-01)
 
 ### Bug Fixes
