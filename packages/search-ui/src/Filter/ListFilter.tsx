@@ -49,10 +49,15 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     pinSelected = options.length > limit;
   }
 
+  // Reset internal query on global query change
   React.useEffect(() => {
     setQuery('');
-    setExpanded(false);
   }, [q]);
+
+  // Collapse when filtering via internal or external query change
+  React.useEffect(() => {
+    setExpanded(false);
+  }, [query, q]);
 
   const Control = multi ? Checkbox : Radio;
   const filtered = searchable ? options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase())) : options;
