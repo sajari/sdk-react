@@ -89,6 +89,7 @@ interface Props<T> {
   }) => React.ReactNode;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type HtmlAttributes = Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof Props<any>>;
 
 export interface ComboboxProps<T> extends Props<T>, BoxProps, HtmlAttributes, ComboboxCustomClassNames {}

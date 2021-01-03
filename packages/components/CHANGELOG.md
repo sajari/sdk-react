@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.3](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.2.2...@sajari/react-components@1.2.3) (2021-01-02)
+
+### Bug Fixes
+
+- truncate Select button ([88d9300](https://github.com/sajari/sdk-react/commit/88d930078bafcdc0b37d55586709901e2e6483d4))
+
+## [1.2.2](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.2.1...@sajari/react-components@1.2.2) (2021-01-01)
+
+### Bug Fixes
+
+- temporarily fixed issue related to upstream types breaking build ([d1d27f2](https://github.com/sajari/sdk-react/commit/d1d27f2bac1a96d4546e8dc0d15bdcc7452d369a))
+
+## [1.2.1](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.2.0...@sajari/react-components@1.2.1) (2021-01-01)
+
+### Bug Fixes
+
+- improvement to Select rendering ([9de9791](https://github.com/sajari/sdk-react/commit/9de9791fd607814a967b7d9736c22451fbfffc30))
+
+# [1.2.0](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.1.4...@sajari/react-components@1.2.0) (2020-12-31)
+
+### Bug Fixes
+
+- fix issues with build ([9d799ce](https://github.com/sajari/sdk-react/commit/9d799ce8b7adca31d89662652aca815bac268488))
+- fix ring styles on Link ([a74ba8d](https://github.com/sajari/sdk-react/commit/a74ba8d11b2010a6182ccbf61fff961558d01b08))
+- use shared noop function ([4d2171f](https://github.com/sajari/sdk-react/commit/4d2171fd8a7cc3a1d524d041fd46d7e2361e4833))
+
+### Features
+
+- new custom select and select filter type ([#304](https://github.com/sajari/sdk-react/issues/304)) ([d85db03](https://github.com/sajari/sdk-react/commit/d85db034b9ea70e9f6e1d67a783c51a3a7537ec7))
+
 ## [1.1.4](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.1.3...@sajari/react-components@1.1.4) (2020-12-21)
 
 ### Bug Fixes

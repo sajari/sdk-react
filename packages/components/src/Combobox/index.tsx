@@ -273,6 +273,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
                   // Don't supress native form submission when 'Enter' key is pressed
                   // Only if the user isn't focused on an item in the suggestions
                   if (e.key === 'Enter' && highlightedIndex === -1) {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     (e.nativeEvent as any).preventDownshiftDefault = true;
 
                     if (mode === 'suggestions') {
@@ -285,8 +286,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
                   }
 
                   if (mode === 'typeahead' && e.key === 'ArrowRight') {
-                    // @ts-ignore: selectionStart is a member of event.target
-                    if (e.target.selectionStart === inputValue.length) {
+                    if ((e.target as HTMLInputElement).selectionStart === inputValue.length) {
                       if (completion.startsWith(inputValue)) {
                         setInputValue(completion);
                         setTypedInputValue(completion);

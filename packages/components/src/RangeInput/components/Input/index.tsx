@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useTextField } from '@react-aria/textfield';
 import { getStylesObject } from '@sajari/react-sdk-utils';
 import * as React from 'react';
@@ -20,7 +20,8 @@ const Input = (props: RangeInputInputProps) => {
       <Box as="label" css={tw`sr-only`} {...labelProps}>
         {label}
       </Box>
-      <Box as="input" css={styles.input} {...inputProps} {...focusProps} min={min} max={max} ref={ref} />
+      {/* @ts-ignore - some whacky types in @react-aria/textfield regarding onChange */}
+      <input css={styles.input} {...inputProps} {...focusProps} min={min} max={max} ref={ref} />
     </Box>
   );
 };

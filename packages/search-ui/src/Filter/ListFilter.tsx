@@ -1,6 +1,6 @@
 import { Box as CoreBox, Button, Checkbox, CheckboxGroup, Combobox, Radio, RadioGroup } from '@sajari/react-components';
 import { useFilter, useQuery } from '@sajari/react-hooks';
-import { formatNumber, getStylesObject, isBoolean, isEmpty, useTheme } from '@sajari/react-sdk-utils';
+import { formatNumber, getStylesObject, isBoolean, isEmpty, noop, useTheme } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import tw from 'twin.macro';
@@ -10,8 +10,6 @@ import { useSearchUIContext } from '../ContextProvider';
 import Box from './Box';
 import { ListFilterProps } from './types';
 import { getHeaderId, pinItems, sortItems } from './utils';
-
-const noop = () => {};
 
 const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   const {
@@ -43,7 +41,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
       checkbox: [tw`text-sm`],
       searchWrapper: [tw`mb-2`],
       toggleButtonWrapper: [tw`mt-1`],
-      toggleIcon: [tw`ml-2`, `color: ${theme.color.primary}`],
+      toggleIcon: [tw`ml-2`, `color: ${theme.color.primary.base}`],
     },
     disableDefaultStyles,
   );
@@ -77,10 +75,15 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     pinSelected = options.length > limit;
   }
 
+  // Reset internal query on global query change
   React.useEffect(() => {
     setQuery('');
-    setExpanded(false);
   }, [q]);
+
+  // Collapse when filtering via internal or external query change
+  React.useEffect(() => {
+    setExpanded(false);
+  }, [query, q]);
 
   const Control = multi ? Checkbox : Radio;
   const filtered = searchable ? options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase())) : options;
@@ -98,7 +101,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     }
 
     return list;
-  }, [JSON.stringify(options), JSON.stringify(selected), pinSelected, sort, sortAscending]);
+  }, [JSON.stringify(filtered), JSON.stringify(selected), pinSelected, sort, sortAscending]);
 
   const items = slice && !expanded ? sortedItems.slice(0, limit) : sortedItems;
   const Icon = expanded ? IconSmallChevronUp : IconSmallChevronDown;
@@ -106,7 +109,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   const innerList = React.useMemo(
     () =>
       items.map(({ label, count }) => (
-        <CoreBox css={styles.innerList} key={label + count}>
+        <CoreBox css={styles.innerList} key={`${label}-${count}`}>
           <Control
             value={label}
             checked={selected.includes(label)}

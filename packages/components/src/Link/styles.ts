@@ -5,7 +5,7 @@ import { useFocusRingStyles } from '../hooks';
 
 export default function useLinkStyles() {
   const theme = useTheme();
-  const { focusRingStyles } = useFocusRingStyles();
+  const { focusRingStyles, focusProps: focusRingProps } = useFocusRingStyles();
 
   const styles = {
     container: [
@@ -15,5 +15,5 @@ export default function useLinkStyles() {
     ],
   };
 
-  return mapStyles(styles);
+  return { styles: mapStyles(styles), focusRingProps };
 }

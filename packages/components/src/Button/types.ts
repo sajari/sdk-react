@@ -14,6 +14,8 @@ interface Props extends BoxProps {
   spacing?: ButtonSpacing;
   /** The size to apply to the button */
   size?: ButtonSize;
+  /** The button should be disabled */
+  disabled?: boolean;
   /** Provides a url for buttons being used as a link */
   loading?: boolean;
   /** Set if the button should be full width */
@@ -22,4 +24,4 @@ interface Props extends BoxProps {
   pressedClassName?: string;
 }
 
-export interface ButtonProps extends PropsWithAs<Props>, AriaButtonProps {}
+export interface ButtonProps extends Omit<PropsWithAs<Props>, keyof AriaButtonProps>, AriaButtonProps {}

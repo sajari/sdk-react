@@ -8,6 +8,8 @@ import Text from '../Text';
 import { useCheckboxGroupStyles } from './styles';
 import { CheckboxGroupProps } from './types';
 
+type Values = string | number | readonly string[] | undefined;
+
 const CheckboxGroup = (props: CheckboxGroupProps) => {
   const {
     onChange,
@@ -29,7 +31,7 @@ const CheckboxGroup = (props: CheckboxGroupProps) => {
 
   const internalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { checked, value } = event.target;
-    let newValues: Array<any>;
+    let newValues: Array<Values>;
 
     if (checked) {
       newValues = [...internalValues, value];

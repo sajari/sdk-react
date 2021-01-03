@@ -10,13 +10,15 @@ export default {
     connection: 'Please check your network connection and try again.',
     generic: 'Something went wrong. Please try again.',
   },
-  filter: {
-    reset: 'Reset',
-    all: 'All',
-    showMore: 'Show {{count}} more',
-    showLess: 'Show less',
+  filter: {    
+    all: 'All',    
     rangeOver: 'Over {{value}}',
     rangeUnder: 'Under {{value}}',
+    reset: 'Reset',
+    select: 'Select a filter',
+    selected: '{{count}} filters selected',
+    showLess: 'Show less',
+    showMore: 'Show {{count}} more',    
   },
   input: {
     placeholder: 'Search',

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-param-reassign */
 import { isObject } from './assertion';
 
@@ -18,7 +19,7 @@ interface MergeObject {
 }
 
 // Deep extend destination object with N more objects
-export function merge(target: MergeObject, ...sources: MergeObject[]) {
+export function merge(target: MergeObject, ...sources: MergeObject[]): MergeObject {
   if (!isObject(target) || !sources.length) {
     return target;
   }

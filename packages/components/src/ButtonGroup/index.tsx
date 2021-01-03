@@ -9,6 +9,7 @@ import { useButtonGroupStyles } from './styles';
 import { ButtonGroupProps } from './types';
 
 // TODO: remove "any"
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const StyledBox = styled<any>(Box, { shouldForwardProp: (prop) => prop !== 'attached' && prop !== 'inline' })<
   Pick<ButtonGroupProps, 'attached' | 'inline'>
 >`

@@ -10,7 +10,7 @@ import SEO from '../../components/SEO';
 The `Select` component allows users pick a value from predefined options. Ideally, it should be used when there are more than 5 options, otherwise you might consider using a radio group instead.
 
 ```js
-import { Select } from '@sajari/react-components';
+import { Select, Option } from '@sajari/react-components';
 ```
 
 ## Usage
@@ -18,10 +18,57 @@ import { Select } from '@sajari/react-components';
 Here's a basic usage of the Select component.
 
 ```jsx
-<Select placeholder="Select an option">
-  <option value="option1">Option 1</option>
-  <option value="option2">Option 2</option>
-  <option value="option3">Option 3</option>
+<Select>
+  <Option value="option1">Option 1</Option>
+  <Option value="option2">Option 2</Option>
+  <Option value="option3">Option 3</Option>
+  <Option value="option4">Option 4</Option>
+  <Option value="option5">Option 5</Option>
+  <Option value="option6">Option 6</Option>
+  <Option value="option7">Option 7</Option>
+  <Option value="option8">Option 8</Option>
+  <Option value="option9">Option 9</Option>
+  <Option value="option10">Option 10</Option>
+  <Option value="option11">Option 11</Option>
+  <Option value="option12">Option 12</Option>
+  <Option value="option13">Option 13</Option>
+  <Option value="option14">Option 14</Option>
+  <Option value="option15">Option 15</Option>
+  <Option value="option16">Option 16</Option>
+  <Option value="option17">Option 17</Option>
+  <Option value="option18">Option 18</Option>
+  <Option value="option19">Option 19</Option>
+  <Option value="option20">Option 20</Option>
+</Select>
+```
+
+### Multiple
+
+Add the `multiple` prop to allow multiple item selection.
+
+```jsx
+<Select multiple>
+  <Option value="option1">Option 1</Option>
+  <Option value="option2">Option 2</Option>
+  <Option value="option3">Option 3</Option>
+  <Option value="option4">Option 4</Option>
+  <Option value="option5">Option 5</Option>
+</Select>
+```
+
+### Disabled options
+
+Add the `disabled` prop to the option you want to disable.
+
+```jsx
+<Select>
+  <Option value="option1">Option 1</Option>
+  <Option value="option2" disabled>
+    Option 2
+  </Option>
+  <Option value="option3">Option 3</Option>
+  <Option value="option4">Option 4</Option>
+  <Option value="option5">Option 5</Option>
 </Select>
 ```
 
@@ -31,20 +78,20 @@ Use the `size` prop to set the size of the select. The default is `md`.
 
 ```jsx
 <div className="space-y-3">
-  <Select placeholder="Select an option" size="sm">
-    <option value="option1">Option 1</option>
-    <option value="option2">Option 2</option>
-    <option value="option3">Option 3</option>
+  <Select size="sm">
+    <Option value="option1">Option 1</Option>
+    <Option value="option2">Option 2</Option>
+    <Option value="option3">Option 3</Option>
   </Select>
-  <Select placeholder="Select an option" size="md">
-    <option value="option1">Option 1</option>
-    <option value="option2">Option 2</option>
-    <option value="option3">Option 3</option>
+  <Select size="md">
+    <Option value="option1">Option 1</Option>
+    <Option value="option2">Option 2</Option>
+    <Option value="option3">Option 3</Option>
   </Select>
-  <Select placeholder="Select an option" size="lg">
-    <option value="option1">Option 1</option>
-    <option value="option2">Option 2</option>
-    <option value="option3">Option 3</option>
+  <Select size="lg">
+    <Option value="option1">Option 1</Option>
+    <Option value="option2">Option 2</Option>
+    <Option value="option3">Option 3</Option>
   </Select>
 </div>
 ```
@@ -52,29 +99,113 @@ Use the `size` prop to set the size of the select. The default is `md`.
 ### Invalid
 
 ```jsx
-<Select placeholder="Select an option" invalid>
-  <option value="option1">Option 1</option>
-  <option value="option2">Option 2</option>
-  <option value="option3">Option 3</option>
+<Select invalid>
+  <Option value="option1">Option 1</Option>
+  <Option value="option2">Option 2</Option>
+  <Option value="option3">Option 3</Option>
 </Select>
 ```
 
-## Disabled
+### Disabled
 
 ```jsx
-<Select placeholder="Select an option" disabled>
-  <option value="option1">Option 1</option>
-  <option value="option2">Option 2</option>
-  <option value="option3">Option 3</option>
+<Select disabled>
+  <Option value="option1">Option 1</Option>
+  <Option value="option2">Option 2</Option>
+  <Option value="option3">Option 3</Option>
 </Select>
+```
+
+### Text
+
+By default the text for the button is `'Select an option'` when no options are selected or `'X selected'` where X is the number of options selected. This can be change via the `text` prop.
+
+```jsx
+<Select multiple text={(count) => (count > 0 ? `${count} filters` : 'Select a filter')}>
+  <Option value="option1">Option 1</Option>
+  <Option value="option2">Option 2</Option>
+  <Option value="option3">Option 3</Option>
+</Select>
+```
+
+### Option labels
+
+An additional label can be added to an `Option` using the `label` prop.
+
+```jsx
+<Select multiple value={['option1', 'option2']}>
+  <Option value="option1" label={(1872).toLocaleString()}>
+    Option 1
+  </Option>
+  <Option value="option2" label={(1988).toLocaleString()}>
+    Option 2
+  </Option>
+  <Option value="option3" label={(2318).toLocaleString()}>
+    Option 3
+  </Option>
+</Select>
+```
+
+### Form usage
+
+The `name` prop is submitted along with the control's value when the form data is submitted.
+
+```jsx
+function Example() {
+  const [data, setData] = React.useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setData(new URLSearchParams(new FormData(event.target)).toString());
+  };
+
+  return (
+    <div className="space-y-4">
+      <form onSubmit={handleSubmit} className="flex space-x-4">
+        <Select multiple name="options" className="flex-1">
+          <Option value="option1">Option 1</Option>
+          <Option value="option2">Option 2</Option>
+          <Option value="option3">Option 3</Option>
+        </Select>
+
+        <Button type="submit" appearance="primary">
+          Submit
+        </Button>
+      </form>
+
+      {data && <pre>{data}</pre>}
+    </div>
+  );
+}
 ```
 
 ## Props
 
-The Select composes the `Box` component so you can pass props for
-`Box`. These are props related to the Select component.
+The API for the `Select` and `Option` components are deliberately similar to their native equivalents (`<select>` and `<option>`).
 
-| Name      | Type      | Default | Description                                                   |
-| --------- | --------- | ------- | ------------------------------------------------------------- |
-| `invalid` | `boolean` |         | Whether the select is invalid                                 |
-| `label`   | `string`  |         | An aria-label, also used for the placeholder if not specified |
+### Select Props
+
+The Select composes the `Box` component so you can pass props for `Box`. These are props related to the Select component.
+
+| Name        | Type                                                    | Default | Description                                                                   |
+| ----------- | ------------------------------------------------------- | ------- | ----------------------------------------------------------------------------- |
+| `id`        | `string`                                                |         | The ID for associating a label to the input.                                  |
+| `autofocus` | `boolean`                                               |         | Whether the select should receive focus when mounted.                         |
+| `disabled`  | `boolean`                                               |         | Whether the select should be disabled.                                        |
+| `invalid`   | `boolean`                                               |         | Whether the select should be marked invalid.                                  |
+| `label`     | `string`                                                |         | An aria-label, also used for the placeholder if not specified.                |
+| `multiple`  | `boolean`                                               |         | Allow multiple option selection.                                              |
+| `name`      | `string`                                                |         | The name for the select.                                                      |
+| `text`      | `ReactText` \| `(selected: string[]) => ReactText`      |         | The text for the select's button.                                             |
+| `size`      | `'sm'` \| `'md'` \| `'lg'`                              | `'md'`  | The text size for the select.                                                 |
+| `onChange`  | `(values: string` \| `Array<string>) => void`           |         | A callback for when the select value changes. Note: only the value is passed. |
+| `value`     | `OptionProps['value']` \| `Array<OptionProps['value']>` |         | The selected value(s).                                                        |
+
+### Option Props
+
+| Name       | Type                 | Default | Description                                                        |
+| ---------- | -------------------- | ------- | ------------------------------------------------------------------ |
+| `children` | `string` \| `number` |         | The text to display for the option.                                |
+| `value`    | `string` \| `number` |         | The value for the option.                                          |
+| `label`    | `string` \| `number` |         | The additional text to display for the option (useful for counts). |
+| `disabled` | `boolean`            |         | Whether the option should be disabled.                             |

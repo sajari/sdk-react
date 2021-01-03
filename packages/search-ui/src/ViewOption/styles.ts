@@ -8,7 +8,7 @@ interface UseViewOptionStyleParams {
 export default function useViewOptionStyles(params: UseViewOptionStyleParams) {
   const { inline } = params;
   const styles = {
-    container: inline ? [tw`flex items-center space-x-2`] : [tw`space-y-1`],
+    container: [tw`min-w-0`, inline ? tw`flex items-center space-x-2` : tw`space-y-1`],
     label: [tw`text-gray-500`],
   };
 

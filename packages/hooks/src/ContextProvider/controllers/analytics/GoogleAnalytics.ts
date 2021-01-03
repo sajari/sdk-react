@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-syntax */
-import { isSSR } from '@sajari/react-sdk-utils';
+import { isFunction, isSSR } from '@sajari/react-sdk-utils';
 
 import { EVENT_ANALYTICS_BODY_RESET, EVENT_ANALYTICS_PAGE_CLOSED, EVENT_ANALYTICS_RESULT_CLICKED } from '../../events';
 import { UnlistenFn } from '../Listener';
@@ -10,8 +10,6 @@ enum GoogleAnalyticsObjects {
   AnalyticsJS = 'ga',
   GTag = 'gtag',
 }
-
-const isFunction = (x: any) => typeof x === 'function';
 
 const url = {
   /**
@@ -88,7 +86,7 @@ export class GoogleAnalytics {
    * @param {string} [id=undefined] The name of the ga global object. Defaults to "ga" or "_ua" if one isn't supplied.
    * @param {string} [param="q"] The URL parameter to use to indicate a search. Default to "q".
    */
-  constructor(analytics: Analytics, id?: string, param: string = 'q') {
+  constructor(analytics: Analytics, id?: string, param = 'q') {
     this.unregisterFunctions.push(analytics.listen(EVENT_ANALYTICS_PAGE_CLOSED, this.onPageClose));
     this.unregisterFunctions.push(analytics.listen(EVENT_ANALYTICS_BODY_RESET, this.onBodyReset));
     this.unregisterFunctions.push(analytics.listen(EVENT_ANALYTICS_RESULT_CLICKED, this.onResultClicked));
@@ -120,7 +118,6 @@ export class GoogleAnalytics {
    * Sends a page view event if ga is found on the page and we're not in dev mode.
    */
   public sendGAPageView(body: string) {
-    // @ts-ignore: window is an object
     if (this.id && !isSSR() && isFunction(window[this.id])) {
       // Merge the body in with the existing query params in the url
       const pageAddress = url.augmentUri(

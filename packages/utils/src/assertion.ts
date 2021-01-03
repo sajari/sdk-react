@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { parseURL } from './url';
 
 export function isNullOrUndefined(value: any): value is undefined | null {
@@ -16,7 +17,7 @@ export function isNumber(value: any): value is number {
   return typeof value === 'number' && !Number.isNaN(value);
 }
 
-export function isFunction(value: any): value is () => {} {
+export function isFunction(value: any): value is () => unknown {
   return typeof value === 'function';
 }
 
@@ -58,7 +59,7 @@ export const isEmpty = (value: any) => {
  * Check if a string is a valid absolute or relative URL
  * @param value
  */
-export function isValidURL(value: any, allowRelative = false) {
+export function isValidURL(value?: string, allowRelative = false) {
   if (!value || isEmpty(value)) {
     return false;
   }

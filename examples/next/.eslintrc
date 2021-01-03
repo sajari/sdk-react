@@ -1,13 +1,5 @@
 {
-  "rules": {
-    "react/prop-types": "off",
-    "react/react-in-jsx-scope": "off"
-  },
   "parserOptions": {
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "project": "./examples/next/tsconfig.eslint.json"
+    "project": "./examples/next/tsconfig.json"
   }
 }

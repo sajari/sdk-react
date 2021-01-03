@@ -4,7 +4,7 @@ import { Client } from '@sajari/sdk-js';
 
 import { EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED, EVENT_SEARCH_SENT } from '../events';
 import { Analytics, GoogleAnalytics } from './analytics';
-import { CallbackFn, Listener, ListenerMap } from './Listener';
+import { CallbackFn, Listener, ListenerMap, UnlistenFn } from './Listener';
 import { Response } from './Response';
 import { ClickTracking, NoTracking, PosNegTracking } from './tracking';
 
@@ -104,7 +104,7 @@ export class Pipeline {
    * @param callback Callback to run when the event happens.
    * @return The unregister function to remove the callback from the listener.
    */
-  public listen(event: string, callback: CallbackFn) {
+  public listen(event: string, callback: CallbackFn): UnlistenFn {
     if (events.indexOf(event) === -1) {
       throw new Error(`Unknown event type "${event}"`);
     }
@@ -115,7 +115,7 @@ export class Pipeline {
    * Emits a search event to the search event listener.
    * @private
    */
-  public _emitSearchSent(variables: { [k: string]: string }) {
+  public _emitSearchSent(variables: { [k: string]: string }): void {
     (this.listeners.get(EVENT_SEARCH_SENT) as Listener).notify((listener) => {
       listener(variables);
     });
@@ -125,7 +125,7 @@ export class Pipeline {
    * Emits a results event to the results event listener.
    * @private
    */
-  public _emitResponseUpdated(response: Response) {
+  public _emitResponseUpdated(response: Response): void {
     (this.listeners.get(EVENT_RESPONSE_UPDATED) as Listener).notify((listener) => {
       listener(response);
     });
@@ -135,7 +135,7 @@ export class Pipeline {
    * Emits a result clicked event to the results clicked event listeners.
    * @param value Value to send to the listeners.
    */
-  public emitResultClicked(value: string) {
+  public emitResultClicked(value: string): void {
     (this.listeners.get(EVENT_RESULT_CLICKED) as Listener).notify((listener) => {
       listener(value);
     });
@@ -145,7 +145,7 @@ export class Pipeline {
    * Perform a search.
    * @param variables Key-value parameters to pass to the pipeline.
    */
-  public search(variables: { [k: string]: string }) {
+  public search(variables: { [k: string]: string }): void {
     this.searchCount += 1;
     const currentSearch = this.searchCount;
 
@@ -184,7 +184,7 @@ export class Pipeline {
    * Clears the error, response, and response variables from this object.
    * @param variables Key-value pair parameters.
    */
-  public clearResponse(variables: { [k: string]: string }) {
+  public clearResponse(variables: { [k: string]: string }): void {
     this.tracking.next(variables);
     this.searchCount += 1;
     this.response = new Response(null);

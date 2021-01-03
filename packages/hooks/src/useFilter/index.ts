@@ -32,7 +32,7 @@ function useFilter(name: string) {
     };
   }, []);
 
-  const setSelected = (value: string[], merge: boolean = false) => {
+  const setSelected = (value: string[], merge = false) => {
     filter.set(value, merge);
   };
 
@@ -73,12 +73,10 @@ function useFilter(name: string) {
     const getBucketCount = (value: string): number => {
       let count: number | CountAggregate = 0;
 
-      if (Object.keys(aggregateFilters?.buckets?.count ?? {}).includes(value)) {
-        // @ts-ignore
-        ({ count } = aggregateFilters?.buckets);
-      } else if (Object.keys(aggregates?.buckets?.count ?? {}).includes(value)) {
-        // @ts-ignore
-        ({ count } = aggregates?.buckets);
+      if (aggregateFilters && Object.keys(aggregateFilters.buckets?.count ?? {}).includes(value)) {
+        ({ count } = aggregateFilters.buckets);
+      } else if (aggregates && Object.keys(aggregates.buckets?.count ?? {}).includes(value)) {
+        ({ count } = aggregates.buckets);
       }
 
       if (isNumber(count)) {
@@ -87,12 +85,6 @@ function useFilter(name: string) {
 
       return (count[value] as number) ?? 0;
     };
-
-    // Get items from aggregates for regular facets
-    // or map the bucket types to title / filter format
-    if (!aggregates?.buckets) {
-      return [];
-    }
 
     return Object.entries(filter.getOptions()).map(([label, value]) => {
       const id = `${name}_${label}`;

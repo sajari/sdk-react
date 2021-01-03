@@ -1,6 +1,6 @@
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
-import { __DEV__, clamp, closest, formatNumber, getStylesObject, round } from '@sajari/react-sdk-utils';
-import React, { MouseEvent, ReactNode, useEffect } from 'react';
+import { __DEV__, clamp, closest, formatNumber, getStylesObject, noop, round } from '@sajari/react-sdk-utils';
+import * as React from 'react';
 import { useRanger } from 'react-ranger';
 
 import Box from '../Box';
@@ -11,8 +11,6 @@ import Input from './components/Input';
 import Track from './components/Track';
 import useRangeInputStyles from './styles';
 import { RangeInputProps } from './types';
-
-const noop = () => {};
 
 const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTMLDivElement>) => {
   const {
@@ -45,6 +43,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
   const [range, setRange] = React.useState(value);
   const mapRange = (v: number[]) => v.map(Number);
   const [low, high] = mapRange(range);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const setValue = (newValue: any, fireOnChange = false) => {
     setRange(newValue);
     onInput(newValue);
@@ -56,7 +55,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     onChange(newValue);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     setRange(value);
   }, [value]);
 
@@ -69,6 +68,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     tickSize: tick,
     ticks: ticksProp,
     onDrag: setValue,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onChange: (val: any) => setValue(val, true),
   });
   const leftRef = React.useRef(null);
@@ -114,7 +114,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     }
   };
 
-  const handleSegmentClick = (event: MouseEvent<HTMLDivElement>, i: number) => {
+  const handleSegmentClick = (event: React.MouseEvent<HTMLDivElement>, i: number) => {
     if (trackRef?.current === null) {
       return;
     }
@@ -166,7 +166,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     <Input {...leftInputProps} />
   );
 
-  let rightInput: ReactNode | null = <Input {...rightInputProps} />;
+  let rightInput: React.ReactNode | null = <Input {...rightInputProps} />;
 
   if (isSingleHandle) {
     rightInput = null;
@@ -189,8 +189,9 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
         <Box css={styles.ticks}>
           {ticks.map(({ value: tickValue, getTickProps }) => {
             // Remove width from the styles to prevent needing !important in our styles
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             const { style, ...tickProps } = getTickProps();
-            const { width, ...tickStyles } = style;
+            const { width, ...tickStyles } = style as React.CSSProperties;
 
             return (
               <Text
@@ -212,23 +213,23 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
         >
           {segments.map(({ getSegmentProps }, i: number) => (
             <Fill
-              index={i}
               isSingleHandle={isSingleHandle}
-              onClick={(e: MouseEvent<HTMLDivElement>) => handleSegmentClick(e, i)}
               disableDefaultStyles={disableDefaultStyles}
               className={fillClassName}
-              {...getSegmentProps()}
+              {...getSegmentProps({
+                index: i,
+                onClick: (e: React.MouseEvent<HTMLDivElement>) => handleSegmentClick(e, i),
+              })}
             />
           ))}
 
           {handles.map(({ value: handleValue, active, getHandleProps }) => (
             <Handle
-              active={active}
               data-value={formatValue(handleValue)}
               activeClassName={handleActiveClassName}
               className={handleClassName}
               disableDefaultStyles={disableDefaultStyles}
-              {...getHandleProps()}
+              {...getHandleProps({ active })}
             />
           ))}
         </Track>

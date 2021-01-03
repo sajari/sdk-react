@@ -11,7 +11,7 @@ const collator = new Intl.Collator(!isSSR() ? window.navigator.language : 'en-US
   numeric: true,
 });
 
-export function sortItems(list: FilterItem[], prop?: string, asc: boolean = true) {
+export function sortItems(list: FilterItem[], prop?: string, asc = true) {
   return [...list].sort((a, b) => {
     const l = prop ? a[prop] : a;
     const r = prop ? b[prop] : b;

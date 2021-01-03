@@ -13,7 +13,7 @@ export default function useLabelStyles({ visuallyHidden, size }: LabelProps) {
     styles.container.push(tw`sr-only`);
   } else {
     const sizeStyles = useFontSize({ size });
-    styles.container.push(tw`inline-flex items-center m-0 cursor-pointer`, sizeStyles as any);
+    styles.container.push(tw`inline-flex items-center m-0 cursor-pointer`, sizeStyles);
   }
 
   return mapStyles(styles);

@@ -96,6 +96,12 @@ export interface SearchUIContextProviderValues {
         input?: string;
         handleActive?: string;
       };
+      select?: {
+        container?: string;
+        button?: string;
+        dropdown?: string;
+        option?: string;
+      };
     };
   };
 }

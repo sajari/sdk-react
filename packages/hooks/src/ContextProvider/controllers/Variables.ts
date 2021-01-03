@@ -61,9 +61,9 @@ export class Variables {
 
     this.variables.forEach((variable, key) => {
       if (typeof variable === 'function') {
-        variables[key] = (variable as VariableFn)();
+        variables[key] = variable();
       } else if (Array.isArray(variable)) {
-        variables[key] = (variable as string[]).join(',');
+        variables[key] = variable.join(',');
       } else {
         variables[key] = String(variable);
       }

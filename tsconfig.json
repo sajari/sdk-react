@@ -9,6 +9,7 @@
       "@sajari/react-components": ["packages/components/src"],
       "@sajari/react-hooks": ["packages/hooks/src"],
       "@sajari/react-search-ui": ["packages/search-ui/src"],
+      "@sajari/react-server": ["packages/server/src"],
       "@sajari/react-sdk-utils": ["packages/utils/src"]
     }
   }

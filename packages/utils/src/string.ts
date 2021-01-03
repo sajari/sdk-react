@@ -1,7 +1,7 @@
 import { isString } from './assertion';
 import { isSSR } from './ssr';
 
-export function replaceAll(target: string, search: string | Record<string, string>, replacement?: string) {
+export function replaceAll(target: string, search: string | Record<string, string>, replacement?: string): string {
   if (isString(search)) {
     return target.split(search).join(replacement);
   }
@@ -10,7 +10,7 @@ export function replaceAll(target: string, search: string | Record<string, strin
 }
 
 /** Decode any HTML entities in a string */
-export function decodeHTML(input = '') {
+export function decodeHTML(input = ''): string {
   if (isSSR()) {
     return input;
   }
@@ -20,7 +20,7 @@ export function decodeHTML(input = '') {
   return txt.value;
 }
 
-export function pluralize(input: number, singular: string, plural: string) {
+export function pluralize(input: number, singular: string, plural: string): string {
   if (input === 1) {
     return singular;
   }

@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.4](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.2.3...@sajari/react-search-ui@1.2.4) (2021-01-02)
+
+### Bug Fixes
+
+- collapse ListFilter when performing internal search ([7c49ac9](https://github.com/sajari/sdk-react/commit/7c49ac963ef61d69221dbf38476edc58b2dadcb2))
+- truncate Select button ([88d9300](https://github.com/sajari/sdk-react/commit/88d930078bafcdc0b37d55586709901e2e6483d4))
+
+## [1.2.3](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.2.2...@sajari/react-search-ui@1.2.3) (2021-01-01)
+
+**Note:** Version bump only for package @sajari/react-search-ui
+
+## [1.2.2](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.2.1...@sajari/react-search-ui@1.2.2) (2021-01-01)
+
+### Bug Fixes
+
+- fix searching in ListFilter ([ba52e54](https://github.com/sajari/sdk-react/commit/ba52e54edabf0fe58e8276760ef36a9d23a818f3))
+
+## [1.2.1](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.2.0...@sajari/react-search-ui@1.2.1) (2021-01-01)
+
+**Note:** Version bump only for package @sajari/react-search-ui
+
+# [1.2.0](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.1.8...@sajari/react-search-ui@1.2.0) (2020-12-31)
+
+### Bug Fixes
+
+- fix issues with build ([9d799ce](https://github.com/sajari/sdk-react/commit/9d799ce8b7adca31d89662652aca815bac268488))
+- use shared noop function ([4d2171f](https://github.com/sajari/sdk-react/commit/4d2171fd8a7cc3a1d524d041fd46d7e2361e4833))
+
+### Features
+
+- new custom select and select filter type ([#304](https://github.com/sajari/sdk-react/issues/304)) ([d85db03](https://github.com/sajari/sdk-react/commit/d85db034b9ea70e9f6e1d67a783c51a3a7537ec7))
+
 ## [1.1.8](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.1.7...@sajari/react-search-ui@1.1.8) (2020-12-21)
 
 **Note:** Version bump only for package @sajari/react-search-ui

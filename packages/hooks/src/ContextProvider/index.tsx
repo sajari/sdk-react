@@ -138,7 +138,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
   }
 
   const searchFn = useCallback(
-    (key: 'search' | 'autocomplete') => (inputQuery?: string, override: boolean = false) => {
+    (key: 'search' | 'autocomplete') => (inputQuery?: string, override = false) => {
       const func = key === 'autocomplete' ? autocomplete.current : search;
       const state = key === 'autocomplete' ? autocompleteState : searchState;
       const setSearchingState = key === 'autocomplete' ? setAutocompleteSearching : setSearching;
@@ -161,8 +161,10 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
 
       variables.set(text);
 
-      // @ts-ignore
-      clearTimeout(timer.current);
+      if (timer.current) {
+        clearTimeout(timer.current);
+      }
+
       timer.current = setTimeout(() => {
         pipeline.search(variables.get());
       }, 50);

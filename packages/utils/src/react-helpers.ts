@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { Children, isValidElement } from 'react';
 
 export type As<Props = any> = React.ElementType<Props>;
 
-export type PropsWithAs<Props = {}, Type extends As = As> = Props &
+export type PropsWithAs<Props = any, Type extends As = As> = Props &
   Omit<React.ComponentProps<Type>, 'as' | keyof Props> & {
     as?: Type;
   };
@@ -14,7 +15,7 @@ export interface ComponentWithAs<Props, DefaultType extends As> {
 
 type ReactRef<T> = React.Ref<T> | React.RefObject<T> | React.MutableRefObject<T>;
 
-export function setRef<T = any>(ref: React.Ref<T> = null, value: T) {
+export function setRef<T = any>(ref: React.Ref<T> = null, value: T): void {
   if (!ref) {
     return;
   }
@@ -35,7 +36,7 @@ export function cleanChildren(children: React.ReactChildren | React.ReactNode): 
   return Children.toArray(children).filter((child) => isValidElement(child)) as React.ReactElement[];
 }
 
-export function assignRef(ref: React.Ref<HTMLElement>, value: HTMLElement) {
+export function assignRef(ref: React.Ref<HTMLElement>, value: HTMLElement): ReturnType<typeof setRef> {
   if (ref == null) {
     return;
   }
@@ -43,7 +44,7 @@ export function assignRef(ref: React.Ref<HTMLElement>, value: HTMLElement) {
   try {
     setRef(ref, value);
   } catch (error) {
-    throw new Error(`Cannot assign value "${value}" to ref "${ref}"`);
+    throw new Error('Cannot assign value to ref');
   }
 }
 
@@ -54,13 +55,14 @@ export function assignRef(ref: React.Ref<HTMLElement>, value: HTMLElement) {
  *
  * @param refs refs to assign to value to
  */
-export function mergeRefs<T>(...refs: Array<ReactRef<T> | undefined>) {
-  return (value: T) => {
-    // @ts-ignore
-    refs.forEach((ref) => assignRef(ref, value));
+export function mergeRefs(...refs: Array<ReactRef<HTMLElement> | undefined>) {
+  return (value: HTMLElement) => {
+    refs.forEach((ref) => ref && assignRef(ref, value));
   };
 }
 
-export function forwardRefWithAs<Props, DefaultType extends As>(component: React.ForwardRefRenderFunction<any, any>) {
+export function forwardRefWithAs<Props, DefaultType extends As>(
+  component: React.ForwardRefRenderFunction<any, any>,
+): ComponentWithAs<Props, DefaultType> {
   return (React.forwardRef(component) as unknown) as ComponentWithAs<Props, DefaultType>;
 }

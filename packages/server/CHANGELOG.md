@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.7](https://github.com/sajari/sdk-react/compare/@sajari/server@1.0.6...@sajari/server@1.0.7) (2020-12-31)
+
+**Note:** Version bump only for package @sajari/server
+
 ## [1.0.6](https://github.com/sajari/sdk-react/compare/@sajari/server@1.0.5...@sajari/server@1.0.6) (2020-12-21)
 
 **Note:** Version bump only for package @sajari/server

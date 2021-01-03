@@ -1,18 +1,15 @@
 import 'react-app-polyfill/ie11';
+
+import { Pagination } from '@sajari/react-components';
+import { useSearchContext } from '@sajari/react-hooks';
+import { FieldDictionary, Pipeline, SearchProvider } from '@sajari/react-search-ui';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { SearchProvider, FieldDictionary, Pipeline, Variables } from '@sajari/react-search-ui';
-import { useSearchContext } from '@sajari/react-hooks';
-import { Pagination } from '@sajari/react-components';
 
 const SearchPlayground = () => {
-  const { search, setPage, page, pageCount, resultsPerPage, totalResults, results } = useSearchContext<{
-    id: string;
-    free_shipping: string;
-  }>();
-
+  const { search, setPage, page, pageCount, resultsPerPage, totalResults, results } = useSearchContext();
   const fromItem = resultsPerPage * (page - 1) + 1;
-  const toItem = results?.length + fromItem - 1;
+  const toItem = results ? results?.length + fromItem - 1 : 0;
 
   return (
     <>
@@ -22,29 +19,23 @@ const SearchPlayground = () => {
           search(e.target.value, true);
         }}
       />
-      {results ? (
-        <p>
-          Showing <b>{fromItem}</b> - <b>{toItem}</b> out of <b>{totalResults}</b> items
-        </p>
-      ) : null}
+
+      {results ? <p>{`Showing ${fromItem} - ${toItem} out of ${totalResults} items`}</p> : null}
+
       {results?.map(({ values: { id, free_shipping, category, description, price, rating, title } }) => (
-        <div key={id}>
+        <div key={id.toString()}>
           <h3>{title}</h3>
           <p>{description}</p>
-          <ul>
-            <li>
-              <b>Category</b>: {category}
-            </li>
-            <li>
-              <b>Price</b>: ${price}
-            </li>
-            <li>
-              <b>Rating</b>: {rating}
-            </li>
-            <li>
-              <b>Freeship</b>: {free_shipping ? 'yes' : 'no'}
-            </li>
-          </ul>
+          <dl>
+            <dt>Category</dt>
+            <dd>{category}</dd>
+            <dt>Price</dt>
+            <dd>{`$${price}`}</dd>
+            <dt>Rating</dt>
+            <dd>{rating}</dd>
+            <dt>Freeship</dt>
+            <dd>{free_shipping ? 'yes' : 'no'}</dd>
+          </dl>
         </div>
       ))}
 

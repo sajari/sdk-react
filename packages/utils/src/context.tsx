@@ -17,7 +17,9 @@ interface CreateContextOptions {
  *
  * @param options create context options
  */
-export default function createContext<ContextType>(options: CreateContextOptions = {}) {
+export default function createContext<ContextType>(
+  options: CreateContextOptions = {},
+): CreateContextReturn<ContextType> {
   const { strict = true, errorMessage = 'useContext must be inside a Provider with a value', name } = options;
   const Context = React.createContext<ContextType | undefined>(undefined);
 
