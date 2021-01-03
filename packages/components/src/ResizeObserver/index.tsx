@@ -1,37 +1,27 @@
-import { __DEV__, isSSR, noop } from '@sajari/react-sdk-utils';
+import { __DEV__, noop } from '@sajari/react-sdk-utils';
 import * as React from 'react';
-import Observer from 'resize-observer-polyfill';
 
 import Box from '../Box';
+import { useResizeObserver } from '../hooks';
 import { ResizeObserverProps } from './types';
 
 const ResizeObserver = (props: ResizeObserverProps) => {
   const { onReady = noop, onResize = noop, children, ...rest } = props;
   const ref = React.useRef<HTMLDivElement>(null);
-  const observer = React.useRef<Observer>();
-  const animationFrameIds: ReturnType<typeof requestAnimationFrame>[] = [];
+
+  const resizeHandler = (rect: DOMRectReadOnly) => {
+    if (ref.current) {
+      onResize(rect, ref.current);
+    }
+  };
 
   React.useEffect(() => {
-    if (!isSSR() && Observer && ref.current) {
-      const target = ref.current;
-
-      onReady(target);
-
-      observer.current = new Observer((entries: ResizeObserverEntry[]) => {
-        entries.forEach((entry) => {
-          animationFrameIds.push(
-            requestAnimationFrame(() => onResize(entry.contentRect as DOMRectReadOnly, entries, target)),
-          );
-        });
-      });
-
-      observer.current.observe(target);
+    if (ref.current) {
+      onReady(ref.current);
     }
-
-    return () => {
-      observer.current?.disconnect();
-    };
   }, []);
+
+  useResizeObserver({ ref, onResize: resizeHandler });
 
   return (
     <Box ref={ref} {...rest}>

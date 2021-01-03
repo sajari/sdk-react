@@ -30,8 +30,8 @@ function Example() {
 
 ## Props
 
-| Name       | Type                                                                                       | Default | Description                                                              |
-| ---------- | ------------------------------------------------------------------------------------------ | ------- | ------------------------------------------------------------------------ |
-| `onReady`  | `(element: HTMLDivElement) => void`                                                        |         | Callback when the component has mounted and ResizeObserver is listening. |
-| `onResize` | `(rect: DOMRectReadOnly, entries: ResizeObserverEntry[], element: HTMLDivElement) => void` |         | Callback when the component has mounted and ResizeObserver is listening. |
-| `children` | `React.ReactNode`                                                                          | `null`  |                                                                          |
+| Name       | Type                                                       | Default | Description                                                              |
+| ---------- | ---------------------------------------------------------- | ------- | ------------------------------------------------------------------------ |
+| `onReady`  | `(element: HTMLDivElement) => void`                        |         | Callback when the component has mounted and ResizeObserver is listening. |
+| `onResize` | `(rect: DOMRectReadOnly, element: HTMLDivElement) => void` |         | Callback when a resize occurs.                                           |
+| `children` | `React.ReactNode`                                          | `null`  |                                                                          |

@@ -11,6 +11,7 @@ export { default as useInputStyles } from './useInputStyles';
 export * from './useInputStyles';
 export { default as useJustifyContent } from './useJustifyContent';
 export * from './useJustifyContent';
+export { default as useResizeObserver } from './useResizeObserver';
 export { default as useRingStyles } from './useRingStyles';
 export * from './useRingStyles';
 export { default as useSpacing } from './useSpacing';
