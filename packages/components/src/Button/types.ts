@@ -3,7 +3,7 @@ import { PropsWithAs } from '@sajari/react-sdk-utils';
 
 import { BoxProps } from '../Box';
 
-export type ButtonAppearance = 'default' | 'primary' | 'link' | 'subtle-link' | 'none';
+export type ButtonAppearance = 'default' | 'primary' | 'secondary' | 'link' | 'subtle-link' | 'none';
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type ButtonSpacing = 'compact' | 'default' | 'none';
 

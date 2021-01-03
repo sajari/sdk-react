@@ -100,6 +100,7 @@ const useButtonStyles = (props: UseButtonStylesProps) => {
 
     switch (appearance) {
       case 'default':
+      case 'secondary':
         styles.push(tw`bg-gray-100 border-gray-200`);
         break;
 
@@ -129,15 +130,21 @@ const useButtonStyles = (props: UseButtonStylesProps) => {
       break;
 
     case 'default':
-      styles.push(tw`text-gray-500 bg-white border-gray-200 shadow-sm hover:bg-gray-100`);
+    case 'secondary':
+      styles.push(
+        tw`bg-white border-gray-200 shadow-sm hover:bg-gray-100`,
+        appearance === 'secondary' ? `color: ${theme.color.primary.base};` : tw`text-gray-500`,
+      );
+
       if (pressed) {
         styles.push(tw`bg-gray-100`);
       }
       break;
 
     case 'link':
-      styles.push(tw`p-0 no-underline bg-transparent hover:underline focus:underline leading-inherit`);
-      styles.push({ color: pressed ? theme.color.primary.active : theme.color.primary.base });
+      styles.push(tw`p-0 no-underline bg-transparent hover:underline focus:underline leading-inherit`, {
+        color: pressed ? theme.color.primary.active : theme.color.primary.base,
+      });
 
       if (!loading && !pressed) {
         styles.push(`&:hover, &:focus { color: ${theme.color.primary.active} }`);
@@ -145,14 +152,16 @@ const useButtonStyles = (props: UseButtonStylesProps) => {
       break;
 
     case 'subtle-link':
-      styles.push(tw`p-0 no-underline bg-transparent hover:underline focus:underline leading-inherit`);
-
-      styles.push(pressed ? tw`text-gray-700` : tw`text-gray-500`);
+      styles.push(
+        tw`p-0 no-underline bg-transparent hover:underline focus:underline leading-inherit`,
+        pressed ? tw`text-gray-700` : tw`text-gray-500`,
+      );
 
       if (!loading && !pressed) {
         styles.push(tw`hover:text-gray-700 focus:text-gray-700`);
       }
       break;
+
     default:
       break;
   }
