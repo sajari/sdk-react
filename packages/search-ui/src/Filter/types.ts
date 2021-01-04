@@ -46,14 +46,10 @@ export interface RatingFilterProps extends BaseFilterProps {
   type: 'rating';
 }
 
-export interface TabFilterProps extends BaseFilterProps {
+export interface TabFilterProps
+  extends BaseFilterProps,
+    Pick<ListFilterProps, 'currency' | 'format' | 'limit' | 'sort' | 'sortAscending'> {
   type: 'tabs';
-  /** Maxium number of tabs */
-  limit?: ListFilterProps['limit'];
-  /** How to sort the tabs */
-  sort?: ListFilterProps['sort'];
-  /** Sort in ascending order */
-  sortAscending?: ListFilterProps['sortAscending'];
 }
 
 export interface RangeFilterProps
@@ -62,12 +58,10 @@ export interface RangeFilterProps
   type: 'range';
 }
 
-export interface SelectFilterProps extends BaseFilterProps {
+export interface SelectFilterProps
+  extends BaseFilterProps,
+    Pick<ListFilterProps, 'currency' | 'format' | 'sort' | 'sortAscending'> {
   type: 'select';
-  /** How to sort the items */
-  sort?: ListFilterProps['sort'];
-  /** Sort in ascending order */
-  sortAscending?: ListFilterProps['sortAscending'];
 }
 
 export type FilterProps =

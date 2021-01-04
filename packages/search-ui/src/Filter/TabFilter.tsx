@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';
 import { TabFilterProps } from './types';
-import { sortItems } from './utils';
+import { formatLabel, sortItems } from './utils';
 
 const TabFilter = (props: Omit<TabFilterProps, 'type'>) => {
-  const { name, title, limit = 15, sort = 'count', sortAscending = sort !== 'count' } = props;
+  const { name, title, limit = 15, sort = 'count', sortAscending = sort !== 'count', format, currency } = props;
   const { t } = useTranslation('filter');
   const { options, setSelected, selected } = useFilter(name);
   const sorted = sort !== 'none' ? sortItems(options, sort === 'count' ? 'count' : 'label', sortAscending) : options;
@@ -43,7 +43,7 @@ const TabFilter = (props: Omit<TabFilterProps, 'type'>) => {
             className={customClassNames.filter?.tabs?.tab}
             selectedClassName={customClassNames.filter?.tabs?.selectedTab}
           >
-            {`${label} (${count.toLocaleString(language)})`}
+            {`${formatLabel(label, { format, currency, t })} (${count.toLocaleString(language)})`}
           </Tab>
         ))}
       </TabList>

@@ -7,10 +7,10 @@ import { useTranslation } from 'react-i18next';
 import { useSearchUIContext } from '../ContextProvider';
 import Box from './Box';
 import { SelectFilterProps } from './types';
-import { sortItems } from './utils';
+import { formatLabel, sortItems } from './utils';
 
 const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
-  const { name, title, sort = 'count', sortAscending = sort !== 'count' } = props;
+  const { name, title, sort = 'count', sortAscending = sort !== 'count', format, currency } = props;
   const { options, reset, setSelected, selected, multi } = useFilter(name);
   const { disableDefaultStyles = false, customClassNames } = useSearchUIContext();
   const { t } = useTranslation('filter');
@@ -58,7 +58,7 @@ const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
       >
         {sortedItems.map(({ value, label, count }) => (
           <Option value={label} key={value} label={count.toLocaleString()}>
-            {label}
+            {formatLabel(label, { format, currency, t })}
           </Option>
         ))}
       </Select>
