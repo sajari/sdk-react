@@ -32,6 +32,7 @@ export interface SearchUIContextProviderValues {
       next?: string;
       prev?: string;
       spacerEllipsis?: string;
+      status: string;
     };
     viewType?: {
       container?: string;

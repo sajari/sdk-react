@@ -31,6 +31,8 @@ export interface PaginationProps extends BoxProps {
   prevClassName?: string;
   /** The classname for ellipsis spacer */
   spacerEllipsisClassName?: string;
+  /** The classname for status in compact view */
+  statusClassName?: string;
   /** The classname for current page */
   activeClassName?: string;
   /** Scroll to specific target */

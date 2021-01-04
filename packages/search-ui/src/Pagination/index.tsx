@@ -35,6 +35,7 @@ const Pagination = (props: PaginationProps) => {
       activeClassName={customClassNames?.pagination?.active}
       prevClassName={customClassNames?.pagination?.prev}
       nextClassName={customClassNames?.pagination?.next}
+      statusClassName={customClassNames?.pagination?.status}
       disableDefaultStyles={disableDefaultStyles}
       scrollToTop={scrollToTop}
       scrollTarget={scrollTarget}

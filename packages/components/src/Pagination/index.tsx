@@ -1,8 +1,8 @@
 import { clamp, getStylesObject, isSSR, isString } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
-import React, { useCallback, useEffect } from 'react';
+import * as React from 'react';
 import smoothscroll from 'smoothscroll-polyfill';
-import tw from 'twin.macro';
+import { useResizeObserver } from '../hooks';
 
 import { IconChevronLeft, IconChevronRight } from '../assets/icons';
 import Box from '../Box';
@@ -20,86 +20,6 @@ const defaultI18n = {
   current: 'Page {{page}}, current page',
 };
 
-const getButtons = (
-  page: number,
-  pageCount: number,
-  onChange: (exitEarly: boolean, page: number) => void,
-  i18n: typeof defaultI18n,
-  props: PaginationProps,
-) => {
-  const limit = 5;
-  const middle = Math.ceil(limit / 2);
-  let offset = 0;
-  const { activeClassName = '', spacerEllipsisClassName, buttonClassName, disableDefaultStyles, language } = props;
-
-  if (pageCount > limit) {
-    if (page < limit) {
-      offset = 0;
-    } else {
-      const max = pageCount - limit;
-      offset = clamp(page > max ? max : page - middle, 0, max);
-    }
-  }
-
-  const items: Array<number | null> = Array.from(Array(clamp(pageCount, 0, limit))).map(
-    (_, index) => Number(index) + offset,
-  );
-
-  if (pageCount > limit) {
-    // Add the 1 ...
-    if (offset > 1) {
-      items.unshift(0, null);
-    }
-
-    // Add the ... last
-    const lastIndex = pageCount - 1;
-
-    if (!items.includes(lastIndex) && pageCount > limit + 2) {
-      items.push(null, lastIndex);
-    }
-  }
-
-  const getARIALabel = (number: number, active: boolean) => {
-    const template = active ? i18n.current : i18n.page;
-    return template.replace('{{page}}', number.toString());
-  };
-
-  return items.map((item, index) => {
-    if (item === null) {
-      return (
-        <Box
-          as="span"
-          key={`spacer-ellipsis-${index}`} // eslint-disable-line
-          css={
-            disableDefaultStyles
-              ? undefined
-              : tw`px-2 py-2 border border-gray-200 border-solid rounded-none select-none focus:z-10 bg-gray-50`
-          }
-          className={spacerEllipsisClassName}
-        >
-          &hellip;
-        </Box>
-      );
-    }
-
-    const number = item + 1;
-    const active = number === page;
-
-    return (
-      <Button
-        key={item}
-        appearance={active ? 'primary' : undefined}
-        aria-current={active ? 'page' : undefined}
-        aria-label={getARIALabel(number, active)}
-        onClick={onChange(false, number)}
-        className={classnames(buttonClassName, { [activeClassName]: active })}
-      >
-        {number.toLocaleString(language)}
-      </Button>
-    );
-  });
-};
-
 const Pagination = React.memo((props: PaginationProps) => {
   const {
     language,
@@ -110,41 +30,70 @@ const Pagination = React.memo((props: PaginationProps) => {
     onChange,
     i18n: i18nProp,
     buttonClassName,
-    activeClassName,
+    activeClassName = '',
     nextClassName,
     prevClassName,
     spacerEllipsisClassName,
+    statusClassName,
     styles: stylesProp,
     disableDefaultStyles = false,
-    scrollTarget = isSSR() ? '' : document.body,
+    scrollTarget,
     scrollToTop = false,
     ...rest
   } = props;
   const firstRender = useFirstRender();
   const styles = getStylesObject(usePaginationStyles(props), disableDefaultStyles);
+  const ref = React.useRef<HTMLDivElement>(null);
+  const { width } = useResizeObserver<HTMLDivElement>({ ref });
+  const i18n = { ...defaultI18n, ...i18nProp };
 
-  if (!isSSR()) {
-    smoothscroll.polyfill();
-  }
+  // Polyfill
+  React.useEffect(() => {
+    if (!isSSR()) {
+      smoothscroll.polyfill();
+    }
+  }, []);
 
-  useEffect(() => {
-    if (firstRender || !scrollToTop || isSSR()) {
+  // Handle scroll on paginate
+  React.useEffect(() => {
+    if (firstRender || isSSR()) {
       return;
     }
 
-    let target = scrollTarget as Element | null;
+    const scrollOptions: ScrollToOptions = { behavior: 'smooth' };
+    let target: Element | null = null;
 
     if (isString(scrollTarget)) {
       target = document.querySelector(scrollTarget);
+    } else if (scrollTarget) {
+      target = scrollTarget;
     }
 
-    target?.scrollIntoView({ behavior: 'smooth' });
+    // Scroll an element (or document.body) into view
+    if (scrollToTop) {
+      (target ?? document.body).scrollIntoView(scrollOptions);
+    }
+
+    // Scroll within the element if specified
+    if (target) {
+      target.scrollTo({ ...scrollOptions, top: 0 });
+    }
   }, [page]);
 
-  const i18n = { ...defaultI18n, ...i18nProp };
-  let count = pageCount;
+  // Calculate the page count
+  const count = React.useMemo(() => {
+    if (!totalResults || !resultsPerPage) {
+      return undefined;
+    }
 
-  const changeHandler = useCallback(
+    if (!pageCount) {
+      return Math.ceil(totalResults / resultsPerPage);
+    }
+
+    return pageCount;
+  }, [pageCount, totalResults, resultsPerPage]);
+
+  const changeHandler = React.useCallback(
     (exitEarly: boolean, target: number) => () => {
       if (target === page || exitEarly) {
         return;
@@ -155,23 +104,99 @@ const Pagination = React.memo((props: PaginationProps) => {
     [onChange, page, count],
   );
 
-  if (!totalResults || !resultsPerPage) {
-    return null;
-  }
+  const buttons = React.useMemo(() => {
+    const limit = 5;
+    const middle = Math.ceil(limit / 2);
+    let offset = 0;
 
-  if (!count) {
-    count = Math.ceil(totalResults / resultsPerPage);
-  }
+    if (!count) {
+      return null;
+    }
+
+    if (count > limit) {
+      if (page < limit) {
+        offset = 0;
+      } else {
+        const max = count - limit;
+        offset = clamp(page > max ? max : page - middle, 0, max);
+      }
+    }
+
+    const items: Array<number | null> = Array.from(Array(clamp(count, 0, limit))).map(
+      (_, index) => Number(index) + offset,
+    );
+
+    if (count > limit) {
+      // Add the 1 ...
+      if (offset > 1) {
+        items.unshift(0, null);
+      }
+
+      // Add the ... last
+      const lastIndex = count - 1;
+
+      if (!items.includes(lastIndex) && count > limit + 2) {
+        items.push(null, lastIndex);
+      }
+    }
+
+    const getARIALabel = (number: number, active: boolean) => {
+      const template = active ? i18n.current : i18n.page;
+      return template.replace('{{page}}', number.toString());
+    };
+
+    return items.map((item, index) => {
+      if (item === null) {
+        return (
+          <Box
+            as="span"
+            key={`spacer-ellipsis-${index}`} // eslint-disable-line
+            css={styles.spacerEllipsis}
+            className={spacerEllipsisClassName}
+          >
+            &hellip;
+          </Box>
+        );
+      }
+
+      const number = item + 1;
+      const active = number === page;
+
+      return (
+        <Button
+          key={item}
+          appearance={active ? 'primary' : undefined}
+          aria-current={active ? 'page' : undefined}
+          aria-label={getARIALabel(number, active)}
+          onClick={changeHandler(false, number)}
+          className={classnames(buttonClassName, { [activeClassName]: active })}
+        >
+          {number.toLocaleString(language)}
+        </Button>
+      );
+    });
+  }, [
+    page,
+    count,
+    changeHandler,
+    JSON.stringify(i18n),
+    activeClassName,
+    spacerEllipsisClassName,
+    buttonClassName,
+    disableDefaultStyles,
+    language,
+  ]);
 
   if (!count || count <= 1) {
     return null;
   }
 
+  const compact = !width || width < 480;
   const hasPrevious = page > 1;
   const hasNext = page < count;
 
   return (
-    <ButtonGroup as="nav" aria-label={i18n.label} attached css={[styles.container, stylesProp]} {...rest}>
+    <ButtonGroup as="nav" ref={ref} aria-label={i18n.label} attached css={[styles.container, stylesProp]} {...rest}>
       <Button
         spacing="compact"
         disabled={!hasPrevious}
@@ -183,7 +208,14 @@ const Pagination = React.memo((props: PaginationProps) => {
         <IconChevronLeft />
       </Button>
 
-      {getButtons(page, count, changeHandler, i18n, props)}
+      {!compact ? (
+        buttons
+      ) : (
+        <Box as="span" css={styles.compactStatus} className={statusClassName}>
+          {page.toLocaleString(language)}
+          <Box as="span" css={styles.compactStatusCount}>{` / ${count.toLocaleString(language)}`}</Box>
+        </Box>
+      )}
 
       <Button
         spacing="compact"
