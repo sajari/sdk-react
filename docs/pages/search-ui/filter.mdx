@@ -70,7 +70,7 @@ function Example() {
       <div className="flex -mx-3">
         <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
           <Filter type="list" name="brand" title="Brand" />
-          <Filter type="list" name="price" title="Price (bucket)" />
+          <Filter type="list" name="price" title="Price" format="price" />
         </div>
         <div className="w-3/4 px-3">
           <Results />
@@ -130,7 +130,7 @@ function Example() {
       <div className="flex -mx-3">
         <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
           <Filter type="list" name="category" title="Category" searchable sort="alpha" />
-          <Filter type="list" name="price-range" title="Range ($)" />
+          <Filter type="list" name="price-range" title="Range" format="price" />
         </div>
         <div className="w-3/4 px-3">
           <Results />
@@ -332,7 +332,7 @@ function Example() {
 
       <div className="flex -mx-3">
         <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
-          <Filter type="range" name="price" title="Price" />
+          <Filter type="range" name="price" title="Price" format="price" />
           <Filter type="range" name="rating" title="Rating" />
         </div>
         <div className="w-3/4 px-3">
@@ -389,7 +389,7 @@ function Example() {
       <div className="flex -mx-3">
         <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
           <Filter type="select" name="category" title="Category" searchable sort="alpha" />
-          <Filter type="select" name="price-range" title="Range ($)" />
+          <Filter type="select" name="price-range" title="Range" format="price" />
         </div>
         <div className="w-3/4 px-3">
           <Results />
