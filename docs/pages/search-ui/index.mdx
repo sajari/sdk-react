@@ -191,6 +191,11 @@ function Example() {
     subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
   });
 
+  const brandFilter = new FilterBuilder({
+    name: 'brand',
+    field: 'brand',
+  });
+
   const categoryFilter = new FilterBuilder({
     name: 'level1',
     field: 'level1',
@@ -242,6 +247,7 @@ function Example() {
         <div className="flex mt-6">
           {searched && (
             <div className="w-1/4 pr-4 border-gray-100 border-r space-y-6">
+              <Filter type="list" name="brand" title="Brand" searchable />
               <Filter type="list" name="level1" title="Category" searchable />
               <Filter type="range" name="price" title="Price" format="price" />
               <Filter type="color" name="color" title="Color" />
@@ -266,7 +272,7 @@ function Example() {
       search={{
         pipeline,
         fields,
-        filters: [categoryFilter, priceFilter, colorFilter, ratingFilter],
+        filters: [categoryFilter, priceFilter, colorFilter, ratingFilter, brandFilter],
       }}
       searchOnLoad
     >
