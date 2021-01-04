@@ -39,8 +39,8 @@
     "color": "^3.1.3",
     "downshift": "^6.0.10",
     "react-ranger": "^2.1.0",
-    "resize-observer-polyfill": "^1.5.1",
-    "smoothscroll-polyfill": "^0.4.4"
+    "smoothscroll-polyfill": "^0.4.4",
+    "use-resize-observer": "^7.0.0"
   },
   "publishConfig": {
     "access": "public"

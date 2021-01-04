@@ -17,12 +17,11 @@ import { ResizeObserver } from '@sajari/react-components';
 
 ```jsx
 function Example() {
-  const [ready, setReady] = React.useState(false);
   const [width, setWidth] = React.useState(0);
 
   return (
-    <ResizeObserver onReady={() => setReady(true)} onResize={(rect) => setWidth(rect.width)}>
-      <Text>{!ready ? 'Loading...' : `Width: ${width}`}</Text>
+    <ResizeObserver onResize={(rect) => setWidth(rect.width)}>
+      <Text>{`Width: ${width}`}</Text>
     </ResizeObserver>
   );
 }
@@ -30,8 +29,7 @@ function Example() {
 
 ## Props
 
-| Name       | Type                                                       | Default | Description                                                              |
-| ---------- | ---------------------------------------------------------- | ------- | ------------------------------------------------------------------------ |
-| `onReady`  | `(element: HTMLDivElement) => void`                        |         | Callback when the component has mounted and ResizeObserver is listening. |
-| `onResize` | `(rect: DOMRectReadOnly, element: HTMLDivElement) => void` |         | Callback when a resize occurs.                                           |
-| `children` | `React.ReactNode`                                          | `null`  |                                                                          |
+| Name       | Type                                           | Default | Description                          |
+| ---------- | ---------------------------------------------- | ------- | ------------------------------------ |
+| `onResize` | `({ height: number; width: number; }) => void` |         | Callback when a resize event occurs. |
+| `children` | `React.ReactNode`                              | `null`  |                                      |

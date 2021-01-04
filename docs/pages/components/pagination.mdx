@@ -14,7 +14,7 @@ import { Pagination } from '@sajari/react-components';
 ## Usage
 
 ```jsx
-function PaginationExample() {
+function Example() {
   const [page, setPage] = React.useState(1);
 
   return <Pagination totalResults={1000} resultsPerPage={20} page={page} onChange={setPage} />;
@@ -26,7 +26,7 @@ function PaginationExample() {
 Using the `scrollToTop` prop, when the page is changed, the top of `document.body` will be scrolled into view.
 
 ```jsx
-function PaginationExample() {
+function Example() {
   const [page, setPage] = React.useState(1);
 
   return <Pagination scrollToTop totalResults={1000} resultsPerPage={20} page={page} onChange={setPage} />;
@@ -38,7 +38,7 @@ function PaginationExample() {
 Using the `scrollTarget` prop, you can specify the target to scroll into view (if `scrollToTop` prop is added) and/or scroll within, when the page is changed.
 
 ```jsx
-function PaginationExample() {
+function Example() {
   const [scrollToTop, setScrollToTop] = React.useState(false);
   const { page, setPage, resultsPerPage, pageCount, totalResults } = usePagination();
   useSearch({ queryOverride: 'iphone' });

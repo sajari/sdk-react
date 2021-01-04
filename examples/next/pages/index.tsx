@@ -93,7 +93,7 @@ const Page = ({ initialResponse }: Props) => (
   >
     <SSRProvider>
       <Input />
-      <Results appearance="grid" style={{ margin: '3rem 0' }} />
+      <Results appearance="grid" styles={{ margin: '3rem 0' }} />
       <RawResults />
       <Pagination />
     </SSRProvider>

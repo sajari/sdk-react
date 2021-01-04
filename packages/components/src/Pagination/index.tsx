@@ -2,13 +2,12 @@ import { clamp, getStylesObject, isSSR, isString } from '@sajari/react-sdk-utils
 import classnames from 'classnames';
 import * as React from 'react';
 import smoothscroll from 'smoothscroll-polyfill';
-import { useResizeObserver } from '../hooks';
 
 import { IconChevronLeft, IconChevronRight } from '../assets/icons';
 import Box from '../Box';
 import Button from '../Button';
 import ButtonGroup from '../ButtonGroup';
-import { useFirstRender } from '../hooks';
+import { useFirstRender, useResizeObserver } from '../hooks';
 import usePaginationStyles from './styles';
 import { PaginationProps } from './types';
 
@@ -43,8 +42,7 @@ const Pagination = React.memo((props: PaginationProps) => {
   } = props;
   const firstRender = useFirstRender();
   const styles = getStylesObject(usePaginationStyles(props), disableDefaultStyles);
-  const ref = React.useRef<HTMLDivElement>(null);
-  const { width } = useResizeObserver<HTMLDivElement>({ ref });
+  const { ref, width } = useResizeObserver<HTMLDivElement>();
   const i18n = { ...defaultI18n, ...i18nProp };
 
   // Polyfill
@@ -104,7 +102,7 @@ const Pagination = React.memo((props: PaginationProps) => {
     [onChange, page, count],
   );
 
-  const buttons = React.useMemo(() => {
+  const renderButtons = () => {
     const limit = 5;
     const middle = Math.ceil(limit / 2);
     let offset = 0;
@@ -175,23 +173,13 @@ const Pagination = React.memo((props: PaginationProps) => {
         </Button>
       );
     });
-  }, [
-    page,
-    count,
-    changeHandler,
-    JSON.stringify(i18n),
-    activeClassName,
-    spacerEllipsisClassName,
-    buttonClassName,
-    disableDefaultStyles,
-    language,
-  ]);
+  };
 
   if (!count || count <= 1) {
     return null;
   }
 
-  const compact = !width || width < 480;
+  const compact = width && width < 480;
   const hasPrevious = page > 1;
   const hasNext = page < count;
 
@@ -203,18 +191,20 @@ const Pagination = React.memo((props: PaginationProps) => {
         onClick={changeHandler(!hasPrevious, page - 1)}
         aria-label={i18n.previous}
         className={classnames(prevClassName, buttonClassName)}
+        rel="prev"
+        key="prev"
       >
         &#8203;
         <IconChevronLeft />
       </Button>
 
-      {!compact ? (
-        buttons
-      ) : (
-        <Box as="span" css={styles.compactStatus} className={statusClassName}>
+      {compact ? (
+        <Box as="span" css={styles.compactStatus} className={statusClassName} key="status">
           {page.toLocaleString(language)}
           <Box as="span" css={styles.compactStatusCount}>{` / ${count.toLocaleString(language)}`}</Box>
         </Box>
+      ) : (
+        renderButtons()
       )}
 
       <Button
@@ -223,6 +213,8 @@ const Pagination = React.memo((props: PaginationProps) => {
         onClick={changeHandler(!hasNext, page + 1)}
         aria-label={i18n.next}
         className={classnames(nextClassName, buttonClassName)}
+        rel="next"
+        key="next"
       >
         &#8203;
         <IconChevronRight />

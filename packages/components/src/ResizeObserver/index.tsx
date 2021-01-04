@@ -6,22 +6,8 @@ import { useResizeObserver } from '../hooks';
 import { ResizeObserverProps } from './types';
 
 const ResizeObserver = (props: ResizeObserverProps) => {
-  const { onReady = noop, onResize = noop, children, ...rest } = props;
-  const ref = React.useRef<HTMLDivElement>(null);
-
-  const resizeHandler = (rect: DOMRectReadOnly) => {
-    if (ref.current) {
-      onResize(rect, ref.current);
-    }
-  };
-
-  React.useEffect(() => {
-    if (ref.current) {
-      onReady(ref.current);
-    }
-  }, []);
-
-  useResizeObserver({ ref, onResize: resizeHandler });
+  const { onResize = noop, children, ...rest } = props;
+  const { ref } = useResizeObserver({ onResize });
 
   return (
     <Box ref={ref} {...rest}>
