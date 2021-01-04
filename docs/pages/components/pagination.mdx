@@ -21,9 +21,9 @@ function PaginationExample() {
 }
 ```
 
-### Enable scroll
+### Enable scrolling to top
 
-By default it will scroll to `document.body`.
+Using the `scrollToTop` prop, when the page is changed, the top of `document.body` will be scrolled into view.
 
 ```jsx
 function PaginationExample() {
@@ -35,26 +35,34 @@ function PaginationExample() {
 
 ### Scroll target
 
-Whenever the page changes, the text `Sajari` will be scrolled into view.
+Using the `scrollTarget` prop, you can specify the target to scroll into view (if `scrollToTop` prop is added) and/or scroll within, when the page is changed.
 
 ```jsx
 function PaginationExample() {
-  const [page, setPage] = React.useState(1);
+  const [scrollToTop, setScrollToTop] = React.useState(false);
+  const { page, setPage, resultsPerPage, pageCount, totalResults } = usePagination();
   useSearch({ queryOverride: 'iphone' });
 
   return (
-    <div style={{ height: 500 }} className="w-full overflow-y-scroll">
-      <Results id="results" />
-      <div className="sticky bottom-0">
-        <Pagination
-          scrollToTop
-          scrollTarget="#results"
-          totalResults={1000}
-          resultsPerPage={20}
-          page={page}
-          onChange={setPage}
-        />
+    <div className="space-y-4">
+      <div className="flex space-x-4">
+        <Checkbox checked={scrollToTop} onChange={(event) => setScrollToTop(event.target.checked)}>
+          Scroll to top
+        </Checkbox>
       </div>
+
+      <div id="results" style={{ height: 500 }} className="w-full overflow-y-scroll">
+        <Results />
+      </div>
+
+      <Pagination
+        scrollToTop={scrollToTop}
+        scrollTarget="#results"
+        totalResults={totalResults}
+        resultsPerPage={resultsPerPage}
+        page={page}
+        onChange={setPage}
+      />
     </div>
   );
 }
