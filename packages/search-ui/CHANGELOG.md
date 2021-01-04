@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.2.4...@sajari/react-search-ui@1.3.0) (2021-01-04)
+
+### Bug Fixes
+
+- added responsive styles to pagination ([bff3d85](https://github.com/sajari/sdk-react/commit/bff3d857bd12b20da10ed6b006f83ebaebe35728))
+- fix SSR issues with Pagination ([6e2a6ab](https://github.com/sajari/sdk-react/commit/6e2a6ab9e9912de4bf6df869613a5f21dcab3693))
+
+### Features
+
+- expanded format option to other filters ([35f4bfe](https://github.com/sajari/sdk-react/commit/35f4bfefdc7d64b693903c88ddccf3b89086562e))
+
 ## [1.2.4](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.2.3...@sajari/react-search-ui@1.2.4) (2021-01-02)
 
 ### Bug Fixes

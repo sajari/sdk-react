@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.2.1...sajari-sdk-docs@1.2.2) (2021-01-04)
+
+### Bug Fixes
+
+- fix SSR issues with Pagination ([6e2a6ab](https://github.com/sajari/sdk-react/commit/6e2a6ab9e9912de4bf6df869613a5f21dcab3693))
+
 ## [1.2.1](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.2.0...sajari-sdk-docs@1.2.1) (2021-01-01)
 
 ### Bug Fixes
