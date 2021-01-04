@@ -55,7 +55,7 @@ const Layout = (props: FlexProps) => {
       <SideNav />
 
       <Box padding="md:pl-72">
-        <Box as="main" maxWidth="max-w-4xl" padding={['p-4', 'md:p-8']} margin={['mx-auto', 'mb-3']}>
+        <Box as="main" maxWidth="max-w-5xl" padding={['p-4', 'md:p-8']} margin={['mx-auto', 'mb-3']}>
           {children}
         </Box>
       </Box>
