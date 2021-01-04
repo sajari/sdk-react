@@ -100,13 +100,13 @@ exports[`ButtonGroup attached and inline 1`] = `
   padding-right: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  --text-opacity: 1;
-  color: rgba(107,114,128,var(--text-opacity));
   --bg-opacity: 1;
   background-color: rgba(255,255,255,var(--bg-opacity));
   --border-opacity: 1;
   border-color: rgba(229,231,235,var(--border-opacity));
   box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+  --text-opacity: 1;
+  color: rgba(107,114,128,var(--text-opacity));
 }
 
 .emotion-2:focus {
@@ -244,13 +244,13 @@ exports[`ButtonGroup attached and not inline 1`] = `
   padding-right: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  --text-opacity: 1;
-  color: rgba(107,114,128,var(--text-opacity));
   --bg-opacity: 1;
   background-color: rgba(255,255,255,var(--bg-opacity));
   --border-opacity: 1;
   border-color: rgba(229,231,235,var(--border-opacity));
   box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+  --text-opacity: 1;
+  color: rgba(107,114,128,var(--text-opacity));
 }
 
 .emotion-2:focus {
@@ -354,13 +354,13 @@ exports[`ButtonGroup not attached and inline 1`] = `
   padding-right: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  --text-opacity: 1;
-  color: rgba(107,114,128,var(--text-opacity));
   --bg-opacity: 1;
   background-color: rgba(255,255,255,var(--bg-opacity));
   --border-opacity: 1;
   border-color: rgba(229,231,235,var(--border-opacity));
   box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+  --text-opacity: 1;
+  color: rgba(107,114,128,var(--text-opacity));
 }
 
 .emotion-2:focus {
@@ -458,13 +458,13 @@ exports[`ButtonGroup not attached and not inline 1`] = `
   padding-right: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  --text-opacity: 1;
-  color: rgba(107,114,128,var(--text-opacity));
   --bg-opacity: 1;
   background-color: rgba(255,255,255,var(--bg-opacity));
   --border-opacity: 1;
   border-color: rgba(229,231,235,var(--border-opacity));
   box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+  --text-opacity: 1;
+  color: rgba(107,114,128,var(--text-opacity));
 }
 
 .emotion-2:focus {
