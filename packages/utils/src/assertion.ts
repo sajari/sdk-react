@@ -17,7 +17,7 @@ export function isNumber(value: any): value is number {
   return typeof value === 'number' && !Number.isNaN(value);
 }
 
-export function isFunction(value: any): value is () => unknown {
+export function isFunction(value: any): value is (...args: any[]) => any {
   return typeof value === 'function';
 }
 
