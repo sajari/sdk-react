@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.2.0...@sajari/react-sdk-utils@1.2.1) (2021-01-05)
+
+**Note:** Version bump only for package @sajari/react-sdk-utils
+
 # [1.2.0](https://github.com/sajari/sdk-react/compare/@sajari/react-sdk-utils@1.1.2...@sajari/react-sdk-utils@1.2.0) (2020-12-31)
 
 ### Bug Fixes

@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.1](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.3.0...@sajari/react-search-ui@1.3.1) (2021-01-05)
+
+**Note:** Version bump only for package @sajari/react-search-ui
+
 # [1.3.0](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.2.4...@sajari/react-search-ui@1.3.0) (2021-01-04)
 
 ### Bug Fixes

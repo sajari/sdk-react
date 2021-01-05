@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.2.4...@sajari/react-components@1.3.0) (2021-01-05)
+
+### Bug Fixes
+
+- force objectFit cover on secondary image ([e2d5787](https://github.com/sajari/sdk-react/commit/e2d57875168552d75954a6801de6567a24225c18))
+
+### Features
+
+- add hover functionality to image ([#301](https://github.com/sajari/sdk-react/issues/301)) ([8eb55fb](https://github.com/sajari/sdk-react/commit/8eb55fb0a5e49a4f415f8bd4ca5108777ead1528))
+
 ## [1.2.4](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.2.3...@sajari/react-components@1.2.4) (2021-01-04)
 
 ### Bug Fixes
