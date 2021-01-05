@@ -1,7 +1,7 @@
 import { isSSR } from '@sajari/react-sdk-utils';
 import { useEffect, useRef, useState } from 'react';
 
-import { ImageProps } from './types';
+import { ImageProps } from '../Image/types';
 
 // TODO: Handle load failed fallback
 

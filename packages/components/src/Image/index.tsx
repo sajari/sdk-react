@@ -4,7 +4,7 @@ import * as React from 'react';
 import AspectRatio from '../AspectRatio';
 import Box from '../Box';
 import { ImageProps } from './types';
-import { useImageStyles } from './useImageStyles';
+import { useImageStyles } from './styles';
 
 interface NativeImageProps {
   htmlWidth?: ImageProps['htmlWidth'];
@@ -37,19 +37,21 @@ const Image = React.forwardRef((props: ImageProps, ref?: React.Ref<HTMLImageElem
     ...rest
   } = props;
   const [hover, setHover] = React.useState(false);
+
   const onMouseEnter = (e) => {
     if (hoverSrc) {
       setHover(true);
     }
     onMouseEnterExternal?.(e);
   };
+
   const onMouseLeave = (e) => {
     if (hoverSrc) {
       setHover(false);
     }
-
     onMouseLeaveExternal?.(e);
   };
+
   const imageProps = {
     src,
     onLoad,
@@ -59,6 +61,7 @@ const Image = React.forwardRef((props: ImageProps, ref?: React.Ref<HTMLImageElem
     onMouseEnter,
     onMouseLeave,
   };
+
   const styles = getStylesObject(useImageStyles({ ...props, hover }), disableDefaultStyles);
   const image = <Box as={NativeImage} ref={ref} css={styles.image} {...imageProps} {...rest} />;
   const secondImage = React.cloneElement(image, { src: hoverSrc, css: styles.secondImage });
