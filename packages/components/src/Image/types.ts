@@ -20,6 +20,8 @@ interface Props extends BoxProps {
   objectFit?: 'contain' | 'cover' | 'fill' | 'scale-down' | 'none';
   /** The classname for  AspectRatio container wrapper */
   containerClassName?: string;
+  /** The image sources, pass in an array to display the second image on hover */
+  hoverSrc?: string;
 }
 
 export interface ImageProps extends HtmlAttributes, Props {}

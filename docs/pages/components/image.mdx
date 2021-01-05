@@ -24,11 +24,26 @@ This is useful if you want to crop the image or you don't know the dimensions of
 <Image src="https://source.unsplash.com/random" alt="Unplash photo" aspectRatio={1} objectFit="cover" />
 ```
 
+### Change image on hover
+
+You can also provide an additional image under `hoverSrc` to change image on hover.
+
+```jsx
+<Image
+  src="https://source.unsplash.com/random"
+  hoverSrc="https://source.unsplash.com/user/erondu?1"
+  alt="Unplash photo"
+  aspectRatio={1}
+  objectFit="cover"
+/>
+```
+
 ## Props
 
 | Name          | Type                                                               | Default | Description                                                     |
 | ------------- | ------------------------------------------------------------------ | ------- | --------------------------------------------------------------- |
 | `src`         | `string`                                                           |         | The path to the image source.                                   |
+| `hoverSrc`    | `string`                                                           |         | The additional image to show when hovering.                     |
 | `alt`         | `string`                                                           |         | The alt text that describes the image.                          |
 | `onLoad`      | `function`                                                         |         | A callback for when the image `src` has been loaded.            |
 | `onError`     | `function`                                                         |         | A callback for when there was an error loading the image `src`. |

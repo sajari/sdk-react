@@ -4,13 +4,19 @@ import tw from 'twin.macro';
 import { ImageProps } from './types';
 import { useHasImageLoaded } from './useHasImageLoaded';
 
-export function useImageStyles(props: ImageProps) {
+export function useImageStyles(props: ImageProps & { hover: boolean }) {
   const hasLoaded = useHasImageLoaded(props);
+  const { hover } = props;
   const styles = {
-    container: [tw`rounded-md`, !hasLoaded ? tw`bg-gray-100` : ''],
+    container: [tw`rounded-md relative`, !hasLoaded ? tw`bg-gray-100` : ''],
     image: [
       tw`transition-opacity duration-200 ease-in`,
-      hasLoaded ? tw`opacity-100` : tw`opacity-0`,
+      hasLoaded && !hover ? tw`opacity-100` : tw`opacity-0`,
+      { borderRadius: 'inherit' },
+    ],
+    secondImage: [
+      tw`transition-opacity duration-200 ease-in absolute top-0 left-0 w-full h-full`,
+      hasLoaded && hover ? tw`opacity-100` : tw`opacity-0`,
       { borderRadius: 'inherit' },
     ],
   };
