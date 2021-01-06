@@ -33,7 +33,9 @@
     "i18next": "19.8.4",
     "i18next-browser-languagedetector": "^6.0.1",
     "react-aria-live": "^2.0.5",
-    "react-i18next": "^11.8.5"
+    "react-i18next": "^11.8.5",
+    "react-virtual": "^2.3.2",
+    "use-resize-observer": "^7.0.0"
   },
   "publishConfig": {
     "access": "public"
