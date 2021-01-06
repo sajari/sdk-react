@@ -42,6 +42,7 @@ export interface ProviderPipelineState {
 export interface SearchProviderValues {
   search: ProviderPipelineConfig;
   autocomplete?: ProviderPipelineConfig;
+  defaultFilter?: string;
   searchOnLoad?: boolean;
   initialResponse?: string;
 }
