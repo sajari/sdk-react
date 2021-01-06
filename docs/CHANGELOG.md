@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.1](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.3.0...sajari-sdk-docs@1.3.1) (2021-01-06)
+
+### Bug Fixes
+
+- laggy filter search ([#305](https://github.com/sajari/sdk-react/issues/305)) ([9bf2667](https://github.com/sajari/sdk-react/commit/9bf2667c4e8a7e6f3b6bf9ccf707d45c19be1998))
+
 # [1.3.0](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.2.2...sajari-sdk-docs@1.3.0) (2021-01-05)
 
 ### Features

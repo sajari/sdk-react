@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.3.1...@sajari/react-search-ui@1.4.0) (2021-01-06)
+
+### Bug Fixes
+
+- laggy filter search ([#305](https://github.com/sajari/sdk-react/issues/305)) ([9bf2667](https://github.com/sajari/sdk-react/commit/9bf2667c4e8a7e6f3b6bf9ccf707d45c19be1998))
+
+### Features
+
+- added image hover support to Results ([3fddbdc](https://github.com/sajari/sdk-react/commit/3fddbdc57b77fe06ce5d04a9bdbeb7e10d464ee5))
+
 ## [1.3.1](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.3.0...@sajari/react-search-ui@1.3.1) (2021-01-05)
 
 **Note:** Version bump only for package @sajari/react-search-ui
