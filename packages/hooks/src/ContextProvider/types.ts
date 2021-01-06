@@ -74,7 +74,7 @@ export class FieldDictionary {
 
   image?: Field;
 
-  // commerce related fields
+  // e-commerce related fields
 
   price?: Field;
 
