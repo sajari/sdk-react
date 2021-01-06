@@ -79,6 +79,8 @@ export class FieldDictionary {
 
   price?: Field;
 
+  originalPrice?: Field;
+
   rating?: Field;
 
   inventory?: Field;
@@ -94,6 +96,7 @@ export class FieldDictionary {
       price = 'price',
       rating = 'rating',
       inventory = 'inventory',
+      originalPrice = 'originalPrice',
     } = input ?? {};
 
     this.id = id;
@@ -103,6 +106,7 @@ export class FieldDictionary {
     this.description = description;
     this.image = image;
     this.price = price;
+    this.originalPrice = originalPrice;
     this.rating = rating;
     this.inventory = inventory;
   }
