@@ -20,7 +20,7 @@ export interface ResultValues {
   title: string;
   subtitle?: string;
   description?: string;
-  image?: string;
+  image?: string | string[];
   rating?: number;
   price?: string | string[];
   inventory?: string;

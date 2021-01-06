@@ -5,6 +5,7 @@ import {
   decodeHTML,
   formatPrice,
   getStylesObject,
+  isArray,
   isNumber,
   isString,
   isValidURL,
@@ -69,9 +70,12 @@ const Result = React.memo(
       return objectFit[appearance];
     }, [appearance]);
 
+    const imageSrc = isArray(image) ? image[0] : image;
+    const imageHoverSrc = isArray(image) ? image[1] : undefined;
+
     return (
       <Box as="article" {...rest} css={[styles.container, stylesProp]}>
-        {(isValidURL(image, true) || forceImage) && (
+        {(isValidURL(imageSrc, true) || forceImage) && (
           <Link
             href={clickToken || url}
             target="_blank"
@@ -80,7 +84,8 @@ const Result = React.memo(
             disableDefaultStyles={disableDefaultStyles}
           >
             <Image
-              src={image}
+              src={imageSrc}
+              hoverSrc={imageHoverSrc}
               css={styles.image}
               aspectRatio={imageAspectRatio}
               objectFit={imageObjectFit}

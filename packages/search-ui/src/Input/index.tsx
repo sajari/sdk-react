@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Combobox } from '@sajari/react-components';
 import { useAutocomplete, useQuery, useSearchContext } from '@sajari/react-hooks';
-import { __DEV__ } from '@sajari/react-sdk-utils';
+import { __DEV__, isArray } from '@sajari/react-sdk-utils';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -40,7 +40,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
         title,
         url: link,
         description,
-        image,
+        image: isArray(image) ? image[0] : image,
       };
     });
   }

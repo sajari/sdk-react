@@ -1,6 +1,8 @@
 import { FieldDictionary } from '@sajari/react-hooks';
 import { Result } from '@sajari/sdk-js';
 
+// TODO: Handle mapping arrays in templates
+// e.g. `https://x.com/path/${name}` where name is an array (e.g. ['x', 'y']) should return ['https://x.com/path/x', 'https://x.com/path/y']
 const fillTemplate = <T = Record<string, string | string[]>>(template: string, variables: T) =>
   template.replace(/\${(.*?)}/g, (_, g: string) => variables[g].toString());
 
