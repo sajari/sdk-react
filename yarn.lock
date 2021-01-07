@@ -1302,9 +1302,9 @@
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
 "@sajari/sdk-js@^1.0.8":
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/@sajari/sdk-js/-/sdk-js-1.0.8.tgz#837bb22f6cba4805a87eb52a08de09f788350322"
-  integrity sha512-ha5eRH/z9jxVJum0+1fekwr8Ut161nkQhQqLFkIKs7hv+hzCn0jU4A+jBmF83JkWOxCdgcxyJZieSxZR5SWkKg==
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@sajari/sdk-js/-/sdk-js-1.0.11.tgz#cf3ead57e152e68b1e455e3ab8c046e5179880a8"
+  integrity sha512-xotqOcj1GnvxlbCx1X9nD1QfB0SX/fXoCpL+GQnKuZHtliRzCGmCxeazAZTGQikMPtonqo00eBN1blT1OdTmvw==
 
 "@shellscape/koa-send@^4.1.0":
   version "4.1.3"
