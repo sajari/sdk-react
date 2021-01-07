@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.1](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.4.0...@sajari/react-search-ui@1.4.1) (2021-01-07)
+
+### Bug Fixes
+
+- fix filter render lags ([ad5e161](https://github.com/sajari/sdk-react/commit/ad5e16162ba6e9f9d8650c71ec8779ed58a5cb7c))
+- use currency from context in filters ([09b4446](https://github.com/sajari/sdk-react/commit/09b444676edd85a195a52ba93477446facaa2ac1))
+
 # [1.4.0](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.3.1...@sajari/react-search-ui@1.4.0) (2021-01-06)
 
 ### Bug Fixes

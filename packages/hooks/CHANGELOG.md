@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.8...@sajari/react-hooks@1.1.0) (2021-01-07)
+
+### Features
+
+- added image hover support to Results ([3fddbdc](https://github.com/sajari/sdk-react/commit/3fddbdc57b77fe06ce5d04a9bdbeb7e10d464ee5))
+
 ## [1.0.8](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.7...@sajari/react-hooks@1.0.8) (2021-01-05)
 
 **Note:** Version bump only for package @sajari/react-hooks
