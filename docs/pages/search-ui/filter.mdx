@@ -429,14 +429,14 @@ function Example() {
 
 Exclusive props if `type` is `list`.
 
-| Name            | Type                                | Default                             | Description                                                                               |
-| --------------- | ----------------------------------- | ----------------------------------- | ----------------------------------------------------------------------------------------- |
-| `limit`         | `number`                            | `8`                                 | Maximum number of items to show if the list is collapsed.                                 |
-| `searchable`    | `boolean`                           | `false`                             | If true, display an input for searching through items.                                    |
-| `sort`          | `'count'` \| `'alpha'` \| `'none'`  | `'count'`                           | How to sort the items.                                                                    |
-| `sortAscending` | `boolean`                           | `true` if `sort` is not `'count'`   | Whether to sort in ascending order.                                                       |
-| `pinSelected`   | `boolean`                           | `true` if items count over `limit`. | Pin selected items to the top of the list.                                                |
-| `renderItem`    | `(value:string) => React.ReactNode` | -                                   | A render prop function is used to custom the item label rather than just displaying text. |
+| Name            | Type                                | Default                                          | Description                                                                               |
+| --------------- | ----------------------------------- | ------------------------------------------------ | ----------------------------------------------------------------------------------------- |
+| `limit`         | `number`                            | `10`                                             | Maximum number of items to show if the list is collapsed.                                 |
+| `searchable`    | `boolean`                           | `true` if the number of options exceeds `limit`. | If true, display an input for searching through items.                                    |
+| `sort`          | `'count'` \| `'alpha'` \| `'none'`  | `'count'`                                        | How to sort the items.                                                                    |
+| `sortAscending` | `boolean`                           | `true` if `sort` is not `'count'`.               | Whether to sort in ascending order.                                                       |
+| `pinSelected`   | `boolean`                           | `true` if the number of options exceeds `limit`. | Pin selected items to the top of the list.                                                |
+| `renderItem`    | `(value:string) => React.ReactNode` | -                                                | A render prop function is used to custom the item label rather than just displaying text. |
 
 ### Tabs
 
