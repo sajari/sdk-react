@@ -419,11 +419,11 @@ function Example() {
 
 ## Props
 
-| Name    | Type              | Default | Description                |
-| ------- | ----------------- | ------- | -------------------------- |
-| `name`  | `string`          | -       | The name of a given Filter |
-| `title` | `string`          | -       | Title of the filter list   |
-| `type`  | `list` or `color` | `list`  | Title of the filter list   |
+| Name    | Type              | Default | Description                 |
+| ------- | ----------------- | ------- | --------------------------- |
+| `name`  | `string`          | -       | The name of a given Filter. |
+| `title` | `string`          | -       | Title of the filter list.   |
+| `type`  | `list` or `color` | `list`  | Title of the filter list.   |
 
 ### List
 
@@ -431,7 +431,7 @@ Exclusive props if `type` is `list`.
 
 | Name            | Type                                | Default                                          | Description                                                                               |
 | --------------- | ----------------------------------- | ------------------------------------------------ | ----------------------------------------------------------------------------------------- |
-| `limit`         | `number`                            | `10`                                             | Maximum number of items to show if the list is collapsed.                                 |
+| `limit`         | `number`                            | `10`                                             | Maximum number of items to initially show. Maximum is 100.                                |
 | `searchable`    | `boolean`                           | `true` if the number of options exceeds `limit`. | If true, display an input for searching through items.                                    |
 | `sort`          | `'count'` \| `'alpha'` \| `'none'`  | `'count'`                                        | How to sort the items.                                                                    |
 | `sortAscending` | `boolean`                           | `true` if `sort` is not `'count'`.               | Whether to sort in ascending order.                                                       |
