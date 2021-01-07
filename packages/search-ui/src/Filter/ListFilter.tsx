@@ -32,6 +32,8 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     pinSelected = options.length > limit;
   }
 
+  // Because as the selected list changes the elements are being recreated so the focus is not focusing the correct element anymore
+  const [lastFocusedControl, setLastFocusedControl] = React.useState('');
   const [query, setQuery] = React.useState('');
   const { query: q } = useQuery();
   const [shown, setShown] = React.useState(limit);
@@ -61,11 +63,20 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     setShown(limit);
   }, [query, q]);
 
+  // On user interaction, get the last element being interacted with BEFORE the list is rerendered and focus that element
+  React.useEffect(() => {
+    const input = document
+      .querySelector(`#list-${name}`)
+      ?.querySelector(`input[value='${lastFocusedControl}']`) as HTMLInputElement | null;
+    input?.focus();
+  }, [JSON.stringify(selected)]);
+
   const Control = multi ? Checkbox : Radio;
   const filtered = searchable ? options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase())) : options;
   const slice = filtered.length > limit;
 
   const sortedItems = React.useMemo(() => {
+    setLastFocusedControl(`${(document.activeElement as HTMLInputElement).value}`);
     let list = filtered;
 
     if (sort !== 'none') {
