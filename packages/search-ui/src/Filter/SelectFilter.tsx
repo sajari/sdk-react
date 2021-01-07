@@ -10,9 +10,9 @@ import { SelectFilterProps } from './types';
 import { formatLabel, sortItems } from './utils';
 
 const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
-  const { name, title, sort = 'count', sortAscending = sort !== 'count', format, currency } = props;
+  const { name, title, sort = 'count', sortAscending = sort !== 'count', format } = props;
   const { options, reset, setSelected, selected, multi } = useFilter(name);
-  const { disableDefaultStyles = false, customClassNames } = useSearchUIContext();
+  const { disableDefaultStyles = false, customClassNames, currency } = useSearchUIContext();
   const { t } = useTranslation('filter');
 
   const sortedItems = React.useMemo(() => {

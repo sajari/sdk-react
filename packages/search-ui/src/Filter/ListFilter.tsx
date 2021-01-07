@@ -21,7 +21,6 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     itemRender,
     placeholder,
     format,
-    currency,
   } = props;
 
   const { options, reset, setSelected, selected, multi } = useFilter(name);
@@ -36,7 +35,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   const [query, setQuery] = React.useState('');
   const { query: q } = useQuery();
   const [shown, setShown] = React.useState(limit);
-  const { disableDefaultStyles = false, customClassNames, language } = useSearchUIContext();
+  const { disableDefaultStyles = false, customClassNames, currency, language } = useSearchUIContext();
   const theme = useTheme();
   const { t } = useTranslation('filter');
 

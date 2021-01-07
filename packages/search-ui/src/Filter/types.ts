@@ -20,7 +20,7 @@ interface BaseFilterProps {
 export interface ListFilterProps extends BaseFilterProps {
   type: 'list';
   itemRender?: (value: string) => React.ReactNode;
-  /** Maximum number of items to show if the list is collapsed */
+  /** Maximum number of items to initially show. Maximum is 100. */
   limit?: number;
   /** If true, display an input for searching through items */
   searchable?: boolean;
@@ -34,8 +34,6 @@ export interface ListFilterProps extends BaseFilterProps {
   sortAscending?: boolean;
   /** How to format the values */
   format?: 'default' | 'price';
-  /** Currency code to use for price type */
-  currency?: string;
 }
 
 export interface ColorFilterProps extends BaseFilterProps {
@@ -48,7 +46,7 @@ export interface RatingFilterProps extends BaseFilterProps {
 
 export interface TabFilterProps
   extends BaseFilterProps,
-    Pick<ListFilterProps, 'currency' | 'format' | 'limit' | 'sort' | 'sortAscending'> {
+    Pick<ListFilterProps, 'format' | 'limit' | 'sort' | 'sortAscending'> {
   type: 'tabs';
 }
 
@@ -58,9 +56,7 @@ export interface RangeFilterProps
   type: 'range';
 }
 
-export interface SelectFilterProps
-  extends BaseFilterProps,
-    Pick<ListFilterProps, 'currency' | 'format' | 'sort' | 'sortAscending'> {
+export interface SelectFilterProps extends BaseFilterProps, Pick<ListFilterProps, 'format' | 'sort' | 'sortAscending'> {
   type: 'select';
 }
 
