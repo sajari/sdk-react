@@ -127,12 +127,11 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
 
   if (search.filters && !configDone) {
     const filter = combineFilters(search.filters);
+    const expression = filter.filter();
 
     variables.current.set({
       filter: () =>
-        `${defaultFilter ? `${defaultFilter.toString()} AND ` : ''}(${
-          isEmpty(filter.filter()) ? '_id != ""' : filter.filter()
-        })`,
+        `${defaultFilter ? `${defaultFilter.toString()} AND ` : ''}(${isEmpty(expression) ? '_id != ""' : expression})`,
       countFilters: () => filter.countFilters(),
       buckets: () => filter.buckets(),
       count: () => filter.count(),
