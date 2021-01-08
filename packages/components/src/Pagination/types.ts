@@ -39,4 +39,6 @@ export interface PaginationProps extends BoxProps {
   scrollTarget?: string | Element;
   /** Enable scrolling */
   scrollToTop?: boolean;
+  /** Force compact view (otherwise it's automatic) */
+  compact?: boolean;
 }
