@@ -125,8 +125,8 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
     Object.assign(autocompleteProp, { variables: autocompleteVariables.current });
   }
 
-  if (search.filters && !configDone) {
-    const filter = combineFilters(search.filters);
+  if (!configDone) {
+    const filter = combineFilters(search.filters ?? []);
 
     variables.current.set({
       filter: () =>
