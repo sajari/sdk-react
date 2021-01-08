@@ -29,6 +29,8 @@ export default class FilterBuilder {
 
   private name: string;
 
+  private group: string | undefined;
+
   private field: string | undefined;
 
   private options: Options;
@@ -57,6 +59,7 @@ export default class FilterBuilder {
     array = false,
     name,
     field,
+    group,
     count = isEmpty(options),
   }: FilterOptions) {
     if (isString(initial)) {
@@ -69,6 +72,8 @@ export default class FilterBuilder {
     this.initial = initial;
     /** @private */
     this.name = name;
+    /** @private */
+    this.group = group;
     /** @private */
     this.field = field;
     /** @private */
@@ -142,6 +147,10 @@ export default class FilterBuilder {
 
   public getName() {
     return this.name;
+  }
+
+  public getGroup() {
+    return this.group;
   }
 
   public getField() {

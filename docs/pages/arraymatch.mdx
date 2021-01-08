@@ -1,0 +1,106 @@
+import SEO from '../components/SEO';
+
+<SEO title="Search UI" description="Easy to use search components to quickly build a beautiful search interface." />
+
+# Array Match
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      endpoint: 'https://jsonapi-au-staging-valkyrie.sajari.net',
+      account: '1609911031581245493',
+      collection: 'products',
+    },
+    'app',
+  );
+
+  const fields = new FieldDictionary({
+    title: 'Product_Name',
+    subtitle: 'Material',
+    description: 'Imprintarea',
+    image: 'Product_List_View_Image',
+    price: 'Setup_Fee',
+  });
+
+  const tierStartQuantityFilter = new RangeFilterBuilder({
+    name: 'tier-start-quantity',
+    field: 'TierStartQuantity',
+    group: 'group-1',
+    min: 0,
+    max: 2000,
+    aggregate: false,
+    initial: [0, 2000],
+  });
+
+  const tierPriceFilter = new RangeFilterBuilder({
+    name: 'tier-price',
+    field: 'TierPrice',
+    group: 'group-1',
+    min: 0,
+    max: 10,
+    aggregate: false,
+    initial: [0, 10],
+  });
+
+  const App = React.memo(() => {
+    const { searched } = useSearchContext();
+
+    return (
+      <>
+        <Input />
+
+        <div className="flex items-center justify-end mt-3">
+          <Summary size="sm" />
+
+          {/* <div className="flex space-x-4 ml-auto">
+            <Sorting
+              options={[
+                { name: 'Most relevant', value: '' },
+                { name: 'Brand: A to Z', value: 'brand' },
+                { name: 'Brand: Z to A', value: '-brand' },
+                { name: 'Rating: Low to High', value: 'rating' },
+                { name: 'Rating: High to Low', value: '-rating' },
+                { name: 'Popularity', value: 'popularity' },
+              ]}
+              size="sm"
+            />
+            <ResultsPerPage size="sm" />
+            <ViewType size="sm" />
+          </div> */}
+        </div>
+
+        <div className="flex mt-6">
+          {searched && (
+            <div className="w-1/4 pr-4 mr-4 border-gray-100 border-r space-y-6">
+              <Filter type="range" name="tier-start-quantity" title="Budget" />
+              <Filter type="range" name="tier-price" title="Price" format="price" />
+            </div>
+          )}
+
+          <div className="flex-1">
+            <Results appearance="grid" />
+          </div>
+        </div>
+
+        <div className="sticky bottom-0 p-6">
+          <Pagination />
+        </div>
+      </>
+    );
+  });
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields,
+        filters: [tierStartQuantityFilter, tierPriceFilter],
+      }}
+      searchOnLoad
+    >
+      <App />
+    </SearchProvider>
+  );
+}
+```

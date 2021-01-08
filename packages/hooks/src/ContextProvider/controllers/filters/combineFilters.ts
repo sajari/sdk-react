@@ -1,3 +1,5 @@
+import { groupBy } from '@sajari/react-sdk-utils';
+
 import { EVENT_OPTIONS_UPDATED, EVENT_RANGE_UPDATED, EVENT_SELECTION_UPDATED } from '../../events';
 import { Listener } from '../Listener';
 import FilterBuilder from './FilterBuilder';
@@ -66,13 +68,29 @@ export default function combineFilters(
   }
 
   // Generate filter field from non aggregate count Filter(s) for Variables object
-  const filter = () =>
-    filters
-      .filter((f) => (f instanceof FilterBuilder && !f.getCount()) || f instanceof RangeFilterBuilder)
-      .map((f) => f.filter())
-      .filter(Boolean)
-      .map((f) => `(${f})`)
+  const filter = () => {
+    // TODO: We need this logic re-usable for countFilters also
+    // Group all filters
+    const grouped = groupBy(
+      filters
+        .filter((f) => (f instanceof FilterBuilder && f.getCount()) || f instanceof RangeFilterBuilder)
+        .map((f) => ({ group: f.getGroup(), exp: f.filter() }))
+        .filter(({ exp }) => Boolean(exp)),
+      'group',
+    ) as Record<string, Array<{ group?: string; exp: string }>>;
+
+    // Flatten the group expressions
+    const groups = Object.entries(grouped)
+      .filter(([group]) => Boolean(group))
+      .reduce((out, [key, f]) => ({ ...out, [key]: f.map(({ exp }) => exp) }), {}) as Record<string, Array<string>>;
+
+    // Build the final expression
+    return Object.entries(groups)
+      .map(([group, expressions]) =>
+        group !== 'undefined' ? `ARRAY_MATCH(${expressions.join(' AND ')})` : expressions,
+      )
       .join(` ${joinOperator} `);
+  };
 
   // Generate buckets field from non aggregate count Filter(s) for Variables object
   const buckets = () =>
