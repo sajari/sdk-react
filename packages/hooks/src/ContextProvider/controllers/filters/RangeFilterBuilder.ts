@@ -28,14 +28,19 @@ export default class RangeFilterBuilder {
   constructor({
     field,
     name,
-    initial = null,
-    min = 0,
-    max = 0,
     aggregate = true,
+    initial,
+    min = 0,
+    max = aggregate ? 0 : 100,
     formatter = (value: Range) => value.map(Math.round) as Range,
   }: RangeFilterOptions) {
-    this.range = initial;
-    this.initial = initial;
+    if (initial === undefined) {
+      this.initial = aggregate ? null : [min, max];
+    } else {
+      this.initial = initial;
+    }
+
+    this.range = this.initial;
     this.name = name;
     this.field = field;
     this.formatter = formatter;
