@@ -82,4 +82,24 @@ describe('RangeFilterBuilder', () => {
     ratingFilter.reset();
     expect(spyOptionUpdateCallback).toHaveBeenCalledTimes(3);
   });
+
+  it('failsafe default for non aggregate', () => {
+    const rangeFilter = new RangeFilterBuilder({
+      name: 'popular',
+      field: 'popular',
+      aggregate: false,
+    });
+    expect(rangeFilter.get()).toEqual([0, 100]);
+  });
+
+  it('non aggregate should pick default min, max if initial is undefined', () => {
+    const rangeFilter = new RangeFilterBuilder({
+      name: 'popular',
+      field: 'popular',
+      aggregate: false,
+      min: 200,
+      max: 1000,
+    });
+    expect(rangeFilter.get()).toEqual([200, 1000]);
+  });
 });
