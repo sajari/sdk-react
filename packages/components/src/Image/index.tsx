@@ -3,8 +3,8 @@ import * as React from 'react';
 
 import AspectRatio from '../AspectRatio';
 import Box from '../Box';
-import { ImageProps } from './types';
 import { useImageStyles } from './styles';
+import { ImageProps } from './types';
 
 interface NativeImageProps {
   htmlWidth?: ImageProps['htmlWidth'];
