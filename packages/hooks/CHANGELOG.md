@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.1.0...@sajari/react-hooks@1.1.1) (2021-01-08)
+
+### Bug Fixes
+
+- initial count filter field is always empty ([#309](https://github.com/sajari/sdk-react/issues/309)) ([3405723](https://github.com/sajari/sdk-react/commit/3405723c5cd898a2c184d385db537af3935cd247))
+- make RangeFilter more failsafe default for non aggregate ([#313](https://github.com/sajari/sdk-react/issues/313)) ([eb4c40d](https://github.com/sajari/sdk-react/commit/eb4c40d2951cb960ec50c789a22dffdac5596d23))
+
 # [1.1.0](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.8...@sajari/react-hooks@1.1.0) (2021-01-07)
 
 ### Features

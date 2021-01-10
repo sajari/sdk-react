@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.3.2...sajari-sdk-docs@1.4.0) (2021-01-08)
+
+### Bug Fixes
+
+- make RangeFilter more failsafe default for non aggregate ([#313](https://github.com/sajari/sdk-react/issues/313)) ([eb4c40d](https://github.com/sajari/sdk-react/commit/eb4c40d2951cb960ec50c789a22dffdac5596d23))
+
+### Features
+
+- added compact prop to Pagination component ([#314](https://github.com/sajari/sdk-react/issues/314)) ([c987a1c](https://github.com/sajari/sdk-react/commit/c987a1c5e9b13f9034d9bad6db9adf631d2ba161))
+
 ## [1.3.2](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.3.1...sajari-sdk-docs@1.3.2) (2021-01-07)
 
 ### Bug Fixes

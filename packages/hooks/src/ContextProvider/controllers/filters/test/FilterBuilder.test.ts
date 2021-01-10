@@ -76,4 +76,27 @@ describe('FilterBuilder', () => {
     brandFilter.reset();
     expect(spyOptionUpdateCallback).toHaveBeenCalledTimes(3);
   });
+
+  // Test default value render for count filter
+  it('filter outputs correctly for a non array field', () => {
+    const filter = new FilterBuilder({
+      name: 'category',
+      field: 'category',
+      options: {},
+      initial: ['apple', 'samsung'],
+      array: false,
+    });
+    expect(filter.filter()).toBe('(category = "apple") OR (category = "samsung")');
+  });
+
+  it('filter outputs correctly if an array field', () => {
+    const filter = new FilterBuilder({
+      name: 'category',
+      field: 'category',
+      options: {},
+      initial: ['apple', 'samsung'],
+      array: true,
+    });
+    expect(filter.filter()).toBe('(category ~ ["apple"]) OR (category ~ ["samsung"])');
+  });
 });
