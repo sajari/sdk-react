@@ -82,12 +82,26 @@ Internationalization is handled via the `i18n` prop. The default values are as f
 }
 ```
 
+| Property   | Type                               | Default                       | Description                                  |
+| ---------- | ---------------------------------- | ----------------------------- | -------------------------------------------- |
+| `label`    | `string`                           | `'Pagination'`                | The aria label for the pagination container. |
+| `previous` | `string`                           | `'Previous'`                  | The aria label for the previous button.      |
+| `next`     | `string`                           | `'Next'`                      | The aria label for the next button.          |
+| `page`     | `string` \| `({ page }) => string` | `Page {{page}}`               | The aria label for a page button.            |
+| `current`  | `string` \| `({ page }) => string` | `Page {{page}}, current page` | The aria label for a current page button.    |
+
 These are the placeholders available:
 
-| Name   | Properties | Description                     |
-| ------ | ---------- | ------------------------------- |
-| `page` | `page`     | The page number for the button. |
-| `page` | `current`  | The current page number.        |
+| Property  | Placeholder | Description                     |
+| --------- | ----------- | ------------------------------- |
+| `page`    | `page`      | The page number for the button. |
+| `current` | `page`      | The current page number.        |
+
+Placeholders are passed as an object to a formatter function:
+
+```js
+({ page }) => `Page ${page}`;
+```
 
 ## Props
 

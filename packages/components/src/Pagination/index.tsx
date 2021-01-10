@@ -1,4 +1,4 @@
-import { clamp, getStylesObject, isSSR, isString } from '@sajari/react-sdk-utils';
+import { clamp, getStylesObject, isFunction, isSSR, isString } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
 import * as React from 'react';
 import smoothscroll from 'smoothscroll-polyfill';
@@ -156,7 +156,7 @@ const Pagination = React.memo((props: PaginationProps) => {
       const number = item + 1;
       const active = number === page;
       const template = active ? i18n.current : i18n.page;
-      const ariaLabel = template.replace('{{page}}', number.toString());
+      const ariaLabel = isFunction(template) ? template({ page: number }) : template;
 
       return (
         <Button
