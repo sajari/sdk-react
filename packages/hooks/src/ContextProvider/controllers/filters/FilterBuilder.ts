@@ -181,7 +181,7 @@ export default class FilterBuilder {
    * Builds up the filter string from the current filter and it's children.
    */
   public filter() {
-    // initial build up the filter value for a count filter field, where the options is not yet came from the response
+    // Initial build up the filter value for a count filter field, where the options is not yet came from the response
     if (isEmpty(this.options) && this.count) {
       return this.current
         .map((label) => `(${this.array ? `${this.field} ~ ["${label}"]` : `${this.field} = "${label}"`})`)
