@@ -139,11 +139,6 @@ const Pagination = React.memo((props: PaginationProps) => {
       }
     }
 
-    const getARIALabel = (number: number, active: boolean) => {
-      const template = active ? i18n.current : i18n.page;
-      return template.replace('{{page}}', number.toString());
-    };
-
     return items.map((item, index) => {
       if (item === null) {
         return (
@@ -160,13 +155,15 @@ const Pagination = React.memo((props: PaginationProps) => {
 
       const number = item + 1;
       const active = number === page;
+      const template = active ? i18n.current : i18n.page;
+      const ariaLabel = template.replace('{{page}}', number.toString());
 
       return (
         <Button
           key={item}
           appearance={active ? 'primary' : undefined}
           aria-current={active ? 'page' : undefined}
-          aria-label={getARIALabel(number, active)}
+          aria-label={ariaLabel}
           onClick={changeHandler(false, number)}
           className={classnames(buttonClassName, { [activeClassName]: active })}
         >
