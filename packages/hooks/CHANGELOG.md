@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.1.2
+
+### Patch Changes
+
+- [`74f0b605`](https://github.com/sajari/sdk-react/commit/74f0b605f74cf168040b680d3c854118ec0a430a) [#315](https://github.com/sajari/sdk-react/pull/315) Thanks [@sampotts](https://github.com/sampotts)! - Minor code optimization for filter expression generation
+
+* [`eb4c40d2`](https://github.com/sajari/sdk-react/commit/eb4c40d2951cb960ec50c789a22dffdac5596d23) [#313](https://github.com/sajari/sdk-react/pull/313) Thanks [@zlatanpham](https://github.com/zlatanpham)! - make RangeFilter more failsafe defaults for non aggregate option
+
+- [`3405723c`](https://github.com/sajari/sdk-react/commit/3405723c5cd898a2c184d385db537af3935cd247) [#309](https://github.com/sajari/sdk-react/pull/309) Thanks [@zlatanpham](https://github.com/zlatanpham)! - fix intial count filter field is always empty
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 

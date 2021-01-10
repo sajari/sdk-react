@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.5.0
+
+### Minor Changes
+
+- [`c987a1c5`](https://github.com/sajari/sdk-react/commit/c987a1c5e9b13f9034d9bad6db9adf631d2ba161) [#314](https://github.com/sajari/sdk-react/pull/314) Thanks [@sampotts](https://github.com/sampotts)! - Added compact prop to Pagination component.
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 

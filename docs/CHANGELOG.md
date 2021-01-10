@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.5.0
+
+### Minor Changes
+
+- [`c987a1c5`](https://github.com/sajari/sdk-react/commit/c987a1c5e9b13f9034d9bad6db9adf631d2ba161) [#314](https://github.com/sajari/sdk-react/pull/314) Thanks [@sampotts](https://github.com/sampotts)! - Added compact prop to Pagination component.
+
+### Patch Changes
+
+- [`eb4c40d2`](https://github.com/sajari/sdk-react/commit/eb4c40d2951cb960ec50c789a22dffdac5596d23) [#313](https://github.com/sajari/sdk-react/pull/313) Thanks [@zlatanpham](https://github.com/zlatanpham)! - make RangeFilter more failsafe defaults for non aggregate option
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
