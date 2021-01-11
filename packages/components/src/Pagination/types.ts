@@ -1,5 +1,9 @@
 import { BoxProps } from '../Box';
 
+interface I18nParams {
+  page: number;
+}
+
 export interface PaginationProps extends BoxProps {
   /** ISO language code to use for i18n and formatting (e.g. en or en-US). Defaults to browser language. */
   language?: string;
@@ -20,8 +24,8 @@ export interface PaginationProps extends BoxProps {
     label?: string;
     previous?: string;
     next?: string;
-    page?: string;
-    current?: string;
+    page?: string | ((params: I18nParams) => string);
+    current?: string | ((params: I18nParams) => string);
   };
   /** The classname for button */
   buttonClassName?: string;
