@@ -1,11 +1,16 @@
 import { SearchProviderValues } from '@sajari/react-hooks';
 import { ThemeProviderProps } from '@sajari/react-sdk-utils';
 
+export type ResultViewType = 'grid' | 'list';
+
 export interface SearchUIContextProviderValues {
   /** Maximum possible rating value */
   ratingMax?: number;
   /** Currency code to use for any price display */
   currency?: string;
+  /** View mode of the results */
+  viewType: ResultViewType;
+  setViewType: (type: ResultViewType) => void;
   disableDefaultStyles?: boolean;
   customClassNames?: {
     results?: {
@@ -110,4 +115,4 @@ export interface SearchUIContextProviderValues {
 export interface ContextProviderValues
   extends SearchProviderValues,
     ThemeProviderProps,
-    SearchUIContextProviderValues {}
+    Omit<SearchUIContextProviderValues, 'setViewType'> {}
