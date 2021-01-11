@@ -30,7 +30,6 @@ function Example() {
     min: 0,
     max: 2000,
     aggregate: false,
-    initial: [0, 2000],
   });
 
   const tierPriceFilter = new RangeFilterBuilder({
@@ -40,7 +39,6 @@ function Example() {
     min: 0,
     max: 10,
     aggregate: false,
-    initial: [0, 10],
   });
 
   const App = React.memo(() => {
