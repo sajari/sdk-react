@@ -26,7 +26,6 @@ import {
   PipelineProviderState,
   ProviderPipelineConfig,
   ProviderPipelineState,
-  ResultViewType,
   SearchProviderValues,
 } from './types';
 
@@ -103,7 +102,6 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
   const [autocompleteSearching, setAutocompleteSearching] = useState(false);
   const [searchState, setSearchState] = useState({ ...defaultState, response: initialResponse });
   const [autocompleteState, setAutocompleteState] = useState(defaultState);
-  const [viewType, setViewType] = useState<ResultViewType>('list');
   const [configDone, setConfigDone] = useState(false);
   const searchTimer = useRef<ReturnType<typeof setTimeout>>();
   const searchAutocompleteTimer = useRef<ReturnType<typeof setTimeout>>();
@@ -327,8 +325,6 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
       },
       resultClicked: handleResultClicked,
       paginate: handlePaginate,
-      viewType,
-      setViewType,
     } as Context);
 
   return <Provider value={getContext({ autocomplete: autocompleteState, search: searchState })}>{children}</Provider>;
