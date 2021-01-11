@@ -89,10 +89,18 @@ export function formatNumber(input: number, options: FormatNumberOptions): strin
  */
 export function formatPrice(input: string | string[] | number, options: Omit<FormatNumberOptions, 'style'>): string {
   const price = input;
-  const format = (value: number) => formatNumber(value, { style: 'currency', ...options });
+  const format = (val: string | number | undefined) => {
+    const value = Number(val);
+
+    if (!isNumber(value)) {
+      return input.toString();
+    }
+
+    return formatNumber(value, { style: 'currency', ...options });
+  };
 
   if (!Array.isArray(price)) {
-    return format(Number(price));
+    return format(price);
   }
 
   const prices = price.map(Number);
@@ -100,8 +108,8 @@ export function formatPrice(input: string | string[] | number, options: Omit<For
   const max = Math.max(...prices);
 
   if (min === max) {
-    return format(Number(min));
+    return format(min);
   }
 
-  return `${format(Number(min))}–${format(Number(max))}`;
+  return `${format(min)}–${format(max)}`;
 }
