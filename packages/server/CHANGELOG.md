@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.0.12
+
+### Patch Changes
+
+- [`ccf0d330`](https://github.com/sajari/sdk-react/commit/ccf0d330adf31ae33cd75ddc8e3b3c6dad87d4d3) [#322](https://github.com/sajari/sdk-react/pull/322) Thanks [@tuanddd](https://github.com/tuanddd)! - fix defaultFilter being ignored if there are no filters
+
+- Updated dependencies [[`5ed2763d`](https://github.com/sajari/sdk-react/commit/5ed2763dd92b6ca5f0c0659ce7e931a39af3dbae), [`ccf0d330`](https://github.com/sajari/sdk-react/commit/ccf0d330adf31ae33cd75ddc8e3b3c6dad87d4d3)]:
+  - @sajari/react-hooks@1.1.3
+
 ## 1.0.11
 
 ### Patch Changes
