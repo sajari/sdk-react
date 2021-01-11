@@ -41,6 +41,12 @@ function Example() {
     aggregate: false,
   });
 
+  const colorFilter = new FilterBuilder({
+    name: 'color',
+    field: 'Product_Color',
+    group: 'group-1',
+  });
+
   const App = React.memo(() => {
     const { searched } = useSearchContext();
 
@@ -71,8 +77,9 @@ function Example() {
         <div className="flex mt-6">
           {searched && (
             <div className="w-1/4 pr-4 mr-4 border-gray-100 border-r space-y-6">
-              <Filter type="range" name="tier-start-quantity" title="Budget" />
-              <Filter type="range" name="tier-price" title="Price" format="price" />
+              <Filter type="range" name="tier-start-quantity" title="Budget" tick={500} step={50} />
+              <Filter type="range" name="tier-price" title="Price" format="price" tick={2} />
+              <Filter type="color" name="color" title="Color" />
             </div>
           )}
 
@@ -93,7 +100,7 @@ function Example() {
       search={{
         pipeline,
         fields,
-        filters: [tierStartQuantityFilter, tierPriceFilter],
+        filters: [tierStartQuantityFilter, tierPriceFilter, colorFilter],
       }}
       searchOnLoad
     >
