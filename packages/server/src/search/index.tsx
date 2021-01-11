@@ -10,10 +10,9 @@ function search(props: SearchProviderValues['search']): Promise<string | null> {
 
   if (filters) {
     const filter = combineFilters(filters);
-    const expression = filter.filter();
 
     variables.set({
-      filter: isEmpty(expression) ? '_id != ""' : () => expression,
+      filter: isEmpty(filter.filter()) ? '_id != ""' : () => filter.filter(),
       countFilters: () => filter.countFilters(),
       buckets: () => filter.buckets(),
       count: () => filter.count(),
