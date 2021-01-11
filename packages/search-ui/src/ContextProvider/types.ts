@@ -9,7 +9,7 @@ export interface SearchUIContextProviderValues {
   /** Currency code to use for any price display */
   currency?: string;
   /** View mode of the results */
-  viewType: ResultViewType;
+  viewType?: ResultViewType;
   setViewType: (type: ResultViewType) => void;
   disableDefaultStyles?: boolean;
   customClassNames?: {
