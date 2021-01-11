@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.2.2
+
+### Patch Changes
+
+- [`fb817fb3`](https://github.com/sajari/sdk-react/commit/fb817fb3d1847b66c0748811af02b562af792a25) [#320](https://github.com/sajari/sdk-react/pull/320) Thanks [@sampotts](https://github.com/sampotts)! - Fix price formatting when price isn't a valid Number
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
