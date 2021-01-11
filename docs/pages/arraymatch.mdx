@@ -57,21 +57,24 @@ function Example() {
         <div className="flex items-center justify-end mt-3">
           <Summary size="sm" />
 
-          {/* <div className="flex space-x-4 ml-auto">
+          <div className="flex space-x-4 ml-auto">
             <Sorting
               options={[
                 { name: 'Most relevant', value: '' },
-                { name: 'Brand: A to Z', value: 'brand' },
-                { name: 'Brand: Z to A', value: '-brand' },
-                { name: 'Rating: Low to High', value: 'rating' },
-                { name: 'Rating: High to Low', value: '-rating' },
-                { name: 'Popularity', value: 'popularity' },
+                { name: 'Name: A to Z', value: 'Product_Name' },
+                { name: 'Name: Z to A', value: '-Product_Name' },
+                { name: 'Min Price: Low to High', value: 'TierPriceMin' },
+                { name: 'Min Price: High to Low', value: '-TierPriceMin' },
+                { name: 'Max Price: Low to High', value: 'TierPriceMax' },
+                { name: 'Max Price: High to Low', value: '-TierPriceMax' },
+                { name: 'Minimum Quantity: Low to High', value: 'Minimum_Quantity' },
+                { name: 'Minimum Quantity: High to Low', value: '-Minimum_Quantity' },
               ]}
               size="sm"
             />
             <ResultsPerPage size="sm" />
             <ViewType size="sm" />
-          </div> */}
+          </div>
         </div>
 
         <div className="flex mt-6">
@@ -84,7 +87,7 @@ function Example() {
           )}
 
           <div className="flex-1">
-            <Results appearance="grid" />
+            <Results defaultAppearance="list" />
           </div>
         </div>
 
