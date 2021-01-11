@@ -1,6 +1,6 @@
 import { Box as CoreBox, Button, Checkbox, CheckboxGroup, Combobox, Radio, RadioGroup } from '@sajari/react-components';
 import { useFilter, useQuery } from '@sajari/react-hooks';
-import { getStylesObject, isBoolean, isEmpty, noop, useTheme } from '@sajari/react-sdk-utils';
+import { getStylesObject, isBoolean, isEmpty, isSSR, noop, useTheme } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import tw from 'twin.macro';
@@ -23,6 +23,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     format,
   } = props;
 
+  const filterContainerId = `list-${name}`;
   const { options, reset, setSelected, selected, multi } = useFilter(name);
   // Enable search by default if there's more than the limit
   const { searchable = options.length > limit } = props;
@@ -32,6 +33,8 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     pinSelected = options.length > limit;
   }
 
+  // Because as the selected list changes the elements are being recreated so the focus is not focusing the correct element anymore
+  const [lastFocusedControl, setLastFocusedControl] = React.useState('');
   const [query, setQuery] = React.useState('');
   const { query: q } = useQuery();
   const [shown, setShown] = React.useState(limit);
@@ -61,11 +64,25 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     setShown(limit);
   }, [query, q]);
 
+  // On user interaction, get the last element being interacted with BEFORE the list is rerendered and focus that element
+  React.useEffect(() => {
+    if (!isSSR() && pinSelected) {
+      const input = document
+        .querySelector(`#${filterContainerId}`)
+        ?.querySelector(`input[value='${lastFocusedControl}']`) as HTMLInputElement | null;
+
+      input?.focus();
+    }
+  }, [JSON.stringify(selected)]);
+
   const Control = multi ? Checkbox : Radio;
   const filtered = searchable ? options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase())) : options;
   const slice = filtered.length > limit;
 
   const sortedItems = React.useMemo(() => {
+    if (!isSSR() && pinSelected) {
+      setLastFocusedControl(`${(document.activeElement as HTMLInputElement).value}`);
+    }
     let list = filtered;
 
     if (sort !== 'none') {
@@ -132,7 +149,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
         </CoreBox>
       ) : null}
 
-      <CoreBox id={`list-${name}`} className={customClassNames.filter?.list?.container}>
+      <CoreBox id={filterContainerId} className={customClassNames.filter?.list?.container}>
         {multi ? (
           <CheckboxGroup
             value={selected}
@@ -161,7 +178,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
           <Button
             appearance="link"
             onClick={showMore}
-            aria-controls={`list-${name}`}
+            aria-controls={filterContainerId}
             size="sm"
             spacing="none"
             className={customClassNames.filter?.list?.toggleButton}
