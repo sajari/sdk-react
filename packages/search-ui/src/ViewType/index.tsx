@@ -1,6 +1,5 @@
 import { useId } from '@react-aria/utils';
 import { Button, ButtonGroup } from '@sajari/react-components';
-import { useSearchContext } from '@sajari/react-hooks';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -14,7 +13,7 @@ const ViewType = (props: ViewTypeProps) => {
   const { customClassNames, disableDefaultStyles = false } = useSearchUIContext();
   const { label = t('label'), size, styles: stylesProp, ...rest } = props;
   const id = `view-type-${useId()}`;
-  const { viewType, setViewType } = useSearchContext();
+  const { viewType, setViewType } = useSearchUIContext();
 
   return (
     <ViewOption

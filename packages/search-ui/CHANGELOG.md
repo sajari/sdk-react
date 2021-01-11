@@ -1,5 +1,16 @@
 # Change Log
 
+## 1.4.3
+
+### Patch Changes
+
+- [`25996b71`](https://github.com/sajari/sdk-react/commit/25996b71a64162182627b5f102aa67d2e830b7c3) [#312](https://github.com/sajari/sdk-react/pull/312) Thanks [@tuanddd](https://github.com/tuanddd)! - fix list filter item having wrong focus
+
+- Updated dependencies [[`fb817fb3`](https://github.com/sajari/sdk-react/commit/fb817fb3d1847b66c0748811af02b562af792a25), [`1f2ba34a`](https://github.com/sajari/sdk-react/commit/1f2ba34add8856b75512600f06a9a9ba2cf99ae2), [`d7bed8f8`](https://github.com/sajari/sdk-react/commit/d7bed8f882d2b3420adb445c25b5590929952d88)]:
+  - @sajari/react-components@1.4.1
+  - @sajari/react-sdk-utils@1.2.2
+  - @sajari/react-hooks@1.1.2
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
