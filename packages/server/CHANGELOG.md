@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.0.11
+
+### Patch Changes
+
+- [`d7bed8f8`](https://github.com/sajari/sdk-react/commit/d7bed8f882d2b3420adb445c25b5590929952d88) [#321](https://github.com/sajari/sdk-react/pull/321) Thanks [@sampotts](https://github.com/sampotts)! - revert filter expression optimization
+
+- Updated dependencies [[`fb817fb3`](https://github.com/sajari/sdk-react/commit/fb817fb3d1847b66c0748811af02b562af792a25), [`d7bed8f8`](https://github.com/sajari/sdk-react/commit/d7bed8f882d2b3420adb445c25b5590929952d88)]:
+  - @sajari/react-sdk-utils@1.2.2
+  - @sajari/react-hooks@1.1.2
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 

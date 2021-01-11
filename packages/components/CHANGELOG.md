@@ -1,5 +1,16 @@
 # Change Log
 
+## 1.4.1
+
+### Patch Changes
+
+- [`fb817fb3`](https://github.com/sajari/sdk-react/commit/fb817fb3d1847b66c0748811af02b562af792a25) [#320](https://github.com/sajari/sdk-react/pull/320) Thanks [@sampotts](https://github.com/sampotts)! - Fix price formatting when price isn't a valid Number
+
+* [`1f2ba34a`](https://github.com/sajari/sdk-react/commit/1f2ba34add8856b75512600f06a9a9ba2cf99ae2) [#318](https://github.com/sajari/sdk-react/pull/318) Thanks [@sampotts](https://github.com/sampotts)! - fix pagination aria labels
+
+* Updated dependencies [[`fb817fb3`](https://github.com/sajari/sdk-react/commit/fb817fb3d1847b66c0748811af02b562af792a25)]:
+  - @sajari/react-sdk-utils@1.2.2
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
