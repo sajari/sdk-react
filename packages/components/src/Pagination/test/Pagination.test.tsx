@@ -6,7 +6,9 @@ import Pagination from '..';
 describe('Pagination', () => {
   it('Should change page with the onChange handler', () => {
     const setPage = jest.fn();
-    const { getByText } = render(<Pagination totalResults={1000} resultsPerPage={20} page={1} onChange={setPage} />);
+    const { getByText } = render(
+      <Pagination compact={false} totalResults={1000} resultsPerPage={20} page={1} onChange={setPage} />,
+    );
     const pageTwo = getByText('2');
     pageTwo.click();
     expect(setPage).toHaveBeenCalledWith(2);
@@ -25,12 +27,12 @@ describe('Pagination', () => {
   });
 
   it('Should show nothing if totalResults is not passed', () => {
-    const { container } = render(<Pagination resultsPerPage={5} page={1} onChange={jest.fn()} />);
+    const { container } = render(<Pagination compact={false} resultsPerPage={5} page={1} onChange={jest.fn()} />);
     expect(container.children).toHaveLength(0);
   });
 
   it('Should show nothing if resultsPerPage is not passed', () => {
-    const { container } = render(<Pagination totalResults={100} page={1} onChange={jest.fn()} />);
+    const { container } = render(<Pagination compact={false} totalResults={100} page={1} onChange={jest.fn()} />);
     expect(container.children).toHaveLength(0);
   });
 
@@ -39,11 +41,11 @@ describe('Pagination', () => {
       label: 'Phân trang',
       previous: 'Trang trước',
       next: 'Trang sau',
-      page: 'Trang {{page}}',
-      current: 'Trang {{page}}, trang hiện tại',
+      page: ({ page }) => `Trang ${page}`,
+      current: ({ page }) => `Trang ${page}, trang hiện tại`,
     };
     const { getByLabelText } = render(
-      <Pagination totalResults={10} resultsPerPage={5} page={1} i18n={i18n} onChange={jest.fn()} />,
+      <Pagination compact={false} totalResults={10} resultsPerPage={5} page={1} i18n={i18n} onChange={jest.fn()} />,
     );
     expect(getByLabelText('Phân trang')).toBeInTheDocument();
     expect(getByLabelText('Trang trước')).toBeInTheDocument();
