@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.3.0...@sajari/react-components@1.4.0) (2021-01-08)
+
+### Features
+
+- added compact prop to Pagination component ([#314](https://github.com/sajari/sdk-react/issues/314)) ([c987a1c](https://github.com/sajari/sdk-react/commit/c987a1c5e9b13f9034d9bad6db9adf631d2ba161))
+
 # [1.3.0](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.2.4...@sajari/react-components@1.3.0) (2021-01-05)
 
 ### Bug Fixes
