@@ -1,5 +1,19 @@
 # Change Log
 
+## 1.6.0
+
+### Minor Changes
+
+- [`8c2939af`](https://github.com/sajari/sdk-react/commit/8c2939af3a9249e20da93c2ed8f37769207b7688) [#323](https://github.com/sajari/sdk-react/pull/323) Thanks [@sampotts](https://github.com/sampotts)! - Added support for ARRAY_MATCH filter expression function
+
+### Patch Changes
+
+- [`af397653`](https://github.com/sajari/sdk-react/commit/af39765315877c0ea17d6d38f6ec27609f94d2e2) [#326](https://github.com/sajari/sdk-react/pull/326) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Exported `ResultViewType` type.
+
+- Updated dependencies [[`8c2939af`](https://github.com/sajari/sdk-react/commit/8c2939af3a9249e20da93c2ed8f37769207b7688)]:
+  - @sajari/react-hooks@1.2.0
+  - @sajari/react-sdk-utils@1.3.0
+
 ## 1.5.0
 
 ### Minor Changes
