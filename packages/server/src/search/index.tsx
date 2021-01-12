@@ -1,28 +1,26 @@
 import { combineFilters, EVENT_RESPONSE_UPDATED, Response, SearchProviderValues, Variables } from '@sajari/react-hooks';
 import { isEmpty } from '@sajari/react-sdk-utils';
 
-function search(
-  params: SearchProviderValues['search'],
-  defaultFilter: SearchProviderValues['defaultFilter'],
-): Promise<string | null> {
-  if (!params) {
+function search(props: SearchProviderValues['search']): Promise<string | null> {
+  if (!props) {
     throw new Error('findResultsState requires a `search` config');
   }
 
-  const { pipeline, filters, variables = new Variables() } = params;
-  const filter = combineFilters(filters ?? []);
+  const { pipeline, filters, variables = new Variables() } = props;
 
-  variables.set({
-    filter: () => {
-      const expression = filter.filter();
-      return [defaultFilter?.toString() ?? '', isEmpty(expression) ? '_id != ""' : expression]
-        .filter(Boolean)
-        .join(' AND ');
-    },
-    countFilters: () => filter.countFilters(),
-    buckets: () => filter.buckets(),
-    count: () => filter.count(),
-  });
+  if (filters) {
+    const filter = combineFilters(filters);
+
+    variables.set({
+      filter: () => {
+        const expression = filter.filter();
+        return isEmpty(expression) ? '_id != ""' : expression;
+      },
+      countFilters: () => filter.countFilters(),
+      buckets: () => filter.buckets(),
+      count: () => filter.count(),
+    });
+  }
 
   return new Promise((resolve) => {
     const unlisten = pipeline.listen(EVENT_RESPONSE_UPDATED, (response: Response) => {
