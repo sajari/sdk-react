@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.6.4
+
+### Patch Changes
+
+- [`b0686728`](https://github.com/sajari/sdk-react/commit/b0686728f912064a3417b0b7059806d87fa6e4eb) Thanks [@sampotts](https://github.com/sampotts)! - Fix handling of steps in RangeInput
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
