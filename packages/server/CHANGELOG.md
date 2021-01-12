@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.1
+
+### Patch Changes
+
+- [`452f835c`](https://github.com/sajari/sdk-react/commit/452f835ccf4486524467e94acbfd39596c48a788) [#336](https://github.com/sajari/sdk-react/pull/336) Thanks [@tuanddd](https://github.com/tuanddd)! - revert remove defaultFilter param
+
 ## 1.1.0
 
 ### Minor Changes
