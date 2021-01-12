@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.6.4
+
+### Patch Changes
+
+- [`991006f7`](https://github.com/sajari/sdk-react/commit/991006f77d57e0984e26811352f78780c605b426) [#345](https://github.com/sajari/sdk-react/pull/345) Thanks [@sampotts](https://github.com/sampotts)! - Allow 2 decimal places in RangeFilterBuilder formatter
+
+- Updated dependencies [[`f0e50c6d`](https://github.com/sajari/sdk-react/commit/f0e50c6dce29c53f0d84f580e84a42781464d419)]:
+  - @sajari/react-components@1.4.4
+  - @sajari/react-hooks@1.2.1
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
