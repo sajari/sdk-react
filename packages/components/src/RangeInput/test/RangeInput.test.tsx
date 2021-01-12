@@ -35,11 +35,25 @@ describe('RangeInput', () => {
     }
   });
 
+  it('should allow decimals', () => {
+    const onChange = jest.fn();
+    const { container, getAllByRole } = render(
+      <ThemeProvider>
+        <RangeInput value={[2.5, 7.5]} step={0.1} min={0} max={10} onChange={onChange} showInputs />
+      </ThemeProvider>,
+    );
+    const [leftSlider] = Array.from(getAllByRole('slider'));
+    const [leftInput] = Array.from<HTMLInputElement>(container.querySelectorAll('input[type=number]'));
+    fireEvent.change(leftInput, { target: { value: '2.1' } });
+    expect(leftSlider.dataset.value).toBe('2.1');
+    expect(onChange).toHaveBeenCalledWith([2.1, 7.5]);
+  });
+
   it('should increase value by provided steps', () => {
     const onChange = jest.fn();
     const { getAllByRole } = render(
       <ThemeProvider>
-        <RangeInput value={[50, 75]} onChange={onChange} tick={100} min={0} max={500} step={25} />
+        <RangeInput value={[50, 75]} min={0} max={500} step={25} onChange={onChange} />
       </ThemeProvider>,
     );
     const [, rightSlider] = Array.from(getAllByRole('slider'));
@@ -52,17 +66,17 @@ describe('RangeInput', () => {
     expect(onChange).toHaveBeenCalledWith([50, 75 + times * steps]);
   });
 
-  it('should increase value when input value changes', () => {
+  it('should increase value to nearest step when input value changes', () => {
     const onChange = jest.fn();
     const { container, getAllByRole } = render(
       <ThemeProvider>
-        <RangeInput value={[50, 75]} showInputs onChange={onChange} tick={100} min={0} max={500} step={25} />
+        <RangeInput value={[50, 75]} min={0} max={500} step={25} onChange={onChange} showInputs />
       </ThemeProvider>,
     );
     const [leftSlider] = Array.from(getAllByRole('slider'));
     const [leftInput] = Array.from<HTMLInputElement>(container.querySelectorAll('input[type=number]'));
     fireEvent.change(leftInput, { target: { value: '21' } });
-    expect(leftSlider.dataset.value).toBe('21');
-    expect(onChange).toHaveBeenCalledWith([21, 75]);
+    expect(leftSlider.dataset.value).toBe('25');
+    expect(onChange).toHaveBeenCalledWith([25, 75]);
   });
 });
