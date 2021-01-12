@@ -32,6 +32,7 @@ const Pagination = (props: PaginationProps) => {
       activeClassName={customClassNames?.pagination?.active}
       prevClassName={customClassNames?.pagination?.prev}
       nextClassName={customClassNames?.pagination?.next}
+      spacerEllipsisClassName={customClassNames?.pagination?.spacerEllipsis}
       statusClassName={customClassNames?.pagination?.status}
       disableDefaultStyles={disableDefaultStyles}
       {...props}
