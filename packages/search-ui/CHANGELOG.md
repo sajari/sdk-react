@@ -1,58 +1,11 @@
 # Change Log
 
-## 1.6.2
-
-### Patch Changes
-
-- [`ca71719f`](https://github.com/sajari/sdk-react/commit/ca71719f4de9cd0de11869d8e3142d73696a4a3c) [#333](https://github.com/sajari/sdk-react/pull/333) Thanks [@sampotts](https://github.com/sampotts)! - fix message padding on smaller displays
-
-- Updated dependencies [[`cd997aa9`](https://github.com/sajari/sdk-react/commit/cd997aa980a2f9793ed3c74281f87dd57c89ade1)]:
-  - @sajari/react-components@1.4.2
-
-## 1.6.1
-
-### Patch Changes
-
-- [`e2d42e64`](https://github.com/sajari/sdk-react/commit/e2d42e642728e7117d307594bd430f4ed5e3c742) [#328](https://github.com/sajari/sdk-react/pull/328) Thanks [@sampotts](https://github.com/sampotts)! - Restore spacer ellipsis className regression
-
-## 1.6.0
-
-### Minor Changes
-
-- [`8c2939af`](https://github.com/sajari/sdk-react/commit/8c2939af3a9249e20da93c2ed8f37769207b7688) [#323](https://github.com/sajari/sdk-react/pull/323) Thanks [@sampotts](https://github.com/sampotts)! - Added support for ARRAY_MATCH filter expression function
-
-### Patch Changes
-
-- [`af397653`](https://github.com/sajari/sdk-react/commit/af39765315877c0ea17d6d38f6ec27609f94d2e2) [#326](https://github.com/sajari/sdk-react/pull/326) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Exported `ResultViewType` type.
-- [`e2d42e64`](https://github.com/sajari/sdk-react/commit/e2d42e642728e7117d307594bd430f4ed5e3c742) [#328](https://github.com/sajari/sdk-react/pull/328) Thanks [@sampotts](https://github.com/sampotts)! - Restore spacer ellipsis className regression
-- Updated dependencies [[`8c2939af`](https://github.com/sajari/sdk-react/commit/8c2939af3a9249e20da93c2ed8f37769207b7688)]:
-  - @sajari/react-hooks@1.2.0
-  - @sajari/react-sdk-utils@1.3.0
-
-## 1.5.0
-
-### Minor Changes
-
-- [`5ed2763d`](https://github.com/sajari/sdk-react/commit/5ed2763dd92b6ca5f0c0659ce7e931a39af3dbae) [#324](https://github.com/sajari/sdk-react/pull/324) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Supported to set a default value for `viewType`. Also, moved viewType state from `hooks` package to `search-ui` package so leaving the hooks to only be in charge of handling data from the backend.
-
-### Patch Changes
-
-- Updated dependencies [[`5ed2763d`](https://github.com/sajari/sdk-react/commit/5ed2763dd92b6ca5f0c0659ce7e931a39af3dbae), [`ccf0d330`](https://github.com/sajari/sdk-react/commit/ccf0d330adf31ae33cd75ddc8e3b3c6dad87d4d3)]:
-  - @sajari/react-hooks@1.1.3
-
-## 1.4.3
-
-### Patch Changes
-
-- [`25996b71`](https://github.com/sajari/sdk-react/commit/25996b71a64162182627b5f102aa67d2e830b7c3) [#312](https://github.com/sajari/sdk-react/pull/312) Thanks [@tuanddd](https://github.com/tuanddd)! - fix list filter item having wrong focus
-
-- Updated dependencies [[`fb817fb3`](https://github.com/sajari/sdk-react/commit/fb817fb3d1847b66c0748811af02b562af792a25), [`1f2ba34a`](https://github.com/sajari/sdk-react/commit/1f2ba34add8856b75512600f06a9a9ba2cf99ae2), [`d7bed8f8`](https://github.com/sajari/sdk-react/commit/d7bed8f882d2b3420adb445c25b5590929952d88)]:
-  - @sajari/react-components@1.4.1
-  - @sajari/react-sdk-utils@1.2.2
-  - @sajari/react-hooks@1.1.2
-
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.6.3](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.6.2...@sajari/react-search-ui@1.6.3) (2021-01-12)
+
+**Note:** Version bump only for package @sajari/react-search-ui
 
 ## [1.4.2](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.4.1...@sajari/react-search-ui@1.4.2) (2021-01-08)
 
