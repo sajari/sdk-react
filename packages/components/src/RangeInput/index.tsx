@@ -1,5 +1,5 @@
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
-import { __DEV__, clamp, closest, formatNumber, getStylesObject, noop, round } from '@sajari/react-sdk-utils';
+import { __DEV__, clamp, closest, formatNumber, getStylesObject, noop, roundToStep } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { useRanger } from 'react-ranger';
 
@@ -46,7 +46,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const setValue = (newValue: RangeValue, fireOnChange = false) => {
     // Round values to nearest step
-    const values = newValue.map((v) => round(v, step)) as RangeValue;
+    const values = newValue.map((v) => roundToStep(v, step)) as RangeValue;
 
     setRange(values);
     onInput(values);
@@ -79,16 +79,16 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
   const trackRef = React.useRef<HTMLDivElement>(null);
 
   const handleRangeInputChange = (left: boolean) => (v: string | number) => {
-    const updatedValue = Number(v);
-    const isNumeric = Number.isNaN(updatedValue);
+    const val = Number(v);
+    const isNaN = Number.isNaN(val);
     let newValue: number[] | null = null;
 
     if (isSingleHandle) {
-      newValue = [isNumeric ? min : updatedValue];
+      newValue = [isNaN || val < min ? min : val];
     } else if (left) {
-      newValue = [isNumeric ? min : updatedValue, high];
+      newValue = [isNaN || val < min ? min : val, high];
     } else {
-      newValue = [low, isNumeric ? max : updatedValue];
+      newValue = [low, isNaN || val > max ? max : val];
     }
 
     if (!newValue) {
@@ -98,14 +98,17 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     setValue(newValue as RangeValue, true);
   };
 
-  // Format a value to be presented in the UI
-  const formatValue = (input: number) => {
+  // Format a value to be presented in the UI as a label
+  const formatLabel = (input: number) => {
     if (format === 'price') {
       return formatNumber(input, { style: 'currency', currency }).replace('.00', '');
     }
 
     return input.toLocaleString(language);
   };
+
+  // Format a value for the input
+  const formatInputValue = (input: number) => input.toFixed(format === 'price' ? 2 : 0).replace('.00', '');
 
   const handleSwitchRange = () => {
     if (isSingleHandle) {
@@ -125,7 +128,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     // Calculate percentage
     const clientRect = trackRef.current.getBoundingClientRect();
     const percent = clamp((100 / clientRect.width) * (event.clientX - clientRect.left), 0, 100);
-    const newValue = round((max - min) * (percent / 100), step);
+    const newValue = roundToStep((max - min) * (percent / 100), step);
 
     if (i === 1 && !isSingleHandle) {
       // Determine closest handle if clicking in center section
@@ -149,7 +152,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
   const leftInputProps = {
     ...inputProps,
     className: inputClassName,
-    value: low.toString(),
+    value: formatInputValue(low),
     onChange: handleRangeInputChange(true),
     label: 'Range input left bound',
   };
@@ -157,7 +160,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
   const rightInputProps = {
     ...inputProps,
     className: inputClassName,
-    value: (isSingleHandle ? 0 : high).toString(),
+    value: formatInputValue(isSingleHandle ? 0 : high),
     onChange: handleRangeInputChange(false),
     label: 'Range input right bound',
   };
@@ -204,7 +207,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
                 css={styles.tickItem}
                 disableDefaultStyles={disableDefaultStyles}
               >
-                {formatValue(tickValue)}
+                {formatLabel(tickValue)}
               </Text>
             );
           })}
@@ -229,7 +232,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
 
           {handles.map(({ value: handleValue, active, getHandleProps }) => (
             <Handle
-              data-value={formatValue(handleValue)}
+              data-value={formatLabel(handleValue)}
               activeClassName={handleActiveClassName}
               className={handleClassName}
               disableDefaultStyles={disableDefaultStyles}
