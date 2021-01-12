@@ -12,11 +12,11 @@ import useResultsStyles from './styles';
 import { ResultsProps, ResultValues } from './types';
 
 const Results = (props: ResultsProps) => {
-  const { results: rawResults, setViewType, viewType, searching, fields, error } = useSearchContext();
+  const { results: rawResults, searching, fields, error } = useSearchContext();
   const results = React.useMemo(() => (rawResults ? mapResultFields<ResultValues>(rawResults, fields) : undefined), [
     rawResults,
   ]);
-  const { disableDefaultStyles = false, customClassNames } = useSearchUIContext();
+  const { disableDefaultStyles = false, customClassNames, viewType, setViewType } = useSearchUIContext();
   const { query } = useQuery();
   const { defaultAppearance, appearance = viewType, styles: stylesProp, ...rest } = props;
   const [width, setWidth] = React.useState(0);

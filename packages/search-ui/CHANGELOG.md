@@ -1,5 +1,16 @@
 # Change Log
 
+## 1.5.0
+
+### Minor Changes
+
+- [`5ed2763d`](https://github.com/sajari/sdk-react/commit/5ed2763dd92b6ca5f0c0659ce7e931a39af3dbae) [#324](https://github.com/sajari/sdk-react/pull/324) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Supported to set a default value for `viewType`. Also, moved viewType state from `hooks` package to `search-ui` package so leaving the hooks to only be in charge of handling data from the backend.
+
+### Patch Changes
+
+- Updated dependencies [[`5ed2763d`](https://github.com/sajari/sdk-react/commit/5ed2763dd92b6ca5f0c0659ce7e931a39af3dbae), [`ccf0d330`](https://github.com/sajari/sdk-react/commit/ccf0d330adf31ae33cd75ddc8e3b3c6dad87d4d3)]:
+  - @sajari/react-hooks@1.1.3
+
 ## 1.4.3
 
 ### Patch Changes
