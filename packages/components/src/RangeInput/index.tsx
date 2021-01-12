@@ -10,7 +10,7 @@ import Handle from './components/Handle';
 import Input from './components/Input';
 import Track from './components/Track';
 import useRangeInputStyles from './styles';
-import { RangeInputProps } from './types';
+import { RangeInputProps, RangeValue } from './types';
 
 const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTMLDivElement>) => {
   const {
@@ -40,19 +40,22 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
   const isSingleHandle = value.length === 1;
   const [min, max] = [minProp, maxProp];
   const { ticks: ticksProp = !tick ? [min, max] : undefined } = props;
-  const [range, setRange] = React.useState(value);
+  const [range, setRange] = React.useState<RangeValue>(value);
   const mapRange = (v: number[]) => v.map(Number);
   const [low, high] = mapRange(range);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const setValue = (newValue: any, fireOnChange = false) => {
-    setRange(newValue);
-    onInput(newValue);
+  const setValue = (newValue: RangeValue, fireOnChange = false) => {
+    // Round values to nearest step
+    const values = newValue.map((v) => round(v, step)) as RangeValue;
+
+    setRange(values);
+    onInput(values);
 
     if (!fireOnChange) {
       return;
     }
 
-    onChange(newValue);
+    onChange(values);
   };
 
   React.useEffect(() => {
@@ -76,7 +79,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
   const trackRef = React.useRef<HTMLDivElement>(null);
 
   const handleRangeInputChange = (left: boolean) => (v: string | number) => {
-    const updatedValue = typeof v === 'string' ? parseInt(v, 10) : v;
+    const updatedValue = typeof v === 'string' ? parseFloat(v) : v;
     const isNumeric = Number.isNaN(updatedValue);
     let newValue: number[] | null = null;
 
@@ -92,7 +95,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
       return;
     }
 
-    setValue(newValue, true);
+    setValue(newValue as RangeValue, true);
   };
 
   // Format a value to be presented in the UI
@@ -110,7 +113,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     }
 
     if (low > high) {
-      setValue([high, low]);
+      setValue([high, low], true);
     }
   };
 
@@ -136,6 +139,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
   const inputProps = {
     min,
     max,
+    step,
     type: 'number',
     inputMode: 'numeric' as AriaTextFieldOptions['inputMode'],
     disableDefaultStyles,
