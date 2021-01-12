@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.1.0
+
+### Minor Changes
+
+- [`1fd321f9`](https://github.com/sajari/sdk-react/commit/1fd321f998dffd68dc7661855a7442d7d3aec9ed) [#331](https://github.com/sajari/sdk-react/pull/331) Thanks [@sampotts](https://github.com/sampotts)! - Added support for ARRAY_MATCH filter expression function
+
 ## 1.0.12
 
 ### Patch Changes
