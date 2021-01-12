@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.4.4
+
+### Patch Changes
+
+- [`f0e50c6d`](https://github.com/sajari/sdk-react/commit/f0e50c6dce29c53f0d84f580e84a42781464d419) [#342](https://github.com/sajari/sdk-react/pull/342) Thanks [@sampotts](https://github.com/sampotts)! - Allow 1 decimal place in RangeFilterBuilder formatter
+
 ## 1.4.3
 
 ### Patch Changes
