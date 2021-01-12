@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.5.1
+
+### Patch Changes
+
+- [`cd997aa9`](https://github.com/sajari/sdk-react/commit/cd997aa980a2f9793ed3c74281f87dd57c89ade1) [#335](https://github.com/sajari/sdk-react/pull/335) Thanks [@sampotts](https://github.com/sampotts)! - Improve RangeInput input styling
+
 ## 1.5.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.6.2
+
+### Patch Changes
+
+- [`ca71719f`](https://github.com/sajari/sdk-react/commit/ca71719f4de9cd0de11869d8e3142d73696a4a3c) [#333](https://github.com/sajari/sdk-react/pull/333) Thanks [@sampotts](https://github.com/sampotts)! - fix message padding on smaller displays
+
+- Updated dependencies [[`cd997aa9`](https://github.com/sajari/sdk-react/commit/cd997aa980a2f9793ed3c74281f87dd57c89ade1)]:
+  - @sajari/react-components@1.4.2
+
 ## 1.6.1
 
 ### Patch Changes
