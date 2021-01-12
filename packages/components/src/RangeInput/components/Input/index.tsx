@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { useTextField } from '@react-aria/textfield';
+import { mergeProps } from '@react-aria/utils';
 import { getStylesObject } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import tw from 'twin.macro';
@@ -10,10 +11,10 @@ import useRangeInputStyles from './styles';
 import { RangeInputInputProps } from './types';
 
 const Input = (props: RangeInputInputProps) => {
+  const { label, min, max, step, disableDefaultStyles = false, styles: stylesProp, className } = props;
   const ref = React.useRef<HTMLInputElement>(null);
-  const { inputProps, labelProps } = useTextField(props, ref);
-  const { label, min, max, disableDefaultStyles = false, styles: stylesProp, className } = props;
   const valid = useFormValidity(ref);
+  const { inputProps, labelProps } = useTextField(props, ref);
   const { styles: inputStyles, focusProps } = useRangeInputStyles({ ...props, invalid: !valid });
   const styles = getStylesObject(inputStyles, disableDefaultStyles);
 
@@ -23,7 +24,7 @@ const Input = (props: RangeInputInputProps) => {
         {label}
       </Box>
       {/* @ts-ignore - some whacky types in @react-aria/textfield regarding onChange */}
-      <input css={styles.input} {...inputProps} {...focusProps} min={min} max={max} ref={ref} />
+      <input css={styles.input} {...mergeProps(inputProps, focusProps)} min={min} max={max} step={step} ref={ref} />
     </Box>
   );
 };

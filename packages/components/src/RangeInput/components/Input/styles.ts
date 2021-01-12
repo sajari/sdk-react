@@ -7,14 +7,14 @@ import { RangeInputInputProps } from './types';
 type UseRangeInputStylesParams = RangeInputInputProps & { invalid: boolean };
 
 export default function useRangeInputStyles(props: UseRangeInputStylesParams) {
-  const { max } = props;
+  const { max, step } = props;
   const { styles: inputStyles, focusRingStyles, focusProps } = useInputStyles({
     type: 'text',
     size: 'sm',
     ...props,
   } as UseInputStyleProps);
 
-  const charLength = max.toString().length;
+  const charLength = (max + step).toString().length;
 
   const styles = {
     container: [tw`relative`, focusRingStyles],
