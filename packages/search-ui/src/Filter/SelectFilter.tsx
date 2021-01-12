@@ -25,7 +25,7 @@ const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
     return list;
   }, [JSON.stringify(options), sort, sortAscending]);
 
-  if (isEmpty(options)) {
+  if (isEmpty(options) && isEmpty(selected)) {
     return null;
   }
 
@@ -44,24 +44,26 @@ const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
 
   return (
     <Box title={title} name={name} showReset={selected.length > 0 && multi} onReset={reset}>
-      <Select
-        multiple={multi}
-        onChange={(value) => setSelected(isArray(value) ? value : [value])}
-        value={selected}
-        disableDefaultStyles={disableDefaultStyles}
-        size="sm"
-        text={getSelectText}
-        className={customClassNames.filter?.select?.container}
-        buttonClassName={customClassNames.filter?.select?.button}
-        dropdownClassName={customClassNames.filter?.select?.dropdown}
-        optionClassName={customClassNames.filter?.select?.option}
-      >
-        {sortedItems.map(({ value, label, count }) => (
-          <Option value={label} key={value} label={count.toLocaleString()}>
-            {formatLabel(label, { format, currency, t })}
-          </Option>
-        ))}
-      </Select>
+      {!isEmpty(options) && (
+        <Select
+          multiple={multi}
+          onChange={(value) => setSelected(isArray(value) ? value : [value])}
+          value={selected}
+          disableDefaultStyles={disableDefaultStyles}
+          size="sm"
+          text={getSelectText}
+          className={customClassNames.filter?.select?.container}
+          buttonClassName={customClassNames.filter?.select?.button}
+          dropdownClassName={customClassNames.filter?.select?.dropdown}
+          optionClassName={customClassNames.filter?.select?.option}
+        >
+          {sortedItems.map(({ value, label, count }) => (
+            <Option value={label} key={value} label={count.toLocaleString()}>
+              {formatLabel(label, { format, currency, t })}
+            </Option>
+          ))}
+        </Select>
+      )}
     </Box>
   );
 };

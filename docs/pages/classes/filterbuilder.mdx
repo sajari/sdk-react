@@ -54,16 +54,17 @@ function Example() {
 
 The constructor accepts a single object with the following properties:
 
-| Name           | Type                                     | Default                           | Description                                                                                     |
-| -------------- | ---------------------------------------- | --------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `name`         | `string`                                 |                                   | The name of the filter. This should be unique.                                                  |
-| `field`        | `string`                                 |                                   | A field in schema, used if `count` = `true`.                                                    |
-| `options`      | `Record<string, string \| () => string>` |                                   | Dictionary of name -> filter pairs.                                                             |
-| `initial`      | `string` \| `string[]`                   |                                   | List of initially selected items.                                                               |
-| `count`        | `boolean`                                | `true` if no `options` specified. | Map to a field which aims to perform a count aggregate.                                         |
-| `array`        | `boolean`                                |                                   | Whether the response of the field is an array. This setting is only applicable if count is set. |
-| `multi`        | `boolean`                                |                                   | Multiple selections allowed.                                                                    |
-| `joinOperator` | `'OR'` \| `'AND'`                        | `'OR'`                            | Join operator used if `multi` = `true`.                                                         |
+| Name           | Type                                     | Default                           | Description                                                                                                                                 |
+| -------------- | ---------------------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`         | `string`                                 |                                   | The name of the filter. This should be unique.                                                                                              |
+| `group`        | `string`                                 |                                   | A group name, for grouping multiple filters together using [`ARRAY_MATCH`](https://docs.sajari.com/user-guide/integrating-search/filters/). |
+| `field`        | `string`                                 |                                   | A field in schema, used if `count` = `true`.                                                                                                |
+| `options`      | `Record<string, string \| () => string>` |                                   | Dictionary of name -> filter pairs.                                                                                                         |
+| `initial`      | `string` \| `string[]`                   |                                   | List of initially selected items.                                                                                                           |
+| `count`        | `boolean`                                | `true` if no `options` specified. | Map to a field which aims to perform a count aggregate.                                                                                     |
+| `array`        | `boolean`                                |                                   | Whether the response of the field is an array. This setting is only applicable if count is set.                                             |
+| `multi`        | `boolean`                                |                                   | Multiple selections allowed.                                                                                                                |
+| `joinOperator` | `'OR'` \| `'AND'`                        | `'OR'`                            | Join operator used if `multi` = `true`.                                                                                                     |
 
 ## Properties
 
@@ -80,6 +81,7 @@ For more advanced implementations, you may want to access properties on the `Fil
 | `filter()`                                                         | Builds up the filter string from the current filter and it's children. |
 | `getBuckets()`                                                     | Get the bucket definitions for the filter.                             |
 | `getName()`                                                        | Returns the `name` property of the filter.                             |
+| `getGroup()`                                                       | Returns the `group` property of the filter.                            |
 | `getField()`                                                       | Returns the `field` property of the filter.                            |
 | `getCount()`                                                       | Returns the `count` property of the filter.                            |
 | `getOptions()`                                                     | Returns the current `options` property of the filter.                  |

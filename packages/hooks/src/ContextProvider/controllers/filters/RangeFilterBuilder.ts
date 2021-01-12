@@ -13,6 +13,8 @@ export default class RangeFilterBuilder {
 
   private name: string;
 
+  private group: string | undefined;
+
   private field: string;
 
   private min: number;
@@ -28,6 +30,7 @@ export default class RangeFilterBuilder {
   constructor({
     field,
     name,
+    group,
     aggregate = true,
     initial,
     min = 0,
@@ -42,6 +45,7 @@ export default class RangeFilterBuilder {
 
     this.range = this.initial;
     this.name = name;
+    this.group = group;
     this.field = field;
     this.formatter = formatter;
     this.min = min;
@@ -59,6 +63,7 @@ export default class RangeFilterBuilder {
     if (!events.includes(event)) {
       throw new Error(`Unknown event type "${event}"`);
     }
+
     return this.listeners[event].listen(callback);
   }
 
@@ -68,6 +73,7 @@ export default class RangeFilterBuilder {
 
   public set(range: Range | null, emitEvent = true) {
     this.range = range ? this.formatter(range) : range;
+
     if (emitEvent) {
       this.emitRangeUpdated();
     }
@@ -75,6 +81,10 @@ export default class RangeFilterBuilder {
 
   public getName() {
     return this.name;
+  }
+
+  public getGroup() {
+    return this.group;
   }
 
   public getField() {
@@ -124,6 +134,7 @@ export default class RangeFilterBuilder {
    */
   public reset(emitEvent = true) {
     this.range = isArray(this.initial) ? [...this.initial] : this.initial;
+
     if (emitEvent) {
       this.emitRangeUpdated();
     }
