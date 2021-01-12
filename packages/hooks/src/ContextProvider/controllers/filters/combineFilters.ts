@@ -1,10 +1,9 @@
-import { groupBy } from '@sajari/react-sdk-utils';
-
 import { EVENT_OPTIONS_UPDATED, EVENT_RANGE_UPDATED, EVENT_SELECTION_UPDATED } from '../../events';
 import { Listener } from '../Listener';
 import FilterBuilder from './FilterBuilder';
 import RangeFilterBuilder from './RangeFilterBuilder';
 import { JoinOperator } from './types';
+import { groupFilters } from './utils';
 
 const events = [EVENT_SELECTION_UPDATED, EVENT_OPTIONS_UPDATED, EVENT_RANGE_UPDATED];
 
@@ -67,30 +66,8 @@ export default function combineFilters(
     removeListenerFuncs.forEach((fn) => fn());
   }
 
-  function groupFilters(filters: Array<FilterBuilder | RangeFilterBuilder>) {
-    // TODO: We need this logic re-usable for countFilters also
-    // Group all filters
-    const grouped = groupBy(
-      filters.map((f) => ({ group: f.getGroup(), exp: f.filter() })).filter(({ exp }) => Boolean(exp)),
-      'group',
-    ) as Record<string, Array<{ group?: string; exp: string }>>;
-
-    // Flatten the group expressions
-    const groups = Object.entries(grouped)
-      .filter(([group]) => Boolean(group))
-      .reduce((out, [key, f]) => ({ ...out, [key]: f.map(({ exp }) => exp) }), {}) as Record<string, Array<string>>;
-
-    // Build the final expression
-    return Object.entries(groups).map(([group, expressions]) =>
-      group !== 'undefined' ? `ARRAY_MATCH(${expressions.join(' AND ')})` : expressions,
-    );
-  }
-
   // Generate filter field from non aggregate count Filter(s) for Variables object
-  const filter = () =>
-    groupFilters(
-      filters.filter((f) => (f instanceof FilterBuilder && f.getCount()) || f instanceof RangeFilterBuilder),
-    ).join(` ${joinOperator} `);
+  const filter = () => groupFilters(filters, 'filter', ` ${joinOperator} `);
 
   // Generate buckets field from non aggregate count Filter(s) for Variables object
   const buckets = () =>
@@ -101,7 +78,7 @@ export default function combineFilters(
       .join(',');
 
   // Generate countFilters field from aggregate count Filter(s) for Variables object
-  const countFilters = () => groupFilters(filters.filter((f) => f instanceof FilterBuilder && f.getCount())).join(',');
+  const countFilters = () => groupFilters(filters, 'countFilters', ',');
 
   // Generate count field from aggregate count Filter(s) for Variables object
   const count = () =>

@@ -23,6 +23,11 @@ function Example() {
     price: 'Setup_Fee',
   });
 
+  const tierMinBudgetFilter = new RangeFilterBuilder({
+    name: 'tier-min-budget',
+    field: 'TierMinBudget',
+  });
+
   const tierStartQuantityFilter = new RangeFilterBuilder({
     name: 'tier-start-quantity',
     field: 'TierStartQuantity',
@@ -80,7 +85,8 @@ function Example() {
         <div className="flex mt-6">
           {searched && (
             <div className="w-1/4 pr-4 mr-4 border-gray-100 border-r space-y-6">
-              <Filter type="range" name="tier-start-quantity" title="Budget" tick={500} step={50} />
+              <Filter type="range" name="tier-min-budget" title="Min Budget" format="price" step={50} />
+              <Filter type="range" name="tier-start-quantity" title="Start Quantity" tick={500} step={50} />
               <Filter type="range" name="tier-price" title="Price" format="price" tick={2} />
               <Filter type="color" name="color" title="Color" />
             </div>
@@ -103,7 +109,7 @@ function Example() {
       search={{
         pipeline,
         fields,
-        filters: [tierStartQuantityFilter, tierPriceFilter, colorFilter],
+        filters: [tierMinBudgetFilter, tierStartQuantityFilter, tierPriceFilter, colorFilter],
       }}
       searchOnLoad
     >

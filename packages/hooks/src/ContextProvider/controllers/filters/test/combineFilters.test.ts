@@ -6,8 +6,8 @@ describe('combineFilters', () => {
   const brandFilter = new FilterBuilder({
     name: 'brand',
     options: {
-      Apple: "brand = 'Apple'",
-      Samsung: "brand = 'Samsung'",
+      Apple: 'brand = "Apple"',
+      Samsung: 'brand = "Samsung"',
     },
     multi: false,
     count: false,
@@ -47,10 +47,23 @@ describe('combineFilters', () => {
   const ratingRangeFilter = new RangeFilterBuilder({
     name: 'rating',
     field: 'rating',
-    initial: [1, 5],
     min: 1,
     max: 5,
     aggregate: false,
+  });
+
+  const colorFilter = new FilterBuilder({
+    name: 'color',
+    field: 'color',
+    group: 'group-1',
+    initial: ['red'],
+  });
+
+  const sizeFilter = new FilterBuilder({
+    name: 'size',
+    field: 'size',
+    group: 'group-1',
+    initial: ['small'],
   });
 
   const combination = combineFilters([
@@ -60,26 +73,30 @@ describe('combineFilters', () => {
     categoryFilter,
     popularityRangeFilter,
     ratingRangeFilter,
+    colorFilter,
+    sizeFilter,
   ]);
 
   it('filter', () => {
     expect(combination.filter()).toBe(
-      "(brand = 'Apple') AND (price >= 200) AND (popularity >= 100 AND popularity <= 600) AND (rating >= 1 AND rating <= 5)",
+      'ARRAY_MATCH((color = "red") AND (size = "small")) AND (brand = "Apple") AND (price >= 200) AND (popularity >= 100 AND popularity <= 600) AND (rating >= 1 AND rating <= 5)',
     );
   });
 
   it('buckets', () => {
     expect(combination.buckets()).toBe(
-      "brand_Apple:brand = 'Apple',brand_Samsung:brand = 'Samsung',price_High:price >= 200,price_Mid:price >= 50,price_Low:price < 50",
+      'brand_Apple:brand = "Apple",brand_Samsung:brand = "Samsung",price_High:price >= 200,price_Mid:price >= 50,price_Low:price < 50',
     );
   });
 
   it('countFilters', () => {
-    expect(combination.countFilters()).toBe(',');
+    expect(combination.countFilters()).toBe(
+      ',,ARRAY_MATCH((color = "red") AND (size = "small")),ARRAY_MATCH((color = "red") AND (size = "small"))',
+    );
   });
 
   it('count', () => {
-    expect(combination.count()).toBe('price_range,level1');
+    expect(combination.count()).toBe('price_range,level1,color,size');
   });
 
   it('min', () => {
@@ -96,14 +113,18 @@ describe('combineFilters', () => {
     priceRangeFilter.set(['0 - 10']);
     categoryFilter.setOptions({ PC: 'PC', Applicant: 'Applicant' });
     ratingRangeFilter.set(null);
+    colorFilter.set(['blue']);
+    sizeFilter.set(['large']);
 
     expect(combination.filter()).toBe(
-      "(brand = 'Apple') AND (price >= 200) AND (popularity >= 100 AND popularity <= 600)",
+      'ARRAY_MATCH((color = "blue") AND (size = "large")) AND (brand = "Apple") AND (price >= 200) AND (popularity >= 100 AND popularity <= 600)',
     );
     expect(combination.buckets()).toBe(
-      "brand_Apple:brand = 'Apple',brand_Samsung:brand = 'Samsung',price_High:price >= 200,price_Mid:price >= 50,price_Low:price < 50",
+      'brand_Apple:brand = "Apple",brand_Samsung:brand = "Samsung",price_High:price >= 200,price_Mid:price >= 50,price_Low:price < 50',
     );
-    expect(combination.countFilters()).toBe('0 - 10,');
-    expect(combination.count()).toBe('price_range,level1');
+    expect(combination.countFilters()).toBe(
+      '0 - 10,,ARRAY_MATCH((color = "blue") AND (size = "large")),ARRAY_MATCH((color = "blue") AND (size = "large"))',
+    );
+    expect(combination.count()).toBe('price_range,level1,color,size');
   });
 });
