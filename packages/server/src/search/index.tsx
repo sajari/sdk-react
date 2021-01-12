@@ -15,10 +15,9 @@ function search(
   variables.set({
     filter: () => {
       const expression = filter.filter();
-
-      return `${defaultFilter ? `${defaultFilter.toString()} AND ` : ''}(${
-        isEmpty(expression) ? '_id != ""' : expression
-      })`;
+      return [defaultFilter?.toString() ?? '', isEmpty(expression) ? '_id != ""' : expression]
+        .filter(Boolean)
+        .join(' AND ');
     },
     countFilters: () => filter.countFilters(),
     buckets: () => filter.buckets(),
