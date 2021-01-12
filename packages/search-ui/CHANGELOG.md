@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.6.1
+
+### Patch Changes
+
+- [`e2d42e64`](https://github.com/sajari/sdk-react/commit/e2d42e642728e7117d307594bd430f4ed5e3c742) [#328](https://github.com/sajari/sdk-react/pull/328) Thanks [@sampotts](https://github.com/sampotts)! - Restore spacer ellipsis className regression
+
 ## 1.6.0
 
 ### Minor Changes
