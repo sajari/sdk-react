@@ -26,7 +26,7 @@ export default function useInputStyles(props: UseInputStyleProps) {
   const styles: (TwStyle | string)[] = [];
 
   styles.push(
-    tw`leading-normal text-gray-600 transition-all duration-150 bg-white border border-gray-200 border-solid outline-none font-inherit`,
+    tw`leading-normal text-gray-600 transition-all duration-150 bg-white border border-gray-200 border-solid outline-none font-inherit invalid:(outline-none shadow-none)`,
   );
 
   // Map the size to padding and font size
@@ -63,7 +63,7 @@ export default function useInputStyles(props: UseInputStyleProps) {
   }
 
   if (invalid) {
-    styles.push(tw`border-red-500 focus:border-red-500`);
+    styles.push(tw`border-red-500 bg-red-50 focus:border-red-500`);
 
     if (['radio', 'checkbox'].includes(type)) {
       styles.push(tw`bg-red-100 checked:bg-red-500`);

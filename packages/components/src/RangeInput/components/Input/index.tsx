@@ -5,14 +5,16 @@ import * as React from 'react';
 import tw from 'twin.macro';
 
 import Box from '../../../Box';
+import { useFormValidity } from '../../../hooks';
 import useRangeInputStyles from './styles';
 import { RangeInputInputProps } from './types';
 
 const Input = (props: RangeInputInputProps) => {
   const ref = React.useRef<HTMLInputElement>(null);
-  const { inputProps, labelProps } = useTextField({ ...props, type: 'number' }, ref);
+  const { inputProps, labelProps } = useTextField(props, ref);
   const { label, min, max, disableDefaultStyles = false, styles: stylesProp, className } = props;
-  const { styles: inputStyles, focusProps } = useRangeInputStyles(props);
+  const valid = useFormValidity(ref);
+  const { styles: inputStyles, focusProps } = useRangeInputStyles({ ...props, invalid: !valid });
   const styles = getStylesObject(inputStyles, disableDefaultStyles);
 
   return (
