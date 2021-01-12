@@ -79,7 +79,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
   const trackRef = React.useRef<HTMLDivElement>(null);
 
   const handleRangeInputChange = (left: boolean) => (v: string | number) => {
-    const updatedValue = typeof v === 'string' ? parseFloat(v) : v;
+    const updatedValue = Number(v);
     const isNumeric = Number.isNaN(updatedValue);
     let newValue: number[] | null = null;
 
