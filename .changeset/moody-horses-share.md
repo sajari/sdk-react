@@ -4,4 +4,4 @@
 '@sajari/react-hooks': patch
 ---
 
-Allow 2 decimal places in RangeFilterBuilder formatter
+Allow 1 decimal place in RangeFilterBuilder formatter
