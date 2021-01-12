@@ -35,7 +35,7 @@ export default class RangeFilterBuilder {
     initial,
     min = 0,
     max = aggregate ? 0 : 100,
-    formatter = (value: Range) => value.map((v) => round(v, 2)) as Range,
+    formatter = (value: Range) => value.map((v) => round(v, 1)) as Range,
   }: RangeFilterOptions) {
     if (typeof initial === 'undefined') {
       this.initial = aggregate ? null : [min, max];

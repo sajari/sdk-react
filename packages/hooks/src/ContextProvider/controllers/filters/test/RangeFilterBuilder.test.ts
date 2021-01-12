@@ -48,7 +48,6 @@ describe('RangeFilterBuilder', () => {
     expect(priceFilter.filter()).toBe('price >= 0 AND price <= 100');
     priceFilter.set([50, 200]);
     expect(priceFilter.filter()).toBe('price >= 50 AND price <= 200');
-
     ratingFilter.set([2, 5]);
     expect(ratingFilter.filter()).toBe('rating >= 2 AND rating <= 5');
   });
