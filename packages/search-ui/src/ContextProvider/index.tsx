@@ -76,4 +76,4 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
 
 export default ContextProvider;
 export { useSearchUIContext };
-export type { ContextProviderValues };
+export type { ContextProviderValues, ResultViewType };
