@@ -9,7 +9,7 @@
 ### Patch Changes
 
 - [`af397653`](https://github.com/sajari/sdk-react/commit/af39765315877c0ea17d6d38f6ec27609f94d2e2) [#326](https://github.com/sajari/sdk-react/pull/326) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Exported `ResultViewType` type.
-
+- [`e2d42e64`](https://github.com/sajari/sdk-react/commit/e2d42e642728e7117d307594bd430f4ed5e3c742) [#328](https://github.com/sajari/sdk-react/pull/328) Thanks [@sampotts](https://github.com/sampotts)! - Restore spacer ellipsis className regression
 - Updated dependencies [[`8c2939af`](https://github.com/sajari/sdk-react/commit/8c2939af3a9249e20da93c2ed8f37769207b7688)]:
   - @sajari/react-hooks@1.2.0
   - @sajari/react-sdk-utils@1.3.0
