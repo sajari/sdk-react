@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.4.3
+
+### Patch Changes
+
+- [`c785270d`](https://github.com/sajari/sdk-react/commit/c785270dd370400058cc702e1ea50a2361cfe197) [#337](https://github.com/sajari/sdk-react/pull/337) Thanks [@sampotts](https://github.com/sampotts)! - Fix handling of steps in RangeInput
+
 ## 1.4.2
 
 ### Patch Changes
