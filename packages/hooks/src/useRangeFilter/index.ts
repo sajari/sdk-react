@@ -136,6 +136,7 @@ function useRangeFilter(name: string) {
   return {
     min,
     max,
+    step: filter.getStep(),
     setRange,
     range,
     reset,

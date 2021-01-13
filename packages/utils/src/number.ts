@@ -48,7 +48,7 @@ export function getDecimalPlaces(value: number): number {
 }
 
 /**
- * Round to the nearest step
+ * Round to decimal places
  * @param input - the number to round
  * @param places - how many decimal places to round to
  */

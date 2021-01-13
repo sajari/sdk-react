@@ -38,6 +38,8 @@ export interface RangeFilterOptions {
   min?: number;
   /** The max value of the filter */
   max?: number;
+  /** The step to increment values */
+  step?: number;
   /** If true, set value for min and max from the backend response */
   aggregate?: boolean;
   /** The function to format the range. For example, format [0.1, 5.5] to [0, 6] */
