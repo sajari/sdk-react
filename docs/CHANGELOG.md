@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.5.4
+
+### Patch Changes
+
+- [`f20fae2c`](https://github.com/sajari/sdk-react/commit/f20fae2c592264b7387b33139b8b37c048e2b5b9) [#348](https://github.com/sajari/sdk-react/pull/348) Thanks [@sampotts](https://github.com/sampotts)! - Improve rounding logic for range filters
+
 ## 1.5.3
 
 ### Patch Changes
