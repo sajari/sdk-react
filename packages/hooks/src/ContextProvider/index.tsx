@@ -125,11 +125,13 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
 
   if (!configDone) {
     const filter = combineFilters(search.filters ?? []);
+    const variablesFilterString = variables.current.get().filter ?? '';
+    const defaultFilterString = defaultFilter?.toString() ?? '';
 
     variables.current.set({
       filter: () => {
         const expression = filter.filter();
-        return [defaultFilter?.toString() ?? '', isEmpty(expression) ? '_id != ""' : expression]
+        return [defaultFilterString, variablesFilterString, isEmpty(expression) ? '_id != ""' : expression]
           .filter(Boolean)
           .join(' AND ');
       },
