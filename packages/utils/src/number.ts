@@ -49,16 +49,21 @@ export function getDecimalPlaces(value: number): number {
 
 /**
  * Round to the nearest step
- * @param number
- * @param step
+ * @param input - the number to round
+ * @param places - how many decimal places to round to
  */
-export function round(number: number, step: number): number {
-  if (step < 1) {
-    const places = getDecimalPlaces(step);
-    return parseFloat(number.toFixed(places));
-  }
+export function round(input: number, places: number): number {
+  return parseFloat(input.toFixed(places));
+}
 
-  return Math.round(number / step) * step;
+/**
+ * Round to the nearest step
+ * @param input - the number to round
+ * @param step - the step to round to
+ */
+export function roundToStep(input: number, step: number): number {
+  const places = getDecimalPlaces(step);
+  return round(Math.round(input / step) * step, places);
 }
 
 interface FormatNumberOptions extends Intl.NumberFormatOptions {
