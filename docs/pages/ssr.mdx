@@ -160,3 +160,15 @@ const Page = ({ initialResponse }: Props) => (
 
 export default Page;
 ```
+
+## `search` &nbsp; anatomy
+
+```js
+function search(searchConfig) {}
+```
+
+Returns a `Promise` that wraps a JSON string or null, this string should then be passed down `SearchProvider` via the `initialResonse` prop. If no initial response was found it will return null instead.
+
+| Name           | Type                                                                                                                                                                                                                                                                                                             | Default | Description |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- | ----------- |
+| `searchConfig` | `{pipeline:` [`Pipeline`](/classes/pipeline)`, variables:` [`Variables`](/classes/variables)`, fields:` [`FieldDictionary`](/classes/fielddictionary)`, filters: (`[`FilterBuilder`](/classes/filterbuilder) \| [`RangeFilterBuilder`](/classes/rangefilterbuilder)`)[], config:` [`Config`](/classes/config)`}` |         |             |

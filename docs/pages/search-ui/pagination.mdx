@@ -57,8 +57,9 @@ function Example() {
 
 ## Props
 
-| Name           | Type                                | Default         | Description                                                                                                                                 |
-| -------------- | ----------------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `align`        | `'left'` \| `'center'` \| `'right'` | `'center'`      | How to align the pagination.                                                                                                                |
-| `scrollToTop`  | `boolean`                           | `false`         | Enable to scroll to top of the page after page change.                                                                                      |
-| `scrollTarget` | `string` \| `Element`               | `document.body` | Specify target to scroll to instead of `document.body`, alternatively you can also pass a string selector, if not found it will do nothing. |
+| Name           | Type                                | Default                                                     | Description                                                                                                                                 |
+| -------------- | ----------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `align`        | `'left'` \| `'center'` \| `'right'` | `'center'`                                                  | How to align the pagination.                                                                                                                |
+| `scrollToTop`  | `boolean`                           | `false`                                                     | Enable to scroll to top of the page after page change.                                                                                      |
+| `scrollTarget` | `string` \| `Element`               | `document.body`                                             | Specify target to scroll to instead of `document.body`, alternatively you can also pass a string selector, if not found it will do nothing. |
+| `compact`      | `boolean`                           | `true` if pagination container is narrower than 480 pixels. | Display a narrower pagination design with previous/next buttons and a current page indicator only.                                          |

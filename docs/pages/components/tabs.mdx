@@ -132,12 +132,12 @@ function Example() {
 
 | Component | Aria               | Usage                                                                       |
 | --------- | ------------------ | --------------------------------------------------------------------------- |
-| Tab       | `role="tab"`       | Indicates that it's a tab                                                   |
+| Tab       | `role="tab"`       | Indicates that it's a tab.                                                  |
 |           | `aria-selected`    | Set to `true` a tab is selected and all other Tabs have it set to `false`.  |
-|           | `aria-controls`    | Set to the `id` of its associated `TabPanel`                                |
-| TabList   | `id`               | The `id` of the `TabPanel` that's referencd by its associated `Tab`         |
+|           | `aria-controls`    | Set to the `id` of its associated `TabPanel`.                               |
+| TabList   | `id`               | The `id` of the `TabPanel` that's referencd by its associated `Tab`.        |
 |           | `aria-orientation` | Set to vertical or horizontal based on the value of the `orientation` prop. |
-|           | `role="tablist"`   | Indicates that it's a tablist                                               |
+|           | `role="tablist"`   | Indicates that it's a tablist.                                              |
 |           | `aria-labelledby`  | Set to the `id` of the `Tab` that labels the `TabPanel`.                    |
 
 ## Props
@@ -146,17 +146,17 @@ function Example() {
 
 Tabs composes `Box` so you call pass all `Box` related props.
 
-| Name           | Type                      | Default | Description                                                                                                                     |
-| -------------- | ------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `onChange`     | `(index: number) => void` |         | The callback to update the active tab index.                                                                                    |
-| `index`        | `number`                  |         | The controlled index of the tabs.                                                                                               |
-| `defaultIndex` | `number`                  |         | The index of the initial active tab.                                                                                            |
-| `manual`       | `boolean`                 |         | If `true`, keyboard navigation changes focus between tabs but doens't activate it. User will have to press `Enter` to active it |
-| `children`     | `React.ReactNode`         |         | The children of the switch.                                                                                                     |
-| `fitted`       | `boolean`                 |         | If `true`, the tabs will stretch to fill the available space                                                                    |
+| Name           | Type                      | Default | Description                                                                                                                      |
+| -------------- | ------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `onChange`     | `(index: number) => void` |         | The callback to update the active tab index.                                                                                     |
+| `index`        | `number`                  |         | The controlled index of the tabs.                                                                                                |
+| `defaultIndex` | `number`                  |         | The index of the initial active tab.                                                                                             |
+| `manual`       | `boolean`                 |         | If `true`, keyboard navigation changes focus between tabs but doens't activate it. User will have to press `Enter` to active it. |
+| `children`     | `React.ReactNode`         |         | The children of the switch.                                                                                                      |
+| `fitted`       | `boolean`                 |         | If `true`, the tabs will stretch to fill the available space.                                                                    |
 
 ### Tab Props
 
-| Name       | Type      | Default | Description                         |
-| ---------- | --------- | ------- | ----------------------------------- |
-| `disabled` | `boolean` |         | If `true`, the tab will be disabled |
+| Name       | Type      | Default | Description                          |
+| ---------- | --------- | ------- | ------------------------------------ |
+| `disabled` | `boolean` |         | If `true`, the tab will be disabled. |
