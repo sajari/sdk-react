@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.3.1
+
+### Patch Changes
+
+- [`b8d528bc`](https://github.com/sajari/sdk-react/commit/b8d528bcd258b415cbb2ee6d4fb527abd8a1926b) [#346](https://github.com/sajari/sdk-react/pull/346) Thanks [@sampotts](https://github.com/sampotts)! - Fix RangeInput value rounding when step is less than 1
+
 ## 1.3.0
 
 ### Minor Changes
