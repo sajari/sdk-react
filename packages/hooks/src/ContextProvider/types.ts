@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Emitter as MittEmitter } from 'mitt';
+
 import { Config } from './Config';
 import { FilterBuilder, Pipeline, RangeFilterBuilder, Response, Variables } from './controllers';
 
@@ -51,11 +53,16 @@ export interface PipelineProviderState {
   autocomplete: ProviderPipelineState;
 }
 
+export interface Emitter {
+  emit: MittEmitter;
+}
+
 export interface Context {
   search: PipelineContextState;
   autocomplete: PipelineContextState;
   resultClicked: ResultClickedFn;
   paginate: PaginateFn;
+  emitter: Emitter;
 }
 
 type Field = ((data: Record<string, any>) => any) | string | string[] | false;

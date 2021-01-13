@@ -1,6 +1,7 @@
 /* eslint-disable import/named */
 /* eslint-disable @typescript-eslint/no-shadow */
 import { createContext, isEmpty, isString } from '@sajari/react-sdk-utils';
+import mitt from 'mitt';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { Config, defaultConfig } from './Config';
@@ -108,6 +109,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
   const autocomplete = useRef(autocompleteProp);
   const variables = useRef(search.variables ?? new Variables());
   const autocompleteVariables = useRef(autocompleteProp?.variables ?? new Variables());
+  const [emit] = useState(mitt());
   // Map the initial response
   let response = search.pipeline.getResponse();
   if (response.isEmpty() && initialResponse !== null) {
@@ -329,6 +331,9 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
       },
       resultClicked: handleResultClicked,
       paginate: handlePaginate,
+      emitter: {
+        emit,
+      },
     } as Context);
 
   return <Provider value={getContext({ autocomplete: autocompleteState, search: searchState })}>{children}</Provider>;

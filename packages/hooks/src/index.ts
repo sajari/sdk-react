@@ -22,6 +22,8 @@ export { default as useFilter } from './useFilter';
 export * from './useFilter';
 export { default as usePagination } from './usePagination';
 export * from './usePagination';
+export { default as usePubSub } from './usePubSub';
+export * from './usePubSub';
 export { default as useQuery } from './useQuery';
 export { default as useRangeFilter } from './useRangeFilter';
 export { default as useResultsPerPage } from './useResultsPerPage';
