@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.6.6
+
+### Patch Changes
+
+- [`f20fae2c`](https://github.com/sajari/sdk-react/commit/f20fae2c592264b7387b33139b8b37c048e2b5b9) [#348](https://github.com/sajari/sdk-react/pull/348) Thanks [@sampotts](https://github.com/sampotts)! - Improve rounding logic for range filters
+
+- Updated dependencies [[`f20fae2c`](https://github.com/sajari/sdk-react/commit/f20fae2c592264b7387b33139b8b37c048e2b5b9)]:
+  - @sajari/react-hooks@1.2.3
+
 ## 1.6.5
 
 ### Patch Changes
