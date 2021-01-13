@@ -1,4 +1,4 @@
-import { isArray, round } from '@sajari/react-sdk-utils';
+import { isArray, round, roundToStep } from '@sajari/react-sdk-utils';
 
 import { EVENT_RANGE_UPDATED } from '../../events';
 import { Listener } from '../Listener';
@@ -21,6 +21,8 @@ export default class RangeFilterBuilder {
 
   private max: number;
 
+  private step: number;
+
   private aggregate: boolean;
 
   private listeners: { [k: string]: Listener };
@@ -35,7 +37,8 @@ export default class RangeFilterBuilder {
     initial,
     min = 0,
     max = aggregate ? 0 : 100,
-    formatter = (value: Range) => value.map((v) => round(v, 2)) as Range,
+    step = 1,
+    formatter = (value: Range) => value.map((v) => roundToStep(v, step)) as Range,
   }: RangeFilterOptions) {
     if (typeof initial === 'undefined') {
       this.initial = aggregate ? null : [min, max];
@@ -50,6 +53,7 @@ export default class RangeFilterBuilder {
     this.formatter = formatter;
     this.min = min;
     this.max = max;
+    this.step = step;
     this.aggregate = aggregate;
     this.listeners = {
       [EVENT_RANGE_UPDATED]: new Listener(),
@@ -101,6 +105,10 @@ export default class RangeFilterBuilder {
 
   public getMinMax() {
     return [this.min, this.max];
+  }
+
+  public getStep() {
+    return this.step;
   }
 
   /**

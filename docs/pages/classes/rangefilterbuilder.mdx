@@ -55,7 +55,8 @@ The constructor accepts a single object with the following properties:
 | `field`     | `string`                                        |                            | A field in schema.                                                                                                                          |
 | `initial`   | `[number, number]`                              | `null`                     | An intially selected range.                                                                                                                 |
 | `min`       | `number`                                        | `0`                        | The min value of the filter.                                                                                                                |
-| `max`       | `number`                                        | `0`                        | The max value of the filter.                                                                                                                |
+| `max`       | `number`                                        | `aggregate ? 0 : 100`      | The max value of the filter.                                                                                                                |
+| `step`      | `number`                                        | `1`                        | A number that specifies the granularity that the values must adhere to.                                                                     |
 | `aggregate` | `boolean`                                       | `true`                     | If true, set value for min and max from the backend response.                                                                               |
 | `formatter` | `(value: [number, number]) => [number, number]` | `(v) => v.map(Math.round)` | The function to format the range. For example, format `[0.1, 5.5]` to `[0, 6]`.                                                             |
 
@@ -72,6 +73,7 @@ For more advanced implementations, you may want to access properties on the `Fil
 | `setMin(value: number)`                                                 | Set the minimum value.                                                                        |
 | `setMax(value: number)`                                                 | Set the maximum value.                                                                        |
 | `getMinMax()`                                                           | Returns the current min and max in an array.                                                  |
+| `getStep()`                                                             | Returns the number that specifies the granularity that the values must adhere to.             |
 | `filter()`                                                              | Builds up the filter string from the current filter and it's children.                        |
 | `getName()`                                                             | Returns the `name` property of the filter.                                                    |
 | `getGroup()`                                                            | Returns the `group` property of the filter.                                                   |

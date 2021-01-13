@@ -7,8 +7,9 @@ import Box from './Box';
 import { RangeFilterProps } from './types';
 import { getHeaderId } from './utils';
 
-const RangeFilter = ({ name, title, format, showInputs, step, steps, tick, ticks }: Omit<RangeFilterProps, 'type'>) => {
-  const { min, max, range, setRange, reset, showReset } = useRangeFilter(name);
+const RangeFilter = (props: Omit<RangeFilterProps, 'type' | 'step'>) => {
+  const { name, title, format, showInputs, steps, tick, ticks } = props;
+  const { min, max, range, setRange, reset, showReset, step } = useRangeFilter(name);
   const { disableDefaultStyles = false, customClassNames, currency, language } = useSearchUIContext();
 
   if (!range || max === 0) {
