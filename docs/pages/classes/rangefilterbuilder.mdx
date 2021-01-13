@@ -48,17 +48,17 @@ function Example() {
 
 The constructor accepts a single object with the following properties:
 
-| Name        | Type                                            | Default                    | Description                                                                                                                                 |
-| ----------- | ----------------------------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `name`      | `string`                                        |                            | The name of the filter. This should be unique.                                                                                              |
-| `group`     | `string`                                        |                            | A group name, for grouping multiple filters together using [`ARRAY_MATCH`](https://docs.sajari.com/user-guide/integrating-search/filters/). |
-| `field`     | `string`                                        |                            | A field in schema.                                                                                                                          |
-| `initial`   | `[number, number]`                              | `null`                     | An intially selected range.                                                                                                                 |
-| `min`       | `number`                                        | `0`                        | The min value of the filter.                                                                                                                |
-| `max`       | `number`                                        | `aggregate ? 0 : 100`      | The max value of the filter.                                                                                                                |
-| `step`      | `number`                                        | `1`                        | A number that specifies the granularity that the values must adhere to.                                                                     |
-| `aggregate` | `boolean`                                       | `true`                     | If true, set value for min and max from the backend response.                                                                               |
-| `formatter` | `(value: [number, number]) => [number, number]` | `(v) => v.map(Math.round)` | The function to format the range. For example, format `[0.1, 5.5]` to `[0, 6]`.                                                             |
+| Name        | Type                                            | Default               | Description                                                                                                                                                                      |
+| ----------- | ----------------------------------------------- | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`      | `string`                                        |                       | The name of the filter. This should be unique.                                                                                                                                   |
+| `group`     | `string`                                        |                       | A group name, for grouping multiple filters together using [`ARRAY_MATCH`](https://docs.sajari.com/user-guide/integrating-search/filters/).                                      |
+| `field`     | `string`                                        |                       | A field in schema.                                                                                                                                                               |
+| `initial`   | `[number, number]`                              | `null`                | An intially selected range.                                                                                                                                                      |
+| `min`       | `number`                                        | `0`                   | The min value of the filter.                                                                                                                                                     |
+| `max`       | `number`                                        | `aggregate ? 0 : 100` | The max value of the filter.                                                                                                                                                     |
+| `step`      | `number`                                        | `1`                   | A number that specifies the granularity that the values must adhere to.                                                                                                          |
+| `aggregate` | `boolean`                                       | `true`                | If true, set value for min and max from the backend response.                                                                                                                    |
+| `formatter` | `(value: [number, number]) => [number, number]` |                       | The function to format the range. By default, this will round to the nearest step for the value. For example if step is `1`, the formatter will format `[0.1, 5.5]` to `[0, 6]`. |
 
 ## Properties
 
