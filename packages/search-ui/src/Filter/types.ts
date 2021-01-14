@@ -52,7 +52,7 @@ export interface TabFilterProps
 
 export interface RangeFilterProps
   extends BaseFilterProps,
-    Pick<RangeInputProps, 'format' | 'showInputs' | 'step' | 'steps' | 'tick' | 'ticks'> {
+    Pick<RangeInputProps, 'format' | 'showInputs' | 'steps' | 'tick' | 'ticks'> {
   type: 'range';
 }
 
