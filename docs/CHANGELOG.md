@@ -1,37 +1,23 @@
 # Change Log
 
-## 1.5.4
-
-### Patch Changes
-
-- [`f20fae2c`](https://github.com/sajari/sdk-react/commit/f20fae2c592264b7387b33139b8b37c048e2b5b9) [#348](https://github.com/sajari/sdk-react/pull/348) Thanks [@sampotts](https://github.com/sampotts)! - Improve rounding logic for range filters
-
-## 1.5.3
-
-### Patch Changes
-
-- [`f0e50c6d`](https://github.com/sajari/sdk-react/commit/f0e50c6dce29c53f0d84f580e84a42781464d419) [#342](https://github.com/sajari/sdk-react/pull/342) Thanks [@sampotts](https://github.com/sampotts)! - Allow 1 decimal place in RangeFilterBuilder formatter
-
-## 1.5.2
-
-### Patch Changes
-
-- [`c785270d`](https://github.com/sajari/sdk-react/commit/c785270dd370400058cc702e1ea50a2361cfe197) [#337](https://github.com/sajari/sdk-react/pull/337) Thanks [@sampotts](https://github.com/sampotts)! - Fix handling of steps in RangeInput
-
-## 1.5.1
-
-### Patch Changes
-
-- [`cd997aa9`](https://github.com/sajari/sdk-react/commit/cd997aa980a2f9793ed3c74281f87dd57c89ade1) [#335](https://github.com/sajari/sdk-react/pull/335) Thanks [@sampotts](https://github.com/sampotts)! - Improve RangeInput input styling
-
-## 1.5.0
-
-### Minor Changes
-
-- [`8c2939af`](https://github.com/sajari/sdk-react/commit/8c2939af3a9249e20da93c2ed8f37769207b7688) [#323](https://github.com/sajari/sdk-react/pull/323) Thanks [@sampotts](https://github.com/sampotts)! - Added support for ARRAY_MATCH filter expression function
-
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [1.6.0](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.3.2...sajari-sdk-docs@1.6.0) (2021-01-14)
+
+### Bug Fixes
+
+- allow 1 decimal place in RangeFilterBuilder formatter ([#342](https://github.com/sajari/sdk-react/issues/342)) ([f0e50c6](https://github.com/sajari/sdk-react/commit/f0e50c6dce29c53f0d84f580e84a42781464d419))
+- fix handling of steps in RangeInput ([#337](https://github.com/sajari/sdk-react/issues/337)) ([c785270](https://github.com/sajari/sdk-react/commit/c785270dd370400058cc702e1ea50a2361cfe197))
+- fix pagination aria labels ([#318](https://github.com/sajari/sdk-react/issues/318)) ([1f2ba34](https://github.com/sajari/sdk-react/commit/1f2ba34add8856b75512600f06a9a9ba2cf99ae2))
+- improve RangeInput input styling ([#335](https://github.com/sajari/sdk-react/issues/335)) ([cd997aa](https://github.com/sajari/sdk-react/commit/cd997aa980a2f9793ed3c74281f87dd57c89ade1))
+- improve rounding logic for range filters ([#348](https://github.com/sajari/sdk-react/issues/348)) ([f20fae2](https://github.com/sajari/sdk-react/commit/f20fae2c592264b7387b33139b8b37c048e2b5b9))
+- make RangeFilter more failsafe default for non aggregate ([#313](https://github.com/sajari/sdk-react/issues/313)) ([eb4c40d](https://github.com/sajari/sdk-react/commit/eb4c40d2951cb960ec50c789a22dffdac5596d23))
+
+### Features
+
+- added compact prop to Pagination component ([#314](https://github.com/sajari/sdk-react/issues/314)) ([c987a1c](https://github.com/sajari/sdk-react/commit/c987a1c5e9b13f9034d9bad6db9adf631d2ba161))
+- added support for ARRAY_MATCH filter grouping ([#323](https://github.com/sajari/sdk-react/issues/323)) ([8c2939a](https://github.com/sajari/sdk-react/commit/8c2939af3a9249e20da93c2ed8f37769207b7688))
 
 # [1.4.0](https://github.com/sajari/sdk-react/compare/sajari-sdk-docs@1.3.2...sajari-sdk-docs@1.4.0) (2021-01-08)
 

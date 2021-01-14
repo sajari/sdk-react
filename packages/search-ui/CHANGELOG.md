@@ -1,37 +1,11 @@
 # Change Log
 
-## 1.6.6
-
-### Patch Changes
-
-- [`f20fae2c`](https://github.com/sajari/sdk-react/commit/f20fae2c592264b7387b33139b8b37c048e2b5b9) [#348](https://github.com/sajari/sdk-react/pull/348) Thanks [@sampotts](https://github.com/sampotts)! - Improve rounding logic for range filters
-
-- Updated dependencies [[`f20fae2c`](https://github.com/sajari/sdk-react/commit/f20fae2c592264b7387b33139b8b37c048e2b5b9)]:
-  - @sajari/react-hooks@1.2.3
-
-## 1.6.5
-
-### Patch Changes
-
-- [`b8d528bc`](https://github.com/sajari/sdk-react/commit/b8d528bcd258b415cbb2ee6d4fb527abd8a1926b) [#346](https://github.com/sajari/sdk-react/pull/346) Thanks [@sampotts](https://github.com/sampotts)! - Fix RangeInput value rounding when step is less than 1
-
-- Updated dependencies [[`b8d528bc`](https://github.com/sajari/sdk-react/commit/b8d528bcd258b415cbb2ee6d4fb527abd8a1926b)]:
-  - @sajari/react-components@1.4.5
-  - @sajari/react-hooks@1.2.2
-  - @sajari/react-sdk-utils@1.3.1
-
-## 1.6.4
-
-### Patch Changes
-
-- [`991006f7`](https://github.com/sajari/sdk-react/commit/991006f77d57e0984e26811352f78780c605b426) [#345](https://github.com/sajari/sdk-react/pull/345) Thanks [@sampotts](https://github.com/sampotts)! - Allow 2 decimal places in RangeFilterBuilder formatter
-
-- Updated dependencies [[`f0e50c6d`](https://github.com/sajari/sdk-react/commit/f0e50c6dce29c53f0d84f580e84a42781464d419)]:
-  - @sajari/react-components@1.4.4
-  - @sajari/react-hooks@1.2.1
-
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.6.7](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.6.6...@sajari/react-search-ui@1.6.7) (2021-01-14)
+
+**Note:** Version bump only for package @sajari/react-search-ui
 
 ## [1.6.3](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.6.2...@sajari/react-search-ui@1.6.3) (2021-01-12)
 

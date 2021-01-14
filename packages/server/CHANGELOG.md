@@ -1,48 +1,13 @@
 # Change Log
 
-## 1.1.2
-
-### Patch Changes
-
-- [`b8d528bc`](https://github.com/sajari/sdk-react/commit/b8d528bcd258b415cbb2ee6d4fb527abd8a1926b) [#346](https://github.com/sajari/sdk-react/pull/346) Thanks [@sampotts](https://github.com/sampotts)! - Fix RangeInput value rounding when step is less than 1
-
-- Updated dependencies [[`b8d528bc`](https://github.com/sajari/sdk-react/commit/b8d528bcd258b415cbb2ee6d4fb527abd8a1926b)]:
-  - @sajari/react-hooks@1.2.2
-  - @sajari/react-sdk-utils@1.3.1
-
-## 1.1.1
-
-### Patch Changes
-
-- [`452f835c`](https://github.com/sajari/sdk-react/commit/452f835ccf4486524467e94acbfd39596c48a788) [#336](https://github.com/sajari/sdk-react/pull/336) Thanks [@tuanddd](https://github.com/tuanddd)! - revert remove defaultFilter param
-
-## 1.1.0
-
-### Minor Changes
-
-- [`1fd321f9`](https://github.com/sajari/sdk-react/commit/1fd321f998dffd68dc7661855a7442d7d3aec9ed) [#331](https://github.com/sajari/sdk-react/pull/331) Thanks [@sampotts](https://github.com/sampotts)! - Added support for ARRAY_MATCH filter expression function
-
-## 1.0.12
-
-### Patch Changes
-
-- [`ccf0d330`](https://github.com/sajari/sdk-react/commit/ccf0d330adf31ae33cd75ddc8e3b3c6dad87d4d3) [#322](https://github.com/sajari/sdk-react/pull/322) Thanks [@tuanddd](https://github.com/tuanddd)! - fix defaultFilter being ignored if there are no filters
-
-- Updated dependencies [[`5ed2763d`](https://github.com/sajari/sdk-react/commit/5ed2763dd92b6ca5f0c0659ce7e931a39af3dbae), [`ccf0d330`](https://github.com/sajari/sdk-react/commit/ccf0d330adf31ae33cd75ddc8e3b3c6dad87d4d3)]:
-  - @sajari/react-hooks@1.1.3
-
-## 1.0.11
-
-### Patch Changes
-
-- [`d7bed8f8`](https://github.com/sajari/sdk-react/commit/d7bed8f882d2b3420adb445c25b5590929952d88) [#321](https://github.com/sajari/sdk-react/pull/321) Thanks [@sampotts](https://github.com/sampotts)! - revert filter expression optimization
-
-- Updated dependencies [[`fb817fb3`](https://github.com/sajari/sdk-react/commit/fb817fb3d1847b66c0748811af02b562af792a25), [`d7bed8f8`](https://github.com/sajari/sdk-react/commit/d7bed8f882d2b3420adb445c25b5590929952d88)]:
-  - @sajari/react-sdk-utils@1.2.2
-  - @sajari/react-hooks@1.1.2
-
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [1.2.0](https://github.com/sajari/sdk-react/compare/@sajari/server@1.1.1...@sajari/server@1.2.0) (2021-01-14)
+
+### Features
+
+- add support for concatenating variables.filter and filters ([#352](https://github.com/sajari/sdk-react/issues/352)) ([2458dd3](https://github.com/sajari/sdk-react/commit/2458dd38e05cfc68a433538e2bf78d6f493d4509))
 
 ## [1.0.10](https://github.com/sajari/sdk-react/compare/@sajari/server@1.0.9...@sajari/server@1.0.10) (2021-01-08)
 
