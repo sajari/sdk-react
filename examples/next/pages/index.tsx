@@ -1,6 +1,7 @@
-import { useSearchContext } from '@sajari/react-hooks';
+import { useFilter, useSearchContext } from '@sajari/react-hooks';
 import {
   FieldDictionary,
+  FilterBuilder,
   Input,
   Pagination,
   Pipeline,
@@ -39,6 +40,14 @@ const fields = new FieldDictionary({
 const variables = new Variables({
   resultsPerPage: 10,
   q: 'iphone',
+  filter: 'price_range="1 - 50"',
+});
+
+const colorFilter = new FilterBuilder({
+  name: 'color',
+  field: 'imageTags',
+  array: true,
+  initial: ['Blue'],
 });
 
 interface Props {
@@ -51,6 +60,7 @@ export async function getServerSideProps() {
     pipeline,
     variables,
     fields,
+    filters: [colorFilter],
   });
 
   // If we couldn't get an initial response server side, render client side
@@ -72,6 +82,8 @@ export async function getServerSideProps() {
 
 const RawResults = () => {
   const { results } = useSearchContext();
+  const { options, selected } = useFilter('color');
+  console.log({ options, selected });
 
   return (
     <details>
@@ -87,6 +99,7 @@ const Page = ({ initialResponse }: Props) => (
       pipeline,
       fields,
       variables,
+      filters: [colorFilter],
     }}
     initialResponse={initialResponse}
     searchOnLoad={!initialResponse}

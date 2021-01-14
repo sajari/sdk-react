@@ -13,6 +13,7 @@ const App = ({ Component, pageProps }: AppProps) => (
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta title={title} />
       <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+      <title>{title}</title>
     </Head>
     <Component {...pageProps} />
   </SSRProvider>
