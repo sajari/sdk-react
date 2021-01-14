@@ -1,0 +1,5 @@
+[[redirects]]
+from = "/"
+to = "https://react.docs.sajari.com/"
+status = 200
+force = true
