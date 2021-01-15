@@ -2,13 +2,14 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { FilterBuilder, RangeFilterBuilder, useContext } from '../ContextProvider';
 import { Range } from '../ContextProvider/controllers/filters/types';
-import { EVENT_RANGE_UPDATED, EVENT_SELECTION_UPDATED } from '../ContextProvider/events';
+import { EVENT_MINMAX_UPDATED, EVENT_RANGE_UPDATED, EVENT_SELECTION_UPDATED } from '../ContextProvider/events';
+import useFirstRender from '../utils/useFirstRender';
 
 function useRangeFilter(name: string) {
   const {
     search: { filters = [], response, query },
   } = useContext();
-
+  const firstRender = useFirstRender();
   const prevQuery = useRef<string | null>(null);
   const selectionUpdated = useRef<boolean>(false);
   const filter = useMemo(
@@ -27,7 +28,17 @@ function useRangeFilter(name: string) {
   const [max, setMax] = useState<number>(limit[1]);
 
   useEffect(() => {
-    filter.reset(false);
+    filter.listen(EVENT_MINMAX_UPDATED, () => {
+      const [minValue, maxValue] = filter.getMinMax();
+      setMin(minValue);
+      setMax(maxValue);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (!firstRender) {
+      filter.reset(false);
+    }
   }, [query]);
 
   useEffect(() => {
@@ -114,8 +125,8 @@ function useRangeFilter(name: string) {
       const formattedLimit = filter.format([newMin, newMax]);
       setMin(formattedLimit[0]);
       setMax(formattedLimit[1]);
-      filter.setMin(formattedLimit[0]);
-      filter.setMax(formattedLimit[1]);
+      filter.setMin(formattedLimit[0], false);
+      filter.setMax(formattedLimit[1], false);
 
       // attempt to retain the last range
       const newRangeLeft =
@@ -126,6 +137,7 @@ function useRangeFilter(name: string) {
       const newRange: Range = [newRangeLeft, newRangeRight];
 
       filter.set(newRange, false);
+      filter.setIsRangeFirstAggregate();
       setInternalRange(newRange);
     }
 

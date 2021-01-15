@@ -1,10 +1,10 @@
 import { isArray, round, roundToStep } from '@sajari/react-sdk-utils';
 
-import { EVENT_RANGE_UPDATED } from '../../events';
+import { EVENT_MINMAX_UPDATED, EVENT_RANGE_FIRST_AGGREGATE_UPDATED, EVENT_RANGE_UPDATED } from '../../events';
 import { Listener } from '../Listener';
 import { Range, RangeFilterOptions } from './types';
 
-const events = [EVENT_RANGE_UPDATED];
+const events = [EVENT_RANGE_UPDATED, EVENT_MINMAX_UPDATED, EVENT_RANGE_FIRST_AGGREGATE_UPDATED];
 
 export default class RangeFilterBuilder {
   private initial: Range | null;
@@ -28,6 +28,8 @@ export default class RangeFilterBuilder {
   private listeners: { [k: string]: Listener };
 
   private formatter: Required<RangeFilterOptions>['formatter'];
+
+  private isFirstAggregate: boolean;
 
   constructor({
     field,
@@ -55,8 +57,11 @@ export default class RangeFilterBuilder {
     this.max = max;
     this.step = step;
     this.aggregate = aggregate;
+    this.isFirstAggregate = false;
     this.listeners = {
       [EVENT_RANGE_UPDATED]: new Listener(),
+      [EVENT_MINMAX_UPDATED]: new Listener(),
+      [EVENT_RANGE_FIRST_AGGREGATE_UPDATED]: new Listener(),
     };
   }
 
@@ -95,12 +100,25 @@ export default class RangeFilterBuilder {
     return this.field;
   }
 
-  public setMin(value: number) {
-    this.min = value;
+  public setIsRangeFirstAggregate() {
+    if (!this.isFirstAggregate) {
+      this.isFirstAggregate = true;
+      this.emitRangeFirstAggregate();
+    }
   }
 
-  public setMax(value: number) {
+  public setMin(value: number, emitEvent = true) {
+    this.min = value;
+    if (emitEvent) {
+      this.emitMinMaxUpdated();
+    }
+  }
+
+  public setMax(value: number, emitEvent = true) {
     this.max = value;
+    if (emitEvent) {
+      this.emitMinMaxUpdated();
+    }
   }
 
   public getMinMax() {
@@ -158,6 +176,26 @@ export default class RangeFilterBuilder {
    */
   protected emitRangeUpdated() {
     this.listeners[EVENT_RANGE_UPDATED].notify((listener) => {
+      listener(this);
+    });
+  }
+
+  /**
+   * Emits a an event if the min or max value is updated.
+   * @private
+   */
+  protected emitMinMaxUpdated() {
+    this.listeners[EVENT_MINMAX_UPDATED].notify((listener) => {
+      listener(this);
+    });
+  }
+
+  /**
+   * Emits an event when receiving the response for aggregate data at the first time.
+   * @private
+   */
+  protected emitRangeFirstAggregate() {
+    this.listeners[EVENT_RANGE_FIRST_AGGREGATE_UPDATED].notify((listener) => {
       listener(this);
     });
   }
