@@ -410,7 +410,13 @@ function Example() {
 | `multi`       | `boolean`                 |         | Whether the filter allows multiple selections              |
 | `reset`       | `() => void`              |         | Reset the current state to the initial state               |
 
-## Props
+## Parameters
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
+```js
+useFilter(name, params);
+```
+
+| Name     | Type                                                              | Default | Description                                                                                                                                                           |
+| -------- | ----------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`   | `string`                                                          |         | The name of the filter that you specified in [`FilterBuilder`](/classes/filterbuilder) or [`RangeFilterBuilder`](/classes/rangefilterbuilder)                         |
+| `params` | `{sort: 'alpha'` \| `'count'` \| `'none, sortAscending: boolean}` |         | `'alpha'` stands for `'alphanumeric'` meaning to sort the items based on label alphabetically, `'count'` to sort based on count, `'none'` to skip the sorting process |
