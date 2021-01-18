@@ -1,10 +1,10 @@
-import { isArray, round, roundToStep } from '@sajari/react-sdk-utils';
+import { isArray, roundToStep } from '@sajari/react-sdk-utils';
 
-import { EVENT_MINMAX_UPDATED, EVENT_RANGE_FIRST_AGGREGATE_UPDATED, EVENT_RANGE_UPDATED } from '../../events';
+import { EVENT_MINMAX_UPDATED, EVENT_RANGE_UPDATED } from '../../events';
 import { Listener } from '../Listener';
 import { Range, RangeFilterOptions } from './types';
 
-const events = [EVENT_RANGE_UPDATED, EVENT_MINMAX_UPDATED, EVENT_RANGE_FIRST_AGGREGATE_UPDATED];
+const events = [EVENT_RANGE_UPDATED, EVENT_MINMAX_UPDATED];
 
 export default class RangeFilterBuilder {
   private initial: Range | null;
@@ -25,11 +25,12 @@ export default class RangeFilterBuilder {
 
   private aggregate: boolean;
 
+  // Force to use
+  private isStatic: boolean;
+
   private listeners: { [k: string]: Listener };
 
   private formatter: Required<RangeFilterOptions>['formatter'];
-
-  private isFirstAggregate: boolean;
 
   constructor({
     field,
@@ -57,12 +58,19 @@ export default class RangeFilterBuilder {
     this.max = max;
     this.step = step;
     this.aggregate = aggregate;
-    this.isFirstAggregate = false;
+    this.isStatic = false;
     this.listeners = {
       [EVENT_RANGE_UPDATED]: new Listener(),
       [EVENT_MINMAX_UPDATED]: new Listener(),
-      [EVENT_RANGE_FIRST_AGGREGATE_UPDATED]: new Listener(),
     };
+  }
+
+  public setIsStatic(isStatic: boolean) {
+    this.isStatic = isStatic;
+  }
+
+  public getIsStatic() {
+    return this.isStatic;
   }
 
   /**
@@ -98,13 +106,6 @@ export default class RangeFilterBuilder {
 
   public getField() {
     return this.field;
-  }
-
-  public setIsRangeFirstAggregate() {
-    if (!this.isFirstAggregate) {
-      this.isFirstAggregate = true;
-      this.emitRangeFirstAggregate();
-    }
   }
 
   public setMin(value: number, emitEvent = true) {
@@ -186,16 +187,6 @@ export default class RangeFilterBuilder {
    */
   protected emitMinMaxUpdated() {
     this.listeners[EVENT_MINMAX_UPDATED].notify((listener) => {
-      listener(this);
-    });
-  }
-
-  /**
-   * Emits an event when receiving the response for aggregate data at the first time.
-   * @private
-   */
-  protected emitRangeFirstAggregate() {
-    this.listeners[EVENT_RANGE_FIRST_AGGREGATE_UPDATED].notify((listener) => {
       listener(this);
     });
   }

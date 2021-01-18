@@ -15,4 +15,3 @@ export const EVENT_OPTIONS_UPDATED = 'options-updated';
 
 export const EVENT_RANGE_UPDATED = 'range-updated';
 export const EVENT_MINMAX_UPDATED = 'minmax-updated';
-export const EVENT_RANGE_FIRST_AGGREGATE_UPDATED = 'range-first-aggregate-updated';

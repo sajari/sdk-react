@@ -3,19 +3,18 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FilterBuilder, RangeFilterBuilder, useContext } from '../ContextProvider';
 import { Range } from '../ContextProvider/controllers/filters/types';
 import { EVENT_MINMAX_UPDATED, EVENT_RANGE_UPDATED, EVENT_SELECTION_UPDATED } from '../ContextProvider/events';
-import useFirstRender from '../utils/useFirstRender';
 
 function useRangeFilter(name: string) {
   const {
     search: { filters = [], response, query },
   } = useContext();
-  const firstRender = useFirstRender();
-  const prevQuery = useRef<string | null>(null);
-  const selectionUpdated = useRef<boolean>(false);
   const filter = useMemo(
     () => filters.filter((f) => f instanceof RangeFilterBuilder && f.getName() === name)[0] as RangeFilterBuilder,
     [],
   );
+  const isStatic = filter.getIsStatic();
+  const prevQuery = useRef<string | null>(null);
+  const selectionUpdated = useRef<boolean>(false);
   const isAggregate = filter.isAggregate();
   const limit = filter.getMinMax();
 
@@ -36,7 +35,7 @@ function useRangeFilter(name: string) {
   }, []);
 
   useEffect(() => {
-    if (!firstRender) {
+    if (!isStatic) {
       filter.reset(false);
     }
   }, [query]);
@@ -94,7 +93,7 @@ function useRangeFilter(name: string) {
   };
 
   useEffect(() => {
-    if (!isAggregate) {
+    if (!isAggregate || isStatic) {
       return;
     }
 
@@ -137,13 +136,12 @@ function useRangeFilter(name: string) {
       const newRange: Range = [newRangeLeft, newRangeRight];
 
       filter.set(newRange, false);
-      filter.setIsRangeFirstAggregate();
       setInternalRange(newRange);
     }
 
     prevQuery.current = query;
     selectionUpdated.current = false;
-  }, [JSON.stringify(response?.getResults())]);
+  }, [JSON.stringify(response?.getResults()), isStatic]);
 
   return {
     min,
