@@ -41,6 +41,8 @@ function useFilter(name: string, params: { sort?: SortType; sortAscending?: bool
     filter.reset();
   };
 
+  const { sort = 'alpha', sortAscending = sort !== 'count' } = params;
+
   const options: FilterItem[] = useMemo(() => {
     if (!response || response?.isEmpty()) {
       return [];
@@ -59,7 +61,7 @@ function useFilter(name: string, params: { sort?: SortType; sortAscending?: bool
         ({ count = {} } = (aggregates || {})[fieldCount] || {});
       }
 
-      const temp = sortItems(Object.entries(count), params.sort ?? 'alpha', params.sortAscending ?? true)
+      const temp = sortItems(Object.entries(count), sort, sortAscending)
         // eslint-disable-next-line @typescript-eslint/no-shadow
         .map(([label, count]: [string, number]) => ({
           label,
@@ -88,7 +90,7 @@ function useFilter(name: string, params: { sort?: SortType; sortAscending?: bool
       return (count[value] as number) ?? 0;
     };
 
-    return sortItems(Object.entries(filter.getOptions())).map(([label, value]) => {
+    return sortItems(Object.entries(filter.getOptions()), sort, sortAscending).map(([label, value]) => {
       const id = `${name}_${label}`;
       const count = getBucketCount(id);
 
