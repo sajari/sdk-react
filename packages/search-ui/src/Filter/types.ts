@@ -1,4 +1,5 @@
 import { RangeInputProps } from '@sajari/react-components';
+import { SortType } from '@sajari/react-hooks';
 import * as React from 'react';
 
 export interface HeaderProps {
@@ -29,7 +30,7 @@ export interface ListFilterProps extends BaseFilterProps {
   /** If true, sort selected items on top */
   pinSelected?: boolean;
   /** How to sort the items */
-  sort?: 'count' | 'alpha' | 'none';
+  sort?: SortType;
   /** Sort in ascending order */
   sortAscending?: boolean;
   /** How to format the values */

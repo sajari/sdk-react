@@ -9,7 +9,7 @@ import { IconSmallChevronDown, IconSmallChevronUp } from '../assets/icons';
 import { useSearchUIContext } from '../ContextProvider';
 import Box from './Box';
 import { ListFilterProps } from './types';
-import { formatLabel, getHeaderId, pinItems, sortItems } from './utils';
+import { formatLabel, getHeaderId, pinItems } from './utils';
 
 const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   const {
@@ -24,7 +24,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   } = props;
 
   const filterContainerId = `list-${name}`;
-  const { options, reset, setSelected, selected, multi } = useFilter(name);
+  const { options, reset, setSelected, selected, multi } = useFilter(name, { sort, sortAscending });
   // Enable search by default if there's more than the limit
   const { searchable = options.length > limit } = props;
   // By default, pin selected items if the option count is over limit
@@ -79,24 +79,20 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   const filtered = searchable ? options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase())) : options;
   const slice = filtered.length > limit;
 
-  const sortedItems = React.useMemo(() => {
+  const transformedItems = React.useMemo(() => {
     if (!isSSR() && pinSelected) {
       setLastFocusedControl(`${(document.activeElement as HTMLInputElement).value}`);
     }
     let list = filtered;
-
-    if (sort !== 'none') {
-      list = sortItems(list, sort === 'count' ? 'count' : 'label', sortAscending);
-    }
 
     if (pinSelected) {
       list = pinItems(list, selected, 'label');
     }
 
     return list;
-  }, [JSON.stringify(filtered), JSON.stringify(selected), pinSelected, sort, sortAscending]);
+  }, [JSON.stringify(filtered), JSON.stringify(selected), pinSelected]);
 
-  const items = slice ? sortedItems.slice(0, shown) : sortedItems;
+  const items = slice ? transformedItems.slice(0, shown) : transformedItems;
   const allShown = shown >= filtered.length;
   const Icon = allShown ? IconSmallChevronUp : IconSmallChevronDown;
   const showMore = React.useCallback(() => {

@@ -4,9 +4,10 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { FilterBuilder, useContext } from '../ContextProvider';
 import { EVENT_SELECTION_UPDATED } from '../ContextProvider/events';
-import { FilterItem } from './types';
+import { FilterItem, SortType } from './types';
+import { sortItems } from './utils';
 
-function useFilter(name: string) {
+function useFilter(name: string, params: { sort?: SortType; sortAscending?: boolean } = {}) {
   const {
     search: { filters = [], response },
   } = useContext();
@@ -58,12 +59,13 @@ function useFilter(name: string) {
         ({ count = {} } = (aggregates || {})[fieldCount] || {});
       }
 
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      const temp = Object.entries(count).map(([label, count]: [string, number]) => ({
-        label,
-        count,
-        value: array ? `${fieldCount} ~ ["${label}"]` : `${fieldCount} = "${label}"`,
-      }));
+      const temp = sortItems(Object.entries(count), params.sort ?? 'alpha', params.sortAscending ?? true)
+        // eslint-disable-next-line @typescript-eslint/no-shadow
+        .map(([label, count]: [string, number]) => ({
+          label,
+          count,
+          value: array ? `${fieldCount} ~ ["${label}"]` : `${fieldCount} = "${label}"`,
+        }));
 
       filter.setOptions(temp.reduce((a, c) => ({ ...a, [c.label]: c.value }), {}));
 
@@ -86,7 +88,7 @@ function useFilter(name: string) {
       return (count[value] as number) ?? 0;
     };
 
-    return Object.entries(filter.getOptions()).map(([label, value]) => {
+    return sortItems(Object.entries(filter.getOptions())).map(([label, value]) => {
       const id = `${name}_${label}`;
       const count = getBucketCount(id);
 

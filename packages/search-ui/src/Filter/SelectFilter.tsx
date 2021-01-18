@@ -7,23 +7,13 @@ import { useTranslation } from 'react-i18next';
 import { useSearchUIContext } from '../ContextProvider';
 import Box from './Box';
 import { SelectFilterProps } from './types';
-import { formatLabel, sortItems } from './utils';
+import { formatLabel } from './utils';
 
 const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
   const { name, title, sort = 'count', sortAscending = sort !== 'count', format } = props;
-  const { options, reset, setSelected, selected, multi } = useFilter(name);
+  const { options, reset, setSelected, selected, multi } = useFilter(name, { sort, sortAscending });
   const { disableDefaultStyles = false, customClassNames, currency } = useSearchUIContext();
   const { t } = useTranslation('filter');
-
-  const sortedItems = React.useMemo(() => {
-    let list = options;
-
-    if (sort !== 'none') {
-      list = sortItems(list, sort === 'count' ? 'count' : 'label', sortAscending);
-    }
-
-    return list;
-  }, [JSON.stringify(options), sort, sortAscending]);
 
   if (isEmpty(options) && isEmpty(selected)) {
     return null;
@@ -57,7 +47,7 @@ const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
           dropdownClassName={customClassNames.filter?.select?.dropdown}
           optionClassName={customClassNames.filter?.select?.option}
         >
-          {sortedItems.map(({ value, label, count }) => (
+          {options.map(({ value, label, count }) => (
             <Option value={label} key={value} label={count.toLocaleString()}>
               {formatLabel(label, { format, currency, t })}
             </Option>
