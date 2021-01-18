@@ -21,9 +21,13 @@ For more in-depth on how to use it, please refer to the [Tracking](/tracking) se
 | Name                      | Type                                                                                                 | Default | Description                                                                                      |
 | ------------------------- | ---------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------ |
 | `handleResultClicked`     | `(url: string) => void`                                                                              |         | The callback to attach on result when click, can be used in conjunction with GoogleAnalytics,... |
-| `consumeInteractionToken` | `(token: string, identifier: string, weight: number,data?: Record<string, string>) => Promise<void>` |         | Method to consume pos/neg token when using PosNegTracking                                        |
+| `consumeInteractionToken` | `(token: string, identifier: string, weight: number,data?: Record<string, string>) => Promise<void>` |         | Method to consume pos/neg token when using PosNegTracking.                                       |
 
-## Props
+## Parameters
+
+```js
+useTracking();
+```
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |

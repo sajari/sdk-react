@@ -33,6 +33,10 @@ It must wrap any components where you are using hooks, usually this is done in a
 - Replace the placeholders with your account and collection IDs from [the collection crendentials section](https://www.sajari.com/console/collection/credentials) in the console.
 - Replace the pipeline name placeholder with the pipeline you'd like to use to query.
 
+## Note
+
+It is recommended that you only need to use `SearchProvider` once at the root of your application, if you find the need to use multiple collections then having multiple `SearchProvider`s would be okay too. You shouldn't nest `SearchProvider`s because each provider will create a separate new context which makes components beneath it (`Pagination`, `Sorting`) not behaving as they should.
+
 ## Props
 
 | Name              | Type                                                | Default | Description                                                                                                                            |

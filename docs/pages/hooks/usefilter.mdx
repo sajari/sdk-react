@@ -416,7 +416,7 @@ function Example() {
 useFilter(name, params);
 ```
 
-| Name     | Type                                                              | Default | Description                                                                                                                                                           |
-| -------- | ----------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `name`   | `string`                                                          |         | The name of the filter that you specified in [`FilterBuilder`](/classes/filterbuilder) or [`RangeFilterBuilder`](/classes/rangefilterbuilder)                         |
-| `params` | `{sort: 'alpha'` \| `'count'` \| `'none, sortAscending: boolean}` |         | `'alpha'` stands for `'alphanumeric'` meaning to sort the items based on label alphabetically, `'count'` to sort based on count, `'none'` to skip the sorting process |
+| Name     | Type                                                              | Default                                   | Description                                                                                                                                                            |
+| -------- | ----------------------------------------------------------------- | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`   | `string`                                                          |                                           | The name of the filter that you specified in [`FilterBuilder`](/classes/filterbuilder).                                                                                |
+| `params` | `{sort: 'alpha'` \| `'count'` \| `'none, sortAscending: boolean}` | `{sort: 'alpha', sortAscending:` `true`}` | `'alpha'` stands for `'alphanumeric'` meaning to sort the items based on label alphabetically, `'count'` to sort based on count, `'none'` to skip the sorting process. |

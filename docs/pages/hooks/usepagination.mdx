@@ -67,20 +67,24 @@ function Example() {
 
 `usePagination` returns an object containing the following properties:
 
-| Name             | Type                        | Default | Description                                                 |
-| ---------------- | --------------------------- | ------- | ----------------------------------------------------------- |
-| `pageCount`      | `number`                    | `0`     | The number of pages                                         |
-| `totalResults`   | `number`                    | `0`     | The total number of results                                 |
-| `resultsPerPage` | `number`                    | `10`    | The number of results per page                              |
-| `page`           | `number`                    | `1`     | The current page                                            |
-| `setPage`        | `(pageNum: number) => void` |         | A method for setting the page                               |
-| `hasNext`        | `boolean`                   |         | A boolean to determine if there is a next page              |
-| `hasPrevious`    | `boolean`                   |         | A boolean to determine if there is a previous page          |
-| `nextPage`       | `() => void`                |         | Go to next page, do nothing if `hasNext` is `false`         |
-| `previousPage`   | `() => void`                |         | Go to previous page, do nothing if `hasPrevious` is `false` |
+| Name             | Type                        | Default | Description                                                  |
+| ---------------- | --------------------------- | ------- | ------------------------------------------------------------ |
+| `pageCount`      | `number`                    | `0`     | The number of pages.                                         |
+| `totalResults`   | `number`                    | `0`     | The total number of results.                                 |
+| `resultsPerPage` | `number`                    | `10`    | The number of results per page.                              |
+| `page`           | `number`                    | `1`     | The current page.                                            |
+| `setPage`        | `(pageNum: number) => void` |         | A method for setting the page.                               |
+| `hasNext`        | `boolean`                   |         | A boolean to determine if there is a next page.              |
+| `hasPrevious`    | `boolean`                   |         | A boolean to determine if there is a previous page.          |
+| `nextPage`       | `() => void`                |         | Go to next page, do nothing if `hasNext` is `false`.         |
+| `previousPage`   | `() => void`                |         | Go to previous page, do nothing if `hasPrevious` is `false`. |
 
-## Props
+## Parameters
 
-| Name  | Type                           | Default    | Description     |
-| ----- | ------------------------------ | ---------- | --------------- |
-| `key` | `"search"` \| `"autocomplete"` | `'search'` | The search mode |
+```js
+usePagination(key);
+```
+
+| Name  | Type                           | Default    | Description      |
+| ----- | ------------------------------ | ---------- | ---------------- |
+| `key` | `"search"` \| `"autocomplete"` | `'search'` | The search mode. |

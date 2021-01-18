@@ -68,6 +68,40 @@ function Example() {
 }
 ```
 
+### Compact mode
+
+By default, the component will switch to its compact mode once the pagination container's width is narrower than 480 pixels, you can override this with the `compact` prop.
+
+```jsx
+function Example() {
+  const [compact, setCompact] = React.useState(false);
+  const { page, setPage, resultsPerPage, pageCount, totalResults } = usePagination();
+  useSearch({ queryOverride: 'iphone' });
+
+  return (
+    <div className="space-y-4">
+      <div className="flex space-x-4">
+        <Checkbox checked={compact} onChange={(event) => setCompact(event.target.checked)}>
+          Compact
+        </Checkbox>
+      </div>
+
+      <div id="results" style={{ height: 500 }} className="w-full overflow-y-scroll">
+        <Results />
+      </div>
+
+      <Pagination
+        totalResults={totalResults}
+        resultsPerPage={resultsPerPage}
+        page={page}
+        onChange={setPage}
+        compact={compact}
+      />
+    </div>
+  );
+}
+```
+
 ### Internationalization
 
 Internationalization is handled via the `i18n` prop. The default values are as follows:
