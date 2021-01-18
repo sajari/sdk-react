@@ -1,5 +1,16 @@
 # Change Log
 
+## 1.7.0
+
+### Minor Changes
+
+- [`b4157abb`](https://github.com/sajari/sdk-react/commit/b4157abb1daf7b2d2be878c7cbe66ca175db74dd) [#354](https://github.com/sajari/sdk-react/pull/354) Thanks [@tuanddd](https://github.com/tuanddd)! - add support for sorting price range
+
+### Patch Changes
+
+- Updated dependencies [[`b4157abb`](https://github.com/sajari/sdk-react/commit/b4157abb1daf7b2d2be878c7cbe66ca175db74dd)]:
+  - @sajari/react-hooks@1.4.0
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
