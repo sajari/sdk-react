@@ -86,11 +86,20 @@ function Example() {
 
 `useSearch` returns an object containing the following properties:
 
-| Name           | Type                   | Default | Description                                                                               |
-| -------------- | ---------------------- | ------- | ----------------------------------------------------------------------------------------- |
-| `results`      | `Result[]`             |         | An array of results that met the query                                                    |
-| `latency`      | `number`               |         | The engine latency                                                                        |
-| `totalResults` | `number`               |         | The total count of results                                                                |
-| `search`       | `(q?: string) => void` |         | The search method, call without param to resend the search request with the current query |
-| `searching`    | `boolean`              |         | Is a search request being processed                                                       |
-| `error`        | `Error` \| `null`      |         | The error encountered while searching                                                     |
+| Name           | Type                   | Default | Description                                                                                |
+| -------------- | ---------------------- | ------- | ------------------------------------------------------------------------------------------ |
+| `results`      | `Result[]`             |         | An array of results that met the query.                                                    |
+| `latency`      | `number`               |         | The engine latency.                                                                        |
+| `totalResults` | `number`               |         | The total count of results.                                                                |
+| `search`       | `(q?: string) => void` |         | The search method, call without param to resend the search request with the current query. |
+| `searching`    | `boolean`              |         | Is a search request being processed.                                                       |
+| `error`        | `Error` \| `null`      |         | The error encountered while searching.                                                     |
+
+## Parameters
+
+```js
+useSearch();
+```
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |

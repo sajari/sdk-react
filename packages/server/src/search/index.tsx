@@ -3,7 +3,7 @@ import { isEmpty } from '@sajari/react-sdk-utils';
 
 function search(props: SearchProviderValues['search']): Promise<string | null> {
   if (!props) {
-    throw new Error('findResultsState requires a `search` config');
+    throw new Error('search function requires a `search` config');
   }
 
   const { pipeline, filters, variables = new Variables() } = props;
