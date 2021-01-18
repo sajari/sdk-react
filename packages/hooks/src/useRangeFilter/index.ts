@@ -27,7 +27,10 @@ function useRangeFilter(name: string) {
   const [max, setMax] = useState<number>(limit[1]);
 
   useEffect(() => {
-    filter.reset(false);
+    // Ignore the componentDidMount trigger, only call after the query was changed
+    if (isAggregate && prevQuery.current !== null) {
+      filter.reset(false);
+    }
   }, [query]);
 
   useEffect(() => {
