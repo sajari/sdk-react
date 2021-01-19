@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.2.1
+
+### Patch Changes
+
+- [`b52fc43b`](https://github.com/sajari/sdk-react/commit/b52fc43bd4323c96c6eef858242f6b42923f45f7) [#351](https://github.com/sajari/sdk-react/pull/351) Thanks [@tuanddd](https://github.com/tuanddd)! - Edit typing and error message
+
+- Updated dependencies [[`85d52aa9`](https://github.com/sajari/sdk-react/commit/85d52aa91b95810ef6342b6ea9ac7f785072b1dc), [`fdfe9680`](https://github.com/sajari/sdk-react/commit/fdfe9680d8c79afffd51705b1687db8aae81481e)]:
+  - @sajari/react-hooks@1.4.1
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
