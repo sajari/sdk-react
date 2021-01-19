@@ -14,7 +14,7 @@ export default function useTabStyles(props: TabProps) {
   const styles: (TwStyle | string)[] = [];
 
   styles.push(
-    tw`relative px-4 py-3 m-0 -mb-px text-gray-500 bg-transparent border-0 border-b-2 border-transparent border-solid focus:outline-none`,
+    tw`relative px-4 py-3 m-0 -mb-px text-base text-gray-500 bg-transparent border-0 border-b-2 border-transparent border-solid font-inherit focus:outline-none`,
   );
 
   if (!selected) {
