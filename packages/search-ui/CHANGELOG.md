@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.7.3
+
+### Patch Changes
+
+- [`70a0c40e`](https://github.com/sajari/sdk-react/commit/70a0c40e8644541521b8d5c8bc2bbb8405c79804) [#364](https://github.com/sajari/sdk-react/pull/364) Thanks [@sampotts](https://github.com/sampotts)! - Improved count styling in TabFilter
+
+- Updated dependencies [[`70a0c40e`](https://github.com/sajari/sdk-react/commit/70a0c40e8644541521b8d5c8bc2bbb8405c79804)]:
+  - @sajari/react-components@1.4.7
+
 ## 1.7.2
 
 ### Patch Changes
