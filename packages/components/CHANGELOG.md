@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.4.6
+
+### Patch Changes
+
+- [`7dcdb050`](https://github.com/sajari/sdk-react/commit/7dcdb050f1bdebac718cdb67d231d0cb4f82732d) [#362](https://github.com/sajari/sdk-react/pull/362) Thanks [@sampotts](https://github.com/sampotts)! - Set font size on Tab component
+
 ## 1.4.5
 
 ### Patch Changes
