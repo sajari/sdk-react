@@ -39,6 +39,12 @@ export default {
       minWidth: {
         'max-content': 'max-content',
       },
+      spacing: {
+        '(screen-8)': 'calc(100vh - 2rem)',
+        '(screen-12)': 'calc(100vh - 3rem)',
+        '(screen-16)': 'calc(100vh - 4rem)',
+        '(screen-20)': 'calc(100vh - 5rem)',
+      },
     },
   },
   plugins: [require('@tailwindcss/ui'), require('tailwindcss-filters'), require('tailwindcss-truncate-multiline')()],

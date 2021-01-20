@@ -18,6 +18,7 @@ const components = [
   'Pagination',
   'PoweredBy',
   'Radio',
+  'Modal',
   'RangeInput',
   'Rating',
   'ResizeObserver',

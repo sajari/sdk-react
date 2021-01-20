@@ -1,0 +1,53 @@
+# Modal (Dialog)
+
+A dialog is a window overlaid on either the primary window or another dialog
+window. Contents behind a modal dialog are **inert** meaning that users cannot
+interact with content behind the dialog.
+
+## Import
+
+```js
+import { Modal } from '@sajari/react-components';
+```
+
+## Usage
+
+When the modal opens, focus is sent into the modal and set to the first tabbable
+element. If there are no tabbled element, focus is set on the `ModalContent`.
+
+```jsx
+function BasicUsage() {
+  const [open, setOpen] = React.useState(false);
+
+  const onOpen = () => setOpen(true);
+  const onClose = () => {
+    setOpen(false);
+    console.log('close');
+  };
+
+  return (
+    <>
+      <Button onClick={onOpen}>Open Modal</Button>
+
+      <Modal open={open} onClose={onClose}>
+        <h2>Simple centered modal</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non risus hendrerit venenatis.
+          Pellentesque sit amet hendrerit risus, sed porttitor quam.
+        </p>
+      </Modal>
+    </>
+  );
+}
+```
+
+## Props
+
+### Modal Props
+
+| Name     | Type                      | Default | Description                                                                                                                             |
+| -------- | ------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| open     | `boolean`                 |         | If `true`, the modal will open                                                                                                          |
+| onClose  | `(event, reason) => void` |         | Callback invoked to close the modal.                                                                                                    |
+| useInert | `boolean`                 | `true`  | A11y: If `true`, all elements behing the `Modal` will have `aria-hidden` set to `true` so that screen readers can only see the `Modal`. |
+| id       | `string`                  |         | The `id` of the modal                                                                                                                   |
