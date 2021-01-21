@@ -1,5 +1,7 @@
 import { BoxProps } from '../Box';
 
+export type ModalSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '4xl' | '6xl' | 'full';
+
 export interface ModalProps extends BoxProps {
   /** Control if the modal is open or not. */
   open: boolean;
@@ -9,12 +11,6 @@ export interface ModalProps extends BoxProps {
   closeOnOverlayClick?: boolean;
   /** Whether to block scrolling when dialog is open. Default to true. */
   blockScroll?: boolean;
-  /** Show the close icon. Default to true. */
-  showCloseIcon?: boolean;
-  /** id attribute for the close icon button. */
-  closeIconId?: string;
-  /** Custom icon to render (svg, img, etc...) */
-  closeIcon?: React.ReactNode;
   /**  When the modal is open, trap focus within it. Default to true. */
   focusTrapped?: boolean;
   /**
@@ -29,6 +25,8 @@ export interface ModalProps extends BoxProps {
   ariaLabelledby?: string;
   /** ARIA description for modal */
   ariaDescribedby?: string;
+  /** The Width for the modal content */
+  size?: ModalSize;
   /** * id attribute for modal */
   modalId?: string;
   /**
@@ -49,10 +47,18 @@ export interface ModalProps extends BoxProps {
   /** classNames to style the modal. */
   rootClassName?: string;
   overlayClassName?: string;
-  overlayAnimationInClassName?: string;
-  overlayAnimationOutClassName?: string;
+  overlayOpenClassName?: string;
   modalContainerClassName?: string;
   modalClassName?: string;
-  modalAnimationInClassName?: string;
-  modalAnimationOutClassName?: string;
+  modalOpenClassName?: string;
+  /** Animation duration (ms). Default to 300 */
+  animationDuration?: number;
+  /** CSS keyframe for overlay animation in. */
+  overlayAnimationIn?: string;
+  /** CSS keyframe for overlay animation out. */
+  overlayAnimationOut?: string;
+  /** CSS keyframe for modal animation in. */
+  modalAnimationIn?: string;
+  /** CSS keyframe for modal animation out. */
+  modalAnimationOut?: string;
 }

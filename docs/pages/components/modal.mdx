@@ -20,10 +20,7 @@ function BasicUsage() {
   const [open, setOpen] = React.useState(false);
 
   const onOpen = () => setOpen(true);
-  const onClose = () => {
-    setOpen(false);
-    console.log('close');
-  };
+  const onClose = () => setOpen(false);
 
   return (
     <>
@@ -45,9 +42,21 @@ function BasicUsage() {
 
 ### Modal Props
 
-| Name     | Type                      | Default | Description                                                                                                                             |
-| -------- | ------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| open     | `boolean`                 |         | If `true`, the modal will open                                                                                                          |
-| onClose  | `(event, reason) => void` |         | Callback invoked to close the modal.                                                                                                    |
-| useInert | `boolean`                 | `true`  | A11y: If `true`, all elements behing the `Modal` will have `aria-hidden` set to `true` so that screen readers can only see the `Modal`. |
-| id       | `string`                  |         | The `id` of the modal                                                                                                                   |
+| Name                | Type              | Default | Description                                                                                                                             |
+| ------------------- | ----------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| open                | `boolean`         |         | If `true`, the modal will open                                                                                                          |
+| onClose             | `(event) => void` |         | Callback invoked to close the modal.                                                                                                    |
+| useInert            | `boolean`         | `true`  | A11y: If `true`, all elements behing the `Modal` will have `aria-hidden` set to `true` so that screen readers can only see the `Modal`. |
+| id                  | `string`          |         | The `id` of the modal.                                                                                                                  |
+| ariaLabelledby      | `string`          |         | ARIA label for the modal.                                                                                                               |
+| ariaDescribedby     | `string`          |         | ARIA description for the modal.                                                                                                         |
+| closeOnEsc          | `boolean`         | `true`  | Is the modal closable when user press esc key.                                                                                          |
+| closeOnOverlayClick | `boolean`         | `true`  | Is the modal closable when user click on overlay.                                                                                       |
+| blockScroll         | `boolean`         | `true`  | Whether to block scrolling when dialog is open.                                                                                         |
+| focusTrapped        | `boolean`         | `true`  | When the modal is open, trap focus within it.                                                                                           |
+| container           | `Element`         |         | The container where the portal will be rendered inside.                                                                                 |
+| size                | `string`          | `md`    | The width for the modal content.                                                                                                        |
+| modalId             | `string`          |         | `id` attribute for modal.                                                                                                               |
+| onEscKeyDown        | `(event) => void` |         | Callback fired when the escape key is pressed.                                                                                          |
+| onOverlayClick      | `(event) => void` |         | Callback fired when the overlay is clicked.                                                                                             |
+| onAnimationEnd      | `() => void`      |         | Callback fired when the Modal has exited and the animation is finished.                                                                 |

@@ -12,7 +12,7 @@ import { hideOthers, Undo } from 'aria-hidden';
  */
 export function useAriaHidden(ref: React.RefObject<HTMLElement>, shouldHide: boolean) {
   React.useEffect(() => {
-      if (!ref.current) return;
+    if (!ref.current) return;
 
     let undo: Undo | null = null;
 

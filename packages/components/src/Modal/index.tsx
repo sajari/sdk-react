@@ -21,8 +21,6 @@ const Modal = (props: ModalProps) => {
     closeOnEsc = true,
     closeOnOverlayClick = true,
     container,
-    showCloseIcon = true,
-    closeIconId,
     focusTrapped = true,
     role = 'dialog',
     ariaDescribedby,
@@ -35,13 +33,11 @@ const Modal = (props: ModalProps) => {
     children,
     disableDefaultStyles = false,
     styles: stylesProp,
-    modalAnimationInClassName,
-    modalAnimationOutClassName,
     modalClassName,
     modalContainerClassName,
-    overlayAnimationInClassName,
-    overlayAnimationOutClassName,
     overlayClassName,
+    overlayOpenClassName,
+    modalOpenClassName,
     rootClassName,
     useInert = true
   } = props;
@@ -148,8 +144,6 @@ const Modal = (props: ModalProps) => {
   };
 
   const containerModal = container || refContainer.current;
-  const modalAnimationClassName = open ? modalAnimationInClassName ?? '' : modalAnimationOutClassName ?? '';
-  const overlayAnimationClassName = open ? overlayAnimationInClassName ?? '': overlayAnimationOutClassName ?? '';
 
 
   return showPortal && containerModal ? (
@@ -159,7 +153,7 @@ const Modal = (props: ModalProps) => {
         css={stylesProp}
       >
         <Box
-          className={classnames(overlayClassName, overlayAnimationClassName)}
+          className={classnames(overlayClassName, open ? overlayOpenClassName : '')}
           aria-hidden
           css={styles.overlay}
         >
@@ -173,7 +167,7 @@ const Modal = (props: ModalProps) => {
           onClick={handleClickOverlay}
         >
           <Box
-            className={classnames(modalClassName,modalAnimationClassName)}
+            className={classnames(modalClassName,open? modalOpenClassName : '')}
             onMouseDown={handleModalEvent}
             onMouseUp={handleModalEvent}
             onClick={handleModalEvent}
@@ -185,14 +179,11 @@ const Modal = (props: ModalProps) => {
             css={styles.content}
           >
             {focusTrapped && <FocusTrap container={refModal} />}
-            {showCloseIcon && (
-              <Button onClick={onClose} id={closeIconId}>Close</Button>
-            )}
+            <Button onClick={onClose}>Close</Button>
             {children}
           </Box>
         </Box>
       </Box>
-      ,
     </Portal>
   ) : null;
 };
