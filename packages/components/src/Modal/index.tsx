@@ -5,7 +5,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import classnames from 'classnames';
 
 import Box from '../Box';
-import Button from '../Button';
 import { FocusTrap } from './FocusTrap';
 import { modalManager, useModalManager } from './modalManager';
 import Portal from './Portal';

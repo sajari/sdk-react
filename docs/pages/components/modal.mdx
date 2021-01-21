@@ -33,10 +33,10 @@ function BasicUsage() {
         </ModalHeader>
 
         <ModalBody>
-          <p>
+          <Text>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non risus hendrerit
             venenatis. Pellentesque sit amet hendrerit risus, sed porttitor quam.
-          </p>
+          </Text>
         </ModalBody>
         <ModalFooter>
           <Button appearance="primary">Action</Button>
@@ -47,6 +47,159 @@ function BasicUsage() {
   );
 }
 ```
+
+### Close Modal on Overlay Click
+
+By default, the modal closes when you click it's overlay. You can set
+`closeOnOverlayClick` to `false` if you want the modal to stay visible.
+
+```jsx
+function ManualClose() {
+  const [open, setOpen] = React.useState(false);
+
+  const onOpen = () => setOpen(true);
+  const onClose = () => setOpen(false);
+
+  return (
+    <>
+      <Button onClick={onOpen}>Open Modal</Button>
+
+      <Modal closeOnOverlayClick={false} open={open} onClose={onClose}>
+        <ModalHeader>
+          <ModalTitle>Modal Title</ModalTitle>
+          <ModalCloseButton />
+        </ModalHeader>
+
+        <ModalBody pb={6}>
+          <Text>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non risus hendrerit
+            venenatis. Pellentesque sit amet hendrerit risus, sed porttitor quam.
+          </Text>
+        </ModalBody>
+
+        <ModalFooter>
+          <Button appearance="primary">Save</Button>
+          <Button onClick={onClose}>Close</Button>
+        </ModalFooter>
+      </Modal>
+    </>
+  );
+}
+```
+
+### Block Scrolling when Modal opens
+
+For accessibility, it's recommended to block scrolling on the main document
+behind the modal. Sajari does this by default but you can set
+`blockScroll` to `false` to allow scrolling behind modal.
+
+```jsx
+function BasicUsage() {
+  const [open, setOpen] = React.useState(false);
+
+  const onOpen = () => setOpen(true);
+  const onClose = () => setOpen(false);
+
+  return (
+    <>
+      <Button onClick={onOpen}>Open Modal</Button>
+
+      <Modal blockScroll={false} open={open} onClose={onClose}>
+        <ModalHeader>
+          <ModalTitle>Modal Title</ModalTitle>
+          <ModalCloseButton />
+        </ModalHeader>
+
+        <ModalBody>
+          <Text fontWeight="bold" mb="1rem">
+            You can scroll the content behind the modal
+          </Text>
+        </ModalBody>
+
+        <ModalFooter>
+          <Button appearance="primary">Action</Button>
+          <Button onClick={onClose}>Close</Button>
+        </ModalFooter>
+      </Modal>
+    </>
+  );
+}
+```
+
+### Modal Sizes
+
+Pass the `size` prop if you need to adjust the size of the modal. Values can be any of the `maxWidth` prop values.
+
+```jsx
+function SizeExample() {
+  const [open, setOpen] = React.useState(false);
+
+  const onOpen = () => setOpen(true);
+  const onClose = () => setOpen(false);
+
+  const [size, setSize] = React.useState('md');
+
+  const handleSizeClick = newSize => {
+    setSize(newSize);
+    onOpen();
+  };
+
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '4xl', '6xl', 'full'];
+
+  return (
+    <>
+      <ButtonGroup>
+        {sizes.map(size => (
+          <Button onClick={() => handleSizeClick(size)} key={size}>
+            {size}
+          </Button>
+        ))}
+      </ButtonGroup>
+
+      <Modal onClose={onClose} size={size} open={open}>
+        <ModalHeader>
+          <ModalTitle>Modal Title</ModalTitle>
+          <ModalCloseButton />
+        </ModalHeader>
+
+        <ModalBody>
+          <Text>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non risus hendrerit
+            venenatis. Pellentesque sit amet hendrerit risus, sed porttitor quam.
+          </Text>
+        </ModalBody>
+
+        <ModalFooter>
+          <Button onClick={onClose}>Close</Button>
+        </ModalFooter>
+      </Modal>
+    </>
+  );
+}
+```
+
+### Making other elements Inert
+
+When the modal is open, it's rendered within a portal and all it's siblings have
+`aria-hidden` set to `true` so the only thing screen readers see is the modal.
+To disable this behavior, set `useInert` to `false`.
+
+## Accessibility
+
+### Keyboard and Focus Management
+
+- When the modal opens, focus is trapped within it.
+- Clicking on the overlay closes the Modal.
+- Pressing <kbd>Esc</kbd> closes the Modal.
+- Scrolling is blocked on the elements behind the modal.
+- The modal is portalled to the end of `document.body` to break it out of the
+  source order and make it easy to add `aria-hidden` to its siblings.
+
+### ARIA
+
+- The `ModalContent` has `aria-modal` set to `true`.
+- The `ModalContent` has `aria-labelledby` set to the `id` of the `ModalTitle`
+- The `ModalContent` has `aria-describedby` set to the `id` of the `ModalBody`
 
 ## Props
 
