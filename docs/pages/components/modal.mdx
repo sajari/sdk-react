@@ -7,7 +7,7 @@ interact with content behind the dialog.
 ## Import
 
 ```js
-import { Modal } from '@sajari/react-components';
+import { Modal, ModalHeader, ModalFooter, ModalBody, ModalTitle, ModalClosebutton } from '@sajari/react-components';
 ```
 
 ## Usage
@@ -27,11 +27,21 @@ function BasicUsage() {
       <Button onClick={onOpen}>Open Modal</Button>
 
       <Modal open={open} onClose={onClose}>
-        <h2>Simple centered modal</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non risus hendrerit venenatis.
-          Pellentesque sit amet hendrerit risus, sed porttitor quam.
-        </p>
+        <ModalHeader>
+          <ModalTitle>Modal title</ModalTitle>
+          <ModalCloseButton />
+        </ModalHeader>
+
+        <ModalBody>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non risus hendrerit
+            venenatis. Pellentesque sit amet hendrerit risus, sed porttitor quam.
+          </p>
+        </ModalBody>
+        <ModalFooter>
+          <Button appearance="primary">Action</Button>
+          <Button onClick={onClose}>Close</Button>
+        </ModalFooter>
       </Modal>
     </>
   );

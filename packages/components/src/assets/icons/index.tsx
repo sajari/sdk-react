@@ -11,6 +11,7 @@ import IconSmallSearch from './small-search.svg';
 import IconSmallStar from './small-star.svg';
 import IconSpinner from './spinner.svg';
 import IconUpKey from './up-key.svg';
+import IconClose from './close.svg';
 
 export {
   IconCheck,
@@ -26,4 +27,5 @@ export {
   IconSmallStar,
   IconSpinner,
   IconUpKey,
+  IconClose,
 };

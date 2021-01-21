@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import { __DEV__, getStylesObject, isSSR } from '@sajari/react-sdk-utils';
 import React, { useEffect, useRef, useState } from 'react';
-import classnames from 'classnames'
+import classnames from 'classnames';
 
 import Box from '../Box';
 import Button from '../Button';
@@ -13,6 +13,12 @@ import { useModalStyles } from './styles';
 import { ModalProps } from './types';
 import { useAriaHidden } from './useAriaHidden';
 import { useScrollLock } from './useScrollLock';
+import ModalContextProvider from './context';
+import ModalHeader, { ModalHeaderProps } from './ModalHeader';
+import ModalBody, { ModalBodyProps } from './ModalBody';
+import ModalCloseButton, { ModalCloseButtonProps } from './ModalCloseButton';
+import ModalTitle, { ModalTitleProps } from './ModalTitle';
+import ModalFooter, { ModalFooterProps } from './ModalFooter';
 
 const Modal = (props: ModalProps) => {
   const {
@@ -38,13 +44,14 @@ const Modal = (props: ModalProps) => {
     overlayClassName,
     overlayOpenClassName,
     modalOpenClassName,
+    size = 'md',
     rootClassName,
-    useInert = true
+    useInert = true,
   } = props;
   const refModal = useRef<HTMLDivElement>(null);
   const refShouldClose = useRef<boolean | null>(null);
   const refContainer = useRef<HTMLDivElement | null>(null);
-  const styles = getStylesObject(useModalStyles(props), disableDefaultStyles);
+  const styles = getStylesObject(useModalStyles({ ...props, size }), disableDefaultStyles);
 
   // Lazily create the ref instance
   // https://reactjs.org/docs/hooks-faq.html#how-to-create-expensive-objects-lazily
@@ -145,45 +152,51 @@ const Modal = (props: ModalProps) => {
 
   const containerModal = container || refContainer.current;
 
+  const context = {
+    titleId: ariaLabelledby,
+    bodyId: ariaDescribedby,
+    disableDefaultStyles,
+    size,
+    onClose,
+    open,
+  };
 
   return showPortal && containerModal ? (
     <Portal target={containerModal}>
-      <Box
-        className={rootClassName}
-        css={stylesProp}
-      >
-        <Box
-          className={classnames(overlayClassName, open ? overlayOpenClassName : '')}
-          aria-hidden
-          css={styles.overlay}
-        >
-          <Box css={styles.overlayInner} />
-        </Box>
-        <Box
-          ref={refModal}
-          className={modalContainerClassName}
-          css={styles.container}
-          onAnimationEnd={handleAnimationEnd}
-          onClick={handleClickOverlay}
-        >
+      <ModalContextProvider value={context}>
+        <Box className={rootClassName} css={stylesProp}>
           <Box
-            className={classnames(modalClassName,open? modalOpenClassName : '')}
-            onMouseDown={handleModalEvent}
-            onMouseUp={handleModalEvent}
-            onClick={handleModalEvent}
-            id={modalId}
-            role={role}
-            aria-modal="true"
-            aria-labelledby={ariaLabelledby}
-            aria-describedby={ariaDescribedby}
-            css={styles.content}
+            className={classnames(overlayClassName, open ? overlayOpenClassName : '')}
+            aria-hidden
+            css={styles.overlay}
           >
-            {focusTrapped && <FocusTrap container={refModal} />}
-            <Button onClick={onClose}>Close</Button>
-            {children}
+            <Box css={styles.overlayInner} />
+          </Box>
+          <Box
+            ref={refModal}
+            className={modalContainerClassName}
+            css={styles.container}
+            onAnimationEnd={handleAnimationEnd}
+            onClick={handleClickOverlay}
+          >
+            <Box
+              className={classnames(modalClassName, open ? modalOpenClassName : '')}
+              onMouseDown={handleModalEvent}
+              onMouseUp={handleModalEvent}
+              onClick={handleModalEvent}
+              id={modalId}
+              role={role}
+              aria-modal="true"
+              aria-labelledby={ariaLabelledby}
+              aria-describedby={ariaDescribedby}
+              css={styles.content}
+            >
+              {focusTrapped && <FocusTrap container={refModal} />}
+              {children}
+            </Box>
           </Box>
         </Box>
-      </Box>
+      </ModalContextProvider>
     </Portal>
   ) : null;
 };
@@ -193,4 +206,5 @@ if (__DEV__) {
 }
 
 export default Modal;
-export type { ModalProps };
+export { ModalHeader, ModalTitle, ModalBody, ModalCloseButton, ModalFooter };
+export type { ModalProps, ModalHeaderProps, ModalCloseButtonProps, ModalBodyProps, ModalTitleProps, ModalFooterProps };
