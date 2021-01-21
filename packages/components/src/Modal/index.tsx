@@ -11,7 +11,7 @@ import { modalManager, useModalManager } from './modalManager';
 import Portal from './Portal';
 import { useModalStyles } from './styles';
 import { ModalProps } from './types';
-import { useAriaHidden } from './useAriaHidden';
+import { AriaHidden } from './AriaHidden';
 import { useScrollLock } from './useScrollLock';
 import ModalContextProvider from './context';
 import ModalHeader, { ModalHeaderProps } from './ModalHeader';
@@ -62,11 +62,6 @@ const Modal = (props: ModalProps) => {
   // The value should be false for srr, that way when the component is hydrated client side,
   // it will match the server rendered content
   const [showPortal, setShowPortal] = useState(false);
-
-  // Hook used to polyfill `aria-modal` for older browsers.
-  // It uses `aria-hidden` to all other nodes.
-  // @see https://developer.paciellogroup.com/blog/2018/06/the-current-state-of-modal-dialog-accessibility/
-  useAriaHidden(refModal, open && useInert);
 
   // Hook used to manage multiple modals opened at the same time
   useModalManager(refModal, open);
@@ -196,6 +191,7 @@ const Modal = (props: ModalProps) => {
             </Box>
           </Box>
         </Box>
+        <AriaHidden refModal={refModal} shouldHide={open && useInert} />
       </ModalContextProvider>
     </Portal>
   ) : null;
