@@ -24,14 +24,15 @@ const Pagination = (props: PaginationProps) => {
         label: t('label'),
         previous: t('previous'),
         next: t('next'),
-        page: t('page', { page }),
-        current: t('current', { page }),
+        page: (params) => t('page', params),
+        current: (params) => t('current', params),
       }}
       className={customClassNames?.pagination?.container}
       buttonClassName={customClassNames?.pagination?.button}
       activeClassName={customClassNames?.pagination?.active}
       prevClassName={customClassNames?.pagination?.prev}
       nextClassName={customClassNames?.pagination?.next}
+      spacerEllipsisClassName={customClassNames?.pagination?.spacerEllipsis}
       statusClassName={customClassNames?.pagination?.status}
       disableDefaultStyles={disableDefaultStyles}
       {...props}

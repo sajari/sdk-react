@@ -29,6 +29,8 @@ export default class FilterBuilder {
 
   private name: string;
 
+  private group: string | undefined;
+
   private field: string | undefined;
 
   private options: Options;
@@ -57,6 +59,7 @@ export default class FilterBuilder {
     array = false,
     name,
     field,
+    group,
     count = isEmpty(options),
   }: FilterOptions) {
     if (isString(initial)) {
@@ -69,6 +72,8 @@ export default class FilterBuilder {
     this.initial = initial;
     /** @private */
     this.name = name;
+    /** @private */
+    this.group = group;
     /** @private */
     this.field = field;
     /** @private */
@@ -144,6 +149,10 @@ export default class FilterBuilder {
     return this.name;
   }
 
+  public getGroup() {
+    return this.group;
+  }
+
   public getField() {
     return this.field;
   }
@@ -172,6 +181,13 @@ export default class FilterBuilder {
    * Builds up the filter string from the current filter and it's children.
    */
   public filter() {
+    // Initial build up the filter value for a count filter field, where the options is not yet came from the response
+    if (isEmpty(this.options) && this.count) {
+      return this.current
+        .map((label) => `(${this.array ? `${this.field} ~ ["${label}"]` : `${this.field} = "${label}"`})`)
+        .join(` ${this.joinOperator} `);
+    }
+
     const options = this.current
       .map((c) => {
         let f = this.options[c];

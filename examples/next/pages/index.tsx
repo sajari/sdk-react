@@ -1,6 +1,7 @@
-import { useSearchContext } from '@sajari/react-hooks';
+import { useFilter, useSearchContext } from '@sajari/react-hooks';
 import {
   FieldDictionary,
+  FilterBuilder,
   Input,
   Pagination,
   Pipeline,
@@ -11,6 +12,9 @@ import {
 } from '@sajari/react-search-ui';
 import { search } from '@sajari/server';
 import * as React from 'react';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const stringify = (value: any) => JSON.stringify(value, null, 2);
 
 const pipelineConfig = {
   account: '1594153711901724220',
@@ -39,6 +43,12 @@ const fields = new FieldDictionary({
 const variables = new Variables({
   resultsPerPage: 10,
   q: 'iphone',
+  filter: 'brand = "Apple"',
+});
+
+const priceRangeFilter = new FilterBuilder({
+  name: 'price-range',
+  field: 'price_range',
 });
 
 interface Props {
@@ -51,6 +61,7 @@ export async function getServerSideProps() {
     pipeline,
     variables,
     fields,
+    filters: [priceRangeFilter],
   });
 
   // If we couldn't get an initial response server side, render client side
@@ -72,11 +83,14 @@ export async function getServerSideProps() {
 
 const RawResults = () => {
   const { results } = useSearchContext();
+  const { options } = useFilter('price-range');
+
+  console.log(stringify(options));
 
   return (
     <details>
       <summary>Raw Results</summary>
-      <pre>{JSON.stringify(results, null, 2)}</pre>
+      <pre>{stringify(results)}</pre>
     </details>
   );
 };
@@ -87,6 +101,7 @@ const Page = ({ initialResponse }: Props) => (
       pipeline,
       fields,
       variables,
+      filters: [priceRangeFilter],
     }}
     initialResponse={initialResponse}
     searchOnLoad={!initialResponse}

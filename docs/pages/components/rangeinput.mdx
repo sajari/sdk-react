@@ -38,11 +38,11 @@ The `step` and `tick` props to allow setting pre-determined steps and ticks in t
 
 ```jsx
 function Example() {
-  const [range, setRange] = React.useState([50, 75]);
+  const [range, setRange] = React.useState([2, 8]);
 
   return (
     <div className="flex flex-col">
-      <RangeInput value={range} onChange={setRange} step={25} tick={100} min={0} max={500} />
+      <RangeInput value={range} onChange={setRange} step={0.1} tick={1} min={0} max={10} />
       <pre className="self-center">"[{range.toString()}]"</pre>
     </div>
   );
@@ -74,12 +74,18 @@ Note that as we uses [`Adobe's React-Aria`](https://react-spectrum.adobe.com/rea
 
 ```jsx
 function Example() {
-  const [range, setRange] = React.useState([0, 500]);
+  const min = 0;
+  const max = 500;
+  const [range, setRange] = React.useState([100, 400]);
 
   return (
     <div className="flex flex-col">
       <RangeInput
         value={range}
+        min={min}
+        max={max}
+        step={25}
+        tick={100}
         onChange={setRange}
         showInputs
         leftInput={({ getProps, ref }) => {
@@ -89,7 +95,7 @@ function Example() {
               <label className="sr-only" {...labelProps}>
                 Custom left input
               </label>
-              <input {...inputProps} min={0} max={500} ref={ref} />
+              <input {...inputProps} min={min} max={max} ref={ref} />
             </div>
           );
         }}

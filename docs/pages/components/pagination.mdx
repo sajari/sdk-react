@@ -68,6 +68,40 @@ function Example() {
 }
 ```
 
+### Compact mode
+
+By default, the component will switch to its compact mode once the pagination container's width is narrower than 480 pixels, you can override this with the `compact` prop.
+
+```jsx
+function Example() {
+  const [compact, setCompact] = React.useState(false);
+  const { page, setPage, resultsPerPage, pageCount, totalResults } = usePagination();
+  useSearch({ queryOverride: 'iphone' });
+
+  return (
+    <div className="space-y-4">
+      <div className="flex space-x-4">
+        <Checkbox checked={compact} onChange={(event) => setCompact(event.target.checked)}>
+          Compact
+        </Checkbox>
+      </div>
+
+      <div id="results" style={{ height: 500 }} className="w-full overflow-y-scroll">
+        <Results />
+      </div>
+
+      <Pagination
+        totalResults={totalResults}
+        resultsPerPage={resultsPerPage}
+        page={page}
+        onChange={setPage}
+        compact={compact}
+      />
+    </div>
+  );
+}
+```
+
 ### Internationalization
 
 Internationalization is handled via the `i18n` prop. The default values are as follows:
@@ -82,27 +116,42 @@ Internationalization is handled via the `i18n` prop. The default values are as f
 }
 ```
 
+| Property   | Type                               | Default                       | Description                                  |
+| ---------- | ---------------------------------- | ----------------------------- | -------------------------------------------- |
+| `label`    | `string`                           | `'Pagination'`                | The aria label for the pagination container. |
+| `previous` | `string`                           | `'Previous'`                  | The aria label for the previous button.      |
+| `next`     | `string`                           | `'Next'`                      | The aria label for the next button.          |
+| `page`     | `string` \| `({ page }) => string` | `Page {{page}}`               | The aria label for a page button.            |
+| `current`  | `string` \| `({ page }) => string` | `Page {{page}}, current page` | The aria label for a current page button.    |
+
 These are the placeholders available:
 
-| Name   | Properties | Description                     |
-| ------ | ---------- | ------------------------------- |
-| `page` | `page`     | The page number for the button. |
-| `page` | `current`  | The current page number.        |
+| Property  | Placeholder | Description                     |
+| --------- | ----------- | ------------------------------- |
+| `page`    | `page`      | The page number for the button. |
+| `current` | `page`      | The current page number.        |
+
+Placeholders are passed as an object to a formatter function:
+
+```js
+({ page }) => `Page ${page}`;
+```
 
 ## Props
 
 The Pagination component composes the `ButtonGroup` component so you can pass props for
 `ButtonGroup`.
 
-| Name             | Type                                | Default                                           | Description                                                                                                                                 |
-| ---------------- | ----------------------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pageCount`      | `number`                            |                                                   | The total number of pages.                                                                                                                  |
-| `totalResults`   | `number`                            |                                                   | The total number of results (used to calculate page count if not set).                                                                      |
-| `resultsPerPage` | `number`                            |                                                   | The number of results per page (used to calculate page count if not set).                                                                   |
-| `page`           | `number`                            |                                                   | The current page.                                                                                                                           |
-| `onChange`       | `function`                          |                                                   | The callback handler. The current page is passed as the only argument.                                                                      |
-| `align`          | `'left'` \| `'center'` \| `'right'` | `'center'`                                        | How to align the pagination.                                                                                                                |
-| `scrollToTop`    | `boolean`                           | `false`                                           | Enable to scroll to top of the page after page change.                                                                                      |
-| `scrollTarget`   | `string` \| `Element`               | `document.body`                                   | Specify target to scroll to instead of `document.body`, alternatively you can also pass a string selector, if not found it will do nothing. |
-| `i18n`           | `object`                            | See [Internationalization](#internationalization) | Internationalization for screen readers.                                                                                                    |
-| `language`       | `string`                            |                                                   | ISO language code to use for i18n and formatting (e.g. en or en-US). Defaults to browser language.                                          |
+| Name             | Type                                | Default                                                     | Description                                                                                                                                 |
+| ---------------- | ----------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pageCount`      | `number`                            |                                                             | The total number of pages.                                                                                                                  |
+| `totalResults`   | `number`                            |                                                             | The total number of results (used to calculate page count if not set).                                                                      |
+| `resultsPerPage` | `number`                            |                                                             | The number of results per page (used to calculate page count if not set).                                                                   |
+| `page`           | `number`                            |                                                             | The current page.                                                                                                                           |
+| `onChange`       | `function`                          |                                                             | The callback handler. The current page is passed as the only argument.                                                                      |
+| `align`          | `'left'` \| `'center'` \| `'right'` | `'center'`                                                  | How to align the pagination.                                                                                                                |
+| `scrollToTop`    | `boolean`                           | `false`                                                     | Enable to scroll to top of the page after page change.                                                                                      |
+| `scrollTarget`   | `string` \| `Element`               | `document.body`                                             | Specify target to scroll to instead of `document.body`, alternatively you can also pass a string selector, if not found it will do nothing. |
+| `i18n`           | `object`                            | See [Internationalization](#internationalization)           | Internationalization for screen readers.                                                                                                    |
+| `language`       | `string`                            |                                                             | ISO language code to use for i18n and formatting (e.g. en or en-US). Defaults to browser language.                                          |
+| `compact`        | `boolean`                           | `true` if pagination container is narrower than 480 pixels. | Display a narrower pagination design with previous/next buttons and a current page indicator only.                                          |

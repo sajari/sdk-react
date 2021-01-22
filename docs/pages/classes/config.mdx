@@ -1,0 +1,25 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="Config"
+  description="The Config type defines mapping between key/value pair param to be sent with each and every request."
+/>
+
+# Config
+
+The `Config` type defines mapping between key/value pair params to be sent with each and every request.
+
+```js
+import { Config } from '@sajari/react-hooks';
+```
+
+## Keys
+
+| Name                  | Default            | Description                                       |
+| --------------------- | ------------------ | ------------------------------------------------- |
+| `qParam`              | `'q'`              | The key that includes a search query.             |
+| `qOverrideParam`      | `'q.override'`     |                                                   |
+| `qSuggestionsParam`   | `'q.suggestions'`  | The key for dictionary of name -> filter pairs.   |
+| `resultsPerPageParam` | `'resultsPerPage'` | The key for how many results to display per page. |
+| `pageParam`           | `'page'`           | The key for which page to display.                |
+| `maxSuggestions`      | `10`               |                                                   |

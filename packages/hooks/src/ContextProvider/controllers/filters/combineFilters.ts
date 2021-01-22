@@ -3,6 +3,7 @@ import { Listener } from '../Listener';
 import FilterBuilder from './FilterBuilder';
 import RangeFilterBuilder from './RangeFilterBuilder';
 import { JoinOperator } from './types';
+import { groupFilters } from './utils';
 
 const events = [EVENT_SELECTION_UPDATED, EVENT_OPTIONS_UPDATED, EVENT_RANGE_UPDATED];
 
@@ -66,13 +67,7 @@ export default function combineFilters(
   }
 
   // Generate filter field from non aggregate count Filter(s) for Variables object
-  const filter = () =>
-    filters
-      .filter((f) => (f instanceof FilterBuilder && !f.getCount()) || f instanceof RangeFilterBuilder)
-      .map((f) => f.filter())
-      .filter(Boolean)
-      .map((f) => `(${f})`)
-      .join(` ${joinOperator} `);
+  const filter = () => groupFilters(filters, 'filter', ` ${joinOperator} `);
 
   // Generate buckets field from non aggregate count Filter(s) for Variables object
   const buckets = () =>
@@ -83,11 +78,7 @@ export default function combineFilters(
       .join(',');
 
   // Generate countFilters field from aggregate count Filter(s) for Variables object
-  const countFilters = () =>
-    filters
-      .filter((f) => f instanceof FilterBuilder && f.getCount())
-      .map((f) => f.filter())
-      .join(',');
+  const countFilters = () => groupFilters(filters, 'countFilters', ',');
 
   // Generate count field from aggregate count Filter(s) for Variables object
   const count = () =>

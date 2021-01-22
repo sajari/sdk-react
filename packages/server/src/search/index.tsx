@@ -3,21 +3,22 @@ import { isEmpty } from '@sajari/react-sdk-utils';
 
 function search(props: SearchProviderValues['search']): Promise<string | null> {
   if (!props) {
-    throw new Error('findResultsState requires a `search` config');
+    throw new Error('search function requires a `search` config');
   }
 
   const { pipeline, filters, variables = new Variables() } = props;
+  const filter = combineFilters(filters ?? []);
+  const variablesFilterString = variables.get().filter ?? '';
 
-  if (filters) {
-    const filter = combineFilters(filters);
-
-    variables.set({
-      filter: isEmpty(filter.filter()) ? '_id != ""' : () => filter.filter(),
-      countFilters: () => filter.countFilters(),
-      buckets: () => filter.buckets(),
-      count: () => filter.count(),
-    });
-  }
+  variables.set({
+    filter: () => {
+      const expression = filter.filter();
+      return [variablesFilterString, isEmpty(expression) ? '_id != ""' : expression].filter(Boolean).join(' AND ');
+    },
+    countFilters: () => filter.countFilters(),
+    buckets: () => filter.buckets(),
+    count: () => filter.count(),
+  });
 
   return new Promise((resolve) => {
     const unlisten = pipeline.listen(EVENT_RESPONSE_UPDATED, (response: Response) => {

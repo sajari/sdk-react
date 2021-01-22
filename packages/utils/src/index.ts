@@ -1,3 +1,4 @@
+export * from './array';
 export * from './assertion';
 export * from './constant';
 export { default as createContext } from './context';

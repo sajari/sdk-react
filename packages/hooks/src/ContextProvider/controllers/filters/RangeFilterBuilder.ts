@@ -1,4 +1,4 @@
-import { isArray } from '@sajari/react-sdk-utils';
+import { isArray, round, roundToStep } from '@sajari/react-sdk-utils';
 
 import { EVENT_RANGE_UPDATED } from '../../events';
 import { Listener } from '../Listener';
@@ -13,11 +13,15 @@ export default class RangeFilterBuilder {
 
   private name: string;
 
+  private group: string | undefined;
+
   private field: string;
 
   private min: number;
 
   private max: number;
+
+  private step: number;
 
   private aggregate: boolean;
 
@@ -28,19 +32,28 @@ export default class RangeFilterBuilder {
   constructor({
     field,
     name,
-    initial = null,
-    min = 0,
-    max = 0,
+    group,
     aggregate = true,
-    formatter = (value: Range) => value.map(Math.round) as Range,
+    initial,
+    min = 0,
+    max = aggregate ? 0 : 100,
+    step = 1,
+    formatter = (value: Range) => value.map((v) => roundToStep(v, step)) as Range,
   }: RangeFilterOptions) {
-    this.range = initial;
-    this.initial = initial;
+    if (typeof initial === 'undefined') {
+      this.initial = aggregate ? null : [min, max];
+    } else {
+      this.initial = initial;
+    }
+
+    this.range = this.initial;
     this.name = name;
+    this.group = group;
     this.field = field;
     this.formatter = formatter;
     this.min = min;
     this.max = max;
+    this.step = step;
     this.aggregate = aggregate;
     this.listeners = {
       [EVENT_RANGE_UPDATED]: new Listener(),
@@ -54,6 +67,7 @@ export default class RangeFilterBuilder {
     if (!events.includes(event)) {
       throw new Error(`Unknown event type "${event}"`);
     }
+
     return this.listeners[event].listen(callback);
   }
 
@@ -63,6 +77,7 @@ export default class RangeFilterBuilder {
 
   public set(range: Range | null, emitEvent = true) {
     this.range = range ? this.formatter(range) : range;
+
     if (emitEvent) {
       this.emitRangeUpdated();
     }
@@ -70,6 +85,10 @@ export default class RangeFilterBuilder {
 
   public getName() {
     return this.name;
+  }
+
+  public getGroup() {
+    return this.group;
   }
 
   public getField() {
@@ -86,6 +105,10 @@ export default class RangeFilterBuilder {
 
   public getMinMax() {
     return [this.min, this.max];
+  }
+
+  public getStep() {
+    return this.step;
   }
 
   /**
@@ -119,6 +142,7 @@ export default class RangeFilterBuilder {
    */
   public reset(emitEvent = true) {
     this.range = isArray(this.initial) ? [...this.initial] : this.initial;
+
     if (emitEvent) {
       this.emitRangeUpdated();
     }

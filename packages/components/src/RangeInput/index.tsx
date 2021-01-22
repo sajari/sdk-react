@@ -1,5 +1,5 @@
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
-import { __DEV__, clamp, closest, formatNumber, getStylesObject, noop, round } from '@sajari/react-sdk-utils';
+import { __DEV__, clamp, closest, formatNumber, getStylesObject, noop, roundToStep } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { useRanger } from 'react-ranger';
 
@@ -10,7 +10,7 @@ import Handle from './components/Handle';
 import Input from './components/Input';
 import Track from './components/Track';
 import useRangeInputStyles from './styles';
-import { RangeInputProps } from './types';
+import { RangeInputProps, RangeValue } from './types';
 
 const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTMLDivElement>) => {
   const {
@@ -40,19 +40,22 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
   const isSingleHandle = value.length === 1;
   const [min, max] = [minProp, maxProp];
   const { ticks: ticksProp = !tick ? [min, max] : undefined } = props;
-  const [range, setRange] = React.useState(value);
+  const [range, setRange] = React.useState<RangeValue>(value);
   const mapRange = (v: number[]) => v.map(Number);
   const [low, high] = mapRange(range);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const setValue = (newValue: any, fireOnChange = false) => {
-    setRange(newValue);
-    onInput(newValue);
+  const setValue = (newValue: RangeValue, fireOnChange = false) => {
+    // Round values to nearest step
+    const values = newValue.map((v) => roundToStep(v, step)) as RangeValue;
+
+    setRange(values);
+    onInput(values);
 
     if (!fireOnChange) {
       return;
     }
 
-    onChange(newValue);
+    onChange(values);
   };
 
   React.useEffect(() => {
@@ -76,27 +79,27 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
   const trackRef = React.useRef<HTMLDivElement>(null);
 
   const handleRangeInputChange = (left: boolean) => (v: string | number) => {
-    const updatedValue = typeof v === 'string' ? parseInt(v, 10) : v;
-    const isNumeric = Number.isNaN(updatedValue);
+    const val = Number(v);
+    const isNaN = Number.isNaN(val);
     let newValue: number[] | null = null;
 
     if (isSingleHandle) {
-      newValue = [isNumeric ? min : updatedValue];
+      newValue = [isNaN || val < min ? min : val];
     } else if (left) {
-      newValue = [isNumeric ? min : updatedValue, high];
+      newValue = [isNaN || val < min ? min : val, high];
     } else {
-      newValue = [low, isNumeric ? max : updatedValue];
+      newValue = [low, isNaN || val > max ? max : val];
     }
 
     if (!newValue) {
       return;
     }
 
-    setValue(newValue, true);
+    setValue(newValue as RangeValue, true);
   };
 
-  // Format a value to be presented in the UI
-  const formatValue = (input: number) => {
+  // Format a value to be presented in the UI as a label
+  const formatLabel = (input: number) => {
     if (format === 'price') {
       return formatNumber(input, { style: 'currency', currency }).replace('.00', '');
     }
@@ -104,13 +107,16 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     return input.toLocaleString(language);
   };
 
+  // Format a value for the input
+  const formatInputValue = (input: number) => input.toFixed(format === 'price' ? 2 : 0).replace('.00', '');
+
   const handleSwitchRange = () => {
     if (isSingleHandle) {
       return;
     }
 
     if (low > high) {
-      setValue([high, low]);
+      setValue([high, low], true);
     }
   };
 
@@ -122,7 +128,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     // Calculate percentage
     const clientRect = trackRef.current.getBoundingClientRect();
     const percent = clamp((100 / clientRect.width) * (event.clientX - clientRect.left), 0, 100);
-    const newValue = round((max - min) * (percent / 100), step);
+    const newValue = roundToStep((max - min) * (percent / 100), step);
 
     if (i === 1 && !isSingleHandle) {
       // Determine closest handle if clicking in center section
@@ -136,6 +142,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
   const inputProps = {
     min,
     max,
+    step,
     type: 'number',
     inputMode: 'numeric' as AriaTextFieldOptions['inputMode'],
     disableDefaultStyles,
@@ -145,7 +152,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
   const leftInputProps = {
     ...inputProps,
     className: inputClassName,
-    value: low.toString(),
+    value: formatInputValue(low),
     onChange: handleRangeInputChange(true),
     label: 'Range input left bound',
   };
@@ -153,7 +160,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
   const rightInputProps = {
     ...inputProps,
     className: inputClassName,
-    value: (isSingleHandle ? 0 : high).toString(),
+    value: formatInputValue(isSingleHandle ? 0 : high),
     onChange: handleRangeInputChange(false),
     label: 'Range input right bound',
   };
@@ -200,7 +207,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
                 css={styles.tickItem}
                 disableDefaultStyles={disableDefaultStyles}
               >
-                {formatValue(tickValue)}
+                {formatLabel(tickValue)}
               </Text>
             );
           })}
@@ -225,7 +232,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
 
           {handles.map(({ value: handleValue, active, getHandleProps }) => (
             <Handle
-              data-value={formatValue(handleValue)}
+              data-value={formatLabel(handleValue)}
               activeClassName={handleActiveClassName}
               className={handleClassName}
               disableDefaultStyles={disableDefaultStyles}

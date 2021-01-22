@@ -48,7 +48,6 @@ describe('RangeFilterBuilder', () => {
     expect(priceFilter.filter()).toBe('price >= 0 AND price <= 100');
     priceFilter.set([50, 200]);
     expect(priceFilter.filter()).toBe('price >= 50 AND price <= 200');
-
     ratingFilter.set([2, 5]);
     expect(ratingFilter.filter()).toBe('rating >= 2 AND rating <= 5');
   });
@@ -81,5 +80,25 @@ describe('RangeFilterBuilder', () => {
     expect(spyOptionUpdateCallback).toHaveBeenCalledTimes(2);
     ratingFilter.reset();
     expect(spyOptionUpdateCallback).toHaveBeenCalledTimes(3);
+  });
+
+  it('failsafe default for non aggregate', () => {
+    const rangeFilter = new RangeFilterBuilder({
+      name: 'popular',
+      field: 'popular',
+      aggregate: false,
+    });
+    expect(rangeFilter.get()).toEqual([0, 100]);
+  });
+
+  it('non aggregate should pick default min, max if initial is undefined', () => {
+    const rangeFilter = new RangeFilterBuilder({
+      name: 'popular',
+      field: 'popular',
+      aggregate: false,
+      min: 200,
+      max: 1000,
+    });
+    expect(rangeFilter.get()).toEqual([200, 1000]);
   });
 });

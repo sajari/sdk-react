@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev -p 3002",
     "build": "next build && next export",
-    "start": "next start -p 3002"
+    "start": "next build && next start -p 3002"
   },
   "alias": {
     "@sajari/react-components": "../packages/components",

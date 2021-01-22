@@ -4,17 +4,22 @@ import tw from 'twin.macro';
 import { UseInputStyleProps, useInputStyles } from '../../../hooks';
 import { RangeInputInputProps } from './types';
 
-export default function useRangeInputStyles(props: RangeInputInputProps) {
-  const { max } = props;
+type UseRangeInputStylesParams = RangeInputInputProps & { invalid: boolean };
+
+export default function useRangeInputStyles(props: UseRangeInputStylesParams) {
+  const { max, step } = props;
   const { styles: inputStyles, focusRingStyles, focusProps } = useInputStyles({
     type: 'text',
+    size: 'sm',
     ...props,
   } as UseInputStyleProps);
+
+  const charLength = (max + step).toString().length;
 
   const styles = {
     container: [tw`relative`, focusRingStyles],
     // TODO: Replace the magic numbers with calculated ones
-    input: [tw`text-sm form-input`, inputStyles, `width: ${38 + max.toString().length * 12}px`],
+    input: [tw`form-input`, inputStyles, `width: calc(${charLength * 9}px + 2.5rem)`],
   };
 
   return { styles: mapStyles(styles), focusProps };

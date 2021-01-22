@@ -28,9 +28,7 @@ function Example() {
   const priceFilter = new RangeFilterBuilder({
     name: 'price',
     field: 'price',
-    min: 300,
-    max: 1000,
-    initial: [500, 700],
+    aggregate: false,
   });
 
   const ratingFilter = new RangeFilterBuilder({
@@ -39,6 +37,7 @@ function Example() {
     min: 1,
     max: 5,
     initial: [1, 5],
+    aggregate: false,
   });
 
   const FilterRender = React.memo(({ name, title }) => {
@@ -201,3 +200,13 @@ function Example() {
 | `max`       | `number`                        |         | The max range.                                 |
 | `showReset` | `boolean`                       |         | The state for deciding to call reset function. |
 | `reset`     | `() => void`                    |         | Reset the current state to the initial state   |
+
+## Parameters
+
+```js
+useRangeFilter(name);
+```
+
+| Name   | Type     | Default | Description                                                                                       |
+| ------ | -------- | ------- | ------------------------------------------------------------------------------------------------- |
+| `name` | `string` |         | The name of the filter that you specified in [`RangeFilterBuilder`](/classes/rangefilterbuilder). |

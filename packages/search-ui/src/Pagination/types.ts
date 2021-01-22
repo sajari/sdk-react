@@ -2,4 +2,4 @@ import { BoxProps, PaginationProps as PurePaginationProps } from '@sajari/react-
 
 export interface PaginationProps
   extends BoxProps,
-    Pick<PurePaginationProps, 'align' | 'scrollToTop' | 'scrollTarget'> {}
+    Pick<PurePaginationProps, 'align' | 'scrollToTop' | 'scrollTarget' | 'compact'> {}

@@ -89,7 +89,6 @@ function Example() {
         }),
         filters: [priceFilter, brandFilter],
       }}
-      defaultFilter="brand = 'Apple'"
       searchOnLoad
     >
       <SearchPlayground />
@@ -333,7 +332,7 @@ function Example() {
 
       <div className="flex -mx-3">
         <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
-          <Filter type="range" name="price" title="Price" format="price" />
+          <Filter type="range" name="price" title="Price" format="price" showInputs />
           <Filter type="range" name="rating" title="Rating" />
         </div>
         <div className="w-3/4 px-3">
@@ -417,33 +416,76 @@ function Example() {
 }
 ```
 
-## Props
+## Base Props
 
-| Name    | Type              | Default | Description                |
-| ------- | ----------------- | ------- | -------------------------- |
-| `name`  | `string`          | -       | The name of a given Filter |
-| `title` | `string`          | -       | Title of the filter list   |
-| `type`  | `list` or `color` | `list`  | Title of the filter list   |
+| Name    | Type                                                                       | Default  | Description                 |
+| ------- | -------------------------------------------------------------------------- | -------- | --------------------------- |
+| `name`  | `string`                                                                   | -        | The name of a given Filter. |
+| `title` | `string`                                                                   | -        | Title of the filter list.   |
+| `type`  | `'list'` \| `'color'` \| `'rating'` \| `'tabs'` \| `'range'` \| `'select'` | `'list'` | Type of the filter.         |
 
-### List
+### List Props
 
 Exclusive props if `type` is `list`.
 
-| Name            | Type                                | Default                             | Description                                                                               |
-| --------------- | ----------------------------------- | ----------------------------------- | ----------------------------------------------------------------------------------------- |
-| `limit`         | `number`                            | `8`                                 | Maximum number of items to show if the list is collapsed.                                 |
-| `searchable`    | `boolean`                           | `false`                             | If true, display an input for searching through items.                                    |
-| `sort`          | `'count'` \| `'alpha'` \| `'none'`  | `'count'`                           | How to sort the items.                                                                    |
-| `sortAscending` | `boolean`                           | `true` if `sort` is not `'count'`   | Whether to sort in ascending order.                                                       |
-| `pinSelected`   | `boolean`                           | `true` if items count over `limit`. | Pin selected items to the top of the list.                                                |
-| `renderItem`    | `(value:string) => React.ReactNode` | -                                   | A render prop function is used to custom the item label rather than just displaying text. |
+| Name            | Type                                | Default                                          | Description                                                                                                                                                                                   |
+| --------------- | ----------------------------------- | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `limit`         | `number`                            | `10`                                             | Maximum number of items to initially show. Maximum is 100.                                                                                                                                    |
+| `searchable`    | `boolean`                           | `true` if the number of options exceeds `limit`. | If true, display an input for searching through items.                                                                                                                                        |
+| `sort`          | `'count'` \| `'alpha'` \| `'none'`  | `'count'`                                        | How to sort the items. `'alpha'` stands for `'alphanumeric'` meaning to sort the items based on label alphabetically, `'count'` to sort based on count, `'none'` to skip the sorting process. |
+| `sortAscending` | `boolean`                           | `true` if `sort` is not `'count'`.               | Whether to sort in ascending order.                                                                                                                                                           |
+| `pinSelected`   | `boolean`                           | `true` if the number of options exceeds `limit`. | Pin selected items to the top of the list.                                                                                                                                                    |
+| `renderItem`    | `(value:string) => React.ReactNode` | -                                                | A render prop function is used to custom the item label rather than just displaying text.                                                                                                     |
+| `format`        | `'default'` \| `'price'`            | `default`                                        | How to format the values.                                                                                                                                                                     |
+| `placeholder`   | `string`                            | `'Search'`                                       | Placeholder for search input.                                                                                                                                                                 |
 
-### Tabs
+### Color Props
+
+Exclusive props if `type` is `color`.
+
+| Name    | Type     | Default | Description                 |
+| ------- | -------- | ------- | --------------------------- |
+| `name`  | `string` | -       | The name of a given Filter. |
+| `title` | `string` | -       | Title of the filter list.   |
+
+### Rating Props
+
+Exclusive props if `type` is `rating`.
+
+| Name    | Type     | Default | Description                 |
+| ------- | -------- | ------- | --------------------------- |
+| `name`  | `string` | -       | The name of a given Filter. |
+| `title` | `string` | -       | Title of the filter list.   |
+
+### Tabs Props
 
 Exclusive props if `type` is `tabs`.
 
-| Name            | Type                               | Default                           | Description                         |
-| --------------- | ---------------------------------- | --------------------------------- | ----------------------------------- |
-| `limit`         | `number`                           | `15`                              | Maximum number of tabs.             |
-| `sort`          | `'count'` \| `'alpha'` \| `'none'` | `'count'`                         | How to sort the tabs.               |
-| `sortAscending` | `boolean`                          | `true` if `sort` is not `'count'` | Whether to sort in ascending order. |
+| Name            | Type                               | Default                           | Description                                                                                                                                                                                  |
+| --------------- | ---------------------------------- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `format`        | `'default'` \| `'price'`           | `default`                         | How to format the values.                                                                                                                                                                    |
+| `limit`         | `number`                           | `15`                              | Maximum number of tabs.                                                                                                                                                                      |
+| `sort`          | `'count'` \| `'alpha'` \| `'none'` | `'count'`                         | How to sort the tabs. `'alpha'` stands for `'alphanumeric'` meaning to sort the items based on label alphabetically, `'count'` to sort based on count, `'none'` to skip the sorting process. |
+| `sortAscending` | `boolean`                          | `true` if `sort` is not `'count'` | Whether to sort in ascending order.                                                                                                                                                          |
+
+### Range Props
+
+Exclusive props if `type` is `range`.
+
+| Name         | Type                     | Default   | Description                                                 |
+| ------------ | ------------------------ | --------- | ----------------------------------------------------------- |
+| `format`     | `'default'` \| `'price'` | `default` | How to format the values.                                   |
+| `showInputs` | `boolean`                | `false`   | Show inputs.                                                |
+| `steps`      | `number[]`               |           | An array of custom steps to use. This will override `step`. |
+| `tick`       | `number`                 |           | The interval to show small ticks.                           |
+| `ticks`      | `number[]`               |           | An array of custom ticks to use. This will override `tick`. |
+
+### Select Props
+
+Exclusive props if `type` is `select`.
+
+| Name            | Type                               | Default                           | Description                                                                                                                                                                                     |
+| --------------- | ---------------------------------- | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `format`        | `'default'` \| `'price'`           | `default`                         | How to format the values.                                                                                                                                                                       |
+| `sort`          | `'count'` \| `'alpha'` \| `'none'` | `'count'`                         | How to sort the options. `'alpha'` stands for `'alphanumeric'` meaning to sort the items based on label alphabetically, `'count'` to sort based on count, `'none'` to skip the sorting process. |
+| `sortAscending` | `boolean`                          | `true` if `sort` is not `'count'` | Whether to sort in ascending order.                                                                                                                                                             |

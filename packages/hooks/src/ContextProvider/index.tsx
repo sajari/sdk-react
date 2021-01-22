@@ -26,7 +26,6 @@ import {
   PipelineProviderState,
   ProviderPipelineConfig,
   ProviderPipelineState,
-  ResultViewType,
   SearchProviderValues,
 } from './types';
 
@@ -103,7 +102,6 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
   const [autocompleteSearching, setAutocompleteSearching] = useState(false);
   const [searchState, setSearchState] = useState({ ...defaultState, response: initialResponse });
   const [autocompleteState, setAutocompleteState] = useState(defaultState);
-  const [viewType, setViewType] = useState<ResultViewType>('list');
   const [configDone, setConfigDone] = useState(false);
   const searchTimer = useRef<ReturnType<typeof setTimeout>>();
   const searchAutocompleteTimer = useRef<ReturnType<typeof setTimeout>>();
@@ -125,14 +123,18 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
     Object.assign(autocompleteProp, { variables: autocompleteVariables.current });
   }
 
-  if (search.filters && !configDone) {
-    const filter = combineFilters(search.filters);
+  if (!configDone) {
+    const filter = combineFilters(search.filters ?? []);
+    const variablesFilterString = variables.current.get().filter ?? '';
+    const defaultFilterString = defaultFilter?.toString() ?? '';
 
     variables.current.set({
-      filter: () =>
-        `${defaultFilter ? `${defaultFilter.toString()} AND ` : ''}(${
-          isEmpty(filter.filter()) ? '_id != ""' : filter.filter()
-        })`,
+      filter: () => {
+        const expression = filter.filter();
+        return [defaultFilterString, variablesFilterString, isEmpty(expression) ? '_id != ""' : expression]
+          .filter(Boolean)
+          .join(' AND ');
+      },
       countFilters: () => filter.countFilters(),
       buckets: () => filter.buckets(),
       count: () => filter.count(),
@@ -327,8 +329,6 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
       },
       resultClicked: handleResultClicked,
       paginate: handlePaginate,
-      viewType,
-      setViewType,
     } as Context);
 
   return <Provider value={getContext({ autocomplete: autocompleteState, search: searchState })}>{children}</Provider>;

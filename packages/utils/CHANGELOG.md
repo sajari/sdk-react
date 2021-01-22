@@ -1,5 +1,23 @@
 # Change Log
 
+## 1.3.1
+
+### Patch Changes
+
+- [`b8d528bc`](https://github.com/sajari/sdk-react/commit/b8d528bcd258b415cbb2ee6d4fb527abd8a1926b) [#346](https://github.com/sajari/sdk-react/pull/346) Thanks [@sampotts](https://github.com/sampotts)! - Fix RangeInput value rounding when step is less than 1
+
+## 1.3.0
+
+### Minor Changes
+
+- [`8c2939af`](https://github.com/sajari/sdk-react/commit/8c2939af3a9249e20da93c2ed8f37769207b7688) [#323](https://github.com/sajari/sdk-react/pull/323) Thanks [@sampotts](https://github.com/sampotts)! - Added support for ARRAY_MATCH filter expression function
+
+## 1.2.2
+
+### Patch Changes
+
+- [`fb817fb3`](https://github.com/sajari/sdk-react/commit/fb817fb3d1847b66c0748811af02b562af792a25) [#320](https://github.com/sajari/sdk-react/pull/320) Thanks [@sampotts](https://github.com/sampotts)! - Fix price formatting when price isn't a valid Number
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 

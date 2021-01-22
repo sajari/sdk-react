@@ -3,3 +3,5 @@ export interface FilterItem {
   label: string;
   count: number;
 }
+
+export type SortType = 'alpha' | 'count' | 'none';

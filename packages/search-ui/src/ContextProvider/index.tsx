@@ -1,11 +1,11 @@
 import { SearchProvider } from '@sajari/react-hooks';
 import { createContext, ThemeProvider } from '@sajari/react-sdk-utils';
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { LiveAnnouncer } from 'react-aria-live';
 import { I18nextProvider } from 'react-i18next';
 
 import i18n from '../i18n';
-import { ContextProviderValues, SearchUIContextProviderValues } from './types';
+import { ContextProviderValues, ResultViewType, SearchUIContextProviderValues } from './types';
 
 const [Provider, useSearchUIContext] = createContext<Required<SearchUIContextProviderValues> & { language?: string }>({
   strict: true,
@@ -25,10 +25,12 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
   importantStyles,
   disableDefaultStyles = false,
   customClassNames = {},
+  viewType: viewTypeProp = 'list',
 }) => {
-  const [language, setLanguage] = React.useState(i18n.language);
+  const [language, setLanguage] = useState(i18n.language);
+  const [viewType, setViewType] = useState<ResultViewType>(viewTypeProp);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const event = 'languageChanged';
     i18n.on(event, setLanguage);
 
@@ -37,8 +39,22 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
     };
   }, []);
 
+  useEffect(() => {
+    setViewType(viewTypeProp);
+  }, [viewTypeProp]);
+
   return (
-    <Provider value={{ disableDefaultStyles, currency, customClassNames, language, ratingMax }}>
+    <Provider
+      value={{
+        disableDefaultStyles,
+        currency,
+        customClassNames,
+        language,
+        ratingMax,
+        viewType,
+        setViewType,
+      }}
+    >
       <SearchProvider
         search={search}
         autocomplete={autocomplete}
@@ -60,4 +76,4 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
 
 export default ContextProvider;
 export { useSearchUIContext };
-export type { ContextProviderValues };
+export type { ContextProviderValues, ResultViewType };

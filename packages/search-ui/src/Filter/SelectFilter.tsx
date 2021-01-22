@@ -7,25 +7,15 @@ import { useTranslation } from 'react-i18next';
 import { useSearchUIContext } from '../ContextProvider';
 import Box from './Box';
 import { SelectFilterProps } from './types';
-import { formatLabel, sortItems } from './utils';
+import { formatLabel } from './utils';
 
 const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
-  const { name, title, sort = 'count', sortAscending = sort !== 'count', format, currency } = props;
-  const { options, reset, setSelected, selected, multi } = useFilter(name);
-  const { disableDefaultStyles = false, customClassNames } = useSearchUIContext();
+  const { name, title, sort = 'count', sortAscending = sort !== 'count', format } = props;
+  const { options, reset, setSelected, selected, multi } = useFilter(name, { sort, sortAscending });
+  const { disableDefaultStyles = false, customClassNames, currency } = useSearchUIContext();
   const { t } = useTranslation('filter');
 
-  const sortedItems = React.useMemo(() => {
-    let list = options;
-
-    if (sort !== 'none') {
-      list = sortItems(list, sort === 'count' ? 'count' : 'label', sortAscending);
-    }
-
-    return list;
-  }, [JSON.stringify(options), sort, sortAscending]);
-
-  if (isEmpty(options)) {
+  if (isEmpty(options) && isEmpty(selected)) {
     return null;
   }
 
@@ -44,24 +34,26 @@ const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
 
   return (
     <Box title={title} name={name} showReset={selected.length > 0 && multi} onReset={reset}>
-      <Select
-        multiple={multi}
-        onChange={(value) => setSelected(isArray(value) ? value : [value])}
-        value={selected}
-        disableDefaultStyles={disableDefaultStyles}
-        size="sm"
-        text={getSelectText}
-        className={customClassNames.filter?.select?.container}
-        buttonClassName={customClassNames.filter?.select?.button}
-        dropdownClassName={customClassNames.filter?.select?.dropdown}
-        optionClassName={customClassNames.filter?.select?.option}
-      >
-        {sortedItems.map(({ value, label, count }) => (
-          <Option value={label} key={value} label={count.toLocaleString()}>
-            {formatLabel(label, { format, currency, t })}
-          </Option>
-        ))}
-      </Select>
+      {!isEmpty(options) && (
+        <Select
+          multiple={multi}
+          onChange={(value) => setSelected(isArray(value) ? value : [value])}
+          value={selected}
+          disableDefaultStyles={disableDefaultStyles}
+          size="sm"
+          text={getSelectText}
+          className={customClassNames.filter?.select?.container}
+          buttonClassName={customClassNames.filter?.select?.button}
+          dropdownClassName={customClassNames.filter?.select?.dropdown}
+          optionClassName={customClassNames.filter?.select?.option}
+        >
+          {options.map(({ value, label, count }) => (
+            <Option value={label} key={value} label={count.toLocaleString()}>
+              {formatLabel(label, { format, currency, t })}
+            </Option>
+          ))}
+        </Select>
+      )}
     </Box>
   );
 };

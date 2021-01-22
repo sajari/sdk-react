@@ -1,4 +1,5 @@
 import { RangeInputProps } from '@sajari/react-components';
+import { SortType } from '@sajari/react-hooks';
 import * as React from 'react';
 
 export interface HeaderProps {
@@ -20,7 +21,7 @@ interface BaseFilterProps {
 export interface ListFilterProps extends BaseFilterProps {
   type: 'list';
   itemRender?: (value: string) => React.ReactNode;
-  /** Maximum number of items to show if the list is collapsed */
+  /** Maximum number of items to initially show. Maximum is 100. */
   limit?: number;
   /** If true, display an input for searching through items */
   searchable?: boolean;
@@ -29,13 +30,11 @@ export interface ListFilterProps extends BaseFilterProps {
   /** If true, sort selected items on top */
   pinSelected?: boolean;
   /** How to sort the items */
-  sort?: 'count' | 'alpha' | 'none';
+  sort?: SortType;
   /** Sort in ascending order */
   sortAscending?: boolean;
   /** How to format the values */
   format?: 'default' | 'price';
-  /** Currency code to use for price type */
-  currency?: string;
 }
 
 export interface ColorFilterProps extends BaseFilterProps {
@@ -48,19 +47,17 @@ export interface RatingFilterProps extends BaseFilterProps {
 
 export interface TabFilterProps
   extends BaseFilterProps,
-    Pick<ListFilterProps, 'currency' | 'format' | 'limit' | 'sort' | 'sortAscending'> {
+    Pick<ListFilterProps, 'format' | 'limit' | 'sort' | 'sortAscending'> {
   type: 'tabs';
 }
 
 export interface RangeFilterProps
   extends BaseFilterProps,
-    Pick<RangeInputProps, 'format' | 'showInputs' | 'step' | 'steps' | 'tick' | 'ticks'> {
+    Pick<RangeInputProps, 'format' | 'showInputs' | 'steps' | 'tick' | 'ticks'> {
   type: 'range';
 }
 
-export interface SelectFilterProps
-  extends BaseFilterProps,
-    Pick<ListFilterProps, 'currency' | 'format' | 'sort' | 'sortAscending'> {
+export interface SelectFilterProps extends BaseFilterProps, Pick<ListFilterProps, 'format' | 'sort' | 'sortAscending'> {
   type: 'select';
 }
 

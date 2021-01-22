@@ -1,7 +1,63 @@
 # Change Log
 
+## 1.4.7
+
+### Patch Changes
+
+- [`70a0c40e`](https://github.com/sajari/sdk-react/commit/70a0c40e8644541521b8d5c8bc2bbb8405c79804) [#364](https://github.com/sajari/sdk-react/pull/364) Thanks [@sampotts](https://github.com/sampotts)! - Improved count styling in TabFilter
+
+## 1.4.6
+
+### Patch Changes
+
+- [`7dcdb050`](https://github.com/sajari/sdk-react/commit/7dcdb050f1bdebac718cdb67d231d0cb4f82732d) [#362](https://github.com/sajari/sdk-react/pull/362) Thanks [@sampotts](https://github.com/sampotts)! - Set font size on Tab component
+
+## 1.4.5
+
+### Patch Changes
+
+- [`b8d528bc`](https://github.com/sajari/sdk-react/commit/b8d528bcd258b415cbb2ee6d4fb527abd8a1926b) [#346](https://github.com/sajari/sdk-react/pull/346) Thanks [@sampotts](https://github.com/sampotts)! - Fix RangeInput value rounding when step is less than 1
+
+- Updated dependencies [[`b8d528bc`](https://github.com/sajari/sdk-react/commit/b8d528bcd258b415cbb2ee6d4fb527abd8a1926b)]:
+  - @sajari/react-sdk-utils@1.3.1
+
+## 1.4.4
+
+### Patch Changes
+
+- [`f0e50c6d`](https://github.com/sajari/sdk-react/commit/f0e50c6dce29c53f0d84f580e84a42781464d419) [#342](https://github.com/sajari/sdk-react/pull/342) Thanks [@sampotts](https://github.com/sampotts)! - Allow 1 decimal place in RangeFilterBuilder formatter
+
+## 1.4.3
+
+### Patch Changes
+
+- [`c785270d`](https://github.com/sajari/sdk-react/commit/c785270dd370400058cc702e1ea50a2361cfe197) [#337](https://github.com/sajari/sdk-react/pull/337) Thanks [@sampotts](https://github.com/sampotts)! - Fix handling of steps in RangeInput
+
+## 1.4.2
+
+### Patch Changes
+
+- [`cd997aa9`](https://github.com/sajari/sdk-react/commit/cd997aa980a2f9793ed3c74281f87dd57c89ade1) [#335](https://github.com/sajari/sdk-react/pull/335) Thanks [@sampotts](https://github.com/sampotts)! - Improve RangeInput input styling
+
+## 1.4.1
+
+### Patch Changes
+
+- [`fb817fb3`](https://github.com/sajari/sdk-react/commit/fb817fb3d1847b66c0748811af02b562af792a25) [#320](https://github.com/sajari/sdk-react/pull/320) Thanks [@sampotts](https://github.com/sampotts)! - Fix price formatting when price isn't a valid Number
+
+* [`1f2ba34a`](https://github.com/sajari/sdk-react/commit/1f2ba34add8856b75512600f06a9a9ba2cf99ae2) [#318](https://github.com/sajari/sdk-react/pull/318) Thanks [@sampotts](https://github.com/sampotts)! - fix pagination aria labels
+
+* Updated dependencies [[`fb817fb3`](https://github.com/sajari/sdk-react/commit/fb817fb3d1847b66c0748811af02b562af792a25)]:
+  - @sajari/react-sdk-utils@1.2.2
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [1.4.0](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.3.0...@sajari/react-components@1.4.0) (2021-01-08)
+
+### Features
+
+- added compact prop to Pagination component ([#314](https://github.com/sajari/sdk-react/issues/314)) ([c987a1c](https://github.com/sajari/sdk-react/commit/c987a1c5e9b13f9034d9bad6db9adf631d2ba161))
 
 # [1.3.0](https://github.com/sajari/sdk-react/compare/@sajari/react-components@1.2.4...@sajari/react-components@1.3.0) (2021-01-05)
 

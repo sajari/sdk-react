@@ -5,6 +5,8 @@ export type JoinOperator = 'OR' | 'AND';
 export interface FilterOptions {
   /** The name of the filter. This should be unique as it will be used as a key of useFilter hook */
   name: string;
+  /** The group for the filter used for array matching */
+  group?: string;
   /** Dictionary of name -> filter pairs */
   options?: Options;
   /** List of initially selected items */
@@ -26,6 +28,8 @@ export type Range = [number, number];
 export interface RangeFilterOptions {
   /** The name of the filter. This should be unique as it will be used as a key of useRangeFilter hook */
   name: string;
+  /** The group for the filter used for array matching */
+  group?: string;
   /** A field in schema, used to perform the filter */
   field: string;
   /** The intial value for the range filter */
@@ -34,6 +38,8 @@ export interface RangeFilterOptions {
   min?: number;
   /** The max value of the filter */
   max?: number;
+  /** The step to increment values */
+  step?: number;
   /** If true, set value for min and max from the backend response */
   aggregate?: boolean;
   /** The function to format the range. For example, format [0.1, 5.5] to [0, 6] */

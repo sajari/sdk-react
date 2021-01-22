@@ -1,7 +1,40 @@
 # Change Log
 
+## 1.4.1
+
+### Patch Changes
+
+- [`85d52aa9`](https://github.com/sajari/sdk-react/commit/85d52aa91b95810ef6342b6ea9ac7f785072b1dc) [#359](https://github.com/sajari/sdk-react/pull/359) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix using `useRangeFilter` will trigger an unwanted call of `reset` method in `didMount` phase.
+
+* [`fdfe9680`](https://github.com/sajari/sdk-react/commit/fdfe9680d8c79afffd51705b1687db8aae81481e) [#358](https://github.com/sajari/sdk-react/pull/358) Thanks [@tuanddd](https://github.com/tuanddd)! - useFilter - add params to the other sortItems call
+
+## 1.4.0
+
+### Minor Changes
+
+- [`b4157abb`](https://github.com/sajari/sdk-react/commit/b4157abb1daf7b2d2be878c7cbe66ca175db74dd) [#354](https://github.com/sajari/sdk-react/pull/354) Thanks [@tuanddd](https://github.com/tuanddd)! - add support for sorting price range
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [1.3.0](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.2.3...@sajari/react-hooks@1.3.0) (2021-01-14)
+
+### Features
+
+- add support for concatenating variables.filter and filters ([#352](https://github.com/sajari/sdk-react/issues/352)) ([2458dd3](https://github.com/sajari/sdk-react/commit/2458dd38e05cfc68a433538e2bf78d6f493d4509))
+
+## [1.1.1](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.1.0...@sajari/react-hooks@1.1.1) (2021-01-08)
+
+### Bug Fixes
+
+- initial count filter field is always empty ([#309](https://github.com/sajari/sdk-react/issues/309)) ([3405723](https://github.com/sajari/sdk-react/commit/3405723c5cd898a2c184d385db537af3935cd247))
+- make RangeFilter more failsafe default for non aggregate ([#313](https://github.com/sajari/sdk-react/issues/313)) ([eb4c40d](https://github.com/sajari/sdk-react/commit/eb4c40d2951cb960ec50c789a22dffdac5596d23))
+
+# [1.1.0](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.8...@sajari/react-hooks@1.1.0) (2021-01-07)
+
+### Features
+
+- added image hover support to Results ([3fddbdc](https://github.com/sajari/sdk-react/commit/3fddbdc57b77fe06ce5d04a9bdbeb7e10d464ee5))
 
 ## [1.0.8](https://github.com/sajari/sdk-react/compare/@sajari/react-hooks@1.0.7...@sajari/react-hooks@1.0.8) (2021-01-05)
 

@@ -1,30 +1,6 @@
 import { FilterItem } from '@sajari/react-hooks';
-import { formatNumber, isSSR } from '@sajari/react-sdk-utils';
+import { formatNumber } from '@sajari/react-sdk-utils';
 import { TFunction } from 'i18next';
-
-/**
- * Sort an array based on a property of child item
- * @param {Array} list
- * @param {Boolean} asc - Ascending order?
- * @param {String} prop - Property of child object to sort on
- */
-const collator = new Intl.Collator(!isSSR() ? window.navigator.language : 'en-US', {
-  numeric: true,
-});
-
-export function sortItems(list: FilterItem[], prop?: string, asc = true) {
-  return [...list].sort((a, b) => {
-    const l = prop ? a[prop] : a;
-    const r = prop ? b[prop] : b;
-
-    if (asc) {
-      return collator.compare(String(l), String(r));
-    }
-
-    // Invert the result;
-    return collator.compare(String(r), String(l));
-  });
-}
 
 /**
  * Pin items in an array to the start

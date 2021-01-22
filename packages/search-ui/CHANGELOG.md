@@ -1,7 +1,66 @@
 # Change Log
 
+## 1.7.3
+
+### Patch Changes
+
+- [`70a0c40e`](https://github.com/sajari/sdk-react/commit/70a0c40e8644541521b8d5c8bc2bbb8405c79804) [#364](https://github.com/sajari/sdk-react/pull/364) Thanks [@sampotts](https://github.com/sampotts)! - Improved count styling in TabFilter
+
+- Updated dependencies [[`70a0c40e`](https://github.com/sajari/sdk-react/commit/70a0c40e8644541521b8d5c8bc2bbb8405c79804)]:
+  - @sajari/react-components@1.4.7
+
+## 1.7.2
+
+### Patch Changes
+
+- [`7dcdb050`](https://github.com/sajari/sdk-react/commit/7dcdb050f1bdebac718cdb67d231d0cb4f82732d) [#362](https://github.com/sajari/sdk-react/pull/362) Thanks [@sampotts](https://github.com/sampotts)! - Set font size on Tab component
+
+- Updated dependencies [[`7dcdb050`](https://github.com/sajari/sdk-react/commit/7dcdb050f1bdebac718cdb67d231d0cb4f82732d)]:
+  - @sajari/react-components@1.4.6
+
+## 1.7.1
+
+### Patch Changes
+
+- [`b52fc43b`](https://github.com/sajari/sdk-react/commit/b52fc43bd4323c96c6eef858242f6b42923f45f7) [#351](https://github.com/sajari/sdk-react/pull/351) Thanks [@tuanddd](https://github.com/tuanddd)! - Edit typing and error message
+
+* [`85d52aa9`](https://github.com/sajari/sdk-react/commit/85d52aa91b95810ef6342b6ea9ac7f785072b1dc) [#359](https://github.com/sajari/sdk-react/pull/359) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix using `useRangeFilter` will trigger an unwanted call of `reset` method in `didMount` phase.
+
+* Updated dependencies [[`85d52aa9`](https://github.com/sajari/sdk-react/commit/85d52aa91b95810ef6342b6ea9ac7f785072b1dc), [`fdfe9680`](https://github.com/sajari/sdk-react/commit/fdfe9680d8c79afffd51705b1687db8aae81481e)]:
+  - @sajari/react-hooks@1.4.1
+
+## 1.7.0
+
+### Minor Changes
+
+- [`b4157abb`](https://github.com/sajari/sdk-react/commit/b4157abb1daf7b2d2be878c7cbe66ca175db74dd) [#354](https://github.com/sajari/sdk-react/pull/354) Thanks [@tuanddd](https://github.com/tuanddd)! - add support for sorting price range
+
+### Patch Changes
+
+- Updated dependencies [[`b4157abb`](https://github.com/sajari/sdk-react/commit/b4157abb1daf7b2d2be878c7cbe66ca175db74dd)]:
+  - @sajari/react-hooks@1.4.0
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.6.7](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.6.6...@sajari/react-search-ui@1.6.7) (2021-01-14)
+
+**Note:** Version bump only for package @sajari/react-search-ui
+
+## [1.6.3](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.6.2...@sajari/react-search-ui@1.6.3) (2021-01-12)
+
+**Note:** Version bump only for package @sajari/react-search-ui
+
+## [1.4.2](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.4.1...@sajari/react-search-ui@1.4.2) (2021-01-08)
+
+**Note:** Version bump only for package @sajari/react-search-ui
+
+## [1.4.1](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.4.0...@sajari/react-search-ui@1.4.1) (2021-01-07)
+
+### Bug Fixes
+
+- fix filter render lags ([ad5e161](https://github.com/sajari/sdk-react/commit/ad5e16162ba6e9f9d8650c71ec8779ed58a5cb7c))
+- use currency from context in filters ([09b4446](https://github.com/sajari/sdk-react/commit/09b444676edd85a195a52ba93477446facaa2ac1))
 
 # [1.4.0](https://github.com/sajari/sdk-react/compare/@sajari/react-search-ui@1.3.1...@sajari/react-search-ui@1.4.0) (2021-01-06)
 
