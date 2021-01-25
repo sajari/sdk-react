@@ -1,23 +1,23 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import { __DEV__, getStylesObject, isSSR } from '@sajari/react-sdk-utils';
-import React, { useEffect, useRef, useState } from 'react';
 import classnames from 'classnames';
+import React, { useEffect, useRef, useState } from 'react';
 
 import Box from '../Box';
+import { AriaHidden } from './AriaHidden';
+import ModalContextProvider from './context';
 import { FocusTrap } from './FocusTrap';
+import ModalBody, { ModalBodyProps } from './ModalBody';
+import ModalCloseButton, { ModalCloseButtonProps } from './ModalCloseButton';
+import ModalFooter, { ModalFooterProps } from './ModalFooter';
+import ModalHeader, { ModalHeaderProps } from './ModalHeader';
 import { modalManager, useModalManager } from './modalManager';
+import ModalTitle, { ModalTitleProps } from './ModalTitle';
 import Portal from './Portal';
 import { useModalStyles } from './styles';
 import { ModalProps } from './types';
-import { AriaHidden } from './AriaHidden';
 import { useScrollLock } from './useScrollLock';
-import ModalContextProvider from './context';
-import ModalHeader, { ModalHeaderProps } from './ModalHeader';
-import ModalBody, { ModalBodyProps } from './ModalBody';
-import ModalCloseButton, { ModalCloseButtonProps } from './ModalCloseButton';
-import ModalTitle, { ModalTitleProps } from './ModalTitle';
-import ModalFooter, { ModalFooterProps } from './ModalFooter';
 
 const Modal = (props: ModalProps) => {
   const {
@@ -170,10 +170,12 @@ const Modal = (props: ModalProps) => {
             ref={refModal}
             className={modalContainerClassName}
             css={styles.container}
+            data-testid="modal-container"
             onAnimationEnd={handleAnimationEnd}
             onClick={handleClickOverlay}
           >
             <Box
+              data-testid="modal"
               className={classnames(modalClassName, open ? modalOpenClassName : '')}
               onMouseDown={handleModalEvent}
               onMouseUp={handleModalEvent}
@@ -201,5 +203,5 @@ if (__DEV__) {
 }
 
 export default Modal;
-export { ModalHeader, ModalTitle, ModalBody, ModalCloseButton, ModalFooter };
-export type { ModalProps, ModalHeaderProps, ModalCloseButtonProps, ModalBodyProps, ModalTitleProps, ModalFooterProps };
+export { ModalBody, ModalCloseButton, ModalFooter, ModalHeader, ModalTitle };
+export type { ModalBodyProps, ModalCloseButtonProps, ModalFooterProps, ModalHeaderProps, ModalProps, ModalTitleProps };
