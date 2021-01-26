@@ -121,7 +121,7 @@ Use the `size` prop to set the size of the select. The default is `md`.
 By default the text for the button is `'Select an option'` when no options are selected or `'X selected'` where X is the number of options selected. This can be change via the `text` prop.
 
 ```jsx
-<Select multiple text={(count) => (count > 0 ? `${count} filters` : 'Select a filter')}>
+<Select multiple text={({ length }) => (length > 0 ? `${length.toLocaleString()} filters` : 'Select a filter')}>
   <Option value="option1">Option 1</Option>
   <Option value="option2">Option 2</Option>
   <Option value="option3">Option 3</Option>
