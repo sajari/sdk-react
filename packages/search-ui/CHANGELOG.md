@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.7.4
+
+### Patch Changes
+
+- [`8a919df2`](https://github.com/sajari/sdk-react/commit/8a919df2d07b4b5adc0c8dab61fe755a89458f60) [#367](https://github.com/sajari/sdk-react/pull/367) Thanks [@sampotts](https://github.com/sampotts)! - Fix DOMException related to querySelector syntax
+
+- Updated dependencies [[`8a919df2`](https://github.com/sajari/sdk-react/commit/8a919df2d07b4b5adc0c8dab61fe755a89458f60)]:
+  - @sajari/react-components@1.4.8
+
 ## 1.7.3
 
 ### Patch Changes
