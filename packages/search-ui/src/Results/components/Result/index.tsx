@@ -48,15 +48,18 @@ const Result = React.memo(
       const prices = parsePrices(price);
       const originalPrices = parsePrices(originalPrice);
 
-      // Compare all prices to original price(s)
-
       if (originalPrices.length >= prices.length) {
-        return prices.some((p, index) => p < originalPrices[index]);
+        return prices.some((p, index) => isNumber(p) && isNumber(originalPrices[index]) && p < originalPrices[index]);
       }
 
       if (originalPrices.length === 1 && prices.length > 1) {
         const [original] = originalPrices;
-        return prices.some((p) => p < original);
+
+        if (!isNumber(original)) {
+          return false;
+        }
+
+        return prices.some((p) => isNumber(p) && p < original);
       }
 
       return false;
