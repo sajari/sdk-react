@@ -148,7 +148,18 @@ const Result = React.memo(
               className={originalPriceClassName}
               disableDefaultStyles={disableDefaultStyles}
             >
-              {formatPrice(originalPrice, { currency, language })}
+              {formatPrice(
+                isArray(originalPrice)
+                  ? originalPrice
+                      .map(Number)
+                      .filter((p) => isNumber(p) && p !== 0)
+                      .map(String)
+                  : originalPrice,
+                {
+                  currency,
+                  language,
+                },
+              )}
             </Text>
           )}
         </Box>
@@ -217,6 +228,10 @@ const Result = React.memo(
   },
   (prev, next) => JSON.stringify(prev) === JSON.stringify(next),
 );
+
+if (__DEV__) {
+  Result.displayName = 'Result';
+}
 
 export default Result;
 export type { ResultProps };
