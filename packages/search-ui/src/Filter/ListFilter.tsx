@@ -69,7 +69,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     if (!isSSR() && pinSelected) {
       const input = document
         .querySelector(`#${filterContainerId}`)
-        ?.querySelector(`input[value='${lastFocusedControl}']`) as HTMLInputElement | null;
+        ?.querySelector(`input[value="${lastFocusedControl}"]`) as HTMLInputElement | null;
 
       input?.focus();
     }
