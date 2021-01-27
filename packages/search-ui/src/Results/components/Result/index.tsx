@@ -188,9 +188,12 @@ const Result = React.memo(
             </Box>
           )}
 
-          {appearance === 'grid' && renderTitle()}
-
-          {appearance === 'grid' && renderSubtitle()}
+          {appearance === 'grid' && (
+            <>
+              {renderTitle()}
+              {renderSubtitle()}
+            </>
+          )}
 
           {isNumber(rating) && (
             <Rating
