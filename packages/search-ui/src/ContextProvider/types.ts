@@ -18,6 +18,7 @@ export interface SearchUIContextProviderValues {
       item?: string;
       heading?: string;
       price?: string;
+      originalPrice?: string;
       subTitle?: string;
       rating?: string;
       description?: string;

@@ -17,6 +17,8 @@ interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | '
   headingClassName?: string;
   /** The classname for price */
   priceClassName?: string;
+  /** The classname for original price */
+  originalPriceClassName?: string;
   /** The classname for sub-title */
   subTitleClassName?: string;
   /** The classname for rating */
