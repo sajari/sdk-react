@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.7.6
+
+### Patch Changes
+
+- [`1a7007d8`](https://github.com/sajari/sdk-react/commit/1a7007d898d8915a4ea2083f1196faab8ce6f5e1) [#371](https://github.com/sajari/sdk-react/pull/371) Thanks [@sampotts](https://github.com/sampotts)! - Remove zero prices in original price
+
 ## 1.7.5
 
 ### Patch Changes
