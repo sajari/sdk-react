@@ -20,8 +20,8 @@ export interface ResultValues {
   title: string;
   subtitle?: string;
   description?: string;
-  image?: string | string[];
+  image?: string | Array<string>;
   rating?: number;
-  price?: string | string[];
-  inventory?: string;
+  price?: string | Array<string>;
+  originalPrice?: string | Array<string>;
 }

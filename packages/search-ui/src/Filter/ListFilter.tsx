@@ -19,7 +19,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     sort = 'count',
     sortAscending = sort !== 'count',
     itemRender,
-    placeholder,
+    placeholder = '',
     format,
   } = props;
 
