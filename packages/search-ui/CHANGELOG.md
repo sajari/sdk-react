@@ -1,5 +1,30 @@
 # Change Log
 
+## 1.7.6
+
+### Patch Changes
+
+- [`1a7007d8`](https://github.com/sajari/sdk-react/commit/1a7007d898d8915a4ea2083f1196faab8ce6f5e1) [#371](https://github.com/sajari/sdk-react/pull/371) Thanks [@sampotts](https://github.com/sampotts)! - Remove zero prices in original price
+
+## 1.7.5
+
+### Patch Changes
+
+- [`3953b091`](https://github.com/sajari/sdk-react/commit/3953b091c4d4b899f570f5d6ed33bf5858eb319e) [#369](https://github.com/sajari/sdk-react/pull/369) Thanks [@sampotts](https://github.com/sampotts)! - Added support for originalPrice field
+
+- Updated dependencies [[`3953b091`](https://github.com/sajari/sdk-react/commit/3953b091c4d4b899f570f5d6ed33bf5858eb319e)]:
+  - @sajari/react-hooks@1.4.2
+  - @sajari/react-sdk-utils@1.3.2
+
+## 1.7.4
+
+### Patch Changes
+
+- [`8a919df2`](https://github.com/sajari/sdk-react/commit/8a919df2d07b4b5adc0c8dab61fe755a89458f60) [#367](https://github.com/sajari/sdk-react/pull/367) Thanks [@sampotts](https://github.com/sampotts)! - Fix DOMException related to querySelector syntax
+
+- Updated dependencies [[`8a919df2`](https://github.com/sajari/sdk-react/commit/8a919df2d07b4b5adc0c8dab61fe755a89458f60)]:
+  - @sajari/react-components@1.4.8
+
 ## 1.7.3
 
 ### Patch Changes

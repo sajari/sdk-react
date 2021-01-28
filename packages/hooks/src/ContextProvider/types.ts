@@ -76,9 +76,9 @@ export class FieldDictionary {
 
   price?: Field;
 
-  rating?: Field;
+  originalPrice?: Field;
 
-  inventory?: Field;
+  rating?: Field;
 
   constructor(input?: FieldDictionary) {
     const {
@@ -89,8 +89,8 @@ export class FieldDictionary {
       description = 'description',
       image = 'image',
       price = 'price',
+      originalPrice = 'originalPrice',
       rating = 'rating',
-      inventory = 'inventory',
     } = input ?? {};
 
     this.id = id;
@@ -100,7 +100,7 @@ export class FieldDictionary {
     this.description = description;
     this.image = image;
     this.price = price;
+    this.originalPrice = originalPrice;
     this.rating = rating;
-    this.inventory = inventory;
   }
 }
