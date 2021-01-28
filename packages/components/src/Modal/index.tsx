@@ -1,13 +1,11 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import { __DEV__, getStylesObject, isSSR } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
 import React, { useEffect, useRef, useState } from 'react';
 
 import Box from '../Box';
+import FocusLock from '../FocusLock';
 import { AriaHidden } from './AriaHidden';
 import ModalContextProvider from './context';
-import { FocusTrap } from './FocusTrap';
 import ModalBody, { ModalBodyProps } from './ModalBody';
 import ModalCloseButton, { ModalCloseButtonProps } from './ModalCloseButton';
 import ModalFooter, { ModalFooterProps } from './ModalFooter';
@@ -26,13 +24,17 @@ const Modal = (props: ModalProps) => {
     closeOnEsc = true,
     closeOnOverlayClick = true,
     container,
-    focusTrapped = true,
     role = 'dialog',
     ariaDescribedby,
     ariaLabelledby,
     modalId,
     onClose,
     onEscKeyDown,
+    trapFocus = true,
+    autoFocus = true,
+    initialFocusRef,
+    finalFocusRef,
+    returnFocusOnClose = true,
     onOverlayClick,
     onAnimationEnd,
     children,
@@ -158,41 +160,49 @@ const Modal = (props: ModalProps) => {
   return showPortal && containerModal ? (
     <Portal target={containerModal}>
       <ModalContextProvider value={context}>
-        <Box className={rootClassName} css={stylesProp}>
-          <Box
-            className={classnames(overlayClassName, open ? overlayOpenClassName : '')}
-            aria-hidden
-            css={styles.overlay}
-          >
-            <Box css={styles.overlayInner} />
-          </Box>
-          <Box
-            ref={refModal}
-            className={modalContainerClassName}
-            css={styles.container}
-            data-testid="modal-container"
-            onAnimationEnd={handleAnimationEnd}
-            onClick={handleClickOverlay}
-          >
+        <FocusLock
+          autoFocus={autoFocus}
+          disabled={!trapFocus}
+          contentRef={refModal}
+          initialFocusRef={initialFocusRef}
+          finalFocusRef={finalFocusRef}
+          restoreFocus={returnFocusOnClose}
+        >
+          <Box className={rootClassName} css={stylesProp}>
             <Box
-              data-testid="modal"
-              className={classnames(modalClassName, open ? modalOpenClassName : '')}
-              onMouseDown={handleModalEvent}
-              onMouseUp={handleModalEvent}
-              onClick={handleModalEvent}
-              id={modalId}
-              role={role}
-              aria-modal="true"
-              aria-labelledby={ariaLabelledby}
-              aria-describedby={ariaDescribedby}
-              css={styles.content}
+              className={classnames(overlayClassName, open ? overlayOpenClassName : '')}
+              aria-hidden
+              css={styles.overlay}
             >
-              {focusTrapped && <FocusTrap container={refModal} />}
-              {children}
+              <Box css={styles.overlayInner} />
+            </Box>
+            <Box
+              ref={refModal}
+              className={modalContainerClassName}
+              css={styles.container}
+              data-testid="modal-container"
+              onAnimationEnd={handleAnimationEnd}
+              onClick={handleClickOverlay}
+            >
+              <Box
+                data-testid="modal"
+                className={classnames(modalClassName, open ? modalOpenClassName : '')}
+                onMouseDown={handleModalEvent}
+                onMouseUp={handleModalEvent}
+                onClick={handleModalEvent}
+                id={modalId}
+                role={role}
+                aria-modal="true"
+                aria-labelledby={ariaLabelledby}
+                aria-describedby={ariaDescribedby}
+                css={styles.content}
+              >
+                {children}
+              </Box>
             </Box>
           </Box>
-        </Box>
-        <AriaHidden refModal={refModal} shouldHide={open && useInert} />
+          <AriaHidden refModal={refModal} shouldHide={open && useInert} />
+        </FocusLock>
       </ModalContextProvider>
     </Portal>
   ) : null;

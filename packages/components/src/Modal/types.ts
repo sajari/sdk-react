@@ -12,7 +12,15 @@ export interface ModalProps extends BoxProps {
   /** Whether to block scrolling when dialog is open. Default to true. */
   blockScroll?: boolean;
   /**  When the modal is open, trap focus within it. Default to true. */
-  focusTrapped?: boolean;
+  trapFocus?: boolean;
+  /** If `true`, the modal will autofocus the first enabled and interative element within the `ModalContent` @default true */
+  autoFocus?: boolean;
+  /** The `ref` of element to receive focus when the modal opens. */
+  initialFocusRef?: React.RefObject<HTMLElement>;
+  /** The `ref` of element to receive focus when the modal closes. */
+  finalFocusRef?: React.RefObject<HTMLElement>;
+  /** If `true`, the modal will return focus to the element that triggered it when it closes. @default true */
+  returnFocusOnClose?: boolean;
   /**
    * You can specify a container prop which should be of type `Element`.
    * The portal will be rendered inside that element.

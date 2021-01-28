@@ -139,7 +139,7 @@ function SizeExample() {
 
   const [size, setSize] = React.useState('md');
 
-  const handleSizeClick = newSize => {
+  const handleSizeClick = (newSize) => {
     setSize(newSize);
     onOpen();
   };
@@ -149,7 +149,7 @@ function SizeExample() {
   return (
     <>
       <ButtonGroup>
-        {sizes.map(size => (
+        {sizes.map((size) => (
           <Button onClick={() => handleSizeClick(size)} key={size}>
             {size}
           </Button>
@@ -216,7 +216,10 @@ To disable this behavior, set `useInert` to `false`.
 | closeOnEsc          | `boolean`         | `true`  | Is the modal closable when user press esc key.                                                                                          |
 | closeOnOverlayClick | `boolean`         | `true`  | Is the modal closable when user click on overlay.                                                                                       |
 | blockScroll         | `boolean`         | `true`  | Whether to block scrolling when dialog is open.                                                                                         |
-| focusTrapped        | `boolean`         | `true`  | When the modal is open, trap focus within it.                                                                                           |
+| trapFocus           | `boolean`         | `true`  | When the modal is open, trap focus within it.                                                                                           |
+| initialFocusRef     | `React.Ref`       |         | The `ref` of the element to receive focus when the dialog opens                                                                         |
+| finalFocusRef       | `React.Ref`       |         | The `ref` of element to receive focus when the dialog closes                                                                            |
+| returnFocusOnClose  | `boolean`         | `true`  | If `true`, the modal will return focus to the element that triggered it when it closes.                                                 |
 | container           | `Element`         |         | The container where the portal will be rendered inside.                                                                                 |
 | size                | `string`          | `md`    | The width for the modal content.                                                                                                        |
 | modalId             | `string`          |         | `id` attribute for modal.                                                                                                               |
