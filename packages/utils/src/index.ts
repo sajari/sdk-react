@@ -8,5 +8,6 @@ export * from './object';
 export * from './react-helpers';
 export * from './ssr';
 export * from './string';
+export * from './function';
 export * from './styles';
 export const noop = (): void => {};

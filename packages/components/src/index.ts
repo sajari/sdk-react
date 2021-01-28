@@ -20,6 +20,8 @@ export { default as Label } from './Label';
 export * from './Label';
 export { default as Link } from './Link';
 export * from './Link';
+export { default as Modal } from './Modal';
+export * from './Modal';
 export { default as Pagination } from './Pagination';
 export * from './Pagination';
 export { default as PoweredBy } from './PoweredBy';
