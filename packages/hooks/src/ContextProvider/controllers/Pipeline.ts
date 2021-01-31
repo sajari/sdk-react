@@ -29,7 +29,7 @@ export class Pipeline {
 
   private version?: string;
 
-  private tracking: ClickTracking | NoTracking;
+  private tracking: ClickTracking | PosNegTracking | NoTracking;
 
   private listeners: ListenerMap;
 
@@ -210,5 +210,12 @@ export class Pipeline {
    */
   public getClient(): Client {
     return this.client;
+  }
+
+  /**
+   * The tracking instance
+   */
+  public getTracking(): ClickTracking | PosNegTracking | NoTracking {
+    return this.tracking;
   }
 }

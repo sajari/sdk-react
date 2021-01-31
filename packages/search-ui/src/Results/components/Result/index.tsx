@@ -13,6 +13,7 @@ import {
 import React, { useMemo } from 'react';
 
 import { useSearchUIContext } from '../../../ContextProvider';
+import { useClickTracking } from '../../../hooks';
 import useResultStyles from './styles';
 import { ResultProps } from './types';
 
@@ -24,7 +25,6 @@ const Result = React.memo(
       imageObjectFit: imageObjectFitProp = 'contain',
       values,
       token,
-      onClick = () => {},
       forceImage,
       headingClassName,
       priceClassName,
@@ -33,12 +33,16 @@ const Result = React.memo(
       ratingClassName,
       descriptionClassName,
       disableDefaultStyles = false,
+      onClick: onClickProp,
       styles: stylesProp,
       ...rest
     } = props;
-    const { currency, language, ratingMax } = useSearchUIContext();
-    const { title, description, subtitle, image, url, price, originalPrice } = values;
+    const { currency, language, ratingMax, tracking } = useSearchUIContext();
+    const { href, onClick } = useClickTracking({ token, tracking, values, onClick: onClickProp });
+    const { title, description, subtitle, image, price, originalPrice } = values;
     const rating = Number(values.rating);
+
+    // Determine if the result is on sale
     const isOnSale = React.useMemo(() => {
       if (!price || !originalPrice) {
         return false;
@@ -66,16 +70,6 @@ const Result = React.memo(
     }, [JSON.stringify(price), JSON.stringify(originalPrice)]);
 
     const styles = getStylesObject(useResultStyles({ ...props, appearance, isOnSale }), disableDefaultStyles);
-    let clickToken: string | undefined;
-    if (token && 'click' in token) {
-      clickToken = token.click;
-    }
-
-    const resultClicked = React.useCallback(() => {
-      if (url) {
-        onClick(url);
-      }
-    }, [url]);
 
     const imageAspectRatio: ImageProps['aspectRatio'] = useMemo(() => {
       const aspectRatio = imageAspectRatioProp;
@@ -102,7 +96,7 @@ const Result = React.memo(
 
     const renderTitle = () => (
       <Heading as="h1" size="base" css={styles.title} className={headingClassName}>
-        <Link href={clickToken || url} target="_blank" onClick={resultClicked}>
+        <Link href={href} onClick={onClick}>
           {decodeHTML(title)}
         </Link>
       </Heading>
@@ -114,9 +108,8 @@ const Result = React.memo(
       if (isValidURL(subtitle)) {
         return (
           <Link
-            href={clickToken || url}
-            target="_blank"
-            onClick={resultClicked}
+            href={href}
+            onClick={onClick}
             css={styles.subtitle}
             disableDefaultStyles={disableDefaultStyles}
             className={subTitleClassName}
@@ -169,13 +162,7 @@ const Result = React.memo(
     return (
       <Box as="article" {...rest} css={[styles.container, stylesProp]}>
         {(isValidURL(imageSrc, true) || forceImage) && (
-          <Link
-            href={clickToken || url}
-            target="_blank"
-            onClick={resultClicked}
-            css={styles.imageContainer}
-            disableDefaultStyles={disableDefaultStyles}
-          >
+          <Link href={href} onClick={onClick} css={styles.imageContainer} disableDefaultStyles={disableDefaultStyles}>
             <Image
               src={imageSrc}
               hoverSrc={imageHoverSrc}

@@ -6,7 +6,7 @@ import { ResultsProps, ResultValues } from '../../types';
 
 interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | 'imageObjectFit'>, BoxProps {
   /** Search result values */
-  values: Omit<ResultValues, '_id'>;
+  values: ResultValues;
   /** The token used for tracking/analytics */
   token?: Token;
   /** Handle clicking a result */

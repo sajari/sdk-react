@@ -10,6 +10,7 @@ export interface ResultItem {
   url?: string;
   description?: string;
   image?: string;
+  onClick?: () => void;
 }
 
 export interface ComboboxCustomClassNames {

@@ -14,7 +14,7 @@ export function useDropdownItemStyles(props: DropdownResultProps) {
   });
 
   if (selected) {
-    styles.item.push(tw`bg-gray-100`);
+    styles.item.push(tw`bg-gray-200`);
   }
 
   return mapStyles(styles);

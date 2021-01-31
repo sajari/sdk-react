@@ -15,6 +15,8 @@ export class Tracking {
 
   private listeners: ListenerMap;
 
+  public field: string;
+
   constructor() {
     this.listeners = new Map(
       Object.entries({
@@ -38,9 +40,8 @@ export class Tracking {
 
   /**
    * Emits a tracking reset event to the tracking reset event listener.
-   * @private
    */
-  public _emitTrackingReset(values: TrackingValues) {
+  private emitTrackingReset(values: TrackingValues) {
     (this.listeners.get(EVENT_TRACKING_RESET) as Listener).notify((listener) => {
       listener(values);
     });
@@ -48,18 +49,26 @@ export class Tracking {
 
   /**
    * Reset the tracking.
-   * @param values Key-value pair parameters to use in the pipeline.
+   * @param variables Key-value pair parameters to use in the pipeline.
    */
-  public reset(values?: TrackingValues) {
-    throw new Error("Method 'reset' unimplemented");
+  public reset(variables?: TrackingValues) {
+    (this.clientTracking as Session).reset();
+
+    if (variables !== undefined) {
+      // eslint-disable-next-line no-underscore-dangle
+      this.emitTrackingReset(variables);
+    }
   }
 
   /**
-   * Tracking returns the tracking data to be attached to the pipeline request.
-   * @param values Key-value pair parameters to use in the pipeline.
-   * @return Tracking values to be used in the search request.
+   * Construct a tracking session to be used in a search.
+   * @param variables Key-value pair parameters to use in the pipeline.
    */
-  public next(values: TrackingValues) {
-    throw new Error("Method 'next' unimplemented");
+  public next(variables: TrackingValues) {
+    if (this.clientTracking === null) {
+      throw new Error('clientTracking is null');
+    }
+
+    return this.clientTracking.next(variables);
   }
 }
