@@ -5,7 +5,7 @@ export type ResultViewType = 'grid' | 'list';
 
 export interface SearchUIContextProviderValues {
   /** The tracking instance */
-  tracking: ClickTracking | PosNegTracking | undefined;
+  tracking?: ClickTracking | PosNegTracking;
   /** Maximum possible rating value */
   ratingMax?: number;
   /** Currency code to use for any price display */
