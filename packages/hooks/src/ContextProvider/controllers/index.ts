@@ -7,5 +7,5 @@ export * from './filters/types';
 export { Listener } from './Listener';
 export { Pipeline } from './Pipeline';
 export { Response } from './Response';
-export { ClickTracking, NoTracking, PosNegTracking } from './tracking';
+export { ClickTracking, PosNegTracking } from './tracking';
 export { Variables, CallbackFn as VariablesCallbackFn } from './Variables';

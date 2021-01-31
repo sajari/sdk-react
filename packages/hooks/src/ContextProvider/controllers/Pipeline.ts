@@ -25,10 +25,6 @@ export class Pipeline {
 
   private client: Client;
 
-  private name: string;
-
-  private version?: string;
-
   private tracking: ClickTracking | PosNegTracking | NoTracking;
 
   private listeners: ListenerMap;
@@ -80,8 +76,6 @@ export class Pipeline {
     }
 
     this.pipeline = this.client.pipeline(p.name as string, p.version);
-    this.name = p.name as string;
-    this.version = p.version;
     this.tracking = tracking;
     this.listeners = new Map([
       [EVENT_SEARCH_SENT, new Listener()],
