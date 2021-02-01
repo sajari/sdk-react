@@ -25,11 +25,7 @@ export class Pipeline {
 
   private client: Client;
 
-  private name: string;
-
-  private version?: string;
-
-  private tracking: ClickTracking | NoTracking;
+  private tracking: ClickTracking | PosNegTracking | NoTracking;
 
   private listeners: ListenerMap;
 
@@ -43,8 +39,8 @@ export class Pipeline {
    * Constructs a Pipeline object.
    * @param config Account, Collection config
    * @param name Name of the pipeline.
-   * @param [tracking=ClickTracking()] Default tracking to use in searches.
-   * @param [analyticsAdapters=GoogleAnalytics]
+   * @param tracking Default tracking to use in searches.
+   * @param analyticsAdapters
    */
   constructor(
     config: {
@@ -80,8 +76,6 @@ export class Pipeline {
     }
 
     this.pipeline = this.client.pipeline(p.name as string, p.version);
-    this.name = p.name as string;
-    this.version = p.version;
     this.tracking = tracking;
     this.listeners = new Map([
       [EVENT_SEARCH_SENT, new Listener()],
@@ -210,5 +204,12 @@ export class Pipeline {
    */
   public getClient(): Client {
     return this.client;
+  }
+
+  /**
+   * The tracking instance
+   */
+  public getTracking(): ClickTracking | PosNegTracking | NoTracking {
+    return this.tracking;
   }
 }

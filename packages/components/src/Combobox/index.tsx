@@ -1,7 +1,7 @@
 /* eslint-disable prefer-arrow-callback */
 
 import { mergeProps, useId } from '@react-aria/utils';
-import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
+import { __DEV__, getStylesObject, isFunction } from '@sajari/react-sdk-utils';
 import { useCombobox } from 'downshift';
 import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
 import tw from 'twin.macro';
@@ -298,8 +298,14 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
                     const item = (items || [])[highlightedIndex];
                     if (mode === 'results' && itemToUrl && !renderItem) {
                       const url = itemToUrl(item);
+
                       if (url) {
                         window.location.href = url;
+                      }
+
+                      const result = (item as unknown) as ResultItem;
+                      if (isFunction(result.onClick)) {
+                        result.onClick();
                       }
                     }
                     if (onSelect) {

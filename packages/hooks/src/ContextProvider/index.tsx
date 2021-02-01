@@ -8,7 +8,6 @@ import {
   ClickTracking,
   FilterBuilder,
   FilterOptions,
-  NoTracking,
   Pipeline,
   PosNegTracking,
   Range,
@@ -238,7 +237,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
     if (!autocomplete.current) {
       const { account, collection, endpoint } = search.pipeline.config;
       autocomplete.current = {
-        pipeline: new Pipeline({ account, collection, endpoint }, 'autocomplete', new NoTracking()),
+        pipeline: new Pipeline({ account, collection, endpoint }, 'autocomplete'),
         variables: autocompleteVariables.current,
       };
     }

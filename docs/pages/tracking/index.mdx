@@ -10,9 +10,10 @@ Analytics in Sajari can give you insights into the search behavior of your users
 
 Tracking in Sajari can be one of the following:
 
-- `NoTracking`: self-explantory, this is also the default when you create a new `Pipeline` instance
 - `ClickTracking`: records user click interactions alongside search results
 - `PosNegTracking`: refers to the recording of variably weighted user interactions with search results. This allows to record both positive and negative interactions on each search result and thus is more complex/flexible than `ClickTracking`
+
+The default when you create a new `Pipeline` instance is no tracking.
 
 ## 2. Usage
 
@@ -33,6 +34,5 @@ Later after having received the search result, each entry will include a `token`
 
 ## 3. Example
 
-- [`NoTracking`](/tracking/notracking)
 - [`ClickTracking`](/tracking/clicktracking)
 - [`PosNegTracking`](/tracking/posnegtracking)

@@ -6,6 +6,7 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';
+import { useClickTracking } from '../hooks';
 import { ResultValues } from '../Results/types';
 import mapResultFields from '../utils/mapResultFields';
 import { InputProps } from './types';
@@ -15,30 +16,24 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
   const { placeholder = t('placeholder'), mode = 'instant', onChange, ...rest } = props;
   const { results: rawResults, search, searching, fields } = useSearchContext();
   const results = React.useMemo(() => mapResultFields<ResultValues>(rawResults ?? [], fields), [rawResults]);
-  const { search: searchInstant, completion, suggestions } = useAutocomplete();
-  const { customClassNames, disableDefaultStyles = false } = useSearchUIContext();
+  const { search: searchAutocomplete, completion, suggestions } = useAutocomplete();
+  const { customClassNames, disableDefaultStyles = false, tracking } = useSearchUIContext();
   const { query } = useQuery();
   let items: Array<any> = [];
 
   if (mode === 'suggestions') {
     items = suggestions;
   } else if (mode === 'results') {
-    // only display 5 items
+    // Only display 5 items
     items = results.splice(0, 5).map((result) => {
-      const {
-        values: { description, image, title, url },
-        token,
-      } = result;
-      let clickToken: string | undefined;
+      const { values, token } = result;
+      const { description, image, title } = values;
+      const { href, onClick } = useClickTracking({ tracking, values, token });
 
-      if (token && 'click' in token) {
-        clickToken = token.click;
-      }
-
-      const link = clickToken || url.toString();
       return {
         title,
-        url: link,
+        url: href,
+        onClick,
         description,
         image: isArray(image) ? image[0] : image,
       };
@@ -52,8 +47,8 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
       }
 
       if (mode === 'suggestions' || mode === 'typeahead') {
-        if (searchInstant) {
-          searchInstant(value);
+        if (searchAutocomplete) {
+          searchAutocomplete(value);
         }
       } else if (mode === 'instant' || mode === 'results') {
         search(value);

@@ -46,6 +46,7 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
   return (
     <Provider
       value={{
+        tracking: search.pipeline.getTracking(),
         disableDefaultStyles,
         currency,
         customClassNames,

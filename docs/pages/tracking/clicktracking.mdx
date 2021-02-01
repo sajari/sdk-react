@@ -21,7 +21,15 @@ Additional imports used in the examples:
 import { FieldDictionary, Input, Pipeline, Results, SearchProvider } from '@sajari/react-search-ui';
 ```
 
-When `ClickTracking` is used, a token object containing a link will be returned for each result item. Details can be found [here](https://www.sajari.com/docs/user-guide/analytics/click-tracking/).
+The constructor requires a field to be specified for tracking. By default this is `url` so if your schema has a `url` field, you're all set. If not, you need to specify another unique identifier field for the record - e.g. `id`.
+
+When `ClickTracking` is used, a token object containing a `click` property (a tracking URL) will be returned for each result item.
+
+More details about `ClickTracking` can be found [here](https://www.sajari.com/docs/user-guide/analytics/click-tracking/).
+
+### Use with the search-ui package
+
+If the field you specified in the constructor contains a valid URL, the redirect URL will be used for the `href` for any links ro results. If a non-URL-like field is passed, then instead the token URL will be used for a [`navigator.sendBeacon()`](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/sendBeacon) request, bound to the `onClick` event. This method is less reliable and won't be able to track users opening the links in a new tab or window. For this reason, using a valid URL as the tracking field is preferrable.
 
 ```jsx
 function Example() {
