@@ -39,8 +39,8 @@ export class Pipeline {
    * Constructs a Pipeline object.
    * @param config Account, Collection config
    * @param name Name of the pipeline.
-   * @param [tracking=ClickTracking()] Default tracking to use in searches.
-   * @param [analyticsAdapters=GoogleAnalytics]
+   * @param tracking Default tracking to use in searches.
+   * @param analyticsAdapters
    */
   constructor(
     config: {
