@@ -128,7 +128,27 @@ function BasicUsage() {
 
 ### Modal Sizes
 
-Pass the `size` prop if you need to adjust the size of the modal. Values can be any of the `maxWidth` prop values.
+Pass the `size` prop if you need to adjust the size of the modal. Values can be any of the following:
+
+| Value              | Max Width |
+| ------------------ | --------- |
+| `max-w-xs`         | `20rem`   |
+| `max-w-sm`         | `24rem`   |
+| `max-w-md`         | `28rem`   |
+| `max-w-lg`         | `32rem`   |
+| `max-w-xl`         | `36rem`   |
+| `max-w-2xl`        | `42rem`   |
+| `max-w-3xl`        | `48rem`   |
+| `max-w-4xl`        | `56rem`   |
+| `max-w-5xl`        | `64rem`   |
+| `max-w-6xl`        | `72rem`   |
+| `max-w-7xl`        | `80rem`   |
+| `max-w-screen-sm`  | `640px`   |
+| `max-w-screen-md`  | `768px`   |
+| `max-w-screen-lg`  | `1024px`  |
+| `max-w-screen-xl`  | `1280px`  |
+| `max-w-screen-2xl` | `1536px`  |
+| `max-w-full`       | `100%`    |
 
 ```jsx
 function SizeExample() {
@@ -138,23 +158,38 @@ function SizeExample() {
   const onClose = () => setOpen(false);
 
   const [size, setSize] = React.useState('md');
-
-  const handleSizeClick = (newSize) => {
-    setSize(newSize);
-    onOpen();
-  };
-
-  const sizes = ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '4xl', '6xl', 'full'];
+  const sizes = [
+    'xs',
+    'sm',
+    'md',
+    'lg',
+    'xl',
+    '2xl',
+    '3xl',
+    '4xl',
+    '5xl',
+    '6xl',
+    '7xl',
+    'screen-sm',
+    'screen-md',
+    'screen-lg',
+    'screen-xl',
+    'screen-2xl',
+    'full',
+  ];
 
   return (
     <>
-      <ButtonGroup>
-        {sizes.map((size) => (
-          <Button onClick={() => handleSizeClick(size)} key={size}>
-            {size}
-          </Button>
-        ))}
-      </ButtonGroup>
+      <Box className="flex space-x-2">
+        <Select value={size} onChange={setSize} label="Size">
+          {sizes.map((size) => (
+            <Option value={size} key={size}>
+              {size}
+            </Option>
+          ))}
+        </Select>
+        <Button onClick={onOpen}>Open</Button>
+      </Box>
 
       <Modal onClose={onClose} size={size} open={open}>
         <ModalHeader>

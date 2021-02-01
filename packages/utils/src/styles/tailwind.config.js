@@ -36,6 +36,10 @@ export default {
       lineHeight: {
         inherit: 'inherit',
       },
+      maxWidth: {
+        '7xl': '80rem',
+        'screen-2xl': '1536px',
+      },
       minWidth: {
         'max-content': 'max-content',
       },
