@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.7.8
+
+### Patch Changes
+
+- [`016ab5ab`](https://github.com/sajari/sdk-react/commit/016ab5ab1bb6891127ac9d0bc5a45b9c1ee48fc6) [#376](https://github.com/sajari/sdk-react/pull/376) Thanks [@sampotts](https://github.com/sampotts)! - Add missing dependency
+
+- Updated dependencies [[`65fd3fe2`](https://github.com/sajari/sdk-react/commit/65fd3fe2af94f27daa0d89ee9eab708e275ebbea), [`016ab5ab`](https://github.com/sajari/sdk-react/commit/016ab5ab1bb6891127ac9d0bc5a45b9c1ee48fc6)]:
+  - @sajari/react-components@1.5.1
+  - @sajari/react-sdk-utils@1.3.4
+
 ## 1.7.7
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.3.4
+
+### Patch Changes
+
+- [`65fd3fe2`](https://github.com/sajari/sdk-react/commit/65fd3fe2af94f27daa0d89ee9eab708e275ebbea) [#375](https://github.com/sajari/sdk-react/pull/375) Thanks [@sampotts](https://github.com/sampotts)! - Add more modal width options
+
 ## 1.3.3
 
 ### Patch Changes
