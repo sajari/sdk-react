@@ -1,5 +1,16 @@
 # Change Log
 
+## 1.5.1
+
+### Patch Changes
+
+- [`65fd3fe2`](https://github.com/sajari/sdk-react/commit/65fd3fe2af94f27daa0d89ee9eab708e275ebbea) [#375](https://github.com/sajari/sdk-react/pull/375) Thanks [@sampotts](https://github.com/sampotts)! - Add more modal width options
+
+* [`016ab5ab`](https://github.com/sajari/sdk-react/commit/016ab5ab1bb6891127ac9d0bc5a45b9c1ee48fc6) [#376](https://github.com/sajari/sdk-react/pull/376) Thanks [@sampotts](https://github.com/sampotts)! - Add missing dependency
+
+* Updated dependencies [[`65fd3fe2`](https://github.com/sajari/sdk-react/commit/65fd3fe2af94f27daa0d89ee9eab708e275ebbea)]:
+  - @sajari/react-sdk-utils@1.3.4
+
 ## 1.5.0
 
 ### Minor Changes
