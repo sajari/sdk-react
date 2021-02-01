@@ -30,7 +30,7 @@
     "@sajari/react-components": "^1.5.0",
     "@sajari/react-hooks": "^1.4.3",
     "@sajari/react-sdk-utils": "^1.3.3",
-    "i18next": "19.8.4",
+    "i18next": "19.8.5",
     "i18next-browser-languagedetector": "^6.0.1",
     "react-aria-live": "^2.0.5",
     "react-i18next": "^11.8.5"
