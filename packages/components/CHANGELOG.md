@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.5.3
+
+### Patch Changes
+
+- [`fb94f367`](https://github.com/sajari/sdk-react/commit/fb94f367c968c2185f649bad21a1914823ef4111) [#381](https://github.com/sajari/sdk-react/pull/381) Thanks [@sampotts](https://github.com/sampotts)! - Track context menu open as a click
+
 ## 1.5.2
 
 ### Patch Changes
