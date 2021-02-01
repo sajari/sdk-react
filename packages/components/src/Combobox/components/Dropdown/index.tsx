@@ -28,7 +28,7 @@ const Dropdown = () => {
     disableDefaultStyles = false,
     customClassNames: { dropdownClassName, dropdownListClassName, dropdownFooterClassName },
   } = useComboboxContext();
-  const shown = (mode === 'results' || mode === 'suggestions') && open && items.length > 0;
+  const shown = (mode === 'results' || mode === 'suggestions' || mode === 'attach') && open && items.length > 0;
   const styles = getStylesObject(useDropdownStyles({ shown }), disableDefaultStyles);
   const label = mode === 'results' ? 'Results' : 'Suggestions';
   let listRender: React.ReactNode = null;

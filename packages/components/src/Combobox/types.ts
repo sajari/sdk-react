@@ -3,7 +3,7 @@ import * as React from 'react';
 
 import { BoxProps } from '../Box';
 
-export type ComboboxMode = 'standard' | 'typeahead' | 'suggestions' | 'results';
+export type ComboboxMode = 'standard' | 'typeahead' | 'suggestions' | 'results' | 'attach';
 
 export interface ResultItem {
   title: string;
@@ -88,6 +88,8 @@ interface Props<T> {
     selected: boolean;
     getItemProps: UseComboboxReturnValue<T>['getItemProps'];
   }) => React.ReactNode;
+  /** The input element, used in conjuntion with mode `attach` */
+  inputElement?: HTMLInputElement;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
