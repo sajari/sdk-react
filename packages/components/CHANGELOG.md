@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.5.2
+
+### Patch Changes
+
+- [`027a5299`](https://github.com/sajari/sdk-react/commit/027a52998920fd334eb9616138a9559e2f3d569a) [#378](https://github.com/sajari/sdk-react/pull/378) Thanks [@sampotts](https://github.com/sampotts)! - Added missing react-focus-lock dependency
+
 ## 1.5.1
 
 ### Patch Changes
