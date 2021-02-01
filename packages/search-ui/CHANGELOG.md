@@ -1,5 +1,16 @@
 # Change Log
 
+## 1.7.7
+
+### Patch Changes
+
+- [`8f1bd0e6`](https://github.com/sajari/sdk-react/commit/8f1bd0e6d197f19dca1c1af2bc2d2f1e2785d4fb) [#374](https://github.com/sajari/sdk-react/pull/374) Thanks [@sampotts](https://github.com/sampotts)! - Allow ClickTracking on non URL fields
+
+- Updated dependencies [[`8f1bd0e6`](https://github.com/sajari/sdk-react/commit/8f1bd0e6d197f19dca1c1af2bc2d2f1e2785d4fb), [`d1af5773`](https://github.com/sajari/sdk-react/commit/d1af57738741a0600e2d15797ffff5648d1c4334)]:
+  - @sajari/react-components@1.5.0
+  - @sajari/react-hooks@1.4.3
+  - @sajari/react-sdk-utils@1.3.3
+
 ## 1.7.6
 
 ### Patch Changes

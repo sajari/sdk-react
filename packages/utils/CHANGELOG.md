@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.3.3
+
+### Patch Changes
+
+- [`d1af5773`](https://github.com/sajari/sdk-react/commit/d1af57738741a0600e2d15797ffff5648d1c4334) [#366](https://github.com/sajari/sdk-react/pull/366) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Added Modal component for `@sajari/react-components`.
+
 ## 1.3.2
 
 ### Patch Changes
