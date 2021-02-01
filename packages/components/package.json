@@ -1,6 +1,6 @@
 {
   "name": "@sajari/react-components",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Core components that allow you to build a beautiful search interface with any back end.",
   "sideEffects": false,
   "repository": {

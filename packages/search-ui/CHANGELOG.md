@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.7.10
+
+### Patch Changes
+
+- [`fb94f367`](https://github.com/sajari/sdk-react/commit/fb94f367c968c2185f649bad21a1914823ef4111) [#381](https://github.com/sajari/sdk-react/pull/381) Thanks [@sampotts](https://github.com/sampotts)! - Track context menu open as a click
+
+- Updated dependencies [[`fb94f367`](https://github.com/sajari/sdk-react/commit/fb94f367c968c2185f649bad21a1914823ef4111)]:
+  - @sajari/react-components@1.5.3
+
 ## 1.7.9
 
 ### Patch Changes
