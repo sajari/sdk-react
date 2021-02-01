@@ -1,7 +1,8 @@
+import { css, keyframes } from '@emotion/core';
 import { mapStyles } from '@sajari/react-sdk-utils';
 import tw from 'twin.macro';
+
 import { ModalProps, ModalSize } from './types';
-import { keyframes, css } from '@emotion/core';
 
 const animateOverlayIn = keyframes`
     from {
@@ -57,10 +58,26 @@ function getModalSize(size: ModalSize) {
       return tw`max-w-xl`;
     case '2xl':
       return tw`max-w-2xl`;
+    case '3xl':
+      return tw`max-w-3xl`;
     case '4xl':
       return tw`max-w-4xl`;
+    case '5xl':
+      return tw`max-w-5xl`;
     case '6xl':
       return tw`max-w-6xl`;
+    case '7xl':
+      return tw`max-w-7xl`;
+    case 'screen-sm':
+      return tw`max-w-screen-sm`;
+    case 'screen-md':
+      return tw`max-w-screen-md`;
+    case 'screen-lg':
+      return tw`max-w-screen-lg`;
+    case 'screen-xl':
+      return tw`max-w-screen-xl`;
+    case 'screen-2xl':
+      return tw`max-w-screen-2xl`;
     default:
       return tw`max-w-full`;
   }
@@ -81,7 +98,7 @@ export function useModalStyles(props: ModalProps) {
 
   const styles = {
     overlay: [
-      tw`fixed inset-0 z-50 backdrop-blur-1 transition-opacity `,
+      tw`fixed inset-0 z-50 transition-opacity backdrop-blur-1 `,
       open
         ? css`
             animation: ${overlayAnimationIn ?? animateOverlayIn} ${animationDuration}ms ease-in;
@@ -102,7 +119,7 @@ export function useModalStyles(props: ModalProps) {
           `,
     ],
     content: [
-      tw`relative z-50 flex-1 flex overflow-auto scrolling-touch flex-col w-full bg-white transition-all transform`,
+      tw`relative z-50 flex flex-col flex-1 w-full overflow-auto scrolling-touch transition-all transform bg-white`,
       tw`m-auto max-h-(screen-20) outline-none rounded-xl shadow-lg`,
       sizeStyle,
     ],
