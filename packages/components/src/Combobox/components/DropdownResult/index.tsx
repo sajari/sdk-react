@@ -34,7 +34,7 @@ const DropdownResult = (props: DropdownResultProps) => {
       className={classnames(resultClassName, { [selectedResultClassName]: selected })}
       {...rest}
     >
-      <Box as="a" href={value.url} onClick={value.onClick} css={styles.item}>
+      <Box as="a" href={value.url} onClick={value.onClick} onContextMenu={value.onClick} css={styles.item}>
         <Box css={styles.imageContainer} className={resultImageContainerClassName}>
           <Image src={value.image} aspectRatio={1} objectFit="contain" />
         </Box>
