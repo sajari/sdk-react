@@ -162,7 +162,13 @@ const Result = React.memo(
     return (
       <Box as="article" {...rest} css={[styles.container, stylesProp]}>
         {(isValidURL(imageSrc, true) || forceImage) && (
-          <Link href={href} onClick={onClick} css={styles.imageContainer} disableDefaultStyles={disableDefaultStyles}>
+          <Link
+            href={href}
+            onClick={onClick}
+            onContextMenu={onClick}
+            css={styles.imageContainer}
+            disableDefaultStyles={disableDefaultStyles}
+          >
             <Image
               src={imageSrc}
               hoverSrc={imageHoverSrc}
