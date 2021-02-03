@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.6.6
+
+### Patch Changes
+
+- [`a76beb89`](https://github.com/sajari/sdk-react/commit/a76beb8991bbf6063bf5b4e4dff29a104d6cca5c) [#383](https://github.com/sajari/sdk-react/pull/383) Thanks [@sampotts](https://github.com/sampotts)! - Add useSearch example of multiple searches
+
 ## 1.6.5
 
 ### Patch Changes
