@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.7.11
+
+### Patch Changes
+
+- [`2ffbc5d9`](https://github.com/sajari/sdk-react/commit/2ffbc5d9dc9de2e28413b7314b9733e65d35032a) [#385](https://github.com/sajari/sdk-react/pull/385) Thanks [@sampotts](https://github.com/sampotts)! - Package updates and minor doc updates
+
+- Updated dependencies [[`2ffbc5d9`](https://github.com/sajari/sdk-react/commit/2ffbc5d9dc9de2e28413b7314b9733e65d35032a)]:
+  - @sajari/react-components@1.5.4
+  - @sajari/react-hooks@1.4.4
+
 ## 1.7.10
 
 ### Patch Changes
