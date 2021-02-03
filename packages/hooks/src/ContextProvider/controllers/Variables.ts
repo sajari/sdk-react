@@ -25,7 +25,6 @@ export class Variables {
       Object.entries({
         [defaultConfig.qParam]: '',
         [defaultConfig.resultsPerPageParam]: 15,
-        filter: '_id != ""',
         ...variables,
       }),
     );
