@@ -82,16 +82,18 @@ function Example() {
 
 As in the above example, it's possible to perform one off searches using the `useSearch` hook. This means we can build a page that performs multiple searches, for example within different categories.
 
+Note: each category search request must use it's own pipeline.
+
 ```jsx
 function Example() {
   const searches = {
-    apple: { name: 'Apple' },
-    samsung: { name: 'Samsung' },
-    sony: { name: 'Sony' },
+    audio: { category: 'Audio' },
+    computers: { category: 'Computers & Tablets' },
+    tv: { category: 'TV & Home Theater' },
   };
 
-  Object.entries(searches).forEach(([key, { name }]) => {
-    searches[key].variables = new Variables({ filter: `brand='${name}'`, resultsPerPage: 4 });
+  Object.entries(searches).forEach(([key, { category }]) => {
+    searches[key].variables = new Variables({ filter: `level1='${category}'`, resultsPerPage: 4 });
     searches[key].pipeline = new Pipeline(
       {
         account: '1594153711901724220',
@@ -102,14 +104,14 @@ function Example() {
   });
 
   const Results = (props) => {
-    const { title, variables, pipeline } = props;
+    const { category, variables, pipeline } = props;
     const { results, searching } = useSearch({ variables, pipeline });
 
     const renderContent = () => {
       const loading = searching || !results;
 
       if (loading) {
-        return <div>Searching...</div>;
+        return <div>Loading...</div>;
       }
 
       if (!results.length) {
@@ -117,16 +119,24 @@ function Example() {
       }
 
       return (
-        <div className="grid md:grid-cols-4 md:gap-4">
+        <div className="space-y-4">
           {results.map(({ values }) => {
-            const { id, name, image } = values;
+            const { id, name, image, description } = values;
 
             return (
-              <article key={id} className="space-y-4 text-center">
-                <Image src={image} aspectRatio={1} objectFit="contain" />
-                <Heading as="h1" size="sm">
-                  {name}
-                </Heading>
+              <article key={id} className="flex space-x-6 text-left">
+                <div className="w-20">
+                  <Image src={image} aspectRatio={1} objectFit="contain" />
+                </div>
+
+                <div className="flex-1">
+                  <Heading as="h1" size="base">
+                    {name}
+                  </Heading>
+                  <Text truncate={2} size="sm">
+                    {description}
+                  </Text>
+                </div>
               </article>
             );
           })}
@@ -137,7 +147,7 @@ function Example() {
     return (
       <section className="space-y-4 text-center">
         <Heading as="h1" size="2xl">
-          {title}
+          {category}
         </Heading>
         {renderContent()}
       </section>
@@ -146,8 +156,8 @@ function Example() {
 
   return (
     <div className="space-y-6">
-      {Object.entries(searches).map(([key, { name, variables, pipeline }]) => (
-        <Results title={name} pipeline={pipeline} variables={variables} key={key} />
+      {Object.entries(searches).map(([key, search]) => (
+        <Results {...search} key={key} />
       ))}
     </div>
   );
