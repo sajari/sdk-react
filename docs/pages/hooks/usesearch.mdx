@@ -78,6 +78,82 @@ function Example() {
 }
 ```
 
+### Multiple searches
+
+As in the above example, it's possible to perform one off searches using the `useSearch` hook. This means we can build a page that performs multiple searches, for example within different categories.
+
+```jsx
+function Example() {
+  const searches = {
+    apple: { name: 'Apple' },
+    samsung: { name: 'Samsung' },
+    sony: { name: 'Sony' },
+  };
+
+  Object.entries(searches).forEach(([key, { name }]) => {
+    searches[key].variables = new Variables({ filter: `brand='${name}'`, resultsPerPage: 4 });
+    searches[key].pipeline = new Pipeline(
+      {
+        account: '1594153711901724220',
+        collection: 'bestbuy',
+      },
+      'query',
+    );
+  });
+
+  const Results = (props) => {
+    const { title, variables, pipeline } = props;
+    const { results, searching } = useSearch({ variables, pipeline });
+
+    const renderContent = () => {
+      const loading = searching || !results;
+
+      if (loading) {
+        return <div>Searching...</div>;
+      }
+
+      if (!results.length) {
+        return <div>No results!</div>;
+      }
+
+      return (
+        <div className="grid md:grid-cols-4 md:gap-4">
+          {results.map(({ values }) => {
+            const { id, name, image } = values;
+
+            return (
+              <article key={id} className="space-y-4 text-center">
+                <Image src={image} aspectRatio={1} objectFit="contain" />
+                <Heading as="h1" size="sm">
+                  {name}
+                </Heading>
+              </article>
+            );
+          })}
+        </div>
+      );
+    };
+
+    return (
+      <section className="space-y-4 text-center">
+        <Heading as="h1" size="2xl">
+          {title}
+        </Heading>
+        {renderContent()}
+      </section>
+    );
+  };
+
+  return (
+    <div className="space-y-6">
+      {Object.entries(searches).map(([key, { name, variables, pipeline }]) => (
+        <Results title={name} pipeline={pipeline} variables={variables} key={key} />
+      ))}
+    </div>
+  );
+}
+```
+
 ## Anatomy
 
 `useSearch` returns an object containing the following properties:
