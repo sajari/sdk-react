@@ -30,7 +30,10 @@ const defaultTheme: Theme = {
   },
 };
 
-export const useTheme = () => useEmotionTheme<Theme>();
+export const useTheme = () => {
+  const theme = useEmotionTheme<Theme>();
+  return { ...defaultTheme, ...theme };
+};
 
 export interface ThemeProviderProps {
   importantStyles?: boolean;
