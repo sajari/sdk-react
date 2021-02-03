@@ -12,6 +12,7 @@ function useCustomSearch({ pipeline, variables }: UseSearchCustomConfig): UseSea
   const searchFn = useCallback(
     (q?: string) => {
       setSearching(true);
+
       if (q === '') {
         pipeline.clearResponse(variables.get());
       } else {
@@ -34,6 +35,7 @@ function useCustomSearch({ pipeline, variables }: UseSearchCustomConfig): UseSea
 
     return pipeline.listen(EVENT_RESPONSE_UPDATED, (response: Response) => {
       setSearching(false);
+
       setSearchOutput((o) => ({
         ...o,
         results: response?.getResults(),
@@ -81,9 +83,11 @@ function useNormalSearch({ queryOverride, allowEmptySearch = true }: UseSearchCo
         case response.isError():
           setError(response.getError()?.error ?? new Error('Something went wrong. Please try again.'));
           break;
+
         case !response.isError():
           setError(null);
           break;
+
         default:
           break;
       }
@@ -106,6 +110,7 @@ function useSearch(params?: UseSearchParams) {
   if (typeof params === 'object' && 'pipeline' in params && 'variables' in params) {
     return useCustomSearch(params);
   }
+
   return useNormalSearch(params ?? {});
 }
 
