@@ -21,7 +21,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
   const { query } = useQuery();
   let items: Array<any> = [];
 
-  if (mode === 'suggestions' || mode === 'attach') {
+  if (mode === 'suggestions') {
     items = suggestions;
   } else if (mode === 'results') {
     // Only display 5 items
@@ -46,7 +46,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
         onChange(value);
       }
 
-      if (mode === 'suggestions' || mode === 'typeahead' || mode === 'attach') {
+      if (mode === 'suggestions' || mode === 'typeahead') {
         if (searchAutocomplete) {
           searchAutocomplete(value);
         }
@@ -59,10 +59,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
 
   const onKeyDownMemoized = useCallback(
     (e) => {
-      if (
-        e.key === 'Enter' &&
-        (mode === 'typeahead' || mode === 'suggestions' || mode === 'attach' || mode === 'standard')
-      ) {
+      if (e.key === 'Enter' && (mode === 'typeahead' || mode === 'suggestions' || mode === 'standard')) {
         search((e.target as HTMLInputElement).value);
       }
     },
@@ -71,7 +68,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
 
   const onSelectMemoized = useCallback(
     (item) => {
-      if (mode === 'suggestions' || mode === 'attach') {
+      if (mode === 'suggestions') {
         search(item as string);
       }
     },

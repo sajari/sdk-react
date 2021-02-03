@@ -200,6 +200,52 @@ function Example() {
 }
 ```
 
+## Existing input element
+
+If you have an existing input and don't want Input to render another extra input of its own then you can pass in the `inputElement` prop, this way it will not render its own input and instead will apply all attributes and handlers to the element that you just passed in.
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+  const inputRef = React.useRef();
+
+  const SearchPlayground = () => (
+    <div className="space-y-4">
+      <input
+        className="border border-gray-300 rounded-md py-1 px-2"
+        type="text"
+        data-custom="test"
+        id="custom-input"
+        ref={inputRef}
+      />
+      <Input mode="suggestions" inputElement={inputRef} />
+      <Results />
+    </div>
+  );
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
 ## Props
 
 `Input` component props inherits the `input` element props with some additional for speech recognition and loading state
