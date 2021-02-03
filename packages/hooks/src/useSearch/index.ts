@@ -33,11 +33,14 @@ function useCustomSearch({ pipeline, variables }: UseSearchCustomConfig): UseSea
     searchFn();
 
     return pipeline.listen(EVENT_RESPONSE_UPDATED, (response: Response) => {
-      const { time: latency, totalResults } = { time: response?.getTime(), totalResults: response?.getTotalResults() };
-      const results = response?.getResults();
-
       setSearching(false);
-      setSearchOutput((o) => ({ ...o, results, latency, totalResults, error: response?.getError() }));
+      setSearchOutput((o) => ({
+        ...o,
+        results: response?.getResults(),
+        latency: response?.getTime(),
+        totalResults: response?.getTotalResults(),
+        error: response?.getError(),
+      }));
     });
   }, []);
 
@@ -100,7 +103,7 @@ function useNormalSearch({ queryOverride, allowEmptySearch = true }: UseSearchCo
 }
 
 function useSearch(params?: UseSearchParams) {
-  if (params !== undefined && typeof params === 'object' && 'pipeline' in params && 'variables' in params) {
+  if (typeof params === 'object' && 'pipeline' in params && 'variables' in params) {
     return useCustomSearch(params);
   }
   return useNormalSearch(params ?? {});
