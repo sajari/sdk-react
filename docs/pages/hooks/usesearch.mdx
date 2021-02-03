@@ -55,13 +55,9 @@ function Example() {
       <div className="flex flex-col space-y-4">
         <div className="flex space-x-3 items-center">
           <p>Show</p>
-          <Select
-            onChange={(e) => {
-              variables.set({ resultsPerPage: Number(e.target.value) });
-            }}
-          >
-            <option value="1">1</option>
-            <option value="3">3</option>
+          <Select onChange={(value) => variables.set({ resultsPerPage: Number(value) })}>
+            <Option value="1">1</Option>
+            <Option value="3">3</Option>
           </Select>
         </div>
         <div>

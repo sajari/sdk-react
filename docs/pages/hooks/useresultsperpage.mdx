@@ -34,11 +34,11 @@ function Example() {
             <Input value={query} onChange={(value) => search(value)} />
           </div>
           <div className="w-2/5">
-            <Select value={`${resultsPerPage}`} onChange={(e) => setResultsPerPage(parseInt(e.target.value), 10)}>
-              <option value="3">3</option>
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
+            <Select value={`${resultsPerPage}`} onChange={(value) => setResultsPerPage(Number(value))}>
+              <Option value="3">3</Option>
+              <Option value="5">5</Option>
+              <Option value="10">10</Option>
+              <Option value="15">15</Option>
             </Select>
           </div>
         </div>
