@@ -67,7 +67,7 @@ export default function useVoiceInput(onResult?: (r: string) => void) {
   }, [active, supported, onResult]);
 
   return {
-    supported,
+    supported: supported !== false,
     result,
     active,
     start,
