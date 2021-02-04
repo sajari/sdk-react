@@ -3,10 +3,16 @@ import * as React from 'react';
 
 import defaultSEO from '../seo.config';
 
-function SEO(props: NextSeoProps) {
-  const seo = { ...defaultSEO, ...props };
+interface SeoProps extends NextSeoProps {
+  scope?: string;
+}
 
-  return <NextSeo {...seo} titleTemplate="Sajari React SDK | %s" />;
+function SEO(props: SeoProps) {
+  const { scope, title: titleProp, ...rest } = props;
+  const title = [titleProp, scope].filter(Boolean).join(' | ');
+  const seo = { ...defaultSEO, ...rest, title };
+
+  return <NextSeo {...seo} titleTemplate="%s | Sajari React SDK" />;
 }
 
 export default SEO;
