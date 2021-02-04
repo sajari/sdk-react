@@ -2,20 +2,34 @@
 import { isSSR } from '@sajari/react-sdk-utils';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+type SpeechRecognitionSupport = 'native' | 'webkit' | false;
+
 export default function useVoiceInput(onResult?: (r: string) => void) {
-  const [supported, setSupported] = useState(false);
+  const [supported, setSupported] = useState<SpeechRecognitionSupport>(false);
   const [active, setActive] = useState(false);
   const [result, setResult] = useState('');
   const recognitionRef = useRef<SpeechRecognition>();
 
   useEffect(() => {
-    setSupported(!isSSR() && window.hasOwnProperty('webkitSpeechRecognition'));
+    if (isSSR()) {
+      return;
+    }
+
+    if (window.hasOwnProperty('SpeechRecognition')) {
+      setSupported('native');
+    } else if (window.hasOwnProperty('webkitSpeechRecognition')) {
+      setSupported('webkit');
+    }
   }, []);
 
   useEffect(() => {
     if (supported) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      recognitionRef.current = new (window as any).webkitSpeechRecognition() as SpeechRecognition;
+      if (supported === 'native') {
+        recognitionRef.current = new window.SpeechRecognition();
+      } else {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        recognitionRef.current = new (window as any).webkitSpeechRecognition() as SpeechRecognition;
+      }
     }
   }, [supported]);
 
@@ -53,7 +67,7 @@ export default function useVoiceInput(onResult?: (r: string) => void) {
   }, [active, supported, onResult]);
 
   return {
-    supported,
+    supported: supported !== false,
     result,
     active,
     start,
