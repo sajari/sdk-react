@@ -9,7 +9,7 @@ interface SeoProps extends NextSeoProps {
 
 function SEO(props: SeoProps) {
   const { scope, title: titleProp, ...rest } = props;
-  let title = scope ? [titleProp, scope].join(' | ') : titleProp;
+  const title = [titleProp, scope].filter(Boolean).join(' | ');
   const seo = { ...defaultSEO, ...rest, title };
 
   return <NextSeo {...seo} titleTemplate="%s | Sajari React SDK" />;
