@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.5.5
+
+### Patch Changes
+
+- [`20b35922`](https://github.com/sajari/sdk-react/commit/20b35922f07512c9b4581c25a5d71941cb465010) [#388](https://github.com/sajari/sdk-react/pull/388) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fixed components depend on ThemeProvider wrapper to be able to work.
+
+- Updated dependencies [[`20b35922`](https://github.com/sajari/sdk-react/commit/20b35922f07512c9b4581c25a5d71941cb465010)]:
+  - @sajari/react-sdk-utils@1.3.5
+
 ## 1.5.4
 
 ### Patch Changes

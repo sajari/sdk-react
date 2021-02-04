@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.4.5
+
+### Patch Changes
+
+- [`21c0324b`](https://github.com/sajari/sdk-react/commit/21c0324b6771738505de6ad0e66ecc56320c17b0) [#387](https://github.com/sajari/sdk-react/pull/387) Thanks [@tuanddd](https://github.com/tuanddd)! - Remove duplicating \_id filter
+
+- Updated dependencies [[`20b35922`](https://github.com/sajari/sdk-react/commit/20b35922f07512c9b4581c25a5d71941cb465010)]:
+  - @sajari/react-sdk-utils@1.3.5
+
 ## 1.4.4
 
 ### Patch Changes
