@@ -1,8 +1,8 @@
-import SEO from '../../components/SEO';
+import SEO, { scopes } from '../../components/SEO';
 
 <SEO
   title="SearchProvider"
-  scope="Search UI"
+  scope={scopes.searchUI}
   description="The SearchProvider should be used as a wrapper for the entire application to provide a way to share application state between components, for example, the current query, active filters or the search response."
 />
 
