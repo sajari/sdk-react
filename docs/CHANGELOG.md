@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.6.8
+
+### Patch Changes
+
+- [`e482cb24`](https://github.com/sajari/sdk-react/commit/e482cb2403f7c1486447dcfce6a5d8ccc680613d) [#390](https://github.com/sajari/sdk-react/pull/390) Thanks [@sampotts](https://github.com/sampotts)! - Fixed title issues
+
+* [`20b35922`](https://github.com/sajari/sdk-react/commit/20b35922f07512c9b4581c25a5d71941cb465010) [#388](https://github.com/sajari/sdk-react/pull/388) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fixed components depend on ThemeProvider wrapper to be able to work.
+
 ## 1.6.7
 
 ### Patch Changes
