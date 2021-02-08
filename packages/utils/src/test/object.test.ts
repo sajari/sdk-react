@@ -1,8 +1,9 @@
-import { filterObject, merge } from '../object';
+import { filterObject, merge, MergeOptions } from '../object';
 
 test.each([
-  [{ a: 2 }, { a: 1 }, { a: 1 }],
+  [new MergeOptions(), { a: 2 }, { a: 1 }, { a: 1 }],
   [
+    new MergeOptions(),
     {
       foo: 0,
       baz: 2,
@@ -15,11 +16,13 @@ test.each([
     },
   ],
   [
+    new MergeOptions(),
     { color: { primary: '#ffffff', secondary: '#000000' } },
     { color: { primary: '#333333' } },
     { color: { primary: '#333333', secondary: '#000000' } },
   ],
   [
+    new MergeOptions(),
     {
       main: {
         header: {
@@ -44,8 +47,38 @@ test.each([
       },
     },
   ],
-])('merge(%o, %o)', (target, source, expected) => {
-  expect(merge(target, source)).toEqual(expected);
+  [
+    new MergeOptions({ arrayHandling: 'concat' }),
+    {
+      a: [1, 2, 3],
+    },
+    { a: [3, 4, 5, 6] },
+    {
+      a: [1, 2, 3, 3, 4, 5, 6],
+    },
+  ],
+  [
+    new MergeOptions({ arrayHandling: 'union' }),
+    {
+      a: [1, 2, 3],
+    },
+    { a: [3, 4, 5, 6] },
+    {
+      a: [1, 2, 3, 4, 5, 6],
+    },
+  ],
+  [
+    new MergeOptions({ arrayHandling: 'replace' }),
+    {
+      a: [1, 2, 3],
+    },
+    { a: [3, 4, 5, 6] },
+    {
+      a: [3, 4, 5, 6],
+    },
+  ],
+])('merge(%o, %o)', (options, target, source, expected) => {
+  expect(merge(options, target, source)).toEqual(expected);
 });
 
 test.each([
