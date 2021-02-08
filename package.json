@@ -41,7 +41,7 @@
     "@babel/preset-react": "^7.12.13",
     "@babel/preset-typescript": "^7.12.13",
     "@changesets/changelog-github": "^0.2.8",
-    "@changesets/cli": "2.13.1",
+    "@changesets/cli": "2.13.0",
     "@emotion/babel-preset-css-prop": "^10.2.1",
     "@emotion/jest": "^11.1.0",
     "@sajari/eslint-config": "^0.1.1",
