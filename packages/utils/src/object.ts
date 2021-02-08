@@ -18,12 +18,40 @@ interface MergeObject {
   [k: string]: any;
 }
 
+type MergeArrayHandling = 'concat' | 'union' | 'replace';
+
+export class MergeOptions {
+  /**
+   * How arrays should be merged
+   * 'concat' - Concatenate arrays.
+   * 'union' - Union arrays, skipping items that already exist.
+   * 'replace' - Replace all array items.
+   */
+  public arrayHandling: MergeArrayHandling;
+
+  constructor(options?: MergeOptions) {
+    this.arrayHandling = options?.arrayHandling ?? 'concat';
+  }
+}
+
 // Deep extend destination object with N more objects
-export function merge(target: MergeObject, ...sources: MergeObject[]): MergeObject {
+export function merge(
+  options: MergeOptions | MergeObject,
+  target: MergeObject,
+  ...sources: MergeObject[]
+): MergeObject {
+  // If options aren't passed
+  if (!(options instanceof MergeOptions)) {
+    target = options;
+    sources = [target, ...sources];
+    options = new MergeOptions();
+  }
+
   if (!isObject(target) || !sources.length) {
     return target;
   }
 
+  const { arrayHandling } = options as MergeOptions;
   const source = sources.shift();
 
   if (!source || !isObject(source)) {
@@ -35,9 +63,24 @@ export function merge(target: MergeObject, ...sources: MergeObject[]): MergeObje
     const sourceValue = source[key];
 
     if (Array.isArray(targetValue) && Array.isArray(sourceValue)) {
-      target[key] = targetValue.concat(sourceValue);
+      switch (arrayHandling) {
+        case 'concat':
+          target[key] = targetValue.concat(sourceValue);
+          break;
+
+        case 'replace':
+          target[key] = sourceValue;
+          break;
+
+        case 'union':
+          target[key] = Array.from(new Set([...targetValue, ...sourceValue]));
+          break;
+
+        default:
+          break;
+      }
     } else if (isObject(targetValue) && isObject(sourceValue)) {
-      target[key] = merge({ ...targetValue }, sourceValue);
+      target[key] = merge(options, { ...targetValue }, sourceValue);
     } else {
       target[key] = sourceValue;
     }
