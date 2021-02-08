@@ -12,6 +12,8 @@ export interface CustomInputProps {
 
 export type RangeValue = [number] | Range;
 
+export type RangeInputValue = [string] | [string, string];
+
 export interface RangeInputProps extends BoxProps {
   /** ISO language code to use for i18n and formatting (e.g. en or en-US). Defaults to browser language. */
   language?: string;
@@ -19,6 +21,8 @@ export interface RangeInputProps extends BoxProps {
   format?: 'default' | 'price';
   /** Currency code to use for price type */
   currency?: string;
+  /** Whether to use fixed-point notation in labels and inputs */
+  fixedPoint?: boolean;
   /** The minimum permitted value */
   min?: number;
   /** The maximum permitted value */

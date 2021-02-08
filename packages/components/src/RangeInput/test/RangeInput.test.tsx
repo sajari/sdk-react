@@ -45,6 +45,7 @@ describe('RangeInput', () => {
     const [leftSlider] = Array.from(getAllByRole('slider'));
     const [leftInput] = Array.from<HTMLInputElement>(container.querySelectorAll('input[type=number]'));
     fireEvent.change(leftInput, { target: { value: '2.1' } });
+    fireEvent.keyDown(leftInput, { keyCode: 13 });
     expect(leftSlider.dataset.value).toBe('2.1');
     expect(onChange).toHaveBeenCalledWith([2.1, 7.5]);
   });
@@ -76,6 +77,7 @@ describe('RangeInput', () => {
     const [leftSlider] = Array.from(getAllByRole('slider'));
     const [leftInput] = Array.from<HTMLInputElement>(container.querySelectorAll('input[type=number]'));
     fireEvent.change(leftInput, { target: { value: '21' } });
+    fireEvent.keyDown(leftInput, { keyCode: 13 });
     expect(leftSlider.dataset.value).toBe('25');
     expect(onChange).toHaveBeenCalledWith([25, 75]);
   });
