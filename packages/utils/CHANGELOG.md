@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.3.7
+
+### Patch Changes
+
+- [`4f20ee15`](https://github.com/sajari/sdk-react/commit/4f20ee15a0de886e237f2adee081250ed7b7b805) [#398](https://github.com/sajari/sdk-react/pull/398) Thanks [@sampotts](https://github.com/sampotts)! - Improved object checking in merge util to better support complex objects
+
 ## 1.3.6
 
 ### Patch Changes
