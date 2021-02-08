@@ -34,3 +34,7 @@ Helpers for server-side rendering your React application using Sajari search.
 ## Documentation
 
 Visit the [documentation](https://react.docs.sajari.com) for details on how to install and use the components. 
+
+### Guides
+
+Check out the [getting started guide](https://github.com/sajari/sdk-react-guide) taking you from create-react-app to a fully featured search in minutes. 

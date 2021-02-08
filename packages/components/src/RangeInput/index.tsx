@@ -1,5 +1,16 @@
 import { AriaTextFieldOptions, useTextField } from '@react-aria/textfield';
-import { __DEV__, clamp, closest, formatNumber, getStylesObject, noop, roundToStep } from '@sajari/react-sdk-utils';
+import {
+  __DEV__,
+  clamp,
+  closest,
+  formatNumber,
+  getDecimalPlaces,
+  getStylesObject,
+  isNullOrUndefined,
+  isString,
+  noop,
+  roundToStep,
+} from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { useRanger } from 'react-ranger';
 
@@ -10,18 +21,19 @@ import Handle from './components/Handle';
 import Input from './components/Input';
 import Track from './components/Track';
 import useRangeInputStyles from './styles';
-import { RangeInputProps, RangeValue } from './types';
+import { RangeInputProps, RangeInputValue, RangeValue } from './types';
 
 const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTMLDivElement>) => {
   const {
     language,
     format = 'default',
     currency = 'USD',
+    fixedPoint = false,
     onChange = noop,
     onInput = noop,
-    value = [25, 50],
-    min: minProp = 0,
-    max: maxProp = 100,
+    value: valueProp = [25, 50],
+    min = 0,
+    max = 100,
     step = 1,
     steps,
     leftInput: leftInputFunc,
@@ -37,86 +49,96 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     disableDefaultStyles = false,
     ...rest
   } = props;
-  const isSingleHandle = value.length === 1;
-  const [min, max] = [minProp, maxProp];
-  const { ticks: ticksProp = !tick ? [min, max] : undefined } = props;
-  const [range, setRange] = React.useState<RangeValue>(value);
-  const mapRange = (v: number[]) => v.map(Number);
-  const [low, high] = mapRange(range);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const setValue = (newValue: RangeValue, fireOnChange = false) => {
-    // Round values to nearest step
-    const values = newValue.map((v) => roundToStep(v, step)) as RangeValue;
 
-    setRange(values);
-    onInput(values);
+  const leftRef = React.useRef<HTMLInputElement>(null);
+  const rightRef = React.useRef<HTMLInputElement>(null);
+  const trackRef = React.useRef<HTMLDivElement>(null);
 
-    if (!fireOnChange) {
-      return;
+  // Format a value to be presented in the UI as a label
+  const formatLabel = (input: number) => {
+    if (format === 'price') {
+      const formatted = formatNumber(input, { style: 'currency', currency });
+      return fixedPoint ? formatted : formatted.replace('.00', '');
     }
 
-    onChange(values);
+    return fixedPoint ? Number(input).toFixed(getDecimalPlaces(step)) : input.toLocaleString(language);
   };
 
-  React.useEffect(() => {
-    setRange(value);
-  }, [value]);
+  // Format a value for the input
+  const formatInputValue = (input: string) => {
+    return fixedPoint ? Number(input).toFixed(getDecimalPlaces(step)) : input;
+  };
+
+  // Map RangeValue to the closest step and clamp values
+  const mapRange = (values: RangeValue) => {
+    return values.map((v) => roundToStep(clamp(Number(v), min, max), step)) as RangeValue;
+  };
+
+  // Map RangeValue to RangeInputValue
+  const mapRangeInput = (values: RangeValue) => {
+    return values.map(String).map(formatInputValue) as RangeInputValue;
+  };
+
+  const { ticks: ticksProp = !tick ? [min, max] : undefined } = props;
+  const [inputValues, setInputValues] = React.useState<RangeInputValue>(mapRangeInput(valueProp));
+  const [range, setRange] = React.useState<RangeValue>(mapRange(valueProp));
+  const values = React.useMemo(() => mapRange(range), [range]);
+  const [low, high] = values;
+
+  // Map and set a range
+  const mapSetRange = (newValue: RangeValue, fireOnChange = false) => {
+    const newRange = mapRange(newValue);
+
+    setRange(newRange);
+
+    onInput(newRange);
+
+    if (fireOnChange) {
+      onChange(newRange);
+    }
+  };
+
+  // Set internal values when prop changes
+  React.useEffect(() => setRange(mapRange(valueProp)), [valueProp]);
+
+  // Set input values when the range changes
+  React.useEffect(() => setInputValues(mapRangeInput(range)), [range]);
 
   const { getTrackProps, handles, ticks, segments } = useRanger({
     stepSize: step,
     steps,
     min,
     max,
-    values: range,
+    values,
     tickSize: tick,
     ticks: ticksProp,
-    onDrag: setValue,
+    onDrag: mapSetRange,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    onChange: (val: any) => setValue(val, true),
+    onChange: (val: any) => mapSetRange(val, true),
   });
-  const leftRef = React.useRef(null);
-  const rightRef = React.useRef(null);
-  const trackRef = React.useRef<HTMLDivElement>(null);
 
-  const handleRangeInputChange = (left: boolean) => (v: string | number) => {
-    const val = Number(v);
-    const isNaN = Number.isNaN(val);
-    let newValue: number[] | null = null;
+  const handleRangeInputChange = (left: boolean, v: string | number) => {
+    const val = isString(v) ? Number(v) : v;
+    let newValue: Array<number>;
 
-    if (isSingleHandle) {
-      newValue = [isNaN || val < min ? min : val];
+    if (isNullOrUndefined(high)) {
+      newValue = [val < min ? min : val];
     } else if (left) {
-      newValue = [isNaN || val < min ? min : val, high];
+      newValue = [val < min ? min : val, high];
     } else {
-      newValue = [low, isNaN || val > max ? max : val];
+      newValue = [low, val > max ? max : val];
     }
 
-    if (!newValue) {
-      return;
-    }
-
-    setValue(newValue as RangeValue, true);
+    mapSetRange(newValue as RangeValue, true);
   };
-
-  // Format a value to be presented in the UI as a label
-  const formatLabel = (input: number) => {
-    if (format === 'price') {
-      return formatNumber(input, { style: 'currency', currency }).replace('.00', '');
-    }
-
-    return input.toLocaleString(language);
-  };
-
-  // Format a value for the input
-  const formatInputValue = (input: number) => input.toFixed(format === 'price' ? 2 : 0).replace('.00', '');
 
   const handleSwitchRange = () => {
-    if (isSingleHandle) {
+    if (isNullOrUndefined(high)) {
       return;
     }
 
     if (low > high) {
-      setValue([high, low], true);
+      mapSetRange([high, low], true);
     }
   };
 
@@ -130,12 +152,32 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     const percent = clamp((100 / clientRect.width) * (event.clientX - clientRect.left), 0, 100);
     const newValue = roundToStep((max - min) * (percent / 100), step);
 
-    if (i === 1 && !isSingleHandle) {
+    if (i === 1 && !isNullOrUndefined(high)) {
       // Determine closest handle if clicking in center section
       const [index] = closest(newValue, [low, high]);
-      handleRangeInputChange(index === 0)(newValue);
+      handleRangeInputChange(index === 0, newValue);
     } else {
-      handleRangeInputChange(i === 0)(newValue);
+      handleRangeInputChange(i === 0, newValue);
+    }
+  };
+
+  const handleInputChange = (left: boolean) => (value: string) => {
+    const [l, r] = inputValues;
+
+    if (left && !isNullOrUndefined(r)) {
+      setInputValues([value, r]);
+    } else if (!isNullOrUndefined(r)) {
+      setInputValues([l, value]);
+    } else {
+      setInputValues([value]);
+    }
+  };
+
+  const handleInputKeyDown = (left: boolean) => (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const target = event.target as HTMLInputElement;
+
+    if (event.key === 'Enter') {
+      handleRangeInputChange(left, target.value);
     }
   };
 
@@ -152,22 +194,27 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
   const leftInputProps = {
     ...inputProps,
     className: inputClassName,
-    value: formatInputValue(low),
-    onChange: handleRangeInputChange(true),
+    value: inputValues[0],
+    onChange: handleInputChange(true),
+    onKeyDown: handleInputKeyDown(true),
     label: 'Range input left bound',
   };
 
   const rightInputProps = {
     ...inputProps,
     className: inputClassName,
-    value: formatInputValue(isSingleHandle ? 0 : high),
-    onChange: handleRangeInputChange(false),
+    value: inputValues[1],
+    onChange: handleInputChange(false),
+    onKeyDown: handleInputKeyDown(false),
     label: 'Range input right bound',
   };
 
   const leftInput = leftInputFunc ? (
     leftInputFunc({
-      getProps: (override = {}) => ({ ...useTextField({ ...leftInputProps, ...override }, leftRef), ref: leftRef }),
+      getProps: (override = {}) => ({
+        ...useTextField({ ...leftInputProps, ...override }, leftRef),
+        ref: leftRef,
+      }),
     })
   ) : (
     <Input {...leftInputProps} />
@@ -175,11 +222,9 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
 
   let rightInput: React.ReactNode | null = <Input {...rightInputProps} />;
 
-  if (isSingleHandle) {
+  if (isNullOrUndefined(high)) {
     rightInput = null;
-  }
-
-  if (rightInputFunc) {
+  } else if (rightInputFunc) {
     rightInput = rightInputFunc({
       getProps: (override = {}) => ({
         ...useTextField({ ...rightInputProps, ...override }, rightRef),
@@ -188,7 +233,10 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     });
   }
 
-  const styles = getStylesObject(useRangeInputStyles({ isSingleHandle }), disableDefaultStyles);
+  const styles = getStylesObject(
+    useRangeInputStyles({ isSingleHandle: isNullOrUndefined(high) }),
+    disableDefaultStyles,
+  );
 
   return (
     <Box ref={ref} css={[styles.container, stylesProp]} {...rest}>
@@ -220,7 +268,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
         >
           {segments.map(({ getSegmentProps }, i: number) => (
             <Fill
-              isSingleHandle={isSingleHandle}
+              isSingleHandle={isNullOrUndefined(high)}
               disableDefaultStyles={disableDefaultStyles}
               className={fillClassName}
               {...getSegmentProps({
@@ -245,7 +293,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
       {showInputs && (
         <Box css={styles.input}>
           {leftInput}
-          {isSingleHandle ? null : rightInput}
+          {rightInput}
         </Box>
       )}
     </Box>

@@ -56,11 +56,11 @@ Setting `showInputs` will render number inputs for manual input.
 
 ```jsx
 function Example() {
-  const [range, setRange] = React.useState([0, 500]);
+  const [range, setRange] = React.useState([0, 10]);
 
   return (
     <div className="flex flex-col">
-      <RangeInput value={range} onChange={setRange} step={25} tick={100} showInputs min={0} max={500} />
+      <RangeInput value={range} onChange={setRange} step={0.01} tick={2.5} showInputs min={0} max={10} format="price" />
       <pre className="self-center">"[{range.toString()}]"</pre>
     </div>
   );
@@ -170,3 +170,5 @@ function Example() {
 | `showInputs` | `boolean`                                | `false`     | Show number inputs to manually set the handle values.                                                              |
 | `language`   | `string`                                 |             | ISO language code to use for i18n and formatting (e.g. en or en-US). Defaults to browser language.                 |
 | `format`     | `'numeric'` \| `'price'`                 | `'numeric'` | How to format the values.                                                                                          |
+| `currency`   | `string`                                 | `USD`       | The currency code to use for any formatted price values.                                                           |
+| `fixedPoint` | `boolean`                                | `false`     | Whether to use fixed-point notation in labels and inputs.                                                          |
