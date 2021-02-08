@@ -79,8 +79,8 @@ interface FormatNumberOptions extends Intl.NumberFormatOptions {
  * @param input - Number to format
  * @param options - Formatting options
  */
-export function formatNumber(input: number, options: FormatNumberOptions): string {
-  const { neutral = true, language = !isSSR() ? navigator.language : 'en-US', ...rest } = options;
+export function formatNumber(input: number, options?: FormatNumberOptions): string {
+  const { neutral = true, language = !isSSR() ? navigator.language : 'en-US', ...rest } = options ?? {};
 
   if (!isNumber(input)) {
     return input;

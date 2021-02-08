@@ -12,7 +12,7 @@ export default function useRangeInputStyles(props: UseRangeInputStylesParams) {
     wrapper: [tw`w-full mt-8 mb-3`],
     ticks: [tw`relative`],
     tickItem: [
-      tw`mb-2.5 text-xs text-center text-gray-400 after:(content w-0 border-r border-gray-300 border-solid h-1.5 absolute)`,
+      tw`mb-2.5 text-xs text-center text-gray-400 after:(content w-0 border-0 border-r border-gray-300 border-solid h-1.5 absolute)`,
       { bottom: '100%' },
       '&::after { left: 50%; top: 100% }',
     ],

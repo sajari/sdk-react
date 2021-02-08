@@ -8,6 +8,7 @@ export default function useFormValidity(
 
   const checkValidity = () => {
     const result = ref.current?.checkValidity();
+
     if (isBoolean(result)) {
       setValid(result);
     }
@@ -18,11 +19,13 @@ export default function useFormValidity(
 
     if (ref.current) {
       ref.current.addEventListener('input', checkValidity);
+      ref.current.addEventListener('change', checkValidity);
     }
 
     return () => {
       if (ref.current) {
         ref.current.removeEventListener('input', checkValidity);
+        ref.current.removeEventListener('change', checkValidity);
       }
     };
   }, [ref.current]);

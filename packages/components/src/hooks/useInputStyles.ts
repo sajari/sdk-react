@@ -26,7 +26,7 @@ export default function useInputStyles(props: UseInputStyleProps) {
   const styles: (TwStyle | string)[] = [];
 
   styles.push(
-    tw`leading-normal text-gray-600 transition-all duration-150 bg-white border border-gray-200 border-solid outline-none font-inherit invalid:(outline-none shadow-none)`,
+    tw`leading-normal text-gray-600 transition-all duration-150 bg-white border border-gray-200 border-solid outline-none font-inherit invalid:(bg-white border-gray-200 outline-none shadow-none)`,
   );
 
   // Map the size to padding and font size
