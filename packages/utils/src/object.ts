@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-param-reassign */
-import { isObject } from './assertion';
+import { isPlainObject } from './assertion';
 
 /**
  * Filter an object to keep or remove certain keys
@@ -47,14 +47,14 @@ export function merge(
     options = new MergeOptions();
   }
 
-  if (!isObject(target) || !sources.length) {
+  if (!isPlainObject(target) || !sources.length) {
     return target;
   }
 
   const { arrayHandling } = options as MergeOptions;
   const source = sources.shift();
 
-  if (!source || !isObject(source)) {
+  if (!source || !isPlainObject(source)) {
     return target;
   }
 
@@ -79,7 +79,7 @@ export function merge(
         default:
           break;
       }
-    } else if (isObject(targetValue) && isObject(sourceValue)) {
+    } else if (isPlainObject(targetValue) && isPlainObject(sourceValue)) {
       target[key] = merge(options, { ...targetValue }, sourceValue);
     } else {
       target[key] = sourceValue;
