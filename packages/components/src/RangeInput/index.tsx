@@ -164,10 +164,12 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
   const handleInputChange = (left: boolean) => (value: string) => {
     const [l, r] = inputValues;
 
-    if (left && r) {
+    if (left && !isNullOrUndefined(r)) {
       setInputValues([value, r]);
-    } else if (r) {
+    } else if (!isNullOrUndefined(r)) {
       setInputValues([l, value]);
+    } else {
+      setInputValues([value]);
     }
   };
 
