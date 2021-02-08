@@ -18,16 +18,15 @@ interface MergeObject {
   [k: string]: any;
 }
 
-/**
- * How arrays should be merged
- * 'concat' Concatenate arrays.
- * 'union' Union arrays, skipping items that already exist.
- * 'replace' Replace all array items.
- */
 type MergeArrayHandling = 'concat' | 'union' | 'replace';
 
 export class MergeOptions {
-  /** Whether to concatinate arrays */
+  /**
+   * How arrays should be merged
+   * 'concat' - Concatenate arrays.
+   * 'union' - Union arrays, skipping items that already exist.
+   * 'replace' - Replace all array items.
+   */
   public arrayHandling: MergeArrayHandling;
 
   constructor(options?: MergeOptions) {
