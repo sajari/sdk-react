@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.7.13
+
+### Patch Changes
+
+- [`d9cead04`](https://github.com/sajari/sdk-react/commit/d9cead045105086778f851c093d60bcb56fdca0b) [#392](https://github.com/sajari/sdk-react/pull/392) Thanks [@sampotts](https://github.com/sampotts)! - Add support for SpeechRecognition (unprefixed)
+
+- Updated dependencies [[`d9cead04`](https://github.com/sajari/sdk-react/commit/d9cead045105086778f851c093d60bcb56fdca0b)]:
+  - @sajari/react-components@1.5.6
+
 ## 1.7.12
 
 ### Patch Changes
