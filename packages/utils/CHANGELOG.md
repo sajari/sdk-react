@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.3.6
+
+### Patch Changes
+
+- [`db0eddf5`](https://github.com/sajari/sdk-react/commit/db0eddf50a786cbe2973dbb3185d7efa21abcb01) [#396](https://github.com/sajari/sdk-react/pull/396) Thanks [@sampotts](https://github.com/sampotts)! - Added MergeOptions for the merge util
+
+* [`855c808e`](https://github.com/sajari/sdk-react/commit/855c808e9a0bc267de9d3cccea1db3f5cc45068f) [#394](https://github.com/sajari/sdk-react/pull/394) Thanks [@sampotts](https://github.com/sampotts)! - Improved usability of the RangeInput component
+
 ## 1.3.5
 
 ### Patch Changes
