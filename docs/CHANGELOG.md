@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.6.9
+
+### Patch Changes
+
+- [`a01365c6`](https://github.com/sajari/sdk-react/commit/a01365c6ff37c463abe95a05bf00fddd88eb9d2d) [#391](https://github.com/sajari/sdk-react/pull/391) Thanks [@sampotts](https://github.com/sampotts)! - Clean up title logic
+
+* [`855c808e`](https://github.com/sajari/sdk-react/commit/855c808e9a0bc267de9d3cccea1db3f5cc45068f) [#394](https://github.com/sajari/sdk-react/pull/394) Thanks [@sampotts](https://github.com/sampotts)! - Improved usability of the RangeInput component
+
 ## 1.6.8
 
 ### Patch Changes

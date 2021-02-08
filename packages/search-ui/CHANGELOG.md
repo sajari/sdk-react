@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.7.14
+
+### Patch Changes
+
+- [`855c808e`](https://github.com/sajari/sdk-react/commit/855c808e9a0bc267de9d3cccea1db3f5cc45068f) [#394](https://github.com/sajari/sdk-react/pull/394) Thanks [@sampotts](https://github.com/sampotts)! - Improved usability of the RangeInput component
+
+- Updated dependencies [[`db0eddf5`](https://github.com/sajari/sdk-react/commit/db0eddf50a786cbe2973dbb3185d7efa21abcb01), [`855c808e`](https://github.com/sajari/sdk-react/commit/855c808e9a0bc267de9d3cccea1db3f5cc45068f)]:
+  - @sajari/react-sdk-utils@1.3.6
+  - @sajari/react-components@1.5.7
+
 ## 1.7.13
 
 ### Patch Changes
