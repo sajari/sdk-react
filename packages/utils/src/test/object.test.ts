@@ -1,5 +1,13 @@
 import { filterObject, merge, MergeOptions } from '../object';
 
+class Test {
+  public a: number;
+
+  constructor(value = 1) {
+    this.a = value;
+  }
+}
+
 test.each([
   [new MergeOptions(), { a: 2 }, { a: 1 }, { a: 1 }],
   [
@@ -52,7 +60,9 @@ test.each([
     {
       a: [1, 2, 3],
     },
-    { a: [3, 4, 5, 6] },
+    {
+      a: [3, 4, 5, 6],
+    },
     {
       a: [1, 2, 3, 3, 4, 5, 6],
     },
@@ -62,7 +72,9 @@ test.each([
     {
       a: [1, 2, 3],
     },
-    { a: [3, 4, 5, 6] },
+    {
+      a: [3, 4, 5, 6],
+    },
     {
       a: [1, 2, 3, 4, 5, 6],
     },
@@ -72,9 +84,23 @@ test.each([
     {
       a: [1, 2, 3],
     },
-    { a: [3, 4, 5, 6] },
     {
       a: [3, 4, 5, 6],
+    },
+    {
+      a: [3, 4, 5, 6],
+    },
+  ],
+  [
+    new MergeOptions(),
+    {
+      a: new Test(1),
+    },
+    {
+      a: new Test(2),
+    },
+    {
+      a: { a: 2 },
     },
   ],
 ])('merge(%o, %o)', (options, target, source, expected) => {

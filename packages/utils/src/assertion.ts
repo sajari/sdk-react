@@ -1,6 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { parseURL } from './url';
 
+const getTag = (value: any) => {
+  if (value == null) {
+    return value === undefined ? '[object Undefined]' : '[object Null]';
+  }
+
+  return toString.call(value);
+};
+
 export function isNullOrUndefined(value: any): value is undefined | null {
   return value === null || typeof value === 'undefined';
 }
@@ -28,6 +36,24 @@ export function isArray<T>(value: any): value is T[] {
 export const isObject = (value: any) => {
   const type = typeof value;
   return value !== null && (type === 'object' || type === 'function') && !isArray(value);
+};
+
+export const isPlainObject = (value: any) => {
+  if (!isObject(value) || getTag(value) !== '[object Object]') {
+    return false;
+  }
+
+  if (Object.getPrototypeOf(value) === null) {
+    return true;
+  }
+
+  let proto = value;
+
+  while (Object.getPrototypeOf(proto) !== null) {
+    proto = Object.getPrototypeOf(proto);
+  }
+
+  return Object.getPrototypeOf(value) === proto;
 };
 
 export const isEmptyArray = (value: any) => isArray(value) && value.length === 0;
