@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.7.15
+
+### Patch Changes
+
+- [`7b235cb3`](https://github.com/sajari/sdk-react/commit/7b235cb3171abb704c73bf0ba03f3918a4b33753) [#400](https://github.com/sajari/sdk-react/pull/400) Thanks [@sampotts](https://github.com/sampotts)! - Fix styling of RangeInput handle tooltip
+
+- Updated dependencies [[`7b235cb3`](https://github.com/sajari/sdk-react/commit/7b235cb3171abb704c73bf0ba03f3918a4b33753)]:
+  - @sajari/react-components@1.5.8
+
 ## 1.7.14
 
 ### Patch Changes
