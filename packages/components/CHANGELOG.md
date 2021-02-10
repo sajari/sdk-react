@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.5.10
+
+### Patch Changes
+
+- [`896c5946`](https://github.com/sajari/sdk-react/commit/896c59461dca61da835b3925a758cb7a3fa49fb2) [#404](https://github.com/sajari/sdk-react/pull/404) Thanks [@sampotts](https://github.com/sampotts)! - Fix Firefox overflow ignoring bottom padding
+
+* [`896c5946`](https://github.com/sajari/sdk-react/commit/896c59461dca61da835b3925a758cb7a3fa49fb2) [#404](https://github.com/sajari/sdk-react/pull/404) Thanks [@sampotts](https://github.com/sampotts)! - Fix overflow issue on Select component
+
 ## 1.5.9
 
 ### Patch Changes
