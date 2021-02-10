@@ -1,5 +1,16 @@
 # Change Log
 
+## 1.7.17
+
+### Patch Changes
+
+- [`896c5946`](https://github.com/sajari/sdk-react/commit/896c59461dca61da835b3925a758cb7a3fa49fb2) [#404](https://github.com/sajari/sdk-react/pull/404) Thanks [@sampotts](https://github.com/sampotts)! - Fix Firefox overflow ignoring bottom padding
+
+* [`896c5946`](https://github.com/sajari/sdk-react/commit/896c59461dca61da835b3925a758cb7a3fa49fb2) [#404](https://github.com/sajari/sdk-react/pull/404) Thanks [@sampotts](https://github.com/sampotts)! - Fix overflow issue on Select component
+
+* Updated dependencies [[`896c5946`](https://github.com/sajari/sdk-react/commit/896c59461dca61da835b3925a758cb7a3fa49fb2), [`896c5946`](https://github.com/sajari/sdk-react/commit/896c59461dca61da835b3925a758cb7a3fa49fb2)]:
+  - @sajari/react-components@1.5.10
+
 ## 1.7.16
 
 ### Patch Changes
