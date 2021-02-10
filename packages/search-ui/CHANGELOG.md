@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.7.16
+
+### Patch Changes
+
+- [`59c28459`](https://github.com/sajari/sdk-react/commit/59c284590bf095f63ef15a77133458fbfa8f16bf) [#402](https://github.com/sajari/sdk-react/pull/402) Thanks [@sampotts](https://github.com/sampotts)! - Fix overflow issue on Select component
+
+- Updated dependencies [[`59c28459`](https://github.com/sajari/sdk-react/commit/59c284590bf095f63ef15a77133458fbfa8f16bf)]:
+  - @sajari/react-components@1.5.9
+
 ## 1.7.15
 
 ### Patch Changes
