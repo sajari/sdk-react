@@ -13,7 +13,7 @@ export function useDropdownStyles(params: UseDropdownStylesParams) {
   const { focusProps: focusRingProps, focusRingStyles } = useFocusRingStyles();
   const styles = {
     container: [
-      tw`p-1 overflow-auto list-none focus:outline-none max-h-80 min-w-max-content`,
+      tw`p-1 pb-0 overflow-auto list-none focus:outline-none max-h-80 min-w-max-content`,
       container,
       focusRingStyles,
     ],

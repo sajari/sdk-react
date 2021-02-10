@@ -16,7 +16,7 @@ export function useOptionStyles(params: UseOptionStylesParams) {
   const fontSizeStyles = useFontSize({ size });
   const { root, label } = useCoreDropdownItemStyles({ highlighted });
   const styles = {
-    option: [root, disabled ? tw`text-gray-400 cursor-not-allowed` : null],
+    option: [root, disabled ? tw`text-gray-400 cursor-not-allowed` : null, tw`last:(mb-1)`],
     children: [tw`flex-1`, selected ? tw`pl-1` : tw`pl-4`, fontSizeStyles],
     label: [label],
   };
