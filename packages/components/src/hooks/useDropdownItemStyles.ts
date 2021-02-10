@@ -11,7 +11,7 @@ export function useDropdownItemStyles(params: UseDropdownItemStylesParams) {
 
   const styles = inferStylesObjectKeys({
     root: [
-      tw`flex items-center w-full px-2 py-1 leading-5 text-left transition-all duration-75 rounded cursor-pointer`,
+      tw`flex items-center w-auto px-2 py-1 leading-5 text-left transition-all duration-75 rounded cursor-pointer`,
     ],
     label: [tw`pl-4 ml-auto text-xs text-gray-400`],
   });
