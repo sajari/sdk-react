@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.3.8
+
+### Patch Changes
+
+- [`fe173760`](https://github.com/sajari/sdk-react/commit/fe173760730baf7b04502a30909f0330ea27e300) [#406](https://github.com/sajari/sdk-react/pull/406) Thanks [@sampotts](https://github.com/sampotts)! - Fix merge without options specified
+
 ## 1.3.7
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.7.18
+
+### Patch Changes
+
+- [`fe173760`](https://github.com/sajari/sdk-react/commit/fe173760730baf7b04502a30909f0330ea27e300) [#406](https://github.com/sajari/sdk-react/pull/406) Thanks [@sampotts](https://github.com/sampotts)! - Fix merge without options specified
+
+- Updated dependencies [[`fe173760`](https://github.com/sajari/sdk-react/commit/fe173760730baf7b04502a30909f0330ea27e300)]:
+  - @sajari/react-sdk-utils@1.3.8
+  - @sajari/react-components@1.5.11
+
 ## 1.7.17
 
 ### Patch Changes
