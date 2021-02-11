@@ -41,9 +41,9 @@ export function merge(
   ...sources: MergeObject[]
 ): MergeObject {
   // If options aren't passed
-  if (!(options instanceof MergeOptions)) {
-    target = options;
+  if (isPlainObject(options)) {
     sources = [target, ...sources];
+    target = options;
     options = new MergeOptions();
   }
 

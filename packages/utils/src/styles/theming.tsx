@@ -32,7 +32,7 @@ const defaultTheme: Theme = {
 
 export const useTheme = () => {
   const theme = useEmotionTheme<Theme>();
-  return { ...defaultTheme, ...theme };
+  return merge({ ...defaultTheme }, theme) as Theme;
 };
 
 export interface ThemeProviderProps {
@@ -41,7 +41,7 @@ export interface ThemeProviderProps {
 }
 
 const ThemeProvider: React.FC<ThemeProviderProps> = ({ theme = defaultTheme, importantStyles = false, children }) => (
-  <EmotionThemeProvider theme={merge(defaultTheme, theme)}>
+  <EmotionThemeProvider theme={merge({ ...defaultTheme }, theme)}>
     {importantStyles ? <CacheProvider value={cache}>{children}</CacheProvider> : children}
   </EmotionThemeProvider>
 );
