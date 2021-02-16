@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import * as React from 'react';
 
 import { useContext } from '../ContextProvider';
 
@@ -7,7 +7,7 @@ function useQuery() {
     search: { search, variables, query },
   } = useContext();
 
-  const setQuery = useCallback(
+  const setQuery = React.useCallback(
     (q: string) => {
       variables.set({ q });
       search(q);
