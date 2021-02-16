@@ -1,9 +1,8 @@
-import { isNumber } from '@sajari/react-sdk-utils';
-import { CountAggregate } from '@sajari/sdk-js';
 import { useEffect, useMemo, useState } from 'react';
 
 import { FilterBuilder, useContext } from '../ContextProvider';
 import { EVENT_SELECTION_UPDATED } from '../ContextProvider/events';
+import { getBucketCount } from '../utils';
 import { FilterItem, SortType } from './types';
 import { sortItems } from './utils';
 
@@ -51,14 +50,14 @@ function useFilter(name: string, params: { sort?: SortType; sortAscending?: bool
     const aggregates = response.getAggregates();
     const aggregateFilters = response.getAggregateFilters();
     const isCount = filter.getCount();
-    const fieldCount = filter.getField();
+    const field = filter.getField();
 
-    if (isCount && fieldCount) {
+    if (isCount && field) {
       const array = filter.isArray();
       let count = {};
-      ({ count } = (aggregateFilters || {})[fieldCount] || {});
+      ({ count } = (aggregateFilters || {})[field] || {});
       if (!count) {
-        ({ count = {} } = (aggregates || {})[fieldCount] || {});
+        ({ count = {} } = (aggregates || {})[field] || {});
       }
 
       const temp = sortItems(Object.entries(count), sort, sortAscending)
@@ -66,7 +65,7 @@ function useFilter(name: string, params: { sort?: SortType; sortAscending?: bool
         .map(([label, count]: [string, number]) => ({
           label,
           count,
-          value: array ? `${fieldCount} ~ ["${label}"]` : `${fieldCount} = "${label}"`,
+          value: array ? `${field} ~ ["${label}"]` : `${field} = "${label}"`,
         }));
 
       filter.setOptions(temp.reduce((a, c) => ({ ...a, [c.label]: c.value }), {}));
@@ -74,25 +73,9 @@ function useFilter(name: string, params: { sort?: SortType; sortAscending?: bool
       return temp;
     }
 
-    const getBucketCount = (value: string): number => {
-      let count: number | CountAggregate = 0;
-
-      if (aggregateFilters && Object.keys(aggregateFilters.buckets?.count ?? {}).includes(value)) {
-        ({ count } = aggregateFilters.buckets);
-      } else if (aggregates && Object.keys(aggregates.buckets?.count ?? {}).includes(value)) {
-        ({ count } = aggregates.buckets);
-      }
-
-      if (isNumber(count)) {
-        return 0;
-      }
-
-      return (count[value] as number) ?? 0;
-    };
-
     return sortItems(Object.entries(filter.getOptions()), sort, sortAscending).map(([label, value]) => {
       const id = `${name}_${label}`;
-      const count = getBucketCount(id);
+      const count = getBucketCount(response, id);
 
       return { label, value, count } as FilterItem;
     });

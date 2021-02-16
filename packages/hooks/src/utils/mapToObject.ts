@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export default function mapToObject<T = Record<string, string | number>>(map: Map<string, any> | undefined): T {
+export function mapToObject<T = Record<string, string | number>>(map: Map<string, any> | undefined): T {
   const obj = {} as T;
   if (map) {
     map.forEach((v, k) => {
