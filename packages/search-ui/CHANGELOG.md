@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.7.19
+
+### Patch Changes
+
+- [`56de65d5`](https://github.com/sajari/sdk-react/commit/56de65d5266b4479bdaef982837320b2fc9ecc27) [#408](https://github.com/sajari/sdk-react/pull/408) Thanks [@sampotts](https://github.com/sampotts)! - Add support (max|min)-aggregate-filter in RangeInput
+
+- Updated dependencies [[`56de65d5`](https://github.com/sajari/sdk-react/commit/56de65d5266b4479bdaef982837320b2fc9ecc27)]:
+  - @sajari/react-hooks@1.4.6
+
 ## 1.7.18
 
 ### Patch Changes
