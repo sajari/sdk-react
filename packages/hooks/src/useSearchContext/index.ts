@@ -3,7 +3,7 @@ import { isNullOrUndefined } from '@sajari/react-sdk-utils';
 
 import { useContext } from '../ContextProvider';
 import usePagination from '../usePagination';
-import mapToObject from '../utils/mapToObject';
+import { mapToObject } from '../utils';
 
 function useSearchContext() {
   const {

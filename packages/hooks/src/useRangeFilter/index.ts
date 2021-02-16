@@ -1,3 +1,4 @@
+import { isNullOrUndefined } from '@sajari/react-sdk-utils';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { FilterBuilder, RangeFilterBuilder, useContext } from '../ContextProvider';
@@ -98,34 +99,39 @@ function useRangeFilter(name: string) {
       return;
     }
 
+    const field = filter.getField();
     const aggregates = response.getAggregates();
+    const aggregateFilters = response.getAggregateFilters();
     let newMin = 0;
     let newMax = 0;
-    const field = filter.getField();
-    const fieldAggregate = (aggregates || {})[field] || {};
-    newMin = fieldAggregate.min as number;
-    newMax = fieldAggregate.max as number;
+    const aggregate = (aggregates || {})[field] || {};
+    const aggregateFilter = (aggregateFilters || {})[field] || {};
 
-    if (!newMin) {
-      newMin = 0;
+    if (!isNullOrUndefined(aggregateFilter.min)) {
+      newMin = aggregateFilter.min as number;
+    } else if (!isNullOrUndefined(aggregate.min)) {
+      newMin = aggregate.min as number;
     }
-    if (!newMax) {
-      newMax = 0;
+
+    if (!isNullOrUndefined(aggregateFilter.max)) {
+      newMax = aggregateFilter.max as number;
+    } else if (!isNullOrUndefined(aggregate.max)) {
+      newMax = aggregate.max as number;
     }
 
     if (query !== prevQuery.current || !range || selectionUpdated.current) {
-      const formattedLimit = filter.format([newMin, newMax]);
-      setMin(formattedLimit[0]);
-      setMax(formattedLimit[1]);
-      filter.setMin(formattedLimit[0]);
-      filter.setMax(formattedLimit[1]);
+      [newMin, newMax] = filter.format([newMin, newMax]);
 
-      // attempt to retain the last range
-      const newRangeLeft =
-        range && range[0] > formattedLimit[0] && range[0] <= formattedLimit[1] ? range[0] : formattedLimit[0];
-      const newRangeRight =
-        range && range[1] < formattedLimit[1] && range[1] >= formattedLimit[0] ? range[1] : formattedLimit[1];
+      setMin(newMin);
+      setMax(newMax);
 
+      // Set the filter
+      filter.setMin(newMin);
+      filter.setMax(newMax);
+
+      // Attempt to retain the last range
+      const newRangeLeft = range && range[0] > newMin && range[0] <= newMax ? range[0] : newMin;
+      const newRangeRight = range && range[1] < newMax && range[1] >= newMin ? range[1] : newMax;
       const newRange: Range = [newRangeLeft, newRangeRight];
 
       filter.set(newRange, false);
