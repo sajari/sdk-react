@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.4.6
+
+### Patch Changes
+
+- [`56de65d5`](https://github.com/sajari/sdk-react/commit/56de65d5266b4479bdaef982837320b2fc9ecc27) [#408](https://github.com/sajari/sdk-react/pull/408) Thanks [@sampotts](https://github.com/sampotts)! - Add support (max|min)-aggregate-filter in RangeInput
+
 ## 1.4.5
 
 ### Patch Changes
