@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.5.12
+
+### Patch Changes
+
+- [`63bf8f68`](https://github.com/sajari/sdk-react/commit/63bf8f6838b9d1f61bcc593740309bc3f4b02246) [#412](https://github.com/sajari/sdk-react/pull/412) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Added `center` prop to Modal. Also, fixed linting issues.
+
 ## 1.5.11
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.7.20
+
+### Patch Changes
+
+- [`9177b595`](https://github.com/sajari/sdk-react/commit/9177b595981e4a8c72eabfde22e45c6cb2260dae) [#410](https://github.com/sajari/sdk-react/pull/410) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix a bug where Swatch component shows unavailable colors
+
+- Updated dependencies [[`0662ebcb`](https://github.com/sajari/sdk-react/commit/0662ebcb580635607db02eb5f766b182ad42a673), [`63bf8f68`](https://github.com/sajari/sdk-react/commit/63bf8f6838b9d1f61bcc593740309bc3f4b02246)]:
+  - @sajari/react-hooks@1.4.7
+  - @sajari/react-components@1.5.12
+
 ## 1.7.19
 
 ### Patch Changes
