@@ -18,7 +18,7 @@ export const modalManager = {
    * Remove a modal
    */
   remove: (oldModal: Ref<Element>) => {
-    modals = modals.filter(modal => modal !== oldModal);
+    modals = modals.filter((modal) => modal !== oldModal);
   },
 
   /**

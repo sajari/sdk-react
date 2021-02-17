@@ -1,11 +1,11 @@
+import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import React, { Children } from 'react';
 
-import { ModalFooterProps } from './types';
-import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
-import { useModalContext } from '../context';
-import useModalFooterStyles from './styles';
 import ButtonGroup from '../../ButtonGroup';
+import { useModalContext } from '../context';
 import { ModalSize } from '../types';
+import useModalFooterStyles from './styles';
+import { ModalFooterProps } from './types';
 
 const ModalFooter = React.forwardRef((props: ModalFooterProps, ref?: React.Ref<HTMLDivElement>) => {
   const { styles: stylesProp, ...rest } = props;

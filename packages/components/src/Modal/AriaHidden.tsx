@@ -1,5 +1,5 @@
-import React from 'react';
 import { hideOthers, Undo } from 'aria-hidden';
+import React from 'react';
 
 /**
  * Modal component to polyfill `aria-modal`.

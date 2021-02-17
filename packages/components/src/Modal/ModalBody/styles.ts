@@ -1,6 +1,7 @@
 import { mapStyles } from '@sajari/react-sdk-utils';
 import tw from 'twin.macro';
-import { ModalBodyProps } from '.';
+
+import { ModalBodyProps } from './types';
 
 export default function useModalBodyStyles(props: ModalBodyProps) {
   const { padded = true } = props;

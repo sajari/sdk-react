@@ -1,10 +1,10 @@
+import { __DEV__, callAllHandlers, getStylesObject } from '@sajari/react-sdk-utils';
 import React from 'react';
 
-import { useModalContext } from '../context';
-import { ModalCloseButtonProps } from './types';
-import { callAllHandlers, __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import { IconClose } from '../../assets/icons';
+import { useModalContext } from '../context';
 import useModalCloseButtonStyles from './styles';
+import { ModalCloseButtonProps } from './types';
 
 const ModalCloseButton = React.forwardRef((props: ModalCloseButtonProps, ref?: React.Ref<HTMLButtonElement>) => {
   const { onClose, disableDefaultStyles = false } = useModalContext();
@@ -14,13 +14,14 @@ const ModalCloseButton = React.forwardRef((props: ModalCloseButtonProps, ref?: R
   return (
     <button
       ref={ref}
+      type="button"
       onClick={callAllHandlers(onClick, onClose)}
       aria-label={label}
       css={[styles.container, stylesProp]}
       {...rest}
     >
       &#8203;
-      <IconClose css={styles.icon}/>
+      <IconClose css={styles.icon} />
     </button>
   );
 });
