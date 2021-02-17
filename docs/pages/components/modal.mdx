@@ -134,6 +134,45 @@ function BasicUsage() {
 }
 ```
 
+### Center Modal Content
+
+By default, the modal content is centered on screens. You can set
+`center` to `false` if you want to keep the dialog on top of the page.
+
+```jsx
+function Center() {
+  const [open, setOpen] = React.useState(false);
+
+  const onOpen = () => setOpen(true);
+  const onClose = () => setOpen(false);
+
+  return (
+    <>
+      <Button onClick={onOpen}>Open Modal</Button>
+
+      <Modal open={open} onClose={onClose} center={false}>
+        <ModalHeader>
+          <ModalTitle>Modal Title</ModalTitle>
+          <ModalCloseButton />
+        </ModalHeader>
+
+        <ModalBody>
+          <Text>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar risus non risus hendrerit
+            venenatis. Pellentesque sit amet hendrerit risus, sed porttitor quam.
+          </Text>
+        </ModalBody>
+
+        <ModalFooter>
+          <Button appearance="primary">Action</Button>
+          <Button onClick={onClose}>Close</Button>
+        </ModalFooter>
+      </Modal>
+    </>
+  );
+}
+```
+
 ### Modal Sizes
 
 Pass the `size` prop if you need to adjust the size of the modal. Values can be any of the following:
@@ -259,6 +298,7 @@ To disable this behavior, set `useInert` to `false`.
 | closeOnEsc          | `boolean`         | `true`  | Is the modal closable when user press esc key.                                                                                          |
 | closeOnOverlayClick | `boolean`         | `true`  | Is the modal closable when user click on overlay.                                                                                       |
 | blockScroll         | `boolean`         | `true`  | Whether to block scrolling when dialog is open.                                                                                         |
+| center              | `boolean`         | `true`  | Should the modal content be centered.                                                                                                   |
 | trapFocus           | `boolean`         | `true`  | When the modal is open, trap focus within it.                                                                                           |
 | initialFocusRef     | `React.Ref`       |         | The `ref` of the element to receive focus when the dialog opens                                                                         |
 | finalFocusRef       | `React.Ref`       |         | The `ref` of element to receive focus when the dialog closes                                                                            |

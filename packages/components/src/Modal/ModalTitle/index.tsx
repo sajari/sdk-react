@@ -1,10 +1,10 @@
+import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import React from 'react';
 
-import { useModalContext } from '../context';
-import { ModalTitleProps } from './types';
 import Text from '../../Text';
-import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
+import { useModalContext } from '../context';
 import useModalTitleStyles from './styles';
+import { ModalTitleProps } from './types';
 
 const ModalTitle = React.forwardRef((props: ModalTitleProps, ref?: React.Ref<HTMLParagraphElement>) => {
   const { styles: stylesProp, ...rest } = props;

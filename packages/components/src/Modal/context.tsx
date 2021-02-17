@@ -1,4 +1,5 @@
 import { createContext } from '@sajari/react-sdk-utils';
+
 import { ModalSize } from './types';
 
 interface ModalContextProps {

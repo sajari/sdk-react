@@ -1,10 +1,10 @@
+import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import React from 'react';
 
-import { ModalHeaderProps } from './types';
-import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import Box from '../../Box';
 import { useModalContext } from '../context';
 import useModalHeaderStyles from './styles';
+import { ModalHeaderProps } from './types';
 
 const ModalHeader = React.forwardRef((props: ModalHeaderProps, ref?: React.Ref<HTMLElement>) => {
   const { styles: stylesProp, ...rest } = props;

@@ -30,6 +30,8 @@ export interface ModalProps extends BoxProps {
   blockScroll?: boolean;
   /**  When the modal is open, trap focus within it. Default to true. */
   trapFocus?: boolean;
+  /** If `true`, the modal content will be centered @default true */
+  center?: boolean;
   /** If `true`, the modal will autofocus the first enabled and interative element within the `ModalContent` @default true */
   autoFocus?: boolean;
   /** The `ref` of element to receive focus when the modal opens. */
