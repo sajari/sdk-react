@@ -13,7 +13,7 @@ const ColorFilter = ({ name, title }: Omit<ColorFilterProps, 'type'>) => {
   const { options, selected, setSelected, reset } = useFilter(name);
   const { customClassNames, disableDefaultStyles = false } = useSearchUIContext();
   const optionKeys = useMemo(() => options.map((o) => o.label), [JSON.stringify(options)]);
-  const filtered = useMemo(() => colorKeys.filter((c) => optionKeys.some((o) => o.includes(c))), [
+  const filtered = useMemo(() => colorKeys.filter((c) => optionKeys.some((o) => c.toLowerCase() === o.toLowerCase())), [
     JSON.stringify(optionKeys),
   ]);
 
