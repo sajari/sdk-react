@@ -1,5 +1,16 @@
 # Change Log
 
+## 1.7.21
+
+### Patch Changes
+
+- [`d2636fdb`](https://github.com/sajari/sdk-react/commit/d2636fdb70112366fc40ffd207cb5d44c6786b3d) [#415](https://github.com/sajari/sdk-react/pull/415) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fixed incorrrect summary message where the query is disabled.
+
+* [`ab41772c`](https://github.com/sajari/sdk-react/commit/ab41772c15cd81a02de0aa6bcb2cccb45e93765f) [#414](https://github.com/sajari/sdk-react/pull/414) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fixed cursor jumps to end of input when typing mid query.
+
+* Updated dependencies [[`ab41772c`](https://github.com/sajari/sdk-react/commit/ab41772c15cd81a02de0aa6bcb2cccb45e93765f)]:
+  - @sajari/react-components@1.5.13
+
 ## 1.7.20
 
 ### Patch Changes

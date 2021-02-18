@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.5.13
+
+### Patch Changes
+
+- [`ab41772c`](https://github.com/sajari/sdk-react/commit/ab41772c15cd81a02de0aa6bcb2cccb45e93765f) [#414](https://github.com/sajari/sdk-react/pull/414) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fixed cursor jumps to end of input when typing mid query.
+
 ## 1.5.12
 
 ### Patch Changes
