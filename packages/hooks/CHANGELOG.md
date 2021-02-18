@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.4.7
+
+### Patch Changes
+
+- [`0662ebcb`](https://github.com/sajari/sdk-react/commit/0662ebcb580635607db02eb5f766b182ad42a673) [#413](https://github.com/sajari/sdk-react/pull/413) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Made clear method public in useSearchContext so that it can be used to reset the response.
+
 ## 1.4.6
 
 ### Patch Changes
