@@ -2,6 +2,8 @@ export default {
   common: {
     result: 'Result',
     results: 'Results',
+    items: 'Items',
+    item: 'Item',
     loading: 'Loading',
     error: 'Error',
   },
@@ -44,6 +46,7 @@ export default {
   },
   summary: {
     results: '{{count}} {{object}} for "{{query}}"',
+    noQueryResults: '{{count}} {{object}}',
     latency: '({{time}} secs)',
     alternative: 'Search instead for',
   },
