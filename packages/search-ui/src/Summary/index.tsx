@@ -24,11 +24,18 @@ const Summary = (props: SummaryProps) => {
   return (
     <React.Fragment>
       <LiveMessage
-        message={t('summary:results', {
-          count: totalResults,
-          object: pluralize(totalResults, t('common:result'), t('common:results')),
-          query,
-        })}
+        message={
+          query === ''
+            ? t('summary:noQueryResults', {
+                count: totalResults,
+                object: pluralize(totalResults, t('common:item'), t('common:items')),
+              })
+            : t('summary:results', {
+                count: totalResults,
+                object: pluralize(totalResults, t('common:result'), t('common:results')),
+                query,
+              })
+        }
         aria-live="polite"
       />
 
@@ -36,11 +43,17 @@ const Summary = (props: SummaryProps) => {
         <Box
           as="span"
           dangerouslySetInnerHTML={{
-            __html: t('summary:results', {
-              count: totalResults.toLocaleString(language),
-              object: pluralize(totalResults, t('common:result'), t('common:results')).toLowerCase(),
-              query: `<strong>${query}</strong>`,
-            } as Record<string, string>),
+            __html:
+              query === ''
+                ? t('summary:noQueryResults', {
+                    count: totalResults.toLocaleString(language),
+                    object: pluralize(totalResults, t('common:item'), t('common:items')).toLowerCase(),
+                  } as Record<string, string>)
+                : t('summary:results', {
+                    count: totalResults.toLocaleString(language),
+                    object: pluralize(totalResults, t('common:result'), t('common:results')).toLowerCase(),
+                    query: `<strong>${query}</strong>`,
+                  } as Record<string, string>),
           }}
         />
         {showLatency ? ` ${t('summary:latency', { time: latency })}` : ''}
