@@ -319,6 +319,9 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
                   onChange(e.target.value);
                   setTypedInputValue(e.target.value);
                 },
+                onChange: (e: ChangeEvent<HTMLInputElement>) => {
+                  setValue(e.target.value);
+                },
               }),
               focusProps,
             )}
