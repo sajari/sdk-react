@@ -19,7 +19,7 @@ const TabList = React.forwardRef((props: TabListProps, ref?: React.Ref<HTMLDivEl
     disableDefaultStyles = false,
   } = useTabContext();
   const styles = getStylesObject(useTabListStyles(), disableDefaultStyles);
-  const allNodes = useRef<HTMLElement[]>([]);
+  const allNodes = useRef<(HTMLElement | null)[]>([]);
   const validChildren = cleanChildren(children);
 
   const focusableIndexes = validChildren
@@ -32,7 +32,7 @@ const TabList = React.forwardRef((props: TabListProps, ref?: React.Ref<HTMLDivEl
   const updateIndex = (index: number) => {
     const childIndex = focusableIndexes[index];
 
-    allNodes.current[childIndex].focus();
+    allNodes.current[childIndex]?.focus();
 
     if (onChangeTab) {
       onChangeTab(childIndex);
@@ -81,7 +81,7 @@ const TabList = React.forwardRef((props: TabListProps, ref?: React.Ref<HTMLDivEl
     const handleClick = (event: React.MouseEvent) => {
       // Hack for Safari. Buttons don't receive focus on click on Safari
       // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
-      allNodes.current[index].focus();
+      allNodes.current[index]?.focus();
 
       onManualTabChange(index);
       onChangeTab(index);
@@ -92,7 +92,7 @@ const TabList = React.forwardRef((props: TabListProps, ref?: React.Ref<HTMLDivEl
     };
 
     return cloneElement(child, {
-      ref: (node: HTMLElement) => {
+      ref: (node: HTMLElement | null) => {
         allNodes.current[index] = node;
         return node;
       },
