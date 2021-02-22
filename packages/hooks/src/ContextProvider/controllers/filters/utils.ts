@@ -6,7 +6,15 @@ import RangeFilterBuilder from './RangeFilterBuilder';
 type Type = 'filter' | 'countFilters';
 
 // Group expressions into an ARRAY_MATCH
-const buildArrayMatch = (expressions: Array<string>) => `ARRAY_MATCH(${expressions.filter(Boolean).join(' AND ')})`;
+const buildArrayMatch = (expressions: Array<string>) => {
+  let list = expressions.filter(Boolean);
+
+  if (list.length > 1) {
+    list = list.map((expression) => `(${expression})`);
+  }
+
+  return `ARRAY_MATCH(${list.join(' AND ')})`;
+};
 
 // Group filters together using ARRAY_MATCH
 export function groupFilters(

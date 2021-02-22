@@ -99,4 +99,15 @@ describe('FilterBuilder', () => {
     });
     expect(filter.filter()).toBe('(category ~ ["apple"]) OR (category ~ ["samsung"])');
   });
+
+  it('if count is not set, ignore any selected values which are not in the options', () => {
+    const filter = new FilterBuilder({
+      name: 'category',
+      field: 'category',
+      options: { dell: 'category = "dell"' },
+      count: false,
+      initial: ['apple', 'dell', 'samsung'],
+    });
+    expect(filter.filter()).toBe('category = "dell"');
+  });
 });
