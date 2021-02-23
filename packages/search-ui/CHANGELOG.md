@@ -1,5 +1,22 @@
 # Change Log
 
+## 1.7.22
+
+### Patch Changes
+
+- [`3712d27a`](https://github.com/sajari/sdk-react/commit/3712d27a55cd764de79abdd5ee80854b2af7a9d8) [#417](https://github.com/sajari/sdk-react/pull/417) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fixed the issue of incorrect response after using filters. It was caused by the `filter()` method of a count aggregate filter will ignore the value that is not in the options.
+
+* [`20a8a4e8`](https://github.com/sajari/sdk-react/commit/20a8a4e89fd812c6d3a8c8f68cc6797ac72d9bd2) [#420](https://github.com/sajari/sdk-react/pull/420) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fixed the issue when using the range filter will sometimes cause mismatches between the UI and the response. Previously, the attempt was to retain the previous range values once a new request was made, but it is tricky and often leads to the issues mentioned earlier. The change aims to simplify the logic:
+
+  - Only update the `min` and `max` from the response if the query was changed.
+  - Once the `min` and `max` changed, set the range to `[min, max]`.
+
+- [`5b4cb350`](https://github.com/sajari/sdk-react/commit/5b4cb3506e48e3d9cc668c9134e170fff4c3cd64) [#419](https://github.com/sajari/sdk-react/pull/419) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fixed tabs are unclickable because the ref DOM node from `cloneElement` sometimes gets `null`.
+
+- Updated dependencies [[`3712d27a`](https://github.com/sajari/sdk-react/commit/3712d27a55cd764de79abdd5ee80854b2af7a9d8), [`20a8a4e8`](https://github.com/sajari/sdk-react/commit/20a8a4e89fd812c6d3a8c8f68cc6797ac72d9bd2), [`5b4cb350`](https://github.com/sajari/sdk-react/commit/5b4cb3506e48e3d9cc668c9134e170fff4c3cd64)]:
+  - @sajari/react-hooks@1.4.8
+  - @sajari/react-components@1.5.14
+
 ## 1.7.21
 
 ### Patch Changes

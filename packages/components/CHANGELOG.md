@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.5.14
+
+### Patch Changes
+
+- [`5b4cb350`](https://github.com/sajari/sdk-react/commit/5b4cb3506e48e3d9cc668c9134e170fff4c3cd64) [#419](https://github.com/sajari/sdk-react/pull/419) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fixed tabs are unclickable because the ref DOM node from `cloneElement` sometimes gets `null`.
+
 ## 1.5.13
 
 ### Patch Changes
