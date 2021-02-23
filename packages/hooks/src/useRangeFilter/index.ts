@@ -1,9 +1,9 @@
 import { isNullOrUndefined } from '@sajari/react-sdk-utils';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { FilterBuilder, RangeFilterBuilder, useContext } from '../ContextProvider';
+import { RangeFilterBuilder, useContext } from '../ContextProvider';
 import { Range } from '../ContextProvider/controllers/filters/types';
-import { EVENT_RANGE_UPDATED, EVENT_SELECTION_UPDATED } from '../ContextProvider/events';
+import { EVENT_RANGE_UPDATED } from '../ContextProvider/events';
 
 function useRangeFilter(name: string) {
   const {
@@ -33,25 +33,6 @@ function useRangeFilter(name: string) {
       filter.reset(false);
     }
   }, [query]);
-
-  useEffect(() => {
-    if (!isAggregate) {
-      return () => {};
-    }
-
-    const removeListeners = filters
-      .filter((f) => f instanceof FilterBuilder)
-      .map((f) =>
-        f.listen(EVENT_SELECTION_UPDATED, () => {
-          filter.reset(false);
-          selectionUpdated.current = true;
-        }),
-      );
-
-    return () => {
-      removeListeners.forEach((f) => f());
-    };
-  }, []);
 
   useEffect(() => {
     const removeListener = filter.listen(EVENT_RANGE_UPDATED, () => {
@@ -87,14 +68,14 @@ function useRangeFilter(name: string) {
   };
 
   useEffect(() => {
-    if (!isAggregate) {
+    if (!isAggregate || prevQuery.current === query) {
+      prevQuery.current = query;
       return;
     }
 
     if (!response || response?.isEmpty()) {
       setMin(range ? range[0] : limit[0]);
       setMax(range ? range[1] : limit[1]);
-      prevQuery.current = query;
       selectionUpdated.current = false;
       return;
     }
@@ -119,27 +100,19 @@ function useRangeFilter(name: string) {
       newMax = aggregate.max as number;
     }
 
-    if (query !== prevQuery.current || !range || selectionUpdated.current) {
-      [newMin, newMax] = filter.format([newMin, newMax]);
+    [newMin, newMax] = filter.format([newMin, newMax]);
 
-      setMin(newMin);
-      setMax(newMax);
+    setMin(newMin);
+    setMax(newMax);
 
-      // Set the filter
-      filter.setMin(newMin);
-      filter.setMax(newMax);
+    // Set the filter
+    filter.setMin(newMin);
+    filter.setMax(newMax);
 
-      // Attempt to retain the last range
-      const newRangeLeft = range && range[0] > newMin && range[0] <= newMax ? range[0] : newMin;
-      const newRangeRight = range && range[1] < newMax && range[1] >= newMin ? range[1] : newMax;
-      const newRange: Range = [newRangeLeft, newRangeRight];
-
-      filter.set(newRange, false);
-      setInternalRange(newRange);
-    }
+    filter.set([newMin, newMax], false);
+    setInternalRange([newMin, newMax]);
 
     prevQuery.current = query;
-    selectionUpdated.current = false;
   }, [JSON.stringify(response?.getResults())]);
 
   return {
