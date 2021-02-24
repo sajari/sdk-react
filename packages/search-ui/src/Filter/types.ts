@@ -1,5 +1,5 @@
 import { RangeInputProps } from '@sajari/react-components';
-import { SortType } from '@sajari/react-hooks';
+import { Range, SortType } from '@sajari/react-hooks';
 import * as React from 'react';
 
 export interface HeaderProps {
@@ -53,7 +53,7 @@ export interface TabFilterProps
 
 export interface RangeFilterProps
   extends BaseFilterProps,
-    Pick<RangeInputProps, 'format' | 'showInputs' | 'steps' | 'tick' | 'ticks'> {
+    Pick<RangeInputProps<Range>, 'format' | 'showInputs' | 'steps' | 'tick' | 'ticks'> {
   type: 'range';
 }
 
