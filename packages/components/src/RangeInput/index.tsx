@@ -6,6 +6,7 @@ import {
   formatNumber,
   getDecimalPlaces,
   getStylesObject,
+  isArray,
   isNullOrUndefined,
   isString,
   noop,
@@ -23,7 +24,7 @@ import Track from './components/Track';
 import useRangeInputStyles from './styles';
 import { RangeInputProps, RangeInputValue, RangeValue } from './types';
 
-const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTMLDivElement>) => {
+function RangeInput<T extends RangeValue>(props: RangeInputProps<T>) {
   const {
     language,
     format = 'default',
@@ -31,9 +32,9 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     fixedPoint = false,
     onChange = noop,
     onInput = noop,
-    value: valueProp = [25, 50],
     min = 0,
     max = 100,
+    value: valueProp = [min, max],
     step = 1,
     steps,
     leftInput: leftInputFunc,
@@ -70,20 +71,22 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
   };
 
   // Map RangeValue to the closest step and clamp values
-  const mapRange = (values: RangeValue) => {
-    return values.map((v) => roundToStep(clamp(Number(v), min, max), step)) as RangeValue;
+  const mapRange = (value: RangeValue): RangeValue => {
+    return isArray(value)
+      ? (value.map((v) => roundToStep(clamp(Number(v), min, max), step)) as RangeValue)
+      : roundToStep(clamp(Number(value), min, max), step);
   };
 
   // Map RangeValue to RangeInputValue
-  const mapRangeInput = (values: RangeValue) => {
-    return values.map(String).map(formatInputValue) as RangeInputValue;
+  const mapRangeInput = (value: RangeValue): RangeInputValue => {
+    return (isArray(value) ? value : [value]).map(String).map(formatInputValue) as RangeInputValue;
   };
 
   const { ticks: ticksProp = !tick ? [min, max] : undefined } = props;
   const [inputValues, setInputValues] = React.useState<RangeInputValue>(mapRangeInput(valueProp));
   const [range, setRange] = React.useState<RangeValue>(mapRange(valueProp));
   const values = React.useMemo(() => mapRange(range), [range]);
-  const [low, high] = values;
+  const [low, high] = isArray(values) ? values : [values];
 
   // Map and set a range
   const mapSetRange = (newValue: RangeValue, fireOnChange = false) => {
@@ -91,10 +94,10 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
 
     setRange(newRange);
 
-    onInput(newRange);
+    onInput(newRange as T);
 
     if (fireOnChange) {
-      onChange(newRange);
+      onChange(newRange as T);
     }
   };
 
@@ -109,12 +112,11 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
     steps,
     min,
     max,
-    values,
+    values: isArray(values) ? values : [values],
     tickSize: tick,
     ticks: ticksProp,
-    onDrag: mapSetRange,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    onChange: (val: any) => mapSetRange(val, true),
+    onDrag: (val: number[]) => mapSetRange(val.length === 1 ? val[0] : (val as RangeValue)),
+    onChange: (val: number[]) => mapSetRange(val.length === 1 ? val[0] : (val as RangeValue), true),
   });
 
   const handleRangeInputChange = (left: boolean, v: string | number) => {
@@ -239,7 +241,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
   );
 
   return (
-    <Box ref={ref} css={[styles.container, stylesProp]} {...rest}>
+    <Box css={[styles.container, stylesProp]} {...rest}>
       <Box css={styles.wrapper}>
         <Box css={styles.ticks}>
           {ticks.map(({ value: tickValue, getTickProps }) => {
@@ -298,7 +300,7 @@ const RangeInput = React.forwardRef((props: RangeInputProps, ref?: React.Ref<HTM
       )}
     </Box>
   );
-});
+}
 
 if (__DEV__) {
   RangeInput.displayName = 'RangeInput';

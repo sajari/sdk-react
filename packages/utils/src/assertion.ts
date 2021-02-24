@@ -29,7 +29,7 @@ export function isFunction(value: any): value is (...args: any[]) => any {
   return typeof value === 'function';
 }
 
-export function isArray<T>(value: any): value is T[] {
+export function isArray(value: any): value is any[] {
   return Array.isArray(value);
 }
 

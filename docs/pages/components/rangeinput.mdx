@@ -141,12 +141,12 @@ function Example() {
 
 ```jsx
 function Example() {
-  const [range, setRange] = React.useState([100]);
+  const [value, setValue] = React.useState(100);
 
   return (
     <div className="flex flex-col space-y-4">
-      <RangeInput value={range} onChange={setRange} min={0} max={500} value={range} onInput={setRange} />
-      <pre className="self-center">"[{range.toString()}]"</pre>
+      <RangeInput min={0} max={500} value={value} onInput={setValue} />
+      <pre className="self-center">"{value}"</pre>
     </div>
   );
 }

@@ -4,9 +4,9 @@ import tw from 'twin.macro';
 import { UseInputStyleProps, useInputStyles } from '../../../hooks';
 import { RangeInputInputProps } from './types';
 
-type UseRangeInputStylesParams = RangeInputInputProps;
+type UseRangeInputStylesParams<T> = RangeInputInputProps<T>;
 
-export default function useRangeInputStyles(props: UseRangeInputStylesParams) {
+export default function useRangeInputStyles<T>(props: UseRangeInputStylesParams<T>) {
   const { max, step } = props;
   const { styles: inputStyles, focusRingStyles, focusProps } = useInputStyles({
     type: 'text',
