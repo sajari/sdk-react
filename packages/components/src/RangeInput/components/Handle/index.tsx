@@ -6,7 +6,7 @@ import Box from '../../../Box';
 import useHandleStyles from './styles';
 import { HandleProps } from './types';
 
-const Fill = React.forwardRef((props: HandleProps, ref?: React.Ref<HTMLButtonElement>) => {
+const Handle = React.forwardRef((props: HandleProps, ref?: React.Ref<HTMLButtonElement>) => {
   const { active, styles: stylesProp, disableDefaultStyles = false, className, activeClassName = '', ...rest } = props;
   const { focusProps, styles: fillStyles } = useHandleStyles(props);
   const styles = getStylesObject(fillStyles, disableDefaultStyles);
@@ -24,4 +24,4 @@ const Fill = React.forwardRef((props: HandleProps, ref?: React.Ref<HTMLButtonEle
   );
 });
 
-export default Fill;
+export default Handle;

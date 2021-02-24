@@ -10,11 +10,11 @@ export interface CustomInputProps {
   ) => TextFieldAria & { ref: React.MutableRefObject<HTMLInputElement | null> };
 }
 
-export type RangeValue = [number] | Range;
+export type RangeValue = number | Range;
 
-export type RangeInputValue = [string] | [string, string];
+export type RangeInputValue = [string, string?];
 
-export interface RangeInputProps extends BoxProps {
+export interface RangeInputProps<T> extends BoxProps {
   /** ISO language code to use for i18n and formatting (e.g. en or en-US). Defaults to browser language. */
   language?: string;
   /** How to format the values */
@@ -36,11 +36,11 @@ export interface RangeInputProps extends BoxProps {
   /** An array of custom ticks to use. This will override tick. */
   ticks?: number[];
   /** The range value */
-  value?: RangeValue;
+  value?: T;
   /** Called once the handle has been released */
-  onChange?: (value: RangeValue) => void;
+  onChange?: (value: T) => void;
   /** Called on every value change */
-  onInput?: (value: RangeValue) => void;
+  onInput?: (value: T) => void;
   /** Left custom input */
   leftInput?: (props: CustomInputProps) => React.ReactNode;
   /** Right custom input */

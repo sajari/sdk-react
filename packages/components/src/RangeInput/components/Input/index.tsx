@@ -6,10 +6,11 @@ import * as React from 'react';
 import tw from 'twin.macro';
 
 import Box from '../../../Box';
+import { RangeValue } from '../../types';
 import useRangeInputStyles from './styles';
 import { RangeInputInputProps } from './types';
 
-const Input = (props: RangeInputInputProps) => {
+function Input<T extends RangeValue>(props: RangeInputInputProps<T>) {
   const { label, min, max, step, disableDefaultStyles = false, styles: stylesProp, className } = props;
   const ref = React.useRef<HTMLInputElement>(null);
   const { inputProps, labelProps } = useTextField(props, ref);
@@ -24,6 +25,6 @@ const Input = (props: RangeInputInputProps) => {
       <input css={styles.input} {...mergeProps(inputProps, focusProps)} min={min} max={max} step={step} ref={ref} />
     </Box>
   );
-};
+}
 
 export default Input;
