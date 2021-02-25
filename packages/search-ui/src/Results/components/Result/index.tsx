@@ -79,7 +79,7 @@ const Result = React.memo(
       }
 
       return aspectRatio[appearance];
-    }, [appearance]);
+    }, [appearance, imageAspectRatioProp]);
 
     const imageObjectFit: ImageProps['objectFit'] = useMemo(() => {
       const objectFit = imageObjectFitProp;
@@ -89,7 +89,7 @@ const Result = React.memo(
       }
 
       return objectFit[appearance];
-    }, [appearance]);
+    }, [appearance, imageObjectFitProp]);
 
     const imageSrc = isArray(image) ? image[0] : image;
     const imageHoverSrc = isArray(image) ? image[1] : undefined;
