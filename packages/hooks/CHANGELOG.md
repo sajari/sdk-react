@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.4.9
+
+### Patch Changes
+
+- [`b14aa3d1`](https://github.com/sajari/sdk-react/commit/b14aa3d13afd545186e7fd0a1758c8badb3de65c) [#425](https://github.com/sajari/sdk-react/pull/425) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Added support `frozen` state for `RangeFilterBuilder`. If `frozen` is `true`, blocking any update for `min`, `max` or `range`.
+
 ## 1.4.8
 
 ### Patch Changes
