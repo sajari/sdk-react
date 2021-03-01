@@ -88,6 +88,8 @@ interface Props<T> {
     selected: boolean;
     getItemProps: UseComboboxReturnValue<T>['getItemProps'];
   }) => React.ReactNode;
+  /** The input element, used when you want to hook into an existing input element */
+  inputElement?: React.RefObject<HTMLInputElement>;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,9 +1,10 @@
 /* eslint-disable prefer-arrow-callback */
 
 import { mergeProps, useId } from '@react-aria/utils';
-import { __DEV__, getStylesObject, isFunction } from '@sajari/react-sdk-utils';
+import { __DEV__, getStylesObject, isFunction, isSSR } from '@sajari/react-sdk-utils';
 import { useCombobox } from 'downshift';
 import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
 import tw from 'twin.macro';
 
 import { IconSearch, IconSmallSearch, IconSpinner } from '../assets/icons';
@@ -47,11 +48,13 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     styles: stylesProp,
     inputClassName,
     inputContainerClassName,
+    inputElement,
     ...rest
   } = props;
   const [typedInputValue, setTypedInputValue] = useState(valueProp.toString());
   const { supported: voiceSupported } = useVoiceInput();
   const [value, setValue] = useState(valueProp.toString());
+  const [container, setContainer] = useState<undefined | null | Element>();
 
   useEffect(() => {
     setValue(valueProp.toString());
@@ -238,107 +241,132 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
 
   const styles = getStylesObject(comboboxStyles, disableDefaultStyles);
 
+  const inputProps = getInputProps({
+    id,
+    className: inputClassName,
+    type: 'search',
+    dir: 'auto',
+    placeholder,
+    'aria-invalid': invalid,
+    autoCapitalize: 'off',
+    autoComplete: 'off',
+    autoCorrect: 'off',
+    spellCheck: 'false',
+    inputMode: 'search',
+    onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => {
+      // Don't supress native form submission when 'Enter' key is pressed
+      // Only if the user isn't focused on an item in the suggestions
+      if (e.key === 'Enter' && highlightedIndex === -1) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (e.nativeEvent as any).preventDownshiftDefault = true;
+
+        if (mode === 'suggestions') {
+          closeMenu();
+        }
+      }
+
+      if (mode !== 'results' && e.key === 'Enter' && highlightedIndex > -1) {
+        setTypedInputValue(itemToString(items[highlightedIndex]));
+      }
+
+      if (mode === 'typeahead' && e.key === 'ArrowRight') {
+        if ((e.target as HTMLInputElement).selectionStart === inputValue.length) {
+          if (completion.startsWith(inputValue)) {
+            setInputValue(completion);
+            setTypedInputValue(completion);
+          }
+        }
+      }
+
+      if (e.key === 'Enter' && highlightedIndex > -1) {
+        const item = (items || [])[highlightedIndex];
+        if (mode === 'results' && itemToUrl && !renderItem) {
+          const url = itemToUrl(item);
+
+          if (url) {
+            window.location.href = url;
+          }
+
+          const result = (item as unknown) as ResultItem;
+          if (isFunction(result.onClick)) {
+            result.onClick();
+          }
+        }
+        if (onSelect) {
+          onSelect(item);
+        }
+      }
+
+      onKeyDown(e);
+    },
+    onInput: (e: ChangeEvent<HTMLInputElement>) => {
+      onChange(e.target.value);
+      setTypedInputValue(e.target.value);
+    },
+    onChange: (e: ChangeEvent<HTMLInputElement>) => {
+      setValue(e.target.value);
+    },
+  });
+
+  const renderInAttachMode = (input: HTMLInputElement) => {
+    if (isSSR()) {
+      return null;
+    }
+    if (container && input) {
+      const InputComponent = React.createElement('input', {
+        ...inputProps,
+        ...Array.from(input.attributes).reduce((acc, attr) => ({ ...acc, [attr.nodeName]: attr.nodeValue }), {}),
+      });
+      const ContainerComponent = React.createElement('div', getComboboxProps(), [InputComponent, <Dropdown />]);
+      input.remove();
+      return ReactDOM.createPortal(ContainerComponent, container as Element);
+    }
+    return null;
+  };
+
+  useEffect(() => {
+    if (inputElement?.current) {
+      setContainer(inputElement.current.parentElement);
+    }
+  }, [inputElement]);
+
   return (
     <ComboboxContextProvider value={context}>
-      <Box css={[styles.container, stylesProp]} className={className}>
-        <Box css={styles.inputContainer} {...getComboboxProps()}>
-          <Box as="label" css={tw`sr-only`} {...getLabelProps({ htmlFor: id })}>
-            {label ?? placeholder}
-          </Box>
-
-          <Box css={styles.iconContainerLeft} className={inputContainerClassName}>
-            {size === 'sm' ? <IconSmallSearch /> : <IconSearch />}
-          </Box>
-
-          <Typeahead />
-
-          <Box
-            ref={ref}
-            as="input"
-            css={styles.input}
-            {...mergeProps(
-              getInputProps({
-                id,
-                className: inputClassName,
-                type: 'search',
-                dir: 'auto',
-                placeholder,
-                'aria-invalid': invalid,
-                autoCapitalize: 'off',
-                autoComplete: 'off',
-                autoCorrect: 'off',
-                spellCheck: 'false',
-                inputMode: 'search',
-                onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => {
-                  // Don't supress native form submission when 'Enter' key is pressed
-                  // Only if the user isn't focused on an item in the suggestions
-                  if (e.key === 'Enter' && highlightedIndex === -1) {
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    (e.nativeEvent as any).preventDownshiftDefault = true;
-
-                    if (mode === 'suggestions') {
-                      closeMenu();
-                    }
-                  }
-
-                  if (mode !== 'results' && e.key === 'Enter' && highlightedIndex > -1) {
-                    setTypedInputValue(itemToString(items[highlightedIndex]));
-                  }
-
-                  if (mode === 'typeahead' && e.key === 'ArrowRight') {
-                    if ((e.target as HTMLInputElement).selectionStart === inputValue.length) {
-                      if (completion.startsWith(inputValue)) {
-                        setInputValue(completion);
-                        setTypedInputValue(completion);
-                      }
-                    }
-                  }
-
-                  if (e.key === 'Enter' && highlightedIndex > -1) {
-                    const item = (items || [])[highlightedIndex];
-                    if (mode === 'results' && itemToUrl && !renderItem) {
-                      const url = itemToUrl(item);
-
-                      if (url) {
-                        window.location.href = url;
-                      }
-
-                      const result = (item as unknown) as ResultItem;
-                      if (isFunction(result.onClick)) {
-                        result.onClick();
-                      }
-                    }
-                    if (onSelect) {
-                      onSelect(item);
-                    }
-                  }
-
-                  onKeyDown(e);
-                },
-                onInput: (e: ChangeEvent<HTMLInputElement>) => {
-                  onChange(e.target.value);
-                  setTypedInputValue(e.target.value);
-                },
-                onChange: (e: ChangeEvent<HTMLInputElement>) => {
-                  setValue(e.target.value);
-                },
-              }),
-              focusProps,
-            )}
-            enterKeyHint={enterKeyHint}
-            {...rest}
-          />
-
-          {enableVoice || loading ? (
-            <Box css={styles.iconContainerRight}>
-              {loading && <IconSpinner css={styles.iconSpinner} />}
-              {enableVoice && <Voice onVoiceInput={handleVoiceInput} />}
+      {inputElement?.current ? (
+        renderInAttachMode(inputElement.current)
+      ) : (
+        <Box css={[styles.container, stylesProp]} className={className}>
+          <Box css={styles.inputContainer} {...getComboboxProps()}>
+            <Box as="label" css={tw`sr-only`} {...getLabelProps({ htmlFor: id })}>
+              {label ?? placeholder}
             </Box>
-          ) : null}
-        </Box>
 
-        <Dropdown />
-      </Box>
+            <Box css={styles.iconContainerLeft} className={inputContainerClassName}>
+              {size === 'sm' ? <IconSmallSearch /> : <IconSearch />}
+            </Box>
+
+            <Typeahead />
+
+            <Box
+              ref={ref}
+              as="input"
+              css={styles.input}
+              {...mergeProps(inputProps, focusProps)}
+              enterKeyHint={enterKeyHint}
+              {...rest}
+            />
+
+            {enableVoice || loading ? (
+              <Box css={styles.iconContainerRight}>
+                {loading && <IconSpinner css={styles.iconSpinner} />}
+                {enableVoice && <Voice onVoiceInput={handleVoiceInput} />}
+              </Box>
+            ) : null}
+          </Box>
+
+          <Dropdown />
+        </Box>
+      )}
     </ComboboxContextProvider>
   );
 });
