@@ -1,5 +1,20 @@
 # Change Log
 
+## 1.7.24
+
+### Patch Changes
+
+- [`9aabd85c`](https://github.com/sajari/sdk-react/commit/9aabd85c0a6ba2af097f796efce349ae91e12fa3) [#423](https://github.com/sajari/sdk-react/pull/423) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix stale ratio and object-fit value
+
+## 1.7.23
+
+### Patch Changes
+
+- [`c374223e`](https://github.com/sajari/sdk-react/commit/c374223e67fd75fc9a4810fbb4e46a1872d8bd26) [#421](https://github.com/sajari/sdk-react/pull/421) Thanks [@sampotts](https://github.com/sampotts)! - Improved types for RangeInput component
+
+- Updated dependencies [[`c374223e`](https://github.com/sajari/sdk-react/commit/c374223e67fd75fc9a4810fbb4e46a1872d8bd26)]:
+  - @sajari/react-components@1.5.15
+
 ## 1.7.22
 
 ### Patch Changes

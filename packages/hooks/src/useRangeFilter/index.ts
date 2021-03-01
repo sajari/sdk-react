@@ -68,7 +68,7 @@ function useRangeFilter(name: string) {
   };
 
   useEffect(() => {
-    if (!isAggregate || prevQuery.current === query) {
+    if (!isAggregate || prevQuery.current === query || filter.getFrozen()) {
       prevQuery.current = query;
       return;
     }

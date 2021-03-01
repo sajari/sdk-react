@@ -141,12 +141,12 @@ function Example() {
 
 ```jsx
 function Example() {
-  const [range, setRange] = React.useState([100]);
+  const [value, setValue] = React.useState(100);
 
   return (
     <div className="flex flex-col space-y-4">
-      <RangeInput value={range} onChange={setRange} min={0} max={500} value={range} onInput={setRange} />
-      <pre className="self-center">"[{range.toString()}]"</pre>
+      <RangeInput min={0} max={500} value={value} onInput={setValue} />
+      <pre className="self-center">"{value}"</pre>
     </div>
   );
 }
@@ -154,21 +154,21 @@ function Example() {
 
 ## Props
 
-| Name         | Type                                     | Default     | Description                                                                                                        |
-| ------------ | ---------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------ |
-| `min`        | `number`                                 | `0`         | The min range.                                                                                                     |
-| `max`        | `number`                                 | `100`       | The max range.                                                                                                     |
-| `step`       | `number`                                 | `1`         | The stepping interval, used both for user interface and validation purposes.                                       |
-| `steps`      | `number[]`                               | `1`         | An array of custom steps to use. This will override `step`.                                                        |
-| `value`      | `[number, number]`                       | `[25, 50]`  | The current value of the range input.                                                                              |
-| `tick`       | `number`                                 |             | The interval to show small value ticks.                                                                            |
-| `ticks`      | `number[]`                               | `[min,max]` | An array of custom ticks to use. This will override `tick`. The default value is also overridden if `tick` is set. |
-| `onChange`   | `(value: [number, number]) => void`      | `() => {}`  | A callback, called **after** the value has changed and the handle is released.                                     |
-| `onInput`    | `(value: [number, number]) => void`      | `() => {}`  | A callback, called **as** the value changes, while dragging.                                                       |
-| `leftInput`  | `({ getProps, ref }) => React.ReactNode` | `<Input/>`  | The left input to set the range's low value if dual handle, or value if single handle.                             |
-| `rightInput` | `({ getProps, ref }) => React.ReactNode` | `<Input/>`  | The right input to set the range's high value.                                                                     |
-| `showInputs` | `boolean`                                | `false`     | Show number inputs to manually set the handle values.                                                              |
-| `language`   | `string`                                 |             | ISO language code to use for i18n and formatting (e.g. en or en-US). Defaults to browser language.                 |
-| `format`     | `'numeric'` \| `'price'`                 | `'numeric'` | How to format the values.                                                                                          |
-| `currency`   | `string`                                 | `USD`       | The currency code to use for any formatted price values.                                                           |
-| `fixedPoint` | `boolean`                                | `false`     | Whether to use fixed-point notation in labels and inputs.                                                          |
+| Name         | Type                                     | Default      | Description                                                                                                        |
+| ------------ | ---------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `min`        | `number`                                 | `0`          | The min range.                                                                                                     |
+| `max`        | `number`                                 | `100`        | The max range.                                                                                                     |
+| `step`       | `number`                                 | `1`          | The stepping interval, used both for user interface and validation purposes.                                       |
+| `steps`      | `number[]`                               | `1`          | An array of custom steps to use. This will override `step`.                                                        |
+| `value`      | `number` or `[number, number]`           | `[min, max]` | The current value of the range input.                                                                              |
+| `tick`       | `number`                                 |              | The interval to show small value ticks.                                                                            |
+| `ticks`      | `number[]`                               | `[min,max]`  | An array of custom ticks to use. This will override `tick`. The default value is also overridden if `tick` is set. |
+| `onChange`   | `(value) => void`                        | `() => {}`   | A callback, called **after** the value has changed and the handle is released.                                     |
+| `onInput`    | `(value) => void`                        | `() => {}`   | A callback, called **as** the value changes, while dragging.                                                       |
+| `leftInput`  | `({ getProps, ref }) => React.ReactNode` | `<Input/>`   | The left input to set the range's low value if dual handle, or value if single handle.                             |
+| `rightInput` | `({ getProps, ref }) => React.ReactNode` | `<Input/>`   | The right input to set the range's high value.                                                                     |
+| `showInputs` | `boolean`                                | `false`      | Show number inputs to manually set the handle values.                                                              |
+| `language`   | `string`                                 |              | ISO language code to use for i18n and formatting (e.g. en or en-US). Defaults to browser language.                 |
+| `format`     | `'numeric'` or `'price'`                 | `'numeric'`  | How to format the values.                                                                                          |
+| `currency`   | `string`                                 | `USD`        | The currency code to use for any formatted price values.                                                           |
+| `fixedPoint` | `boolean`                                | `false`      | Whether to use fixed-point notation in labels and inputs.                                                          |

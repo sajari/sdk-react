@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.6.12
+
+### Patch Changes
+
+- [`c374223e`](https://github.com/sajari/sdk-react/commit/c374223e67fd75fc9a4810fbb4e46a1872d8bd26) [#421](https://github.com/sajari/sdk-react/pull/421) Thanks [@sampotts](https://github.com/sampotts)! - Improved types for RangeInput component
+
 ## 1.6.11
 
 ### Patch Changes

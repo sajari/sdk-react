@@ -31,7 +31,7 @@ const Sorting = (props: SortingProps) => {
       <Select
         id={id}
         value={sorting}
-        onChange={(value) => setSorting(isArray<string>(value) ? value[0] : value)}
+        onChange={(value) => setSorting(isArray(value) ? value[0] : value)}
         size={size}
         disableDefaultStyles={disableDefaultStyles}
         className={customClassNames.sorting?.select}
