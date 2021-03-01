@@ -1,4 +1,4 @@
-import { isArray, round, roundToStep } from '@sajari/react-sdk-utils';
+import { isArray, roundToStep } from '@sajari/react-sdk-utils';
 
 import { EVENT_RANGE_UPDATED } from '../../events';
 import { Listener } from '../Listener';
@@ -22,6 +22,8 @@ export default class RangeFilterBuilder {
   private max: number;
 
   private step: number;
+
+  private frozen: boolean;
 
   private aggregate: boolean;
 
@@ -54,6 +56,7 @@ export default class RangeFilterBuilder {
     this.min = min;
     this.max = max;
     this.step = step;
+    this.frozen = false;
     this.aggregate = aggregate;
     this.listeners = {
       [EVENT_RANGE_UPDATED]: new Listener(),
@@ -76,6 +79,9 @@ export default class RangeFilterBuilder {
   }
 
   public set(range: Range | null, emitEvent = true) {
+    if (this.frozen) {
+      return;
+    }
     this.range = range ? this.formatter(range) : range;
 
     if (emitEvent) {
@@ -95,12 +101,20 @@ export default class RangeFilterBuilder {
     return this.field;
   }
 
+  public getFrozen() {
+    return this.frozen;
+  }
+
   public setMin(value: number) {
-    this.min = value;
+    if (!this.frozen) {
+      this.min = value;
+    }
   }
 
   public setMax(value: number) {
-    this.max = value;
+    if (!this.frozen) {
+      this.max = value;
+    }
   }
 
   public getMinMax() {
@@ -126,6 +140,10 @@ export default class RangeFilterBuilder {
     return this.aggregate;
   }
 
+  public setFrozen(frozen: boolean) {
+    this.frozen = frozen;
+  }
+
   /**
    * Check if the current range is different to the initial value
    */
@@ -141,6 +159,9 @@ export default class RangeFilterBuilder {
    * Reset the current state to the initial value
    */
   public reset(emitEvent = true) {
+    if (this.frozen) {
+      return;
+    }
     this.range = isArray(this.initial) ? [...this.initial] : this.initial;
 
     if (emitEvent) {
