@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.6.0
+
+### Minor Changes
+
+- [`2f7d7ec1`](https://github.com/sajari/sdk-react/commit/2f7d7ec132d31e9accf12acc790f08b4bf2ec4f9) [#380](https://github.com/sajari/sdk-react/pull/380) Thanks [@tuanddd](https://github.com/tuanddd)! - Add ability for Input to render with an existing input element
+
 ## 1.5.15
 
 ### Patch Changes

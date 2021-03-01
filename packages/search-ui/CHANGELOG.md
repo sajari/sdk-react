@@ -1,5 +1,19 @@
 # Change Log
 
+## 1.8.0
+
+### Minor Changes
+
+- [`2f7d7ec1`](https://github.com/sajari/sdk-react/commit/2f7d7ec132d31e9accf12acc790f08b4bf2ec4f9) [#380](https://github.com/sajari/sdk-react/pull/380) Thanks [@tuanddd](https://github.com/tuanddd)! - Add ability for Input to render with an existing input element
+
+### Patch Changes
+
+- [`b14aa3d1`](https://github.com/sajari/sdk-react/commit/b14aa3d13afd545186e7fd0a1758c8badb3de65c) [#425](https://github.com/sajari/sdk-react/pull/425) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Added support `frozen` state for `RangeFilterBuilder`. If `frozen` is `true`, blocking any update for `min`, `max` or `range`.
+
+- Updated dependencies [[`2f7d7ec1`](https://github.com/sajari/sdk-react/commit/2f7d7ec132d31e9accf12acc790f08b4bf2ec4f9), [`b14aa3d1`](https://github.com/sajari/sdk-react/commit/b14aa3d13afd545186e7fd0a1758c8badb3de65c)]:
+  - @sajari/react-components@1.6.0
+  - @sajari/react-hooks@1.4.9
+
 ## 1.7.24
 
 ### Patch Changes
