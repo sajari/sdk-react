@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.6.13
+
+### Patch Changes
+
+- [`72c2879a`](https://github.com/sajari/sdk-react/commit/72c2879a24da46ac281ef5433802b8a4b6624b9c) [#427](https://github.com/sajari/sdk-react/pull/427) Thanks [@sampotts](https://github.com/sampotts)! - Small tweak
+
 ## 1.6.12
 
 ### Patch Changes
