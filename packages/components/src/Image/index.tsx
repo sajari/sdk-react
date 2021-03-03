@@ -5,6 +5,7 @@ import AspectRatio from '../AspectRatio';
 import Box from '../Box';
 import { useImageStyles } from './styles';
 import { ImageProps } from './types';
+import useImageProvider from './useImageProvider';
 
 interface NativeImageProps {
   htmlWidth?: ImageProps['htmlWidth'];
@@ -21,8 +22,8 @@ const NativeImage = React.forwardRef((props: NativeImageProps, ref?: React.Ref<H
 
 const Image = React.forwardRef((props: ImageProps, ref?: React.Ref<HTMLImageElement>) => {
   const {
-    src,
-    hoverSrc,
+    src: srcProp,
+    hoverSrc: hoverSrcProp,
     onError,
     onLoad,
     onMouseEnter: onMouseEnterExternal,
@@ -34,9 +35,13 @@ const Image = React.forwardRef((props: ImageProps, ref?: React.Ref<HTMLImageElem
     className,
     containerClassName,
     disableDefaultStyles = false,
+    width,
+    height,
+    provider,
     ...rest
   } = props;
   const [hover, setHover] = React.useState(false);
+  const [src, hoverSrc] = useImageProvider({ provider, images: [srcProp, hoverSrcProp], width, height });
 
   const onMouseEnter = (e) => {
     if (hoverSrc) {
