@@ -317,7 +317,16 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
         ...inputProps,
         ...Array.from(input.attributes).reduce((acc, attr) => ({ ...acc, [attr.nodeName]: attr.nodeValue }), {}),
       });
-      const ContainerComponent = React.createElement('div', getComboboxProps(), [InputComponent, <Dropdown />]);
+      const ContainerComponent = React.createElement(
+        'div',
+        {
+          ...getComboboxProps(),
+          style: {
+            position: 'relative',
+          },
+        },
+        [InputComponent, <Dropdown />],
+      );
       input.remove();
       return ReactDOM.createPortal(ContainerComponent, container as Element);
     }

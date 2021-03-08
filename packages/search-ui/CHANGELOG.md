@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.8.1
+
+### Patch Changes
+
+- [`5e91e79f`](https://github.com/sajari/sdk-react/commit/5e91e79fc15e9a2ab88b079c72eb44902f33d56c) [#430](https://github.com/sajari/sdk-react/pull/430) Thanks [@tuanddd](https://github.com/tuanddd)! - Add relative position to input in attach mode
+
+- Updated dependencies [[`5e91e79f`](https://github.com/sajari/sdk-react/commit/5e91e79fc15e9a2ab88b079c72eb44902f33d56c)]:
+  - @sajari/react-components@1.6.1
+
 ## 1.8.0
 
 ### Minor Changes
