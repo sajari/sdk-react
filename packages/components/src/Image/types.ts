@@ -5,6 +5,8 @@ import { BoxProps } from '../Box';
 
 type HtmlAttributes = Omit<React.ImgHTMLAttributes<HTMLImageElement>, keyof Props>;
 
+export type ImageProvider = 'shopify' | undefined;
+
 interface Props extends BoxProps {
   /** The alt text that describes the image */
   alt?: string;
@@ -22,6 +24,8 @@ interface Props extends BoxProps {
   containerClassName?: string;
   /** The image sources, pass in an array to display the second image on hover */
   hoverSrc?: string;
+  /* Decides how the `width` or `height` prop is handled */
+  provider?: ImageProvider;
 }
 
 export interface ImageProps extends HtmlAttributes, Props {}
