@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.4.10
+
+### Patch Changes
+
+- [`18c78432`](https://github.com/sajari/sdk-react/commit/18c7843271fdfcbdefede015bfd65decbf76e765) [#433](https://github.com/sajari/sdk-react/pull/433) Thanks [@tuanddd](https://github.com/tuanddd)! - Set searching state when calling pagination request
+
 ## 1.4.9
 
 ### Patch Changes
