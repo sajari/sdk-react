@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.7.0
+
+### Minor Changes
+
+- [`42cf7139`](https://github.com/sajari/sdk-react/commit/42cf71395baa3183448517f881c2988d1a26ba7b) [#429](https://github.com/sajari/sdk-react/pull/429) Thanks [@tuanddd](https://github.com/tuanddd)! - Enable image sizing base on provider
+
 ## 1.6.1
 
 ### Patch Changes
