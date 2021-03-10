@@ -13,7 +13,7 @@ import { InputProps } from './types';
 
 const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInputElement>) => {
   const { t } = useTranslation('input');
-  const { placeholder = t('placeholder'), mode = 'instant', onChange, ...rest } = props;
+  const { placeholder = t('placeholder'), mode = 'instant', onSelect, onChange, ...rest } = props;
   const { results: rawResults, search, searching, fields } = useSearchContext();
   const results = React.useMemo(() => mapResultFields<ResultValues>(rawResults ?? [], fields), [rawResults]);
   const { search: searchAutocomplete, completion, suggestions } = useAutocomplete();
@@ -68,6 +68,9 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
 
   const onSelectMemoized = useCallback(
     (item) => {
+      if (onSelect) {
+        onSelect(item);
+      }
       if (mode === 'suggestions') {
         search(item as string);
       }
