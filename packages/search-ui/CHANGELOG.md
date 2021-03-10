@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.8.2
+
+### Patch Changes
+
+- [`a92d7237`](https://github.com/sajari/sdk-react/commit/a92d7237115c74f5217a60a946ddc182901cba79) [#437](https://github.com/sajari/sdk-react/pull/437) Thanks [@tuanddd](https://github.com/tuanddd)! - Allow onSelect prop on Input component
+
 ## 1.8.1
 
 ### Patch Changes
