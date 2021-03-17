@@ -22,7 +22,16 @@ const RatingFilter = ({ name, title }: Omit<RatingFilterProps, 'type'>) => {
     [ratingMax, JSON.stringify(customClassNames.filter?.rating), disableDefaultStyles],
   );
 
-  return <ListFilter name={name} title={title} sort="none" pinSelected={false} itemRender={renderRating} />;
+  return (
+    <ListFilter
+      name={name}
+      title={title}
+      sort="alpha"
+      sortAscending={false}
+      pinSelected={false}
+      itemRender={renderRating}
+    />
+  );
 };
 
 export default RatingFilter;
