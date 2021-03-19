@@ -13,7 +13,14 @@ import { InputProps } from './types';
 
 const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInputElement>) => {
   const { t } = useTranslation('input');
-  const { placeholder = t('placeholder'), mode = 'instant', onSelect, onChange, ...rest } = props;
+  const {
+    placeholder = t('placeholder'),
+    mode = 'instant',
+    onSelect,
+    onChange,
+    maxSuggestions = mode === 'results' ? 5 : 10,
+    ...rest
+  } = props;
   const { results: rawResults, search, searching, fields } = useSearchContext();
   const results = React.useMemo(() => mapResultFields<ResultValues>(rawResults ?? [], fields), [rawResults]);
   const { search: searchAutocomplete, completion, suggestions } = useAutocomplete();
@@ -22,10 +29,9 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
   let items: Array<any> = [];
 
   if (mode === 'suggestions') {
-    items = suggestions;
+    items = suggestions.splice(0, maxSuggestions);
   } else if (mode === 'results') {
-    // Only display 5 items
-    items = results.splice(0, 5).map((result) => {
+    items = results.splice(0, maxSuggestions).map((result) => {
       const { values, token } = result;
       const { description, image, title } = values;
       const { href, onClick } = useClickTracking({ tracking, values, token });
