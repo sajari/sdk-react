@@ -3,7 +3,7 @@
 import { mergeProps, useId } from '@react-aria/utils';
 import { __DEV__, getStylesObject, isFunction, isSSR } from '@sajari/react-sdk-utils';
 import { useCombobox } from 'downshift';
-import React, { ChangeEvent, KeyboardEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import tw from 'twin.macro';
 
@@ -49,12 +49,20 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     inputClassName,
     inputContainerClassName,
     inputElement,
+    autoFocus = false,
     ...rest
   } = props;
   const [typedInputValue, setTypedInputValue] = useState(valueProp.toString());
   const { supported: voiceSupported } = useVoiceInput();
   const [value, setValue] = useState(valueProp.toString());
   const [container, setContainer] = useState<undefined | null | Element>();
+  const inputRef = useRef<HTMLInputElement | null>();
+
+  useEffect(() => {
+    if (autoFocus) {
+      inputRef?.current?.focus();
+    }
+  }, [autoFocus]);
 
   useEffect(() => {
     setValue(valueProp.toString());
@@ -253,6 +261,9 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     autoCorrect: 'off',
     spellCheck: 'false',
     inputMode: 'search',
+    ref: (node) => {
+      inputRef.current = node;
+    },
     onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => {
       // Don't supress native form submission when 'Enter' key is pressed
       // Only if the user isn't focused on an item in the suggestions

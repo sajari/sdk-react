@@ -76,6 +76,8 @@ interface Props<T> {
   showDropdownTips?: boolean;
   /** Whether to show the "Powered by Sajari" in the dropdown */
   showPoweredBy?: boolean;
+  /** Automatically get focus when the page loads */
+  autoFocus?: boolean;
   /** Callback to convert item (object) to string */
   itemToString?: (item: T) => string;
   /** Callback to get/compute url from item object for results mode */
