@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.6.14
+
+### Patch Changes
+
+- [`77d5ec4e`](https://github.com/sajari/sdk-react/commit/77d5ec4eb80520ba91f12f2d73380b78e8a8361c) [#440](https://github.com/sajari/sdk-react/pull/440) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Allow ratings filter options to be ordered highest to lowest.
+
+* [`bd9bb0fd`](https://github.com/sajari/sdk-react/commit/bd9bb0fdde2f0f2b287656ed99e7a04b31b4c63c) [#441](https://github.com/sajari/sdk-react/pull/441) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Added support `maxSuggestions` for `Input`.
+
+- [`c4781d9a`](https://github.com/sajari/sdk-react/commit/c4781d9a070746d9164ec4deaa1a5c059516e666) [#443](https://github.com/sajari/sdk-react/pull/443) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Added support `autoFocus` for `Combobox`.
+
 ## 1.6.13
 
 ### Patch Changes
