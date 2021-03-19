@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.7.1
+
+### Patch Changes
+
+- [`c4781d9a`](https://github.com/sajari/sdk-react/commit/c4781d9a070746d9164ec4deaa1a5c059516e666) [#443](https://github.com/sajari/sdk-react/pull/443) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Added support `autoFocus` for `Combobox`.
+
 ## 1.7.0
 
 ### Minor Changes
