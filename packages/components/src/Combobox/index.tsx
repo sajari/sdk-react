@@ -80,6 +80,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     inputValue,
     setInputValue,
     closeMenu,
+    openMenu,
   } = useCombobox<T>({
     items,
     itemToString,
@@ -237,6 +238,9 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     if (captureVoiceInput) {
       setInputValue(input);
       setTypedInputValue(input);
+      if (mode === 'results') {
+        openMenu();
+      }
     }
     onVoiceInput(input);
   };
