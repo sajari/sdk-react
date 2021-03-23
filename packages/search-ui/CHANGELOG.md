@@ -1,5 +1,16 @@
 # Change Log
 
+## 1.8.4
+
+### Patch Changes
+
+- [`2699f1a5`](https://github.com/sajari/sdk-react/commit/2699f1a5c5e9e3b9cd27359efa2a11b541bd8167) [#446](https://github.com/sajari/sdk-react/pull/446) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fixed the issue when passing `className` for `Input` does not have effect if the `customClassNames` is set in the context.
+
+* [`c02fa55b`](https://github.com/sajari/sdk-react/commit/c02fa55bc24dc16458f555c5b79a7e8a949a85ab) [#444](https://github.com/sajari/sdk-react/pull/444) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fixed the issue when using speech search does not trigger a search for the voice input. Also make an update to open the dropdown menu if the input mode is `results`.
+
+* Updated dependencies [[`c02fa55b`](https://github.com/sajari/sdk-react/commit/c02fa55bc24dc16458f555c5b79a7e8a949a85ab)]:
+  - @sajari/react-components@1.7.2
+
 ## 1.8.3
 
 ### Patch Changes

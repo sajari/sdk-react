@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.7.2
+
+### Patch Changes
+
+- [`c02fa55b`](https://github.com/sajari/sdk-react/commit/c02fa55bc24dc16458f555c5b79a7e8a949a85ab) [#444](https://github.com/sajari/sdk-react/pull/444) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fixed the issue when using speech search does not trigger a search for the voice input. Also make an update to open the dropdown menu if the input mode is `results`.
+
 ## 1.7.1
 
 ### Patch Changes
