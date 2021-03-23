@@ -63,6 +63,16 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
     [onChange, mode, search],
   );
 
+  const onVoiceInput = useCallback(
+    (value) => {
+      if (onChange) {
+        onChange(value);
+      }
+      search(value);
+    },
+    [search, onChange],
+  );
+
   const onKeyDownMemoized = useCallback(
     (e) => {
       if (e.key === 'Enter' && (mode === 'typeahead' || mode === 'suggestions' || mode === 'standard')) {
@@ -90,6 +100,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
       ref={ref}
       placeholder={placeholder}
       mode={mode as Exclude<InputProps<any>['mode'], 'instant'>}
+      onVoiceInput={onVoiceInput}
       items={items}
       completion={mode === 'typeahead' ? completion : ''}
       value={query}
