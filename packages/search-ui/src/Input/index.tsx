@@ -2,6 +2,7 @@
 import { Combobox } from '@sajari/react-components';
 import { useAutocomplete, useQuery, useSearchContext } from '@sajari/react-hooks';
 import { __DEV__, isArray } from '@sajari/react-sdk-utils';
+import classnames from 'classnames';
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -19,6 +20,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
     onSelect,
     onChange,
     maxSuggestions = mode === 'results' ? 5 : 10,
+    className,
     ...rest
   } = props;
   const { results: rawResults, search, searching, fields } = useSearchContext();
@@ -108,7 +110,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
       onChange={onChangeMemoized}
       onKeyDown={onKeyDownMemoized}
       onSelect={onSelectMemoized}
-      className={customClassNames.input?.container}
+      className={classnames(customClassNames.input?.container, className)}
       dropdownClassName={customClassNames.input?.dropdown}
       dropdownFooterClassName={customClassNames.input?.dropdownFooter}
       dropdownHighlightItemClassName={customClassNames.input?.dropdownHighlightItem}
