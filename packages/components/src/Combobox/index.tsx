@@ -329,8 +329,8 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     }
     if (container && input) {
       const InputComponent = React.createElement('input', {
-        ...inputProps,
         ...Array.from(input.attributes).reduce((acc, attr) => ({ ...acc, [attr.nodeName]: attr.nodeValue }), {}),
+        ...inputProps,
       });
       const ContainerComponent = React.createElement(
         'div',
