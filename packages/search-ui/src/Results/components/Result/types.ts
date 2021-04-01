@@ -11,6 +11,8 @@ interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | '
   token?: Token;
   /** Handle clicking a result */
   onClick?: (url: string) => void;
+  /** Display image or not */
+  showImage?: boolean;
   /** Force an image placeholder */
   forceImage?: boolean;
   /** The classname for heading */

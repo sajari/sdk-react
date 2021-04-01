@@ -7,6 +7,7 @@ type ApperanceValue = 'list' | 'grid';
 export interface ResultsProps extends BoxProps {
   appearance?: ApperanceValue;
   defaultAppearance?: ApperanceValue;
+  showImage?: boolean;
   imageAspectRatio?: ImageProps['aspectRatio'] | Record<ApperanceValue, ImageProps['aspectRatio']>;
   imageObjectFit?: ImageProps['objectFit'] | Record<ApperanceValue, ImageProps['objectFit']>;
   columnMinWidth?: number;

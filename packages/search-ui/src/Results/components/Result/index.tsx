@@ -35,6 +35,7 @@ const Result = React.memo(
       disableDefaultStyles = false,
       onClick: onClickProp,
       styles: stylesProp,
+      showImage: showImageProp = true,
       ...rest
     } = props;
     const { currency, language, ratingMax, tracking } = useSearchUIContext();
@@ -159,9 +160,11 @@ const Result = React.memo(
       );
     };
 
+    const showImage = showImageProp && (isValidURL(imageSrc, true) || forceImage);
+
     return (
       <Box as="article" {...rest} css={[styles.container, stylesProp]}>
-        {(isValidURL(imageSrc, true) || forceImage) && (
+        {showImage && (
           <Link
             href={href}
             onClick={onClick}
