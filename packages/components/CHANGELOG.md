@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.7.3
+
+### Patch Changes
+
+- [`dfddce81`](https://github.com/sajari/sdk-react/commit/dfddce81d5111bb8a231a9ebdb3fea9f49355e9b) [#449](https://github.com/sajari/sdk-react/pull/449) Thanks [@tuanddd](https://github.com/tuanddd)! - Swap order of spreading props to input component in attach mode to make sure crucial attributes such as `value` are handled by us
+
 ## 1.7.2
 
 ### Patch Changes

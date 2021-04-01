@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.8.5
+
+### Patch Changes
+
+- [`9b15a269`](https://github.com/sajari/sdk-react/commit/9b15a269ac972088b8b92cd479b3b431a2461c14) [#448](https://github.com/sajari/sdk-react/pull/448) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Add support show/hide images on result list.
+
+- Updated dependencies [[`dfddce81`](https://github.com/sajari/sdk-react/commit/dfddce81d5111bb8a231a9ebdb3fea9f49355e9b)]:
+  - @sajari/react-components@1.7.3
+
 ## 1.8.4
 
 ### Patch Changes
