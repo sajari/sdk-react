@@ -48,4 +48,8 @@ export enum ItemType {
   Empty,
 }
 
-export class RatingMaxmiumExceededError extends Error {}
+export class RatingMaxmiumExceededError extends Error {
+  constructor() {
+    super('Rating value exceeded the maximum threshold. Please specify a higher max value or lower the input value.');
+  }
+}
