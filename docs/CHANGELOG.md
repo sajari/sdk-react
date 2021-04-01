@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.6.16
+
+### Patch Changes
+
+- [`9b15a269`](https://github.com/sajari/sdk-react/commit/9b15a269ac972088b8b92cd479b3b431a2461c14) [#448](https://github.com/sajari/sdk-react/pull/448) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Add support show/hide images on result list.
+
 ## 1.6.15
 
 ### Patch Changes
