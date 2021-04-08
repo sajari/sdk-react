@@ -131,7 +131,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   }
 
   return (
-    <Box title={title} name={name} showReset={selected.length > 0 && multi} onReset={reset}>
+    <Box title={title} name={name} showReset={selected.length > 0} onReset={reset}>
       {searchable ? (
         <CoreBox css={styles.searchWrapper}>
           <Combobox
