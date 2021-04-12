@@ -33,6 +33,9 @@ export default {
       fontFamily: {
         inherit: 'inherit',
       },
+      zIndex: {
+        10000: 1000,
+      },
       lineHeight: {
         inherit: 'inherit',
       },
