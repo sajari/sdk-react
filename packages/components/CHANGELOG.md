@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.7.5
+
+### Patch Changes
+
+- [`0106859f`](https://github.com/sajari/sdk-react/commit/0106859fd2b729fc2ff997d06e44d5fcbea44fe1) [#452](https://github.com/sajari/sdk-react/pull/452) Thanks [@tuanddd](https://github.com/tuanddd)! - Add descriptive error for rating component
+
 ## 1.7.4
 
 ### Patch Changes
