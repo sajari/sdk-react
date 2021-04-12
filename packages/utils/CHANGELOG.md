@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.3.9
+
+### Patch Changes
+
+- [`02df4b46`](https://github.com/sajari/sdk-react/commit/02df4b46489ab8fced39ac380890ee48d8a6a7cb) [#454](https://github.com/sajari/sdk-react/pull/454) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Increase the `z-index` value of `Modal` to 10000 to somewhat avoid it being overlapped by other elements.
+
 ## 1.3.8
 
 ### Patch Changes
