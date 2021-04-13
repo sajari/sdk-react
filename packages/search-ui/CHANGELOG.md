@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.8.8
+
+### Patch Changes
+
+- [`557ad2cb`](https://github.com/sajari/sdk-react/commit/557ad2cb47b9b744b805185af721f46ed12e5376) [#458](https://github.com/sajari/sdk-react/pull/458) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Add additional styling for `Combobox`'s input to somewhat avoid its styles being overridden by external CSS.
+
+- Updated dependencies [[`557ad2cb`](https://github.com/sajari/sdk-react/commit/557ad2cb47b9b744b805185af721f46ed12e5376)]:
+  - @sajari/react-components@1.7.6
+
 ## 1.8.7
 
 ### Patch Changes
