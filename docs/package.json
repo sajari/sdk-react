@@ -1,6 +1,6 @@
 {
   "name": "sajari-sdk-docs",
-  "version": "1.6.16",
+  "version": "1.6.17",
   "private": true,
   "scripts": {
     "dev": "next dev",
