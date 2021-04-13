@@ -68,7 +68,7 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
     iconContainerRight: [...iconContainerStyles, tw`right-0`],
     input: [
       tw`form-input`,
-      tw`absolute inset-0 w-full bg-transparent border-0 focus:shadow-none font-inherit`,
+      tw`absolute inset-0 w-full h-full bg-transparent border-0 focus:shadow-none font-inherit m-0 p-0`,
       ...containerStyles,
       ` &::-ms-clear,
         &::-ms-reveal {
