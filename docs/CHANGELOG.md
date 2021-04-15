@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.6.18
+
+### Patch Changes
+
+- [`acde246a`](https://github.com/sajari/sdk-react/commit/acde246a122a31cdc6e510a85cdb36769d5d2474) [#462](https://github.com/sajari/sdk-react/pull/462) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Add option to hide records count on filter components.
+
+* [`596c40af`](https://github.com/sajari/sdk-react/commit/596c40af977ac672e4f171933a02ca6f7813f440) [#461](https://github.com/sajari/sdk-react/pull/461) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Support `textTransform` prop for capitalization of text options for `select`, `list` and `tabs` filter.
+
 ## 1.6.17
 
 ### Patch Changes
