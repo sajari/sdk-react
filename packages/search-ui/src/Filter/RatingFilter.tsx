@@ -5,7 +5,7 @@ import { useSearchUIContext } from '../ContextProvider';
 import ListFilter from './ListFilter';
 import { RatingFilterProps } from './types';
 
-const RatingFilter = ({ name, title }: Omit<RatingFilterProps, 'type'>) => {
+const RatingFilter = ({ name, title, hideCount }: Omit<RatingFilterProps, 'type'>) => {
   const { ratingMax, disableDefaultStyles, customClassNames } = useSearchUIContext();
 
   const renderRating = useCallback(
@@ -30,6 +30,7 @@ const RatingFilter = ({ name, title }: Omit<RatingFilterProps, 'type'>) => {
       sortAscending={false}
       pinSelected={false}
       itemRender={renderRating}
+      hideCount={hideCount}
     />
   );
 };

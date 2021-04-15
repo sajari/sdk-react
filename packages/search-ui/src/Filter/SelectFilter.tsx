@@ -10,7 +10,7 @@ import { SelectFilterProps } from './types';
 import { formatLabel } from './utils';
 
 const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
-  const { name, title, sort = 'count', sortAscending = sort !== 'count', format } = props;
+  const { name, title, sort = 'count', sortAscending = sort !== 'count', format, hideCount = false } = props;
   const { options, reset, setSelected, selected, multi } = useFilter(name, { sort, sortAscending });
   const { disableDefaultStyles = false, customClassNames, currency } = useSearchUIContext();
   const { t } = useTranslation('filter');
@@ -48,7 +48,7 @@ const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
           optionClassName={customClassNames.filter?.select?.option}
         >
           {options.map(({ value, label, count }) => (
-            <Option value={label} key={value} label={count.toLocaleString()}>
+            <Option value={label} key={value} label={hideCount ? undefined : count.toLocaleString()}>
               {formatLabel(label, { format, currency, t })}
             </Option>
           ))}

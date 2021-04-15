@@ -21,6 +21,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     itemRender,
     placeholder = '',
     format,
+    hideCount = false,
   } = props;
 
   const filterContainerId = `list-${name}`;
@@ -116,7 +117,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
           >
             {typeof itemRender === 'function' ? itemRender(label) : formatLabel(label, { format, currency, t })}
           </Control>
-          <span css={styles.count}>{count.toLocaleString(language)}</span>
+          {!hideCount && <span css={styles.count}>{count.toLocaleString(language)}</span>}
         </CoreBox>
       )),
     [JSON.stringify(items), itemRender, selected],

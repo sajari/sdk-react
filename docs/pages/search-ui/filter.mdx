@@ -439,6 +439,7 @@ Exclusive props if `type` is `list`.
 | `renderItem`    | `(value:string) => React.ReactNode` | -                                                | A render prop function is used to custom the item label rather than just displaying text.                                                                                                     |
 | `format`        | `'default'` \| `'price'`            | `default`                                        | How to format the values.                                                                                                                                                                     |
 | `placeholder`   | `string`                            | `'Search'`                                       | Placeholder for search input.                                                                                                                                                                 |
+| `hideCount`     | `boolean`                           | `false`                                          | Hide total items count.                                                                                                                                                                       |
 
 ### Color Props
 
@@ -453,10 +454,11 @@ Exclusive props if `type` is `color`.
 
 Exclusive props if `type` is `rating`.
 
-| Name    | Type     | Default | Description                 |
-| ------- | -------- | ------- | --------------------------- |
-| `name`  | `string` | -       | The name of a given Filter. |
-| `title` | `string` | -       | Title of the filter list.   |
+| Name        | Type      | Default | Description                 |
+| ----------- | --------- | ------- | --------------------------- |
+| `name`      | `string`  | -       | The name of a given Filter. |
+| `title`     | `string`  | -       | Title of the filter list.   |
+| `hideCount` | `boolean` | `false` | Hide total items count.     |
 
 ### Tabs Props
 
@@ -468,6 +470,7 @@ Exclusive props if `type` is `tabs`.
 | `limit`         | `number`                           | `15`                              | Maximum number of tabs.                                                                                                                                                                      |
 | `sort`          | `'count'` \| `'alpha'` \| `'none'` | `'count'`                         | How to sort the tabs. `'alpha'` stands for `'alphanumeric'` meaning to sort the items based on label alphabetically, `'count'` to sort based on count, `'none'` to skip the sorting process. |
 | `sortAscending` | `boolean`                          | `true` if `sort` is not `'count'` | Whether to sort in ascending order.                                                                                                                                                          |
+| `hideCount`     | `boolean`                          | `false`                           | Hide total items count.                                                                                                                                                                      |
 
 ### Range Props
 
@@ -490,3 +493,4 @@ Exclusive props if `type` is `select`.
 | `format`        | `'default'` \| `'price'`           | `default`                         | How to format the values.                                                                                                                                                                       |
 | `sort`          | `'count'` \| `'alpha'` \| `'none'` | `'count'`                         | How to sort the options. `'alpha'` stands for `'alphanumeric'` meaning to sort the items based on label alphabetically, `'count'` to sort based on count, `'none'` to skip the sorting process. |
 | `sortAscending` | `boolean`                          | `true` if `sort` is not `'count'` | Whether to sort in ascending order.                                                                                                                                                             |
+| `hideCount`     | `boolean`                          | `false`                           | Hide total items count.                                                                                                                                                                         |
