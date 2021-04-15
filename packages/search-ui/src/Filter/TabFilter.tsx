@@ -45,7 +45,7 @@ const TabFilter = (props: Omit<TabFilterProps, 'type'>) => {
           className={customClassNames.filter?.tabs?.tab}
           selectedClassName={customClassNames.filter?.tabs?.selectedTab}
         >
-          {formatLabel('all', { textTransform, t })}
+          {formatLabel(t('all'), { textTransform, t })}
         </Tab>
         {sliced.map(({ label, count, value }, index) => (
           <Tab
