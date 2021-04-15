@@ -7,7 +7,7 @@ import { mapToObject } from '../utils';
 
 function useSearchContext() {
   const {
-    search: { config, response, search, searching, fields = {}, clear },
+    search: { config, response, search, searching, fields = {}, clear, reset },
   } = useContext();
   const { page, resultsPerPage, totalResults, pageCount, setPage } = usePagination('search');
   const mapResponse = mapToObject(response?.getResponse() as Map<string, any> | undefined);
@@ -31,6 +31,7 @@ function useSearchContext() {
     fields,
     config,
     clear,
+    reset,
   };
 }
 

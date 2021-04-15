@@ -162,7 +162,8 @@ export default class RangeFilterBuilder {
     if (this.frozen) {
       return;
     }
-    this.range = isArray(this.initial) ? [...this.initial] : this.initial;
+    const resetValue: Range | null = this.aggregate ? [this.min, this.max] : this.initial;
+    this.range = isArray(this.initial) ? [...this.initial] : resetValue;
 
     if (emitEvent) {
       this.emitRangeUpdated();
