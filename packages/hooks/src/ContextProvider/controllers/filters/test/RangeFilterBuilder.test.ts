@@ -19,6 +19,14 @@ describe('RangeFilterBuilder', () => {
     max: 5,
   });
 
+  const popularityFilter = new RangeFilterBuilder({
+    initial: null,
+    name: 'popularity',
+    field: 'popularity',
+    min: 0,
+    max: 10,
+  });
+
   it('getName', () => {
     expect(priceFilter.getName()).toBe('price');
     expect(ratingFilter.getName()).toBe('rating');
@@ -62,6 +70,10 @@ describe('RangeFilterBuilder', () => {
     expect(ratingFilter.get()).toEqual([4, 5]);
     ratingFilter.reset();
     expect(ratingFilter.get()).toEqual([1, 3]);
+
+    expect(popularityFilter.get()).toEqual(null);
+    popularityFilter.reset();
+    expect(popularityFilter.get()).toEqual(popularityFilter.getMinMax());
   });
 
   it('isChange', () => {
