@@ -16,6 +16,7 @@ const TabFilter = (props: Omit<TabFilterProps, 'type'>) => {
     limit = 15,
     sort = 'count',
     sortAscending = sort !== 'count',
+    textTransform,
     format,
     hideCount = false,
   } = props;
@@ -44,7 +45,7 @@ const TabFilter = (props: Omit<TabFilterProps, 'type'>) => {
           className={customClassNames.filter?.tabs?.tab}
           selectedClassName={customClassNames.filter?.tabs?.selectedTab}
         >
-          {t('all')}
+          {formatLabel('all', { textTransform, t })}
         </Tab>
         {sliced.map(({ label, count, value }, index) => (
           <Tab
@@ -52,7 +53,7 @@ const TabFilter = (props: Omit<TabFilterProps, 'type'>) => {
             className={customClassNames.filter?.tabs?.tab}
             selectedClassName={customClassNames.filter?.tabs?.selectedTab}
           >
-            {`${formatLabel(label, { format, currency, t })}`}
+            {`${formatLabel(label, { format, currency, textTransform, t })}`}
             {!hideCount && (
               <Box
                 as="span"
