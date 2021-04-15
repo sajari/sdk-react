@@ -22,6 +22,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     placeholder = '',
     format,
     hideCount = false,
+    textTransform = 'normal-case',
   } = props;
 
   const filterContainerId = `list-${name}`;
@@ -42,7 +43,6 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   const { disableDefaultStyles = false, customClassNames, currency, language } = useSearchUIContext();
   const theme = useTheme();
   const { t } = useTranslation('filter');
-
   const styles = getStylesObject(
     {
       innerList: [tw`flex items-center justify-between`],
@@ -115,7 +115,9 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
             css={styles.checkbox}
             disableDefaultStyles={disableDefaultStyles}
           >
-            {typeof itemRender === 'function' ? itemRender(label) : formatLabel(label, { format, currency, t })}
+            {typeof itemRender === 'function'
+              ? itemRender(label)
+              : formatLabel(label, { format, currency, textTransform, t })}
           </Control>
           {!hideCount && <span css={styles.count}>{count.toLocaleString(language)}</span>}
         </CoreBox>
