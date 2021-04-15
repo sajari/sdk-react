@@ -35,6 +35,8 @@ export interface ListFilterProps extends BaseFilterProps {
   sortAscending?: boolean;
   /** How to format the values */
   format?: 'default' | 'price';
+  /** Hide total items count */
+  hideCount?: boolean;
 }
 
 export interface ColorFilterProps extends BaseFilterProps {
@@ -43,12 +45,16 @@ export interface ColorFilterProps extends BaseFilterProps {
 
 export interface RatingFilterProps extends BaseFilterProps {
   type: 'rating';
+  /** Hide total items count */
+  hideCount?: boolean;
 }
 
 export interface TabFilterProps
   extends BaseFilterProps,
     Pick<ListFilterProps, 'format' | 'limit' | 'sort' | 'sortAscending'> {
   type: 'tabs';
+  /** Hide total items count */
+  hideCount?: boolean;
 }
 
 export interface RangeFilterProps
@@ -59,6 +65,8 @@ export interface RangeFilterProps
 
 export interface SelectFilterProps extends BaseFilterProps, Pick<ListFilterProps, 'format' | 'sort' | 'sortAscending'> {
   type: 'select';
+  /** Hide total items count */
+  hideCount?: boolean;
 }
 
 export type FilterProps =
