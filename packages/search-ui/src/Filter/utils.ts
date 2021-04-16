@@ -62,7 +62,7 @@ export function formatLabel(input: string, params: FormatValueParams) {
         case 'capitalize':
           return input.replace(/(^\w{1})|(\s+\w{1})/g, (letter) => letter.toUpperCase());
         case 'capitalize-first-letter':
-          return input[0]?.toLocaleUpperCase() + input.slice(1);
+          return (input[0] || '').toLocaleUpperCase() + input.slice(1);
         case 'normal-case':
         default:
           return input;
