@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.8.10
+
+### Patch Changes
+
+- [`14ab3300`](https://github.com/sajari/sdk-react/commit/14ab33007b3fdb349546ad650b39cbcdba7e66d6) [#464](https://github.com/sajari/sdk-react/pull/464) Thanks [@tuanddd](https://github.com/tuanddd)! - Revert https://github.com/sajari/sdk-react/pull/460 since it causes empty results on search with an interface having a price filter.
+
+- Updated dependencies [[`14ab3300`](https://github.com/sajari/sdk-react/commit/14ab33007b3fdb349546ad650b39cbcdba7e66d6)]:
+  - @sajari/react-hooks@1.4.12
+
 ## 1.8.9
 
 ### Patch Changes
