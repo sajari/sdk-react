@@ -177,10 +177,6 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
     [],
   );
 
-  const reset = useCallback(() => {
-    search.filters?.forEach((f) => f.reset());
-  }, []);
-
   useEffect(() => {
     const mergedConfig = { ...defaultConfig, ...search.config };
 
@@ -318,7 +314,6 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
         pipeline: search.pipeline,
         search: searchFn('search'),
         clear: clear('search'),
-        reset,
         fields: search.fields,
         searching,
       },
@@ -329,7 +324,6 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
         pipeline: autocomplete.current?.pipeline,
         search: searchFn('autocomplete'),
         clear: clear('autocomplete'),
-        reset,
         fields: autocomplete.current?.fields,
         searching: autocompleteSearching,
       },
