@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.6.19
+
+### Patch Changes
+
+- [`026dbaf1`](https://github.com/sajari/sdk-react/commit/026dbaf19bb0e30ead92978df36f2dae0c4066a3) [#466](https://github.com/sajari/sdk-react/pull/466) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix return `undefined` if passing empty string to `formatLabel`.
+
 ## 1.6.18
 
 ### Patch Changes

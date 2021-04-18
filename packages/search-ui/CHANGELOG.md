@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.8.11
+
+### Patch Changes
+
+- [`026dbaf1`](https://github.com/sajari/sdk-react/commit/026dbaf19bb0e30ead92978df36f2dae0c4066a3) [#466](https://github.com/sajari/sdk-react/pull/466) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix return `undefined` if passing empty string to `formatLabel`.
+
+* [`ee84f6ea`](https://github.com/sajari/sdk-react/commit/ee84f6ea9429484d6bd35552f77ccfb4f7d3e7f3) [#453](https://github.com/sajari/sdk-react/pull/453) Thanks [@tuanddd](https://github.com/tuanddd)! - Add reset button to radio type filter
+
 ## 1.8.10
 
 ### Patch Changes
