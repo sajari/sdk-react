@@ -1,5 +1,17 @@
 # Change Log
 
+## 1.4.12
+
+### Patch Changes
+
+- [`14ab3300`](https://github.com/sajari/sdk-react/commit/14ab33007b3fdb349546ad650b39cbcdba7e66d6) [#464](https://github.com/sajari/sdk-react/pull/464) Thanks [@tuanddd](https://github.com/tuanddd)! - Revert https://github.com/sajari/sdk-react/pull/460 since it causes empty results on search with an interface having a price filter.
+
+## 1.4.11
+
+### Patch Changes
+
+- [`a610c50a`](https://github.com/sajari/sdk-react/commit/a610c50aefef1b751c4243421fcbd179014f97d8) [#460](https://github.com/sajari/sdk-react/pull/460) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Support reset all filters functionality by exporting `reset` method from `useSearchContext`.
+
 ## 1.4.10
 
 ### Patch Changes

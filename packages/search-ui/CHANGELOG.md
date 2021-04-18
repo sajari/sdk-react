@@ -1,5 +1,27 @@
 # Change Log
 
+## 1.8.10
+
+### Patch Changes
+
+- [`14ab3300`](https://github.com/sajari/sdk-react/commit/14ab33007b3fdb349546ad650b39cbcdba7e66d6) [#464](https://github.com/sajari/sdk-react/pull/464) Thanks [@tuanddd](https://github.com/tuanddd)! - Revert https://github.com/sajari/sdk-react/pull/460 since it causes empty results on search with an interface having a price filter.
+
+- Updated dependencies [[`14ab3300`](https://github.com/sajari/sdk-react/commit/14ab33007b3fdb349546ad650b39cbcdba7e66d6)]:
+  - @sajari/react-hooks@1.4.12
+
+## 1.8.9
+
+### Patch Changes
+
+- [`acde246a`](https://github.com/sajari/sdk-react/commit/acde246a122a31cdc6e510a85cdb36769d5d2474) [#462](https://github.com/sajari/sdk-react/pull/462) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Add option to hide records count on filter components.
+
+* [`596c40af`](https://github.com/sajari/sdk-react/commit/596c40af977ac672e4f171933a02ca6f7813f440) [#461](https://github.com/sajari/sdk-react/pull/461) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Support `textTransform` prop for capitalization of text options for `select`, `list` and `tabs` filter.
+
+- [`a610c50a`](https://github.com/sajari/sdk-react/commit/a610c50aefef1b751c4243421fcbd179014f97d8) [#460](https://github.com/sajari/sdk-react/pull/460) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Support reset all filters functionality by exporting `reset` method from `useSearchContext`.
+
+- Updated dependencies [[`a610c50a`](https://github.com/sajari/sdk-react/commit/a610c50aefef1b751c4243421fcbd179014f97d8)]:
+  - @sajari/react-hooks@1.4.11
+
 ## 1.8.8
 
 ### Patch Changes

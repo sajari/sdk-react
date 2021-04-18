@@ -2,6 +2,8 @@ import { FilterItem } from '@sajari/react-hooks';
 import { formatNumber } from '@sajari/react-sdk-utils';
 import { TFunction } from 'i18next';
 
+import { TextTransform } from './types';
+
 /**
  * Pin items in an array to the start
  * @param {Array} list
@@ -22,6 +24,7 @@ export function getHeaderId(name: string) {
 
 interface FormatValueParams {
   format?: 'default' | 'price';
+  textTransform?: TextTransform;
   currency?: string;
   t: TFunction;
 }
@@ -32,7 +35,7 @@ interface FormatValueParams {
  * @param params - formatting options
  */
 export function formatLabel(input: string, params: FormatValueParams) {
-  const { format = 'default', currency = 'USD', t } = params;
+  const { format = 'default', currency = 'USD', textTransform, t } = params;
   const formatPrice = (v: number) => formatNumber(v, { style: 'currency', currency }).replace('.00', '');
 
   switch (format) {
@@ -51,6 +54,19 @@ export function formatLabel(input: string, params: FormatValueParams) {
       }
 
     case 'default':
+      switch (textTransform) {
+        case 'uppercase':
+          return input.toLocaleUpperCase();
+        case 'lowercase':
+          return input.toLocaleLowerCase();
+        case 'capitalize':
+          return input.replace(/(^\w{1})|(\s+\w{1})/g, (letter) => letter.toUpperCase());
+        case 'capitalize-first-letter':
+          return (input[0] || '').toLocaleUpperCase() + input.slice(1);
+        case 'normal-case':
+        default:
+          return input;
+      }
     default:
       // Return unchanged if it's default
       return input;

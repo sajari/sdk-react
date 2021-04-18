@@ -18,6 +18,8 @@ interface BaseFilterProps {
   title: BoxProps['title'];
 }
 
+export type TextTransform = 'normal-case' | 'uppercase' | 'lowercase' | 'capitalize' | 'capitalize-first-letter';
+
 export interface ListFilterProps extends BaseFilterProps {
   type: 'list';
   itemRender?: (value: string) => React.ReactNode;
@@ -35,6 +37,10 @@ export interface ListFilterProps extends BaseFilterProps {
   sortAscending?: boolean;
   /** How to format the values */
   format?: 'default' | 'price';
+  /** Hide total items count */
+  hideCount?: boolean;
+  /** Control the capitalization of text options */
+  textTransform?: TextTransform;
 }
 
 export interface ColorFilterProps extends BaseFilterProps {
@@ -43,12 +49,16 @@ export interface ColorFilterProps extends BaseFilterProps {
 
 export interface RatingFilterProps extends BaseFilterProps {
   type: 'rating';
+  /** Hide total items count */
+  hideCount?: boolean;
 }
 
 export interface TabFilterProps
   extends BaseFilterProps,
-    Pick<ListFilterProps, 'format' | 'limit' | 'sort' | 'sortAscending'> {
+    Pick<ListFilterProps, 'format' | 'limit' | 'sort' | 'sortAscending' | 'textTransform'> {
   type: 'tabs';
+  /** Hide total items count */
+  hideCount?: boolean;
 }
 
 export interface RangeFilterProps
@@ -57,8 +67,12 @@ export interface RangeFilterProps
   type: 'range';
 }
 
-export interface SelectFilterProps extends BaseFilterProps, Pick<ListFilterProps, 'format' | 'sort' | 'sortAscending'> {
+export interface SelectFilterProps
+  extends BaseFilterProps,
+    Pick<ListFilterProps, 'format' | 'sort' | 'sortAscending' | 'textTransform'> {
   type: 'select';
+  /** Hide total items count */
+  hideCount?: boolean;
 }
 
 export type FilterProps =

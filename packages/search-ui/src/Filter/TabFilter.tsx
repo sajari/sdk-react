@@ -10,7 +10,16 @@ import { TabFilterProps } from './types';
 import { formatLabel } from './utils';
 
 const TabFilter = (props: Omit<TabFilterProps, 'type'>) => {
-  const { name, title, limit = 15, sort = 'count', sortAscending = sort !== 'count', format } = props;
+  const {
+    name,
+    title,
+    limit = 15,
+    sort = 'count',
+    sortAscending = sort !== 'count',
+    textTransform,
+    format,
+    hideCount = false,
+  } = props;
   const { t } = useTranslation('filter');
   const theme = useTheme();
   const { options, setSelected, selected } = useFilter(name, { sort, sortAscending });
@@ -36,7 +45,7 @@ const TabFilter = (props: Omit<TabFilterProps, 'type'>) => {
           className={customClassNames.filter?.tabs?.tab}
           selectedClassName={customClassNames.filter?.tabs?.selectedTab}
         >
-          {t('all')}
+          {formatLabel(t('all'), { textTransform, t })}
         </Tab>
         {sliced.map(({ label, count, value }, index) => (
           <Tab
@@ -44,18 +53,20 @@ const TabFilter = (props: Omit<TabFilterProps, 'type'>) => {
             className={customClassNames.filter?.tabs?.tab}
             selectedClassName={customClassNames.filter?.tabs?.selectedTab}
           >
-            {`${formatLabel(label, { format, currency, t })}`}
-            <Box
-              as="span"
-              css={[
-                tw`py-0.5 px-1 rounded ml-3 text-xs leading-tight transition-colors`,
-                index === selectedIndex
-                  ? { backgroundColor: theme.color.primary.active, color: theme.color.primary.text }
-                  : tw`text-gray-500 bg-gray-100`,
-              ]}
-            >
-              {count.toLocaleString(language)}
-            </Box>
+            {`${formatLabel(label, { format, currency, textTransform, t })}`}
+            {!hideCount && (
+              <Box
+                as="span"
+                css={[
+                  tw`py-0.5 px-1 rounded ml-3 text-xs leading-tight transition-colors`,
+                  index === selectedIndex
+                    ? { backgroundColor: theme.color.primary.active, color: theme.color.primary.text }
+                    : tw`text-gray-500 bg-gray-100`,
+                ]}
+              >
+                {count.toLocaleString(language)}
+              </Box>
+            )}
           </Tab>
         ))}
       </TabList>
