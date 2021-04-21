@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.8.12
+
+### Patch Changes
+
+- [`3ddf0a7d`](https://github.com/sajari/sdk-react/commit/3ddf0a7d74f6812621b4be415768f89366c81a40) [#469](https://github.com/sajari/sdk-react/pull/469) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Enable `showPoweredBy` prop for Input to show/hide Sajari logo.
+
 ## 1.8.11
 
 ### Patch Changes
