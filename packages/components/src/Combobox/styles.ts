@@ -13,7 +13,7 @@ interface UseComboboxStylesProps {
 
 export function useComboboxStyles(props: UseComboboxStylesProps) {
   const { size, voiceEnabled, loading } = props;
-  const { focusProps, focusRingStyles } = useFocusRingStyles();
+  const { focusProps } = useFocusRingStyles();
   const containerStyles: TwStyle[] = [];
   const iconContainerStyles: TwStyle[] = [tw`absolute inset-y-0 flex items-center space-x-2 text-gray-400`];
 
@@ -61,7 +61,6 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
     inputContainer: [
       tw`form-input`,
       tw`relative text-base transition-all duration-150 bg-white border border-gray-200 border-solid`,
-      ...focusRingStyles,
       ...containerStyles,
     ],
     iconContainerLeft: [...iconContainerStyles, tw`left-0`],
