@@ -20,7 +20,7 @@ const useButtonStyles = (props: UseButtonStylesProps) => {
   const returnStyles = (val: typeof styles) => ({ styles: [css(val), focusRingStyles], focusRingProps });
 
   styles.push(
-    tw`relative items-center justify-center leading-normal no-underline transition duration-150 ease-in-out border border-transparent border-solid cursor-pointer font-inherit focus:outline-none`,
+    tw`relative items-center justify-center leading-normal no-underline transition duration-150 ease-in-out border border-transparent border-solid cursor-pointer font-inherit focus:outline-none h-auto`,
   );
 
   if (!isLink) {
@@ -116,7 +116,6 @@ const useButtonStyles = (props: UseButtonStylesProps) => {
   }
 
   switch (appearance) {
-    // TODO: test theming for primary appearance, we might want to change them later
     case 'primary':
       styles.push(`color: ${theme.color.primary.text};`);
 
@@ -132,19 +131,24 @@ const useButtonStyles = (props: UseButtonStylesProps) => {
     case 'default':
     case 'secondary':
       styles.push(
-        tw`bg-white border-gray-200 shadow-sm hover:bg-gray-100`,
-        appearance === 'secondary' ? `color: ${theme.color.primary.base};` : tw`text-gray-500`,
+        tw`bg-white border-gray-200 shadow-sm hover:bg-gray-100 focus:bg-gray-100`,
+        appearance === 'secondary'
+          ? `color: ${theme.color.primary.base};`
+          : tw`text-gray-500 hover:text-gray-500 focus:text-gray-500`,
       );
 
       if (pressed) {
-        styles.push(tw`bg-gray-100`);
+        styles.push(tw`bg-gray-100 focus:bg-gray-100 hover:bg-gray-100`);
       }
       break;
 
     case 'link':
-      styles.push(tw`p-0 no-underline bg-transparent hover:underline focus:underline leading-inherit`, {
-        color: pressed ? theme.color.primary.active : theme.color.primary.base,
-      });
+      styles.push(
+        tw`p-0 no-underline bg-transparent hover:bg-transparent focus:bg-transparent hover:underline focus:underline leading-inherit`,
+        {
+          color: pressed ? theme.color.primary.active : theme.color.primary.base,
+        },
+      );
 
       if (!loading && !pressed) {
         styles.push(`&:hover, &:focus { color: ${theme.color.primary.active} }`);

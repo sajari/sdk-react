@@ -85,6 +85,7 @@ exports[`ButtonGroup attached and inline 1`] = `
   border-style: solid;
   cursor: pointer;
   font-family: inherit;
+  height: auto;
   font-weight: 500;
   border-radius: 0.375rem;
   -webkit-user-select: none;
@@ -117,6 +118,21 @@ exports[`ButtonGroup attached and inline 1`] = `
 .emotion-2:hover {
   --bg-opacity: 1;
   background-color: rgba(244,245,247,var(--bg-opacity));
+}
+
+.emotion-2:focus {
+  --bg-opacity: 1;
+  background-color: rgba(244,245,247,var(--bg-opacity));
+}
+
+.emotion-2:hover {
+  --text-opacity: 1;
+  color: rgba(107,114,128,var(--text-opacity));
+}
+
+.emotion-2:focus {
+  --text-opacity: 1;
+  color: rgba(107,114,128,var(--text-opacity));
 }
 
 <div
@@ -229,6 +245,7 @@ exports[`ButtonGroup attached and not inline 1`] = `
   border-style: solid;
   cursor: pointer;
   font-family: inherit;
+  height: auto;
   font-weight: 500;
   border-radius: 0.375rem;
   -webkit-user-select: none;
@@ -261,6 +278,21 @@ exports[`ButtonGroup attached and not inline 1`] = `
 .emotion-2:hover {
   --bg-opacity: 1;
   background-color: rgba(244,245,247,var(--bg-opacity));
+}
+
+.emotion-2:focus {
+  --bg-opacity: 1;
+  background-color: rgba(244,245,247,var(--bg-opacity));
+}
+
+.emotion-2:hover {
+  --text-opacity: 1;
+  color: rgba(107,114,128,var(--text-opacity));
+}
+
+.emotion-2:focus {
+  --text-opacity: 1;
+  color: rgba(107,114,128,var(--text-opacity));
 }
 
 <div
@@ -339,6 +371,7 @@ exports[`ButtonGroup not attached and inline 1`] = `
   border-style: solid;
   cursor: pointer;
   font-family: inherit;
+  height: auto;
   font-weight: 500;
   border-radius: 0.375rem;
   -webkit-user-select: none;
@@ -371,6 +404,21 @@ exports[`ButtonGroup not attached and inline 1`] = `
 .emotion-2:hover {
   --bg-opacity: 1;
   background-color: rgba(244,245,247,var(--bg-opacity));
+}
+
+.emotion-2:focus {
+  --bg-opacity: 1;
+  background-color: rgba(244,245,247,var(--bg-opacity));
+}
+
+.emotion-2:hover {
+  --text-opacity: 1;
+  color: rgba(107,114,128,var(--text-opacity));
+}
+
+.emotion-2:focus {
+  --text-opacity: 1;
+  color: rgba(107,114,128,var(--text-opacity));
 }
 
 <div
@@ -443,6 +491,7 @@ exports[`ButtonGroup not attached and not inline 1`] = `
   border-style: solid;
   cursor: pointer;
   font-family: inherit;
+  height: auto;
   font-weight: 500;
   border-radius: 0.375rem;
   -webkit-user-select: none;
@@ -475,6 +524,21 @@ exports[`ButtonGroup not attached and not inline 1`] = `
 .emotion-2:hover {
   --bg-opacity: 1;
   background-color: rgba(244,245,247,var(--bg-opacity));
+}
+
+.emotion-2:focus {
+  --bg-opacity: 1;
+  background-color: rgba(244,245,247,var(--bg-opacity));
+}
+
+.emotion-2:hover {
+  --text-opacity: 1;
+  color: rgba(107,114,128,var(--text-opacity));
+}
+
+.emotion-2:focus {
+  --text-opacity: 1;
+  color: rgba(107,114,128,var(--text-opacity));
 }
 
 <div
