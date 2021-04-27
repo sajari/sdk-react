@@ -1,4 +1,5 @@
 /* eslint-disable react/no-array-index-key */
+import { createPopper, Instance } from '@popperjs/core';
 import { getStylesObject } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 
@@ -27,11 +28,14 @@ const Dropdown = () => {
     getItemProps,
     disableDefaultStyles = false,
     customClassNames: { dropdownClassName, dropdownListClassName, dropdownFooterClassName },
+    inAttachMode,
+    inputElement,
   } = useComboboxContext();
   const shown = (mode === 'results' || mode === 'suggestions') && open && items.length > 0;
   const styles = getStylesObject(useDropdownStyles({ shown }), disableDefaultStyles);
   const label = mode === 'results' ? 'Results' : 'Suggestions';
   let listRender: React.ReactNode = null;
+  const ref = React.useRef<HTMLDivElement>(null);
 
   if (renderItem) {
     listRender = items.map((item, index) => {
@@ -69,8 +73,29 @@ const Dropdown = () => {
     });
   }
 
+  React.useEffect(() => {
+    let instance: Instance | null = null;
+    if (inAttachMode && ref.current && inputElement?.current) {
+      const { width, paddingLeft, paddingRight, boxSizing } = getComputedStyle(inputElement.current);
+      const finalWidth =
+        boxSizing === 'content-box'
+          ? parseInt(width, 10) + parseInt(paddingRight, 10) + parseInt(paddingLeft, 10)
+          : parseInt(width, 10);
+      ref.current.style.width = `${finalWidth}px`;
+      // max/capped value for z-index
+      ref.current.style.zIndex = '2147483647';
+      instance = createPopper(inputElement.current, ref.current, {
+        placement: 'bottom-start',
+        modifiers: [{ name: 'flip', enabled: false }],
+      });
+    }
+    return () => {
+      instance?.destroy();
+    };
+  }, [shown, inputElement, ref.current]);
+
   return (
-    <Box css={styles.container} className={dropdownClassName}>
+    <Box ref={ref} css={styles.container} className={dropdownClassName}>
       <Text as="h6" css={styles.heading}>
         {label}
       </Text>

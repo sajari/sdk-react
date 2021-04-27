@@ -23,6 +23,8 @@ interface ComboboxContextProps<T = any> {
   onSelect: ComboboxProps<T>['onSelect'];
   disableDefaultStyles: ComboboxProps<T>['disableDefaultStyles'];
   customClassNames: ComboboxCustomClassNames;
+  inAttachMode?: boolean;
+  inputElement?: React.RefObject<HTMLInputElement>;
 }
 
 const [ComboboxContextProvider, useComboboxContext] = createContext<ComboboxContextProps>({

@@ -3,7 +3,7 @@
 import { mergeProps, useId } from '@react-aria/utils';
 import { __DEV__, getStylesObject, isFunction, isSSR } from '@sajari/react-sdk-utils';
 import { useCombobox } from 'downshift';
-import React, { ChangeEvent, KeyboardEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import tw from 'twin.macro';
 
@@ -55,8 +55,8 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
   const [typedInputValue, setTypedInputValue] = useState(valueProp.toString());
   const { supported: voiceSupported } = useVoiceInput();
   const [value, setValue] = useState(valueProp.toString());
-  const [container, setContainer] = useState<undefined | null | Element>();
   const inputRef = useRef<HTMLInputElement | null>();
+  const inAttachMode = Boolean(inputElement);
 
   useEffect(() => {
     if (autoFocus) {
@@ -232,6 +232,8 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     itemToUrl,
     disableDefaultStyles,
     customClassNames: rest,
+    inAttachMode,
+    inputElement,
   };
 
   const handleVoiceInput = (input: string) => {
@@ -271,9 +273,11 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => {
       // Don't supress native form submission when 'Enter' key is pressed
       // Only if the user isn't focused on an item in the suggestions
-      if (e.key === 'Enter' && highlightedIndex === -1) {
+      if ((e.key === 'Enter' && highlightedIndex === -1) || (e.key === 'Escape' && inAttachMode)) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (e.nativeEvent as any).preventDownshiftDefault = true;
+        if (e.nativeEvent) {
+          (e.nativeEvent as any).preventDownshiftDefault = true;
+        }
 
         if (mode === 'suggestions') {
           closeMenu();
@@ -323,41 +327,36 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     },
   });
 
-  const renderInAttachMode = (input: HTMLInputElement) => {
+  const renderInAttachMode = useCallback(() => {
     if (isSSR()) {
       return null;
     }
-    if (container && input) {
-      const InputComponent = React.createElement('input', {
-        ...Array.from(input.attributes).reduce((acc, attr) => ({ ...acc, [attr.nodeName]: attr.nodeValue }), {}),
-        ...inputProps,
-      });
-      const ContainerComponent = React.createElement(
-        'div',
-        {
-          ...getComboboxProps(),
-          style: {
-            position: 'relative',
-          },
-        },
-        [InputComponent, <Dropdown />],
-      );
-      input.remove();
-      return ReactDOM.createPortal(ContainerComponent, container as Element);
+    if (inputElement?.current) {
+      inputElement.current.setAttribute('autocomplete', 'off');
+      inputElement.current.setAttribute('autocapitalize', 'off');
+      inputElement.current.setAttribute('autocorrect', 'off');
+      inputElement.current.setAttribute('spellcheck', 'false');
+      inputElement.current.removeEventListener('keydown', inputProps.onKeyDown);
+      inputElement.current.removeEventListener('input', inputProps.onChange);
+
+      inputElement.current.addEventListener('keydown', inputProps.onKeyDown);
+      inputElement.current.addEventListener('input', inputProps.onChange);
+
+      return ReactDOM.createPortal(<Dropdown />, document.body);
     }
     return null;
-  };
+  }, [inputElement]);
 
   useEffect(() => {
     if (inputElement?.current) {
-      setContainer(inputElement.current.parentElement);
+      inputElement.current.value = inputValue;
     }
-  }, [inputElement]);
+  }, [inputValue]);
 
   return (
     <ComboboxContextProvider value={context}>
-      {inputElement?.current ? (
-        renderInAttachMode(inputElement.current)
+      {inputElement ? (
+        renderInAttachMode()
       ) : (
         <Box css={[styles.container, stylesProp]} className={className}>
           <Box css={styles.inputContainer} {...getComboboxProps()}>

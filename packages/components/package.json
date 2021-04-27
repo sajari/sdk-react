@@ -26,6 +26,7 @@
     "react-dom": "^16.8.0"
   },
   "dependencies": {
+    "@popperjs/core": "^2.9.2",
     "@react-aria/button": "^3.3.0",
     "@react-aria/focus": "^3.2.3",
     "@react-aria/interactions": "^3.3.2",
