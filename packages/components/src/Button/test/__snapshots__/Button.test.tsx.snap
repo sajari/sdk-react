@@ -27,6 +27,7 @@ exports[`Button Should match snapshot 1`] = `
   border-style: solid;
   cursor: pointer;
   font-family: inherit;
+  height: auto;
   font-weight: 500;
   border-radius: 0.375rem;
   -webkit-user-select: none;
@@ -59,6 +60,21 @@ exports[`Button Should match snapshot 1`] = `
 .emotion-0:hover {
   --bg-opacity: 1;
   background-color: rgba(244,245,247,var(--bg-opacity));
+}
+
+.emotion-0:focus {
+  --bg-opacity: 1;
+  background-color: rgba(244,245,247,var(--bg-opacity));
+}
+
+.emotion-0:hover {
+  --text-opacity: 1;
+  color: rgba(107,114,128,var(--text-opacity));
+}
+
+.emotion-0:focus {
+  --text-opacity: 1;
+  color: rgba(107,114,128,var(--text-opacity));
 }
 
 <button

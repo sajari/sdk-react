@@ -12,7 +12,7 @@ export default function useHandleStyles(props: HandleProps) {
 
   const styles = {
     container: [
-      tw`w-4 h-4 transition duration-200 bg-white border-none rounded-full outline-none appearance-none cursor-pointer font-inherit leading-inherit before:(absolute transform -translate-x-1/2 text-xs px-1 rounded mb-1 bg-gray-900 bg-opacity-75 text-white text-center transition-opacity duration-200)`,
+      tw`w-4 h-4 p-0 m-0 transition duration-200 bg-white hover:bg-white focus:bg-white border-none rounded-full outline-none appearance-none cursor-pointer font-inherit leading-inherit before:(absolute transform -translate-x-1/2 text-xs px-1 rounded mb-1 bg-gray-900 bg-opacity-75 text-white text-center transition-opacity duration-200)`,
       {
         boxShadow: `inset 0 0 0 1px ${colorShadow.alpha(0.15).hsl()},
             inset 0 -1px 0 ${colorShadow.alpha(0.15).hsl()},

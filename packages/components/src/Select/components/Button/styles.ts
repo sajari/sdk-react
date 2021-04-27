@@ -12,7 +12,7 @@ export function useButtonStyles(params: UseButtonStylesParams) {
     ...params,
   } as UseInputStyleProps);
 
-  const styles = { container: [tw`form-select`, inputStyles] };
+  const styles = { container: [tw`form-select h-auto`, inputStyles] };
 
   return { styles: mapStyles(styles), focusRingProps, focusRingStyles };
 }

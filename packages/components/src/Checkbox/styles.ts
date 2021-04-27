@@ -19,10 +19,10 @@ export function useCheckboxStyles(props: CheckboxProps) {
     container: [tw`flex items-center`],
     componentWrapper: [tw`relative inline-flex items-center`],
     inputWrapper: [tw`relative flex`, focusRingStyles],
-    label: [tw`ml-2`, sizeStyles],
+    label: [tw`ml-2 p-0`, sizeStyles],
     indeterminate: [tw`absolute inset-0 flex items-center justify-center pointer-events-none`],
     indeterminateInner: [tw`m-auto w-1/2 h-0.5 rounded-sm`, { backgroundColor: theme.color.primary.text }],
-    input: [tw`form-checkbox`, inputStyles],
+    input: [tw`form-checkbox m-0`, inputStyles],
   };
 
   if (invalid) {

@@ -15,10 +15,10 @@ export default function useRadioStyles(props: RadioProps) {
 
   const styles = {
     container: [tw`flex items-center`],
-    label: [tw`ml-2`, sizeStyles],
+    label: [tw`ml-2 p-0`, sizeStyles],
     componentWrapper: [tw`inline-flex items-center`],
     inputWrapper: [tw`relative flex`, focusRingStyles],
-    input: [[tw`form-radio`, inputStyles]],
+    input: [[tw`form-radio m-0`, inputStyles]],
   };
 
   if (invalid) {
