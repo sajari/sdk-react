@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.6.21
+
+### Patch Changes
+
+- [`1ecadbb6`](https://github.com/sajari/sdk-react/commit/1ecadbb699a088da4b203a7208f49c5265c662c9) [#473](https://github.com/sajari/sdk-react/pull/473) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Prevent styling of components from being overridden by external CSS such as Shopify themes.
+
 ## 1.6.20
 
 ### Patch Changes

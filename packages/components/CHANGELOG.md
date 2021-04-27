@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.7.7
+
+### Patch Changes
+
+- [`f487fc0a`](https://github.com/sajari/sdk-react/commit/f487fc0a43eb376cbef7a4f7317addaf2e140e1f) [#472](https://github.com/sajari/sdk-react/pull/472) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix some styling issues with attach mode
+
+* [`1ecadbb6`](https://github.com/sajari/sdk-react/commit/1ecadbb699a088da4b203a7208f49c5265c662c9) [#473](https://github.com/sajari/sdk-react/pull/473) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Prevent styling of components from being overridden by external CSS such as Shopify themes.
+
 ## 1.7.6
 
 ### Patch Changes
