@@ -56,7 +56,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
   const { supported: voiceSupported } = useVoiceInput();
   const [value, setValue] = useState(valueProp.toString());
   const inputRef = useRef<HTMLInputElement | null>();
-  const inAttachMode = Boolean(inputElement);
+  const inAttachMode = Boolean(inputElement?.current);
 
   useEffect(() => {
     if (autoFocus) {
@@ -273,7 +273,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => {
       // Don't supress native form submission when 'Enter' key is pressed
       // Only if the user isn't focused on an item in the suggestions
-      if ((e.key === 'Enter' && highlightedIndex === -1) || (e.key === 'Escape' && inAttachMode)) {
+      if (e.key === 'Enter' && highlightedIndex === -1) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if (e.nativeEvent) {
           (e.nativeEvent as any).preventDownshiftDefault = true;
@@ -331,27 +331,30 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     if (isSSR()) {
       return null;
     }
-    if (inputElement?.current) {
-      inputElement.current.setAttribute('autocomplete', 'off');
-      inputElement.current.setAttribute('autocapitalize', 'off');
-      inputElement.current.setAttribute('autocorrect', 'off');
-      inputElement.current.setAttribute('spellcheck', 'false');
-      inputElement.current.removeEventListener('keydown', inputProps.onKeyDown);
-      inputElement.current.removeEventListener('input', inputProps.onChange);
-
-      inputElement.current.addEventListener('keydown', inputProps.onKeyDown);
-      inputElement.current.addEventListener('input', inputProps.onChange);
-
-      return ReactDOM.createPortal(<Dropdown />, document.body);
-    }
-    return null;
-  }, [inputElement]);
+    return ReactDOM.createPortal(<Dropdown />, document.body);
+  }, []);
 
   useEffect(() => {
     if (inputElement?.current) {
       inputElement.current.value = inputValue;
     }
   }, [inputValue]);
+
+  useEffect(() => {
+    if (inputElement?.current) {
+      inputElement.current.setAttribute('autocomplete', 'off');
+      inputElement.current.setAttribute('autocapitalize', 'off');
+      inputElement.current.setAttribute('autocorrect', 'off');
+      inputElement.current.setAttribute('spellcheck', 'false');
+
+      inputElement.current.addEventListener('keydown', inputProps.onKeyDown);
+      inputElement.current.addEventListener('input', inputProps.onChange);
+    }
+    return () => {
+      inputElement?.current?.removeEventListener('keydown', inputProps.onKeyDown);
+      inputElement?.current?.removeEventListener('input', inputProps.onChange);
+    };
+  }, [inputElement, inputProps.onKeyDown, inputProps.onChange]);
 
   return (
     <ComboboxContextProvider value={context}>
