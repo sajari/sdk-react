@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.8.14
+
+### Patch Changes
+
+- [`5ff64849`](https://github.com/sajari/sdk-react/commit/5ff6484930a9db928f0ba88b6fecba6ccb741373) [#475](https://github.com/sajari/sdk-react/pull/475) Thanks [@tuanddd](https://github.com/tuanddd)! - Correctly register/unregister callback in attach mode
+
+- Updated dependencies [[`5ff64849`](https://github.com/sajari/sdk-react/commit/5ff6484930a9db928f0ba88b6fecba6ccb741373)]:
+  - @sajari/react-components@1.7.8
+
 ## 1.8.13
 
 ### Patch Changes
