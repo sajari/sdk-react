@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.6.22
+
+### Patch Changes
+
+- [`0da17751`](https://github.com/sajari/sdk-react/commit/0da17751f5e78a21457774539adb1a876738bcfa) [#478](https://github.com/sajari/sdk-react/pull/478) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Add `variant` prop and `2xl` option for `size` prop for Combobox.
+
 ## 1.6.21
 
 ### Patch Changes
