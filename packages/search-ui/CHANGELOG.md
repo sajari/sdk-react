@@ -1,5 +1,16 @@
 # Change Log
 
+## 1.8.15
+
+### Patch Changes
+
+- [`eb338967`](https://github.com/sajari/sdk-react/commit/eb3389674fccbd05b776b749cf6efcb7ee674630) [#477](https://github.com/sajari/sdk-react/pull/477) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix ColorFilter component sending wrong filter value
+
+* [`0da17751`](https://github.com/sajari/sdk-react/commit/0da17751f5e78a21457774539adb1a876738bcfa) [#478](https://github.com/sajari/sdk-react/pull/478) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Add `variant` prop and `2xl` option for `size` prop for Combobox.
+
+* Updated dependencies [[`0da17751`](https://github.com/sajari/sdk-react/commit/0da17751f5e78a21457774539adb1a876738bcfa)]:
+  - @sajari/react-components@1.7.9
+
 ## 1.8.14
 
 ### Patch Changes
