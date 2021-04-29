@@ -4,6 +4,7 @@ import * as React from 'react';
 import { BoxProps } from '../Box';
 
 export type ComboboxMode = 'standard' | 'typeahead' | 'suggestions' | 'results';
+export type ComboboxVariant = 'outline' | 'unstyled';
 
 export interface ResultItem {
   title: string;
@@ -71,7 +72,7 @@ interface Props<T> {
   /** The typeahead completion value */
   completion?: string;
   /** The size of the combobox input */
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | '2xl';
   /** Whether to show tips in the dropdown on how to navigate the options */
   showDropdownTips?: boolean;
   /** Whether to show the "Powered by Sajari" in the dropdown */
@@ -92,6 +93,8 @@ interface Props<T> {
   }) => React.ReactNode;
   /** The input element, used when you want to hook into an existing input element */
   inputElement?: React.RefObject<HTMLInputElement>;
+  /** Changing the appearance of the input */
+  variant?: ComboboxVariant;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

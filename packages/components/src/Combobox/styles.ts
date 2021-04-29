@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { inferStylesObjectKeys, mapStyles } from '@sajari/react-sdk-utils';
 import tw, { TwStyle } from 'twin.macro';
 
@@ -5,17 +6,18 @@ import { useFocusRingStyles } from '../hooks';
 import { ComboboxProps } from './types';
 
 interface UseComboboxStylesProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   size: ComboboxProps<any>['size'];
   voiceEnabled: boolean;
   loading: boolean;
+  variant: ComboboxProps<any>['variant'];
 }
 
 export function useComboboxStyles(props: UseComboboxStylesProps) {
-  const { size, voiceEnabled, loading } = props;
+  const { size, voiceEnabled, loading, variant } = props;
   const { focusProps, focusRingStyles } = useFocusRingStyles();
   const containerStyles: TwStyle[] = [];
   const iconContainerStyles: TwStyle[] = [tw`absolute inset-y-0 flex items-center space-x-2 text-gray-400`];
+  const iconSearchStyles: TwStyle[] = [];
 
   switch (size) {
     case 'sm':
@@ -28,6 +30,19 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
       }
 
       iconContainerStyles.push(tw`px-2`);
+      break;
+
+    case '2xl':
+      containerStyles.push(tw`py-3 text-2xl pl-13`);
+
+      if (loading && voiceEnabled) {
+        containerStyles.push(tw`pr-15`);
+      } else if (loading || voiceEnabled) {
+        containerStyles.push(tw`pr-11`);
+      }
+
+      iconContainerStyles.push(tw`px-3.5 text-lg`);
+      iconSearchStyles.push(tw`w-6 h-6`);
       break;
 
     case 'lg':
@@ -58,12 +73,7 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
 
   const styles = inferStylesObjectKeys({
     container: [tw`relative`],
-    inputContainer: [
-      tw`form-input`,
-      tw`relative text-base transition-all duration-150 bg-white border border-gray-200 border-solid`,
-      ...focusRingStyles,
-      ...containerStyles,
-    ],
+    inputContainer: [tw`form-input`, tw`relative text-base transition-all duration-150`, ...containerStyles],
     iconContainerLeft: [...iconContainerStyles, tw`left-0`],
     iconContainerRight: [...iconContainerStyles, tw`right-0`],
     input: [
@@ -84,10 +94,19 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
         }`,
     ],
     iconSpinner: [],
+    iconSearch: iconSearchStyles,
   });
+
+  if (variant === 'outline') {
+    styles.inputContainer.push(...[tw`bg-white border border-gray-200 border-solid`, ...focusRingStyles]);
+  } else {
+    styles.inputContainer.push(tw`border-none py-0`);
+  }
 
   if (size === 'sm') {
     styles.iconSpinner.push(tw`w-3 h-3`);
+  } else if (size === '2xl') {
+    styles.iconSpinner.push(tw`w-5 h-5`);
   }
 
   return { styles: mapStyles(styles), focusProps };

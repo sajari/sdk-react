@@ -22,6 +22,17 @@ import { Combobox } from 'sajari/react-components';
 <Combobox />
 ```
 
+### Variants
+
+The compobox component comes in 2 variants: `outline` and `unstyled`. Pass the variant prop and set it to one of these values.
+
+```jsx
+<div className="space-y-3">
+  <Combobox variant="outline" />
+  <Combobox variant="unstyled" />
+</div>
+```
+
 ### Sizes
 
 Use the `size` prop to set the size of the combobox. The default is `md`.
@@ -31,6 +42,7 @@ Use the `size` prop to set the size of the combobox. The default is `md`.
   <Combobox size="sm" />
   <Combobox size="md" />
   <Combobox size="lg" />
+  <Combobox size="2xl" />
 </div>
 ```
 
@@ -152,3 +164,5 @@ Set the `mode` prop to `typeahead` to render a typeahead suggestion.
 | `itemToString`      | `(item:T) => string`                                            |              | A callback to convert item (object) to string.                                                                                                                                                                                                                                                            |
 | `itemToUrl`         | `(item:T) => string`                                            |              | A callback to get/compute url from item object for results mode.                                                                                                                                                                                                                                          |
 | `renderItem`        | `(params) => React.ReactNode`                                   |              | A render prop function for customizing result item view.                                                                                                                                                                                                                                                  |
+| `size`              | `'sm'` \| `'md'` \| `'lg'` \| `'2xl'`                           | `md`         | The size of the combobox.                                                                                                                                                                                                                                                                                 |
+| `variant`           | `'outline'` \| `'unstyled'`                                     | `outline`    | The appearance of the combobox.                                                                                                                                                                                                                                                                           |
