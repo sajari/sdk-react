@@ -50,6 +50,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     inputContainerClassName,
     inputElement,
     autoFocus = false,
+    variant = 'outline',
     ...rest
   } = props;
   const [typedInputValue, setTypedInputValue] = useState(valueProp.toString());
@@ -251,6 +252,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     size,
     voiceEnabled: enableVoice && voiceSupported,
     loading,
+    variant,
   });
 
   const styles = getStylesObject(comboboxStyles, disableDefaultStyles);
@@ -368,7 +370,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
             </Box>
 
             <Box css={styles.iconContainerLeft} className={inputContainerClassName}>
-              {size === 'sm' ? <IconSmallSearch /> : <IconSearch />}
+              {size === 'sm' ? <IconSmallSearch /> : <IconSearch css={styles.iconSearch} />}
             </Box>
 
             <Typeahead />

@@ -3,7 +3,15 @@ import { ComboboxProps } from '@sajari/react-components';
 export interface InputProps<T>
   extends Pick<
     ComboboxProps<T>,
-    'placeholder' | 'onSelect' | 'onChange' | 'inputElement' | 'enableVoice' | 'className' | 'showPoweredBy'
+    | 'placeholder'
+    | 'onSelect'
+    | 'onChange'
+    | 'inputElement'
+    | 'enableVoice'
+    | 'className'
+    | 'showPoweredBy'
+    | 'variant'
+    | 'size'
   > {
   mode?: ComboboxProps<T>['mode'] | 'instant';
   /* Sets how many autocomplete suggestions are shown in the box below the search input */
