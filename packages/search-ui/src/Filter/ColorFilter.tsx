@@ -6,6 +6,7 @@ import React, { useMemo } from 'react';
 import { useSearchUIContext } from '../ContextProvider';
 import Box from './Box';
 import { ColorFilterProps } from './types';
+import { capitalize } from './utils';
 
 const { colorKeys } = Swatch;
 
@@ -13,15 +14,17 @@ const ColorFilter = ({ name, title }: Omit<ColorFilterProps, 'type'>) => {
   const { options, selected, setSelected, reset } = useFilter(name);
   const { customClassNames, disableDefaultStyles = false } = useSearchUIContext();
   const optionKeys = useMemo(() => options.map((o) => o.label), [JSON.stringify(options)]);
-  const filtered = useMemo(() => colorKeys.filter((c) => optionKeys.some((o) => c.toLowerCase() === o.toLowerCase())), [
+  const filtered = useMemo(() => optionKeys.filter((c) => colorKeys.some((o) => c.toLowerCase() === o.toLowerCase())), [
     JSON.stringify(optionKeys),
   ]);
 
   const children = useMemo(
     () =>
       filtered.map((color) => {
-        const Component = Swatch.Color[color];
-        return <Component key={color} />;
+        // We capitalize to get the pre-defined color component
+        const Component = Swatch.Color[capitalize(color)];
+        // `id` prop should override the default so that cases like `red` will be included in search request as-is and not `Red`
+        return <Component key={color} id={color} />;
       }),
     [JSON.stringify(filtered)],
   );

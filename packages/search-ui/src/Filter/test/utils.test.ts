@@ -1,7 +1,7 @@
 import { FilterItem } from '@sajari/react-hooks';
 
 import { TextTransform } from '../types';
-import { formatLabel, pinItems } from '../utils';
+import { capitalize, formatLabel, pinItems } from '../utils';
 
 describe('pinItems', () => {
   test.each([
@@ -101,4 +101,15 @@ describe('formatLabel', () => {
       expect(formatLabel(label, { textTransform, format, t })).toStrictEqual(expected);
     },
   );
+});
+
+describe('capitalize', () => {
+  test.each([
+    ['', ''],
+    ['red', 'Red'],
+    ['picton Blue', 'Picton Blue'],
+    ['crimsonred', 'Crimsonred'],
+  ])('capitalize(%s)', (input, output) => {
+    expect(capitalize(input)).toBe(output);
+  });
 });
