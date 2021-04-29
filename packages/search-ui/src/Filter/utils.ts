@@ -30,6 +30,15 @@ interface FormatValueParams {
 }
 
 /**
+ * Capitalize a string value
+ * @param {string} the string to be capitalized
+ * @returns {string} the capitalized value
+ */
+export function capitalize(value: string): string {
+  return value.replace(/(^\w{1})|(\s+\w{1})/g, (letter) => letter.toUpperCase());
+}
+
+/**
  * Format a value to be presented in the UI
  * @param input - the value to format
  * @param params - formatting options
@@ -60,7 +69,7 @@ export function formatLabel(input: string, params: FormatValueParams) {
         case 'lowercase':
           return input.toLocaleLowerCase();
         case 'capitalize':
-          return input.replace(/(^\w{1})|(\s+\w{1})/g, (letter) => letter.toUpperCase());
+          return capitalize(input);
         case 'capitalize-first-letter':
           return (input[0] || '').toLocaleUpperCase() + input.slice(1);
         case 'normal-case':
