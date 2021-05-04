@@ -11,7 +11,7 @@ export function useDropdownStyles({ shown = true }: UseDropdownStylesParams) {
       tw`absolute left-0 right-0 top-auto z-20 mt-1 bg-white rounded-md shadow-menu backdrop-blur-1 bg-opacity-95`,
       !shown ? tw`hidden` : tw``,
     ],
-    heading: [tw`px-4 pt-2 text-xs text-gray-400 font-normal`],
+    heading: [tw`px-4 pt-2 text-xs text-gray-400 font-normal text-left`],
     items: [tw`m-0 py-1 px-2 list-none`],
     footer: [
       tw`flex items-center justify-between px-4 py-2 text-xs text-gray-400 border border-gray-200 rounded-b bg-gray-50 rounded-b-inherit`,
