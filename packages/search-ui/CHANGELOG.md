@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.8.16
+
+### Patch Changes
+
+- [`01e8eb88`](https://github.com/sajari/sdk-react/commit/01e8eb881da29d3108262f5a277a458caa7083fc) [#480](https://github.com/sajari/sdk-react/pull/480) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix styles being overridden by external CSS.
+
+- Updated dependencies [[`01e8eb88`](https://github.com/sajari/sdk-react/commit/01e8eb881da29d3108262f5a277a458caa7083fc)]:
+  - @sajari/react-components@1.7.10
+
 ## 1.8.15
 
 ### Patch Changes
