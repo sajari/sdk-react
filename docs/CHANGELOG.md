@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.6.23
+
+### Patch Changes
+
+- [`01e8eb88`](https://github.com/sajari/sdk-react/commit/01e8eb881da29d3108262f5a277a458caa7083fc) [#480](https://github.com/sajari/sdk-react/pull/480) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix styles being overridden by external CSS.
+
 ## 1.6.22
 
 ### Patch Changes
