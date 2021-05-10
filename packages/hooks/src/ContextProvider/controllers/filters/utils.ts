@@ -1,4 +1,4 @@
-import { groupBy, isEmpty } from '@sajari/react-sdk-utils';
+import { groupBy, isEmpty, isEmptyArray } from '@sajari/react-sdk-utils';
 
 import FilterBuilder from './FilterBuilder';
 import RangeFilterBuilder from './RangeFilterBuilder';
@@ -11,6 +11,10 @@ const buildArrayMatch = (expressions: Array<string>) => {
 
   if (list.length > 1) {
     list = list.map((expression) => `(${expression})`);
+  }
+
+  if (isEmptyArray(list)) {
+    return '';
   }
 
   return `ARRAY_MATCH(${list.join(' AND ')})`;
