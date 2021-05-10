@@ -9,4 +9,5 @@ export type SortOption = {
 
 export interface SortingProps extends Omit<BoxProps, 'className'>, Pick<ViewOptionProps, 'label' | 'size' | 'inline'> {
   options?: SortOption[];
+  type: 'select' | 'list';
 }

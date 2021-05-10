@@ -1,9 +1,10 @@
 import { useId } from '@react-aria/utils';
-import { Option, Select } from '@sajari/react-components';
+import { Option, Radio, RadioGroup, Select } from '@sajari/react-components';
 import { useSorting } from '@sajari/react-hooks';
-import { isArray } from '@sajari/react-sdk-utils';
+import { getStylesObject, isArray } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import tw from 'twin.macro';
 
 import { useSearchUIContext } from '../ContextProvider';
 import ViewOption from '../ViewOption';
@@ -13,10 +14,49 @@ const defaultOptions: SortOption[] = [{ name: 'Most relevant', value: '' }];
 
 const Sorting = (props: SortingProps) => {
   const { t } = useTranslation('sorting');
-  const { label = t('label'), options = defaultOptions, size, styles: stylesProp, ...rest } = props;
+  const { type = 'select', label = t('label'), options = defaultOptions, size, styles: stylesProp, ...rest } = props;
   const { disableDefaultStyles = false, customClassNames } = useSearchUIContext();
   const { sorting, setSorting } = useSorting();
   const id = `sorting-${useId()}`;
+  const styles = getStylesObject(
+    {
+      radioGroup: [tw`text-sm`],
+    },
+    disableDefaultStyles,
+  );
+
+  const innerRender =
+    type === 'select' ? (
+      <Select
+        id={id}
+        value={sorting}
+        onChange={(value) => setSorting(isArray(value) ? value[0] : value)}
+        size={size}
+        disableDefaultStyles={disableDefaultStyles}
+        className={customClassNames.sorting?.select}
+      >
+        {options.map((s: SortOption) => (
+          <Option key={s.value} value={s.value}>
+            {s.name}
+          </Option>
+        ))}
+      </Select>
+    ) : (
+      <RadioGroup
+        id={id}
+        value={sorting}
+        onChange={(e) => setSorting(e.target.value)}
+        className={customClassNames.filter?.list?.radioGroup}
+        css={styles.radioGroup}
+        disableDefaultStyles={disableDefaultStyles}
+      >
+        {options.map((s: SortOption) => (
+          <Radio key={s.value} value={s.value}>
+            {s.name}
+          </Radio>
+        ))}
+      </RadioGroup>
+    );
 
   return (
     <ViewOption
@@ -26,22 +66,10 @@ const Sorting = (props: SortingProps) => {
       className={customClassNames.sorting?.container}
       labelClassName={customClassNames.sorting?.label}
       renderAsLabel
+      inline={type === 'select'}
       {...rest}
     >
-      <Select
-        id={id}
-        value={sorting}
-        onChange={(value) => setSorting(isArray(value) ? value[0] : value)}
-        size={size}
-        disableDefaultStyles={disableDefaultStyles}
-        className={customClassNames.sorting?.select}
-      >
-        {options.map((s) => (
-          <Option key={s.value} value={s.value}>
-            {s.name}
-          </Option>
-        ))}
-      </Select>
+      {innerRender}
     </ViewOption>
   );
 };
