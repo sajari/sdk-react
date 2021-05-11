@@ -38,8 +38,8 @@ function Example() {
         <div className="flex-1">
           <Input />
         </div>
-
         <Sorting
+          type="select"
           options={[
             { name: 'Most relevant', value: '' },
             { name: 'Brand: A to Z', value: 'brand' },
@@ -72,11 +72,67 @@ function Example() {
 }
 ```
 
+## Display
+
+The sorting component comes in 2 variants: `select` and `list`. Pass the variant prop and set it to one of these values.
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const SearchPlayground = React.memo(() => (
+    <div className="flex flex-col space-y-6">
+      <Input />
+
+      <div className="flex -mx-3">
+        <div className="w-1/4 px-3 border-gray-100 border-r space-y-6">
+          <Sorting
+            type="list"
+            options={[
+              { name: 'Most relevant', value: '' },
+              { name: 'Brand: A to Z', value: 'brand' },
+              { name: 'Brand: Z to A', value: '-brand' },
+              { name: 'Rating: Low to High', value: 'rating' },
+              { name: 'Rating: High to Low', value: '-rating' },
+              { name: 'Popularity', value: 'popularity' },
+            ]}
+          />
+        </div>
+        <div className="w-3/4 px-3">
+          <Results />
+        </div>
+      </div>
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
 ## Props
 
-| Name      | Type                                   | Default                                | Description                                 |
-| --------- | -------------------------------------- | -------------------------------------- | ------------------------------------------- |
-| `label`   | `string`                               | `"Sort"`                               |                                             |
-| `options` | `Array<{name: string, value: string}>` | `[{name: "Most relevant", value: ""}]` |                                             |
-| `size`    | `sm` \| `md` \| `lg`                   | `md`                                   | Sets the text and input size.               |
-| `inline`  | `boolean`                              | `true`                                 | Whether to render label and control inline. |
+| Name      | Type                                   | Default                                | Description                              |
+| --------- | -------------------------------------- | -------------------------------------- | ---------------------------------------- |
+| `label`   | `string`                               | `"Sort"`                               |                                          |
+| `type`    | `"select"` \| `"list"`                 | `"select"`                             | The appearance of the sorting component. |
+| `options` | `Array<{name: string, value: string}>` | `[{name: "Most relevant", value: ""}]` |                                          |
+| `size`    | `sm` \| `md` \| `lg`                   | `md`                                   | Sets the text and input size.            |
