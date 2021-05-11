@@ -89,7 +89,7 @@ export interface ModalProps extends BoxProps {
   /** CSS keyframe for modal animation out. */
   modalAnimationOut?: string;
   /** Set the width of the content full screen */
-  fullwidth?: boolean;
+  fullWidth?: boolean;
   /** Set the height of the content full screen */
-  fullheight?: boolean;
+  fullHeight?: boolean;
 }
