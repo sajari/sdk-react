@@ -72,7 +72,7 @@ interface Props<T> {
   /** The typeahead completion value */
   completion?: string;
   /** The size of the combobox input */
-  size?: 'sm' | 'md' | 'lg' | '2xl';
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   /** Whether to show tips in the dropdown on how to navigate the options */
   showDropdownTips?: boolean;
   /** Whether to show the "Powered by Sajari" in the dropdown */

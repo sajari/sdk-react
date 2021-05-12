@@ -45,6 +45,19 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
       iconSearchStyles.push(tw`w-6 h-6`);
       break;
 
+    case 'xl':
+      containerStyles.push(tw`py-3 text-xl pl-13`);
+
+      if (loading && voiceEnabled) {
+        containerStyles.push(tw`pr-15`);
+      } else if (loading || voiceEnabled) {
+        containerStyles.push(tw`pr-11`);
+      }
+
+      iconContainerStyles.push(tw`px-3 text-lg`);
+      iconSearchStyles.push(tw`w-5 h-5`);
+      break;
+
     case 'lg':
       containerStyles.push(tw`py-3 text-lg pl-11`);
 
