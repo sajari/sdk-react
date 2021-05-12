@@ -11,6 +11,8 @@ export default class RangeFilterBuilder {
 
   private range: Range | null;
 
+  private maxRange: Range | null;
+
   private name: string;
 
   private group: string | undefined;
@@ -49,6 +51,7 @@ export default class RangeFilterBuilder {
     }
 
     this.range = this.initial;
+    this.maxRange = this.initial;
     this.name = name;
     this.group = group;
     this.field = field;
@@ -83,9 +86,22 @@ export default class RangeFilterBuilder {
       return;
     }
     this.range = range ? this.formatter(range) : range;
+    if (this.range) {
+      this.setMaxRange(this.range);
+    }
 
     if (emitEvent) {
       this.emitRangeUpdated();
+    }
+  }
+
+  public getMaxRange() {
+    return this.maxRange;
+  }
+
+  public setMaxRange(maxRange: Range) {
+    if (!this.maxRange || maxRange[1] - maxRange[0] > this.maxRange[1] - this.maxRange[0]) {
+      this.maxRange = maxRange;
     }
   }
 
@@ -162,7 +178,14 @@ export default class RangeFilterBuilder {
     if (this.frozen) {
       return;
     }
-    this.range = isArray(this.initial) ? [...this.initial] : this.initial;
+
+    if (isArray(this.initial)) {
+      this.range = [...this.initial];
+    } else if (this.aggregate) {
+      this.range = this.maxRange;
+    } else {
+      this.range = this.initial;
+    }
 
     if (emitEvent) {
       this.emitRangeUpdated();
