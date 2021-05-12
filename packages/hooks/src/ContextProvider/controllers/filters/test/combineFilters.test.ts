@@ -77,6 +77,34 @@ describe('combineFilters', () => {
     sizeFilter,
   ]);
 
+  it('empty filter', () => {
+    const emptyFilter = new FilterBuilder({
+      name: 'size',
+      field: 'size',
+      group: 'group-1',
+      initial: [],
+    });
+    const emptyFilterOfDifferentGroup = new FilterBuilder({
+      name: 'abc',
+      field: 'abc',
+      group: 'group-empty',
+      initial: [],
+    });
+    const priceRangeFilterCloned = new FilterBuilder({
+      name: 'priceRange',
+      field: 'price_range',
+    });
+    priceRangeFilterCloned.setOptions({ '0 - 10': '0 - 10', '100 - 200': '100 - 200' });
+    priceRangeFilterCloned.set(['0 - 10']);
+    const combinedEmptyFilter = combineFilters([
+      emptyFilter,
+      colorFilter,
+      priceRangeFilterCloned,
+      emptyFilterOfDifferentGroup,
+    ]);
+    expect(combinedEmptyFilter.countFilters()).toBe('ARRAY_MATCH(color = "red"),ARRAY_MATCH(color = "red"),0 - 10,');
+  });
+
   it('filter', () => {
     expect(combination.filter()).toBe(
       'ARRAY_MATCH((color = "red") AND (size = "small")) AND (brand = "Apple") AND (price >= 200) AND (popularity >= 100 AND popularity <= 600) AND (rating >= 1 AND rating <= 5)',
