@@ -18,7 +18,7 @@ export interface PipelineContextState {
   config: Config;
   search: SearchFn;
   clear: ClearFn;
-  resetAll: ResetFn;
+  reset: ResetFn;
   fields?: FieldDictionary;
   searching: boolean;
   filters?: (FilterBuilder | RangeFilterBuilder)[];

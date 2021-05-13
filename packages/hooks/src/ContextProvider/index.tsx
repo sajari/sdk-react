@@ -304,7 +304,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
 
   const handleResultClicked = useCallback((url: string) => search.pipeline.emitResultClicked(url), []);
 
-  const resetAll = () => {
+  const reset = () => {
     search.filters?.forEach((f) => f?.reset());
     searchFn('search')('');
     variables.current.set({ q: '' });
@@ -320,7 +320,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
         pipeline: search.pipeline,
         search: searchFn('search'),
         clear: clear('search'),
-        resetAll,
+        reset,
         fields: search.fields,
         searching,
       },
@@ -331,7 +331,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
         pipeline: autocomplete.current?.pipeline,
         search: searchFn('autocomplete'),
         clear: clear('autocomplete'),
-        resetAll,
+        reset,
         fields: autocomplete.current?.fields,
         searching: autocompleteSearching,
       },
