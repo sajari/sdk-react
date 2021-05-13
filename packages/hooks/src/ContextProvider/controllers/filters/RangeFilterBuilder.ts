@@ -123,7 +123,6 @@ export default class RangeFilterBuilder {
   public setMax(value: number) {
     if (!this.frozen) {
       this.max = value;
-
       this.updateAggregateMaxRange();
     }
   }
