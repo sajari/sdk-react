@@ -81,7 +81,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   const slice = filtered.length > limit;
 
   const transformedItems = React.useMemo(() => {
-    if (!isSSR() && pinSelected) {
+    if (!isSSR() && pinSelected && document.activeElement?.nodeName.toLowerCase() === 'input') {
       setLastFocusedControl(`${(document.activeElement as HTMLInputElement).value}`);
     }
     let list = filtered;
