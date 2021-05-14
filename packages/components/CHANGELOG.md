@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.7.11
+
+### Patch Changes
+
+- [`e0f254e3`](https://github.com/sajari/sdk-react/commit/e0f254e38f96f63254919ec003a051864a04cea1) [#488](https://github.com/sajari/sdk-react/pull/488) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Update `Modal` and `Combobox` component to support the mobile view of overlay mode.
+
 ## 1.7.10
 
 ### Patch Changes

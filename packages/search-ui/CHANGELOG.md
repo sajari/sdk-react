@@ -1,5 +1,21 @@
 # Change Log
 
+## 1.8.17
+
+### Patch Changes
+
+- [`66761119`](https://github.com/sajari/sdk-react/commit/66761119165a94ec3a779e0c651ecfb77406dcba) [#490](https://github.com/sajari/sdk-react/pull/490) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Add support `reset` all filters method.
+
+* [`848b332d`](https://github.com/sajari/sdk-react/commit/848b332d777b1f497cb0f88375212ec234602007) [#486](https://github.com/sajari/sdk-react/pull/486) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Support `list` display for `Sorting` component.
+
+- [`77dffaf5`](https://github.com/sajari/sdk-react/commit/77dffaf5693620bcb1878f247f1321e0c2fa2473) [#489](https://github.com/sajari/sdk-react/pull/489) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix a bug that causes the documentation's editor to not working
+
+* [`e0f254e3`](https://github.com/sajari/sdk-react/commit/e0f254e38f96f63254919ec003a051864a04cea1) [#488](https://github.com/sajari/sdk-react/pull/488) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Update `Modal` and `Combobox` component to support the mobile view of overlay mode.
+
+* Updated dependencies [[`66761119`](https://github.com/sajari/sdk-react/commit/66761119165a94ec3a779e0c651ecfb77406dcba), [`2fc33184`](https://github.com/sajari/sdk-react/commit/2fc33184d950aaec616a80c24d7a5fa8a9963806), [`e0f254e3`](https://github.com/sajari/sdk-react/commit/e0f254e38f96f63254919ec003a051864a04cea1)]:
+  - @sajari/react-hooks@1.4.13
+  - @sajari/react-components@1.7.11
+
 ## 1.8.16
 
 ### Patch Changes
