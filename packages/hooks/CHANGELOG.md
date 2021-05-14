@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.4.13
+
+### Patch Changes
+
+- [`66761119`](https://github.com/sajari/sdk-react/commit/66761119165a94ec3a779e0c651ecfb77406dcba) [#490](https://github.com/sajari/sdk-react/pull/490) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Add support `reset` all filters method.
+
+* [`2fc33184`](https://github.com/sajari/sdk-react/commit/2fc33184d950aaec616a80c24d7a5fa8a9963806) [#485](https://github.com/sajari/sdk-react/pull/485) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix array match empty value where if using a FilterBuilder with the `group` option and not having any options selected the filter will produce a false string (`ARRAY_MATCH()` instead of `''`)
+
 ## 1.4.12
 
 ### Patch Changes
