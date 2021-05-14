@@ -11,6 +11,8 @@ export default class RangeFilterBuilder {
 
   private range: Range | null;
 
+  private aggregateMaxRange: Range | null;
+
   private name: string;
 
   private group: string | undefined;
@@ -49,6 +51,7 @@ export default class RangeFilterBuilder {
     }
 
     this.range = this.initial;
+    this.aggregateMaxRange = this.initial;
     this.name = name;
     this.group = group;
     this.field = field;
@@ -83,10 +86,15 @@ export default class RangeFilterBuilder {
       return;
     }
     this.range = range ? this.formatter(range) : range;
+    this.updateAggregateMaxRange();
 
     if (emitEvent) {
       this.emitRangeUpdated();
     }
+  }
+
+  public getAggregateMaxRange() {
+    return this.aggregateMaxRange;
   }
 
   public getName() {
@@ -108,12 +116,14 @@ export default class RangeFilterBuilder {
   public setMin(value: number) {
     if (!this.frozen) {
       this.min = value;
+      this.updateAggregateMaxRange();
     }
   }
 
   public setMax(value: number) {
     if (!this.frozen) {
       this.max = value;
+      this.updateAggregateMaxRange();
     }
   }
 
@@ -162,7 +172,14 @@ export default class RangeFilterBuilder {
     if (this.frozen) {
       return;
     }
-    this.range = isArray(this.initial) ? [...this.initial] : this.initial;
+
+    if (isArray(this.initial)) {
+      this.range = [...this.initial];
+    } else if (this.aggregate) {
+      this.range = this.aggregateMaxRange;
+    } else {
+      this.range = this.initial;
+    }
 
     if (emitEvent) {
       this.emitRangeUpdated();
@@ -181,5 +198,24 @@ export default class RangeFilterBuilder {
     this.listeners[EVENT_RANGE_UPDATED].notify((listener) => {
       listener(this);
     });
+  }
+
+  /**
+   * Compute the max aggregate range from results and set it to aggregateMaxRange
+   * which is a cache to be used later in reset method
+   */
+  private updateAggregateMaxRange() {
+    if (!this.range || !this.aggregate) {
+      return;
+    }
+    const aggregateMaxRange: Range =
+      this.range[1] - this.range[0] > this.max - this.min ? this.range : [this.min, this.max];
+
+    if (
+      !this.aggregateMaxRange ||
+      aggregateMaxRange[1] - aggregateMaxRange[0] > this.aggregateMaxRange[1] - this.aggregateMaxRange[0]
+    ) {
+      this.aggregateMaxRange = aggregateMaxRange;
+    }
   }
 }

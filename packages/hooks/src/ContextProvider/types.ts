@@ -4,6 +4,7 @@ import { FilterBuilder, Pipeline, RangeFilterBuilder, Response, Variables } from
 
 export type SearchFn = (query?: string, override?: boolean) => void;
 export type ClearFn = (variables?: { [k: string]: string | undefined }) => void;
+export type ResetFiltersFn = () => void;
 export type ResultClickedFn = (url: string) => void;
 export type PaginateFn = (page: number) => void;
 
@@ -17,6 +18,7 @@ export interface PipelineContextState {
   config: Config;
   search: SearchFn;
   clear: ClearFn;
+  resetFilters: ResetFiltersFn;
   fields?: FieldDictionary;
   searching: boolean;
   filters?: (FilterBuilder | RangeFilterBuilder)[];
