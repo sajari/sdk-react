@@ -213,9 +213,11 @@ export default class FilterBuilder {
   /**
    * Reset the current filter to the initial one
    */
-  public reset() {
+  public reset(emitEvent = true) {
     this.current = [...this.initial];
-    this.emitSelectionUpdated();
+    if (emitEvent) {
+      this.emitSelectionUpdated();
+    }
   }
 
   /**
