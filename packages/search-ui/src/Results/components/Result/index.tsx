@@ -96,7 +96,7 @@ const Result = React.memo(
     const imageHoverSrc = isArray(image) ? image[1] : undefined;
 
     const renderTitle = () => (
-      <Heading as="h1" size="base" css={styles.title} className={headingClassName}>
+      <Heading as="h3" size="base" css={styles.title} className={headingClassName}>
         <Link href={href} onClick={onClick}>
           {decodeHTML(title)}
         </Link>
