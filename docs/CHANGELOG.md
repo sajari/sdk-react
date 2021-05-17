@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.6.25
+
+### Patch Changes
+
+- [`7dbf22ab`](https://github.com/sajari/sdk-react/commit/7dbf22abefd698a3601fcc9cdc117d7d11f7877b) [#491](https://github.com/sajari/sdk-react/pull/491) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Allow `resetFilters` to optionally not emit subscribing events of filters. It is useful when we want to reset all filters to their default value but don't want to trigger a search request.
+
 ## 1.6.24
 
 ### Patch Changes
