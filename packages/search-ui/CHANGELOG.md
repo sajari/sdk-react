@@ -1,5 +1,16 @@
 # Change Log
 
+## 1.8.19
+
+### Patch Changes
+
+- [`bfe08580`](https://github.com/sajari/sdk-react/commit/bfe08580709f5a102737c3beb10a7c35580b77ff) [#495](https://github.com/sajari/sdk-react/pull/495) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix style is broken on Combobox due to `box-sizing` being overridden.
+
+* [`feb0782f`](https://github.com/sajari/sdk-react/commit/feb0782fa5555625f4caf12afec849655caddebe) [#493](https://github.com/sajari/sdk-react/pull/493) Thanks [@tuanddd](https://github.com/tuanddd)! - Change the Result title to h3 instead of h1 to meet WCAG a11n guidelines.
+
+* Updated dependencies [[`bfe08580`](https://github.com/sajari/sdk-react/commit/bfe08580709f5a102737c3beb10a7c35580b77ff)]:
+  - @sajari/react-components@1.7.12
+
 ## 1.8.18
 
 ### Patch Changes

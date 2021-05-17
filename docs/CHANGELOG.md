@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.6.26
+
+### Patch Changes
+
+- [`bfe08580`](https://github.com/sajari/sdk-react/commit/bfe08580709f5a102737c3beb10a7c35580b77ff) [#495](https://github.com/sajari/sdk-react/pull/495) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix style is broken on Combobox due to `box-sizing` being overridden.
+
 ## 1.6.25
 
 ### Patch Changes
