@@ -70,7 +70,7 @@ For more advanced implementations, you may want to access properties on the `Fil
 | `listen(event: string, callback: (filter: RangeFilterBuilder) => void)` | Register a listener for a specific event.                                                     |
 | `get()`                                                                 | Get the current range of the filter.                                                          |
 | `set(range: [number, number] OR null, emitEvent: boolean)`              | Set the current range of the filter and optionally emit an event.                             |
-| `reset()`                                                               | Reset the current filter to the initial values.                                               |
+| `reset(emitEvent?: boolean)`                                            | Reset the current filter to the initial values.                                               |
 | `setMin(value: number)`                                                 | Set the minimum value.                                                                        |
 | `setMax(value: number)`                                                 | Set the maximum value.                                                                        |
 | `getMinMax()`                                                           | Returns the current min and max in an array.                                                  |

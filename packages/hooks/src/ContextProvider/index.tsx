@@ -304,8 +304,8 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
 
   const handleResultClicked = useCallback((url: string) => search.pipeline.emitResultClicked(url), []);
 
-  const resetFilters = () => {
-    search.filters?.forEach((f) => f?.reset());
+  const resetFilters = (emitEvent = true) => {
+    search.filters?.forEach((f) => f?.reset(emitEvent));
   };
 
   const getContext = (state: PipelineProviderState) =>
