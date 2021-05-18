@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.4.15
+
+### Patch Changes
+
+- [`84614dea`](https://github.com/sajari/sdk-react/commit/84614dea19003daff3ce755a97e386db39d5b0c0) [#498](https://github.com/sajari/sdk-react/pull/498) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Previously, changing query will remove range filters from the search request via the `reset` function but the update in https://github.com/sajari/sdk-react/commit/66761119165a94ec3a779e0c651ecfb77406dcba was causing the range filters to appear in the request so the return values of aggregate min and max are incorrect.
+
 ## 1.4.14
 
 ### Patch Changes

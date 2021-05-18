@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.6.27
+
+### Patch Changes
+
+- [`5732b091`](https://github.com/sajari/sdk-react/commit/5732b09192a9e8b02d82d135185566a283c66568) [#496](https://github.com/sajari/sdk-react/pull/496) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix missing redirect rules.
+
 ## 1.6.26
 
 ### Patch Changes
