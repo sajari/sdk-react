@@ -173,13 +173,29 @@ export default class RangeFilterBuilder {
       return;
     }
 
-    if (isArray(this.initial)) {
-      this.range = [...this.initial];
-    } else if (this.aggregate) {
+    if (this.initial === null && this.aggregate) {
       this.range = this.aggregateMaxRange;
+    } else if (isArray(this.initial)) {
+      this.range = [...this.initial];
     } else {
       this.range = this.initial;
     }
+
+    if (emitEvent) {
+      this.emitRangeUpdated();
+    }
+  }
+
+  /**
+   * Set null to the current range to exclude the filter from the search request
+   * so the the backend can aggregate the maximum range of [min, max] for a query
+   */
+  public aggregateReset(emitEvent = true) {
+    if (this.frozen && !this.isAggregate) {
+      return;
+    }
+
+    this.range = null;
 
     if (emitEvent) {
       this.emitRangeUpdated();
