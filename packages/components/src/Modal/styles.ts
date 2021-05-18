@@ -128,7 +128,7 @@ export function useModalStyles(props: ModalProps) {
       center ? tw`m-auto` : tw`mx-auto`,
       fullWidth ? tw`max-w-full` : sizeStyle,
       fullWidth ? tw`rounded-none` : tw`rounded-xl`,
-      fullHeight ? tw`h-screen` : tw`max-h-(screen-20)`,
+      fullHeight ? tw`h-full` : tw`max-h-(screen-20)`,
     ],
   };
 
