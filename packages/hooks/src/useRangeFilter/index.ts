@@ -30,7 +30,7 @@ function useRangeFilter(name: string) {
   useEffect(() => {
     // Ignore the componentDidMount trigger, only call after the query was changed
     if (isAggregate && prevQuery.current !== null) {
-      filter.reset(false);
+      filter.aggregateReset(false);
     }
   }, [query]);
 
