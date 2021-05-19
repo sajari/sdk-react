@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.8.21
+
+### Patch Changes
+
+- [`147170da`](https://github.com/sajari/sdk-react/commit/147170dac4f4366253b9ad11b0134a135b302733) [#499](https://github.com/sajari/sdk-react/pull/499) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix the footer of Modal being covered by the bottom bar of Safari.
+
+- Updated dependencies [[`147170da`](https://github.com/sajari/sdk-react/commit/147170dac4f4366253b9ad11b0134a135b302733)]:
+  - @sajari/react-components@1.7.13
+
 ## 1.8.20
 
 ### Patch Changes
