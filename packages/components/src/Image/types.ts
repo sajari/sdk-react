@@ -20,6 +20,17 @@ interface Props extends BoxProps {
   aspectRatio?: AspectRatioProps['ratio'];
   /** Handy for use with the aspectRatio option */
   objectFit?: 'contain' | 'cover' | 'fill' | 'scale-down' | 'none';
+  /** Handy for use with the aspectRatio option */
+  objectPosition?:
+    | 'left'
+    | 'right'
+    | 'bottom'
+    | 'top'
+    | 'left-top'
+    | 'left-bottom'
+    | 'right-top'
+    | 'right-bottom'
+    | 'center';
   /** The classname for  AspectRatio container wrapper */
   containerClassName?: string;
   /** The image sources, pass in an array to display the second image on hover */

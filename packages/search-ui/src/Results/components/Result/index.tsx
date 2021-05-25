@@ -10,7 +10,7 @@ import {
   isString,
   isValidURL,
 } from '@sajari/react-sdk-utils';
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import { useSearchUIContext } from '../../../ContextProvider';
 import { useClickTracking } from '../../../hooks';
@@ -41,7 +41,9 @@ const Result = React.memo(
     const { currency, language, ratingMax, tracking } = useSearchUIContext();
     const { href, onClick } = useClickTracking({ token, tracking, values, onClick: onClickProp });
     const { title, description, subtitle, image, price, originalPrice } = values;
+    const [imageSrc, setImageSrc] = useState(isArray(image) ? image[0] : image);
     const rating = Number(values.rating);
+    const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
 
     // Determine if the result is on sale
     const isOnSale = React.useMemo(() => {
@@ -92,9 +94,6 @@ const Result = React.memo(
       return objectFit[appearance];
     }, [appearance, imageObjectFitProp]);
 
-    const imageSrc = isArray(image) ? image[0] : image;
-    const imageHoverSrc = isArray(image) ? image[1] : undefined;
-
     const renderTitle = () => (
       <Heading as="h3" size="base" css={styles.title} className={headingClassName}>
         <Link href={href} onClick={onClick}>
@@ -128,12 +127,11 @@ const Result = React.memo(
     };
 
     const renderPrice = () => {
-      if (!price) return null;
-
+      const priceDisplay = isArray(price) ? price[activeImageIndex] ?? price : price ?? '';
       return (
         <Box css={styles.priceContainer}>
           <Text css={styles.price} className={priceClassName} disableDefaultStyles={disableDefaultStyles}>
-            {formatPrice(price, { currency, language })}
+            {formatPrice(priceDisplay, { currency, language })}
           </Text>
 
           {originalPrice && isOnSale && (
@@ -160,27 +158,65 @@ const Result = React.memo(
       );
     };
 
+    const renderPreviewImages = () => {
+      const getSetActive = useCallback(
+        (url: string, i: number) => () => {
+          setImageSrc(url);
+          setActiveImageIndex(i);
+        },
+        [],
+      );
+      return (
+        <Box css={styles.previewImagesContainer} aria-label={`${decodeHTML(title)}'s images`}>
+          {image &&
+            isArray(image) &&
+            image.map((url, i) => {
+              const setActive = getSetActive(url, i);
+              return (
+                <Box
+                  role="img"
+                  key={`product-image-${url}`}
+                  css={styles.previewImageContainer}
+                  aria-label={`${decodeHTML(title)} image number ${i + 1}`}
+                  onMouseEnter={setActive}
+                  tabIndex={0}
+                  onKeyPress={(e) => {
+                    e.preventDefault();
+                    if (e.key === 'Enter' || e.key.trim() === '') {
+                      setActive();
+                    }
+                  }}
+                >
+                  <Image src={url} aspectRatio={1} objectFit="cover" objectPosition="top" />
+                </Box>
+              );
+            })}
+        </Box>
+      );
+    };
+
     const showImage = showImageProp && (isValidURL(imageSrc, true) || forceImage);
 
     return (
       <Box as="article" {...rest} css={[styles.container, stylesProp]}>
         {showImage && (
-          <Link
-            href={href}
-            onClick={onClick}
-            onContextMenu={onClick}
-            css={styles.imageContainer}
-            disableDefaultStyles={disableDefaultStyles}
-          >
-            <Image
-              src={imageSrc}
-              hoverSrc={imageHoverSrc}
-              css={styles.image}
-              aspectRatio={imageAspectRatio}
-              objectFit={imageObjectFit}
+          <Box css={styles.wrapper}>
+            <Link
+              href={href}
+              onClick={onClick}
+              onContextMenu={onClick}
+              css={styles.imageContainer}
               disableDefaultStyles={disableDefaultStyles}
-            />
-          </Link>
+            >
+              <Image
+                src={imageSrc}
+                aspectRatio={imageAspectRatio}
+                objectFit={imageObjectFit}
+                disableDefaultStyles={disableDefaultStyles}
+              />
+            </Link>
+            {isArray(image) && image.length > 1 && appearance === 'grid' ? renderPreviewImages() : null}
+          </Box>
         )}
 
         <Box css={styles.content}>
@@ -212,9 +248,12 @@ const Result = React.memo(
           )}
 
           {appearance === 'list' && description && (
-            <Text truncate={2} css={styles.description} className={descriptionClassName}>
-              {decodeHTML(description)}
-            </Text>
+            <Box css={styles.wrapper}>
+              {isArray(image) && image.length > 1 ? renderPreviewImages() : null}
+              <Text truncate={2} css={styles.description} className={descriptionClassName}>
+                {decodeHTML(description)}
+              </Text>
+            </Box>
           )}
 
           {appearance === 'grid' && renderPrice()}
