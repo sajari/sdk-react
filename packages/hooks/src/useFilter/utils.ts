@@ -47,3 +47,29 @@ export const sortItems = (list: Item[], sort: SortType = 'alpha', asc = true) =>
     return collator.compare(String(right), String(left));
   });
 };
+
+export const filterItems = (
+  list: Item[],
+  { excludes, includes, prefixFilter }: { includes?: string[]; excludes?: string[]; prefixFilter?: string },
+) => {
+  let filteredList: { value: string; count: number; label: string }[] = list.map(([value, count]) => ({
+    value,
+    count: Number(count),
+    label: value,
+  }));
+
+  if (includes) {
+    filteredList = filteredList.filter(({ label }) => includes.includes(label));
+  }
+
+  if (excludes) {
+    filteredList = filteredList.filter(({ label }) => !excludes.includes(label));
+  }
+
+  if (prefixFilter) {
+    filteredList = filteredList
+      .filter(({ label }) => label.startsWith(prefixFilter))
+      .map(({ label, count, value }) => ({ label: label.replace(prefixFilter, ''), count, value }));
+  }
+  return filteredList;
+};

@@ -4,7 +4,7 @@ import { FilterBuilder, useContext } from '../ContextProvider';
 import { EVENT_SELECTION_UPDATED } from '../ContextProvider/events';
 import { getBucketCount } from '../utils';
 import { FilterItem, SortType } from './types';
-import { sortItems } from './utils';
+import { filterItems, sortItems } from './utils';
 
 function useFilter(name: string, params: { sort?: SortType; sortAscending?: boolean } = {}) {
   const {
@@ -51,6 +51,9 @@ function useFilter(name: string, params: { sort?: SortType; sortAscending?: bool
     const aggregateFilters = response.getAggregateFilters();
     const isCount = filter.getCount();
     const field = filter.getField();
+    const includes = filter.getIncludes();
+    const excludes = filter.getExcludes();
+    const prefixFilter = filter.getPrefixFilter();
 
     if (isCount && field) {
       const array = filter.isArray();
@@ -60,13 +63,15 @@ function useFilter(name: string, params: { sort?: SortType; sortAscending?: bool
         ({ count = {} } = (aggregates || {})[field] || {});
       }
 
-      const temp = sortItems(Object.entries(count), sort, sortAscending)
-        // eslint-disable-next-line @typescript-eslint/no-shadow
-        .map(([label, count]: [string, number]) => ({
-          label,
-          count,
-          value: array ? `${field} ~ ["${label}"]` : `${field} = "${label}"`,
-        }));
+      const temp = filterItems(sortItems(Object.entries(count), sort, sortAscending), {
+        includes,
+        excludes,
+        prefixFilter,
+      }).map(({ count: itemCount, label, value }) => ({
+        label,
+        count: itemCount,
+        value: array ? `${field} ~ ["${value}"]` : `${field} = "${value}"`,
+      }));
 
       filter.setOptions(temp.reduce((a, c) => ({ ...a, [c.label]: c.value }), {}));
 

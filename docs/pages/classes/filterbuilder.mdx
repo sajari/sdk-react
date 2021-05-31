@@ -64,7 +64,10 @@ The constructor accepts a single object with the following properties:
 | `initial`      | `string` \| `string[]`                   |                                   | List of initially selected items.                                                                                                           |
 | `count`        | `boolean`                                | `true` if no `options` specified. | Map to a field which aims to perform a count aggregate.                                                                                     |
 | `array`        | `boolean`                                |                                   | Whether the response of the field is an array. This setting is only applicable if count is set.                                             |
-| `multi`        | `boolean`                                |                                   | Multiple selections allowed.                                                                                                                |
+| `multi`        | `boolean`                                |                                   | List of items to be included from the filter options.                                                                                       |
+| `includes`     | `string[]`                               |                                   | List of items to be excluded from the filter options.                                                                                       |
+| `excludes`     | `string[]`                               |                                   | Only include the filter options that starts with the prefix.                                                                                |
+| `prefixFilter` | `string`                                 |                                   | Multiple selections allowed.                                                                                                                |
 | `joinOperator` | `'OR'` \| `'AND'`                        | `'OR'`                            | Join operator used if `multi` = `true`.                                                                                                     |
 
 ## Properties
