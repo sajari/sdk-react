@@ -18,8 +18,17 @@ const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
     format,
     textTransform = 'normal-case',
     hideCount = false,
+    excludes,
+    includes,
+    prefixFilter,
   } = props;
-  const { options, reset, setSelected, selected, multi } = useFilter(name, { sort, sortAscending });
+  const { options, reset, setSelected, selected, multi } = useFilter(name, {
+    sort,
+    sortAscending,
+    excludes,
+    includes,
+    prefixFilter,
+  });
   const { disableDefaultStyles = false, customClassNames, currency } = useSearchUIContext();
   const { t } = useTranslation('filter');
 
