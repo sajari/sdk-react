@@ -9,12 +9,6 @@ export interface FilterOptions {
   group?: string;
   /** Dictionary of name -> filter pairs */
   options?: Options;
-  /** Items to be included from the filter options */
-  includes?: string[];
-  /** Items to be excluded from the filter options */
-  excludes?: string[];
-  /** Only include the filter options that starts with the prefix */
-  prefixFilter?: string;
   /** List of initially selected items */
   initial?: string | string[];
   /** Map to a field which aims to perform a count aggregate */

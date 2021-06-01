@@ -84,7 +84,6 @@ export default class FilterBuilder {
     this.multi = multi;
     /** @private */
     this.array = array;
-
     /** @private */
     this.joinOperator = joinOperator;
     /** @private */

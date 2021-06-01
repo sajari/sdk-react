@@ -41,9 +41,9 @@ export interface ListFilterProps extends BaseFilterProps {
   hideCount?: boolean;
   /** Control the capitalization of text options */
   textTransform?: TextTransform;
-  /** Items to be included from the filter options */
+  /** If the list is set, select the items of the list from the filter options */
   includes?: string[];
-  /** Items to be excluded from the filter options */
+  /** If the list is set, eliminate the items of the list from the filter options */
   excludes?: string[];
   /** Only include the filter options that starts with the prefix */
   prefixFilter?: string;
