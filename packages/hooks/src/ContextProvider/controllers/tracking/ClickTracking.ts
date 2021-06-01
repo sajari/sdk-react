@@ -7,16 +7,15 @@ export class ClickTracking extends Tracking {
   /**
    * Construct a ClickTracking instance.
    * @param field Field to use for click token generation.
-   * @param qParam Value to use for full-text query param.
+   * @param metadata Metadata fields.
    */
   constructor(field = 'url', metadata = { qParam: 'q' }) {
     super();
-    const { qParam, ...rest } = metadata;
 
     this.field = field;
     this.clientTracking = new InteractiveSession(
-      qParam,
-      new DefaultSession(TrackingType.Click, this.field, { ...getTrackingData(), ...rest }),
+      metadata.qParam,
+      new DefaultSession(TrackingType.Click, this.field, { ...getTrackingData(), ...metadata }),
     );
   }
 }

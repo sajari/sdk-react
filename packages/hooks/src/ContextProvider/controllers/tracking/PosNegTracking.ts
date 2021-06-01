@@ -7,6 +7,7 @@ export class PosNegTracking extends Tracking {
   /**
    * Construct a PosNegTracking instance.
    * @param field Field to use for click token generation.
+   * @param metadata Metadata fields.
    */
   constructor(field = 'url', metadata = {}) {
     super();
