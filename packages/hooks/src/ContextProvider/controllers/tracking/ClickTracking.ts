@@ -9,7 +9,7 @@ export class ClickTracking extends Tracking {
    * @param field Field to use for click token generation.
    * @param metadata Metadata fields.
    */
-  constructor(field = 'url', metadata = { qParam: 'q' }) {
+  constructor(field = 'url', metadata: Record<string, string> = { qParam: 'q' }) {
     super();
 
     this.field = field;
