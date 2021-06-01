@@ -101,7 +101,7 @@ export function useModalStyles(props: ModalProps) {
 
   const styles = {
     overlay: [
-      tw`fixed inset-0 z-10000 transition-opacity backdrop-blur-1 `,
+      tw`fixed inset-0 z-max transition-opacity backdrop-blur-1 `,
       open
         ? css`
             animation: ${overlayAnimationIn ?? animateOverlayIn} ${animationDuration}ms ease-in;
@@ -112,7 +112,7 @@ export function useModalStyles(props: ModalProps) {
     ],
     overlayInner: [tw`absolute inset-0 bg-gray-700 opacity-75`],
     container: [
-      tw`fixed inset-0 z-10000 flex items-start`,
+      tw`fixed inset-0 z-max flex items-start`,
       fullWidth ? tw`p-0` : tw`p-10`,
       open
         ? css`
@@ -123,7 +123,7 @@ export function useModalStyles(props: ModalProps) {
           `,
     ],
     content: [
-      tw`relative z-10000 flex flex-col flex-1 w-full overflow-auto scrolling-touch transition-all transform bg-white`,
+      tw`relative z-max flex flex-col flex-1 w-full overflow-auto scrolling-touch transition-all transform bg-white`,
       tw`outline-none shadow-lg`,
       center ? tw`m-auto` : tw`mx-auto`,
       fullWidth ? tw`max-w-full` : sizeStyle,
