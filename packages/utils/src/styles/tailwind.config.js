@@ -35,6 +35,7 @@ export default {
       },
       zIndex: {
         10000: 10000,
+        max: 2147483647,
       },
       lineHeight: {
         inherit: 'inherit',
