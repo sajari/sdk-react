@@ -420,7 +420,17 @@ function Example() {
 useFilter(name, params);
 ```
 
-| Name     | Type                                                              | Default                                   | Description                                                                                                                                                            |
-| -------- | ----------------------------------------------------------------- | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `name`   | `string`                                                          |                                           | The name of the filter that you specified in [`FilterBuilder`](/classes/filterbuilder).                                                                                |
-| `params` | `{sort: 'alpha'` \| `'count'` \| `'none, sortAscending: boolean}` | `{sort: 'alpha', sortAscending:` `true`}` | `'alpha'` stands for `'alphanumeric'` meaning to sort the items based on label alphabetically, `'count'` to sort based on count, `'none'` to skip the sorting process. |
+| Name     | Type     | Default | Description                                                                             |
+| -------- | -------- | ------- | --------------------------------------------------------------------------------------- |
+| `name`   | `string` |         | The name of the filter that you specified in [`FilterBuilder`](/classes/filterbuilder). |
+| `params` | `object` |         | Additional options. See details on the [below table](#params).                          |
+
+### params
+
+| Name            | Type                               | Default   | Description                                                                                                                                                            |
+| --------------- | ---------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sort`          | `'alpha'` \| `'count'` \| `'none'` | `'alpha'` | `'alpha'` stands for `'alphanumeric'` meaning to sort the items based on label alphabetically, `'count'` to sort based on count, `'none'` to skip the sorting process. |
+| `sortAscending` | `boolean`                          |           | Sort the records in descending order.                                                                                                                                  |
+| `includes`      | `string[]`                         |           | List of items to be included from the filter options.                                                                                                                  |
+| `excludes`      | `string[]`                         |           | List of items to be excluded from the filter options.                                                                                                                  |
+| `prefixFilter`  | `string`                           |           | Only include the filter options that starts with the prefix.                                                                                                           |

@@ -61,7 +61,10 @@ export interface RatingFilterProps extends BaseFilterProps {
 
 export interface TabFilterProps
   extends BaseFilterProps,
-    Pick<ListFilterProps, 'format' | 'limit' | 'sort' | 'sortAscending' | 'textTransform'> {
+    Pick<
+      ListFilterProps,
+      'format' | 'limit' | 'sort' | 'sortAscending' | 'textTransform' | 'includes' | 'excludes' | 'prefixFilter'
+    > {
   type: 'tabs';
   /** Hide total items count */
   hideCount?: boolean;
@@ -75,7 +78,10 @@ export interface RangeFilterProps
 
 export interface SelectFilterProps
   extends BaseFilterProps,
-    Pick<ListFilterProps, 'format' | 'sort' | 'sortAscending' | 'textTransform'> {
+    Pick<
+      ListFilterProps,
+      'format' | 'sort' | 'sortAscending' | 'textTransform' | 'includes' | 'excludes' | 'prefixFilter'
+    > {
   type: 'select';
   /** Hide total items count */
   hideCount?: boolean;

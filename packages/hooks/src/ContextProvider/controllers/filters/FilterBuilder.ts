@@ -35,12 +35,6 @@ export default class FilterBuilder {
 
   private options: Options;
 
-  private includes: string[] | undefined;
-
-  private excludes: string[] | undefined;
-
-  private prefixFilter: string | undefined;
-
   private multi: boolean;
 
   private count: boolean;
@@ -62,9 +56,6 @@ export default class FilterBuilder {
     joinOperator = 'OR',
     multi = true,
     options = {},
-    includes,
-    excludes,
-    prefixFilter,
     array = false,
     name,
     field,
@@ -88,17 +79,12 @@ export default class FilterBuilder {
     /** @private */
     this.count = count;
     /** @private */
-    this.includes = includes;
-    /** @private */
-    this.excludes = excludes;
-    /** @private */
-    this.prefixFilter = prefixFilter;
-    /** @private */
     this.options = options;
     /** @private */
     this.multi = multi;
     /** @private */
     this.array = array;
+
     /** @private */
     this.joinOperator = joinOperator;
     /** @private */
@@ -178,18 +164,6 @@ export default class FilterBuilder {
 
   public getOptions() {
     return this.options;
-  }
-
-  public getIncludes() {
-    return this.includes;
-  }
-
-  public getExcludes() {
-    return this.excludes;
-  }
-
-  public getPrefixFilter() {
-    return this.prefixFilter;
   }
 
   public get() {

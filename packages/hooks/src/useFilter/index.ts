@@ -6,7 +6,16 @@ import { getBucketCount } from '../utils';
 import { FilterItem, SortType } from './types';
 import { filterItems, sortItems } from './utils';
 
-function useFilter(name: string, params: { sort?: SortType; sortAscending?: boolean } = {}) {
+function useFilter(
+  name: string,
+  params: {
+    sort?: SortType;
+    sortAscending?: boolean;
+    includes?: string[];
+    excludes?: string[];
+    prefixFilter?: string;
+  } = {},
+) {
   const {
     search: { filters = [], response },
   } = useContext();
@@ -40,7 +49,7 @@ function useFilter(name: string, params: { sort?: SortType; sortAscending?: bool
     filter.reset();
   };
 
-  const { sort = 'alpha', sortAscending = sort !== 'count' } = params;
+  const { sort = 'alpha', sortAscending = sort !== 'count', includes, excludes, prefixFilter } = params;
 
   const options: FilterItem[] = useMemo(() => {
     if (!response || response?.isEmpty()) {
@@ -51,9 +60,6 @@ function useFilter(name: string, params: { sort?: SortType; sortAscending?: bool
     const aggregateFilters = response.getAggregateFilters();
     const isCount = filter.getCount();
     const field = filter.getField();
-    const includes = filter.getIncludes();
-    const excludes = filter.getExcludes();
-    const prefixFilter = filter.getPrefixFilter();
 
     if (isCount && field) {
       const array = filter.isArray();
