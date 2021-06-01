@@ -1,4 +1,4 @@
-import { Item, sortItems } from '../utils';
+import { filterItems, Item, sortItems } from '../utils';
 
 describe('sortItems', () => {
   // Decending
@@ -199,5 +199,76 @@ describe('sortItems', () => {
     ],
   ])("sortItems(%o,'count')", (list, expected) => {
     expect(sortItems(list, 'count')).toStrictEqual(expected);
+  });
+});
+
+describe('filterItems', () => {
+  const items: Item[] = [
+    ['paint', 0],
+    ['recrop', 0],
+    ['t-shirt', 0],
+    ['undergarment', 0],
+    ['yellow', 0],
+    ['zip', 0],
+    ['age_Babies', 0],
+    ['age_Toddlers', 0],
+  ];
+
+  type ItemMaped = { label: string; count: number; value: string };
+
+  test.each<[Item[], string[] | undefined, string[] | undefined, string | undefined, ItemMaped[]]>([
+    [
+      items,
+      undefined,
+      undefined,
+      undefined,
+      [
+        { label: 'paint', count: 0, value: 'paint' },
+        { label: 'recrop', count: 0, value: 'recrop' },
+        { label: 't-shirt', count: 0, value: 't-shirt' },
+        { label: 'undergarment', count: 0, value: 'undergarment' },
+        { label: 'yellow', count: 0, value: 'yellow' },
+        { label: 'zip', count: 0, value: 'zip' },
+        { label: 'age_Babies', count: 0, value: 'age_Babies' },
+        { label: 'age_Toddlers', count: 0, value: 'age_Toddlers' },
+      ],
+    ],
+    [
+      items,
+      ['paint', 'not in', 'recrop'],
+      undefined,
+      undefined,
+      [
+        { label: 'paint', count: 0, value: 'paint' },
+        { label: 'recrop', count: 0, value: 'recrop' },
+      ],
+    ],
+    [
+      items,
+      undefined,
+      ['paint', 'not in', 't-shirt'],
+      undefined,
+      [
+        { label: 'recrop', count: 0, value: 'recrop' },
+        { label: 'undergarment', count: 0, value: 'undergarment' },
+        { label: 'yellow', count: 0, value: 'yellow' },
+        { label: 'zip', count: 0, value: 'zip' },
+        { label: 'age_Babies', count: 0, value: 'age_Babies' },
+        { label: 'age_Toddlers', count: 0, value: 'age_Toddlers' },
+      ],
+    ],
+    [
+      items,
+      undefined,
+      undefined,
+      'age_',
+      [
+        { label: 'Babies', count: 0, value: 'age_Babies' },
+        { label: 'Toddlers', count: 0, value: 'age_Toddlers' },
+      ],
+    ],
+    [items, undefined, ['age_Babies'], 'age_', [{ label: 'Toddlers', count: 0, value: 'age_Toddlers' }]],
+  ])('filterItems(%o, %o, %o, %s, %o)', (list, includes, excludes, prefixFilter, expected) => {
+    expect(filterItems(list, { includes, excludes, prefixFilter })).toStrictEqual(expected);
   });
 });

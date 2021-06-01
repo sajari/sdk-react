@@ -23,10 +23,19 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     format,
     hideCount = false,
     textTransform = 'normal-case',
+    excludes,
+    includes,
+    prefixFilter,
   } = props;
 
   const filterContainerId = `list-${name}`;
-  const { options, reset, setSelected, selected, multi } = useFilter(name, { sort, sortAscending });
+  const { options, reset, setSelected, selected, multi } = useFilter(name, {
+    sort,
+    sortAscending,
+    excludes,
+    includes,
+    prefixFilter,
+  });
   // Enable search by default if there's more than the limit
   const { searchable = options.length > limit } = props;
   // By default, pin selected items if the option count is over limit
