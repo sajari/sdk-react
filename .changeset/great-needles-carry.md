@@ -1,6 +1,6 @@
 ---
-'@sajari/react-components': minor
-'@sajari/react-sdk-utils': minor
+'@sajari/react-components': patch
+'@sajari/react-sdk-utils': patch
 ---
 
 Add maxium z-index value
