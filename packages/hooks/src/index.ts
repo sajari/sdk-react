@@ -12,6 +12,8 @@ export {
   RangeFilterBuilder,
   RangeFilterOptions,
   Response,
+  ResultClickedFn,
+  ResultValues,
   default as SearchProvider,
   SearchProviderValues,
   Variables,

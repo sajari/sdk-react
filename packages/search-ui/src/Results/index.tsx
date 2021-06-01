@@ -109,4 +109,4 @@ const Results = (props: ResultsProps) => {
 };
 
 export default Results;
-export type { ResultsProps };
+export type { ResultsProps, ResultValues };

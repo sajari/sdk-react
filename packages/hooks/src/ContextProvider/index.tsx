@@ -25,6 +25,8 @@ import {
   PipelineProviderState,
   ProviderPipelineConfig,
   ProviderPipelineState,
+  ResultClickedFn,
+  ResultValues,
   SearchProviderValues,
 } from './types';
 
@@ -302,7 +304,10 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
     [search.pipeline, search.variables, searchState.config],
   );
 
-  const handleResultClicked = useCallback((url: string) => search.pipeline.emitResultClicked(url), []);
+  const handleResultClicked = useCallback(
+    (args: { token: string; values: ResultValues }) => search.pipeline.emitResultClicked(args),
+    [],
+  );
 
   const resetFilters = (emitEvent = true) => {
     search.filters?.forEach((f) => f?.reset(emitEvent));
@@ -357,4 +362,4 @@ export {
   useContext,
   Variables,
 };
-export type { SearchProviderValues };
+export type { ResultClickedFn, ResultValues, SearchProviderValues };

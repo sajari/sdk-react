@@ -3,6 +3,7 @@ import { isSSR, isString } from '@sajari/react-sdk-utils';
 import { Client } from '@sajari/sdk-js';
 
 import { EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED, EVENT_SEARCH_SENT } from '../events';
+import { ResultValues } from '../types';
 import { Analytics, GoogleAnalytics } from './analytics';
 import { CallbackFn, Listener, ListenerMap, UnlistenFn } from './Listener';
 import { Response } from './Response';
@@ -129,9 +130,9 @@ export class Pipeline {
    * Emits a result clicked event to the results clicked event listeners.
    * @param value Value to send to the listeners.
    */
-  public emitResultClicked(value: string): void {
+  public emitResultClicked(args: { token: string; values: ResultValues }): void {
     (this.listeners.get(EVENT_RESULT_CLICKED) as Listener).notify((listener) => {
-      listener(value);
+      listener(args);
     });
   }
 

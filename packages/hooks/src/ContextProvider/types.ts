@@ -5,7 +5,7 @@ import { FilterBuilder, Pipeline, RangeFilterBuilder, Response, Variables } from
 export type SearchFn = (query?: string, override?: boolean) => void;
 export type ClearFn = (variables?: { [k: string]: string | undefined }) => void;
 export type ResetFiltersFn = (emitEvent?: boolean) => void;
-export type ResultClickedFn = (url: string) => void;
+export type ResultClickedFn = (args: { token: string; values: ResultValues }) => void;
 export type PaginateFn = (page: number) => void;
 
 export interface PipelineContextState {
@@ -60,9 +60,21 @@ export interface Context {
   paginate: PaginateFn;
 }
 
+export interface ResultValues {
+  _id: string;
+  url: string;
+  title: string;
+  subtitle?: string;
+  description?: string;
+  image?: string | Array<string>;
+  rating?: number;
+  price?: string | Array<string>;
+  originalPrice?: string | Array<string>;
+}
+
 type Field = ((data: Record<string, any>) => any) | string | string[] | false;
 export class FieldDictionary {
-  id?: Field;
+  sajariUUID?: Field;
 
   url?: Field;
 
@@ -84,7 +96,7 @@ export class FieldDictionary {
 
   constructor(input?: FieldDictionary) {
     const {
-      id = '_id',
+      sajariUUID = '_id',
       url = 'url',
       title = 'title',
       subtitle = 'url',
@@ -95,7 +107,7 @@ export class FieldDictionary {
       rating = 'rating',
     } = input ?? {};
 
-    this.id = id;
+    this.sajariUUID = sajariUUID;
     this.url = url;
     this.title = title;
     this.subtitle = subtitle;
