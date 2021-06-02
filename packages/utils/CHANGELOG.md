@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.3.10
+
+### Patch Changes
+
+- [`8c9c758f`](https://github.com/sajari/sdk-react/commit/8c9c758fc563494f91ef28f323c5fd2edf84359d) [#507](https://github.com/sajari/sdk-react/pull/507) Thanks [@tuanddd](https://github.com/tuanddd)! - Add maxium z-index value
+
 ## 1.3.9
 
 ### Patch Changes
