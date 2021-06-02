@@ -7,4 +7,5 @@ module.exports = {
   testMatch: ['<rootDir>/packages/hooks/**/*.test.ts', '<rootDir>/packages/hooks/**/*.test.tsx'],
   name: '@sajari/react-hooks',
   displayName: 'hooks',
+  setupFilesAfterEnv: ['<rootDir>/packages/hooks/jest.setup.js'],
 };
