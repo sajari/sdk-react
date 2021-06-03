@@ -5,9 +5,9 @@ import { PosNegTracking } from './PosNegTracking';
 
 describe('PosNegTracking', () => {
   it('should work normally', () => {
-    const posNegTracking = new PosNegTracking('id', { qParam: 'query', cartId: '12345' });
+    const posNegTracking = new PosNegTracking('id', { cartId: '12345' });
     const { data, type } = posNegTracking.next({});
-    expect(data).toEqual({ qParam: 'query', cartId: '12345' });
+    expect(data).toEqual({ cartId: '12345' });
     expect(type).toBe(TrackingType.PosNeg);
   });
 

@@ -5,10 +5,10 @@ import { ClickTracking } from './ClickTracking';
 
 describe('ClickTracking', () => {
   it('should work normally', () => {
-    const clickTracking = new ClickTracking('id', 'q', { qParam: 'query', cartId: '12345' });
+    const clickTracking = new ClickTracking('id', 'q', { cartId: '12345' });
     const { data, type } = clickTracking.next({});
-    expect(data).toEqual({ qParam: 'query', cartId: '12345' });
-    expect(type).toEqual(TrackingType.Click);
+    expect(data).toEqual({ cartId: '12345' });
+    expect(type).toBe(TrackingType.Click);
   });
 
   it('should emit reset event', () => {

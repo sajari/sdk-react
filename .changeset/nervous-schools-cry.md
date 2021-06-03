@@ -1,5 +1,5 @@
 ---
-'@sajari/react-hooks': major
+'@sajari/react-hooks': minor
 ---
 
 Allow for passing in object as second parameter when using tracking constructors
