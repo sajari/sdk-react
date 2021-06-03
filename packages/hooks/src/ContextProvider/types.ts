@@ -74,7 +74,7 @@ export interface ResultValues {
 
 type Field = ((data: Record<string, any>) => any) | string | string[] | false;
 export class FieldDictionary {
-  sajariUUID?: Field;
+  internalId?: Field;
 
   url?: Field;
 
@@ -96,7 +96,7 @@ export class FieldDictionary {
 
   constructor(input?: FieldDictionary) {
     const {
-      sajariUUID = '_id',
+      internalId = '_id',
       url = 'url',
       title = 'title',
       subtitle = 'url',
@@ -107,7 +107,7 @@ export class FieldDictionary {
       rating = 'rating',
     } = input ?? {};
 
-    this.sajariUUID = sajariUUID;
+    this.internalId = internalId;
     this.url = url;
     this.title = title;
     this.subtitle = subtitle;

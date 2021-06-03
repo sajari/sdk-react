@@ -128,7 +128,7 @@ export class Pipeline {
 
   /**
    * Emits a result clicked event to the results clicked event listeners.
-   * @param value Value to send to the listeners.
+   * @param args Values to send to the listeners.
    */
   public emitResultClicked(args: { token: string; values: ResultValues }): void {
     (this.listeners.get(EVENT_RESULT_CLICKED) as Listener).notify((listener) => {

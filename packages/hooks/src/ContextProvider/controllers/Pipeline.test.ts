@@ -23,7 +23,7 @@ describe('Pipeline', () => {
     expect(responseUpdated.mock.results[0].value.isEmpty()).toBeFalsy();
   });
 
-  it('should emit result clicked listern with the right arg', () => {
+  it('should emit result clicked listener with the right arg', () => {
     const pipeline = new Pipeline(pipeline1, pipeline1.name, new ClickTracking());
     const onResultClick = jest.fn((data) => data);
     const data = {

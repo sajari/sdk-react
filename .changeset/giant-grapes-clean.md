@@ -6,11 +6,21 @@
 Update ResultClickedFn to receive more info
 
 Before:
-pipeline.listen('result-clicked', data => {
-console.log(data) \\ string, the url
-})
+
+```js
+pipeline.listen('result-clicked', (url) => {
+  console.log(url);
+});
+```
 
 After:
-pipeline.listen('result-clicked', data => {
-console.log(data) \\ object, { token: string, values: {...} }
-})
+
+```js
+pipeline.listen('result-clicked', (data) => {
+  const {
+    token,
+    values: { id, internalId, url, title, subtitle, description, image, price, originalPrice, rating },
+  } = data;
+  console.log(token);
+});
+```
