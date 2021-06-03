@@ -1,8 +1,8 @@
 import { BoxProps } from '@sajari/react-components';
 import { Token } from '@sajari/react-hooks';
-import { UseClickTrackingParams } from 'packages/search-ui/src/hooks/useClickTracking';
 import * as React from 'react';
 
+import { UseClickTrackingParams } from '../../../hooks';
 import { ResultsProps, ResultValues } from '../../types';
 
 interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | 'imageObjectFit'>, BoxProps {
