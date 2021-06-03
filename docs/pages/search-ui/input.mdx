@@ -250,8 +250,22 @@ function Example() {
 
 `Input` component props inherits the `input` element props with some additional for speech recognition and loading state
 
-| Name             | Type                                                            | Default      | Description                                                                                                                                                                                                                                                                                               |
-| ---------------- | --------------------------------------------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `mode`           | `'standard'` \| `'typeahead'` \| `'suggestions'` \| `'results'` | `'standard'` | The mode of the combobox. `'standard'` will operate as a normal text input. `'typeahead`' will provide an inline completion suggestion. `'suggestions'` will provide an autocomplete menu with options to select. `'results'` will perform a full search using the provided term and render full results. |
-| `onChange`       | `(value: string) => void`                                       |              | The callback when the input value changes. Note: The `event` is not passed as the argument.                                                                                                                                                                                                               |
-| `maxSuggestions` | `number`                                                        |              | Sets how many autocomplete suggestions are shown in the box below the search input.                                                                                                                                                                                                                       |
+It also composes the [`Combobox`](../components/combobox) component a subset of the following props are also valid:
+
+| Name               | Type | Default | Description |
+| ------------------ | ---- | ------- | ----------- |
+| `placeholder`      |      |         |             |
+| `onChange`         |      |         |             |
+| `onSelect`         |      |         |             |
+| `inputElement`     |      |         |             |
+| `enableVoice`      |      |         |             |
+| `className`        |      |         |             |
+| `showPoweredBy`    |      |         |             |
+| `showDropdownTips` |      |         |             |
+| `variant`          |      |         |             |
+| `size`             |      |         |             |
+
+| Name             | Type                                                                           | Default      | Description                                                                                                                                                                                                                                                                                               |
+| ---------------- | ------------------------------------------------------------------------------ | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `mode`           | `'standard'` \| `'typeahead'` \| `'suggestions'` \| `'results'` \| `'instant'` | `'standard'` | The mode of the combobox. `'standard'` will operate as a normal text input. `'typeahead`' will provide an inline completion suggestion. `'suggestions'` will provide an autocomplete menu with options to select. `'results'` will perform a full search using the provided term and render full results. |
+| `maxSuggestions` | `number`                                                                       |              | Sets how many autocomplete suggestions are shown in the box below the search input.                                                                                                                                                                                                                       |

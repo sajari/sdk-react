@@ -10,6 +10,7 @@ export interface InputProps<T>
     | 'enableVoice'
     | 'className'
     | 'showPoweredBy'
+    | 'showDropdownTips'
     | 'variant'
     | 'size'
   > {
