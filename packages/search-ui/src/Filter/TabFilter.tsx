@@ -19,10 +19,13 @@ const TabFilter = (props: Omit<TabFilterProps, 'type'>) => {
     textTransform,
     format,
     hideCount = false,
+    excludes,
+    includes,
+    prefixFilter,
   } = props;
   const { t } = useTranslation('filter');
   const theme = useTheme();
-  const { options, setSelected, selected } = useFilter(name, { sort, sortAscending });
+  const { options, setSelected, selected } = useFilter(name, { sort, sortAscending, excludes, includes, prefixFilter });
   const sliced = limit && options.length > limit ? options.slice(0, limit) : options;
   const { disableDefaultStyles = false, customClassNames, currency, language } = useSearchUIContext();
 

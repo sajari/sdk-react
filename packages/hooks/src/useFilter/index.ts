@@ -4,9 +4,18 @@ import { FilterBuilder, useContext } from '../ContextProvider';
 import { EVENT_SELECTION_UPDATED } from '../ContextProvider/events';
 import { getBucketCount } from '../utils';
 import { FilterItem, SortType } from './types';
-import { sortItems } from './utils';
+import { filterItems, sortItems } from './utils';
 
-function useFilter(name: string, params: { sort?: SortType; sortAscending?: boolean } = {}) {
+function useFilter(
+  name: string,
+  params: {
+    sort?: SortType;
+    sortAscending?: boolean;
+    includes?: string[];
+    excludes?: string[];
+    prefixFilter?: string;
+  } = {},
+) {
   const {
     search: { filters = [], response },
   } = useContext();
@@ -40,7 +49,7 @@ function useFilter(name: string, params: { sort?: SortType; sortAscending?: bool
     filter.reset();
   };
 
-  const { sort = 'alpha', sortAscending = sort !== 'count' } = params;
+  const { sort = 'alpha', sortAscending = sort !== 'count', includes, excludes, prefixFilter } = params;
 
   const options: FilterItem[] = useMemo(() => {
     if (!response || response?.isEmpty()) {
@@ -60,13 +69,15 @@ function useFilter(name: string, params: { sort?: SortType; sortAscending?: bool
         ({ count = {} } = (aggregates || {})[field] || {});
       }
 
-      const temp = sortItems(Object.entries(count), sort, sortAscending)
-        // eslint-disable-next-line @typescript-eslint/no-shadow
-        .map(([label, count]: [string, number]) => ({
-          label,
-          count,
-          value: array ? `${field} ~ ["${label}"]` : `${field} = "${label}"`,
-        }));
+      const temp = filterItems(sortItems(Object.entries(count), sort, sortAscending), {
+        includes,
+        excludes,
+        prefixFilter,
+      }).map(({ count: itemCount, label, value }) => ({
+        label,
+        count: itemCount,
+        value: array ? `${field} ~ ["${value}"]` : `${field} = "${value}"`,
+      }));
 
       filter.setOptions(temp.reduce((a, c) => ({ ...a, [c.label]: c.value }), {}));
 

@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.4.16
+
+### Patch Changes
+
+- [`c33fa083`](https://github.com/sajari/sdk-react/commit/c33fa08321057c5b97eb5045bb59c3e62ea8a41a) [#508](https://github.com/sajari/sdk-react/pull/508) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Support `includes`, `excludes` and `prefixFilter` for `useFilter`.
+
+- Updated dependencies [[`8c9c758f`](https://github.com/sajari/sdk-react/commit/8c9c758fc563494f91ef28f323c5fd2edf84359d)]:
+  - @sajari/react-sdk-utils@1.3.10
+
 ## 1.4.15
 
 ### Patch Changes
