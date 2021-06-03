@@ -250,22 +250,22 @@ function Example() {
 
 `Input` component props inherits the `input` element props with some additional for speech recognition and loading state
 
-It also composes the [`Combobox`](../components/combobox) component a subset of the following props are also valid:
-
-| Name               | Type | Default | Description |
-| ------------------ | ---- | ------- | ----------- |
-| `placeholder`      |      |         |             |
-| `onChange`         |      |         |             |
-| `onSelect`         |      |         |             |
-| `inputElement`     |      |         |             |
-| `enableVoice`      |      |         |             |
-| `className`        |      |         |             |
-| `showPoweredBy`    |      |         |             |
-| `showDropdownTips` |      |         |             |
-| `variant`          |      |         |             |
-| `size`             |      |         |             |
-
 | Name             | Type                                                                           | Default      | Description                                                                                                                                                                                                                                                                                               |
 | ---------------- | ------------------------------------------------------------------------------ | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `mode`           | `'standard'` \| `'typeahead'` \| `'suggestions'` \| `'results'` \| `'instant'` | `'standard'` | The mode of the combobox. `'standard'` will operate as a normal text input. `'typeahead`' will provide an inline completion suggestion. `'suggestions'` will provide an autocomplete menu with options to select. `'results'` will perform a full search using the provided term and render full results. |
 | `maxSuggestions` | `number`                                                                       |              | Sets how many autocomplete suggestions are shown in the box below the search input.                                                                                                                                                                                                                       |
+
+It also composes the [`Combobox`](../components/combobox) component a subset of the following props are also valid:
+
+| Name               | Type                                            | Default    | Description                                                                                                                       |
+| ------------------ | ----------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `placeholder`      | `string`                                        | `'Search'` | The placeholder of the input.                                                                                                     |
+| `onChange`         | `(value: string) => void`                       |            | The callback when the input value changes. Note: The `event` is not passed as the argument.                                       |
+| `onSelect`         | `(value: T) => void`                            |            | The callback when an item is selected.                                                                                            |
+| `inputElement`     | `{ current: HTMLInputElement }`                 |            | Input element to render the combobox in attach mode.                                                                              |
+| `enableVoice`      | `boolean`                                       | `false`    | Whether to enable speech recognition ([Compatibility table](https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition).) |
+| `className`        | `string`                                        |            |                                                                                                                                   |
+| `showDropdownTips` | `boolean`                                       | `false`    | Whether to show tips in the dropdown on how to navigate the options.                                                              |
+| `showPoweredBy`    | `boolean`                                       | `true`     | Whether to show the "Powered by Sajari" in the dropdown.                                                                          |
+| `variant`          | `'outline'` \| `'unstyled'`                     | `outline`  | The appearance of the combobox.                                                                                                   |
+| `size`             | `'sm'` \| `'md'` \| `'lg'` \| `'xl'` \| `'2xl'` | `md`       | The size of the combobox.                                                                                                         |
