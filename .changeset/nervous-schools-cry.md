@@ -2,7 +2,7 @@
 '@sajari/react-hooks': minor
 ---
 
-Allow for passing in object as second parameter when using tracking constructors
+Allow callers to override the metadata when creating tracking objects
 
 Before:
 
@@ -15,7 +15,7 @@ new ClickTracking('url', 'q');
 After:
 
 ```js
-new PosNegTracking('url', { qParam: 'q', foo: 'bar', ... })
+new PosNegTracking('url', { foo: 'bar', ... })
 
 new ClickTracking('url', 'q', { foo: 'bar', ... })
 ```
