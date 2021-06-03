@@ -7,12 +7,12 @@ export class PosNegTracking extends Tracking {
   /**
    * Construct a PosNegTracking instance.
    * @param field Field to use for click token generation.
-   * @param metadata Metadata fields.
+   * @param data Data to use for tracking.
    */
-  constructor(field = 'url', metadata = {}) {
+  constructor(field = 'url', data = {}) {
     super();
 
     this.field = field;
-    this.clientTracking = new DefaultSession(TrackingType.PosNeg, this.field, { ...getTrackingData(), ...metadata });
+    this.clientTracking = new DefaultSession(TrackingType.PosNeg, this.field, { ...getTrackingData(), ...data });
   }
 }

@@ -2,7 +2,7 @@
 '@sajari/react-hooks': major
 ---
 
-Allow for passing in metadata when using tracking constructors
+Allow for passing in object as second parameter when using tracking constructors
 
 Before:
 
