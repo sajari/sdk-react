@@ -19,7 +19,7 @@ After:
 pipeline.listen('result-clicked', (data) => {
   const {
     token,
-    values: { id, internalId, url, title, subtitle, description, image, price, originalPrice, rating },
+    values: { id, url, title, subtitle, description, image, price, originalPrice, rating },
   } = data;
   console.log(token);
 });

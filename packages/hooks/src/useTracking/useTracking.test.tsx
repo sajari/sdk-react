@@ -13,7 +13,7 @@ describe('useTracking', () => {
 
     const data = {
       token: 'ewJ...',
-      values: { _id: '123456', url: 'test.url', internalId: 'abc-wea-qwe', title: 'test.title' },
+      values: { id: '123456', url: 'test.url', _id: 'abc-wea-qwe', title: 'test.title' },
     };
     const wrapper = ({ children }) => <SearchProvider search={search}>{children}</SearchProvider>;
     const { result } = renderHook(() => useTracking(), { wrapper });
