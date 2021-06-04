@@ -1,5 +1,31 @@
 # Change Log
 
+## 2.0.0
+
+### Major Changes
+
+- [`d2caf2bf`](https://github.com/sajari/sdk-react/commit/d2caf2bf00f0933416ba399d786c06182abcc56d) [#506](https://github.com/sajari/sdk-react/pull/506) Thanks [@tuanddd](https://github.com/tuanddd)! - Update ResultClickedFn to receive more info
+
+  Before:
+
+  ```js
+  pipeline.listen('result-clicked', url => {
+    console.log(url);
+  });
+  ```
+
+  After:
+
+  ```js
+  pipeline.listen('result-clicked', data => {
+    const {
+      token,
+      values: { id, url, title, subtitle, description, image, price, originalPrice, rating },
+    } = data;
+    console.log(token);
+  });
+  ```
+
 ## 1.5.0
 
 ### Minor Changes
