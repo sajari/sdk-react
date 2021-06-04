@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.8.23
+
+### Patch Changes
+
+- [`7aa34c7b`](https://github.com/sajari/sdk-react/commit/7aa34c7bd98cb9f916f4a022694b11fbb88dbeac) [#509](https://github.com/sajari/sdk-react/pull/509) Thanks [@tuanddd](https://github.com/tuanddd)! - Update Input component typings and documentation
+
+- Updated dependencies [[`5b9fea54`](https://github.com/sajari/sdk-react/commit/5b9fea5412776a5b0d342d2e7ea2a55ac203323f)]:
+  - @sajari/react-hooks@1.5.0
+
 ## 1.8.22
 
 ### Patch Changes

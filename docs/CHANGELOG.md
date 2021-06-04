@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.6.29
+
+### Patch Changes
+
+- [`7aa34c7b`](https://github.com/sajari/sdk-react/commit/7aa34c7bd98cb9f916f4a022694b11fbb88dbeac) [#509](https://github.com/sajari/sdk-react/pull/509) Thanks [@tuanddd](https://github.com/tuanddd)! - Update Input component typings and documentation
+
 ## 1.6.28
 
 ### Patch Changes
