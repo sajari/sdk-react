@@ -1,11 +1,13 @@
 import { FieldDictionary, Pipeline } from '@sajari/react-hooks';
 
+import { pipeline1 } from '../ContextProvider/controllers/fixtures/Pipeline';
+
 export const pipeline = new Pipeline(
   {
-    account: '1594153711901724220',
-    collection: 'bestbuy',
+    account: pipeline1.account,
+    collection: pipeline1.collection,
   },
-  'query',
+  pipeline1.name,
 );
 
 export const fields = new FieldDictionary({
