@@ -1,5 +1,27 @@
 # Change Log
 
+## 1.5.0
+
+### Minor Changes
+
+- [`5b9fea54`](https://github.com/sajari/sdk-react/commit/5b9fea5412776a5b0d342d2e7ea2a55ac203323f) [#505](https://github.com/sajari/sdk-react/pull/505) Thanks [@tuanddd](https://github.com/tuanddd)! - Allow callers to override the metadata when creating tracking objects
+
+  Before:
+
+  ```js
+  new PosNegTracking('url');
+
+  new ClickTracking('url', 'q');
+  ```
+
+  After:
+
+  ```js
+  new PosNegTracking('url', { foo: 'bar', ... })
+
+  new ClickTracking('url', 'q', { foo: 'bar', ... })
+  ```
+
 ## 1.4.16
 
 ### Patch Changes
