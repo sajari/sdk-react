@@ -5,7 +5,7 @@ import { FilterBuilder, Pipeline, RangeFilterBuilder, Response, Variables } from
 export type SearchFn = (query?: string, override?: boolean) => void;
 export type ClearFn = (variables?: { [k: string]: string | undefined }) => void;
 export type ResetFiltersFn = (emitEvent?: boolean) => void;
-export type ResultClickedFn = (url: string) => void;
+export type ResultClickedFn = (args: { token: string; values: ResultValues }) => void;
 export type PaginateFn = (page: number) => void;
 
 export interface PipelineContextState {
@@ -58,6 +58,18 @@ export interface Context {
   autocomplete: PipelineContextState;
   resultClicked: ResultClickedFn;
   paginate: PaginateFn;
+}
+
+export interface ResultValues {
+  _id: string;
+  url: string;
+  title: string;
+  subtitle?: string;
+  description?: string;
+  image?: string | Array<string>;
+  rating?: number;
+  price?: string | Array<string>;
+  originalPrice?: string | Array<string>;
 }
 
 type Field = ((data: Record<string, any>) => any) | string | string[] | false;

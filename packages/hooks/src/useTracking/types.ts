@@ -1,6 +1,8 @@
+import { ResultClickedFn } from '../ContextProvider/types';
+
 export interface UseTrackingResult {
   /** The callback when user clicks on some link */
-  handleResultClicked: (url: string) => void;
+  handleResultClicked: ResultClickedFn;
   /** The method used to process PosNeg token */
   consumeInteractionToken: (
     token: string,

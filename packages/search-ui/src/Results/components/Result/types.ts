@@ -2,6 +2,7 @@ import { BoxProps } from '@sajari/react-components';
 import { Token } from '@sajari/react-hooks';
 import * as React from 'react';
 
+import { UseClickTrackingParams } from '../../../hooks';
 import { ResultsProps, ResultValues } from '../../types';
 
 interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | 'imageObjectFit'>, BoxProps {
@@ -10,7 +11,7 @@ interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | '
   /** The token used for tracking/analytics */
   token?: Token;
   /** Handle clicking a result */
-  onClick?: (url: string) => void;
+  onClick?: UseClickTrackingParams['onClick'];
   /** Display image or not */
   showImage?: boolean;
   /** Force an image placeholder */

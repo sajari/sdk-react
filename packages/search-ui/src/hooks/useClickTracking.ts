@@ -1,13 +1,13 @@
-import { ClickTracking, PosNegTracking, Token } from '@sajari/react-hooks';
+import { ClickTracking, PosNegTracking, ResultClickedFn, Token } from '@sajari/react-hooks';
 import { isEmpty, isFunction, isString, isValidURL, noop } from '@sajari/react-sdk-utils';
 
 import { ResultValues } from '../Results/types';
 
-interface UseClickTrackingParams {
+export interface UseClickTrackingParams {
   token: Token | undefined;
   tracking: ClickTracking | PosNegTracking | undefined;
   values: ResultValues;
-  onClick?: (url: string) => void;
+  onClick?: ResultClickedFn;
 }
 
 function useClickTracking(params: UseClickTrackingParams) {
@@ -30,8 +30,8 @@ function useClickTracking(params: UseClickTrackingParams) {
   const href = useToken ? clickToken : url;
 
   const onClickHandler = () => {
-    if (isFunction(onClick)) {
-      onClick(url);
+    if (isFunction(onClick) && clickToken) {
+      onClick({ token: clickToken, values });
     }
 
     // Fire the click token using sendBeacon if we didn't use it for the href
