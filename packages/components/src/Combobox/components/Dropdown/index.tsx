@@ -89,8 +89,13 @@ const Dropdown = () => {
         modifiers: [{ name: 'flip', enabled: false }],
       });
     }
+    function reposition() {
+      instance?.forceUpdate();
+    }
+    inputElement?.current?.addEventListener('focus', reposition);
     return () => {
       instance?.destroy();
+      inputElement?.current?.removeEventListener('focus', reposition);
     };
   }, [shown, inputElement, ref.current]);
 
