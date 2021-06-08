@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.7.15
+
+### Patch Changes
+
+- [`e7ee54db`](https://github.com/sajari/sdk-react/commit/e7ee54dbc7648351b768583e3774fb682ba0447e) [#512](https://github.com/sajari/sdk-react/pull/512) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix dropdown flicker/jumping into position when render
+
 ## 1.7.14
 
 ### Patch Changes
