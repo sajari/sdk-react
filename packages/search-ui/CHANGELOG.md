@@ -1,5 +1,16 @@
 # Change Log
 
+## 2.1.0
+
+### Minor Changes
+
+- [`ab4acfaf`](https://github.com/sajari/sdk-react/commit/ab4acfaf24a5a86fb55f73f9061a3e69160576b4) [#515](https://github.com/sajari/sdk-react/pull/515) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Allow `setSorting` to call without running search.
+
+### Patch Changes
+
+- Updated dependencies [[`ab4acfaf`](https://github.com/sajari/sdk-react/commit/ab4acfaf24a5a86fb55f73f9061a3e69160576b4)]:
+  - @sajari/react-hooks@2.1.0
+
 ## 2.0.1
 
 ### Patch Changes
