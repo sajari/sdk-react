@@ -9,9 +9,11 @@ function useSorting(): UseSortingResult {
   } = useContext();
 
   const setSorting = useCallback(
-    (order: string) => {
+    (order: string, runSearch = true) => {
       variables.set({ sort: order });
-      search();
+      if (runSearch) {
+        search();
+      }
     },
     [variables, search],
   );

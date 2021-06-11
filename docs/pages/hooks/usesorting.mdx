@@ -80,10 +80,10 @@ function Example() {
 
 `useSorting` returns an object containing the following properties:
 
-| Name         | Type                      | Default | Description                 |
-| ------------ | ------------------------- | ------- | --------------------------- |
-| `sorting`    | `sorting`                 |         | The currently sorting mode. |
-| `setSorting` | `(order: string) => void` |         | Method to set sorting mode. |
+| Name         | Type                                           | Default | Description                 |
+| ------------ | ---------------------------------------------- | ------- | --------------------------- |
+| `sorting`    | `sorting`                                      |         | The currently sorting mode. |
+| `setSorting` | `(order: string, runSearch?: boolean) => void` |         | Method to set sorting mode. |
 
 ## Parameters
 
@@ -91,5 +91,7 @@ function Example() {
 useSorting();
 ```
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
+| Name        | Type      | Default | Description                             |
+| ----------- | --------- | ------- | --------------------------------------- |
+| `order`     | `string`  |         | The value for sorting results.          |
+| `runSearch` | `boolean` | `true`  | Whether to perform a search afterwards. |
