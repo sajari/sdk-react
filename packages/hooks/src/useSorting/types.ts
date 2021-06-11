@@ -1,4 +1,4 @@
 export interface UseSortingResult {
   sorting: string;
-  setSorting: (order: string) => void;
+  setSorting: (order: string, runSearch?: boolean) => void;
 }
