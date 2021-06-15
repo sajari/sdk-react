@@ -4,6 +4,12 @@ test.each([
   [{ brand: 'Sajari', title: 'Lorem' }, { subtitle: 'brand' }, { brand: 'Sajari', subtitle: 'Sajari', title: 'Lorem' }],
   [{ title: 'Ipsum', cost: '12.3' }, { price: 'cost' }, { title: 'Ipsum', price: '12.3', cost: '12.3' }],
   [{ desc: 'Lorem ipsum' }, {}, { desc: 'Lorem ipsum' }],
+  [
+    { sale_price: 12, max_price: 20 },
+    { price: ['sale_price', 'max_price'] },
+    { price: 12, sale_price: 12, max_price: 20 },
+  ],
+  [{ max_price: 20 }, { price: ['sale_price', 'max_price'] }, { price: 20, max_price: 20 }],
   [{ max_price: 10 }, { price: ['variant_price', 'max_price'] }, { price: 10, max_price: 10 }],
   [
     { handle: 'a-sample-slug' },
