@@ -45,7 +45,6 @@ function useObjectPosition(objectPosition: ImageProps['objectPosition']) {
     case 'right-bottom':
       return tw`object-right-bottom`;
     case 'center':
-      return tw`object-center`;
     default:
       return tw`object-center`;
   }

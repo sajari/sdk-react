@@ -173,8 +173,7 @@ const Result = React.memo(
           css={styles.previewImagesContainer}
           aria-label={t('previewImagesContainer', { product: decodeHTML(title) })}
         >
-          {image &&
-            isArray(image) &&
+          {isArray(image) &&
             image.map((url, i) => {
               const setActive = getSetActive(url, i);
               return (
