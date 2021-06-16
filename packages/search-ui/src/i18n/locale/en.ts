@@ -41,6 +41,10 @@ export default {
       body: 'No matches were found for "{{query}}".',
     },
   },
+  result: {
+    previewImagesContainer: "{{product}}'s images",
+    previewImage: '{{product}} image number {{number}}',
+  },
   sorting: {
     label: 'Sort',
   },

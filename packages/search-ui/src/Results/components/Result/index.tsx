@@ -11,6 +11,7 @@ import {
   isValidURL,
 } from '@sajari/react-sdk-utils';
 import React, { useCallback, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../../../ContextProvider';
 import { useClickTracking } from '../../../hooks';
@@ -38,6 +39,7 @@ const Result = React.memo(
       showImage: showImageProp = true,
       ...rest
     } = props;
+    const { t } = useTranslation('result');
     const { currency, language, ratingMax, tracking } = useSearchUIContext();
     const { href, onClick } = useClickTracking({ token, tracking, values, onClick: onClickProp });
     const { title, description, subtitle, image, price, originalPrice } = values;
@@ -167,7 +169,10 @@ const Result = React.memo(
         [],
       );
       return (
-        <Box css={styles.previewImagesContainer} aria-label={`${decodeHTML(title)}'s images`}>
+        <Box
+          css={styles.previewImagesContainer}
+          aria-label={t('previewImagesContainer', { product: decodeHTML(title) })}
+        >
           {image &&
             isArray(image) &&
             image.map((url, i) => {
@@ -177,7 +182,7 @@ const Result = React.memo(
                   role="img"
                   key={`product-image-${url}`}
                   css={styles.previewImageContainer}
-                  aria-label={`${decodeHTML(title)} image number ${i + 1}`}
+                  aria-label={t('previewImage', { product: decodeHTML(title), number: i + 1 })}
                   onMouseEnter={setActive}
                   tabIndex={0}
                   onKeyPress={(e) => {

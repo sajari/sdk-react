@@ -12,7 +12,7 @@ export default function useResultStyles(props: UseResultStylesParams) {
 
   const styles = inferStylesObjectKeys({
     container: [],
-    wrapper: [tw`flex flex-col`],
+    wrapper: [tw`flex flex-col mb-4`],
     imageContainer: [],
     content: [tw`min-w-0`],
     header: [tw`flex items-start justify-between`],
@@ -33,7 +33,6 @@ export default function useResultStyles(props: UseResultStylesParams) {
     case 'grid':
       styles.container.push(tw`text-center flex flex-col`);
       styles.title.push(tw`mt-2`);
-      styles.content.push(tw`mt-auto`);
       styles.imageContainer.push(tw`block`);
       styles.priceContainer.push(tw`flex items-baseline justify-center space-x-1`);
       break;
