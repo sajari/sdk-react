@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.7.16
+
+### Patch Changes
+
+- [`8cbedc87`](https://github.com/sajari/sdk-react/commit/8cbedc8750381a2c9d6bb688882be5921f8598bd) [#517](https://github.com/sajari/sdk-react/pull/517) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix margin of menu option is overridden by external CSS.
+
 ## 1.7.15
 
 ### Patch Changes
