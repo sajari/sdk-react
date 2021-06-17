@@ -1,5 +1,20 @@
 # Change Log
 
+## 2.2.0
+
+### Minor Changes
+
+- [`92a87440`](https://github.com/sajari/sdk-react/commit/92a874404802b5b219f6e03e45116e90640df4ef) [#521](https://github.com/sajari/sdk-react/pull/521) Thanks [@tuanddd](https://github.com/tuanddd)! - Add reset button when an error is thrown
+
+### Patch Changes
+
+- [`362ec1f4`](https://github.com/sajari/sdk-react/commit/362ec1f4784bd5c851e38661e789f0633fa68291) [#519](https://github.com/sajari/sdk-react/pull/519) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Add test cases to cover array field inputs for `mapResultFields`.
+
+* [`8cbedc87`](https://github.com/sajari/sdk-react/commit/8cbedc8750381a2c9d6bb688882be5921f8598bd) [#517](https://github.com/sajari/sdk-react/pull/517) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix margin of menu option is overridden by external CSS.
+
+* Updated dependencies [[`8cbedc87`](https://github.com/sajari/sdk-react/commit/8cbedc8750381a2c9d6bb688882be5921f8598bd)]:
+  - @sajari/react-components@1.7.16
+
 ## 2.1.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.7.1
+
+### Patch Changes
+
+- [`8cbedc87`](https://github.com/sajari/sdk-react/commit/8cbedc8750381a2c9d6bb688882be5921f8598bd) [#517](https://github.com/sajari/sdk-react/pull/517) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix margin of menu option is overridden by external CSS.
+
+* [`92a87440`](https://github.com/sajari/sdk-react/commit/92a874404802b5b219f6e03e45116e90640df4ef) [#521](https://github.com/sajari/sdk-react/pull/521) Thanks [@tuanddd](https://github.com/tuanddd)! - Add reset button when an error is thrown
+
 ## 1.7.0
 
 ### Minor Changes
