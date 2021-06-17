@@ -40,7 +40,9 @@ const Results = (props: ResultsProps) => {
       body = t('errors:connection');
     }
 
-    return <Message title={t('common:error')} body={body} className={customClassNames.results?.errorMessage} />;
+    return (
+      <Message title={t('common:error')} body={body} showReset className={customClassNames.results?.errorMessage} />
+    );
   }
 
   // We've not searched yet

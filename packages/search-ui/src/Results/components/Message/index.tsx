@@ -1,13 +1,39 @@
-import { Box, Heading, Spinner, Text } from '@sajari/react-components';
+import { Box, Button, Heading, Spinner, Text } from '@sajari/react-components';
+import { useQuery, useSearchContext, useSorting } from '@sajari/react-hooks';
 import { getStylesObject } from '@sajari/react-sdk-utils';
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import useMessageStyles from './styles';
 import { MessageProps } from './types';
 
 const Message = (props: MessageProps) => {
-  const { title, body, appearance, styles: stylesProp, disableDefaultStyles = false, ...rest } = props;
+  const {
+    title,
+    body,
+    appearance,
+    showReset = false,
+    styles: stylesProp,
+    disableDefaultStyles = false,
+    ...rest
+  } = props;
+  const { resetFilters } = useSearchContext();
+  const { setSorting } = useSorting();
+  const { setQuery } = useQuery();
+  const { t } = useTranslation('filter');
   const styles = getStylesObject(useMessageStyles(), disableDefaultStyles);
+
+  const reset = React.useCallback(() => {
+    resetFilters();
+    setSorting('');
+    setQuery('');
+  }, []);
+
+  const renderResetButton = showReset ? (
+    <Button css={styles.resetButton} appearance="primary" size="sm" onClick={reset}>
+      {t('reset')}
+    </Button>
+  ) : null;
 
   const render = () => {
     switch (appearance) {
@@ -30,6 +56,7 @@ const Message = (props: MessageProps) => {
                 {body}
               </Text>
             )}
+            {renderResetButton}
           </React.Fragment>
         );
 
@@ -49,6 +76,7 @@ const Message = (props: MessageProps) => {
                 }}
               />
             )}
+            {renderResetButton}
           </React.Fragment>
         );
     }

@@ -10,6 +10,7 @@ export default function useMessageStyles() {
     errorHeading: [tw`text-red-500`],
     errorText: [tw`text-gray-500`],
     defaultText: [tw`text-gray-500`],
+    resetButton: [tw`mt-4`],
   };
 
   return mapStyles(styles);
