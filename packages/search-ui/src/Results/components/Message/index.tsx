@@ -19,20 +19,6 @@ const Message = (props: MessageProps) => {
           </Box>
         );
 
-      case 'error':
-        return (
-          <React.Fragment>
-            <Heading size="3xl" css={styles.errorHeading} disableDefaultStyles={disableDefaultStyles}>
-              {title}
-            </Heading>
-            {body && (
-              <Text css={styles.errorText} disableDefaultStyles={disableDefaultStyles}>
-                {body}
-              </Text>
-            )}
-          </React.Fragment>
-        );
-
       default:
       case 'default':
         return (

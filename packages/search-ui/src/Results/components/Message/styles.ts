@@ -7,8 +7,6 @@ export default function useMessageStyles() {
     loadingWrapper: [tw`text-gray-500`],
     loadingSpinner: [tw`inline-block w-6 h-6`],
     loadingText: [tw`mt-3`],
-    errorHeading: [tw`text-red-500`],
-    errorText: [tw`text-gray-500`],
     defaultText: [tw`text-gray-500`],
   };
 
