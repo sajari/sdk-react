@@ -1,5 +1,15 @@
 # Change Log
 
+## 2.2.0
+
+### Minor Changes
+
+- [`e9a804ef`](https://github.com/sajari/sdk-react/commit/e9a804ef24239b79b1a30e14f688144b5bdd243f) [#514](https://github.com/sajari/sdk-react/pull/514) Thanks [@tuanddd](https://github.com/tuanddd)! - Show product's variant images if any
+
+### Patch Changes
+
+- [`f71b2ab5`](https://github.com/sajari/sdk-react/commit/f71b2ab537ebcf027b49d2bb153080083bcc393c) [#523](https://github.com/sajari/sdk-react/pull/523) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix missing type exports in Variables.
+
 ## 2.1.0
 
 ### Minor Changes

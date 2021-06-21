@@ -1,5 +1,17 @@
 # Change Log
 
+## 2.3.0
+
+### Minor Changes
+
+- [`e9a804ef`](https://github.com/sajari/sdk-react/commit/e9a804ef24239b79b1a30e14f688144b5bdd243f) [#514](https://github.com/sajari/sdk-react/pull/514) Thanks [@tuanddd](https://github.com/tuanddd)! - Show product's variant images if any
+
+### Patch Changes
+
+- Updated dependencies [[`f71b2ab5`](https://github.com/sajari/sdk-react/commit/f71b2ab537ebcf027b49d2bb153080083bcc393c), [`e9a804ef`](https://github.com/sajari/sdk-react/commit/e9a804ef24239b79b1a30e14f688144b5bdd243f)]:
+  - @sajari/react-hooks@2.2.0
+  - @sajari/react-components@1.8.0
+
 ## 2.2.0
 
 ### Minor Changes
