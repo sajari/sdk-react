@@ -120,6 +120,9 @@ function Example() {
       return [values.variant_prices, ...values.variant_prices];
     },
     originalPrice: 'variant_compare_at_prices',
+    quantity: (values) => {
+      return [1, ...values.variant_quantities];
+    },
   });
 
   return (

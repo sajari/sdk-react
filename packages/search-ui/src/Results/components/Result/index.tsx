@@ -13,6 +13,7 @@ import {
 } from '@sajari/react-sdk-utils';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import tw from 'twin.macro';
 
 import { useSearchUIContext } from '../../../ContextProvider';
 import { useClickTracking } from '../../../hooks';
@@ -44,7 +45,7 @@ const Result = React.memo(
     const { t } = useTranslation('result');
     const { currency, language, ratingMax, tracking } = useSearchUIContext();
     const { href, onClick } = useClickTracking({ token, tracking, values, onClick: onClickProp });
-    const { title, description, subtitle, image, price, originalPrice, salePrice } = values;
+    const { title, description, subtitle, image, price, originalPrice, salePrice, quantity } = values;
     const [imageSrc, setImageSrc] = useState(isArray(image) ? image[0] : image);
     const [hoverImageSrc] = useState(isArray(image) && !showVariantImage ? image[1] : undefined);
     const rating = Number(values.rating);
@@ -86,6 +87,16 @@ const Result = React.memo(
 
       return false;
     }, [JSON.stringify(price), JSON.stringify(originalPrice)]);
+
+    const isOutOfStock = React.useMemo(() => {
+      if (!quantity) {
+        return false;
+      }
+      const parseQuantities = (input: string | Array<string>) => (isArray(input) ? input : [input]).map(Number);
+      const quantities = parseQuantities(quantity);
+
+      return quantities[activeImageIndex] === 0;
+    }, [JSON.stringify(quantity), activeImageIndex]);
 
     const styles = getStylesObject(useResultStyles({ ...props, appearance, isOnSale }), disableDefaultStyles);
 
@@ -190,6 +201,25 @@ const Result = React.memo(
       );
     };
 
+    const renderStatus = () => {
+      let text = '';
+      switch (true) {
+        case isOutOfStock:
+          text = 'Out of stock';
+          break;
+        case isOnSale:
+          text = 'On sale';
+          break;
+        default:
+          break;
+      }
+      return (
+        <Box>
+          <Text css={isOutOfStock ? tw`text-gray-400` : isOnSale ? tw`text-red-500` : tw``}>{text}</Text>
+        </Box>
+      );
+    };
+
     const renderPreviewImages = () => {
       const getSetActive = useCallback(
         (url: string, i: number) => () => {
@@ -230,6 +260,7 @@ const Result = React.memo(
     };
 
     const showImage = showImageProp && (isValidURL(imageSrc, true) || forceImage);
+    const showStatus = isOutOfStock || isOnSale;
 
     return (
       <Box as="article" {...rest} css={[styles.container, stylesProp]}>
@@ -262,7 +293,7 @@ const Result = React.memo(
                 {renderSubtitle()}
               </Box>
 
-              <Box>{renderPrice()}</Box>
+              <Box>{showStatus ? renderStatus() : renderPrice()}</Box>
             </Box>
           )}
 
@@ -291,7 +322,12 @@ const Result = React.memo(
             </Box>
           )}
 
-          {appearance === 'grid' && renderPrice()}
+          {appearance === 'grid' && (
+            <Box>
+              {renderPrice()}
+              {renderStatus()}
+            </Box>
+          )}
         </Box>
       </Box>
     );
