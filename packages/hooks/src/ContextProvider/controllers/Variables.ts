@@ -4,10 +4,12 @@ import { EVENT_VALUES_UPDATED } from '../events';
 import { Listener, ListenerMap } from './Listener';
 
 export type VariableFn = () => string;
-export type VariablesMap = Map<string, string | string[] | number | boolean | VariableFn>;
+export type VariableFieldValue = string | string[] | number | boolean | VariableFn;
+export type VariablesMap = Map<string, VariableFieldValue>;
 export interface VariablesObject {
-  [k: string]: string | string[] | number | boolean | VariableFn | undefined;
+  [k: string]: VariableFieldValue | undefined;
 }
+
 export type CallbackFn = (variables: VariablesObject, set: (variables: VariablesObject) => void) => void;
 
 export class Variables {
@@ -19,7 +21,7 @@ export class Variables {
    * Constructor for Variables object.
    * @param variables Initial variables.
    */
-  constructor(variables: { [k: string]: string | string[] | number | boolean | VariableFn } = {}) {
+  constructor(variables: { [k: string]: VariableFieldValue } = {}) {
     this.listeners = new Map([[EVENT_VALUES_UPDATED, new Listener()]]);
     this.variables = new Map(
       Object.entries({

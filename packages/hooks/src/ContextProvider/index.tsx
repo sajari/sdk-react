@@ -14,7 +14,11 @@ import {
   RangeFilterBuilder,
   RangeFilterOptions,
   Response,
+  VariableFieldValue,
+  VariableFn,
   Variables,
+  VariablesMap,
+  VariablesObject,
 } from './controllers';
 import combineFilters from './controllers/filters/combineFilters';
 import { UnlistenFn } from './controllers/Listener';
@@ -362,4 +366,12 @@ export {
   useContext,
   Variables,
 };
-export type { ResultClickedFn, ResultValues, SearchProviderValues };
+export type {
+  ResultClickedFn,
+  ResultValues,
+  SearchProviderValues,
+  VariableFieldValue,
+  VariableFn,
+  VariablesMap,
+  VariablesObject,
+};
