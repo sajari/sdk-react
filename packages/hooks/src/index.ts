@@ -16,7 +16,11 @@ export {
   ResultValues,
   default as SearchProvider,
   SearchProviderValues,
+  VariableFieldValue,
+  VariableFn,
   Variables,
+  VariablesMap,
+  VariablesObject,
 } from './ContextProvider';
 export * from './ContextProvider/events';
 export { default as useAutocomplete } from './useAutocomplete';
