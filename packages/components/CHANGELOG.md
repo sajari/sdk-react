@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.8.0
+
+### Minor Changes
+
+- [`e9a804ef`](https://github.com/sajari/sdk-react/commit/e9a804ef24239b79b1a30e14f688144b5bdd243f) [#514](https://github.com/sajari/sdk-react/pull/514) Thanks [@tuanddd](https://github.com/tuanddd)! - Show product's variant images if any
+
 ## 1.7.16
 
 ### Patch Changes
