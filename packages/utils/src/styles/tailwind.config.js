@@ -40,6 +40,7 @@ export default {
         inherit: 'inherit',
       },
       maxWidth: {
+        'fit-content': 'fit-content',
         '7xl': '80rem',
         'screen-2xl': '1536px',
       },
