@@ -11,14 +11,17 @@ import {
   isString,
   isValidURL,
 } from '@sajari/react-sdk-utils';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import tw from 'twin.macro';
 
 import { useSearchUIContext } from '../../../ContextProvider';
 import { useClickTracking } from '../../../hooks';
 import useResultStyles from './styles';
 import { ResultProps } from './types';
+
+dayjs.extend(utc);
 
 const Result = React.memo(
   (props: ResultProps) => {
@@ -40,12 +43,13 @@ const Result = React.memo(
       styles: stylesProp,
       showImage: showImageProp = true,
       showVariantImage = false,
+      showStatus: showStatusProp = false,
       ...rest
     } = props;
     const { t } = useTranslation('result');
     const { currency, language, ratingMax, tracking } = useSearchUIContext();
     const { href, onClick } = useClickTracking({ token, tracking, values, onClick: onClickProp });
-    const { title, description, subtitle, image, price, originalPrice, salePrice, quantity } = values;
+    const { title, description, subtitle, image, price, originalPrice, salePrice, quantity, createdAt } = values;
     const [imageSrc, setImageSrc] = useState(isArray(image) ? image[0] : image);
     const [hoverImageSrc] = useState(isArray(image) && !showVariantImage ? image[1] : undefined);
     const rating = Number(values.rating);
@@ -98,7 +102,21 @@ const Result = React.memo(
       return quantities[activeImageIndex] === 0;
     }, [JSON.stringify(quantity), activeImageIndex]);
 
-    const styles = getStylesObject(useResultStyles({ ...props, appearance, isOnSale }), disableDefaultStyles);
+    const isNewArrival = React.useMemo(() => {
+      if (!createdAt) {
+        return false;
+      }
+
+      const parsedCreatedAt = dayjs(createdAt);
+      const current = dayjs();
+
+      return current.diff(parsedCreatedAt, 'day') > 30 && activeImageIndex === 0;
+    }, [JSON.stringify(createdAt), activeImageIndex]);
+
+    const styles = getStylesObject(
+      useResultStyles({ ...props, appearance, isOnSale, isNewArrival, isOutOfStock }),
+      disableDefaultStyles,
+    );
 
     const imageAspectRatio: ImageProps['aspectRatio'] = useMemo(() => {
       const aspectRatio = imageAspectRatioProp;
@@ -201,11 +219,16 @@ const Result = React.memo(
       );
     };
 
+    const showStatus = showStatusProp && (isOutOfStock || isOnSale || isNewArrival);
     const renderStatus = () => {
+      if (!showStatus) return null;
       let text = '';
       switch (true) {
         case isOutOfStock:
           text = 'Out of stock';
+          break;
+        case isNewArrival:
+          text = 'New arrival';
           break;
         case isOnSale:
           text = 'On sale';
@@ -213,11 +236,7 @@ const Result = React.memo(
         default:
           break;
       }
-      return (
-        <Box>
-          <Text css={isOutOfStock ? tw`text-gray-400` : isOnSale ? tw`text-red-500` : tw``}>{text}</Text>
-        </Box>
-      );
+      return <Text css={styles.status}>{text}</Text>;
     };
 
     const renderPreviewImages = () => {
@@ -260,7 +279,6 @@ const Result = React.memo(
     };
 
     const showImage = showImageProp && (isValidURL(imageSrc, true) || forceImage);
-    const showStatus = isOutOfStock || isOnSale;
 
     return (
       <Box as="article" {...rest} css={[styles.container, stylesProp]}>
@@ -293,7 +311,10 @@ const Result = React.memo(
                 {renderSubtitle()}
               </Box>
 
-              <Box>{showStatus ? renderStatus() : renderPrice()}</Box>
+              <Box>
+                {renderPrice()}
+                {renderStatus()}
+              </Box>
             </Box>
           )}
 

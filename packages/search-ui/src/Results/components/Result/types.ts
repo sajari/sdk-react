@@ -16,6 +16,8 @@ interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | '
   showImage?: boolean;
   /** Display variant images or not */
   showVariantImage?: boolean;
+  /** Display product status or not */
+  showStatus?: boolean;
   /** Force an image placeholder */
   forceImage?: boolean;
   /** The classname for heading */
