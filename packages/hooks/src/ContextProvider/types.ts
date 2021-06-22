@@ -72,6 +72,7 @@ export interface ResultValues {
   originalPrice?: string | Array<string>;
   salePrice?: string | Array<string>;
   quantity?: string | Array<string>;
+  createdAt?: string;
 }
 
 type Field = ((data: Record<string, any>) => any) | string | string[] | false;
@@ -87,6 +88,8 @@ export class FieldDictionary {
   description?: Field;
 
   image?: Field;
+
+  createdAt?: Field;
 
   // e-commerce related fields
 
@@ -113,6 +116,7 @@ export class FieldDictionary {
       salePrice = 'salePrice',
       rating = 'rating',
       quantity = 'quantity',
+      createdAt = 'created_at',
     } = input ?? {};
 
     this.id = id;
@@ -126,5 +130,6 @@ export class FieldDictionary {
     this.salePrice = salePrice;
     this.rating = rating;
     this.quantity = quantity;
+    this.createdAt = createdAt;
   }
 }

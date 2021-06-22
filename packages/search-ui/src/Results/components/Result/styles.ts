@@ -5,10 +5,12 @@ import { ResultProps } from './types';
 
 interface UseResultStylesParams extends ResultProps {
   isOnSale?: boolean;
+  isOutOfStock?: boolean;
+  isNewArrival?: boolean;
 }
 
 export default function useResultStyles(props: UseResultStylesParams) {
-  const { appearance, isOnSale } = props;
+  const { appearance, isOnSale, isOutOfStock, isNewArrival } = props;
 
   const styles = inferStylesObjectKeys({
     container: [],
@@ -21,13 +23,28 @@ export default function useResultStyles(props: UseResultStylesParams) {
     description: [tw`mt-1 text-sm text-gray-500`],
     rating: [tw`mt-1 space-y-1 text-center`],
     priceContainer: [],
-    price: [isOnSale ? tw`font-medium text-red-500` : ''],
+    price: [],
     originalPrice: [tw`text-xs text-gray-400 line-through`],
     previewImagesContainer: [tw`flex flex-wrap gap-1 w-full mt-2`],
     previewImageContainer: [
       tw`w-9 h-9 outline-none rounded-md p-0.5 border-2 border-transparent focus:border-indigo-400`,
     ],
+    status: [tw`text-sm`],
   });
+
+  switch (true) {
+    case isOutOfStock:
+      styles.status.push(tw`text-gray-400`);
+      break;
+    case isNewArrival:
+      styles.status.push(tw`text-green-500`);
+      break;
+    case isOnSale:
+      styles.status.push(tw`text-red-500`);
+      break;
+    default:
+      break;
+  }
 
   switch (appearance) {
     case 'grid':
@@ -43,6 +60,7 @@ export default function useResultStyles(props: UseResultStylesParams) {
       styles.container.push(tw`flex items-center w-full`);
       styles.imageContainer.push(tw`w-24 mr-6`);
       styles.priceContainer.push(tw`text-right`);
+      styles.status.push(tw`text-right`);
       break;
   }
 

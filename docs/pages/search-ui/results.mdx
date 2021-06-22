@@ -119,7 +119,9 @@ function Example() {
     price: (values) => {
       return [values.variant_prices, ...values.variant_prices];
     },
-    originalPrice: 'variant_compare_at_prices',
+    originalPrice: (values) => {
+      return [values.variant_prices, ...values.variant_compare_at_prices];
+    },
     quantity: (values) => {
       return [1, ...values.variant_quantities];
     },
@@ -136,7 +138,7 @@ function Example() {
     >
       <div className="flex flex-col items-center space-y-4">
         <ViewType />
-        <Results />
+        <Results showStatus />
       </div>
     </SearchProvider>
   );
