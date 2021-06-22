@@ -6,6 +6,8 @@ import {
   formatPrice,
   getStylesObject,
   isArray,
+  isEmpty,
+  isNullOrUndefined,
   isNumber,
   isString,
   isValidURL,
@@ -129,11 +131,16 @@ const Result = React.memo(
     };
 
     const renderPrice = () => {
-      const priceDisplay = isArray(price) ? price[activeImageIndex] ?? price : price ?? '';
+      if (isEmpty(price)) return null;
+
+      const priceDisplay = isArray(price) ? price[activeImageIndex] : price;
+
+      if (isEmpty(priceDisplay)) return null;
+
       return (
         <Box css={styles.priceContainer}>
           <Text css={styles.price} className={priceClassName} disableDefaultStyles={disableDefaultStyles}>
-            {formatPrice(priceDisplay, { currency, language })}
+            {formatPrice(priceDisplay as string, { currency, language })}
           </Text>
 
           {originalPrice && isOnSale && (
