@@ -141,6 +141,50 @@ function Example() {
 }
 ```
 
+### Custom templating
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const template = {
+    html: `
+      <p class="red-title">{{title}}</p>
+  `,
+    css: `
+      .red-title {
+        color: red;
+      }
+  `,
+  };
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+        variables: new Variables({
+          resultsPerPage: 1,
+          q: 'macbook',
+        }),
+      }}
+      searchOnLoad
+    >
+      <Results template={template} />
+    </SearchProvider>
+  );
+}
+```
+
 ## Props
 
 | Name                | Type                                         | Default   | Description                                                                                                                     |

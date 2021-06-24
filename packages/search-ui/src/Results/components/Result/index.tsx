@@ -7,6 +7,8 @@ import {
   getStylesObject,
   isArray,
   isEmpty,
+  isEmptyObject,
+  isNullOrUndefined,
   isNumber,
   isString,
   isValidURL,
@@ -47,6 +49,7 @@ const Result = React.memo(
       showImage: showImageProp = true,
       showVariantImage = false,
       showStatus: showStatusProp = false,
+      template,
       ...rest
     } = props;
     const { t } = useTranslation('result');
@@ -301,6 +304,16 @@ const Result = React.memo(
     };
 
     const showImage = showImageProp && (isValidURL(imageSrc, true) || forceImage);
+
+    if (!isNullOrUndefined(template) && !isEmptyObject(template)) {
+      try {
+        const handlebarTemplate = Handlebars.compile(template.html);
+        const rendered = handlebarTemplate(values);
+        return <div dangerouslySetInnerHTML={{ __html: rendered }} />;
+      } catch (error) {
+        return null;
+      }
+    }
 
     return (
       <Box as="article" {...rest} css={[styles.container, stylesProp]}>
