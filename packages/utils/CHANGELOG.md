@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.3.11
+
+### Patch Changes
+
+- [`02d86a64`](https://github.com/sajari/sdk-react/commit/02d86a64b7631744d59c06094187c62088caed40) [#526](https://github.com/sajari/sdk-react/pull/526) Thanks [@tuanddd](https://github.com/tuanddd)! - Return empty if price not found
+
 ## 1.3.10
 
 ### Patch Changes
