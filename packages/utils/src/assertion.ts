@@ -61,7 +61,7 @@ export const isEmptyArray = (value: any) => isArray(value) && value.length === 0
 export const isEmptyObject = (value: any) => isObject(value) && Object.keys(value).length === 0;
 
 // Empty assertions
-export const isEmpty = (value: any) => {
+export function isEmpty(value: any): value is null | undefined {
   if (isNullOrUndefined(value)) {
     return true;
   }
@@ -79,7 +79,7 @@ export const isEmpty = (value: any) => {
   }
 
   return false;
-};
+}
 
 /**
  * Check if a string is a valid absolute or relative URL
