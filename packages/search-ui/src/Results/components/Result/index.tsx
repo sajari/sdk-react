@@ -140,7 +140,7 @@ const Result = React.memo(
       return (
         <Box css={styles.priceContainer}>
           <Text css={styles.price} className={priceClassName} disableDefaultStyles={disableDefaultStyles}>
-            {formatPrice(priceDisplay as string, { currency, language })}
+            {formatPrice(priceDisplay, { currency, language })}
           </Text>
 
           {originalPrice && isOnSale && (
