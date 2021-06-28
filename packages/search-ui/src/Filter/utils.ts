@@ -39,6 +39,15 @@ export function capitalize(value: string): string {
 }
 
 /**
+ * Capitalize first letter a string value
+ * @param {string} the string to be capitalized first value
+ * @returns {string} the capitalized first letter value
+ */
+export function capitalizeFirstLetter(value: string): string {
+  return (value[0] || '').toLocaleUpperCase() + value.toLocaleLowerCase().slice(1);
+}
+
+/**
  * Format a value to be presented in the UI
  * @param input - the value to format
  * @param params - formatting options
@@ -71,7 +80,7 @@ export function formatLabel(input: string, params: FormatValueParams) {
         case 'capitalize':
           return capitalize(input);
         case 'capitalize-first-letter':
-          return (input[0] || '').toLocaleUpperCase() + input.slice(1);
+          return capitalizeFirstLetter(input);
         case 'normal-case':
         default:
           return input;
