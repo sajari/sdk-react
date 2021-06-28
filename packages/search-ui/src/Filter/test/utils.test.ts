@@ -1,7 +1,7 @@
 import { FilterItem } from '@sajari/react-hooks';
 
 import { TextTransform } from '../types';
-import { capitalize, formatLabel, pinItems } from '../utils';
+import { capitalize, capitalizeFirstLetter, formatLabel, pinItems } from '../utils';
 
 describe('pinItems', () => {
   test.each([
@@ -111,5 +111,20 @@ describe('capitalize', () => {
     ['crimsonred', 'Crimsonred'],
   ])('capitalize(%s)', (input, output) => {
     expect(capitalize(input)).toBe(output);
+  });
+});
+
+describe('capitalize first letter', () => {
+  test.each([
+    ['', ''],
+    ['red', 'Red'],
+    ['picton Blue', 'Picton blue'],
+    ['crimsonred', 'Crimsonred'],
+    ['CAR & GPS', 'Car & gps'],
+    ['mEssy', 'Messy'],
+    ['caPitalIZE fiRST letter', 'Capitalize first letter'],
+    ['random value', 'Random value'],
+  ])('capitalize first value(%s)', (input, output) => {
+    expect(capitalizeFirstLetter(input)).toBe(output);
   });
 });
