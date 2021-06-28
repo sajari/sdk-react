@@ -1,5 +1,16 @@
 # Change Log
 
+## 2.3.1
+
+### Patch Changes
+
+- [`355e1651`](https://github.com/sajari/sdk-react/commit/355e1651415d5a0ab1f7f0f0847ba3838c4a3235) [#528](https://github.com/sajari/sdk-react/pull/528) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix `capitalize-first-letter` option of textTransform won't work if the text input is all uppercasce.
+
+* [`02d86a64`](https://github.com/sajari/sdk-react/commit/02d86a64b7631744d59c06094187c62088caed40) [#526](https://github.com/sajari/sdk-react/pull/526) Thanks [@tuanddd](https://github.com/tuanddd)! - Return empty if price not found
+
+* Updated dependencies [[`02d86a64`](https://github.com/sajari/sdk-react/commit/02d86a64b7631744d59c06094187c62088caed40)]:
+  - @sajari/react-sdk-utils@1.3.11
+
 ## 2.3.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.7.2
+
+### Patch Changes
+
+- [`355e1651`](https://github.com/sajari/sdk-react/commit/355e1651415d5a0ab1f7f0f0847ba3838c4a3235) [#528](https://github.com/sajari/sdk-react/pull/528) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix `capitalize-first-letter` option of textTransform won't work if the text input is all uppercasce.
+
 ## 1.7.1
 
 ### Patch Changes
