@@ -88,40 +88,39 @@ function Example() {
 
 ### Product status
 
+Currently three statuses are being supported, they are "out of stock", "sale" and "new arrival", they are hidden by default, to show them pass the `showStatus` prop,
+
+See below list for implementation logic, the product will be:
+
+- Out of stock if the `quantity` is 0.
+- On sale if the `price` is lower than `originalPrice`.
+- A new arrival if its `createdAt` is within 30 days to the current date.
+
 ```jsx
 function Example() {
   const pipeline = new Pipeline(
     {
-      account: '1617265323067869891',
-      collection: 'tuandaosajari',
-      endpoint: '//jsonapi-au-staging-valkyrie2.sajari.com',
+      account: '1594153711901724220',
+      collection: 'bestbuy',
     },
     'query',
   );
 
   const fields = new FieldDictionary({
-    url: '/products/${handle}',
-    subtitle: 'vendor',
-    description: 'body_html',
-    image: (values) => {
-      const variantImages = values.variant_ids.map((_, i) => {
-        const variantImageId = values.variant_image_ids[i];
-        const variantImageIndex = values.image_ids.findIndex((ii) => ii === variantImageId);
-        const variantImageUrl = values.image_urls[variantImageIndex];
-
-        return variantImageUrl;
-      });
-
-      return [values.image_urls[0], ...variantImages];
-    },
-    price: (values) => {
-      return [values.variant_prices, ...values.variant_prices];
-    },
+    title: 'name',
+    subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
     originalPrice: (values) => {
-      return [values.variant_prices, ...values.variant_compare_at_prices];
+      const price = Number(values.price);
+      return Math.random() > 0.5 ? price + 100 : price;
     },
     quantity: (values) => {
-      return [1, ...values.variant_quantities];
+      return Math.random() > 0.5 ? 0 : 1;
+    },
+    createdAt: (values) => {
+      const newArrival = new Date();
+      const old = new Date();
+      old.setDate(old.getDate() - 60);
+      return Math.random() > 0.5 ? newArrival : old;
     },
   });
 
@@ -130,7 +129,6 @@ function Example() {
       search={{
         pipeline,
         fields,
-        variables: new Variables({ q: 'double pocket skirt' }),
       }}
       searchOnLoad
     >
@@ -151,5 +149,6 @@ function Example() {
 | `defaultAppearance` | `list` \| `grid`                             | `list`    | The uncontrolled value, will override the context value on mount.                                                               |
 | `showImage`         | `boolean`                                    | `true`    | Sets to show images                                                                                                             |
 | `showVariantImage`  | `boolean`                                    | `false`   | Sets to show variant images                                                                                                     |
+| `showStatus`        | `boolean`                                    | `false`   | Sets to show statuses                                                                                                           |
 | `imageAspectRatio`  | `number` \| `{ list: number, grid: number}`  | `1`       | The aspect ratio to force images to render to.                                                                                  |
 | `imageObjectFit`    | `string` \| `{ list: string, grid: string }` | `contain` | The aspect ratio to force images to render to. Valid `objectFit` values can be found in [image props](/components/image#props). |
