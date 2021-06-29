@@ -92,7 +92,7 @@ describe('formatLabel', () => {
     ['text', 'normal-case', 'default', 'text'],
     ['Car Electronics & GPS', 'uppercase', 'default', 'CAR ELECTRONICS & GPS'],
     ['Car Electronics & GPS', 'lowercase', 'default', 'car electronics & gps'],
-    ['Car Electronics & GPS', 'capitalize', 'default', 'Car Electronics & GPS'],
+    ['Car Electronics & GPS', 'capitalize', 'default', 'Car Electronics & Gps'],
 
     ['> 200', 'normal-case', 'price', 'rangeOver'],
   ])(
@@ -109,6 +109,12 @@ describe('capitalize', () => {
     ['red', 'Red'],
     ['picton Blue', 'Picton Blue'],
     ['crimsonred', 'Crimsonred'],
+    ['CAR & GPS', 'Car & Gps'],
+    ['mEssy', 'Messy'],
+    ['caPitalIZE all words', 'Capitalize All Words'],
+    ['random value', 'Random Value'],
+    ['HELLO world', 'Hello World'],
+    ['one two', 'One Two'],
   ])('capitalize(%s)', (input, output) => {
     expect(capitalize(input)).toBe(output);
   });

@@ -35,7 +35,7 @@ interface FormatValueParams {
  * @returns {string} the capitalized value
  */
 export function capitalize(value: string): string {
-  return value.replace(/(^\w{1})|(\s+\w{1})/g, (letter) => letter.toUpperCase());
+  return value.toLocaleLowerCase().replace(/(^\w{1})|(\s+\w{1})/g, (letter) => letter.toLocaleUpperCase());
 }
 
 /**
