@@ -28,6 +28,9 @@ export interface SearchUIContextProviderValues {
       searchingMessage?: string;
       emptyMessage?: string;
       errorMessage?: string;
+      onSaleStatus?: string;
+      outOfStockStatus?: string;
+      newArrivalStatus?: string;
     };
     sorting?: {
       container?: string;
