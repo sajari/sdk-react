@@ -38,6 +38,9 @@ const Result = React.memo(
       subTitleClassName,
       ratingClassName,
       descriptionClassName,
+      onSaleStatusClassName,
+      outOfStockStatusClassName,
+      newArrivalStatusClassName,
       disableDefaultStyles = false,
       onClick: onClickProp,
       styles: stylesProp,
@@ -93,7 +96,7 @@ const Result = React.memo(
     }, [JSON.stringify(price), JSON.stringify(originalPrice)]);
 
     const isOutOfStock = React.useMemo(() => {
-      if (!quantity) {
+      if (isEmpty(quantity)) {
         return false;
       }
       const parseQuantities = (input: string | Array<string>) => (isArray(input) ? input : [input]).map(Number);
@@ -111,7 +114,7 @@ const Result = React.memo(
       const current = dayjs();
 
       return current.diff(parsedCreatedAt, 'day') > 30 && activeImageIndex === 0;
-    }, [JSON.stringify(createdAt), activeImageIndex]);
+    }, [createdAt, activeImageIndex]);
 
     const styles = getStylesObject(
       useResultStyles({ ...props, appearance, isOnSale, isNewArrival, isOutOfStock }),
@@ -223,20 +226,38 @@ const Result = React.memo(
     const renderStatus = () => {
       if (!showStatus) return null;
       let text = '';
+      let css = styles.status;
+      let className: string | undefined;
       switch (true) {
         case isOutOfStock:
+          if (!isEmpty(outOfStockStatusClassName)) {
+            className = outOfStockStatusClassName;
+            css = undefined;
+          }
           text = 'Out of stock';
           break;
         case isNewArrival:
+          if (!isEmpty(newArrivalStatusClassName)) {
+            className = newArrivalStatusClassName;
+            css = undefined;
+          }
           text = 'New arrival';
           break;
         case isOnSale:
+          if (!isEmpty(onSaleStatusClassName)) {
+            className = onSaleStatusClassName;
+            css = undefined;
+          }
           text = 'On sale';
           break;
         default:
           break;
       }
-      return <Text css={styles.status}>{text}</Text>;
+      return (
+        <Text className={className} css={css}>
+          {text}
+        </Text>
+      );
     };
 
     const renderPreviewImages = () => {
@@ -258,7 +279,8 @@ const Result = React.memo(
               return (
                 <Box
                   role="img"
-                  key={`product-image-${url}`}
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={`product-image-${url}-${i}`}
                   css={styles.previewImageContainer}
                   aria-label={t('previewImage', { product: decodeHTML(title), number: i + 1 })}
                   onMouseEnter={setActive}
@@ -311,7 +333,7 @@ const Result = React.memo(
                 {renderSubtitle()}
               </Box>
 
-              <Box>
+              <Box css={styles.statusWrapper}>
                 {renderPrice()}
                 {renderStatus()}
               </Box>

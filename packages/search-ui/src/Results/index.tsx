@@ -103,6 +103,9 @@ const Results = (props: ResultsProps) => {
           priceClassName={customClassNames.results?.price}
           ratingClassName={customClassNames.results?.rating}
           subTitleClassName={customClassNames.results?.subTitle}
+          onSaleStatusClassName={customClassNames.results?.onSaleStatus}
+          outOfStockStatusClassName={customClassNames.results?.outOfStockStatus}
+          newArrivalStatusClassName={customClassNames.results?.newArrivalStatus}
           {...rest}
         />
       ))}

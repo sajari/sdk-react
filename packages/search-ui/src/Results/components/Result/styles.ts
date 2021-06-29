@@ -29,6 +29,7 @@ export default function useResultStyles(props: UseResultStylesParams) {
     previewImageContainer: [
       tw`w-9 h-9 outline-none rounded-md p-0.5 border-2 border-transparent focus:border-indigo-400`,
     ],
+    statusWrapper: [],
     status: [tw`text-sm`],
   });
 
@@ -60,6 +61,7 @@ export default function useResultStyles(props: UseResultStylesParams) {
       styles.container.push(tw`flex items-center w-full`);
       styles.imageContainer.push(tw`w-24 mr-6`);
       styles.priceContainer.push(tw`text-right`);
+      styles.statusWrapper.push(tw`flex-shrink-0`);
       styles.status.push(tw`text-right`);
       break;
   }
