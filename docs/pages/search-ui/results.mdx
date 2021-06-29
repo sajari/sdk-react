@@ -86,6 +86,44 @@ function Example() {
 }
 ```
 
+### Product variant image
+
+Sometimes you'll want to show a collection of images besides the primary one, these are called variant iamges and you can enable them by passing `showVariantImage`.
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+          image: (values) => {
+            return new Array(5).fill(values.image);
+          },
+        }),
+        variables: new Variables({
+          resultsPerPage: 6,
+          q: 'macbook',
+        }),
+      }}
+      searchOnLoad
+    >
+      <Results />
+    </SearchProvider>
+  );
+}
+```
+
 ## Props
 
 | Name                | Type                                         | Default   | Description                                                                                                                     |
@@ -93,5 +131,6 @@ function Example() {
 | `appearance`        | `list` \| `grid`                             |           | The controlled value, passing this means you're ignoring the value in context.                                                  |
 | `defaultAppearance` | `list` \| `grid`                             | `list`    | The uncontrolled value, will override the context value on mount.                                                               |
 | `showImage`         | `boolean`                                    | `true`    | Sets to show images                                                                                                             |
+| `showVariantImage`  | `boolean`                                    | `false`   | Sets to show variant images                                                                                                     |
 | `imageAspectRatio`  | `number` \| `{ list: number, grid: number}`  | `1`       | The aspect ratio to force images to render to.                                                                                  |
 | `imageObjectFit`    | `string` \| `{ list: string, grid: string }` | `contain` | The aspect ratio to force images to render to. Valid `objectFit` values can be found in [image props](/components/image#props). |

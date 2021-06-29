@@ -14,6 +14,8 @@ interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | '
   onClick?: UseClickTrackingParams['onClick'];
   /** Display image or not */
   showImage?: boolean;
+  /** Display variant images or not */
+  showVariantImage?: boolean;
   /** Force an image placeholder */
   forceImage?: boolean;
   /** The classname for heading */
