@@ -9,6 +9,7 @@ export interface ResultsProps extends BoxProps {
   appearance?: ApperanceValue;
   defaultAppearance?: ApperanceValue;
   showImage?: boolean;
+  showVariantImage?: boolean;
   imageAspectRatio?: ImageProps['aspectRatio'] | Record<ApperanceValue, ImageProps['aspectRatio']>;
   imageObjectFit?: ImageProps['objectFit'] | Record<ApperanceValue, ImageProps['objectFit']>;
   columnMinWidth?: number;

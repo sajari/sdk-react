@@ -7,7 +7,6 @@ import {
   getStylesObject,
   isArray,
   isEmpty,
-  isNullOrUndefined,
   isNumber,
   isString,
   isValidURL,
@@ -39,6 +38,7 @@ const Result = React.memo(
       onClick: onClickProp,
       styles: stylesProp,
       showImage: showImageProp = true,
+      showVariantImage = false,
       ...rest
     } = props;
     const { t } = useTranslation('result');
@@ -46,6 +46,7 @@ const Result = React.memo(
     const { href, onClick } = useClickTracking({ token, tracking, values, onClick: onClickProp });
     const { title, description, subtitle, image, price, originalPrice } = values;
     const [imageSrc, setImageSrc] = useState(isArray(image) ? image[0] : image);
+    const [hoverImageSrc] = useState(isArray(image) && !showVariantImage ? image[1] : undefined);
     const rating = Number(values.rating);
     const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
 
@@ -221,12 +222,13 @@ const Result = React.memo(
             >
               <Image
                 src={imageSrc}
+                hoverSrc={hoverImageSrc}
                 aspectRatio={imageAspectRatio}
                 objectFit={imageObjectFit}
                 disableDefaultStyles={disableDefaultStyles}
               />
             </Link>
-            {isArray(image) && image.length > 1 && appearance === 'grid' ? renderPreviewImages() : null}
+            {isArray(image) && showVariantImage && appearance === 'grid' ? renderPreviewImages() : null}
           </Box>
         )}
 
@@ -260,7 +262,7 @@ const Result = React.memo(
 
           {appearance === 'list' && description && (
             <Box css={styles.wrapper}>
-              {isArray(image) && image.length > 1 ? renderPreviewImages() : null}
+              {isArray(image) && showVariantImage ? renderPreviewImages() : null}
               <Text truncate={2} css={styles.description} className={descriptionClassName}>
                 {decodeHTML(description)}
               </Text>
