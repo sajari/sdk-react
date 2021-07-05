@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.7.3
+
+### Patch Changes
+
+- [`57a22528`](https://github.com/sajari/sdk-react/commit/57a225282db6a53585e64440f3876df2805d86f9) [#530](https://github.com/sajari/sdk-react/pull/530) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix `capitalize` utility works incorrectly, where a string in uppercase letters is not converted to a capitalized output. For example, `hELLO` is converted to `HELLO` instead of `Hello`.
+
 ## 1.7.2
 
 ### Patch Changes

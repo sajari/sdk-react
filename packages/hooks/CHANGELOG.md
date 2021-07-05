@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.2.1
+
+### Patch Changes
+
+- [`88f732f3`](https://github.com/sajari/sdk-react/commit/88f732f3c74fdf91056c4bfa4b2d229529783984) [#533](https://github.com/sajari/sdk-react/pull/533) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix passing a custom `config` object doesn't work.
+
 ## 2.2.0
 
 ### Minor Changes
