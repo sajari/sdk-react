@@ -1,7 +1,7 @@
 import { css, Global } from '@emotion/core';
 import { ResizeObserver } from '@sajari/react-components';
 import { useQuery, useSearchContext, useTracking } from '@sajari/react-hooks';
-import { getStylesObject, isEmpty, isEmptyObject, isNullOrUndefined } from '@sajari/react-sdk-utils';
+import { getStylesObject, isEmpty, isNullOrUndefined } from '@sajari/react-sdk-utils';
 import Handlebars from 'handlebars';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useSearchUIContext } from '../ContextProvider';
 import mapResultFields from '../utils/mapResultFields';
 import Message from './components/Message';
-import Result from './components/Result';
+import Result, { checkValidTemplate } from './components/Result';
 import useResultsStyles from './styles';
 import { ResultsProps, ResultValues } from './types';
 
@@ -84,7 +84,7 @@ const Results = (props: ResultsProps) => {
   }
 
   // Just to see if the template can not be parsed correctly
-  if (!isNullOrUndefined(template) && !isEmptyObject(template)) {
+  if (checkValidTemplate(template)) {
     try {
       const compiled = Handlebars.compile(template.html);
       compiled({});
@@ -101,7 +101,7 @@ const Results = (props: ResultsProps) => {
       css={[styles.container, stylesProp]}
       className={customClassNames.results?.container}
     >
-      {!isNullOrUndefined(template) && !isEmptyObject(template) ? (
+      {checkValidTemplate(template) ? (
         // We inject here (once) instead of mutliple times in each result component
         <Global
           styles={css`
