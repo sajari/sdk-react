@@ -180,7 +180,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
         pipeline.search(variables.get());
       }, 50);
     },
-    [],
+    [autocompleteState.config, searchState.config],
   );
 
   useEffect(() => {
