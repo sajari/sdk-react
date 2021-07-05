@@ -4,12 +4,12 @@ import { useContext } from '../ContextProvider';
 
 function useQuery() {
   const {
-    search: { search, variables, query },
+    search: { search, variables, query, config },
   } = useContext();
 
   const setQuery = React.useCallback(
     (q: string) => {
-      variables.set({ q });
+      variables.set({ [config.qParam]: q });
       search(q);
     },
     [search, variables],
