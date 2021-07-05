@@ -44,7 +44,7 @@ const Result = React.memo(
     const { t } = useTranslation('result');
     const { currency, language, ratingMax, tracking } = useSearchUIContext();
     const { href, onClick } = useClickTracking({ token, tracking, values, onClick: onClickProp });
-    const { title, description, subtitle, image, price, originalPrice } = values;
+    const { title, description, subtitle, image, price, originalPrice, salePrice } = values;
     const [imageSrc, setImageSrc] = useState(isArray(image) ? image[0] : image);
     const [hoverImageSrc] = useState(isArray(image) && !showVariantImage ? image[1] : undefined);
     const rating = Number(values.rating);
@@ -52,26 +52,36 @@ const Result = React.memo(
 
     // Determine if the result is on sale
     const isOnSale = React.useMemo(() => {
-      if (!price || !originalPrice) {
+      if (!price || (!originalPrice && !salePrice)) {
         return false;
       }
 
       const parsePrices = (input: string | Array<string>) => (isArray(input) ? input : [input]).map(Number);
       const prices = parsePrices(price);
-      const originalPrices = parsePrices(originalPrice);
+      const originalPrices = !originalPrice ? false : parsePrices(originalPrice);
+      const salePrices = !salePrice ? false : parsePrices(salePrice);
 
-      if (originalPrices.length >= prices.length) {
-        return prices.some((p, index) => isNumber(p) && isNumber(originalPrices[index]) && p < originalPrices[index]);
+      if (originalPrices) {
+        if (originalPrices.length >= prices.length) {
+          return prices.some((p, index) => isNumber(p) && isNumber(originalPrices[index]) && p < originalPrices[index]);
+        }
+        if (originalPrices && originalPrices.length === 1 && prices.length > 1) {
+          const [original] = originalPrices;
+          return isNumber(original) && prices.some((p) => isNumber(p) && p < original);
+        }
       }
 
-      if (originalPrices.length === 1 && prices.length > 1) {
-        const [original] = originalPrices;
-
-        if (!isNumber(original)) {
+      if (salePrices) {
+        if (!salePrices.some((p) => p !== 0)) {
           return false;
         }
-
-        return prices.some((p) => isNumber(p) && p < original);
+        if (salePrices.length >= prices.length) {
+          return prices.some((p, index) => isNumber(p) && isNumber(salePrices[index]) && p > salePrices[index]);
+        }
+        if (salePrices && salePrices.length === 1 && prices.length > 1) {
+          const [sale] = salePrices;
+          return isNumber(sale) && prices.some((p) => isNumber(p) && p > sale);
+        }
       }
 
       return false;
@@ -133,35 +143,47 @@ const Result = React.memo(
 
     const renderPrice = () => {
       if (isEmpty(price)) return null;
+      const activePrice = isArray(price) ? price[activeImageIndex] ?? price : price;
+      if (isEmpty(activePrice)) return null;
+      let priceToDisplay: string;
+      let markedDownFromPriceToDisplay: string | undefined;
 
-      const priceDisplay = isArray(price) ? price[activeImageIndex] : price;
-
-      if (isEmpty(priceDisplay)) return null;
+      if (originalPrice && isOnSale) {
+        // show `originalPrice` with strikethrough
+        const activeOriginalPrice = isArray(originalPrice)
+          ? originalPrice[activeImageIndex] ?? originalPrice
+          : originalPrice ?? '';
+        priceToDisplay = formatPrice(activePrice, { currency, language });
+        markedDownFromPriceToDisplay = formatPrice(activeOriginalPrice, { currency, language });
+      } else if (salePrice && isOnSale) {
+        // show `price` with strikethrough
+        const activeSalePrice = isArray(salePrice) ? salePrice[activeImageIndex] ?? salePrice : salePrice ?? '';
+        if (activeSalePrice !== '0') {
+          priceToDisplay = formatPrice(activeSalePrice, { currency, language });
+          markedDownFromPriceToDisplay = formatPrice(activePrice, { currency, language });
+        } else {
+          // Sajari engine coerces nullish doubles to 0. We need to check for '0' salePrice and
+          // print the ordinary price instead to avoid showing the product on sale for free.
+          priceToDisplay = formatPrice(activePrice, { currency, language });
+        }
+      } else {
+        // Standard price, show `price` and with no sale styling.
+        priceToDisplay = formatPrice(activePrice, { currency, language });
+      }
 
       return (
         <Box css={styles.priceContainer}>
           <Text css={styles.price} className={priceClassName} disableDefaultStyles={disableDefaultStyles}>
-            {formatPrice(priceDisplay, { currency, language })}
+            {priceToDisplay}
           </Text>
 
-          {originalPrice && isOnSale && (
+          {markedDownFromPriceToDisplay && (
             <Text
               css={styles.originalPrice}
               className={originalPriceClassName}
               disableDefaultStyles={disableDefaultStyles}
             >
-              {formatPrice(
-                isArray(originalPrice)
-                  ? originalPrice
-                      .map(Number)
-                      .filter((p) => isNumber(p) && p !== 0)
-                      .map(String)
-                  : originalPrice,
-                {
-                  currency,
-                  language,
-                },
-              )}
+              {markedDownFromPriceToDisplay}
             </Text>
           )}
         </Box>
