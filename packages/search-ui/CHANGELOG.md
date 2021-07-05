@@ -1,5 +1,22 @@
 # Change Log
 
+## 2.4.0
+
+### Minor Changes
+
+- [`c46949f3`](https://github.com/sajari/sdk-react/commit/c46949f321d78c6607deb0e5e5f4c2a24f40abb0) [#532](https://github.com/sajari/sdk-react/pull/532) Thanks [@tuanddd](https://github.com/tuanddd)! - Add option for toggling variant images.
+
+### Patch Changes
+
+- [`57a22528`](https://github.com/sajari/sdk-react/commit/57a225282db6a53585e64440f3876df2805d86f9) [#530](https://github.com/sajari/sdk-react/pull/530) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix `capitalize` utility works incorrectly, where a string in uppercase letters is not converted to a capitalized output. For example, `hELLO` is converted to `HELLO` instead of `Hello`.
+
+* [`88f732f3`](https://github.com/sajari/sdk-react/commit/88f732f3c74fdf91056c4bfa4b2d229529783984) [#533](https://github.com/sajari/sdk-react/pull/533) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix passing a custom `config` object doesn't work.
+
+- [`d41ee57f`](https://github.com/sajari/sdk-react/commit/d41ee57f1d8f33af5ee154801227a9444cf8f720) [#534](https://github.com/sajari/sdk-react/pull/534) Thanks [@tuanddd](https://github.com/tuanddd)! - Filter out empty string label in ListFilter
+
+- Updated dependencies [[`88f732f3`](https://github.com/sajari/sdk-react/commit/88f732f3c74fdf91056c4bfa4b2d229529783984)]:
+  - @sajari/react-hooks@2.2.1
+
 ## 2.3.1
 
 ### Patch Changes
