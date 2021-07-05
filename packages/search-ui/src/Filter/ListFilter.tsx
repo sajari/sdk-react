@@ -1,6 +1,15 @@
 import { Box as CoreBox, Button, Checkbox, CheckboxGroup, Combobox, Radio, RadioGroup } from '@sajari/react-components';
 import { useFilter, useQuery } from '@sajari/react-hooks';
-import { getStylesObject, isBoolean, isEmpty, isSSR, noop, useTheme } from '@sajari/react-sdk-utils';
+import {
+  getStylesObject,
+  isBoolean,
+  isEmpty,
+  isNullOrUndefined,
+  isSSR,
+  isString,
+  noop,
+  useTheme,
+} from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import tw from 'twin.macro';
@@ -86,24 +95,29 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   }, [JSON.stringify(selected)]);
 
   const Control = multi ? Checkbox : Radio;
-  const filtered = searchable ? options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase())) : options;
-  const slice = filtered.length > limit;
+  const filteredEmptyLabel = options.filter(
+    (o) => !isNullOrUndefined(o.label) && isString(o.label) && !isEmpty(o.label),
+  );
+  const filteredQuery = searchable
+    ? filteredEmptyLabel.filter((o) => o.label.toLowerCase().includes(query.toLowerCase()))
+    : filteredEmptyLabel;
+  const slice = filteredQuery.length > limit;
 
   const transformedItems = React.useMemo(() => {
     if (!isSSR() && pinSelected && document.activeElement?.nodeName.toLowerCase() === 'input') {
       setLastFocusedControl(`${(document.activeElement as HTMLInputElement).value}`);
     }
-    let list = filtered;
+    let list = filteredQuery;
 
     if (pinSelected) {
       list = pinItems(list, selected, 'label');
     }
 
     return list;
-  }, [JSON.stringify(filtered), JSON.stringify(selected), pinSelected]);
+  }, [JSON.stringify(filteredQuery), JSON.stringify(selected), pinSelected]);
 
   const items = slice ? transformedItems.slice(0, shown) : transformedItems;
-  const allShown = shown >= filtered.length;
+  const allShown = shown >= filteredQuery.length;
   const Icon = allShown ? IconSmallChevronUp : IconSmallChevronDown;
   const showMore = React.useCallback(() => {
     if (allShown) {
