@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.4.1
+
+### Patch Changes
+
+- [`adb603be`](https://github.com/sajari/sdk-react/commit/adb603beba8bc9bfc136d183ec12be195a91f541) [#536](https://github.com/sajari/sdk-react/pull/536) Thanks [@tuanddd](https://github.com/tuanddd)! - Reduce gap between image and title in Result component
+
 ## 2.4.0
 
 ### Minor Changes
