@@ -12,7 +12,7 @@ const RangeFilter = (props: Omit<RangeFilterProps, 'type' | 'step'>) => {
   const { min, max, range, setRange, reset, showReset, step } = useRangeFilter(name);
   const { disableDefaultStyles = false, customClassNames, currency, language } = useSearchUIContext();
 
-  if (!range || max === 0) {
+  if (max === 0 && min === max) {
     return null;
   }
 
@@ -24,7 +24,7 @@ const RangeFilter = (props: Omit<RangeFilterProps, 'type' | 'step'>) => {
         currency={currency}
         min={min}
         max={max}
-        value={range}
+        value={range === null ? [min, max] : range}
         step={step}
         steps={steps}
         tick={tick}

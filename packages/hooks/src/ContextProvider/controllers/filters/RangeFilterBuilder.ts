@@ -1,4 +1,4 @@
-import { isArray, roundToStep } from '@sajari/react-sdk-utils';
+import { arraysEqual, isArray, roundToStep } from '@sajari/react-sdk-utils';
 
 import { EVENT_RANGE_UPDATED } from '../../events';
 import { Listener } from '../Listener';
@@ -10,8 +10,6 @@ export default class RangeFilterBuilder {
   private initial: Range | null;
 
   private range: Range | null;
-
-  private aggregateMaxRange: Range | null;
 
   private name: string;
 
@@ -51,7 +49,6 @@ export default class RangeFilterBuilder {
     }
 
     this.range = this.initial;
-    this.aggregateMaxRange = this.initial;
     this.name = name;
     this.group = group;
     this.field = field;
@@ -86,15 +83,10 @@ export default class RangeFilterBuilder {
       return;
     }
     this.range = range ? this.formatter(range) : range;
-    this.updateAggregateMaxRange();
 
     if (emitEvent) {
       this.emitRangeUpdated();
     }
-  }
-
-  public getAggregateMaxRange() {
-    return this.aggregateMaxRange;
   }
 
   public getName() {
@@ -116,14 +108,12 @@ export default class RangeFilterBuilder {
   public setMin(value: number) {
     if (!this.frozen) {
       this.min = value;
-      this.updateAggregateMaxRange();
     }
   }
 
   public setMax(value: number) {
     if (!this.frozen) {
       this.max = value;
-      this.updateAggregateMaxRange();
     }
   }
 
@@ -173,9 +163,11 @@ export default class RangeFilterBuilder {
       return;
     }
 
-    if (this.initial === null && this.aggregate) {
-      this.range = this.aggregateMaxRange;
-    } else if (isArray(this.initial)) {
+    if (this.initial === this.range || arraysEqual(this.initial || [], this.range || [])) {
+      return;
+    }
+
+    if (isArray(this.initial)) {
       this.range = [...this.initial];
     } else {
       this.range = this.initial;
@@ -214,24 +206,5 @@ export default class RangeFilterBuilder {
     this.listeners[EVENT_RANGE_UPDATED].notify((listener) => {
       listener(this);
     });
-  }
-
-  /**
-   * Compute the max aggregate range from results and set it to aggregateMaxRange
-   * which is a cache to be used later in reset method
-   */
-  private updateAggregateMaxRange() {
-    if (!this.range || !this.aggregate) {
-      return;
-    }
-    const aggregateMaxRange: Range =
-      this.range[1] - this.range[0] > this.max - this.min ? this.range : [this.min, this.max];
-
-    if (
-      !this.aggregateMaxRange ||
-      aggregateMaxRange[1] - aggregateMaxRange[0] > this.aggregateMaxRange[1] - this.aggregateMaxRange[0]
-    ) {
-      this.aggregateMaxRange = aggregateMaxRange;
-    }
   }
 }

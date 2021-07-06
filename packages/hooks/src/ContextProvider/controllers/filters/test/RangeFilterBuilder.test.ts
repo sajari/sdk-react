@@ -73,7 +73,7 @@ describe('RangeFilterBuilder', () => {
     expect(popularFilter.get()).toBeNull();
     popularFilter.set([0, 10]);
     popularFilter.reset();
-    expect(popularFilter.get()).toEqual([0, 100]);
+    expect(popularFilter.get()).toBeNull();
   });
 
   it('isChange', () => {
@@ -112,28 +112,5 @@ describe('RangeFilterBuilder', () => {
       max: 1000,
     });
     expect(rangeFilter.get()).toEqual([200, 1000]);
-  });
-
-  it('updateAggregateMaxRange', () => {
-    const rangeFilter = new RangeFilterBuilder({
-      name: 'popular',
-      field: 'popular',
-      aggregate: true,
-      min: 200,
-      max: 1000,
-    });
-
-    expect(rangeFilter.getAggregateMaxRange()).toBeNull();
-    rangeFilter.set([0, 100]);
-    expect(rangeFilter.getAggregateMaxRange()).toStrictEqual([200, 1000]);
-    rangeFilter.setMax(1200);
-    expect(rangeFilter.getAggregateMaxRange()).toStrictEqual([200, 1200]);
-    rangeFilter.setMin(0);
-    expect(rangeFilter.getAggregateMaxRange()).toStrictEqual([0, 1200]);
-    rangeFilter.setMin(100);
-    rangeFilter.setMax(1000);
-    expect(rangeFilter.getAggregateMaxRange()).toStrictEqual([0, 1200]);
-    rangeFilter.set([0, 9999]);
-    expect(rangeFilter.getAggregateMaxRange()).toStrictEqual([0, 9999]);
   });
 });
