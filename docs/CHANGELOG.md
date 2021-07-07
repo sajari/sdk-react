@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.8.0
+
+### Minor Changes
+
+- [`301d5a0c`](https://github.com/sajari/sdk-react/commit/301d5a0c8c47fbb619c7c1b0c2664f26ee7afe59) [#538](https://github.com/sajari/sdk-react/pull/538) Thanks [@wwalser](https://github.com/wwalser)! - Added support for sale price
+
 ## 1.7.3
 
 ### Patch Changes
