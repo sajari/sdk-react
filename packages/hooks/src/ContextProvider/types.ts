@@ -70,6 +70,7 @@ export interface ResultValues {
   rating?: number;
   price?: string | Array<string>;
   originalPrice?: string | Array<string>;
+  salePrice?: string | Array<string>;
 }
 
 type Field = ((data: Record<string, any>) => any) | string | string[] | false;
@@ -92,6 +93,8 @@ export class FieldDictionary {
 
   originalPrice?: Field;
 
+  salePrice?: Field;
+
   rating?: Field;
 
   constructor(input?: FieldDictionary) {
@@ -104,6 +107,7 @@ export class FieldDictionary {
       image = 'image',
       price = 'price',
       originalPrice = 'originalPrice',
+      salePrice = 'salePrice',
       rating = 'rating',
     } = input ?? {};
 
@@ -115,6 +119,7 @@ export class FieldDictionary {
     this.image = image;
     this.price = price;
     this.originalPrice = originalPrice;
+    this.salePrice = salePrice;
     this.rating = rating;
   }
 }
