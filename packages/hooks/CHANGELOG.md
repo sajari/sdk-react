@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.3.0
+
+### Minor Changes
+
+- [`35e9877e`](https://github.com/sajari/sdk-react/commit/35e9877e41885aef6f22bc3a09afd2e03a885732) [#540](https://github.com/sajari/sdk-react/pull/540) Thanks [@wwalser](https://github.com/wwalser)! - Bumping react-hooks in order to add the recent salePrice addition to it's package as expected
+
 ## 2.2.1
 
 ### Patch Changes
