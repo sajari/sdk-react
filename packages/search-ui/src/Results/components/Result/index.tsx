@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable react/jsx-no-target-blank */
 import { Box, Heading, Image, ImageProps, Link, Rating, Text } from '@sajari/react-components';
 import {
@@ -309,17 +310,6 @@ const Result = React.memo(
     };
 
     const showImage = showImageProp && (isValidURL(imageSrc, true) || forceImage);
-
-    if (checkValidTemplate(template)) {
-      try {
-        const handlebarTemplate = Handlebars.compile(template.html);
-        const rendered = handlebarTemplate(values);
-        // eslint-disable-next-line react/no-danger
-        return <div dangerouslySetInnerHTML={{ __html: rendered }} />;
-      } catch (error) {
-        return null;
-      }
-    }
 
     return (
       <Box as="article" {...rest} css={[styles.container, stylesProp]}>

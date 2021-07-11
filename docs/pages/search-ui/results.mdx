@@ -157,6 +157,7 @@ function Example() {
 
   const template = {
     html: `
+{{#with data}}
 <a href="{{url}}">
   <article class="relative p-3 rounded-md border border-gray-300 inline-block max-w-xs">
      <img class="mx-auto" src="{{image}}" />
@@ -165,7 +166,7 @@ function Example() {
      <p class="text-gray-500 mt-2 text-sm">{{description}}</p>
      <div class="flex mt-8 justify-between">
        <span class="font-medium text-gray-700">\${{price}}</span>
-       {{#if true}}
+       {{#if free_shipping}}
        <div class="flex rounded px-1 items-center text-xs text-green-500 border border-green-500 bg-green-200">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
             <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
@@ -184,7 +185,8 @@ function Example() {
      </div>
      <div class="new-arrival-tag text-green-500 shadow-md rounded-r border border-l-0 border-gray-200">New arrival</div>
   </article>
-</a>`,
+</a>
+{{/with}}`,
     css: `
 .new-arrival-tag {
   position: absolute;
@@ -206,7 +208,7 @@ function Example() {
           subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
         }),
         variables: new Variables({
-          resultsPerPage: 1,
+          resultsPerPage: 3,
           q: 'macbook',
         }),
       }}
@@ -229,3 +231,5 @@ function Example() {
 | `showStatus`        | `boolean`                                    | `false`   | Sets to show statuses                                                                                                           |
 | `imageAspectRatio`  | `number` \| `{ list: number, grid: number}`  | `1`       | The aspect ratio to force images to render to.                                                                                  |
 | `imageObjectFit`    | `string` \| `{ list: string, grid: string }` | `contain` | The aspect ratio to force images to render to. Valid `objectFit` values can be found in [image props](/components/image#props). |
+| `template`                       | `{html: string, css: string}`                |           | The template code use to render a single result item.                                                                           |
+| `resultContainerTemplateElement` | `"div" \| "p" \| ...`                        | `"div"`   | The element used to render the result container.                                                                                |

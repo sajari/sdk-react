@@ -1,5 +1,8 @@
+/* eslint-disable import/no-cycle */
 import { BoxProps, ImageProps } from '@sajari/react-components';
 import { ResultValues } from '@sajari/react-hooks';
+
+import { TemplateResultProps } from './components/TemplateResult/types';
 
 export type Template = {
   html: string;
@@ -22,6 +25,7 @@ export interface ResultsProps extends BoxProps {
   columns?: ColumnValue | Record<number, ColumnValue>;
   gap?: GapValue | Record<number, GapValue>;
   template?: Template;
+  resultContainerTemplateElement?: TemplateResultProps['as'];
 }
 
 export { ResultValues };
