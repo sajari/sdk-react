@@ -28,6 +28,10 @@ export interface SearchUIContextProviderValues {
       searchingMessage?: string;
       emptyMessage?: string;
       errorMessage?: string;
+      template?: {
+        container?: string;
+        resultContainer: string;
+      };
     };
     sorting?: {
       container?: string;

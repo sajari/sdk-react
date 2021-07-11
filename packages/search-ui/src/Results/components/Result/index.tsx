@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable react/jsx-no-target-blank */
 import { Box, Heading, Image, ImageProps, Link, Rating, Text } from '@sajari/react-components';
 import {
@@ -7,25 +8,17 @@ import {
   getStylesObject,
   isArray,
   isEmpty,
-  isEmptyObject,
-  isNullOrUndefined,
   isNumber,
   isString,
   isValidURL,
 } from '@sajari/react-sdk-utils';
-import Handlebars from 'handlebars';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../../../ContextProvider';
 import { useClickTracking } from '../../../hooks';
-import { Template } from '../../types';
 import useResultStyles from './styles';
 import { ResultProps } from './types';
-
-export function checkValidTemplate(template?: Template): template is Template {
-  return !isNullOrUndefined(template) && !isEmptyObject(template) && !isEmpty(template?.html) && !isEmpty(template.css);
-}
 
 const Result = React.memo(
   (props: ResultProps) => {
@@ -239,17 +232,6 @@ const Result = React.memo(
     };
 
     const showImage = showImageProp && (isValidURL(imageSrc, true) || forceImage);
-
-    if (checkValidTemplate(template)) {
-      try {
-        const handlebarTemplate = Handlebars.compile(template.html);
-        const rendered = handlebarTemplate(values);
-        // eslint-disable-next-line react/no-danger
-        return <div dangerouslySetInnerHTML={{ __html: rendered }} />;
-      } catch (error) {
-        return null;
-      }
-    }
 
     return (
       <Box as="article" {...rest} css={[styles.container, stylesProp]}>
