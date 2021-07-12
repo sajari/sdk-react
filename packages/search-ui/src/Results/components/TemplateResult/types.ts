@@ -2,9 +2,8 @@
 import { PropsWithAs } from '@sajari/react-sdk-utils';
 
 import { ResultValues, Template } from '../../types';
-import { ResultProps } from '../Result';
 
-interface Props extends Pick<ResultProps, 'appearance'> {
+interface Props {
   template: Template;
   values: ResultValues;
 }

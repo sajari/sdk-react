@@ -7,9 +7,9 @@ import { TemplateResultProps } from './types';
 
 const TemplateResults = (props: TemplateResultProps) => {
   const { customClassNames } = useSearchUIContext();
-  const { template, values, appearance, as } = props;
+  const { template, values, as } = props;
   const handlebarTemplate = Handlebars.compile(template.html);
-  const rendered = handlebarTemplate({ data: values, appearance });
+  const rendered = handlebarTemplate(values);
   // eslint-disable-next-line react/no-danger
   return (
     <Box

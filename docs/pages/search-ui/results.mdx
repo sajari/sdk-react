@@ -157,7 +157,6 @@ function Example() {
 
   const template = {
     html: `
-{{#with data}}
 <a href="{{url}}">
   <article class="relative p-3 rounded-md border border-gray-300 inline-block max-w-xs">
      <img class="mx-auto" src="{{image}}" />
@@ -185,8 +184,7 @@ function Example() {
      </div>
      <div class="new-arrival-tag text-green-500 shadow-md rounded-r border border-l-0 border-gray-200">New arrival</div>
   </article>
-</a>
-{{/with}}`,
+</a>`,
     css: `
 .new-arrival-tag {
   position: absolute;
