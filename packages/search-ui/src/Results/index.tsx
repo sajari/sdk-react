@@ -14,7 +14,9 @@ import TemplateResult from './components/TemplateResult';
 import useResultsStyles from './styles';
 import { ResultsProps, ResultValues, Template } from './types';
 
-export function checkValidTemplate(template?: Template): template is Template {
+export function checkValidTemplate(
+  template?: Omit<Template, 'css'> | null | Record<string, never>,
+): template is Template {
   return !isNullOrUndefined(template) && !isEmptyObject(template) && !isEmpty(template?.html);
 }
 
@@ -103,7 +105,7 @@ const Results = (props: ResultsProps) => {
 
       return (
         <div className={customClassNames.results?.template?.container}>
-          {checkValidTemplate(template) ? (
+          {checkValidTemplate(template) && template.css ? (
             // We inject here (once) instead of mutliple times in each result component
             <Global
               styles={css`
@@ -116,7 +118,6 @@ const Results = (props: ResultsProps) => {
               // eslint-disable-next-line no-underscore-dangle
               key={values._id ?? i}
               values={values}
-              appearance={appearance}
               template={template}
               as={resultContainerTemplateElement}
             />
