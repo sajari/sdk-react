@@ -19,4 +19,6 @@ export interface InputProps<T>
   maxSuggestions?: number;
   /* Keep filters when a user performs a new search */
   retainFilters?: boolean;
+  /** The number of characters needed to trigger a search */
+  miniumCharacters?: number;
 }
