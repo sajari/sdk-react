@@ -17,4 +17,6 @@ export interface InputProps<T>
   mode?: ComboboxProps<T>['mode'] | 'instant';
   /* Sets how many autocomplete suggestions are shown in the box below the search input */
   maxSuggestions?: number;
+  /* Keep filters when a user performs a new search */
+  retainFilters?: boolean;
 }

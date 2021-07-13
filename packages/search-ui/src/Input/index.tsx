@@ -21,9 +21,10 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
     onChange,
     maxSuggestions = mode === 'results' ? 5 : 10,
     className,
+    retainFilters = false,
     ...rest
   } = props;
-  const { results: rawResults, search, searching, fields } = useSearchContext();
+  const { results: rawResults, search, searching, fields, resetFilters } = useSearchContext();
   const results = React.useMemo(() => mapResultFields<ResultValues>(rawResults ?? [], fields), [rawResults]);
   const { search: searchAutocomplete, completion, suggestions } = useAutocomplete();
   const { customClassNames, disableDefaultStyles = false, tracking } = useSearchUIContext();
@@ -50,6 +51,10 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
 
   const onChangeMemoized = useCallback(
     (value) => {
+      if (!retainFilters) {
+        resetFilters();
+      }
+
       if (onChange) {
         onChange(value);
       }
@@ -67,6 +72,9 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
 
   const onVoiceInput = useCallback(
     (value) => {
+      if (!retainFilters) {
+        resetFilters();
+      }
       if (onChange) {
         onChange(value);
       }
@@ -78,6 +86,9 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
   const onKeyDownMemoized = useCallback(
     (e) => {
       if (e.key === 'Enter' && (mode === 'typeahead' || mode === 'suggestions' || mode === 'standard')) {
+        if (!retainFilters) {
+          resetFilters();
+        }
         search((e.target as HTMLInputElement).value);
       }
     },

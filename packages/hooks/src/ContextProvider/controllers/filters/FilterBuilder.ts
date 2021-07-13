@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { isEmpty, isFunction, isString, replaceAll } from '@sajari/react-sdk-utils';
+import { arraysEqual, isEmpty, isFunction, isString, replaceAll } from '@sajari/react-sdk-utils';
 
 import { EVENT_OPTIONS_UPDATED, EVENT_SELECTION_UPDATED } from '../../events';
 import { Listener } from '../Listener';
@@ -214,6 +214,10 @@ export default class FilterBuilder {
    * Reset the current filter to the initial one
    */
   public reset(emitEvent = true) {
+    if (arraysEqual(this.current, this.initial)) {
+      return;
+    }
+
     this.current = [...this.initial];
     if (emitEvent) {
       this.emitSelectionUpdated();
