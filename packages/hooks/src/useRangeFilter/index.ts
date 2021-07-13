@@ -30,7 +30,7 @@ function useRangeFilter(name: string) {
   useEffect(() => {
     // Ignore the componentDidMount trigger, only call after the query was changed
     if (isAggregate && prevQuery.current !== null) {
-      filter.aggregateReset(false);
+      filter.reset(false);
     }
   }, [query]);
 
@@ -60,11 +60,7 @@ function useRangeFilter(name: string) {
   }, [range, min, max]);
 
   const reset = () => {
-    if (isAggregate) {
-      filter.set([...filter.getMinMax()] as Range);
-    } else {
-      filter.reset();
-    }
+    filter.reset();
   };
 
   useEffect(() => {
