@@ -22,14 +22,34 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
     maxSuggestions = mode === 'results' ? 5 : 10,
     className,
     retainFilters = false,
+    miniumCharacters: miniumCharactersProp = 0,
     ...rest
   } = props;
-  const { results: rawResults, search, searching, fields, resetFilters } = useSearchContext();
+  const miniumCharacters = Math.max(0, miniumCharactersProp);
+  const { results: rawResults, search: searchFunc, searching, fields, resetFilters } = useSearchContext();
   const results = React.useMemo(() => mapResultFields<ResultValues>(rawResults ?? [], fields), [rawResults]);
-  const { search: searchAutocomplete, completion, suggestions } = useAutocomplete();
+  const { search: searchAutocompleteFunc, completion, suggestions } = useAutocomplete();
   const { customClassNames, disableDefaultStyles = false, tracking } = useSearchUIContext();
   const { query } = useQuery();
   let items: Array<any> = [];
+
+  const search = useCallback(
+    (value: string) => {
+      if (value.length >= miniumCharacters) {
+        searchFunc(value);
+      }
+    },
+    [searchFunc, miniumCharacters],
+  );
+
+  const searchAutocomplete = useCallback(
+    (value: string) => {
+      if (value.length >= miniumCharacters) {
+        searchAutocompleteFunc(value);
+      }
+    },
+    [searchAutocompleteFunc, miniumCharacters],
+  );
 
   if (mode === 'suggestions') {
     items = suggestions.splice(0, maxSuggestions);
