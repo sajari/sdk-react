@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.2.5
+
+### Patch Changes
+
+- Updated dependencies [[`5f7d49ec`](https://github.com/sajari/sdk-react/commit/5f7d49ec80492d5ed6cb950dc237d1d9f30c8833)]:
+  - @sajari/react-hooks@3.0.0
+
 ## 1.2.4
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.0.0
+
+### Major Changes
+
+- [`5f7d49ec`](https://github.com/sajari/sdk-react/commit/5f7d49ec80492d5ed6cb950dc237d1d9f30c8833) [#543](https://github.com/sajari/sdk-react/pull/543) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Clear filters when a user performs a new search.
+
 ## 2.3.0
 
 ### Minor Changes
