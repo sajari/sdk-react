@@ -178,22 +178,6 @@ export default class RangeFilterBuilder {
     }
   }
 
-  /**
-   * Set null to the current range to exclude the filter from the search request
-   * so the the backend can aggregate the maximum range of [min, max] for a query
-   */
-  public aggregateReset(emitEvent = true) {
-    if (this.frozen && !this.isAggregate) {
-      return;
-    }
-
-    this.range = null;
-
-    if (emitEvent) {
-      this.emitRangeUpdated();
-    }
-  }
-
   public format(value: Range) {
     return this.formatter(value);
   }
