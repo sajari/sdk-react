@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable react/jsx-no-target-blank */
 import { Box, Heading, Image, ImageProps, Link, Rating, Text } from '@sajari/react-components';
 import {
@@ -39,6 +40,7 @@ const Result = React.memo(
       styles: stylesProp,
       showImage: showImageProp = true,
       showVariantImage = false,
+      template,
       ...rest
     } = props;
     const { t } = useTranslation('result');
