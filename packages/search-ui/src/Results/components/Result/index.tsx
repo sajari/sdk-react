@@ -11,6 +11,8 @@ import {
   isString,
   isValidURL,
 } from '@sajari/react-sdk-utils';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -18,6 +20,8 @@ import { useSearchUIContext } from '../../../ContextProvider';
 import { useClickTracking } from '../../../hooks';
 import useResultStyles from './styles';
 import { ResultProps } from './types';
+
+dayjs.extend(utc);
 
 const Result = React.memo(
   (props: ResultProps) => {
@@ -34,17 +38,21 @@ const Result = React.memo(
       subTitleClassName,
       ratingClassName,
       descriptionClassName,
+      onSaleStatusClassName,
+      outOfStockStatusClassName,
+      newArrivalStatusClassName,
       disableDefaultStyles = false,
       onClick: onClickProp,
       styles: stylesProp,
       showImage: showImageProp = true,
       showVariantImage = false,
+      showStatus: showStatusProp = false,
       ...rest
     } = props;
     const { t } = useTranslation('result');
     const { currency, language, ratingMax, tracking } = useSearchUIContext();
     const { href, onClick } = useClickTracking({ token, tracking, values, onClick: onClickProp });
-    const { title, description, subtitle, image, price, originalPrice, salePrice } = values;
+    const { title, description, subtitle, image, price, originalPrice, salePrice, quantity, createdAt } = values;
     const [imageSrc, setImageSrc] = useState(isArray(image) ? image[0] : image);
     const [hoverImageSrc] = useState(isArray(image) && !showVariantImage ? image[1] : undefined);
     const rating = Number(values.rating);
@@ -63,11 +71,9 @@ const Result = React.memo(
 
       if (originalPrices) {
         if (originalPrices.length >= prices.length) {
-          return prices.some((p, index) => isNumber(p) && isNumber(originalPrices[index]) && p < originalPrices[index]);
-        }
-        if (originalPrices && originalPrices.length === 1 && prices.length > 1) {
-          const [original] = originalPrices;
-          return isNumber(original) && prices.some((p) => isNumber(p) && p < original);
+          const newPrice = prices[activeImageIndex];
+          const oldPrice = originalPrices[activeImageIndex];
+          return isNumber(newPrice) && isNumber(oldPrice) && newPrice < oldPrice;
         }
       }
 
@@ -75,19 +81,40 @@ const Result = React.memo(
         if (!salePrices.some((p) => p !== 0)) {
           return false;
         }
-        if (salePrices.length >= prices.length) {
-          return prices.some((p, index) => isNumber(p) && isNumber(salePrices[index]) && p > salePrices[index]);
-        }
-        if (salePrices && salePrices.length === 1 && prices.length > 1) {
-          const [sale] = salePrices;
-          return isNumber(sale) && prices.some((p) => isNumber(p) && p > sale);
-        }
+
+        const newPrice = salePrices[activeImageIndex];
+        const oldPrice = prices[activeImageIndex];
+        return isNumber(newPrice) && isNumber(oldPrice) && newPrice < oldPrice;
       }
 
       return false;
-    }, [JSON.stringify(price), JSON.stringify(originalPrice)]);
+    }, [JSON.stringify(price), JSON.stringify(originalPrice), activeImageIndex]);
 
-    const styles = getStylesObject(useResultStyles({ ...props, appearance, isOnSale }), disableDefaultStyles);
+    const isOutOfStock = React.useMemo(() => {
+      if (isEmpty(quantity)) {
+        return false;
+      }
+      const parseQuantities = (input: string | Array<string>) => (isArray(input) ? input : [input]).map(Number);
+      const quantities = parseQuantities(quantity);
+
+      return quantities[activeImageIndex] === 0;
+    }, [JSON.stringify(quantity), activeImageIndex]);
+
+    const isNewArrival = React.useMemo(() => {
+      if (!createdAt) {
+        return false;
+      }
+
+      const parsedCreatedAt = dayjs(createdAt);
+      const current = dayjs();
+
+      return current.diff(parsedCreatedAt, 'day') > 30 && activeImageIndex === 0;
+    }, [createdAt, activeImageIndex]);
+
+    const styles = getStylesObject(
+      useResultStyles({ ...props, appearance, isOnSale, isNewArrival, isOutOfStock }),
+      disableDefaultStyles,
+    );
 
     const imageAspectRatio: ImageProps['aspectRatio'] = useMemo(() => {
       const aspectRatio = imageAspectRatioProp;
@@ -190,6 +217,44 @@ const Result = React.memo(
       );
     };
 
+    const showStatus = showStatusProp && (isOutOfStock || isOnSale || isNewArrival);
+    const renderStatus = () => {
+      if (!showStatus) return null;
+      let text = '';
+      let css = styles.status;
+      let className: string | undefined;
+      switch (true) {
+        case isOutOfStock:
+          if (!isEmpty(outOfStockStatusClassName)) {
+            className = outOfStockStatusClassName;
+            css = undefined;
+          }
+          text = 'Out of stock';
+          break;
+        case isNewArrival:
+          if (!isEmpty(newArrivalStatusClassName)) {
+            className = newArrivalStatusClassName;
+            css = undefined;
+          }
+          text = 'New arrival';
+          break;
+        case isOnSale:
+          if (!isEmpty(onSaleStatusClassName)) {
+            className = onSaleStatusClassName;
+            css = undefined;
+          }
+          text = 'On sale';
+          break;
+        default:
+          break;
+      }
+      return (
+        <Text className={className} css={css}>
+          {text}
+        </Text>
+      );
+    };
+
     const renderPreviewImages = () => {
       const getSetActive = useCallback(
         (url: string, i: number) => () => {
@@ -209,7 +274,8 @@ const Result = React.memo(
               return (
                 <Box
                   role="img"
-                  key={`product-image-${url}`}
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={`product-image-${url}-${i}`}
                   css={styles.previewImageContainer}
                   aria-label={t('previewImage', { product: decodeHTML(title), number: i + 1 })}
                   onMouseEnter={setActive}
@@ -262,7 +328,10 @@ const Result = React.memo(
                 {renderSubtitle()}
               </Box>
 
-              <Box>{renderPrice()}</Box>
+              <Box css={styles.statusWrapper}>
+                {renderPrice()}
+                {renderStatus()}
+              </Box>
             </Box>
           )}
 
@@ -291,7 +360,12 @@ const Result = React.memo(
             </Box>
           )}
 
-          {appearance === 'grid' && renderPrice()}
+          {appearance === 'grid' && (
+            <Box>
+              {renderPrice()}
+              {renderStatus()}
+            </Box>
+          )}
         </Box>
       </Box>
     );
