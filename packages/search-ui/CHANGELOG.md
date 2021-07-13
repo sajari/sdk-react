@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.0.2
+
+### Patch Changes
+
+- [`dfde14e1`](https://github.com/sajari/sdk-react/commit/dfde14e19d61f3fe0ccf23fdc14148f7e8c5b519) [#548](https://github.com/sajari/sdk-react/pull/548) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Update `useRangeFilter` reset method to follow the change of `RangeFilterBuilder` reset as setting the filter to `null` is equivalent to setting the filter to `[min, max]`. Also, remove the redundant `aggregateReset`.
+
+- Updated dependencies [[`dfde14e1`](https://github.com/sajari/sdk-react/commit/dfde14e19d61f3fe0ccf23fdc14148f7e8c5b519)]:
+  - @sajari/react-hooks@3.0.2
+
 ## 3.0.1
 
 ### Patch Changes
