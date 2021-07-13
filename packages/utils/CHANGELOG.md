@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.3.12
+
+### Patch Changes
+
+- [`8c1991b5`](https://github.com/sajari/sdk-react/commit/8c1991b5aa0fe441d69c5fe6906bb44dfcf0df6b) [#546](https://github.com/sajari/sdk-react/pull/546) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix missing `arraysEqual` in `@sajari/react-sdk-utils` package.
+
 ## 1.3.11
 
 ### Patch Changes
