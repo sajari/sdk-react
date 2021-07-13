@@ -35,7 +35,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
 
   const search = useCallback(
     (value: string) => {
-      if (value.length >= miniumCharacters || value === '') {
+      if (value.length >= miniumCharacters) {
         searchFunc(value);
       }
     },
@@ -44,7 +44,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
 
   const searchAutocomplete = useCallback(
     (value: string) => {
-      if (value.length >= miniumCharacters || value === '') {
+      if (value.length >= miniumCharacters) {
         searchAutocompleteFunc(value);
       }
     },
