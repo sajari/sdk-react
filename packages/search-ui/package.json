@@ -1,6 +1,6 @@
 {
   "name": "@sajari/react-search-ui",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "Easy to use search components to quickly build a beautiful search interface powered by Sajari.",
   "sideEffects": false,
   "repository": {

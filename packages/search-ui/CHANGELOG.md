@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.1.1
+
+### Patch Changes
+
+- [`460bb2b6`](https://github.com/sajari/sdk-react/commit/460bb2b63907f37779f3b4b4c9f6633e7be8da2a) [#553](https://github.com/sajari/sdk-react/pull/553) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix typo from "minium" to "minimum"
+
 ## 3.1.0
 
 ### Minor Changes
