@@ -76,7 +76,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
 
   // On user interaction, get the last element being interacted with BEFORE the list is rerendered and focus that element
   React.useEffect(() => {
-    if (!isSSR() && pinSelected) {
+    if (!isSSR() && pinSelected && selected.includes(lastFocusedControl)) {
       const input = document
         .querySelector(`#${filterContainerId}`)
         ?.querySelector(`input[value="${lastFocusedControl}"]`) as HTMLInputElement | null;
@@ -98,9 +98,6 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   const slice = itemListFilteredByQuery.length > limit;
 
   const transformedItems = React.useMemo(() => {
-    if (!isSSR() && pinSelected && document.activeElement?.nodeName.toLowerCase() === 'input') {
-      setLastFocusedControl(`${(document.activeElement as HTMLInputElement).value}`);
-    }
     let list = itemListFilteredByQuery;
 
     if (pinSelected) {
@@ -109,6 +106,13 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
 
     return list;
   }, [JSON.stringify(itemListFilteredByQuery), JSON.stringify(selected), pinSelected]);
+
+  const handleSelect = React.useCallback((value: string[]) => {
+    setSelected(value);
+    if (pinSelected) {
+      setLastFocusedControl(value[value.length - 1]);
+    }
+  }, []);
 
   const items = slice ? transformedItems.slice(0, shown) : transformedItems;
   const allShown = shown >= itemListFilteredByQuery.length;
@@ -169,7 +173,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
         {multi ? (
           <CheckboxGroup
             value={selected}
-            onChange={setSelected}
+            onChange={handleSelect}
             className={customClassNames.filter?.list?.checkboxGroup}
             disableDefaultStyles={disableDefaultStyles}
             aria-labelledby={getHeaderId(name)}
@@ -179,7 +183,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
         ) : (
           <RadioGroup
             value={selected[0]}
-            onChange={(e) => setSelected([e.target.value])}
+            onChange={(e) => handleSelect([e.target.value])}
             className={customClassNames.filter?.list?.radioGroup}
             disableDefaultStyles={disableDefaultStyles}
             aria-labelledby={getHeaderId(name)}
