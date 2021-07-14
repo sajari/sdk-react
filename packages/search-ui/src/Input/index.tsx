@@ -3,7 +3,7 @@ import { Combobox } from '@sajari/react-components';
 import { useAutocomplete, useQuery, useSearchContext } from '@sajari/react-hooks';
 import { __DEV__, isArray } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';
@@ -31,6 +31,8 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
   const { search: searchAutocompleteFunc, completion, suggestions } = useAutocomplete();
   const { customClassNames, disableDefaultStyles = false, tracking } = useSearchUIContext();
   const { query } = useQuery();
+  // Use in the minimumCharacters implementation
+  const lastValue = useRef('');
   let items: Array<any> = [];
 
   const search = useCallback(
@@ -46,7 +48,11 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
     (value: string) => {
       if (value.length >= minimumCharacters) {
         searchAutocompleteFunc(value);
+      } else if (lastValue.current.length >= minimumCharacters) {
+        // Intentionally search for an empty string to clear the old dropdown list when the number of characters is below the limit
+        searchAutocompleteFunc('');
       }
+      lastValue.current = value;
     },
     [searchAutocompleteFunc, minimumCharacters],
   );
