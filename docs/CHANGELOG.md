@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.8.4
+
+### Patch Changes
+
+- [`c4ebeaf5`](https://github.com/sajari/sdk-react/commit/c4ebeaf5901f274e89fd2e043dd01e6cca66bc43) [#552](https://github.com/sajari/sdk-react/pull/552) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix typing in the `Input` will lose focus if it clears the selected items in a list filter. It was because it aims to re-focus on the last selected item once the selected state changed, but since the selected state can be changed by typing on the search input, it will move the focus onto the last selected checkbox.
+
+* [`a7e300b1`](https://github.com/sajari/sdk-react/commit/a7e300b1979cf173d66482ae09621647c3ab6629) [#550](https://github.com/sajari/sdk-react/pull/550) Thanks [@tuanddd](https://github.com/tuanddd)! - Add an option for specifying how many characters are needed to perform a search request.
+
 ## 1.8.3
 
 ### Patch Changes
