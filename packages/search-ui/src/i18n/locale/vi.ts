@@ -23,10 +23,10 @@ export default {
     showMore: 'Show more',
   },
   input: {
-    placeholder: 'Search',
+    placeholder: 'Tìm kiếm',
   },
   resultsPerPage: {
-    label: 'Results',
+    label: 'Show',
   },
   pagination: {
     label: 'Pagination',

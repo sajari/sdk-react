@@ -2,7 +2,7 @@ export default {
   common: {
     result: 'Result',
     results: 'Results',
-    items: 'Items',
+    items: 'Artikelen',
     item: 'Item',
     loading: 'Loading',
     error: 'Error',
@@ -16,17 +16,17 @@ export default {
     all: 'All',
     rangeOver: 'Over {{value}}',
     rangeUnder: 'Under {{value}}',
-    reset: 'Reset',
+    reset: 'Resetten',
     select: 'Select a filter',
     selected: '{{count}} filters selected',
     showLess: 'Show less',
-    showMore: 'Show more',
+    showMore: 'Laat meer zien',
   },
   input: {
     placeholder: 'Search',
   },
   resultsPerPage: {
-    label: 'Results',
+    label: 'Resultaten',
   },
   pagination: {
     label: 'Pagination',
@@ -37,8 +37,8 @@ export default {
   },
   results: {
     empty: {
-      title: 'No results',
-      body: 'No matches were found for "{{query}}".',
+      title: 'Geen resultaten',
+      body: 'Er zijn geen overeenkomsten gevonden voor "{{query}}".',
     },
   },
   result: {
@@ -46,16 +46,16 @@ export default {
     previewImage: '{{product}} image number {{number}}',
   },
   sorting: {
-    label: 'Sort',
+    label: 'Soort',
   },
   summary: {
-    results: '{{count}} {{object}} for "{{query}}"',
+    results: '{{count}} {{object}} voor "{{query}}"',
     noQueryResults: '{{count}} {{object}}',
     latency: '({{time}} secs)',
     alternative: 'Search instead for',
   },
   viewType: {
-    label: 'View',
+    label: 'Visie',
     grid: 'Grid',
     list: 'List',
   },
