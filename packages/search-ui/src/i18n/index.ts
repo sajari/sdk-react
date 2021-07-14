@@ -1,7 +1,11 @@
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
+import de from './locale/de';
 import en from './locale/en';
+import es from './locale/es';
+import fr from './locale/fr';
+import nl from './locale/nl';
 import vi from './locale/vi';
 
 i18n.use(LanguageDetector).init({
@@ -11,6 +15,10 @@ i18n.use(LanguageDetector).init({
   },
   resources: {
     en,
+    de,
+    es,
+    fr,
+    nl,
     vi,
   },
   fallbackLng: 'en',
