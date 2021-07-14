@@ -22,10 +22,10 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
     maxSuggestions = mode === 'results' ? 5 : 10,
     className,
     retainFilters = false,
-    miniumCharacters: miniumCharactersProp = 0,
+    minimumCharacters: minimumCharactersProp = 0,
     ...rest
   } = props;
-  const miniumCharacters = Math.max(0, miniumCharactersProp);
+  const minimumCharacters = Math.max(0, minimumCharactersProp);
   const { results: rawResults, search: searchFunc, searching, fields, resetFilters } = useSearchContext();
   const results = React.useMemo(() => mapResultFields<ResultValues>(rawResults ?? [], fields), [rawResults]);
   const { search: searchAutocompleteFunc, completion, suggestions } = useAutocomplete();
@@ -35,20 +35,20 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
 
   const search = useCallback(
     (value: string) => {
-      if (value.length >= miniumCharacters) {
+      if (value.length >= minimumCharacters) {
         searchFunc(value);
       }
     },
-    [searchFunc, miniumCharacters],
+    [searchFunc, minimumCharacters],
   );
 
   const searchAutocomplete = useCallback(
     (value: string) => {
-      if (value.length >= miniumCharacters) {
+      if (value.length >= minimumCharacters) {
         searchAutocompleteFunc(value);
       }
     },
-    [searchAutocompleteFunc, miniumCharacters],
+    [searchAutocompleteFunc, minimumCharacters],
   );
 
   if (mode === 'suggestions') {
