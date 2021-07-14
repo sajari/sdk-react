@@ -246,7 +246,7 @@ function Example() {
 }
 ```
 
-## Minium characters
+## Minimum characters
 
 The minimum characters needed to perform a search request, default is 0. (search on every keystroke)
 
@@ -262,7 +262,7 @@ function Example() {
 
   const SearchPlayground = React.memo(() => (
     <div className="space-y-4">
-      <Input miniumCharacters={3} />
+      <Input minimumCharacters={3} />
       <Results />
     </div>
   ));
@@ -293,7 +293,7 @@ function Example() {
 | `mode`              | `'standard'` \| `'typeahead'` \| `'suggestions'` \| `'results'` \| `'instant'` | `'standard'` | The mode of the combobox. `'standard'` will operate as a normal text input. `'typeahead`' will provide an inline completion suggestion. `'suggestions'` will provide an autocomplete menu with options to select. `'results'` will perform a full search using the provided term and render full results. |
 | `maxSuggestions`    | `number`                                                                       |              | Sets how many autocomplete suggestions are shown in the box below the search input.                                                                                                                                                                                                                       |
 | `retainFilters`     | `boolean`                                                                      | `false`      | Keep filters when a user performs a new search.                                                                                                                                                                                                                                                           |
-| `minimumCharacters` | `number`                                                                       | `0`          | Minium characters needed to perform a search request.                                                                                                                                                                                                                                                     |
+| `minimumCharacters` | `number`                                                                       | `0`          | Minimum characters needed to perform a search request.                                                                                                                                                                                                                                                    |
 
 It also composes the [`Combobox`](../components/combobox) component a subset of the following props are also valid:
 

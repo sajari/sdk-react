@@ -20,5 +20,5 @@ export interface InputProps<T>
   /* Keep filters when a user performs a new search */
   retainFilters?: boolean;
   /** The number of characters needed to trigger a search */
-  miniumCharacters?: number;
+  minimumCharacters?: number;
 }
