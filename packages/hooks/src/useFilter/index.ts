@@ -51,6 +51,10 @@ function useFilter(
 
   const { sort = 'alpha', sortAscending = sort !== 'count', includes, excludes, prefixFilter } = params;
 
+  const showReset = useMemo(() => {
+    return filter.hasChanged();
+  }, [selected]);
+
   const options: FilterItem[] = useMemo(() => {
     if (!response || response?.isEmpty()) {
       return [];
@@ -97,6 +101,7 @@ function useFilter(
     setSelected,
     selected,
     reset,
+    showReset,
     multi: filter.isMulti(),
   };
 }
