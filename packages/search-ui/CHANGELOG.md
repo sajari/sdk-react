@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.1.2
+
+### Patch Changes
+
+- [`f9738a92`](https://github.com/sajari/sdk-react/commit/f9738a922d3ab353213df5765b11628d7529d780) [#555](https://github.com/sajari/sdk-react/pull/555) Thanks [@tuanddd](https://github.com/tuanddd)! - Clear dropdown when value is less than minimum characters
+
 ## 3.1.1
 
 ### Patch Changes
