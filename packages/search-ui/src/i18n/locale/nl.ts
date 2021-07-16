@@ -21,6 +21,8 @@ export default {
     selected: '{{count}} filters selected',
     showLess: 'Show less',
     showMore: 'Laat meer zien',
+    show: 'Filters tonen',
+    hide: 'Verberg filters',
   },
   input: {
     placeholder: 'Search',
@@ -47,6 +49,7 @@ export default {
   },
   sorting: {
     label: 'Soort',
+    mostRelevantOption: 'Meest relevant',
   },
   summary: {
     results: '{{count}} {{object}} voor "{{query}}"',
