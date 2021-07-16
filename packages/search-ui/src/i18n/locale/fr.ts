@@ -2,7 +2,7 @@ export default {
   common: {
     result: 'Result',
     results: 'Results',
-    items: 'Items',
+    items: 'Éléments',
     item: 'Item',
     loading: 'Loading',
     error: 'Error',
@@ -16,19 +16,19 @@ export default {
     all: 'All',
     rangeOver: 'Over {{value}}',
     rangeUnder: 'Under {{value}}',
-    reset: 'Reset',
+    reset: 'Réinitialiser',
     select: 'Select a filter',
     selected: '{{count}} filters selected',
     showLess: 'Show less',
-    showMore: 'Show more',
-    show: 'Show filters',
-    hide: 'Hide filters',
+    showMore: 'Montre plus',
+    show: 'Afficher les filtres',
+    hide: 'Masquer les filtres',
   },
   input: {
     placeholder: 'Search',
   },
   resultsPerPage: {
-    label: 'Results',
+    label: 'Résultats',
   },
   pagination: {
     label: 'Pagination',
@@ -39,8 +39,8 @@ export default {
   },
   results: {
     empty: {
-      title: 'No results',
-      body: 'No matches were found for "{{query}}".',
+      title: 'Aucun résultat',
+      body: 'Aucune correspondance n\'a été trouvée pour "{{query}}".',
     },
   },
   result: {
@@ -48,17 +48,17 @@ export default {
     previewImage: '{{product}} image number {{number}}',
   },
   sorting: {
-    label: 'Sort',
-    mostRelevantOption: 'Most relevant',
+    label: 'Sorte',
+    mostRelevantOption: 'Le plus pertinent',
   },
   summary: {
-    results: '{{count}} {{object}} for "{{query}}"',
+    results: '{{count}} {{object}} pour "{{query}}"',
     noQueryResults: '{{count}} {{object}}',
     latency: '({{time}} secs)',
     alternative: 'Search instead for',
   },
   viewType: {
-    label: 'View',
+    label: 'Vue',
     grid: 'Grid',
     list: 'List',
   },

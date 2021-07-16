@@ -25,6 +25,9 @@ const Sorting = (props: SortingProps) => {
     disableDefaultStyles,
   );
 
+  const renderSortOptionName = (name: string) =>
+    name.toLowerCase() === 'most relevant' ? t('mostRelevantOption') : name;
+
   const innerRender =
     type === 'select' ? (
       <Select
@@ -37,7 +40,7 @@ const Sorting = (props: SortingProps) => {
       >
         {options.map((s: SortOption) => (
           <Option key={s.value} value={s.value}>
-            {s.name}
+            {renderSortOptionName(s.name)}
           </Option>
         ))}
       </Select>
@@ -52,7 +55,7 @@ const Sorting = (props: SortingProps) => {
       >
         {options.map((s: SortOption) => (
           <Radio key={s.value} value={s.value}>
-            {s.name}
+            {renderSortOptionName(s.name)}
           </Radio>
         ))}
       </RadioGroup>
