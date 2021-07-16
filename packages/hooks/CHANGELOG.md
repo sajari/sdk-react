@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.0.3
+
+### Patch Changes
+
+- [`218e3702`](https://github.com/sajari/sdk-react/commit/218e3702c53dffc0db71697b9606e341177522d8) [#558](https://github.com/sajari/sdk-react/pull/558) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix the reset button on a list filter doesn't show correctly.
+
+- Updated dependencies [[`218e3702`](https://github.com/sajari/sdk-react/commit/218e3702c53dffc0db71697b9606e341177522d8)]:
+  - @sajari/react-sdk-utils@1.3.13
+
 ## 3.0.2
 
 ### Patch Changes
