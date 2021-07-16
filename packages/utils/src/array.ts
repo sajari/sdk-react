@@ -9,13 +9,16 @@ export function groupBy<T = Record<string, any>>(collection: Array<T>, key: stri
   return collection.reduce((out, obj) => ({ ...out, [obj[key]]: (out[obj[key]] || []).concat(obj) }), {});
 }
 
-export function arraysEqual(a: Array<any>, b: Array<any>) {
+export function arraysEqual(a: Array<any>, b: Array<any>, order = true) {
   if (a === b) return true;
   if (a == null || b == null) return false;
   if (a.length !== b.length) return false;
 
-  for (let i = 0; i < a.length; i += 1) {
-    if (a[i] !== b[i]) return false;
+  const cA = order ? a : a.sort();
+  const cB = order ? b : b.sort();
+
+  for (let i = 0; i < cA.length; i += 1) {
+    if (cA[i] !== cB[i]) return false;
   }
   return true;
 }

@@ -110,4 +110,17 @@ describe('FilterBuilder', () => {
     });
     expect(filter.filter()).toBe('category = "dell"');
   });
+
+  it('hasChanged', () => {
+    const filter = new FilterBuilder({
+      name: 'category',
+      field: 'category',
+      options: { dell: 'category = "dell"' },
+      count: false,
+      initial: [],
+    });
+    expect(filter.hasChanged()).toBeFalsy();
+    filter.set(['dell']);
+    expect(filter.hasChanged()).toBeTruthy();
+  });
 });
