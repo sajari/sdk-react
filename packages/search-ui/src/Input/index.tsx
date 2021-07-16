@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Combobox } from '@sajari/react-components';
 import { useAutocomplete, useQuery, useSearchContext } from '@sajari/react-hooks';
-import { __DEV__, isArray } from '@sajari/react-sdk-utils';
+import { __DEV__, arraysEqual, isArray } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';
@@ -31,9 +31,9 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
   const { search: searchAutocompleteFunc, completion, suggestions } = useAutocomplete();
   const { customClassNames, disableDefaultStyles = false, tracking } = useSearchUIContext();
   const { query } = useQuery();
-  // Use in the minimumCharacters implementation
-  const lastValue = useRef('');
-  let items: Array<any> = [];
+  const [internalSuggestions, setInternalSuggestions] = useState<Array<any>>([]);
+  const [items, setItems] = useState(internalSuggestions);
+  const lastItems = useRef(items);
 
   const search = useCallback(
     (value: string) => {
@@ -48,32 +48,41 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
     (value: string) => {
       if (value.length >= minimumCharacters) {
         searchAutocompleteFunc(value);
-      } else if (lastValue.current.length >= minimumCharacters) {
-        // Intentionally search for an empty string to clear the old dropdown list when the number of characters is below the limit
-        searchAutocompleteFunc('');
       }
-      lastValue.current = value;
     },
     [searchAutocompleteFunc, minimumCharacters],
   );
 
-  if (mode === 'suggestions') {
-    items = suggestions.splice(0, maxSuggestions);
-  } else if (mode === 'results') {
-    items = results.splice(0, maxSuggestions).map((result) => {
-      const { values, token } = result;
-      const { description, image, title } = values;
-      const { href, onClick } = useClickTracking({ tracking, values, token });
+  useEffect(() => {
+    if (mode === 'suggestions') {
+      setInternalSuggestions(suggestions.splice(0, maxSuggestions));
+    } else if (mode === 'results') {
+      setInternalSuggestions(
+        results.splice(0, maxSuggestions).map((result) => {
+          const { values, token } = result;
+          const { description, image, title } = values;
+          const { href, onClick } = useClickTracking({ tracking, values, token });
 
-      return {
-        title,
-        url: href,
-        onClick,
-        description,
-        image: isArray(image) ? image[0] : image,
-      };
-    });
-  }
+          return {
+            title,
+            url: href,
+            onClick,
+            description,
+            image: isArray(image) ? image[0] : image,
+          };
+        }),
+      );
+    }
+  }, [mode, suggestions, maxSuggestions, results, useClickTracking, tracking]);
+
+  useEffect(() => {
+    if (!arraysEqual(lastItems.current, internalSuggestions) || mode === 'results') {
+      setItems(internalSuggestions);
+      lastItems.current = internalSuggestions;
+    } else {
+      lastItems.current = items;
+    }
+  }, [internalSuggestions, minimumCharacters]);
 
   const onChangeMemoized = useCallback(
     (value) => {
@@ -85,6 +94,10 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
         onChange(value);
       }
 
+      if (value.length < minimumCharacters) {
+        setItems([]);
+      }
+
       if (mode === 'suggestions' || mode === 'typeahead') {
         if (searchAutocomplete) {
           searchAutocomplete(value);
@@ -93,7 +106,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
         search(value);
       }
     },
-    [onChange, mode, search],
+    [onChange, mode, search, minimumCharacters],
   );
 
   const onVoiceInput = useCallback(
