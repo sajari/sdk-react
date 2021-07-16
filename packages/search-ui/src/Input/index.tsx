@@ -34,7 +34,6 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
   const [internalSuggestions, setInternalSuggestions] = useState<Array<any>>([]);
   const [items, setItems] = useState(internalSuggestions);
   const lastItems = useRef(items);
-  const [internalValue, setInternalValue] = useState(query);
 
   const search = useCallback(
     (value: string) => {
@@ -77,22 +76,13 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
   }, [mode, suggestions, maxSuggestions, results, useClickTracking, tracking]);
 
   useEffect(() => {
-    if (
-      internalValue.length >= minimumCharacters &&
-      (!arraysEqual(lastItems.current, internalSuggestions) || mode === 'results')
-    ) {
+    if (!arraysEqual(lastItems.current, internalSuggestions) || mode === 'results') {
       setItems(internalSuggestions);
       lastItems.current = internalSuggestions;
     } else {
       lastItems.current = items;
     }
   }, [internalSuggestions, minimumCharacters]);
-
-  useEffect(() => {
-    if (internalValue.length < minimumCharacters) {
-      setItems([]);
-    }
-  }, [internalValue]);
 
   const onChangeMemoized = useCallback(
     (value) => {
@@ -103,7 +93,10 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
       if (onChange) {
         onChange(value);
       }
-      setInternalValue(value);
+
+      if (value.length < minimumCharacters) {
+        setItems([]);
+      }
 
       if (mode === 'suggestions' || mode === 'typeahead') {
         if (searchAutocomplete) {
@@ -113,7 +106,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
         search(value);
       }
     },
-    [onChange, mode, search],
+    [onChange, mode, search, minimumCharacters],
   );
 
   const onVoiceInput = useCallback(
