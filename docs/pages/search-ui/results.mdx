@@ -143,7 +143,7 @@ function Example() {
 
 ### Custom templating
 
-You can opt-out of Sajari's default result design and go with your own, simply pass an object containing a `html` and `css` property via the `template` prop. Use `{{expression}}` syntax to embed your result's value instead, since we're using [Handlerbars](https://handlebarsjs.com/) under the hood, any default block helpers (`{{#if}}`, `{{#each}}`, ...) will also work as expected.
+You can opt-out of Sajari's default result design and go with your own, simply pass an object containing a `html` and `css` property via the `template` prop. Use the `{{ expression }}` syntax to embed your result's value. We're using [Tempura](https://github.com/lukeed/tempura) as the template engine, [learn more about the syntax here.](https://github.com/lukeed/tempura/blob/master/docs/syntax.md)
 
 ```jsx
 function Example() {
@@ -173,7 +173,7 @@ function Example() {
           </svg>
           Free shipping
        </div>
-       {{else}}
+       {{#else}}
        <div class="flex rounded px-1 items-center text-xs text-red-500 border border-red-500 bg-red-200">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />

@@ -1,4 +1,4 @@
-import { checkValidTemplate } from './index';
+import { checkValidTemplate } from './checkValidTemplate';
 
 test.each([
   [null, false],
