@@ -1,4 +1,6 @@
-export default {
+import { Locale } from '../types';
+
+const es: Locale = {
   common: {
     result: 'Resultado',
     results: 'Resultados',
@@ -63,3 +65,5 @@ export default {
     list: 'Lista',
   },
 };
+
+export default es;

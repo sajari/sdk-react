@@ -20,6 +20,8 @@ The default localization is as follows, broken down by the component/namespace:
   common: {
     result: 'Result',
     results: 'Results',
+    items: 'Items',
+    item: 'Item',
     loading: 'Loading',
     error: 'Error',
   },
@@ -29,16 +31,22 @@ The default localization is as follows, broken down by the component/namespace:
     generic: 'Something went wrong. Please try again.',
   },
   filter: {
-    reset: 'Reset',
     all: 'All',
-    showMore: 'Show {{count}} more',
+    rangeOver: 'Over {{value}}',
+    rangeUnder: 'Under {{value}}',
+    reset: 'Reset',
+    select: 'Select a filter',
+    selected: '{{count}} filters selected',
     showLess: 'Show less',
+    showMore: 'Show more',
+    show: 'Show filters',
+    hide: 'Hide filters',
   },
   input: {
     placeholder: 'Search',
   },
   resultsPerPage: {
-    label: 'Show',
+    label: 'Results',
   },
   pagination: {
     label: 'Pagination',
@@ -53,11 +61,17 @@ The default localization is as follows, broken down by the component/namespace:
       body: 'No matches were found for "{{query}}".',
     },
   },
+  result: {
+    previewImagesContainer: "{{product}}'s images",
+    previewImage: '{{product}} image number {{number}}',
+  },
   sorting: {
     label: 'Sort',
+    mostRelevantOption: 'Most relevant',
   },
   summary: {
     results: '{{count}} {{object}} for "{{query}}"',
+    noQueryResults: '{{count}} {{object}}',
     latency: '({{time}} secs)',
     alternative: 'Search instead for',
   },
