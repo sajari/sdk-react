@@ -11,7 +11,7 @@ import { capitalize } from './utils';
 const { colorKeys } = Swatch;
 
 const ColorFilter = ({ name, title }: Omit<ColorFilterProps, 'type'>) => {
-  const { options, selected, setSelected, reset } = useFilter(name);
+  const { options, selected, setSelected, reset, showReset } = useFilter(name);
   const { customClassNames, disableDefaultStyles = false } = useSearchUIContext();
   const optionKeys = useMemo(() => options.map((o) => o.label), [JSON.stringify(options)]);
   const filtered = useMemo(() => optionKeys.filter((c) => colorKeys.some((o) => c.toLowerCase() === o.toLowerCase())), [
@@ -34,7 +34,7 @@ const ColorFilter = ({ name, title }: Omit<ColorFilterProps, 'type'>) => {
   }
 
   return (
-    <Box title={title} showReset={selected.length > 0} onReset={reset}>
+    <Box title={title} showReset={showReset} onReset={reset}>
       <Swatch
         checkedColors={selected}
         onChange={setSelected}

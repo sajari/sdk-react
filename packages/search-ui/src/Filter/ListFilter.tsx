@@ -29,7 +29,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   } = props;
 
   const filterContainerId = `list-${name}`;
-  const { options, reset, setSelected, selected, multi } = useFilter(name, {
+  const { options, reset, setSelected, selected, multi, showReset } = useFilter(name, {
     sort,
     sortAscending,
     excludes,
@@ -155,7 +155,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   }
 
   return (
-    <Box title={title} name={name} showReset={selected.length > 0} onReset={reset}>
+    <Box title={title} name={name} showReset={showReset} onReset={reset}>
       {searchable ? (
         <CoreBox css={styles.searchWrapper}>
           <Combobox

@@ -177,6 +177,10 @@ export default class FilterBuilder {
     return this.multi;
   }
 
+  public hasChanged() {
+    return !arraysEqual(this.current, this.initial, false);
+  }
+
   /**
    * Builds up the filter string from the current filter and it's children.
    */
