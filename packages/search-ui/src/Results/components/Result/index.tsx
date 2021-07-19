@@ -234,21 +234,21 @@ const Result = React.memo(
             className = outOfStockStatusClassName;
             css = undefined;
           }
-          text = 'Out of stock';
+          text = t('status.outOfStock');
           break;
         case isNewArrival:
           if (!isEmpty(newArrivalStatusClassName)) {
             className = newArrivalStatusClassName;
             css = undefined;
           }
-          text = 'New arrival';
+          text = t('status.newArrival');
           break;
         case isOnSale:
           if (!isEmpty(onSaleStatusClassName)) {
             className = onSaleStatusClassName;
             css = undefined;
           }
-          text = 'On sale';
+          text = t('status.onSale');
           break;
         default:
           break;
