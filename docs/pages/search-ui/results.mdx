@@ -86,6 +86,61 @@ function Example() {
 }
 ```
 
+### Product status
+
+Currently three statuses are being supported, they are "out of stock", "sale" and "new arrival", they are hidden by default, to show them pass the `showStatus` prop,
+
+See below list for implementation logic, the product will be:
+
+- Out of stock if the `quantity` is 0.
+- On sale if the `price` is lower than `originalPrice`.
+- A new arrival if its `createdAt` is within 30 days to the current date.
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const fields = new FieldDictionary({
+    title: 'name',
+    subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+    originalPrice: (values) => {
+      const price = Number(values.price);
+      return Math.random() > 0.5 ? price + 100 : price;
+    },
+    quantity: (values) => {
+      return Math.random() > 0.5 ? 0 : 1;
+    },
+    createdAt: (values) => {
+      const newArrival = new Date();
+      const old = new Date();
+      old.setDate(old.getDate() - 60);
+      return Math.random() > 0.5 ? newArrival : old;
+    },
+  });
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields,
+      }}
+      searchOnLoad
+    >
+      <div className="flex flex-col items-center space-y-4">
+        <ViewType />
+        <Results showStatus />
+      </div>
+    </SearchProvider>
+  );
+}
+```
+
 ## Props
 
 | Name                | Type                                         | Default   | Description                                                                                                                     |
@@ -94,5 +149,6 @@ function Example() {
 | `defaultAppearance` | `list` \| `grid`                             | `list`    | The uncontrolled value, will override the context value on mount.                                                               |
 | `showImage`         | `boolean`                                    | `true`    | Sets to show images                                                                                                             |
 | `showVariantImage`  | `boolean`                                    | `false`   | Sets to show variant images                                                                                                     |
+| `showStatus`        | `boolean`                                    | `false`   | Sets to show statuses                                                                                                           |
 | `imageAspectRatio`  | `number` \| `{ list: number, grid: number}`  | `1`       | The aspect ratio to force images to render to.                                                                                  |
 | `imageObjectFit`    | `string` \| `{ list: string, grid: string }` | `contain` | The aspect ratio to force images to render to. Valid `objectFit` values can be found in [image props](/components/image#props). |

@@ -16,6 +16,8 @@ interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | '
   showImage?: boolean;
   /** Display variant images or not */
   showVariantImage?: boolean;
+  /** Display product status or not */
+  showStatus?: boolean;
   /** Force an image placeholder */
   forceImage?: boolean;
   /** The classname for heading */
@@ -30,6 +32,12 @@ interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | '
   ratingClassName?: string;
   /** The classname for description */
   descriptionClassName?: string;
+  /** The classname for the sale status */
+  onSaleStatusClassName?: string;
+  /** The classname for the out of stock status */
+  outOfStockStatusClassName?: string;
+  /** The classname for the new arrival status */
+  newArrivalStatusClassName?: string;
 }
 
 type HTMLAttributes = Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props>;

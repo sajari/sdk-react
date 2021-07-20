@@ -46,6 +46,11 @@ const de: Locale = {
     },
   },
   result: {
+    status: {
+      onSale: 'Im Angebot',
+      outOfStock: 'Nicht vorrättig',
+      newArrival: 'Neuankömmling',
+    },
     previewImagesContainer: '{{product}} s bilder',
     previewImage: '{{product}} bildnummer {{number}}',
   },
