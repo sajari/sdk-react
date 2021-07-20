@@ -30,7 +30,7 @@ export default function useResultStyles(props: UseResultStylesParams) {
       tw`w-9 h-9 outline-none rounded-md p-0.5 border-2 border-transparent focus:border-indigo-400`,
     ],
     statusWrapper: [],
-    status: [tw`text-sm`],
+    status: [tw`text-sm font-medium`],
   });
 
   switch (true) {

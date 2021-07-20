@@ -46,6 +46,11 @@ const de: Locale = {
     },
   },
   result: {
+    status: {
+      onSale: 'On sale',
+      outOfStock: 'Out of stock',
+      newArrival: 'New arrival',
+    },
     previewImagesContainer: '{{product}} s bilder',
     previewImage: '{{product}} bildnummer {{number}}',
   },

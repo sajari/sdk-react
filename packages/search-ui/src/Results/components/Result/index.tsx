@@ -103,7 +103,7 @@ const Result = React.memo(
       const quantities = parseQuantities(quantity);
 
       return quantities[activeImageIndex] === 0;
-    }, [JSON.stringify(quantity), activeImageIndex]);
+    }, [activeImageIndex]);
 
     const isNewArrival = React.useMemo(() => {
       if (!createdAt) {

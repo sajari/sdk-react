@@ -72,6 +72,14 @@ export type Locale = {
     };
   };
   result: {
+    status: {
+      /** The text to show when an product is on sale */
+      onSale: string;
+      /** The text to show when an product is out of stock */
+      outOfStock: string;
+      /** The text to show when an product is a new product (within 30 days) */
+      newArrival: string;
+    };
     /** Label for product's preview image container */
     previewImagesContainer: string;
     /** Label for product's preview image */
