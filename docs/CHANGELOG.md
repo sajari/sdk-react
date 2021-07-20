@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.8.6
+
+### Patch Changes
+
+- [`366b3de9`](https://github.com/sajari/sdk-react/commit/366b3de997b7854061b7d1be101298109ad7634e) [#559](https://github.com/sajari/sdk-react/pull/559) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix the dropdown flicker issue when using minimum characters
+
+* [`218e3702`](https://github.com/sajari/sdk-react/commit/218e3702c53dffc0db71697b9606e341177522d8) [#558](https://github.com/sajari/sdk-react/pull/558) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix the reset button on a list filter doesn't show correctly.
+
+- [`ecdaedfc`](https://github.com/sajari/sdk-react/commit/ecdaedfc57921bac1c546cd4f5999d6b5e7ad1c0) [#560](https://github.com/sajari/sdk-react/pull/560) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix incorrect docs for `ProviderPipelineConfig`.
+
 ## 1.8.5
 
 ### Patch Changes

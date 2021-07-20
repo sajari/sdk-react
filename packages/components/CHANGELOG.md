@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.8.1
+
+### Patch Changes
+
+- [`366b3de9`](https://github.com/sajari/sdk-react/commit/366b3de997b7854061b7d1be101298109ad7634e) [#559](https://github.com/sajari/sdk-react/pull/559) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix the dropdown flicker issue when using minimum characters
+
+- Updated dependencies [[`218e3702`](https://github.com/sajari/sdk-react/commit/218e3702c53dffc0db71697b9606e341177522d8)]:
+  - @sajari/react-sdk-utils@1.3.13
+
 ## 1.8.0
 
 ### Minor Changes
