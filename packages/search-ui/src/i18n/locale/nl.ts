@@ -47,9 +47,9 @@ const nl: Locale = {
   },
   result: {
     status: {
-      onSale: 'On sale',
-      outOfStock: 'Out of stock',
-      newArrival: 'New arrival',
+      onSale: 'Te koop',
+      outOfStock: 'Geen voorraad meer',
+      newArrival: 'Nieuwe aankomst',
     },
     previewImagesContainer: "{{product}}'s beelden",
     previewImage: '{{product}} beeldnummer {{number}}',

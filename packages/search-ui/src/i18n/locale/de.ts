@@ -47,9 +47,9 @@ const de: Locale = {
   },
   result: {
     status: {
-      onSale: 'On sale',
-      outOfStock: 'Out of stock',
-      newArrival: 'New arrival',
+      onSale: 'Im Angebot',
+      outOfStock: 'Nicht vorrättig',
+      newArrival: 'Neuankömmling',
     },
     previewImagesContainer: '{{product}} s bilder',
     previewImage: '{{product}} bildnummer {{number}}',
