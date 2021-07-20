@@ -1,4 +1,6 @@
-export default {
+import { Locale } from '../types';
+
+const en: Locale = {
   common: {
     result: 'Result',
     results: 'Results',
@@ -21,12 +23,14 @@ export default {
     selected: '{{count}} filters selected',
     showLess: 'Show less',
     showMore: 'Show more',
+    show: 'Show filters',
+    hide: 'Hide filters',
   },
   input: {
     placeholder: 'Search',
   },
   resultsPerPage: {
-    label: 'Show',
+    label: 'Results',
   },
   pagination: {
     label: 'Pagination',
@@ -47,6 +51,7 @@ export default {
   },
   sorting: {
     label: 'Sort',
+    mostRelevantOption: 'Most relevant',
   },
   summary: {
     results: '{{count}} {{object}} for "{{query}}"',
@@ -60,3 +65,5 @@ export default {
     list: 'List',
   },
 };
+
+export default en;
