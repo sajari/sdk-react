@@ -1,5 +1,22 @@
 # Change Log
 
+## 3.2.0
+
+### Minor Changes
+
+- [`0df7d055`](https://github.com/sajari/sdk-react/commit/0df7d05506d5328311e022fd0ad9d93a6293cf74) [#557](https://github.com/sajari/sdk-react/pull/557) Thanks [@tuanddd](https://github.com/tuanddd)! - Add support for German, Dutch, Spanish, French.
+
+### Patch Changes
+
+- [`366b3de9`](https://github.com/sajari/sdk-react/commit/366b3de997b7854061b7d1be101298109ad7634e) [#559](https://github.com/sajari/sdk-react/pull/559) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix the dropdown flicker issue when using minimum characters
+
+* [`218e3702`](https://github.com/sajari/sdk-react/commit/218e3702c53dffc0db71697b9606e341177522d8) [#558](https://github.com/sajari/sdk-react/pull/558) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix the reset button on a list filter doesn't show correctly.
+
+* Updated dependencies [[`366b3de9`](https://github.com/sajari/sdk-react/commit/366b3de997b7854061b7d1be101298109ad7634e), [`218e3702`](https://github.com/sajari/sdk-react/commit/218e3702c53dffc0db71697b9606e341177522d8)]:
+  - @sajari/react-components@1.8.1
+  - @sajari/react-hooks@3.0.3
+  - @sajari/react-sdk-utils@1.3.13
+
 ## 3.1.2
 
 ### Patch Changes
