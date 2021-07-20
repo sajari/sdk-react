@@ -93,7 +93,7 @@ const Result = React.memo(
       }
 
       return false;
-    }, [JSON.stringify(price), JSON.stringify(originalPrice)]);
+    }, []);
 
     const isOutOfStock = React.useMemo(() => {
       if (isEmpty(quantity)) {
