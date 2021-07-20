@@ -92,7 +92,7 @@ const Results = (props: ResultsProps) => {
           onClick={handleResultClicked}
           token={token}
           // eslint-disable-next-line no-underscore-dangle
-          key={values._id ?? i}
+          key={values._id ?? values.url ?? i}
           values={values}
           appearance={appearance}
           forceImage={hasImages}
