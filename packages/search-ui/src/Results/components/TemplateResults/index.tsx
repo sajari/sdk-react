@@ -22,7 +22,6 @@ const TemplateResults = (props: TemplateResultsProps) => {
     resultTemplate.html,
     keysStringified,
   ]);
-  render({});
 
   return (
     <div className={customClassNames.results?.template?.container}>
