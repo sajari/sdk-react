@@ -5,6 +5,7 @@ export interface Config {
   resultsPerPageParam: string;
   pageParam: string;
   maxSuggestions: number;
+  fieldsParam: string;
 }
 
 export const defaultConfig: Config = {
@@ -14,4 +15,5 @@ export const defaultConfig: Config = {
   resultsPerPageParam: 'resultsPerPage',
   pageParam: 'page',
   maxSuggestions: 10,
+  fieldsParam: 'fields',
 };
