@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';
 import mapResultFields from '../utils/mapResultFields';
-import { checkValidTemplate } from './checkValidTemplate';
+import { checkValidResultTemplate } from './checkValidResultTemplate';
 import Message from './components/Message';
 import Result from './components/Result';
 import TemplateResults from './components/TemplateResults';
@@ -25,7 +25,7 @@ const Results = (props: ResultsProps) => {
     appearance = viewType,
     styles: stylesProp,
     resultContainerTemplateElement,
-    template,
+    resultTemplate,
     ...rest
   } = props;
   const [width, setWidth] = React.useState(0);
@@ -90,11 +90,11 @@ const Results = (props: ResultsProps) => {
     );
   }
 
-  if (checkValidTemplate(template)) {
+  if (checkValidResultTemplate(resultTemplate)) {
     return (
       <TemplateResults
         results={results.map((r) => r.values)}
-        template={template}
+        resultTemplate={resultTemplate}
         resultContainerTemplateElement={resultContainerTemplateElement}
       />
     );
@@ -125,8 +125,6 @@ const Results = (props: ResultsProps) => {
           onSaleStatusClassName={customClassNames.results?.onSaleStatus}
           outOfStockStatusClassName={customClassNames.results?.outOfStockStatus}
           newArrivalStatusClassName={customClassNames.results?.newArrivalStatus}
-          template={template}
-          template={template}
           {...rest}
         />
       ))}

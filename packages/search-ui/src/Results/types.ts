@@ -4,7 +4,7 @@ import { ResultValues } from '@sajari/react-hooks';
 
 import { TemplateResultProps } from './components/TemplateResult/types';
 
-export type Template = {
+export type ResultTemplate = {
   html: string;
   css: string;
 };
@@ -24,7 +24,7 @@ export interface ResultsProps extends BoxProps {
   columnMinWidth?: number;
   columns?: ColumnValue | Record<number, ColumnValue>;
   gap?: GapValue | Record<number, GapValue>;
-  template?: Template;
+  resultTemplate?: ResultTemplate;
   resultContainerTemplateElement?: TemplateResultProps['as'];
 }
 

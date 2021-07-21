@@ -1,9 +1,9 @@
 import { ResultValues } from '@sajari/react-hooks';
 
-import { ResultsProps, Template } from '../../types';
+import { ResultsProps, ResultTemplate } from '../../types';
 
 interface Props extends Pick<ResultsProps, 'resultContainerTemplateElement'> {
-  template: Template;
+  resultTemplate: ResultTemplate;
   results: ResultValues[];
 }
 

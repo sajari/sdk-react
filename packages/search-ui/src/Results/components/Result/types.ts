@@ -3,7 +3,7 @@ import { Token } from '@sajari/react-hooks';
 import * as React from 'react';
 
 import { UseClickTrackingParams } from '../../../hooks';
-import { ResultsProps, ResultValues, Template } from '../../types';
+import { ResultsProps, ResultValues } from '../../types';
 
 interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | 'imageObjectFit'>, BoxProps {
   /** Search result values */
@@ -38,8 +38,6 @@ interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | '
   outOfStockStatusClassName?: string;
   /** The classname for the new arrival status */
   newArrivalStatusClassName?: string;
-  /** Custom template code */
-  template?: Template;
 }
 
 type HTMLAttributes = Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props>;
