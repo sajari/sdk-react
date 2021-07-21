@@ -1,5 +1,13 @@
+/* eslint-disable import/no-cycle */
 import { BoxProps, ImageProps } from '@sajari/react-components';
 import { ResultValues } from '@sajari/react-hooks';
+
+import { TemplateResultProps } from './components/TemplateResult/types';
+
+export type ResultTemplate = {
+  html: string;
+  css: string;
+};
 
 export type ColumnValue = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 export type GapValue = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
@@ -16,6 +24,8 @@ export interface ResultsProps extends BoxProps {
   columnMinWidth?: number;
   columns?: ColumnValue | Record<number, ColumnValue>;
   gap?: GapValue | Record<number, GapValue>;
+  resultTemplate?: ResultTemplate;
+  resultContainerTemplateElement?: TemplateResultProps['as'];
 }
 
 export { ResultValues };

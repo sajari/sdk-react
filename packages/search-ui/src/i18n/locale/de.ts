@@ -12,6 +12,7 @@ const de: Locale = {
   errors: {
     authorization: 'Die Genehmigung für diese Anfrage ist fehlgeschlagen. Bitte versuche es erneut.',
     connection: 'Bitte überprüfen Sie Ihre Netzwerkverbindung und versuchen Sie es erneut.',
+    template: 'There was something wrong while parsing the template.',
     generic: 'Etwas ist schief gelaufen. Bitte überprüfen Sie noch einmal.',
   },
   filter: {

@@ -12,6 +12,7 @@ const en: Locale = {
   errors: {
     authorization: 'Authorization for this request failed. Please try again.',
     connection: 'Please check your network connection and try again.',
+    template: 'There was something wrong while parsing the template.',
     generic: 'Something went wrong. Please try again.',
   },
   filter: {

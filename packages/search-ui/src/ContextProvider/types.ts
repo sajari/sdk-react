@@ -31,6 +31,10 @@ export interface SearchUIContextProviderValues {
       onSaleStatus?: string;
       outOfStockStatus?: string;
       newArrivalStatus?: string;
+      template?: {
+        container?: string;
+        resultContainer: string;
+      };
     };
     sorting?: {
       container?: string;

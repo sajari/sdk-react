@@ -2,12 +2,15 @@ import { ResizeObserver } from '@sajari/react-components';
 import { useQuery, useSearchContext, useTracking } from '@sajari/react-hooks';
 import { getStylesObject, isEmpty, isNullOrUndefined } from '@sajari/react-sdk-utils';
 import * as React from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';
 import mapResultFields from '../utils/mapResultFields';
+import { checkValidResultTemplate } from './checkValidResultTemplate';
 import Message from './components/Message';
 import Result from './components/Result';
+import TemplateResults from './components/TemplateResults';
 import useResultsStyles from './styles';
 import { ResultsProps, ResultValues } from './types';
 
@@ -18,7 +21,14 @@ const Results = (props: ResultsProps) => {
   ]);
   const { disableDefaultStyles = false, customClassNames, viewType, setViewType } = useSearchUIContext();
   const { query } = useQuery();
-  const { defaultAppearance, appearance = viewType, styles: stylesProp, ...rest } = props;
+  const {
+    defaultAppearance,
+    appearance = viewType,
+    styles: stylesProp,
+    resultContainerTemplateElement,
+    resultTemplate,
+    ...rest
+  } = props;
   const [width, setWidth] = React.useState(0);
   const { handleResultClicked } = useTracking();
   const hasImages = React.useMemo(() => results?.some((r) => r.values?.image), [results]);
@@ -78,6 +88,19 @@ const Results = (props: ResultsProps) => {
         disableDefaultStyles={disableDefaultStyles}
         className={customClassNames.results?.emptyMessage}
       />
+    );
+  }
+
+  if (checkValidResultTemplate(resultTemplate)) {
+    const TemplateErrorMessage = () => <Message title={t('common:error')} body={t('errors:template')} showReset />;
+    return (
+      <ErrorBoundary FallbackComponent={TemplateErrorMessage}>
+        <TemplateResults
+          results={results.map((r) => r.values)}
+          resultTemplate={resultTemplate}
+          resultContainerTemplateElement={resultContainerTemplateElement}
+        />
+      </ErrorBoundary>
     );
   }
 
