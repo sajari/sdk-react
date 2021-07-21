@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.8.7
+
+### Patch Changes
+
+- [`00300224`](https://github.com/sajari/sdk-react/commit/0030022497ca8dd566ddfb30fef8f7088de98fc4) [#564](https://github.com/sajari/sdk-react/pull/564) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Include `fields:''` in the body request to always expect `_id` to be in the response. It's necessary, otherwise, it could break the re-render process of Results where the `key` relies on the `_id`.
+
 ## 1.8.6
 
 ### Patch Changes
