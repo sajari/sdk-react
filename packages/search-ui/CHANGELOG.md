@@ -1,5 +1,17 @@
 # Change Log
 
+## 3.4.0
+
+### Minor Changes
+
+- [`a083ed1f`](https://github.com/sajari/sdk-react/commit/a083ed1f1c02283ac1d597dbb77866b5a53f148e) [#527](https://github.com/sajari/sdk-react/pull/527) Thanks [@tuanddd](https://github.com/tuanddd)! - Add support for result templating
+
+### Patch Changes
+
+- Updated dependencies [[`4339ec8a`](https://github.com/sajari/sdk-react/commit/4339ec8a54cfabd154def5391adbdf23e77342be)]:
+  - @sajari/react-components@1.8.2
+  - @sajari/react-sdk-utils@1.3.14
+
 ## 3.3.0
 
 ### Minor Changes
