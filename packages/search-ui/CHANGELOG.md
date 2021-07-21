@@ -1,5 +1,18 @@
 # Change Log
 
+## 3.3.0
+
+### Minor Changes
+
+- [`13d289b0`](https://github.com/sajari/sdk-react/commit/13d289b04b0be753895371f610181b7f65bc858e) [#525](https://github.com/sajari/sdk-react/pull/525) Thanks [@tuanddd](https://github.com/tuanddd)! - Add status to result
+
+### Patch Changes
+
+- [`00300224`](https://github.com/sajari/sdk-react/commit/0030022497ca8dd566ddfb30fef8f7088de98fc4) [#564](https://github.com/sajari/sdk-react/pull/564) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Include `fields:''` in the body request to always expect `_id` to be in the response. It's necessary, otherwise, it could break the re-render process of Results where the `key` relies on the `_id`.
+
+- Updated dependencies [[`13d289b0`](https://github.com/sajari/sdk-react/commit/13d289b04b0be753895371f610181b7f65bc858e), [`00300224`](https://github.com/sajari/sdk-react/commit/0030022497ca8dd566ddfb30fef8f7088de98fc4)]:
+  - @sajari/react-hooks@3.1.0
+
 ## 3.2.0
 
 ### Minor Changes
