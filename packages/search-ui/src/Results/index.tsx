@@ -2,6 +2,7 @@ import { ResizeObserver } from '@sajari/react-components';
 import { useQuery, useSearchContext, useTracking } from '@sajari/react-hooks';
 import { getStylesObject, isEmpty, isNullOrUndefined } from '@sajari/react-sdk-utils';
 import * as React from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';
@@ -91,12 +92,15 @@ const Results = (props: ResultsProps) => {
   }
 
   if (checkValidResultTemplate(resultTemplate)) {
+    const TemplateErrorMessage = () => <Message title={t('common:error')} body={t('errors:template')} showReset />;
     return (
-      <TemplateResults
-        results={results.map((r) => r.values)}
-        resultTemplate={resultTemplate}
-        resultContainerTemplateElement={resultContainerTemplateElement}
-      />
+      <ErrorBoundary FallbackComponent={TemplateErrorMessage}>
+        <TemplateResults
+          results={results.map((r) => r.values)}
+          resultTemplate={resultTemplate}
+          resultContainerTemplateElement={resultContainerTemplateElement}
+        />
+      </ErrorBoundary>
     );
   }
 
