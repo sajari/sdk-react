@@ -152,7 +152,7 @@ function RangeInput<T extends RangeValue>(props: RangeInputProps<T>) {
     // Calculate percentage
     const clientRect = trackRef.current.getBoundingClientRect();
     const percent = clamp((100 / clientRect.width) * (event.clientX - clientRect.left), 0, 100);
-    const newValue = roundToStep((max - min) * (percent / 100), step);
+    const newValue = roundToStep((max - min) * (percent / 100) + min, step);
 
     if (i === 1 && !isNullOrUndefined(high)) {
       // Determine closest handle if clicking in center section
