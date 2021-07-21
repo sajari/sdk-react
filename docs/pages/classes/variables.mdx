@@ -22,11 +22,12 @@ The constructor will accept a single object with any properties. The proprties w
 
 Value types can be `string | string[] | number | boolean | () => string`
 
-| Name             | Default     | Description                           |
-| ---------------- | ----------- | ------------------------------------- |
-| `q`              |             | The search query.                     |
-| `q.override`     |             |                                       |
-| `q.suggestions`  |             | Dictionary of name -> filter pairs.   |
-| `filter`         | `_id != ""` | Default filter to apply.              |
-| `resultsPerPage` | `15`        | How many results to display per page. |
-| `page`           | `1`         | Which page to display.                |
+| Name             | Default     | Description                                                       |
+| ---------------- | ----------- | ----------------------------------------------------------------- |
+| `q`              |             | The search query.                                                 |
+| `q.override`     |             |                                                                   |
+| `q.suggestions`  |             | Dictionary of name -> filter pairs.                               |
+| `filter`         | `_id != ""` | Default filter to apply.                                          |
+| `resultsPerPage` | `15`        | How many results to display per page.                             |
+| `page`           | `1`         | Which page to display.                                            |
+| `fields`         | `''`        | What fields are shown in the response. Use "" to show all fields. |

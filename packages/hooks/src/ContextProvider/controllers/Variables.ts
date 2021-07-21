@@ -27,6 +27,7 @@ export class Variables {
       Object.entries({
         [defaultConfig.qParam]: '',
         [defaultConfig.resultsPerPageParam]: 15,
+        [defaultConfig.fieldsParam]: '',
         ...variables,
       }),
     );
