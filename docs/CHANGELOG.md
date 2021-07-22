@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.9.0
+
+### Minor Changes
+
+- [`a083ed1f`](https://github.com/sajari/sdk-react/commit/a083ed1f1c02283ac1d597dbb77866b5a53f148e) [#527](https://github.com/sajari/sdk-react/pull/527) Thanks [@tuanddd](https://github.com/tuanddd)! - Add support for result templating
+
 ## 1.8.7
 
 ### Patch Changes

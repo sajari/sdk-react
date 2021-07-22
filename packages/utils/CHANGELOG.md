@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.3.14
+
+### Patch Changes
+
+- [`4339ec8a`](https://github.com/sajari/sdk-react/commit/4339ec8a54cfabd154def5391adbdf23e77342be) [#567](https://github.com/sajari/sdk-react/pull/567) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix a bug where clicking in the RangeInput does not update with the right value
+
 ## 1.3.13
 
 ### Patch Changes
