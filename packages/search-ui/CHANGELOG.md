@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.4.1
+
+### Patch Changes
+
+- [`333733bc`](https://github.com/sajari/sdk-react/commit/333733bcb457fd7a9a4dcecdc8b054d5e01c9674) [#568](https://github.com/sajari/sdk-react/pull/568) Thanks [@tuanddd](https://github.com/tuanddd)! - Invert the logic to be within 30
+
 ## 3.4.0
 
 ### Minor Changes
