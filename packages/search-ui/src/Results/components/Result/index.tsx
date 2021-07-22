@@ -114,7 +114,7 @@ const Result = React.memo(
       const parsedCreatedAt = dayjs(createdAt);
       const current = dayjs();
 
-      return current.diff(parsedCreatedAt, 'day') > 30 && activeImageIndex === 0;
+      return current.diff(parsedCreatedAt, 'day') <= 30 && activeImageIndex === 0;
     }, [createdAt, activeImageIndex]);
 
     const styles = getStylesObject(
