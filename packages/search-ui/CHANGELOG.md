@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.4.3
+
+### Patch Changes
+
+- [`b2c54226`](https://github.com/sajari/sdk-react/commit/b2c5422635cbbc79453b950a75e5c790c640db09) [#573](https://github.com/sajari/sdk-react/pull/573) Thanks [@tuanddd](https://github.com/tuanddd)! - Add italian to the list of resources
+
 ## 3.4.2
 
 ### Patch Changes
