@@ -16,19 +16,19 @@ const es: Locale = {
     generic: 'Algo salió mal. Por favor revise de nuevo.',
   },
   filter: {
-    all: 'Todas',
+    all: 'Todos',
     rangeOver: 'Sobre {{value}}',
-    rangeUnder: 'Bajo {{value}}',
+    rangeUnder: 'Debajo {{value}}',
     reset: 'Reiniciar',
     select: 'Seleccione un filtro',
-    selected: '{{count}} filtros seleccionados',
+    selected: '{{count}} Filtros seleccionados',
     showLess: 'Muestra menos',
     showMore: 'Mostrar más',
     show: 'Mostrar filtros',
     hide: 'Ocultar filtros',
   },
   input: {
-    placeholder: 'Buscar',
+    placeholder: 'Búsqueda',
   },
   resultsPerPage: {
     label: 'Resultados',
@@ -52,7 +52,7 @@ const es: Locale = {
       outOfStock: 'Agotado',
       newArrival: 'Nueva llegada',
     },
-    previewImagesContainer: '{{product}} imágenes',
+    previewImagesContainer: '{{product}} imagenes',
     previewImage: '{{product}} número de imagen {{number}}',
   },
   sorting: {
@@ -66,7 +66,7 @@ const es: Locale = {
     alternative: 'Buscar en lugar de',
   },
   viewType: {
-    label: 'Vista',
+    label: 'Ver',
     grid: 'Red',
     list: 'Lista',
   },

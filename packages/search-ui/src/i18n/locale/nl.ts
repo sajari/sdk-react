@@ -4,8 +4,8 @@ const nl: Locale = {
   common: {
     result: 'Resultaat',
     results: 'Resultaten',
-    items: 'Items',
-    item: 'Item',
+    items: 'Artikelen',
+    item: 'Artikel',
     loading: 'Bezig met laden',
     error: 'Fout',
   },
@@ -19,9 +19,9 @@ const nl: Locale = {
     all: 'Alle',
     rangeOver: 'Over {{value}}',
     rangeUnder: 'Onder {{value}}',
-    reset: 'Resetten',
+    reset: 'Reset',
     select: 'Selecteer een filter',
-    selected: '{{count}} filters geselecteerd',
+    selected: '{{count}} Filters geselecteerd',
     showLess: 'Laat minder zien',
     showMore: 'Laat meer zien',
     show: 'Toon filters',
@@ -37,8 +37,8 @@ const nl: Locale = {
     label: 'Paginering',
     previous: 'Vorige',
     next: 'De volgende',
-    page: 'Pagina {{page}}',
-    current: 'Pagina {{page}}, huidige pagina',
+    page: 'Bladzijde {{page}}',
+    current: 'Bladzijde {{page}}, huidige pagina',
   },
   results: {
     empty: {
@@ -52,7 +52,7 @@ const nl: Locale = {
       outOfStock: 'Geen voorraad meer',
       newArrival: 'Nieuwe aankomst',
     },
-    previewImagesContainer: "{{product}}'s beelden",
+    previewImagesContainer: '{{product}} afbeeldingen',
     previewImage: '{{product}} beeldnummer {{number}}',
   },
   sorting: {
@@ -66,7 +66,7 @@ const nl: Locale = {
     alternative: 'Zoek in plaats daarvan voor',
   },
   viewType: {
-    label: 'Visie',
+    label: 'Weergave',
     grid: 'Raster',
     list: 'Lijst',
   },

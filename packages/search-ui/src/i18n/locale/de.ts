@@ -35,10 +35,10 @@ const de: Locale = {
   },
   pagination: {
     label: 'Seitennummerierung',
-    previous: 'Bisherige',
-    next: 'Nächster',
-    page: 'Seite {{page}}',
-    current: 'Seite {{page}}, aktuelle seite',
+    previous: 'Vorherige',
+    next: 'Nächste',
+    page: 'Buchseite {{page}}',
+    current: 'Buchseite {{page}}, aktuelle Seite',
   },
   results: {
     empty: {
@@ -49,11 +49,11 @@ const de: Locale = {
   result: {
     status: {
       onSale: 'Im Angebot',
-      outOfStock: 'Nicht vorrättig',
+      outOfStock: 'Ausverkauft',
       newArrival: 'Neuankömmling',
     },
-    previewImagesContainer: '{{product}} s bilder',
-    previewImage: '{{product}} bildnummer {{number}}',
+    previewImagesContainer: '{{product}} Bildern',
+    previewImage: '{{product}} Bildnummer {{number}}',
   },
   sorting: {
     label: 'Sortieren',
