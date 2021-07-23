@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.4.2
+
+### Patch Changes
+
+- [`26fbe6e7`](https://github.com/sajari/sdk-react/commit/26fbe6e7e7ada9110cf230d24247fad823a32fd7) [#571](https://github.com/sajari/sdk-react/pull/571) Thanks [@tuanddd](https://github.com/tuanddd)! - Update translation, add translation for Italian
+
 ## 3.4.1
 
 ### Patch Changes
