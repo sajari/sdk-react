@@ -5,6 +5,7 @@ import de from './locale/de';
 import en from './locale/en';
 import es from './locale/es';
 import fr from './locale/fr';
+import it from './locale/it';
 import nl from './locale/nl';
 
 i18n.use(LanguageDetector).init({
@@ -18,6 +19,7 @@ i18n.use(LanguageDetector).init({
     es,
     fr,
     nl,
+    it,
   },
   fallbackLng: 'en',
   interpolation: {
