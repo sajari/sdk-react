@@ -4,7 +4,7 @@ const fr: Locale = {
   common: {
     result: 'Résultat',
     results: 'Résultats',
-    items: 'Éléments',
+    items: 'Articles',
     item: 'Article',
     loading: 'Chargement',
     error: 'Erreur',
@@ -17,18 +17,18 @@ const fr: Locale = {
   },
   filter: {
     all: 'Tout',
-    rangeOver: 'Sur {{value}}',
+    rangeOver: 'Plus de {{value}}',
     rangeUnder: 'Sous {{value}}',
     reset: 'Réinitialiser',
     select: 'Sélectionnez un filtre',
-    selected: '{{count}} filtres sélectionnés',
+    selected: '{{count}} Filtres sélectionnés',
     showLess: 'Montrer moins',
     showMore: 'Montre plus',
     show: 'Afficher les filtres',
     hide: 'Masquer les filtres',
   },
   input: {
-    placeholder: 'Rechercher',
+    placeholder: 'Chercher',
   },
   resultsPerPage: {
     label: 'Résultats',
@@ -36,7 +36,7 @@ const fr: Locale = {
   pagination: {
     label: 'Pagination',
     previous: 'Précédent',
-    next: 'Suivant',
+    next: 'Prochain',
     page: 'Page {{page}}',
     current: 'Page {{page}}, page actuelle',
   },
@@ -53,7 +53,7 @@ const fr: Locale = {
       newArrival: 'Nouvelle arrivee',
     },
     previewImagesContainer: '{{product}} images',
-    previewImage: "{{product}}  [Produit] numéro d'image {{number}}",
+    previewImage: "{{product}} numéro d'image {{number}}",
   },
   sorting: {
     label: 'Sorte',
