@@ -11,6 +11,7 @@ import {
   Variables,
 } from '@sajari/react-search-ui';
 import { search } from '@sajari/server';
+import { GetStaticProps } from 'next';
 import * as React from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -55,32 +56,6 @@ interface Props {
   initialResponse: string;
 }
 
-// This gets called on every request
-export async function getServerSideProps() {
-  const initialResponse = await search({
-    pipeline,
-    variables,
-    fields,
-    filters: [priceRangeFilter],
-  });
-
-  // If we couldn't get an initial response server side, render client side
-  if (initialResponse === null) {
-    return {
-      props: {
-        notFound: true,
-      },
-    };
-  }
-
-  // Pass data to the page via props
-  return {
-    props: {
-      initialResponse,
-    },
-  };
-}
-
 const RawResults = () => {
   const { results } = useSearchContext();
   const { options } = useFilter('price-range');
@@ -114,5 +89,30 @@ const Page = ({ initialResponse }: Props) => (
     </SSRProvider>
   </SearchProvider>
 );
+
+export const getStaticProps: GetStaticProps = async () => {
+  const initialResponse = await search({
+    pipeline,
+    variables,
+    fields,
+    filters: [priceRangeFilter],
+  });
+
+  // If we couldn't get an initial response server side, render client side
+  if (initialResponse === null) {
+    return {
+      props: {
+        notFound: true,
+      },
+    };
+  }
+
+  // Pass data to the page via props
+  return {
+    props: {
+      initialResponse,
+    },
+  };
+};
 
 export default Page;
