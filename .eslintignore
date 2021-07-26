@@ -12,5 +12,5 @@ tsdx.config.base.js
 types/**
 # enable linter later
 docs/**
-example/**
+examples/**
 coverage
