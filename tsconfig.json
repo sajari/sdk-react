@@ -1,9 +1,12 @@
 {
   "extends": "./tsconfig.build.json",
   "include": ["packages", "types", "scripts", "docs", "./types/jest-extend-expect.d.ts"],
+  "exclude": ["packages/**/dist/**"],
   "compilerOptions": {
     "allowJs": false,
     "baseUrl": ".",
+    "jsx": "react-jsx",
+    "noEmit": true,
     "typeRoots": ["./node_modules/@types", "./types"],
     "paths": {
       "@sajari/react-components": ["packages/components/src"],
