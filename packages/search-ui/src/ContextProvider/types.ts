@@ -33,7 +33,7 @@ export interface SearchUIContextProviderValues {
       newArrivalStatus?: string;
       template?: {
         container?: string;
-        resultContainer: string;
+        resultContainer?: string;
       };
     };
     sorting?: {
