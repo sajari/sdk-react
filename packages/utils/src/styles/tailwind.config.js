@@ -52,6 +52,7 @@ export default {
         '(screen-12)': 'calc(100vh - 3rem)',
         '(screen-16)': 'calc(100vh - 4rem)',
         '(screen-20)': 'calc(100vh - 5rem)',
+        '(full-12)': 'calc(100% - 3rem)',
       },
     },
   },
