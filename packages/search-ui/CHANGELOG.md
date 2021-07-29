@@ -1,5 +1,20 @@
 # Change Log
 
+## 3.4.4
+
+### Patch Changes
+
+- [`6f34914a`](https://github.com/sajari/sdk-react/commit/6f34914ae92f850f7009bbbbb2c661217deaf632) [#580](https://github.com/sajari/sdk-react/pull/580) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix the issue when the footer of the modal gets hidden on iPad. It was because we used `vh` to limit the max height of the modal content but on mobile browsers, the bottom bar is not part the the `100vh` height so the bottom UI will be cut off when the address bar is visible. For more details, see https://chanind.github.io/javascript/2019/09/28/avoid-100vh-on-mobile-web.html.
+
+* [`7ba8ab34`](https://github.com/sajari/sdk-react/commit/7ba8ab3406e460331dee7b30b23c48cf17ca1892) [#579](https://github.com/sajari/sdk-react/pull/579) Thanks [@tuanddd](https://github.com/tuanddd)! - Make custom class `resultContainer` optional
+
+- [`995c5117`](https://github.com/sajari/sdk-react/commit/995c5117e9a053a79dc6638b02243b60b155a6ae) [#576](https://github.com/sajari/sdk-react/pull/576) Thanks [@wwalser](https://github.com/wwalser)! - Updated dependencies in order to create a more reliable build. This should have no runtime side effects but because it alters dependencies it felt best to do a patch version bump.
+
+- Updated dependencies [[`6f34914a`](https://github.com/sajari/sdk-react/commit/6f34914ae92f850f7009bbbbb2c661217deaf632), [`995c5117`](https://github.com/sajari/sdk-react/commit/995c5117e9a053a79dc6638b02243b60b155a6ae)]:
+  - @sajari/react-components@1.8.3
+  - @sajari/react-sdk-utils@1.3.15
+  - @sajari/react-hooks@3.1.1
+
 ## 3.4.3
 
 ### Patch Changes

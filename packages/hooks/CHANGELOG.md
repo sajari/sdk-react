@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.1.1
+
+### Patch Changes
+
+- [`995c5117`](https://github.com/sajari/sdk-react/commit/995c5117e9a053a79dc6638b02243b60b155a6ae) [#576](https://github.com/sajari/sdk-react/pull/576) Thanks [@wwalser](https://github.com/wwalser)! - Updated dependencies in order to create a more reliable build. This should have no runtime side effects but because it alters dependencies it felt best to do a patch version bump.
+
+- Updated dependencies [[`6f34914a`](https://github.com/sajari/sdk-react/commit/6f34914ae92f850f7009bbbbb2c661217deaf632), [`995c5117`](https://github.com/sajari/sdk-react/commit/995c5117e9a053a79dc6638b02243b60b155a6ae)]:
+  - @sajari/react-sdk-utils@1.3.15
+
 ## 3.1.0
 
 ### Minor Changes
