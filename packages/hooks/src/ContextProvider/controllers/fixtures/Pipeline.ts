@@ -4,3 +4,9 @@ export const pipeline1 = {
   endpoint: 'test.endpoint',
   name: 'pipeline.name',
 };
+
+export const customConfigPipeline = {
+  ...pipeline1,
+  clickTokenURL: 'https://example.com',
+  userAgent: 'test-user-agent',
+};
