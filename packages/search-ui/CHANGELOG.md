@@ -1,5 +1,15 @@
 # Change Log
 
+## 3.4.5
+
+### Patch Changes
+
+- [`dd9a8790`](https://github.com/sajari/sdk-react/commit/dd9a8790bd763246b754ec016ffce2ddfccfebb6) [#581](https://github.com/sajari/sdk-react/pull/581) Thanks [@wwalser](https://github.com/wwalser)! - feat: support custom clicktracking url so we can test in non-prod environments
+
+- Updated dependencies [[`dd9a8790`](https://github.com/sajari/sdk-react/commit/dd9a8790bd763246b754ec016ffce2ddfccfebb6)]:
+  - @sajari/react-hooks@3.2.0
+  - @sajari/react-sdk-utils@1.3.16
+
 ## 3.4.4
 
 ### Patch Changes

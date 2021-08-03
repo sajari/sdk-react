@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.3.16
+
+### Patch Changes
+
+- [`dd9a8790`](https://github.com/sajari/sdk-react/commit/dd9a8790bd763246b754ec016ffce2ddfccfebb6) [#581](https://github.com/sajari/sdk-react/pull/581) Thanks [@wwalser](https://github.com/wwalser)! - feat: support custom clicktracking url so we can test in non-prod environments
+
 ## 1.3.15
 
 ### Patch Changes
