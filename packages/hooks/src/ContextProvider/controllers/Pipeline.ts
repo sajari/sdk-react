@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { isSSR, isString } from '@sajari/react-sdk-utils';
+import { isNullOrUndefined, isSSR, isString } from '@sajari/react-sdk-utils';
 import { Client } from '@sajari/sdk-js';
 
 import { EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED, EVENT_SEARCH_SENT } from '../events';
@@ -68,10 +68,10 @@ export class Pipeline {
     }
 
     const clientConfig: { [key: string]: string } = {};
-    if (typeof config.userAgent !== 'undefined') {
+    if (!isNullOrUndefined(config.userAgent)) {
       clientConfig.userAgent = config.userAgent;
     }
-    if (typeof config.clickTokenURL !== 'undefined') {
+    if (!isNullOrUndefined(config.clickTokenURL)) {
       clientConfig.clickTokenURL = config.clickTokenURL;
     }
 
