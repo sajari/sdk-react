@@ -1,6 +1,6 @@
 {
   "name": "@sajari/react-sdk-utils",
-  "version": "1.3.16",
+  "version": "1.3.17",
   "description": "Shared utils for the Sajari React packages.",
   "sideEffects": false,
   "repository": {

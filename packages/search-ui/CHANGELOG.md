@@ -1,5 +1,15 @@
 # Change Log
 
+## 3.4.6
+
+### Patch Changes
+
+- [`5fb0a7f0`](https://github.com/sajari/sdk-react/commit/5fb0a7f0008f7b96a6257c6d35cb41ba1496ec2c) [#583](https://github.com/sajari/sdk-react/pull/583) Thanks [@wwalser](https://github.com/wwalser)! - chore: slight code quality problem missed in code review
+
+- Updated dependencies [[`5fb0a7f0`](https://github.com/sajari/sdk-react/commit/5fb0a7f0008f7b96a6257c6d35cb41ba1496ec2c)]:
+  - @sajari/react-hooks@3.2.1
+  - @sajari/react-sdk-utils@1.3.17
+
 ## 3.4.5
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.3.17
+
+### Patch Changes
+
+- [`5fb0a7f0`](https://github.com/sajari/sdk-react/commit/5fb0a7f0008f7b96a6257c6d35cb41ba1496ec2c) [#583](https://github.com/sajari/sdk-react/pull/583) Thanks [@wwalser](https://github.com/wwalser)! - chore: slight code quality problem missed in code review
+
 ## 1.3.16
 
 ### Patch Changes
