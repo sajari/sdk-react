@@ -13,14 +13,18 @@ const events = [EVENT_SEARCH_SENT, EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED]
 
 type QueryPipeline = ReturnType<Client['pipeline']>;
 
+type PipelineConfig = {
+  account: string;
+  collection: string;
+  endpoint?: string;
+  key?: string;
+  secret?: string;
+  userAgent?: string;
+  clickTokenURL?: string;
+};
+
 export class Pipeline {
-  public config: {
-    account: string;
-    collection: string;
-    endpoint?: string;
-    key?: string;
-    secret?: string;
-  };
+  public config: PipelineConfig;
 
   private pipeline: QueryPipeline;
 
@@ -44,13 +48,7 @@ export class Pipeline {
    * @param analyticsAdapters
    */
   constructor(
-    config: {
-      account: string;
-      collection: string;
-      endpoint?: string;
-      key?: string;
-      secret?: string;
-    },
+    config: PipelineConfig,
     name: string | { name: string; version?: string },
     tracking: ClickTracking | PosNegTracking | NoTracking = new NoTracking(),
     analyticsAdapters = [GoogleAnalytics],
@@ -69,11 +67,19 @@ export class Pipeline {
       p.version = name.version;
     }
 
+    const clientConfig: { [key: string]: string } = {};
+    if (typeof config.userAgent !== 'undefined') {
+      clientConfig.userAgent = config.userAgent;
+    }
+    if (typeof config.clickTokenURL !== 'undefined') {
+      clientConfig.clickTokenURL = config.clickTokenURL;
+    }
+
     // Only use key/secret in SSR contexts
     if (isSSR()) {
-      this.client = new Client(account, collection, endpoint, key, secret);
+      this.client = new Client(account, collection, endpoint, key, secret, clientConfig);
     } else {
-      this.client = new Client(account, collection, endpoint);
+      this.client = new Client(account, collection, endpoint, undefined, undefined, clientConfig);
     }
 
     this.pipeline = this.client.pipeline(p.name as string, p.version);

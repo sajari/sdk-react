@@ -1,7 +1,7 @@
 import { waitFor } from '@testing-library/react';
 
 import { EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED } from '../events';
-import { pipeline1 } from './fixtures/Pipeline';
+import { customConfigPipeline, pipeline1 } from './fixtures/Pipeline';
 import { Pipeline } from './Pipeline';
 import { ClickTracking } from './tracking';
 
@@ -41,5 +41,19 @@ describe('Pipeline', () => {
 
     expect(onResultClick).toHaveBeenCalled();
     expect(onResultClick.mock.results[0].value).toEqual(data);
+  });
+
+  it('should set a custom click token url', () => {
+    const clickTokenURL = 'https://example.com';
+    const pipeline = new Pipeline({ ...pipeline1, clickTokenURL }, pipeline1.name, new ClickTracking());
+
+    expect(pipeline.getClient().config.clickTokenURL).toEqual(clickTokenURL);
+  });
+
+  it('should set a custom user agent', () => {
+    const userAgent = 'test user agent';
+    const pipeline = new Pipeline({ ...pipeline1, userAgent }, pipeline1.name, new ClickTracking());
+
+    expect(pipeline.getClient().config.userAgent).toEqual(userAgent);
   });
 });
