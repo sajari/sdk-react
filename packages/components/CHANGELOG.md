@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.9.0
+
+### Minor Changes
+
+- [`b69bc724`](https://github.com/sajari/sdk-react/commit/b69bc724cab0e2cd956520e58a110fef4213891b) [#586](https://github.com/sajari/sdk-react/pull/586) Thanks [@wwalser](https://github.com/wwalser)! - feat: support custom zindex on modal for use by overlay widget
+  fix: add autoFocus to input component props type
+
 ## 1.8.3
 
 ### Patch Changes
