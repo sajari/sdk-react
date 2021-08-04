@@ -1,5 +1,5 @@
 import { css, keyframes } from '@emotion/core';
-import { mapStyles } from '@sajari/react-sdk-utils';
+import { isNumber, mapStyles } from '@sajari/react-sdk-utils';
 import tw from 'twin.macro';
 
 import { ModalProps, ModalSize } from './types';
@@ -43,6 +43,14 @@ const animateModalOut = keyframes`
         transform: scale(0.95);
     }
 `;
+
+const zIndexOrDefault = (index?: number) => {
+  return isNumber(index)
+    ? css`
+        z-index: ${index};
+      `
+    : tw`z-max`;
+};
 
 function getModalSize(size: ModalSize) {
   switch (size) {
@@ -95,13 +103,16 @@ export function useModalStyles(props: ModalProps) {
     size = 'md',
     fullWidth = false,
     fullHeight = false,
+    zIndex,
   } = props;
 
   const sizeStyle = getModalSize(size);
+  const zOrDefault = zIndexOrDefault(zIndex);
 
   const styles = {
     overlay: [
-      tw`fixed inset-0 z-max transition-opacity backdrop-blur-1 `,
+      zOrDefault,
+      tw`fixed inset-0 transition-opacity backdrop-blur-1 `,
       open
         ? css`
             animation: ${overlayAnimationIn ?? animateOverlayIn} ${animationDuration}ms ease-in;
@@ -112,7 +123,8 @@ export function useModalStyles(props: ModalProps) {
     ],
     overlayInner: [tw`absolute inset-0 bg-gray-700 opacity-75`],
     container: [
-      tw`fixed inset-0 z-max flex items-start`,
+      zOrDefault,
+      tw`fixed inset-0 flex items-start`,
       fullWidth ? tw`p-0` : tw`p-10`,
       open
         ? css`
@@ -123,8 +135,9 @@ export function useModalStyles(props: ModalProps) {
           `,
     ],
     content: [
-      tw`relative z-max flex flex-col flex-1 w-full overflow-auto scrolling-touch transition-all transform bg-white`,
-      tw`outline-none shadow-lg`,
+      zOrDefault,
+      tw`relative flex flex-col flex-1 w-full overflow-auto scrolling-touch transition-all transform bg-white`,
+      tw`shadow-lg outline-none`,
       center ? tw`m-auto` : tw`mx-auto`,
       fullWidth ? tw`max-w-full` : sizeStyle,
       fullWidth ? tw`rounded-none` : tw`rounded-xl`,

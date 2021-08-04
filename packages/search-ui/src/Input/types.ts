@@ -13,6 +13,7 @@ export interface InputProps<T>
     | 'showDropdownTips'
     | 'variant'
     | 'size'
+    | 'autoFocus'
   > {
   mode?: ComboboxProps<T>['mode'] | 'instant';
   /* Sets how many autocomplete suggestions are shown in the box below the search input */
