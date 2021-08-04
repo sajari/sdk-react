@@ -92,4 +92,5 @@ export interface ModalProps extends BoxProps {
   fullWidth?: boolean;
   /** Set the height of the content full screen */
   fullHeight?: boolean;
+  zIndex?: number;
 }
