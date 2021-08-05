@@ -49,6 +49,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     inputClassName,
     inputContainerClassName,
     inputElement,
+    portalContainer = isSSR() ? null : document.body,
     autoFocus = false,
     variant = 'outline',
     ...rest
@@ -333,7 +334,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     if (isSSR()) {
       return null;
     }
-    return ReactDOM.createPortal(<Dropdown />, document.body);
+    return ReactDOM.createPortal(<Dropdown />, portalContainer ?? document.body);
   }, []);
 
   useEffect(() => {

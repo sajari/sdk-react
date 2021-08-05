@@ -93,6 +93,8 @@ interface Props<T> {
   }) => React.ReactNode;
   /** The input element, used when you want to hook into an existing input element */
   inputElement?: React.RefObject<HTMLInputElement>;
+  /** The portal container which will be the container for the combobox's dropdown */
+  portalContainer?: HTMLElement | null;
   /** Changing the appearance of the input */
   variant?: ComboboxVariant;
 }
