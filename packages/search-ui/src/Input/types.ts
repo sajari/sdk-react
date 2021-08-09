@@ -7,6 +7,7 @@ export interface InputProps<T>
     | 'onSelect'
     | 'onChange'
     | 'inputElement'
+    | 'portalContainer'
     | 'enableVoice'
     | 'className'
     | 'showPoweredBy'
