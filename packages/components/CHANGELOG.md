@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.10.0
+
+### Minor Changes
+
+- [`3c93976b`](https://github.com/sajari/sdk-react/commit/3c93976b04e3629b03ea778bbe4aa8aaba13f093) [#588](https://github.com/sajari/sdk-react/pull/588) Thanks [@tuanddd](https://github.com/tuanddd)! - Add `portalContainer` prop to combobox
+
 ## 1.9.0
 
 ### Minor Changes
