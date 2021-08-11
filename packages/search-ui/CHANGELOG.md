@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.6.1
+
+### Patch Changes
+
+- [`35ee81f3`](https://github.com/sajari/sdk-react/commit/35ee81f3fe45037da75c8b04c1a021929696be17) [#591](https://github.com/sajari/sdk-react/pull/591) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix multiple suggestion inputs not showing dropdown
+
 ## 3.6.0
 
 ### Minor Changes
