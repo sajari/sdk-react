@@ -63,7 +63,8 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
 
   useEffect(() => {
     if (mode === 'suggestions') {
-      setInternalSuggestions(suggestions.splice(0, maxSuggestions));
+      const arr = [...suggestions];
+      setInternalSuggestions(arr.splice(0, maxSuggestions));
     } else if (mode === 'results') {
       setInternalSuggestions(
         results.splice(0, maxSuggestions).map((result) => {
