@@ -27,6 +27,7 @@ const Results = (props: ResultsProps) => {
     styles: stylesProp,
     resultContainerTemplateElement,
     resultTemplate,
+    onResetTemplate,
     ...rest
   } = props;
   const [width, setWidth] = React.useState(0);
@@ -92,9 +93,19 @@ const Results = (props: ResultsProps) => {
   }
 
   if (checkValidResultTemplate(resultTemplate)) {
-    const TemplateErrorMessage = () => <Message title={t('common:error')} body={t('errors:template')} showReset />;
+    const TemplateErrorMessage = () => (
+      <Message
+        title={t('errors:template:title')}
+        body={t('errors:template:body')}
+        showReset
+        onReset={onResetTemplate}
+      />
+    );
     return (
-      <ErrorBoundary FallbackComponent={TemplateErrorMessage}>
+      <ErrorBoundary
+        FallbackComponent={TemplateErrorMessage}
+        resetKeys={[`${resultTemplate.html}${resultTemplate.css}`]}
+      >
         <TemplateResults
           results={results.map((r) => r.values)}
           resultTemplate={resultTemplate}

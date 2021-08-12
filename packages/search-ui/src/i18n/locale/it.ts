@@ -12,7 +12,11 @@ const it: Locale = {
   errors: {
     authorization: 'Autorizzazione per questa richiesta non è riuscita. Per favore riprova.',
     connection: 'Si prega di controllare la connessione di rete e riprova.',
-    template: "C'era qualcosa di sbagliato mentre analizzava il modello.",
+    template: {
+      title: 'Oops!',
+      body:
+        'Sembra che abbiamo difficoltà a analizzare il modello.<br/>Prova a annullare le modifiche o premere Reset di seguito per iniziare da zero.',
+    },
     generic: 'Qualcosa è andato storto. Si prega di controllare di nuovo.',
   },
   filter: {

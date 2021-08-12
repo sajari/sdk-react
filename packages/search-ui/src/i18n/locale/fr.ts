@@ -12,7 +12,11 @@ const fr: Locale = {
   errors: {
     authorization: "L'autorisation de cette demande a échoué. Veuillez réessayer.",
     connection: 'Veuillez vérifier votre connexion réseau et réessayer.',
-    template: 'There was something wrong while parsing the template.',
+    template: {
+      title: 'Oups!',
+      body:
+        'On dirait que nous avons du mal à analyser le modèle.<br/>Essayez de défaire vos modifications ou de passer la réinitialisation ci-dessous pour commencer à partir de zéro.',
+    },
     generic: "Quelque chose s'est mal passé. S'il vous plaît vérifier à nouveau.",
   },
   filter: {

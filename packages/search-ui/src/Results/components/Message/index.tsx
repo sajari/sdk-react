@@ -13,6 +13,7 @@ const Message = (props: MessageProps) => {
     body,
     appearance,
     showReset = false,
+    onReset = () => {},
     styles: stylesProp,
     disableDefaultStyles = false,
     ...rest
@@ -27,6 +28,7 @@ const Message = (props: MessageProps) => {
     resetFilters();
     setSorting('');
     setQuery('');
+    onReset();
   }, []);
 
   const renderResetButton = showReset ? (

@@ -240,14 +240,15 @@ function Example() {
 
 ## Props
 
-| Name                             | Type                                         | Default   | Description                                                                                                                     |
-| -------------------------------- | -------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `appearance`                     | `list` \| `grid`                             |           | The controlled value, passing this means you're ignoring the value in context.                                                  |
-| `defaultAppearance`              | `list` \| `grid`                             | `list`    | The uncontrolled value, will override the context value on mount.                                                               |
-| `showImage`                      | `boolean`                                    | `true`    | Sets to show images                                                                                                             |
-| `showVariantImage`               | `boolean`                                    | `false`   | Sets to show variant images                                                                                                     |
-| `showStatus`                     | `boolean`                                    | `false`   | Sets to show statuses                                                                                                           |
-| `imageAspectRatio`               | `number` \| `{ list: number, grid: number}`  | `1`       | The aspect ratio to force images to render to.                                                                                  |
-| `imageObjectFit`                 | `string` \| `{ list: string, grid: string }` | `contain` | The aspect ratio to force images to render to. Valid `objectFit` values can be found in [image props](/components/image#props). |
-| `resultTemplate`                 | `{html: string, css: string}`                |           | The template code use to render a single result item.                                                                           |
-| `resultContainerTemplateElement` | `"div" \| "p" \| ...`                        | `"div"`   | The html element which will wrap each `resultTemplate`.                                                                         |
+| Name                             | Type                                         | Default    | Description                                                                                                                     |
+| -------------------------------- | -------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `appearance`                     | `list` \| `grid`                             |            | The controlled value, passing this means you're ignoring the value in context.                                                  |
+| `defaultAppearance`              | `list` \| `grid`                             | `list`     | The uncontrolled value, will override the context value on mount.                                                               |
+| `showImage`                      | `boolean`                                    | `true`     | Sets to show images                                                                                                             |
+| `showVariantImage`               | `boolean`                                    | `false`    | Sets to show variant images                                                                                                     |
+| `showStatus`                     | `boolean`                                    | `false`    | Sets to show statuses                                                                                                           |
+| `imageAspectRatio`               | `number` \| `{ list: number, grid: number}`  | `1`        | The aspect ratio to force images to render to.                                                                                  |
+| `imageObjectFit`                 | `string` \| `{ list: string, grid: string }` | `contain`  | The aspect ratio to force images to render to. Valid `objectFit` values can be found in [image props](/components/image#props). |
+| `resultTemplate`                 | `{html: string, css: string}`                |            | The template code use to render a single result item.                                                                           |
+| `resultContainerTemplateElement` | `"div" \| "p" \| ...`                        | `"div"`    | The html element which will wrap each `resultTemplate`.                                                                         |
+| `onResetTemplate`                | `() => void`                                 | `() => {}` | The callback for when the reset button was clicked.                                                                             |
