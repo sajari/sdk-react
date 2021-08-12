@@ -12,7 +12,11 @@ const nl: Locale = {
   errors: {
     authorization: 'Autorisatie voor dit verzoek is mislukt. Probeer het opnieuw.',
     connection: 'Controleer uw netwerkverbinding en probeer het opnieuw.',
-    template: 'There was something wrong while parsing the template.',
+    template: {
+      title: 'Oeps!',
+      body:
+        'Het lijkt erop dat we problemen hebben met het parseren van de sjabloon.<br/>Probeer uw wijzigingen ongedaan te maken of HIT RESET HIERONDER om helemaal opnieuw te beginnen.',
+    },
     generic: 'Er is iets fout gegaan. Controleer alstublieft nog een keer.',
   },
   filter: {

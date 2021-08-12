@@ -26,6 +26,7 @@ export interface ResultsProps extends BoxProps {
   gap?: GapValue | Record<number, GapValue>;
   resultTemplate?: ResultTemplate;
   resultContainerTemplateElement?: TemplateResultProps['as'];
+  onResetTemplate?: () => void;
 }
 
 export { ResultValues };

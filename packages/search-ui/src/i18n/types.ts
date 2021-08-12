@@ -19,7 +19,10 @@ export type Locale = {
     /** Shown when there is no network connection */
     connection: string;
     /** Shown when there is an error parsing the result template */
-    template: string;
+    template: {
+      title: string;
+      body: string;
+    };
     /** Fallback error message when no specific error message is found */
     generic: string;
   };
