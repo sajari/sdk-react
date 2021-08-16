@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.7.0
+
+### Minor Changes
+
+- [`2c5831db`](https://github.com/sajari/sdk-react/commit/2c5831db1db8c9841ef77dac74f77d213e314b9f) [#594](https://github.com/sajari/sdk-react/pull/594) Thanks [@tuanddd](https://github.com/tuanddd)! - Add translations and error recovery feature for TemplateResult
+
 ## 3.6.1
 
 ### Patch Changes
