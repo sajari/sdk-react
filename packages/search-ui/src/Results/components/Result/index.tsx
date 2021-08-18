@@ -4,7 +4,6 @@ import { ClickTracking } from '@sajari/react-hooks';
 import {
   __DEV__,
   decodeHTML,
-  formatPrice,
   getStylesObject,
   isArray,
   isEmpty,
@@ -19,6 +18,8 @@ import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../../../ContextProvider';
 import { applyClickTracking, applyPosNegTracking } from '../../../utils';
+import { useProductStatuses } from '../../useProductStatuses';
+import { useRenderPrice } from '../../useRenderPrice';
 import useResultStyles from './styles';
 import { ResultProps } from './types';
 
@@ -67,71 +68,18 @@ const Result = React.memo(
       onClick: onClickProp,
       posNegLocalStorageManager,
     });
-    const { title, description, subtitle, image, price, originalPrice, salePrice, quantity, createdAt } = values;
+    const { title, description, subtitle, image } = values;
     const [imageSrc, setImageSrc] = useState(isArray(image) ? image[0] : image);
     const [hoverImageSrc] = useState(isArray(image) && !showVariantImage ? image[1] : undefined);
     const rating = Number(values.rating);
     const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
     const onClick = tracking instanceof ClickTracking ? clickTrackingOnClick : posNegOnClick;
     const newTabProps = openNewTab ? { target: '_blank', rel: 'noopener' } : {};
-
-    // Determine if the result is on sale
-    const isOnSale = React.useMemo(() => {
-      if (!price || (!originalPrice && !salePrice)) {
-        return false;
-      }
-
-      const parsePrices = (input: string | Array<string>) => (isArray(input) ? input : [input]).map(Number);
-      const prices = parsePrices(price);
-      const originalPrices = !originalPrice ? false : parsePrices(originalPrice);
-      const salePrices = !salePrice ? false : parsePrices(salePrice);
-
-      if (originalPrices) {
-        if (originalPrices.length >= prices.length) {
-          return prices.some((p, index) => isNumber(p) && isNumber(originalPrices[index]) && p < originalPrices[index]);
-        }
-        if (originalPrices && originalPrices.length === 1 && prices.length > 1) {
-          const [original] = originalPrices;
-          return isNumber(original) && prices.some((p) => isNumber(p) && p < original);
-        }
-      }
-
-      if (salePrices) {
-        if (!salePrices.some((p) => p !== 0)) {
-          return false;
-        }
-        if (salePrices.length >= prices.length) {
-          return prices.some((p, index) => isNumber(p) && isNumber(salePrices[index]) && p > salePrices[index]);
-        }
-        if (salePrices && salePrices.length === 1 && prices.length > 1) {
-          const [sale] = salePrices;
-          return isNumber(sale) && prices.some((p) => isNumber(p) && p > sale);
-        }
-      }
-
-      return false;
-    }, []);
-
-    const isOutOfStock = React.useMemo(() => {
-      if (isEmpty(quantity)) {
-        return false;
-      }
-      const parseQuantities = (input: string | Array<string>) => (isArray(input) ? input : [input]).map(Number);
-      const quantities = parseQuantities(quantity);
-
-      return quantities[activeImageIndex] === 0;
-    }, [activeImageIndex]);
-
-    const isNewArrival = React.useMemo(() => {
-      if (!createdAt) {
-        return false;
-      }
-
-      const parsedCreatedAt = dayjs(createdAt);
-      const current = dayjs();
-
-      return current.diff(parsedCreatedAt, 'day') <= 30 && activeImageIndex === 0;
-    }, [createdAt, activeImageIndex]);
+    const { isOnSale, isOutOfStock, isNewArrival, onSaleText, newArrivalText, outOfStockText } = useProductStatuses({
+      activeImageIndex,
+      values,
+    });
+    const priceRenderData = useRenderPrice({ values, isOnSale, currency, language, activeImageIndex });
 
     const styles = getStylesObject(
       useResultStyles({ ...props, appearance, isOnSale, isNewArrival, isOutOfStock }),
@@ -192,48 +140,19 @@ const Result = React.memo(
     };
 
     const renderPrice = () => {
-      if (isEmpty(price)) return null;
-      const activePrice = isArray(price) ? price[activeImageIndex] ?? price : price;
-      if (isEmpty(activePrice)) return null;
-      let priceToDisplay: string;
-      let markedDownFromPriceToDisplay: string | undefined;
-
-      if (originalPrice && isOnSale) {
-        // show `originalPrice` with strikethrough
-        const activeOriginalPrice = isArray(originalPrice)
-          ? originalPrice[activeImageIndex] ?? originalPrice
-          : originalPrice ?? '';
-        priceToDisplay = formatPrice(activePrice, { currency, language });
-        markedDownFromPriceToDisplay = formatPrice(activeOriginalPrice, { currency, language });
-      } else if (salePrice && isOnSale) {
-        // show `price` with strikethrough
-        const activeSalePrice = isArray(salePrice) ? salePrice[activeImageIndex] ?? salePrice : salePrice ?? '';
-        if (activeSalePrice !== '0') {
-          priceToDisplay = formatPrice(activeSalePrice, { currency, language });
-          markedDownFromPriceToDisplay = formatPrice(activePrice, { currency, language });
-        } else {
-          // Sajari engine coerces nullish doubles to 0. We need to check for '0' salePrice and
-          // print the ordinary price instead to avoid showing the product on sale for free.
-          priceToDisplay = formatPrice(activePrice, { currency, language });
-        }
-      } else {
-        // Standard price, show `price` and with no sale styling.
-        priceToDisplay = formatPrice(activePrice, { currency, language });
-      }
-
       return (
         <Box css={styles.priceContainer}>
           <Text css={styles.price} className={priceClassName} disableDefaultStyles={disableDefaultStyles}>
-            {priceToDisplay}
+            {priceRenderData?.priceToDisplay}
           </Text>
 
-          {markedDownFromPriceToDisplay && (
+          {priceRenderData?.markedDownFromPriceToDisplay && (
             <Text
               css={styles.originalPrice}
               className={originalPriceClassName}
               disableDefaultStyles={disableDefaultStyles}
             >
-              {markedDownFromPriceToDisplay}
+              {priceRenderData.markedDownFromPriceToDisplay}
             </Text>
           )}
         </Box>
@@ -252,21 +171,21 @@ const Result = React.memo(
             className = outOfStockStatusClassName;
             css = undefined;
           }
-          text = t('status.outOfStock');
+          text = outOfStockText;
           break;
         case isNewArrival:
           if (!isEmpty(newArrivalStatusClassName)) {
             className = newArrivalStatusClassName;
             css = undefined;
           }
-          text = t('status.newArrival');
+          text = newArrivalText;
           break;
         case isOnSale:
           if (!isEmpty(onSaleStatusClassName)) {
             className = onSaleStatusClassName;
             css = undefined;
           }
-          text = t('status.onSale');
+          text = onSaleText;
           break;
         default:
           break;
