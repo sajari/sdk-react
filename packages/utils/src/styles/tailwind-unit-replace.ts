@@ -34,6 +34,9 @@ function processTheme(
 }
 
 export const replaceTailwindUnit = (opts: Options) => (userConfig: TailwindConfig): TailwindConfig => {
+  // mimics the way Tailwind resolve user's config
+  // https://github.com/tailwindlabs/tailwindcss/blob/master/src/util/resolveConfig.js#L259
+  // https://github.com/tailwindlabs/tailwindcss/blob/master/src/util/getAllConfigs.js
   const { theme, ...config } = resolveConfig([...getAllConfigs(userConfig)]);
   return {
     ...config,
