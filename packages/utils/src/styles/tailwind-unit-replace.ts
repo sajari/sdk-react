@@ -9,7 +9,7 @@ interface Options {
 
 // recursively walks object/array to find a string value,
 // then apply `replacer` to it
-function processTheme(
+export function processTheme(
   theme: Record<string, {} | string>,
   { exclude, replacer }: Omit<Options, 'exclude'> & { exclude: string[] },
 ) {
