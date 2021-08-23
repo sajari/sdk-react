@@ -18,7 +18,7 @@ describe('Text', () => {
 
     expect(element).toHaveProperty('textContent', 'Another test text');
     expect(element).toHaveProperty('tagName', 'SMALL');
-    expect(element).toHaveStyleRule('font-size', '0.875rem');
+    expect(element).toHaveStyleRule('font-size', '0.875em');
   });
 
   it('truncate', () => {
