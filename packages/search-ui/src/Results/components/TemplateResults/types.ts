@@ -1,8 +1,8 @@
 import { ResultValues } from '@sajari/react-hooks';
 
-import { ResultsProps, ResultTemplate } from '../../types';
+import type { ResultsProps, ResultTemplate } from '../../types';
 
-interface Props extends Pick<ResultsProps, 'resultContainerTemplateElement'> {
+interface Props extends Pick<ResultsProps, 'resultContainerTemplateElement' | 'showVariantImage'> {
   resultTemplate: ResultTemplate;
   results: ResultValues[];
 }

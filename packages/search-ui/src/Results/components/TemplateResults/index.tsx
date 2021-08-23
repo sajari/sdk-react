@@ -9,7 +9,7 @@ import { TemplateResultsProps } from './types';
 
 const TemplateResults = (props: TemplateResultsProps) => {
   const { customClassNames } = useSearchUIContext();
-  const { results, resultTemplate, resultContainerTemplateElement } = props;
+  const { results, resultTemplate, resultContainerTemplateElement, ...rest } = props;
   // Get the keys of a result, using Set to eliminate dups
   const keys = Array.from(
     results?.reduce((acc, cur) => {
@@ -42,6 +42,7 @@ const TemplateResults = (props: TemplateResultsProps) => {
           values={values}
           render={render}
           as={resultContainerTemplateElement}
+          {...rest}
         />
       ))}
     </div>

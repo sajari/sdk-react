@@ -108,6 +108,7 @@ const Results = (props: ResultsProps) => {
         resetKeys={[`${resultTemplate.html}${resultTemplate.css}`]}
       >
         <TemplateResults
+          showVariantImage={rest.showVariantImage}
           results={results.map((r) => r.values)}
           resultTemplate={resultTemplate}
           resultContainerTemplateElement={resultContainerTemplateElement}
