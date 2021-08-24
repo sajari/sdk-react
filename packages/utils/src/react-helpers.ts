@@ -36,8 +36,8 @@ export function cleanChildren(children: React.ReactChildren | React.ReactNode): 
   return Children.toArray(children).filter((child) => isValidElement(child)) as React.ReactElement[];
 }
 
-export function assignRef(ref: React.Ref<HTMLElement>, value: HTMLElement): ReturnType<typeof setRef> {
-  if (ref == null) {
+export function assignRef(ref: React.Ref<HTMLElement>, value: HTMLElement | null): ReturnType<typeof setRef> {
+  if (ref == null || value == null) {
     return;
   }
 
@@ -56,7 +56,7 @@ export function assignRef(ref: React.Ref<HTMLElement>, value: HTMLElement): Retu
  * @param refs refs to assign to value to
  */
 export function mergeRefs(...refs: Array<ReactRef<HTMLElement> | undefined>) {
-  return (value: HTMLElement) => {
+  return (value: HTMLElement | null) => {
     refs.forEach((ref) => ref && assignRef(ref, value));
   };
 }

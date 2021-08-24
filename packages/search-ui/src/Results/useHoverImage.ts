@@ -14,7 +14,8 @@ export function useHoverImage(props: Props) {
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const [secondImage, setSecondImage] = useState<HTMLImageElement | null>(null);
 
-  const onRefChange = useCallback((node: HTMLElement | null) => {
+  const onRefChange = useCallback((element: HTMLElement | null) => {
+    const node = element;
     if (node) {
       const img = node.querySelector('img[data-sj-first-image]') as HTMLImageElement;
       setImage(img);
@@ -22,16 +23,20 @@ export function useHoverImage(props: Props) {
   }, []);
 
   const onMouseEnter = useCallback(() => {
-    if (image && secondImage) {
-      image.style.opacity = '0';
-      secondImage.style.opacity = '100';
+    if (image && secondImage && showVariantImage) {
+      image.style.opacity = '0%';
+      secondImage.style.opacity = '100%';
+    } else if (image) {
+      image.style.opacity = '70%';
     }
   }, [image, secondImage]);
 
   const onMouseLeave = useCallback(() => {
-    if (image && secondImage) {
-      image.style.opacity = '100';
-      secondImage.style.opacity = '0';
+    if (image && secondImage && showVariantImage) {
+      image.style.opacity = '100%';
+      secondImage.style.opacity = '0%';
+    } else if (image) {
+      image.style.opacity = '100%';
     }
   }, [image, secondImage]);
 
@@ -41,7 +46,7 @@ export function useHoverImage(props: Props) {
       secondImageElement.src = hoverImageSrc;
       secondImageElement.dataset.sjSecondImage = '';
       secondImageElement.style.transition = 'opacity 0.2s ease-in';
-      secondImageElement.style.opacity = '0';
+      secondImageElement.style.opacity = '0%';
       secondImageElement.style.position = 'absolute';
       secondImageElement.style.top = '0';
       secondImageElement.style.left = '0';
@@ -64,8 +69,10 @@ export function useHoverImage(props: Props) {
 
   useEffect(() => {
     if (image) {
-      image.style.transition = 'opacity 0.2s ease-in';
-      image.style.opacity = '100';
+      if (!showVariantImage) {
+        image.style.transition = 'opacity 0.2s ease-in';
+        image.style.opacity = '100%';
+      }
       image.addEventListener('mouseenter', onMouseEnter);
       image.addEventListener('mouseleave', onMouseLeave);
     }
