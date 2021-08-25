@@ -10,16 +10,16 @@ describe('Heading', () => {
 
     expect(element).toHaveProperty('textContent', 'Test text');
     expect(element).toHaveProperty('tagName', 'H1');
-    expect(element).toHaveStyleRule('font-size', '1.5rem');
+    expect(element).toHaveStyleRule('font-size', '1.5em');
   });
 
   test.each([
-    ['h1', '1.5rem'],
-    ['h2', '1.25rem'],
-    ['h3', '1.125rem'],
-    ['h4', '1rem'],
-    ['h5', '0.875rem'],
-    ['h6', '0.75rem'],
+    ['h1', '1.5em'],
+    ['h2', '1.25em'],
+    ['h3', '1.125em'],
+    ['h4', '1em'],
+    ['h5', '0.875em'],
+    ['h6', '0.75em'],
   ])('<Heading as={%s}/> should have font-size %s', (asProp, expected) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { container } = render(<Heading as={asProp as React.ElementType<any>} />);

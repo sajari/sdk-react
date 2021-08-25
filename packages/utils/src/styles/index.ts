@@ -4,6 +4,8 @@ import isPropValid from '@emotion/is-prop-valid';
 import { TwStyle } from 'twin.macro';
 
 import { isNullOrUndefined } from '../assertion';
+import { default as tailwindConfig } from './tailwind.config';
+import { replaceTailwindUnit, toEM } from './tailwind-unit-replace';
 
 export function mapStyles<T = Record<string, (TwStyle | string | SerializedStyles)[]>>(
   styles: T,
@@ -42,7 +44,12 @@ export function filterProps(props?: Record<string, any>): Record<string, any> {
   }, {});
 }
 
+const tailwindConfigEM = replaceTailwindUnit({
+  exclude: ['fontFamily'],
+  replacer: toEM,
+})(tailwindConfig);
+
+export { tailwindConfigEM as tailwindConfig };
 export { default as styled } from './styled';
-export { default as tailwindConfig } from './tailwind.config';
 export { default as ThemeProvider } from './theming';
 export { ThemeProviderProps, useTheme } from './theming';
