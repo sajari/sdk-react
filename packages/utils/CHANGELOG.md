@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.4.0
+
+### Minor Changes
+
+- [`efbe9275`](https://github.com/sajari/sdk-react/commit/efbe927579a935489e5ee8c7f35db35293ea96aa) [#598](https://github.com/sajari/sdk-react/pull/598) Thanks [@huygn](https://github.com/huygn)! - Change Tailwind's units to EM instead of REM
+
+### Patch Changes
+
+- [`c803bd4c`](https://github.com/sajari/sdk-react/commit/c803bd4c5d7a5eed7372811df13852556755392f) [#602](https://github.com/sajari/sdk-react/pull/602) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Apply new Tailwind config to support `em` instead of `rem` for component packages.
+
 ## 1.3.17
 
 ### Patch Changes
