@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.9.3
+
+### Patch Changes
+
+- [`c803bd4c`](https://github.com/sajari/sdk-react/commit/c803bd4c5d7a5eed7372811df13852556755392f) [#602](https://github.com/sajari/sdk-react/pull/602) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Apply new Tailwind config to support `em` instead of `rem` for component packages.
+
 ## 1.9.2
 
 ### Patch Changes
