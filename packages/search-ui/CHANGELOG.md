@@ -1,5 +1,14 @@
 # Change Log
 
+## 3.8.1
+
+### Patch Changes
+
+- [`4e0b3afd`](https://github.com/sajari/sdk-react/commit/4e0b3afde0ee5ace8adbd6c8c4c5114ee3e0dd8a) [#603](https://github.com/sajari/sdk-react/pull/603) Thanks [@huygn](https://github.com/huygn)! - Fix broken combobox styling because spacing of child element is controlled by the font size of the parent container.
+
+- Updated dependencies [[`4e0b3afd`](https://github.com/sajari/sdk-react/commit/4e0b3afde0ee5ace8adbd6c8c4c5114ee3e0dd8a)]:
+  - @sajari/react-components@1.11.1
+
 ## 3.8.0
 
 ### Minor Changes
