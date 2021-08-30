@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.4.1
+
+### Patch Changes
+
+- [`16192d33`](https://github.com/sajari/sdk-react/commit/16192d3307471979abcd000d26141ebdbe710be6) [#607](https://github.com/sajari/sdk-react/pull/607) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix missing setting key for emotion cache which causes a warning if an app requires using multiple emotion caches.
+
 ## 1.4.0
 
 ### Minor Changes
