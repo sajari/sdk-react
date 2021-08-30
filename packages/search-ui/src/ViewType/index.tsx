@@ -45,6 +45,7 @@ const ViewType = (props: ViewTypeProps) => {
           size={size}
           appearance={viewType === 'list' ? 'primary' : undefined}
           aria-label={t('list')}
+          css={tw`m-0`}
         >
           &#8203;
           <IconSmallList />
