@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.9.5
+
+### Patch Changes
+
+- [`863785df`](https://github.com/sajari/sdk-react/commit/863785dfa0a67a03da75cd90445fad1c585f4eff) [#606](https://github.com/sajari/sdk-react/pull/606) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix range input handles overlap if min is to max.
+
+* [`16192d33`](https://github.com/sajari/sdk-react/commit/16192d3307471979abcd000d26141ebdbe710be6) [#607](https://github.com/sajari/sdk-react/pull/607) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix missing setting key for emotion cache which causes a warning if an app requires using multiple emotion caches.
+
 ## 1.9.4
 
 ### Patch Changes
