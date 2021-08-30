@@ -183,14 +183,7 @@ const Pagination = React.memo((props: PaginationProps) => {
   const hasNext = page < count;
 
   return (
-    <ButtonGroup
-      as="nav"
-      ref={ref}
-      aria-label={i18n.label}
-      attached
-      css={[styles.container, stylesProp, tw`m-0`]}
-      {...rest}
-    >
+    <ButtonGroup as="nav" ref={ref} aria-label={i18n.label} attached css={[styles.container, stylesProp]} {...rest}>
       <Button
         spacing="compact"
         disabled={!hasPrevious}

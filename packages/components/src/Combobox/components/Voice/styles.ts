@@ -8,7 +8,7 @@ interface UseVoicesStylesParams {
 export default function useVoiceStyles({ active }: UseVoicesStylesParams) {
   const styles = {
     container: [
-      tw`transition duration-200 bg-transparent border-0 outline-none cursor-pointer`,
+      tw`transition duration-200 bg-transparent border-0 outline-none cursor-pointer m-0`,
       active ? tw`text-red-500` : tw`hover:text-gray-600 focus:text-gray-600`,
     ],
   };

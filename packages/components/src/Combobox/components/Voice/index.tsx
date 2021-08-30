@@ -1,6 +1,5 @@
 import { getStylesObject } from '@sajari/react-sdk-utils';
 import * as React from 'react';
-import tw from 'twin.macro';
 
 import { IconEmptyMic, IconMic } from '../../../assets/icons';
 import Box from '../../../Box';
@@ -24,14 +23,7 @@ const Voice = ({ children, onVoiceInput, ...rest }: VoiceProps) => {
   const styles = getStylesObject(useVoiceStyles({ active }), disableDefaultStyles);
 
   return (
-    <Box
-      as="button"
-      type="button"
-      css={[styles.container, tw`m-0`]}
-      onClick={start}
-      aria-label="Search by voice"
-      {...rest}
-    >
+    <Box as="button" type="button" css={styles.container} onClick={start} aria-label="Search by voice" {...rest}>
       {active ? <IconMic /> : <IconEmptyMic />}
     </Box>
   );
