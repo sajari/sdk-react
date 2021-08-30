@@ -5,6 +5,7 @@ import { replaceAll } from '../string';
 const disablePrefix = ['letter-spacing'];
 
 const cache = createCache({
+  key: 'sajari',
   stylisPlugins: (context, content, selectors) => {
     const [selector] = selectors;
 
