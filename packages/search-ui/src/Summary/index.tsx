@@ -5,6 +5,7 @@ import { pluralize } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { LiveMessage } from 'react-aria-live';
 import { useTranslation } from 'react-i18next';
+import tw from 'twin.macro';
 
 import { useSearchUIContext } from '../ContextProvider';
 import { SummaryProps } from './types';
@@ -65,6 +66,7 @@ const Summary = (props: SummaryProps) => {
               spacing="none"
               appearance="link"
               disableDefaultStyles={disableDefaultStyles}
+              css={tw`m-0`}
             >
               {completion}
             </Button>

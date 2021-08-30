@@ -39,7 +39,7 @@ const Header = ({ title, name, onReset, showReset }: HeaderProps) => {
           size="xs"
           spacing="none"
           onClick={onReset}
-          css={tw`uppercase`}
+          css={tw`uppercase m-0`}
           disableDefaultStyles={disableDefaultStyles}
           className={customClassNames.filter?.resetButton}
         >

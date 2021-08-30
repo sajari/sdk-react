@@ -10,7 +10,7 @@ export default function usePaginationStyles(props: PaginationProps) {
   const spacerStyles = tw`py-2 border border-gray-200 border-solid rounded-none select-none`;
 
   const styles = {
-    container: [tw`flex`, justifyContentStyles],
+    container: [tw`flex m-0`, justifyContentStyles],
     spacerEllipsis: [tw`px-2 bg-gray-50`, spacerStyles],
     compactStatus: [tw`px-4 bg-white`, spacerStyles],
     compactStatusCount: [tw`text-gray-400`],

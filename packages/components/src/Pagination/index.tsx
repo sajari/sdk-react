@@ -2,6 +2,7 @@ import { clamp, getStylesObject, isFunction, isSSR, isString } from '@sajari/rea
 import classnames from 'classnames';
 import * as React from 'react';
 import smoothscroll from 'smoothscroll-polyfill';
+import tw from 'twin.macro';
 
 import { IconChevronLeft, IconChevronRight } from '../assets/icons';
 import Box from '../Box';
@@ -166,6 +167,7 @@ const Pagination = React.memo((props: PaginationProps) => {
           aria-label={ariaLabel}
           onClick={changeHandler(false, number)}
           className={classnames(buttonClassName, { [activeClassName]: active })}
+          css={tw`m-0`}
         >
           {number.toLocaleString(language)}
         </Button>
@@ -190,6 +192,7 @@ const Pagination = React.memo((props: PaginationProps) => {
         className={classnames(prevClassName, buttonClassName)}
         rel="prev"
         key="prev"
+        css={tw`m-0`}
       >
         &#8203;
         <IconChevronLeft />
@@ -212,6 +215,7 @@ const Pagination = React.memo((props: PaginationProps) => {
         className={classnames(nextClassName, buttonClassName)}
         rel="next"
         key="next"
+        css={tw`m-0`}
       >
         &#8203;
         <IconChevronRight />
