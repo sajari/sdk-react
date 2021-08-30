@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.8.4
+
+### Patch Changes
+
+- [`e189c199`](https://github.com/sajari/sdk-react/commit/e189c199a18ad28b597304819ea8e4cfb29ce2de) [#612](https://github.com/sajari/sdk-react/pull/612) Thanks [@tuanddd](https://github.com/tuanddd)! - Add missing margin-bottom to one remaining button
+
 ## 3.8.3
 
 ### Patch Changes
