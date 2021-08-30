@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.11.3
+
+### Patch Changes
+
+- [`1272f11a`](https://github.com/sajari/sdk-react/commit/1272f11a1f881921e0009cc955217247e84bae9c) [#610](https://github.com/sajari/sdk-react/pull/610) Thanks [@tuanddd](https://github.com/tuanddd)! - Add margin-bottom to buttons
+
 ## 1.11.2
 
 ### Patch Changes
