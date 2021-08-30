@@ -28,6 +28,7 @@ exports[`Button Should match snapshot 1`] = `
   cursor: pointer;
   font-family: inherit;
   height: auto;
+  margin-bottom: 0;
   font-weight: 500;
   border-radius: 0.375em;
   -webkit-user-select: none;
