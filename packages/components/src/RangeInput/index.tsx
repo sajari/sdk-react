@@ -244,10 +244,12 @@ function RangeInput<T extends RangeValue>(props: RangeInputProps<T>) {
     <Box css={[styles.container, stylesProp]} {...rest}>
       <Box css={styles.wrapper}>
         <Box css={styles.ticks}>
-          {ticks.map(({ value: tickValue, getTickProps }) => {
+          {ticks.map(({ value: tickValue, getTickProps }, index) => {
             // Remove width from the styles to prevent needing !important in our styles
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            const { style, ...tickProps } = getTickProps();
+            const { style, ...tickProps } = getTickProps({
+              styles: min === max ? { left: index === 0 ? '0%' : '100%' } : {},
+            });
             const { width, ...tickStyles } = style as React.CSSProperties;
 
             return (
@@ -276,19 +278,22 @@ function RangeInput<T extends RangeValue>(props: RangeInputProps<T>) {
               {...getSegmentProps({
                 index: i,
                 onClick: (e: React.MouseEvent<HTMLDivElement>) => handleSegmentClick(e, i),
+                styles: i === 1 && min === max ? { width: '100%' } : {},
               })}
             />
           ))}
 
-          {handles.map(({ value: handleValue, active, getHandleProps }) => (
-            <Handle
-              data-value={formatLabel(handleValue)}
-              activeClassName={handleActiveClassName}
-              className={handleClassName}
-              disableDefaultStyles={disableDefaultStyles}
-              {...getHandleProps({ active })}
-            />
-          ))}
+          {handles.map(({ value: handleValue, active, getHandleProps }, index) => {
+            return (
+              <Handle
+                data-value={formatLabel(handleValue)}
+                activeClassName={handleActiveClassName}
+                className={handleClassName}
+                disableDefaultStyles={disableDefaultStyles}
+                {...getHandleProps({ active, styles: min === max ? { left: index === 0 ? '0%' : '100%' } : {} })}
+              />
+            );
+          })}
         </Track>
       </Box>
 
