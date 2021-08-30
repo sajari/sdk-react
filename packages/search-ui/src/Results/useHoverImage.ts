@@ -23,22 +23,22 @@ export function useHoverImage(props: Props) {
   }, []);
 
   const onMouseEnter = useCallback(() => {
-    if (image && secondImage && showVariantImage) {
+    if (image && secondImage && !showVariantImage) {
       image.style.opacity = '0%';
       secondImage.style.opacity = '100%';
     } else if (image) {
       image.style.opacity = '70%';
     }
-  }, [image, secondImage]);
+  }, [image, secondImage, showVariantImage]);
 
   const onMouseLeave = useCallback(() => {
-    if (image && secondImage && showVariantImage) {
+    if (image && secondImage && !showVariantImage) {
       image.style.opacity = '100%';
       secondImage.style.opacity = '0%';
     } else if (image) {
       image.style.opacity = '100%';
     }
-  }, [image, secondImage]);
+  }, [image, secondImage, showVariantImage]);
 
   useEffect(() => {
     if (hoverImageSrc && image && !showVariantImage) {
