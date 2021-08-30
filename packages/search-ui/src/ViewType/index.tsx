@@ -2,6 +2,7 @@ import { useId } from '@react-aria/utils';
 import { Button, ButtonGroup } from '@sajari/react-components';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import tw from 'twin.macro';
 
 import { IconSmallGrid, IconSmallList } from '../assets/icons';
 import { useSearchUIContext } from '../ContextProvider';
@@ -34,6 +35,7 @@ const ViewType = (props: ViewTypeProps) => {
           size={size}
           appearance={viewType === 'grid' ? 'primary' : undefined}
           aria-label={t('grid')}
+          css={tw`m-0`}
         >
           &#8203;
           <IconSmallGrid />

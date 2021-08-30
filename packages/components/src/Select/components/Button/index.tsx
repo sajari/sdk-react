@@ -1,6 +1,7 @@
 import { mergeProps } from '@react-aria/utils';
 import { getStylesObject } from '@sajari/react-sdk-utils';
 import * as React from 'react';
+import tw from 'twin.macro';
 
 import Box from '../../../Box';
 import { useSelectContext } from '../../context';
@@ -62,7 +63,7 @@ const Button = () => {
     <Box
       as="button"
       type="button"
-      css={[styles.container, focusRingStyles]}
+      css={[styles.container, focusRingStyles, tw`m-0`]}
       className={customClassNames.buttonClassName}
       {...mergeProps(focusRingProps, getToggleButtonProps({ disabled, ref }), { id })}
     >

@@ -203,6 +203,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
             spacing="none"
             className={customClassNames.filter?.list?.toggleButton}
             disableDefaultStyles={disableDefaultStyles}
+            css={tw`m-0`}
           >
             {t(allShown ? 'showLess' : 'showMore')}
             <Icon css={styles.toggleIcon} />

@@ -2,6 +2,7 @@ import { mergeProps } from '@react-aria/utils';
 import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
 import * as React from 'react';
+import tw from 'twin.macro';
 
 import Box from '../../Box';
 import { useTabContext } from '../context';
@@ -27,7 +28,7 @@ const Tab = React.forwardRef((props: TabProps, ref?: React.Ref<HTMLButtonElement
       aria-disabled={disabled}
       aria-controls={`panel-${id}`}
       className={classnames(className, { [selectedClassName]: selected })}
-      css={styles.container}
+      css={[styles.container, tw`m-0`]}
       {...mergeProps(rest, focusRingProps)}
     />
   );

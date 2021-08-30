@@ -1,6 +1,7 @@
 import { getStylesObject } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
 import * as React from 'react';
+import tw from 'twin.macro';
 
 import Box from '../../../Box';
 import useHandleStyles from './styles';
@@ -15,7 +16,7 @@ const Handle = React.forwardRef((props: HandleProps, ref?: React.Ref<HTMLButtonE
     <Box
       as="button"
       type="button"
-      css={[styles.container, stylesProp]}
+      css={[styles.container, stylesProp, tw`m-0`]}
       ref={ref}
       {...focusProps}
       className={classnames(className, { [activeClassName]: active })}

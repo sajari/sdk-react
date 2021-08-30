@@ -3,6 +3,7 @@ import { useQuery, useSearchContext, useSorting } from '@sajari/react-hooks';
 import { getStylesObject } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import tw from 'twin.macro';
 
 import useMessageStyles from './styles';
 import { MessageProps } from './types';
@@ -32,7 +33,7 @@ const Message = (props: MessageProps) => {
   }, []);
 
   const renderResetButton = showReset ? (
-    <Button css={styles.resetButton} appearance="primary" size="sm" onClick={reset}>
+    <Button css={[styles.resetButton, tw`m-0`]} appearance="primary" size="sm" onClick={reset}>
       {t('reset')}
     </Button>
   ) : null;
