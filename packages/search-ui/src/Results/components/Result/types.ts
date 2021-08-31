@@ -1,5 +1,4 @@
 import { BoxProps } from '@sajari/react-components';
-import { Token } from '@sajari/react-hooks';
 import { PosNegLocalStorageManager } from '@sajari/sdk-js';
 import * as React from 'react';
 
@@ -9,8 +8,8 @@ import { ResultsProps, ResultValues } from '../../types';
 interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | 'imageObjectFit'>, BoxProps {
   /** Search result values */
   values: ResultValues;
-  /** The token used for tracking/analytics */
-  token?: Token;
+  /** The url used for tracking/analytics */
+  href?: string;
   /** Used to store pos tokens after click for later consumption */
   posNegLocalStorageManager: PosNegLocalStorageManager;
   /** Handle clicking a result */

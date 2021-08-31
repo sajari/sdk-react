@@ -6,6 +6,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';
+import { useClickTracking } from '../hooks';
 import mapResultFields from '../utils/mapResultFields';
 import { checkValidResultTemplate } from './checkValidResultTemplate';
 import Message from './components/Message';
@@ -16,10 +17,23 @@ import { ResultsProps, ResultValues } from './types';
 
 const Results = (props: ResultsProps) => {
   const { results: rawResults, searching, fields, error } = useSearchContext();
-  const results = React.useMemo(() => (rawResults ? mapResultFields<ResultValues>(rawResults, fields) : undefined), [
-    rawResults,
-  ]);
-  const { disableDefaultStyles = false, customClassNames, viewType, setViewType } = useSearchUIContext();
+  const untrackedResults = React.useMemo(
+    () => (rawResults ? mapResultFields<ResultValues>(rawResults, fields) : undefined),
+    [rawResults],
+  );
+  const { disableDefaultStyles = false, customClassNames, viewType, setViewType, tracking } = useSearchUIContext();
+  const { handleResultClicked } = useTracking();
+  const results = React.useMemo(() => {
+    return untrackedResults?.map((data) => {
+      const { values, token } = data;
+      const { onClick, href } = useClickTracking({ token, values, tracking, onClick: handleResultClicked });
+      return {
+        ...data,
+        onClick,
+        href,
+      };
+    });
+  }, [tracking, handleResultClicked, untrackedResults]);
   const { query } = useQuery();
   const {
     defaultAppearance,
@@ -109,7 +123,8 @@ const Results = (props: ResultsProps) => {
       >
         <TemplateResults
           showVariantImage={rest.showVariantImage}
-          results={results.map((r) => r.values)}
+          // Automatically reassign the url of the result value to be the tracked url
+          results={results.map((r) => ({ ...r, values: { ...r.values, url: r.href ?? r.values.url } }))}
           resultTemplate={resultTemplate}
           resultContainerTemplateElement={resultContainerTemplateElement}
         />
@@ -123,11 +138,11 @@ const Results = (props: ResultsProps) => {
       css={[styles.container, stylesProp]}
       className={customClassNames.results?.container}
     >
-      {results?.map(({ values, token }, i) => (
+      {results?.map(({ values, onClick, href }, i) => (
         <Result
-          onClick={handleResultClicked}
           posNegLocalStorageManager={posNegLocalStorageManager}
-          token={token}
+          onClick={onClick}
+          href={href}
           // eslint-disable-next-line no-underscore-dangle
           key={values._id ?? i}
           values={values}

@@ -12,6 +12,7 @@ type ExtraValues = {
 
 interface Props extends Pick<TemplateResultsProps, 'showVariantImage'> {
   values: ResultValues;
+  onClick?: () => void;
   render: (v: ResultValues & ExtraValues) => string;
 }
 

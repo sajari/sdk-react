@@ -12,10 +12,12 @@ const TemplateResults = (props: TemplateResultsProps) => {
   const { results, resultTemplate, resultContainerTemplateElement, ...rest } = props;
   // Get the keys of a result, using Set to eliminate dups
   const keys = Array.from(
-    results?.reduce((acc, cur) => {
-      Object.keys(cur).forEach((k) => acc.add(k));
-      return acc;
-    }, new Set<string>()),
+    results
+      .map((r) => r.values)
+      .reduce((acc, cur) => {
+        Object.keys(cur).forEach((k) => acc.add(k));
+        return acc;
+      }, new Set<string>()),
   );
   keys.push('productStatuses');
   keys.push('renderPriceData');
@@ -35,8 +37,9 @@ const TemplateResults = (props: TemplateResultsProps) => {
           `}
         />
       ) : null}
-      {results?.map((values, i) => (
+      {results?.map(({ values, onClick }, i) => (
         <TemplateResult
+          onClick={onClick}
           // eslint-disable-next-line no-underscore-dangle
           key={values._id ?? i}
           values={values}

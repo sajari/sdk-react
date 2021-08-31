@@ -32,7 +32,7 @@ const Result = React.memo(
       imageAspectRatio: imageAspectRatioProp = 1,
       imageObjectFit: imageObjectFitProp = 'contain',
       values,
-      token,
+      href,
       forceImage,
       headingClassName,
       priceClassName,

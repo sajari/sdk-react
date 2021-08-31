@@ -4,7 +4,7 @@ import type { ResultsProps, ResultTemplate } from '../../types';
 
 interface Props extends Pick<ResultsProps, 'resultContainerTemplateElement' | 'showVariantImage'> {
   resultTemplate: ResultTemplate;
-  results: ResultValues[];
+  results: { values: ResultValues; onClick?: () => void }[];
 }
 
 export type TemplateResultsProps = Props;
