@@ -1,12 +1,12 @@
 import { ResizeObserver } from '@sajari/react-components';
-import { useQuery, useSearchContext, useTracking } from '@sajari/react-hooks';
+import { ClickTracking, useQuery, useSearchContext, useTracking } from '@sajari/react-hooks';
 import { getStylesObject, isEmpty, isNullOrUndefined } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';
-import { useClickTracking } from '../hooks';
+import { useClickTracking, usePosNegTracking } from '../hooks';
 import mapResultFields from '../utils/mapResultFields';
 import { checkValidResultTemplate } from './checkValidResultTemplate';
 import Message from './components/Message';
@@ -22,11 +22,24 @@ const Results = (props: ResultsProps) => {
     [rawResults],
   );
   const { disableDefaultStyles = false, customClassNames, viewType, setViewType, tracking } = useSearchUIContext();
-  const { handleResultClicked } = useTracking();
+  const { handleResultClicked, posNegLocalStorageManager } = useTracking();
   const results = React.useMemo(() => {
     return untrackedResults?.map((data) => {
       const { values, token } = data;
-      const { onClick, href } = useClickTracking({ token, values, tracking, onClick: handleResultClicked });
+      const { href, onClick: clickTrackingOnClick } = useClickTracking({
+        token,
+        tracking,
+        values,
+        onClick: handleResultClicked,
+      });
+      const { onClick: posNegOnClick } = usePosNegTracking({
+        token,
+        tracking,
+        values,
+        onClick: handleResultClicked,
+        posNegLocalStorageManager,
+      });
+      const onClick = tracking instanceof ClickTracking ? clickTrackingOnClick : posNegOnClick;
       return {
         ...data,
         onClick,
@@ -46,7 +59,6 @@ const Results = (props: ResultsProps) => {
     ...rest
   } = props;
   const [width, setWidth] = React.useState(0);
-  const { handleResultClicked, posNegLocalStorageManager } = useTracking();
   const hasImages = React.useMemo(() => results?.some((r) => r.values?.image), [results]);
   const styles = getStylesObject(useResultsStyles({ ...props, appearance, width }), disableDefaultStyles);
   const { t } = useTranslation(['common', 'errors', 'result']);
@@ -140,7 +152,6 @@ const Results = (props: ResultsProps) => {
     >
       {results?.map(({ values, onClick, href }, i) => (
         <Result
-          posNegLocalStorageManager={posNegLocalStorageManager}
           onClick={onClick}
           href={href}
           // eslint-disable-next-line no-underscore-dangle

@@ -11,7 +11,7 @@ import { TemplateResultProps } from './types';
 
 const TemplateResult = (props: TemplateResultProps) => {
   const { customClassNames, currency, language, viewType } = useSearchUIContext();
-  const { render, values, as, showVariantImage } = props;
+  const { render, values, as, showVariantImage, onClick } = props;
   const { onRefChange: onRefChangeProductImages, activeImageIndex } = useProductImages({
     viewType,
     values,
@@ -34,6 +34,7 @@ const TemplateResult = (props: TemplateResultProps) => {
 
   return (
     <Box
+      onClick={onClick}
       ref={ref}
       as={as}
       className={customClassNames.results?.template?.resultContainer}
