@@ -31,7 +31,7 @@ const Results = (props: ResultsProps) => {
     ...rest
   } = props;
   const [width, setWidth] = React.useState(0);
-  const { handleResultClicked } = useTracking();
+  const { handleResultClicked, posNegLocalStorageManager } = useTracking();
   const hasImages = React.useMemo(() => results?.some((r) => r.values?.image), [results]);
   const styles = getStylesObject(useResultsStyles({ ...props, appearance, width }), disableDefaultStyles);
   const { t } = useTranslation(['common', 'errors', 'result']);
@@ -124,6 +124,7 @@ const Results = (props: ResultsProps) => {
       {results?.map(({ values, token }, i) => (
         <Result
           onClick={handleResultClicked}
+          posNegLocalStorageManager={posNegLocalStorageManager}
           token={token}
           // eslint-disable-next-line no-underscore-dangle
           key={values._id ?? i}

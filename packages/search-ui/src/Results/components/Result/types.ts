@@ -1,5 +1,6 @@
 import { BoxProps } from '@sajari/react-components';
 import { Token } from '@sajari/react-hooks';
+import { PosNegLocalStorageManager } from '@sajari/sdk-js';
 import * as React from 'react';
 
 import { UseClickTrackingParams } from '../../../hooks';
@@ -10,6 +11,8 @@ interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | '
   values: ResultValues;
   /** The token used for tracking/analytics */
   token?: Token;
+  /** Used to store pos tokens after click for later consumption */
+  posNegLocalStorageManager: PosNegLocalStorageManager;
   /** Handle clicking a result */
   onClick?: UseClickTrackingParams['onClick'];
   /** Display image or not */

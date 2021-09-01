@@ -14,7 +14,7 @@ function useClickTracking(params: UseClickTrackingParams) {
   const { onClick, token, tracking, values } = params;
   const { url } = values;
 
-  if (!tracking) {
+  if (!tracking || tracking instanceof PosNegTracking) {
     return {
       href: url,
       onClick: noop,

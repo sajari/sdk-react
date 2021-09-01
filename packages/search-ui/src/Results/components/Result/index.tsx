@@ -1,6 +1,7 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable react/jsx-no-target-blank */
 import { Box, Heading, Image, ImageProps, Link, Rating, Text } from '@sajari/react-components';
+import { ClickTracking } from '@sajari/react-hooks';
 import {
   __DEV__,
   decodeHTML,
@@ -18,7 +19,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../../../ContextProvider';
-import { useClickTracking } from '../../../hooks';
+import { useClickTracking, usePosNegTracking } from '../../../hooks';
 import useResultStyles from './styles';
 import { ResultProps } from './types';
 
@@ -44,6 +45,7 @@ const Result = React.memo(
       newArrivalStatusClassName,
       disableDefaultStyles = false,
       onClick: onClickProp,
+      posNegLocalStorageManager,
       styles: stylesProp,
       showImage: showImageProp = true,
       showVariantImage = false,
@@ -52,12 +54,20 @@ const Result = React.memo(
     } = props;
     const { t } = useTranslation('result');
     const { currency, language, ratingMax, tracking } = useSearchUIContext();
-    const { href, onClick } = useClickTracking({ token, tracking, values, onClick: onClickProp });
+    const { href, onClick: clickTrackingOnClick } = useClickTracking({ token, tracking, values, onClick: onClickProp });
+    const { onClick: posNegOnClick } = usePosNegTracking({
+      token,
+      tracking,
+      values,
+      onClick: onClickProp,
+      posNegLocalStorageManager,
+    });
     const { title, description, subtitle, image, price, originalPrice, salePrice, quantity, createdAt } = values;
     const [imageSrc, setImageSrc] = useState(isArray(image) ? image[0] : image);
     const [hoverImageSrc] = useState(isArray(image) && !showVariantImage ? image[1] : undefined);
     const rating = Number(values.rating);
     const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
+    const onClick = tracking instanceof ClickTracking ? clickTrackingOnClick : posNegOnClick;
 
     // Determine if the result is on sale
     const isOnSale = React.useMemo(() => {
