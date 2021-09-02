@@ -13,6 +13,8 @@ export interface SearchUIContextProviderValues {
   /** View mode of the results */
   viewType?: ResultViewType;
   setViewType: (type: ResultViewType) => void;
+  /** shadow root support */
+  shadowRoot?: ShadowRoot | null;
   disableDefaultStyles?: boolean;
   customClassNames?: {
     results?: {

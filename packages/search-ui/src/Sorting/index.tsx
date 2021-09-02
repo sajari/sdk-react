@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import tw from 'twin.macro';
 
 import { useSearchUIContext } from '../ContextProvider';
+import { useDownshiftEnvironment } from '../hooks';
 import ViewOption from '../ViewOption';
 import { SortingProps, SortOption } from './types';
 
@@ -28,6 +29,8 @@ const Sorting = (props: SortingProps) => {
   const renderSortOptionName = (name: string) =>
     name.toLowerCase() === 'most relevant' ? t('mostRelevantOption') : name;
 
+  const downshiftEnvironment = useDownshiftEnvironment();
+
   const innerRender =
     type === 'select' ? (
       <Select
@@ -37,6 +40,7 @@ const Sorting = (props: SortingProps) => {
         size={size}
         disableDefaultStyles={disableDefaultStyles}
         className={customClassNames.sorting?.select}
+        downshiftEnvironment={downshiftEnvironment}
       >
         {options.map((s: SortOption) => (
           <Option key={s.value} value={s.value}>

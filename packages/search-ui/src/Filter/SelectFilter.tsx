@@ -5,6 +5,7 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';
+import { useDownshiftEnvironment } from '../hooks';
 import Box from './Box';
 import { SelectFilterProps } from './types';
 import { formatLabel } from './utils';
@@ -31,6 +32,7 @@ const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
   });
   const { disableDefaultStyles = false, customClassNames, currency } = useSearchUIContext();
   const { t } = useTranslation('filter');
+  const downshiftEnvironment = useDownshiftEnvironment();
 
   if (isEmpty(options) && isEmpty(selected)) {
     return null;
@@ -63,6 +65,7 @@ const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
           buttonClassName={customClassNames.filter?.select?.button}
           dropdownClassName={customClassNames.filter?.select?.dropdown}
           optionClassName={customClassNames.filter?.select?.option}
+          downshiftEnvironment={downshiftEnvironment}
         >
           {options.map(({ value, label, count }) => (
             <Option value={label} key={value} label={hideCount ? undefined : count.toLocaleString()}>
