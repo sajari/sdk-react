@@ -1,15 +1,16 @@
 import type { Environment } from 'downshift';
 
+// https://github.com/downshift-js/downshift#environment
 // https://gist.github.com/Rendez/1dd55882e9b850dd3990feefc9d6e177
-export function createProxyEnvironment(shadowRoot: ShadowRoot): Environment {
-  const doc = shadowRoot.ownerDocument;
+export function createProxyEnvironment(context: ShadowRoot | HTMLIFrameElement): Environment {
+  const doc = context.ownerDocument;
   const properties = {
     document: doc,
-    addEventListener: doc.addEventListener.bind(shadowRoot),
-    removeEventListener: doc.removeEventListener.bind(shadowRoot),
+    addEventListener: doc.addEventListener.bind(context),
+    removeEventListener: doc.removeEventListener.bind(context),
   };
 
-  return (new Proxy(shadowRoot, {
+  return (new Proxy(context, {
     get: (_, prop) => properties[prop],
   }) as unknown) as Environment;
 }
