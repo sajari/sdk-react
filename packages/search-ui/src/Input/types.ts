@@ -1,6 +1,6 @@
 import { ComboboxProps } from '@sajari/react-components';
 
-export interface InputProps<T>
+interface Props<T>
   extends Pick<
     ComboboxProps<T>,
     | 'placeholder'
@@ -15,6 +15,7 @@ export interface InputProps<T>
     | 'variant'
     | 'size'
     | 'autoFocus'
+    | 'name'
   > {
   mode?: ComboboxProps<T>['mode'] | 'instant';
   /* Sets how many autocomplete suggestions are shown in the box below the search input */
@@ -24,3 +25,7 @@ export interface InputProps<T>
   /** The number of characters needed to trigger a search */
   minimumCharacters?: number;
 }
+
+type HtmlAttributes<T> = Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof Props<T>>;
+
+export interface InputProps<T = unknown> extends Props<T>, HtmlAttributes<T> {}
