@@ -15,7 +15,7 @@ const defaultOptions: SortOption[] = [{ name: 'Most relevant', value: '' }];
 const Sorting = (props: SortingProps) => {
   const { t } = useTranslation('sorting');
   const { type = 'select', label = t('label'), options = defaultOptions, size, styles: stylesProp, ...rest } = props;
-  const { disableDefaultStyles = false, customClassNames } = useSearchUIContext();
+  const { disableDefaultStyles = false, customClassNames, downshiftEnvironment } = useSearchUIContext();
   const { sorting, setSorting } = useSorting();
   const id = `sorting-${useId()}`;
   const styles = getStylesObject(
@@ -37,6 +37,7 @@ const Sorting = (props: SortingProps) => {
         size={size}
         disableDefaultStyles={disableDefaultStyles}
         className={customClassNames.sorting?.select}
+        downshiftEnvironment={downshiftEnvironment}
       >
         {options.map((s: SortOption) => (
           <Option key={s.value} value={s.value}>

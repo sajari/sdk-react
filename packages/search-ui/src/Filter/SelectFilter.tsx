@@ -29,7 +29,7 @@ const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
     includes,
     prefixFilter,
   });
-  const { disableDefaultStyles = false, customClassNames, currency } = useSearchUIContext();
+  const { disableDefaultStyles = false, customClassNames, currency, downshiftEnvironment } = useSearchUIContext();
   const { t } = useTranslation('filter');
 
   if (isEmpty(options) && isEmpty(selected)) {
@@ -63,6 +63,7 @@ const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
           buttonClassName={customClassNames.filter?.select?.button}
           dropdownClassName={customClassNames.filter?.select?.dropdown}
           optionClassName={customClassNames.filter?.select?.option}
+          downshiftEnvironment={downshiftEnvironment}
         >
           {options.map(({ value, label, count }) => (
             <Option value={label} key={value} label={hideCount ? undefined : count.toLocaleString()}>

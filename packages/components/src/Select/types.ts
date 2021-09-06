@@ -1,3 +1,4 @@
+import type { Environment } from 'downshift';
 import * as React from 'react';
 
 import { BoxProps } from '../Box';
@@ -39,4 +40,6 @@ interface Props extends BoxProps {
   value?: OptionProps['value'] | Array<OptionProps['value']>;
 }
 
-export interface SelectProps extends Props, SelectCustomClassNames {}
+export interface SelectProps extends Props, SelectCustomClassNames {
+  downshiftEnvironment?: Environment | null;
+}

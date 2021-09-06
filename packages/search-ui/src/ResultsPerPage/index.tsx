@@ -13,7 +13,7 @@ const defaultOptions = [15, 25, 50, 100];
 
 const ResultsPerPage = (props: ResultsPerPageProps) => {
   const { t } = useTranslation('resultsPerPage');
-  const { customClassNames, disableDefaultStyles = false } = useSearchUIContext();
+  const { customClassNames, disableDefaultStyles = false, downshiftEnvironment } = useSearchUIContext();
   const { label = t('label'), options = defaultOptions, styles: stylesProp, size, ...rest } = props;
   const { resultsPerPage, setResultsPerPage } = useResultsPerPage();
   const { totalResults } = useSearchContext();
@@ -42,6 +42,7 @@ const ResultsPerPage = (props: ResultsPerPageProps) => {
         size={size}
         disableDefaultStyles={disableDefaultStyles}
         className={customClassNames.resultsPerPage?.select}
+        downshiftEnvironment={downshiftEnvironment}
       >
         {optionsSorted.map((s) => (
           <Option key={s} value={s}>

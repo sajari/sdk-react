@@ -32,6 +32,7 @@ const Select = React.forwardRef((props: SelectProps, ref?: React.Ref<HTMLDivElem
     buttonClassName,
     dropdownClassName,
     optionClassName,
+    downshiftEnvironment: environment,
   } = props;
 
   const { styles: selectStyles } = useSelectStyles();
@@ -103,6 +104,7 @@ const Select = React.forwardRef((props: SelectProps, ref?: React.Ref<HTMLDivElem
     highlightedIndex,
     getItemProps,
   } = useSelect<Item>({
+    ...(environment && { environment }),
     items,
     stateReducer,
     selectedItem: null,
