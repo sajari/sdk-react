@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.9.6
+
+### Patch Changes
+
+- [`671214b0`](https://github.com/sajari/sdk-react/commit/671214b05d31899750908879bacd1b9349d976c5) [#622](https://github.com/sajari/sdk-react/pull/622) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Allow result links to be open in a new tab.
+
 ## 1.9.5
 
 ### Patch Changes

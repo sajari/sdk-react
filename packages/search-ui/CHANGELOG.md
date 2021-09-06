@@ -1,5 +1,26 @@
 # Change Log
 
+## 4.0.0
+
+### Major Changes
+
+- [`02928ccc`](https://github.com/sajari/sdk-react/commit/02928ccc8ab3937cdd5de2064876812d880f9a5f) [#619](https://github.com/sajari/sdk-react/pull/619) Thanks [@tuanddd](https://github.com/tuanddd)! - Rename misleading hooks - useClickTracking and usePosNegTracking to applyClickTracking and applyPosNegTracking
+
+### Minor Changes
+
+- [`c95cc3f4`](https://github.com/sajari/sdk-react/commit/c95cc3f4cb5b4183515e67b519be5eb230a16c1c) [#616](https://github.com/sajari/sdk-react/pull/616) Thanks [@huygn](https://github.com/huygn)! - expose `downshiftEnvironment` prop
+
+* [`671214b0`](https://github.com/sajari/sdk-react/commit/671214b05d31899750908879bacd1b9349d976c5) [#622](https://github.com/sajari/sdk-react/pull/622) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Allow result links to be open in a new tab.
+
+### Patch Changes
+
+- [`b4c127ca`](https://github.com/sajari/sdk-react/commit/b4c127caf840585265abf1a5f9f10a9fce6a8c79) [#623](https://github.com/sajari/sdk-react/pull/623) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Prevent result link styles from being overridden. For example, when in a shadow DOM.
+
+* [`5af49704`](https://github.com/sajari/sdk-react/commit/5af49704302a797e9f0db37c0b552622c02e86c7) [#620](https://github.com/sajari/sdk-react/pull/620) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix `Input` doesn't accept HTML attributes like `name`.
+
+* Updated dependencies [[`c95cc3f4`](https://github.com/sajari/sdk-react/commit/c95cc3f4cb5b4183515e67b519be5eb230a16c1c), [`b4c127ca`](https://github.com/sajari/sdk-react/commit/b4c127caf840585265abf1a5f9f10a9fce6a8c79)]:
+  - @sajari/react-components@1.12.0
+
 ## 3.9.0
 
 ### Minor Changes
@@ -337,7 +358,7 @@
   Before:
 
   ```js
-  pipeline.listen('result-clicked', (url) => {
+  pipeline.listen('result-clicked', url => {
     console.log(url);
   });
   ```
@@ -345,7 +366,7 @@
   After:
 
   ```js
-  pipeline.listen('result-clicked', (data) => {
+  pipeline.listen('result-clicked', data => {
     const {
       token,
       values: { id, url, title, subtitle, description, image, price, originalPrice, rating },
