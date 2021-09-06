@@ -29,7 +29,7 @@
     "@react-aria/utils": "3.5.0",
     "@sajari/react-components": "^1.12.0",
     "@sajari/react-hooks": "^3.3.0",
-    "@sajari/react-sdk-utils": "^1.4.1",
+    "@sajari/react-sdk-utils": "^1.4.2",
     "dayjs": "^1.10.5",
     "i18next": "19.8.7",
     "i18next-browser-languagedetector": "^6.0.1",
