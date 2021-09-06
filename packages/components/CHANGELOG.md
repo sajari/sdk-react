@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.12.0
+
+### Minor Changes
+
+- [`c95cc3f4`](https://github.com/sajari/sdk-react/commit/c95cc3f4cb5b4183515e67b519be5eb230a16c1c) [#616](https://github.com/sajari/sdk-react/pull/616) Thanks [@huygn](https://github.com/huygn)! - expose `downshiftEnvironment` prop
+
+### Patch Changes
+
+- [`b4c127ca`](https://github.com/sajari/sdk-react/commit/b4c127caf840585265abf1a5f9f10a9fce6a8c79) [#623](https://github.com/sajari/sdk-react/pull/623) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Prevent result link styles from being overridden. For example, when in a shadow DOM.
+
 ## 1.11.3
 
 ### Patch Changes
