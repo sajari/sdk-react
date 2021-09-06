@@ -28,6 +28,7 @@ const Results = (props: ResultsProps) => {
     resultContainerTemplateElement,
     resultTemplate,
     onResetTemplate,
+    openNewTab = false,
     ...rest
   } = props;
   const [width, setWidth] = React.useState(0);
@@ -141,6 +142,7 @@ const Results = (props: ResultsProps) => {
           onSaleStatusClassName={customClassNames.results?.onSaleStatus}
           outOfStockStatusClassName={customClassNames.results?.outOfStockStatus}
           newArrivalStatusClassName={customClassNames.results?.newArrivalStatus}
+          openNewTab={openNewTab}
           {...rest}
         />
       ))}

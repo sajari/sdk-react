@@ -15,6 +15,8 @@ interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | '
   posNegLocalStorageManager: PosNegLocalStorageManager;
   /** Handle clicking a result */
   onClick?: ApplyClickTrackingParams['onClick'];
+  /** Open the result link in a new tab */
+  openNewTab?: boolean;
   /** Display image or not */
   showImage?: boolean;
   /** Display variant images or not */
