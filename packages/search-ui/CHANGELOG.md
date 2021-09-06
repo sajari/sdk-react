@@ -1,5 +1,16 @@
 # Change Log
 
+## 3.9.0
+
+### Minor Changes
+
+- [`4a2c7523`](https://github.com/sajari/sdk-react/commit/4a2c7523eeb5d54776f6b971e0558e34eaf5a436) [#599](https://github.com/sajari/sdk-react/pull/599) Thanks [@wwalser](https://github.com/wwalser)! - feat: added out-of-the-box support for posnegtracking
+
+### Patch Changes
+
+- Updated dependencies [[`4a2c7523`](https://github.com/sajari/sdk-react/commit/4a2c7523eeb5d54776f6b971e0558e34eaf5a436)]:
+  - @sajari/react-hooks@3.3.0
+
 ## 3.8.4
 
 ### Patch Changes
@@ -326,7 +337,7 @@
   Before:
 
   ```js
-  pipeline.listen('result-clicked', url => {
+  pipeline.listen('result-clicked', (url) => {
     console.log(url);
   });
   ```
@@ -334,7 +345,7 @@
   After:
 
   ```js
-  pipeline.listen('result-clicked', data => {
+  pipeline.listen('result-clicked', (data) => {
     const {
       token,
       values: { id, url, title, subtitle, description, image, price, originalPrice, rating },
