@@ -19,7 +19,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../../../ContextProvider';
-import { useClickTracking, usePosNegTracking } from '../../../hooks';
+import { applyClickTracking, applyPosNegTracking } from '../../../utils';
 import useResultStyles from './styles';
 import { ResultProps } from './types';
 
@@ -54,8 +54,13 @@ const Result = React.memo(
     } = props;
     const { t } = useTranslation('result');
     const { currency, language, ratingMax, tracking } = useSearchUIContext();
-    const { href, onClick: clickTrackingOnClick } = useClickTracking({ token, tracking, values, onClick: onClickProp });
-    const { onClick: posNegOnClick } = usePosNegTracking({
+    const { href, onClick: clickTrackingOnClick } = applyClickTracking({
+      token,
+      tracking,
+      values,
+      onClick: onClickProp,
+    });
+    const { onClick: posNegOnClick } = applyPosNegTracking({
       token,
       tracking,
       values,

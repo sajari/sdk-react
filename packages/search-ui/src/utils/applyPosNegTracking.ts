@@ -4,7 +4,7 @@ import { PosNegLocalStorageManager } from '@sajari/sdk-js';
 
 import { ResultValues } from '../Results/types';
 
-export interface UsePosNegTrackingParams {
+export interface ApplyPosNegTrackingParams {
   token: Token | undefined;
   tracking: ClickTracking | PosNegTracking | undefined;
   values: ResultValues;
@@ -12,7 +12,7 @@ export interface UsePosNegTrackingParams {
   posNegLocalStorageManager: PosNegLocalStorageManager;
 }
 
-function usePosNegTracking(params: UsePosNegTrackingParams) {
+function applyPosNegTracking(params: ApplyPosNegTrackingParams) {
   const { onClick, token, tracking, values, posNegLocalStorageManager } = params;
 
   if (!tracking || !(tracking instanceof PosNegTracking)) {
@@ -40,4 +40,4 @@ function usePosNegTracking(params: UsePosNegTrackingParams) {
   };
 }
 
-export default usePosNegTracking;
+export default applyPosNegTracking;

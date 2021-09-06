@@ -3,14 +3,14 @@ import { isEmpty, isFunction, isString, isValidURL, noop } from '@sajari/react-s
 
 import { ResultValues } from '../Results/types';
 
-export interface UseClickTrackingParams {
+export interface ApplyClickTrackingParams {
   token: Token | undefined;
   tracking: ClickTracking | PosNegTracking | undefined;
   values: ResultValues;
   onClick?: ResultClickedFn;
 }
 
-function useClickTracking(params: UseClickTrackingParams) {
+function applyClickTracking(params: ApplyClickTrackingParams) {
   const { onClick, token, tracking, values } = params;
   const { url } = values;
 
@@ -46,4 +46,4 @@ function useClickTracking(params: UseClickTrackingParams) {
   };
 }
 
-export default useClickTracking;
+export default applyClickTracking;
