@@ -7,8 +7,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';
-import { useClickTracking } from '../hooks';
 import { ResultValues } from '../Results/types';
+import { applyClickTracking } from '../utils';
 import mapResultFields from '../utils/mapResultFields';
 import { InputProps } from './types';
 
@@ -69,7 +69,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
         results.splice(0, maxSuggestions).map((result) => {
           const { values, token } = result;
           const { description, image, title } = values;
-          const { href, onClick } = useClickTracking({ tracking, values, token });
+          const { href, onClick } = applyClickTracking({ tracking, values, token });
 
           return {
             title,
@@ -81,7 +81,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
         }),
       );
     }
-  }, [mode, suggestions, maxSuggestions, results, useClickTracking, tracking]);
+  }, [mode, suggestions, maxSuggestions, results, applyClickTracking, tracking]);
 
   useEffect(() => {
     if (!arraysEqual(lastItems.current, internalSuggestions)) {

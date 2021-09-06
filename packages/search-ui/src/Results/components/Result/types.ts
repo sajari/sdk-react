@@ -3,7 +3,7 @@ import { Token } from '@sajari/react-hooks';
 import { PosNegLocalStorageManager } from '@sajari/sdk-js';
 import * as React from 'react';
 
-import { UseClickTrackingParams } from '../../../hooks';
+import { ApplyClickTrackingParams } from '../../../utils';
 import { ResultsProps, ResultValues } from '../../types';
 
 interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | 'imageObjectFit'>, BoxProps {
@@ -14,7 +14,7 @@ interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | '
   /** Used to store pos tokens after click for later consumption */
   posNegLocalStorageManager: PosNegLocalStorageManager;
   /** Handle clicking a result */
-  onClick?: UseClickTrackingParams['onClick'];
+  onClick?: ApplyClickTrackingParams['onClick'];
   /** Display image or not */
   showImage?: boolean;
   /** Display variant images or not */
