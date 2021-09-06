@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-target-blank */
 import { Box, Heading, Image, ImageProps, Link, Rating, Text } from '@sajari/react-components';
-import { ClickTracking } from '@sajari/react-hooks';
+import { ClickTracking, useTracking } from '@sajari/react-hooks';
 import {
   __DEV__,
   decodeHTML,
@@ -17,6 +17,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../../../ContextProvider';
+import { applyClickTracking, applyPosNegTracking } from '../../../utils';
 import { useProductStatuses } from '../../useProductStatuses';
 import { useRenderPrice } from '../../useRenderPrice';
 import useResultStyles from './styles';
@@ -30,8 +31,7 @@ const Result = React.memo(
       appearance = 'list',
       imageAspectRatio: imageAspectRatioProp = 1,
       imageObjectFit: imageObjectFitProp = 'contain',
-      values,
-      href,
+      result: { values, token },
       forceImage,
       headingClassName,
       priceClassName,
@@ -43,7 +43,6 @@ const Result = React.memo(
       outOfStockStatusClassName,
       newArrivalStatusClassName,
       disableDefaultStyles = false,
-      onClick,
       styles: stylesProp,
       showImage: showImageProp = true,
       showVariantImage = false,
@@ -52,12 +51,27 @@ const Result = React.memo(
       ...rest
     } = props;
     const { t } = useTranslation('result');
-    const { currency, language, ratingMax } = useSearchUIContext();
+    const { posNegLocalStorageManager, handleResultClicked: onClickProp } = useTracking();
+    const { currency, language, ratingMax, tracking } = useSearchUIContext();
+    const { href, onClick: clickTrackingOnClick } = applyClickTracking({
+      token,
+      tracking,
+      values,
+      onClick: onClickProp,
+    });
+    const { onClick: posNegOnClick } = applyPosNegTracking({
+      token,
+      tracking,
+      values,
+      onClick: onClickProp,
+      posNegLocalStorageManager,
+    });
     const { title, description, subtitle, image } = values;
     const [imageSrc, setImageSrc] = useState(isArray(image) ? image[0] : image);
     const [hoverImageSrc] = useState(isArray(image) && !showVariantImage ? image[1] : undefined);
     const rating = Number(values.rating);
     const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
+    const onClick = tracking instanceof ClickTracking ? clickTrackingOnClick : posNegOnClick;
     const newTabProps = openNewTab ? { target: '_blank', rel: 'noopener' } : {};
     const { isOnSale, isOutOfStock, isNewArrival, onSaleText, newArrivalText, outOfStockText } = useProductStatuses({
       activeImageIndex,

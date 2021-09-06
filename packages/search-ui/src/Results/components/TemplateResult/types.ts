@@ -1,3 +1,4 @@
+import type { Token } from '@sajari/react-hooks';
 import { PropsWithAs } from '@sajari/react-sdk-utils';
 
 import { ResultValues } from '../../types';
@@ -11,8 +12,7 @@ type ExtraValues = {
 };
 
 interface Props extends Pick<TemplateResultsProps, 'showVariantImage'> {
-  values: ResultValues;
-  onClick?: () => void;
+  result: { values: ResultValues; token?: Token };
   render: (v: ResultValues & ExtraValues) => string;
 }
 

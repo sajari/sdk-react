@@ -1,16 +1,12 @@
 import { BoxProps } from '@sajari/react-components';
+import type { Token } from '@sajari/react-hooks';
 import * as React from 'react';
 
-import { ApplyClickTrackingParams } from '../../../utils';
 import { ResultsProps, ResultValues } from '../../types';
 
 interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | 'imageObjectFit'>, BoxProps {
   /** Search result values */
-  values: ResultValues;
-  /** The url of the result or the tracking url (if tracking is enabled) */
-  href?: string;
-  /** Handle clicking a result */
-  onClick?: () => void;
+  result: { values: ResultValues; token?: Token };
   /** Open the result link in a new tab */
   openNewTab?: boolean;
   /** Display image or not */

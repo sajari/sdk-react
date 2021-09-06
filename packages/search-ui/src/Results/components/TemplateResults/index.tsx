@@ -37,12 +37,11 @@ const TemplateResults = (props: TemplateResultsProps) => {
           `}
         />
       ) : null}
-      {results?.map(({ values, onClick }, i) => (
+      {results?.map((result, i) => (
         <TemplateResult
-          onClick={onClick}
           // eslint-disable-next-line no-underscore-dangle
-          key={values._id ?? i}
-          values={values}
+          key={result.values._id ?? i}
+          result={result}
           render={render}
           as={resultContainerTemplateElement}
           {...rest}

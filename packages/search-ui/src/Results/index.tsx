@@ -1,12 +1,11 @@
 import { ResizeObserver } from '@sajari/react-components';
-import { ClickTracking, useQuery, useSearchContext, useTracking } from '@sajari/react-hooks';
+import { useQuery, useSearchContext } from '@sajari/react-hooks';
 import { getStylesObject, isEmpty, isNullOrUndefined } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';
-import { useClickTracking, usePosNegTracking } from '../hooks';
 import mapResultFields from '../utils/mapResultFields';
 import { checkValidResultTemplate } from './checkValidResultTemplate';
 import Message from './components/Message';
@@ -17,36 +16,10 @@ import { ResultsProps, ResultValues } from './types';
 
 const Results = (props: ResultsProps) => {
   const { results: rawResults, searching, fields, error } = useSearchContext();
-  const untrackedResults = React.useMemo(
-    () => (rawResults ? mapResultFields<ResultValues>(rawResults, fields) : undefined),
-    [rawResults],
-  );
-  const { disableDefaultStyles = false, customClassNames, viewType, setViewType, tracking } = useSearchUIContext();
-  const { handleResultClicked, posNegLocalStorageManager } = useTracking();
-  const results = React.useMemo(() => {
-    return untrackedResults?.map((data) => {
-      const { values, token } = data;
-      const { href, onClick: clickTrackingOnClick } = useClickTracking({
-        token,
-        tracking,
-        values,
-        onClick: handleResultClicked,
-      });
-      const { onClick: posNegOnClick } = usePosNegTracking({
-        token,
-        tracking,
-        values,
-        onClick: handleResultClicked,
-        posNegLocalStorageManager,
-      });
-      const onClick = tracking instanceof ClickTracking ? clickTrackingOnClick : posNegOnClick;
-      return {
-        ...data,
-        onClick,
-        href,
-      };
-    });
-  }, [tracking, handleResultClicked, untrackedResults]);
+  const results = React.useMemo(() => (rawResults ? mapResultFields<ResultValues>(rawResults, fields) : undefined), [
+    rawResults,
+  ]);
+  const { disableDefaultStyles = false, customClassNames, viewType, setViewType } = useSearchUIContext();
   const { query } = useQuery();
   const {
     defaultAppearance,
@@ -135,8 +108,7 @@ const Results = (props: ResultsProps) => {
       >
         <TemplateResults
           showVariantImage={rest.showVariantImage}
-          // Automatically reassign the url of the result value to be the tracked url
-          results={results.map((r) => ({ ...r, values: { ...r.values, url: r.href ?? r.values.url } }))}
+          results={results}
           resultTemplate={resultTemplate}
           resultContainerTemplateElement={resultContainerTemplateElement}
         />
@@ -150,13 +122,11 @@ const Results = (props: ResultsProps) => {
       css={[styles.container, stylesProp]}
       className={customClassNames.results?.container}
     >
-      {results?.map(({ values, onClick, href }, i) => (
+      {results?.map((result, i) => (
         <Result
-          onClick={onClick}
-          href={href}
           // eslint-disable-next-line no-underscore-dangle
-          key={values._id ?? i}
-          values={values}
+          key={result.values._id ?? i}
+          result={result}
           appearance={appearance}
           forceImage={hasImages}
           disableDefaultStyles={disableDefaultStyles}
