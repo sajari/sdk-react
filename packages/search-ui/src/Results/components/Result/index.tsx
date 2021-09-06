@@ -50,6 +50,7 @@ const Result = React.memo(
       showImage: showImageProp = true,
       showVariantImage = false,
       showStatus: showStatusProp = false,
+      openNewTab = false,
       ...rest
     } = props;
     const { t } = useTranslation('result');
@@ -73,6 +74,7 @@ const Result = React.memo(
     const rating = Number(values.rating);
     const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
     const onClick = tracking instanceof ClickTracking ? clickTrackingOnClick : posNegOnClick;
+    const newTabProps = openNewTab ? { target: '_blank', rel: 'noopener' } : {};
 
     // Determine if the result is on sale
     const isOnSale = React.useMemo(() => {
@@ -159,7 +161,7 @@ const Result = React.memo(
 
     const renderTitle = () => (
       <Heading as="h3" size="base" css={styles.title} className={headingClassName}>
-        <Link href={href} onClick={onClick}>
+        <Link href={href} onClick={onClick} {...newTabProps}>
           {decodeHTML(title)}
         </Link>
       </Heading>
@@ -176,6 +178,7 @@ const Result = React.memo(
             css={styles.subtitle}
             disableDefaultStyles={disableDefaultStyles}
             className={subTitleClassName}
+            {...newTabProps}
           >
             {subtitle}
           </Link>
@@ -328,6 +331,7 @@ const Result = React.memo(
               onContextMenu={onClick}
               css={styles.imageContainer}
               disableDefaultStyles={disableDefaultStyles}
+              {...newTabProps}
             >
               <Image
                 src={imageSrc}
