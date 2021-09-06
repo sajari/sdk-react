@@ -14,7 +14,7 @@ export interface SearchUIContextProviderValues {
   /** View mode of the results */
   viewType?: ResultViewType;
   setViewType: (type: ResultViewType) => void;
-  /** allow passing custom environment for downshift */
+  /** Allow passing custom environment for downshift in case the UI is rendered within a different window context - https://github.com/downshift-js/downshift#environment */
   downshiftEnvironment?: Environment | null;
   disableDefaultStyles?: boolean;
   customClassNames?: {
