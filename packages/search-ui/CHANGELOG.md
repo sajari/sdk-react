@@ -1,5 +1,14 @@
 # Change Log
 
+## 4.0.1
+
+### Patch Changes
+
+- [`994e9fb4`](https://github.com/sajari/sdk-react/commit/994e9fb43ecfefc524760452f1aefb1dce197cb0) [#626](https://github.com/sajari/sdk-react/pull/626) Thanks [@wwalser](https://github.com/wwalser)! - chore: bump packages and require latest version of sdk-utils
+
+- Updated dependencies [[`994e9fb4`](https://github.com/sajari/sdk-react/commit/994e9fb43ecfefc524760452f1aefb1dce197cb0)]:
+  - @sajari/react-components@1.12.1
+
 ## 4.0.0
 
 ### Major Changes
