@@ -9,7 +9,7 @@ export default function useLinkStyles() {
 
   const styles = {
     container: [
-      tw`relative transition-colors duration-150`,
+      tw`relative transition-colors duration-150 no-underline`,
       focusRingStyles,
       `&:hover, &:focus { color: ${theme.color.primary.base} }`,
     ],
