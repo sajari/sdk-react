@@ -7,7 +7,7 @@ import { ResultsProps, ResultValues } from '../../types';
 interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | 'imageObjectFit'>, BoxProps {
   /** Search result values */
   values: ResultValues;
-  /** The url used for tracking/analytics */
+  /** The url of the result or the tracking url (if tracking is enabled) */
   href?: string;
   /** Handle clicking a result */
   onClick?: () => void;
