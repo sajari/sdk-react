@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.4.2
+
+### Patch Changes
+
+- [`3f356101`](https://github.com/sajari/sdk-react/commit/3f356101500955f3e7da50e8548696ca60e904f6) [#624](https://github.com/sajari/sdk-react/pull/624) Thanks [@wwalser](https://github.com/wwalser)! - chore: ie11 support by working around lack of toString.call
+
 ## 1.4.1
 
 ### Patch Changes
