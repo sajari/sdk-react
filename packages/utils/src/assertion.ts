@@ -6,6 +6,15 @@ const getTag = (value: any) => {
     return value === undefined ? '[object Undefined]' : '[object Null]';
   }
 
+  // IE11 (remove if statement after end of life, July 2022)
+  if (!toString.call) {
+    try {
+      return value.toString();
+    } catch (err) {
+      return 'unknown';
+    }
+  }
+
   return toString.call(value);
 };
 
