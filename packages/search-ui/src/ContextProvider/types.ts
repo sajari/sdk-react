@@ -1,5 +1,6 @@
 import { ClickTracking, PosNegTracking, SearchProviderValues } from '@sajari/react-hooks';
 import { ThemeProviderProps } from '@sajari/react-sdk-utils';
+import type { Environment } from 'downshift';
 
 export type ResultViewType = 'grid' | 'list';
 
@@ -13,8 +14,8 @@ export interface SearchUIContextProviderValues {
   /** View mode of the results */
   viewType?: ResultViewType;
   setViewType: (type: ResultViewType) => void;
-  /** shadow root support */
-  shadowRoot?: ShadowRoot | null;
+  /** allow passing custom environment for downshift */
+  downshiftEnvironment?: Environment | null;
   disableDefaultStyles?: boolean;
   customClassNames?: {
     results?: {

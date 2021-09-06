@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import tw from 'twin.macro';
 
 import { useSearchUIContext } from '../ContextProvider';
-import { useDownshiftEnvironment } from '../hooks';
 import ViewOption from '../ViewOption';
 import { SortingProps, SortOption } from './types';
 
@@ -16,7 +15,7 @@ const defaultOptions: SortOption[] = [{ name: 'Most relevant', value: '' }];
 const Sorting = (props: SortingProps) => {
   const { t } = useTranslation('sorting');
   const { type = 'select', label = t('label'), options = defaultOptions, size, styles: stylesProp, ...rest } = props;
-  const { disableDefaultStyles = false, customClassNames } = useSearchUIContext();
+  const { disableDefaultStyles = false, customClassNames, downshiftEnvironment } = useSearchUIContext();
   const { sorting, setSorting } = useSorting();
   const id = `sorting-${useId()}`;
   const styles = getStylesObject(
@@ -28,8 +27,6 @@ const Sorting = (props: SortingProps) => {
 
   const renderSortOptionName = (name: string) =>
     name.toLowerCase() === 'most relevant' ? t('mostRelevantOption') : name;
-
-  const downshiftEnvironment = useDownshiftEnvironment();
 
   const innerRender =
     type === 'select' ? (

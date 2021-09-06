@@ -41,5 +41,5 @@ interface Props extends BoxProps {
 }
 
 export interface SelectProps extends Props, SelectCustomClassNames {
-  downshiftEnvironment?: Environment;
+  downshiftEnvironment?: Environment | null;
 }

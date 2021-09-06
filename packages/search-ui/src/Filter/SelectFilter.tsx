@@ -5,7 +5,6 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';
-import { useDownshiftEnvironment } from '../hooks';
 import Box from './Box';
 import { SelectFilterProps } from './types';
 import { formatLabel } from './utils';
@@ -30,9 +29,8 @@ const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
     includes,
     prefixFilter,
   });
-  const { disableDefaultStyles = false, customClassNames, currency } = useSearchUIContext();
+  const { disableDefaultStyles = false, customClassNames, currency, downshiftEnvironment } = useSearchUIContext();
   const { t } = useTranslation('filter');
-  const downshiftEnvironment = useDownshiftEnvironment();
 
   if (isEmpty(options) && isEmpty(selected)) {
     return null;

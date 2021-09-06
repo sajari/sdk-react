@@ -6,7 +6,6 @@ import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';
-import { useDownshiftEnvironment } from '../hooks';
 import ViewOption from '../ViewOption';
 import { ResultsPerPageProps } from './types';
 
@@ -14,11 +13,10 @@ const defaultOptions = [15, 25, 50, 100];
 
 const ResultsPerPage = (props: ResultsPerPageProps) => {
   const { t } = useTranslation('resultsPerPage');
-  const { customClassNames, disableDefaultStyles = false } = useSearchUIContext();
+  const { customClassNames, disableDefaultStyles = false, downshiftEnvironment } = useSearchUIContext();
   const { label = t('label'), options = defaultOptions, styles: stylesProp, size, ...rest } = props;
   const { resultsPerPage, setResultsPerPage } = useResultsPerPage();
   const { totalResults } = useSearchContext();
-  const downshiftEnvironment = useDownshiftEnvironment();
   const id = `page-size-${useId()}`;
   const optionsSorted = options.sort((a, b) => a - b);
   const [min] = optionsSorted;

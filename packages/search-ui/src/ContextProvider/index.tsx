@@ -26,7 +26,7 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
   disableDefaultStyles = false,
   customClassNames = {},
   viewType: viewTypeProp = 'list',
-  shadowRoot = null,
+  downshiftEnvironment = null,
 }) => {
   const [language, setLanguage] = useState(i18n.language);
   const [viewType, setViewType] = useState<ResultViewType>(viewTypeProp);
@@ -55,7 +55,7 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
         ratingMax,
         viewType,
         setViewType,
-        shadowRoot,
+        downshiftEnvironment,
       }}
     >
       <SearchProvider
