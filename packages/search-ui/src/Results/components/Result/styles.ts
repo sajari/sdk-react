@@ -19,6 +19,7 @@ export default function useResultStyles(props: UseResultStylesParams) {
     content: [tw`min-w-0`],
     header: [tw`flex items-start justify-between`],
     title: [tw`font-medium`],
+    link: [tw`text-gray-800`],
     subtitle: [tw`text-xs text-gray-400`],
     description: [tw`mt-1 text-sm text-gray-500`],
     rating: [tw`mt-1 space-y-1 text-center`],

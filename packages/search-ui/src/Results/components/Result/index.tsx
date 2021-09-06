@@ -161,7 +161,7 @@ const Result = React.memo(
 
     const renderTitle = () => (
       <Heading as="h3" size="base" css={styles.title} className={headingClassName}>
-        <Link href={href} onClick={onClick} {...newTabProps}>
+        <Link href={href} onClick={onClick} css={styles.link} {...newTabProps}>
           {decodeHTML(title)}
         </Link>
       </Heading>
