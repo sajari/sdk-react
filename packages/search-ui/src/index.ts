@@ -15,7 +15,6 @@ export { default as Sorting } from './Sorting';
 export * from './Sorting';
 export { default as Summary } from './Summary';
 export * from './Summary';
-export * from './utils/downshiftEnvironment';
 export { default as ViewType } from './ViewType';
 export * from './ViewType';
 export { SSRProvider, SSRProviderProps } from '@sajari/react-components';
