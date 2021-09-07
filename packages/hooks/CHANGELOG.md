@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.3.1
+
+### Patch Changes
+
+- [`47c5edc8`](https://github.com/sajari/sdk-react/commit/47c5edc863229923bc8277d47f55db643fb714b6) [#630](https://github.com/sajari/sdk-react/pull/630) Thanks [@wwalser](https://github.com/wwalser)! - chore: bumpped version of utils used by hooks
+
 ## 3.3.0
 
 ### Minor Changes
@@ -112,7 +118,7 @@
   Before:
 
   ```js
-  pipeline.listen('result-clicked', (url) => {
+  pipeline.listen('result-clicked', url => {
     console.log(url);
   });
   ```
@@ -120,7 +126,7 @@
   After:
 
   ```js
-  pipeline.listen('result-clicked', (data) => {
+  pipeline.listen('result-clicked', data => {
     const {
       token,
       values: { id, url, title, subtitle, description, image, price, originalPrice, rating },
