@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.3.2
+
+### Patch Changes
+
+- [`eb1074c8`](https://github.com/sajari/sdk-react/commit/eb1074c8aa7eaddcac4389f32d60ba85ff108dbc) [#632](https://github.com/sajari/sdk-react/pull/632) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix missing `Tracking` and `NoTracking` export.
+
 ## 3.3.1
 
 ### Patch Changes
