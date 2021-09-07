@@ -24,11 +24,13 @@ export {
   FieldDictionary,
   FilterBuilder,
   FilterOptions,
+  NoTracking,
   Pipeline,
   PosNegTracking,
   Range,
   RangeFilterBuilder,
   RangeFilterOptions,
   SearchProviderValues,
+  Tracking,
   Variables,
 } from '@sajari/react-hooks';
