@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 /* eslint-disable react/jsx-no-target-blank */
 import { Box, Heading, Image, ImageProps, Link, Rating, Text } from '@sajari/react-components';
 import { ClickTracking } from '@sajari/react-hooks';

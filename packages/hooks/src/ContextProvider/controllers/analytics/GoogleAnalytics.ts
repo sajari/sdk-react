@@ -3,7 +3,7 @@ import { isFunction, isSSR } from '@sajari/react-sdk-utils';
 
 import { EVENT_ANALYTICS_BODY_RESET, EVENT_ANALYTICS_PAGE_CLOSED, EVENT_ANALYTICS_RESULT_CLICKED } from '../../events';
 import { UnlistenFn } from '../Listener';
-import { Analytics } from './Analytics';
+import type { Analytics } from './Analytics';
 
 enum GoogleAnalyticsObjects {
   UniversalAnalytics = '_ua',

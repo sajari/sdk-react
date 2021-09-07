@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 export { Analytics, DebugAnalytics, GoogleAnalytics } from './analytics';
 export { default as combineFilters } from './filters/combineFilters';
 export { default as FilterBuilder } from './filters/FilterBuilder';

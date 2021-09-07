@@ -1,8 +1,7 @@
-/* eslint-disable import/no-cycle */
 import { BoxProps, ImageProps } from '@sajari/react-components';
 import { ResultValues } from '@sajari/react-hooks';
 
-import { TemplateResultProps } from './components/TemplateResult/types';
+import type { TemplateResultProps } from './components/TemplateResult/types';
 
 export type ResultTemplate = {
   html: string;
