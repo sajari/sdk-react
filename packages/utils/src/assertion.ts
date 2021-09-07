@@ -6,16 +6,9 @@ const getTag = (value: any) => {
     return value === undefined ? '[object Undefined]' : '[object Null]';
   }
 
-  // IE11 (remove if statement after end of life, July 2022)
-  if (!toString.call) {
-    try {
-      return value.toString();
-    } catch (err) {
-      return 'unknown';
-    }
-  }
-
-  return toString.call(value);
+  // IE11: window.toString and object prototype toString are not the same.
+  // prettier-ignore
+  return ({}).toString.call(value);
 };
 
 export function isNullOrUndefined(value: any): value is undefined | null {
