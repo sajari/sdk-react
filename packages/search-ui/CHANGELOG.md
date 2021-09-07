@@ -1,5 +1,15 @@
 # Change Log
 
+## 4.0.2
+
+### Patch Changes
+
+- [`d188470b`](https://github.com/sajari/sdk-react/commit/d188470be4a4032aa2c5d5efb1d2a8950908f011) [#628](https://github.com/sajari/sdk-react/pull/628) Thanks [@wwalser](https://github.com/wwalser)! - chore: try again for IE11 support
+
+- Updated dependencies [[`d188470b`](https://github.com/sajari/sdk-react/commit/d188470be4a4032aa2c5d5efb1d2a8950908f011)]:
+  - @sajari/react-sdk-utils@1.4.3
+  - @sajari/react-components@1.12.2
+
 ## 4.0.1
 
 ### Patch Changes
