@@ -165,9 +165,11 @@ export function useProductImages(props: Props): UseProductImagesOutput {
       `;
         document.head.appendChild(style);
         const images = image.map(getCreateImageElementFunc(setActiveImageIndex));
+        const fragment = document.createDocumentFragment();
         images.forEach((img) => {
-          container.appendChild(img);
+          fragment.appendChild(img);
         });
+        container.appendChild(fragment);
       } else {
         document.querySelector('#sj-result-template-default-style')?.remove();
       }
