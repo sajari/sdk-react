@@ -8,13 +8,15 @@ interface Props extends Pick<TemplateResultProps, 'showVariantImage'> {
   image: ResultValues['image'];
 }
 
-export function useHoverImage(props: Props) {
+type UseHoverImageOutput = (element: HTMLElement | null) => void;
+
+export function useHoverImage(props: Props): UseHoverImageOutput {
   const { image: imageProp, showVariantImage } = props;
   const hoverImageSrc = isArray(imageProp) ? imageProp[1] : undefined;
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const [secondImage, setSecondImage] = useState<HTMLImageElement | null>(null);
 
-  const onRefChange = useCallback((element: HTMLElement | null) => {
+  const onRefChange = useCallback<UseHoverImageOutput>((element) => {
     const node = element;
     if (node) {
       const img = node.querySelector('img[data-sj-first-image]') as HTMLImageElement;

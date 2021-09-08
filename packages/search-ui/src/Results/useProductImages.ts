@@ -97,13 +97,18 @@ function getCreateImageElementFunc(setIndex: (i: number) => void) {
   };
 }
 
-export function useProductImages(props: Props) {
+type UseProductImagesOutput = {
+  onRefChange: (element: HTMLElement | null) => void;
+  activeImageIndex: number;
+};
+
+export function useProductImages(props: Props): UseProductImagesOutput {
   const { viewType, values, showVariantImage } = props;
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [node, setNode] = useState<HTMLElement | null>(null);
   const [container, setContainer] = useState<HTMLElement | null>(null);
 
-  const onRefChange = useCallback((element: HTMLElement | null) => {
+  const onRefChange = useCallback<UseProductImagesOutput['onRefChange']>((element) => {
     if (element) {
       setNode(element);
       const containerElement = element.querySelector('div[data-sj-product-images-container]') as HTMLElement;
