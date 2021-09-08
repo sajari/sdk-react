@@ -153,6 +153,7 @@ function Example() {
       collection: 'bestbuy',
     },
     'query',
+    new ClickTracking(),
   );
 
   const template = {
@@ -161,10 +162,13 @@ function Example() {
 
 <a href="{{url}}">
   <article class="relative p-3 rounded-md border border-gray-200 shadow flex flex-col h-full">
-     <div class="relative">
-       <div class="product-image">
-         <img class="absolute top-0 left-0 h-full w-full object-contain object-center" src="{{image}}" />
+     <div>
+       <div class="relative">
+         <div class="product-image">
+           <img data-sj-first-image class="absolute top-0 left-0 h-full w-full object-contain object-center" src="{{image}}" />
+         </div>
        </div>
+       <div data-sj-product-images-container></div>
      </div>
      <p class="font-medium text-gray-700 mt-4">{{title}}</p>
      <p class="text-xs text-gray-400 mt-1 mb-8">{{subtitle}}</p>

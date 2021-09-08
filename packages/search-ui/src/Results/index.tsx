@@ -1,5 +1,5 @@
 import { ResizeObserver } from '@sajari/react-components';
-import { useQuery, useSearchContext, useTracking } from '@sajari/react-hooks';
+import { useQuery, useSearchContext } from '@sajari/react-hooks';
 import { getStylesObject, isEmpty, isNullOrUndefined } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -32,7 +32,6 @@ const Results = (props: ResultsProps) => {
     ...rest
   } = props;
   const [width, setWidth] = React.useState(0);
-  const { handleResultClicked, posNegLocalStorageManager } = useTracking();
   const hasImages = React.useMemo(() => results?.some((r) => r.values?.image), [results]);
   const styles = getStylesObject(useResultsStyles({ ...props, appearance, width }), disableDefaultStyles);
   const { t } = useTranslation(['common', 'errors', 'result']);
@@ -108,7 +107,8 @@ const Results = (props: ResultsProps) => {
         resetKeys={[`${resultTemplate.html}${resultTemplate.css}`]}
       >
         <TemplateResults
-          results={results.map((r) => r.values)}
+          showVariantImage={rest.showVariantImage}
+          results={results}
           resultTemplate={resultTemplate}
           resultContainerTemplateElement={resultContainerTemplateElement}
         />
@@ -122,14 +122,11 @@ const Results = (props: ResultsProps) => {
       css={[styles.container, stylesProp]}
       className={customClassNames.results?.container}
     >
-      {results?.map(({ values, token }, i) => (
+      {results?.map((result, i) => (
         <Result
-          onClick={handleResultClicked}
-          posNegLocalStorageManager={posNegLocalStorageManager}
-          token={token}
           // eslint-disable-next-line no-underscore-dangle
-          key={values._id ?? i}
-          values={values}
+          key={result.values._id ?? i}
+          result={result}
           appearance={appearance}
           forceImage={hasImages}
           disableDefaultStyles={disableDefaultStyles}

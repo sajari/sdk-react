@@ -9,14 +9,18 @@ import { TemplateResultsProps } from './types';
 
 const TemplateResults = (props: TemplateResultsProps) => {
   const { customClassNames } = useSearchUIContext();
-  const { results, resultTemplate, resultContainerTemplateElement } = props;
+  const { results, resultTemplate, resultContainerTemplateElement, ...rest } = props;
   // Get the keys of a result, using Set to eliminate dups
   const keys = Array.from(
-    results?.reduce((acc, cur) => {
-      Object.keys(cur).forEach((k) => acc.add(k));
-      return acc;
-    }, new Set<string>()),
+    results
+      .map((r) => r.values)
+      .reduce((acc, cur) => {
+        Object.keys(cur).forEach((k) => acc.add(k));
+        return acc;
+      }, new Set<string>()),
   );
+  keys.push('productStatuses');
+  keys.push('renderPriceData');
   const keysStringified = keys.join(',');
   const render = useMemo(() => compile(resultTemplate.html, { async: false, props: keys }), [
     resultTemplate.html,
@@ -33,13 +37,14 @@ const TemplateResults = (props: TemplateResultsProps) => {
           `}
         />
       ) : null}
-      {results?.map((values, i) => (
+      {results?.map((result, i) => (
         <TemplateResult
           // eslint-disable-next-line no-underscore-dangle
-          key={values._id ?? i}
-          values={values}
+          key={result.values._id ?? i}
+          result={result}
           render={render}
           as={resultContainerTemplateElement}
+          {...rest}
         />
       ))}
     </div>
