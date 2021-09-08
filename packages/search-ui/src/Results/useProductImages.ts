@@ -148,10 +148,14 @@ export function useProductImages(props: Props): UseProductImagesOutput {
 
   useEffect(() => {
     const { image } = values;
-    if (container && showVariantImage && isArray(image)) {
-      const style = document.createElement('style');
-      style.id = 'sj-result-template-default-style';
-      style.textContent = `
+    if (container) {
+      while (container.firstChild) {
+        container.removeChild(container.firstChild);
+      }
+      if (showVariantImage && isArray(image)) {
+        const style = document.createElement('style');
+        style.id = 'sj-result-template-default-style';
+        style.textContent = `
         [data-sj-variant-image]::before {
           padding-bottom: calc(100%);
           content: "";
@@ -159,13 +163,14 @@ export function useProductImages(props: Props): UseProductImagesOutput {
           height: 0px;
         }
       `;
-      document.head.appendChild(style);
-      const images = image.map(getCreateImageElementFunc(setActiveImageIndex));
-      images.forEach((img) => {
-        container.appendChild(img);
-      });
-    } else {
-      document.querySelector('#sj-result-template-default-style')?.remove();
+        document.head.appendChild(style);
+        const images = image.map(getCreateImageElementFunc(setActiveImageIndex));
+        images.forEach((img) => {
+          container.appendChild(img);
+        });
+      } else {
+        document.querySelector('#sj-result-template-default-style')?.remove();
+      }
     }
   }, [container, showVariantImage]);
 
