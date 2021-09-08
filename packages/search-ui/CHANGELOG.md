@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.1.1
+
+### Patch Changes
+
+- [`2ca1137d`](https://github.com/sajari/sdk-react/commit/2ca1137d0a32fa3f2025306d6f5e9ee9de5503c4) [#636](https://github.com/sajari/sdk-react/pull/636) Thanks [@tuanddd](https://github.com/tuanddd)! - Clear the images container whenever the option changes so that old images won't stack up
+
 ## 4.1.0
 
 ### Minor Changes
