@@ -1,5 +1,17 @@
 # Change Log
 
+## 4.1.0
+
+### Minor Changes
+
+- [`bf1d17b9`](https://github.com/sajari/sdk-react/commit/bf1d17b9bc45e7b5e3d4617eee7c8cae086620fe) [#597](https://github.com/sajari/sdk-react/pull/597) Thanks [@tuanddd](https://github.com/tuanddd)! - Add support for features of Result component to result template
+
+### Patch Changes
+
+- Updated dependencies [[`bf1d17b9`](https://github.com/sajari/sdk-react/commit/bf1d17b9bc45e7b5e3d4617eee7c8cae086620fe)]:
+  - @sajari/react-sdk-utils@1.5.0
+  - @sajari/react-components@1.12.3
+
 ## 4.0.3
 
 ### Patch Changes
