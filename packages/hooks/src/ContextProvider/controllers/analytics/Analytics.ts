@@ -9,7 +9,7 @@ import {
   EVENT_TRACKING_RESET,
 } from '../../events';
 import { CallbackFn, Listener, ListenerMap } from '../Listener';
-import { Pipeline } from '../Pipeline';
+import type { Pipeline } from '../Pipeline';
 import { Response } from '../Response';
 import { Tracking } from '../tracking';
 

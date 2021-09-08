@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import { PropsWithAs } from '@sajari/react-sdk-utils';
 
 import { ResultValues } from '../../types';
