@@ -17,13 +17,26 @@ export type UseRenderPriceOutput = {
 
 export function useRenderPrice({
   values,
-  activeImageIndex = 0,
+  activeImageIndex: activeImageIndexProp = 0,
   isOnSale,
   currency,
   language,
 }: Input): UseRenderPriceOutput {
-  const { price, salePrice, originalPrice } = values;
-  if (isEmpty(price)) return null;
+  const { price: priceProp, salePrice, originalPrice } = values;
+  let price = priceProp;
+  let activeImageIndex = activeImageIndexProp;
+
+  if (isEmpty(price) || isEmpty(priceProp)) return null;
+
+  const hasVariantImages = isArray(price[0]);
+
+  if (hasVariantImages && activeImageIndexProp === 0)
+    return { priceToDisplay: formatPrice(price[0], { currency, language }) };
+
+  if (hasVariantImages) {
+    activeImageIndex = activeImageIndexProp - 1;
+    price = priceProp.slice(1);
+  }
   const activePrice = isArray(price) ? price[activeImageIndex] ?? price : price;
   if (isEmpty(activePrice)) return null;
   let priceToDisplay: string;
