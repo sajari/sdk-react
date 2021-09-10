@@ -66,12 +66,17 @@ const Result = React.memo(
       onClick: onClickProp,
       posNegLocalStorageManager,
     });
+    const onClick = tracking instanceof ClickTracking ? clickTrackingOnClick : posNegOnClick;
+    const mouseDownHandler = (e: React.MouseEvent<HTMLElement>) => {
+      if (e.button === 1) {
+        onClick();
+      }
+    };
     const { title, description, subtitle, image } = values;
     const [imageSrc, setImageSrc] = useState(isArray(image) ? image[0] : image);
     const [hoverImageSrc] = useState(isArray(image) && !showVariantImage ? image[1] : undefined);
     const rating = Number(values.rating);
     const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
-    const onClick = tracking instanceof ClickTracking ? clickTrackingOnClick : posNegOnClick;
     const newTabProps = openNewTab ? { target: '_blank', rel: 'noopener' } : {};
     const { isOnSale, isOutOfStock, isNewArrival, onSaleText, newArrivalText, outOfStockText } = useProductStatuses({
       activeImageIndex,
@@ -106,7 +111,14 @@ const Result = React.memo(
 
     const renderTitle = () => (
       <Heading as="h3" size="base" css={styles.title} className={headingClassName}>
-        <Link href={href} onClick={onClick} css={styles.link} {...newTabProps}>
+        <Link
+          href={href}
+          onClick={onClick}
+          onContextMenu={onClick}
+          onMouseDown={mouseDownHandler}
+          css={styles.link}
+          {...newTabProps}
+        >
           {decodeHTML(title)}
         </Link>
       </Heading>
@@ -120,6 +132,8 @@ const Result = React.memo(
           <Link
             href={href}
             onClick={onClick}
+            onContextMenu={onClick}
+            onMouseDown={mouseDownHandler}
             css={styles.subtitle}
             disableDefaultStyles={disableDefaultStyles}
             className={subTitleClassName}
@@ -245,6 +259,7 @@ const Result = React.memo(
               href={href}
               onClick={onClick}
               onContextMenu={onClick}
+              onMouseDown={mouseDownHandler}
               css={styles.imageContainer}
               disableDefaultStyles={disableDefaultStyles}
               {...newTabProps}
