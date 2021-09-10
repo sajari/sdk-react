@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.2.0
+
+### Minor Changes
+
+- [`2b879629`](https://github.com/sajari/sdk-react/commit/2b879629fabc92dc70fbca818b3504a7ae9a6ef4) [#639](https://github.com/sajari/sdk-react/pull/639) Thanks [@wwalser](https://github.com/wwalser)! - feat: handle right and middle click in result tracking
+
 ## 4.1.1
 
 ### Patch Changes
