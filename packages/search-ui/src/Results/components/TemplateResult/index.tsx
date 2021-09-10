@@ -29,6 +29,11 @@ const TemplateResult = (props: TemplateResultProps) => {
     posNegLocalStorageManager,
   });
   const onClick = tracking instanceof ClickTracking ? clickTrackingOnClick : posNegOnClick;
+  const mouseDownHandler = (e: React.MouseEvent<HTMLElement>) => {
+    if (e.button === 1) {
+      onClick();
+    }
+  };
   const { onRefChange: onRefChangeProductImages, activeImageIndex } = useProductImages({
     viewType,
     values,
@@ -52,6 +57,7 @@ const TemplateResult = (props: TemplateResultProps) => {
   return (
     <Box
       onClick={onClick}
+      onMouseDown={mouseDownHandler}
       ref={ref}
       as={as}
       className={customClassNames.results?.template?.resultContainer}
