@@ -1,5 +1,16 @@
 # Change Log
 
+## 4.2.1
+
+### Patch Changes
+
+- [`d432dcfc`](https://github.com/sajari/sdk-react/commit/d432dcfc59e526cca60bbd5194992789a7321982) [#644](https://github.com/sajari/sdk-react/pull/644) Thanks [@tuanddd](https://github.com/tuanddd)! - Prevent style tag from being duplicated
+
+* [`1b1507fc`](https://github.com/sajari/sdk-react/commit/1b1507fca26b6260bfe445b97a1d7b121c95a598) [#642](https://github.com/sajari/sdk-react/pull/642) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix input typeahead mode is broken.
+
+* Updated dependencies [[`1b1507fc`](https://github.com/sajari/sdk-react/commit/1b1507fca26b6260bfe445b97a1d7b121c95a598)]:
+  - @sajari/react-components@1.12.4
+
 ## 4.2.0
 
 ### Minor Changes
