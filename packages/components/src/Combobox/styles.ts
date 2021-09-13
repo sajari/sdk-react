@@ -3,7 +3,7 @@ import { inferStylesObjectKeys, mapStyles } from '@sajari/react-sdk-utils';
 import tw, { TwStyle } from 'twin.macro';
 
 import { useFocusRingStyles } from '../hooks';
-import { ComboboxProps } from './types';
+import { ComboboxProps, ComboboxSize } from './types';
 
 interface UseComboboxStylesProps {
   size: ComboboxProps<any>['size'];
@@ -12,18 +12,37 @@ interface UseComboboxStylesProps {
   variant: ComboboxProps<any>['variant'];
 }
 
+export function getInputSpacingStyles(size?: ComboboxSize) {
+  switch (size) {
+    case 'sm':
+      return tw`text-sm pl-8`;
+
+    case '2xl':
+      return tw`pl-9 text-2xl`;
+
+    case 'xl':
+      return tw`pl-10 text-xl`;
+
+    case 'lg':
+      return tw`text-lg pl-10`;
+
+    case 'md':
+    default:
+      return tw`pl-9`;
+  }
+}
+
 export function useComboboxStyles(props: UseComboboxStylesProps) {
   const { size, voiceEnabled, loading, variant } = props;
   const { focusProps, focusRingStyles } = useFocusRingStyles();
   const containerStyles: TwStyle[] = [];
-  const inputStyles: TwStyle[] = [];
   const iconContainerStyles: TwStyle[] = [tw`absolute inset-y-0 flex items-center space-x-2 text-gray-400`];
   const iconSearchStyles: TwStyle[] = [];
+  const inputStyles = getInputSpacingStyles(size);
 
   switch (size) {
     case 'sm':
       containerStyles.push(tw`py-1`);
-      inputStyles.push(tw`text-sm pl-8`);
 
       if (loading && voiceEnabled) {
         containerStyles.push(tw`pr-13`);
@@ -36,7 +55,6 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
 
     case '2xl':
       containerStyles.push(tw`py-4`);
-      inputStyles.push(tw`pl-9 text-2xl`);
 
       if (loading && voiceEnabled) {
         containerStyles.push(tw`pr-15`);
@@ -50,7 +68,6 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
 
     case 'xl':
       containerStyles.push(tw`py-3.5`);
-      inputStyles.push(tw`pl-10 text-xl`);
 
       if (loading && voiceEnabled) {
         containerStyles.push(tw`pr-15`);
@@ -64,7 +81,6 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
 
     case 'lg':
       containerStyles.push(tw`py-3`);
-      inputStyles.push(tw`text-lg pl-10`);
 
       if (loading && voiceEnabled) {
         containerStyles.push(tw`pr-15`);
@@ -77,8 +93,6 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
 
     case 'md':
     default:
-      inputStyles.push(tw`pl-9`);
-
       if (loading && voiceEnabled) {
         containerStyles.push(tw`pr-14`);
       } else if (loading || voiceEnabled) {
@@ -91,13 +105,13 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
 
   const styles = inferStylesObjectKeys({
     container: [tw`relative`],
-    inputContainer: [tw`form-input`, tw`relative text-base transition-all duration-150`, ...containerStyles],
+    inputContainer: [tw`form-input`, tw`relative text-base transition-all duration-150 px-0`, ...containerStyles],
     iconContainerLeft: [...iconContainerStyles, tw`left-0`],
     iconContainerRight: [...iconContainerStyles, tw`right-0`],
     input: [
       tw`form-input`,
       tw`absolute inset-0 w-full h-full bg-transparent border-0 focus:border-0 outline-none focus:outline-none shadow-none focus:shadow-none font-inherit m-0 p-0 box-border`,
-      ...inputStyles,
+      inputStyles,
       ` &::-ms-clear,
         &::-ms-reveal {
           display: none;

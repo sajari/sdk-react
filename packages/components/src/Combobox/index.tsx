@@ -236,6 +236,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     customClassNames: rest,
     inAttachMode,
     inputElement,
+    size,
   };
 
   const handleVoiceInput = (input: string) => {

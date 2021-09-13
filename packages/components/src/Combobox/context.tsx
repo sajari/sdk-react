@@ -2,7 +2,7 @@
 import { createContext } from '@sajari/react-sdk-utils';
 import { PropGetters } from 'downshift';
 
-import { ComboboxCustomClassNames, ComboboxMode, ComboboxProps } from './types';
+import { ComboboxCustomClassNames, ComboboxMode, ComboboxProps, ComboboxSize } from './types';
 
 interface ComboboxContextProps<T = any> {
   mode: ComboboxMode;
@@ -25,6 +25,7 @@ interface ComboboxContextProps<T = any> {
   customClassNames: ComboboxCustomClassNames;
   inAttachMode?: boolean;
   inputElement?: React.RefObject<HTMLInputElement>;
+  size?: ComboboxSize;
 }
 
 const [ComboboxContextProvider, useComboboxContext] = createContext<ComboboxContextProps>({
