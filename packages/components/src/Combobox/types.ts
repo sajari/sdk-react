@@ -45,6 +45,8 @@ export interface ComboboxCustomClassNames {
   typeaheadClassName?: string;
 }
 
+export type ComboboxSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+
 interface Props<T> {
   /** The mode for the combobox to operate */
   mode?: ComboboxMode;
@@ -72,7 +74,7 @@ interface Props<T> {
   /** The typeahead completion value */
   completion?: string;
   /** The size of the combobox input */
-  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  size?: ComboboxSize;
   /** Whether to show tips in the dropdown on how to navigate the options */
   showDropdownTips?: boolean;
   /** Whether to show the "Powered by Sajari" in the dropdown */

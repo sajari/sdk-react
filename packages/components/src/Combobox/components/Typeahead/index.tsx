@@ -22,8 +22,9 @@ const Typeahead = () => {
     inputValue,
     disableDefaultStyles = false,
     customClassNames: { typeaheadClassName = '' },
+    size,
   } = useComboboxContext();
-  const styles = getStylesObject(useTypeaheadStyles(), disableDefaultStyles);
+  const styles = getStylesObject(useTypeaheadStyles({ size }), disableDefaultStyles);
   let typeaheadValue = '';
   let hiddenText = '&#8203;';
 
