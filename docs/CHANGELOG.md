@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.9.7
+
+### Patch Changes
+
+- [`1b1507fc`](https://github.com/sajari/sdk-react/commit/1b1507fca26b6260bfe445b97a1d7b121c95a598) [#642](https://github.com/sajari/sdk-react/pull/642) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix input typeahead mode is broken.
+
 ## 1.9.6
 
 ### Patch Changes
