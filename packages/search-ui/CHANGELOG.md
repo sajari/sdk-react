@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.2.2
+
+### Patch Changes
+
+- [`03e8617b`](https://github.com/sajari/sdk-react/commit/03e8617bbabc45c06953d7109d4fbc7c1f6ffc26) [#638](https://github.com/sajari/sdk-react/pull/638) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix render price logic when showing variant images
+
 ## 4.2.1
 
 ### Patch Changes
