@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.2.4
+
+### Patch Changes
+
+- [`dd2ffe79`](https://github.com/sajari/sdk-react/commit/dd2ffe797762a37cadca6a5139e61ff7c7bc467a) [#648](https://github.com/sajari/sdk-react/pull/648) Thanks [@tuanddd](https://github.com/tuanddd)! - Remove remaining sj data attributes
+
 ## 4.2.3
 
 ### Patch Changes
