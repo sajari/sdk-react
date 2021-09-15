@@ -111,7 +111,7 @@ export function useProductImages(props: Props): UseProductImagesOutput {
   const onRefChange = useCallback<UseProductImagesOutput['onRefChange']>((element) => {
     if (element) {
       setNode(element);
-      const containerElement = element.querySelector('div[data-sj-product-images-container]') as HTMLElement;
+      const containerElement = element.querySelector('div[data-search-product-images-container]') as HTMLElement;
       setContainer(containerElement);
     }
   }, []);
@@ -138,7 +138,7 @@ export function useProductImages(props: Props): UseProductImagesOutput {
 
   useEffect(() => {
     if (node) {
-      const img = node.querySelector('img[data-sj-first-image]') as HTMLImageElement;
+      const img = node.querySelector('img[data-search-first-image]') as HTMLImageElement;
       const { image } = values;
       if (img && isArray(image) && image[activeImageIndex]) {
         img.src = image[activeImageIndex];
@@ -158,7 +158,7 @@ export function useProductImages(props: Props): UseProductImagesOutput {
           style = document.createElement('style');
           style.id = 'sj-result-template-default-style';
           style.textContent = `
-        [data-sj-variant-image]::before {
+        [data-search-variant-image]::before {
           padding-bottom: calc(100%);
           content: "";
           display: block;

@@ -13,19 +13,19 @@ type Input = {
   values: ResultValues;
 };
 
-export type UseProductStatusesOutput = {
+export type UseProductStatusOutput = {
   // To know if the selected product is on sale
-  isCurrentOnSale: boolean;
+  variantOnSale: boolean;
   // Whether there is at least one product in the list of variants is on sale
-  isOnSale: boolean;
-  isOutOfStock: boolean;
-  isNewArrival: boolean;
+  onSale: boolean;
+  outOfStock: boolean;
+  newArrival: boolean;
   onSaleText: string;
   newArrivalText: string;
   outOfStockText: string;
 };
 
-export function useProductStatuses({ activeImageIndex = 0, values }: Input): UseProductStatusesOutput {
+export function useProductStatus({ activeImageIndex = 0, values }: Input): UseProductStatusOutput {
   const { quantity, price, originalPrice, salePrice, createdAt } = values;
   const { t } = useTranslation('result');
 
@@ -113,10 +113,10 @@ export function useProductStatuses({ activeImageIndex = 0, values }: Input): Use
   }, []);
 
   return {
-    isNewArrival,
-    isOutOfStock,
-    isOnSale,
-    isCurrentOnSale,
+    newArrival: isNewArrival,
+    outOfStock: isOutOfStock,
+    onSale: isOnSale,
+    variantOnSale: isCurrentOnSale,
     outOfStockText: t('status.outOfStock'),
     onSaleText: t('status.onSale'),
     newArrivalText: t('status.newArrival'),

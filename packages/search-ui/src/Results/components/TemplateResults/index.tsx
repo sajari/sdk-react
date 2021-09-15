@@ -19,8 +19,8 @@ const TemplateResults = (props: TemplateResultsProps) => {
         return acc;
       }, new Set<string>()),
   );
-  keys.push('productStatuses');
-  keys.push('renderPriceData');
+  keys.push('productStatus');
+  keys.push('productPrice');
   const keysStringified = keys.join(',');
   const render = useMemo(() => compile(resultTemplate.html, { async: false, props: keys }), [
     resultTemplate.html,

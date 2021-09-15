@@ -4,13 +4,13 @@ import tw from 'twin.macro';
 import { ResultProps } from './types';
 
 interface UseResultStylesParams extends ResultProps {
-  isOnSale?: boolean;
-  isOutOfStock?: boolean;
-  isNewArrival?: boolean;
+  onSale?: boolean;
+  outOfStock?: boolean;
+  newArrival?: boolean;
 }
 
 export default function useResultStyles(props: UseResultStylesParams) {
-  const { appearance, isOnSale, isOutOfStock, isNewArrival } = props;
+  const { appearance, onSale, outOfStock, newArrival } = props;
 
   const styles = inferStylesObjectKeys({
     container: [],
@@ -35,13 +35,13 @@ export default function useResultStyles(props: UseResultStylesParams) {
   });
 
   switch (true) {
-    case isOutOfStock:
+    case outOfStock:
       styles.status.push(tw`text-gray-400`);
       break;
-    case isNewArrival:
+    case newArrival:
       styles.status.push(tw`text-green-500`);
       break;
-    case isOnSale:
+    case onSale:
       styles.status.push(tw`text-red-500`);
       break;
     default:
