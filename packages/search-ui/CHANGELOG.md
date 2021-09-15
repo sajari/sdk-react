@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.2.3
+
+### Patch Changes
+
+- [`9fc91043`](https://github.com/sajari/sdk-react/commit/9fc91043d57b4115728cc3fde4fa9dc0835eba93) [#646](https://github.com/sajari/sdk-react/pull/646) Thanks [@tuanddd](https://github.com/tuanddd)! - Renaming useRenderPrice hook and its return data shape, as well as useProductStatus, rename data-sj to data-search
+
 ## 4.2.2
 
 ### Patch Changes
