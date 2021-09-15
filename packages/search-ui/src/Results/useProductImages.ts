@@ -75,7 +75,7 @@ function getCreateImageElementFunc(setIndex: (i: number) => void) {
     });
 
     const innerContainer = document.createElement('div');
-    innerContainer.dataset.sjVariantImage = '';
+    innerContainer.dataset.searchVariantImage = '';
     Object.entries(imgStyle.innerContainer).forEach(([key, value]) => {
       innerContainer.style.setProperty(key, value);
     });
@@ -148,7 +148,7 @@ export function useProductImages(props: Props): UseProductImagesOutput {
 
   useEffect(() => {
     const { image } = values;
-    let style = document.querySelector('#sj-result-template-default-style');
+    let style = document.querySelector('#search-result-template-default-style');
     if (container) {
       while (container.firstChild) {
         container.removeChild(container.firstChild);
@@ -156,7 +156,7 @@ export function useProductImages(props: Props): UseProductImagesOutput {
       if (showVariantImage && isArray(image)) {
         if (!style) {
           style = document.createElement('style');
-          style.id = 'sj-result-template-default-style';
+          style.id = 'search-result-template-default-style';
           style.textContent = `
         [data-search-variant-image]::before {
           padding-bottom: calc(100%);
