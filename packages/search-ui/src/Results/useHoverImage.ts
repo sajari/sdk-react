@@ -19,7 +19,7 @@ export function useHoverImage(props: Props): UseHoverImageOutput {
   const onRefChange = useCallback<UseHoverImageOutput>((element) => {
     const node = element;
     if (node) {
-      const img = node.querySelector('img[data-sj-first-image]') as HTMLImageElement;
+      const img = node.querySelector('img[data-search-first-image]') as HTMLImageElement;
       setImage(img);
     }
   }, []);

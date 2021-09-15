@@ -7,7 +7,7 @@ import React from 'react';
 import { applyClickTracking, applyPosNegTracking } from '../../../utils';
 import { useHoverImage } from '../../useHoverImage';
 import { useProductImages } from '../../useProductImages';
-import { useProductStatuses } from '../../useProductStatuses';
+import { useProductStatus } from '../../useProductStatus';
 import { useRenderPrice } from '../../useRenderPrice';
 import { TemplateResultProps } from './types';
 
@@ -39,18 +39,18 @@ const TemplateResult = (props: TemplateResultProps) => {
     values,
     showVariantImage,
   });
-  const productStatuses = useProductStatuses({
+  const productStatus = useProductStatus({
     activeImageIndex,
     values,
   });
-  const renderPriceData = useRenderPrice({
+  const productPrice = useRenderPrice({
     values,
     currency,
     language,
-    isOnSale: productStatuses.isOnSale,
+    onSale: productStatus.onSale,
     activeImageIndex,
   });
-  const rendered = render({ ...{ ...values, url: href ?? values.url }, productStatuses, renderPriceData });
+  const rendered = render({ ...{ ...values, url: href ?? values.url }, productStatus, productPrice });
   const onRefChangeHoverImage = useHoverImage({ image: values.image, showVariantImage });
   const ref = mergeRefs(onRefChangeHoverImage, onRefChangeProductImages);
 

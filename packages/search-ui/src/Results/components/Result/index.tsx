@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../../../ContextProvider';
 import { applyClickTracking, applyPosNegTracking } from '../../../utils';
-import { useProductStatuses } from '../../useProductStatuses';
+import { useProductStatus } from '../../useProductStatus';
 import { useRenderPrice } from '../../useRenderPrice';
 import useResultStyles from './styles';
 import { ResultProps } from './types';
@@ -78,14 +78,14 @@ const Result = React.memo(
     const rating = Number(values.rating);
     const [activeImageIndex, setActiveImageIndex] = useState<number>(0);
     const newTabProps = openNewTab ? { target: '_blank', rel: 'noopener' } : {};
-    const { isOnSale, isOutOfStock, isNewArrival, onSaleText, newArrivalText, outOfStockText } = useProductStatuses({
+    const { onSale, outOfStock, newArrival, onSaleText, newArrivalText, outOfStockText } = useProductStatus({
       activeImageIndex,
       values,
     });
-    const priceRenderData = useRenderPrice({ values, isOnSale, currency, language, activeImageIndex });
+    const productPrice = useRenderPrice({ values, onSale, currency, language, activeImageIndex });
 
     const styles = getStylesObject(
-      useResultStyles({ ...props, appearance, isOnSale, isNewArrival, isOutOfStock }),
+      useResultStyles({ ...props, appearance, onSale, newArrival, outOfStock }),
       disableDefaultStyles,
     );
 
@@ -155,44 +155,44 @@ const Result = React.memo(
       return (
         <Box css={styles.priceContainer}>
           <Text css={styles.price} className={priceClassName} disableDefaultStyles={disableDefaultStyles}>
-            {priceRenderData?.priceToDisplay}
+            {productPrice?.displayPrice}
           </Text>
 
-          {priceRenderData?.markedDownFromPriceToDisplay && (
+          {productPrice?.originalPrice && (
             <Text
               css={styles.originalPrice}
               className={originalPriceClassName}
               disableDefaultStyles={disableDefaultStyles}
             >
-              {priceRenderData.markedDownFromPriceToDisplay}
+              {productPrice.originalPrice}
             </Text>
           )}
         </Box>
       );
     };
 
-    const showStatus = showStatusProp && (isOutOfStock || isOnSale || isNewArrival);
+    const showStatus = showStatusProp && (outOfStock || onSale || newArrival);
     const renderStatus = () => {
       if (!showStatus) return null;
       let text = '';
       let css = styles.status;
       let className: string | undefined;
       switch (true) {
-        case isOutOfStock:
+        case outOfStock:
           if (!isEmpty(outOfStockStatusClassName)) {
             className = outOfStockStatusClassName;
             css = undefined;
           }
           text = outOfStockText;
           break;
-        case isNewArrival:
+        case newArrival:
           if (!isEmpty(newArrivalStatusClassName)) {
             className = newArrivalStatusClassName;
             css = undefined;
           }
           text = newArrivalText;
           break;
-        case isOnSale:
+        case onSale:
           if (!isEmpty(onSaleStatusClassName)) {
             className = onSaleStatusClassName;
             css = undefined;

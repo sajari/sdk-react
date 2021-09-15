@@ -2,13 +2,13 @@ import type { Token } from '@sajari/react-hooks';
 import { PropsWithAs } from '@sajari/react-sdk-utils';
 
 import { ResultValues } from '../../types';
-import { UseProductStatusesOutput } from '../../useProductStatuses';
+import { UseProductStatusOutput } from '../../useProductStatus';
 import { UseRenderPriceOutput } from '../../useRenderPrice';
 import { TemplateResultsProps } from '../TemplateResults/types';
 
 type ExtraValues = {
-  productStatuses: UseProductStatusesOutput;
-  renderPriceData: UseRenderPriceOutput;
+  productStatus: UseProductStatusOutput;
+  productPrice: UseRenderPriceOutput;
 };
 
 interface Props extends Pick<TemplateResultsProps, 'showVariantImage'> {
