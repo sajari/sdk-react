@@ -32,7 +32,7 @@ const Message = (props: MessageProps) => {
   }, []);
 
   const renderResetButton = showReset ? (
-    <Button css={styles.resetButton} appearance="primary" size="sm" onClick={reset}>
+    <Button css={styles.resetButton} appearance="primary" onClick={reset}>
       {t('reset')}
     </Button>
   ) : null;
