@@ -12,7 +12,11 @@ type UseHoverImageOutput = (element: HTMLElement | null) => void;
 
 export function useHoverImage(props: Props): UseHoverImageOutput {
   const { image: imageProp, showVariantImage } = props;
-  const hoverImageSrc = isArray(imageProp) ? imageProp[1] : undefined;
+  const hasVariantImages = isArray(imageProp?.[0]);
+  let hoverImageSrc = isArray(imageProp) ? imageProp[1] : undefined;
+  if (hasVariantImages) {
+    hoverImageSrc = imageProp?.slice(1)[1];
+  }
   const [image, setImage] = useState<HTMLImageElement | null>(null);
   const [secondImage, setSecondImage] = useState<HTMLImageElement | null>(null);
 
@@ -46,7 +50,7 @@ export function useHoverImage(props: Props): UseHoverImageOutput {
     if (hoverImageSrc && image && !showVariantImage) {
       const secondImageElement = document.createElement('img');
       secondImageElement.src = hoverImageSrc;
-      secondImageElement.dataset.sjSecondImage = '';
+      secondImageElement.dataset.searchSecondImage = '';
       secondImageElement.style.transition = 'opacity 0.2s ease-in';
       secondImageElement.style.opacity = '0%';
       secondImageElement.style.position = 'absolute';
