@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.2.5
+
+### Patch Changes
+
+- [`1fdc771c`](https://github.com/sajari/sdk-react/commit/1fdc771cc7a78a301ea4961020248e145188c14c) [#650](https://github.com/sajari/sdk-react/pull/650) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix some bugs related to variant images when using template mode
+
 ## 4.2.4
 
 ### Patch Changes
