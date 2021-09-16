@@ -17,36 +17,33 @@ export type UseRenderPriceOutput = {
 
 export function useRenderPrice({
   values,
-  activeImageIndex: activeImageIndexProp = 0,
+  activeImageIndex = 0,
   onSale,
   currency,
   language,
 }: Input): UseRenderPriceOutput {
   const { price: priceProp, salePrice, originalPrice: originalPriceProp } = values;
   let price = priceProp;
-  let activeImageIndex = activeImageIndexProp;
+  let dataOriginalPrice = originalPriceProp;
 
-  if (isEmpty(price) || isEmpty(priceProp)) return null;
+  if (isEmpty(price) || isEmpty(priceProp) || isEmpty(originalPriceProp)) return null;
 
   const hasVariantImages = isArray(price[0]);
 
-  if (hasVariantImages && activeImageIndexProp === 0)
-    return { displayPrice: formatPrice(price[0], { currency, language }) };
-
   if (hasVariantImages) {
-    activeImageIndex = activeImageIndexProp - 1;
     price = priceProp.slice(1);
+    dataOriginalPrice = originalPriceProp.slice(1);
   }
   const activePrice = isArray(price) ? price[activeImageIndex] ?? price : price;
   if (isEmpty(activePrice)) return null;
   let displayPrice: string;
   let originalPrice: string | undefined;
 
-  if (originalPriceProp && onSale) {
+  if (dataOriginalPrice && onSale) {
     // show `originalPrice` with strikethrough
-    const activeOriginalPrice = isArray(originalPriceProp)
-      ? originalPriceProp[activeImageIndex] ?? originalPriceProp
-      : originalPriceProp ?? '';
+    const activeOriginalPrice = isArray(dataOriginalPrice)
+      ? dataOriginalPrice[activeImageIndex] ?? dataOriginalPrice
+      : dataOriginalPrice ?? '';
     displayPrice = formatPrice(activePrice, { currency, language });
     originalPrice = formatPrice(activeOriginalPrice, { currency, language });
   } else if (salePrice && onSale) {

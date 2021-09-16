@@ -52,8 +52,10 @@ export function useProductStatus({ activeImageIndex = 0, values }: Input): UsePr
     const parsePrices = (input: string | Array<string>) => (isArray(input) ? input : [input]).map(Number);
     // Check for the first element being an array - meaning this product has variant images - so we exclude the first one
     const prices = parsePrices(isArray(price[0]) ? price.slice(1) : price);
-    const originalPrices = !originalPrice ? false : parsePrices(originalPrice);
-    const salePrices = !salePrice ? false : parsePrices(salePrice);
+    const originalPrices = !originalPrice
+      ? false
+      : parsePrices(isArray(originalPrice[0]) ? originalPrice.slice(1) : originalPrice);
+    const salePrices = !salePrice ? false : parsePrices(isArray(salePrice[0]) ? salePrice.slice(1) : salePrice);
 
     if (originalPrices) {
       if (originalPrices.length >= prices.length) {
@@ -62,9 +64,7 @@ export function useProductStatus({ activeImageIndex = 0, values }: Input): UsePr
         );
         sale.isOnSale = atLeastOnSale;
 
-        if (activeImageIndex !== 0) {
-          sale.isCurrentOnSale = prices[activeImageIndex - 1] < originalPrices[activeImageIndex - 1];
-        }
+        sale.isCurrentOnSale = prices[activeImageIndex] < originalPrices[activeImageIndex];
         return sale;
       }
       if (originalPrices && originalPrices.length === 1 && prices.length > 1) {
@@ -85,9 +85,7 @@ export function useProductStatus({ activeImageIndex = 0, values }: Input): UsePr
           (p, index) => isNumber(p) && isNumber(salePrices[index]) && p > salePrices[index],
         );
         sale.isOnSale = atLeastOnSale;
-        if (activeImageIndex !== 0) {
-          sale.isCurrentOnSale = prices[activeImageIndex - 1] > salePrices[activeImageIndex - 1];
-        }
+        sale.isCurrentOnSale = prices[activeImageIndex] > salePrices[activeImageIndex];
         return sale;
       }
       if (salePrices && salePrices.length === 1 && prices.length > 1) {

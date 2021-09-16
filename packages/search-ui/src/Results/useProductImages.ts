@@ -140,11 +140,11 @@ export function useProductImages(props: Props): UseProductImagesOutput {
     if (node) {
       const img = node.querySelector('img[data-search-first-image]') as HTMLImageElement;
       const { image } = values;
-      if (img && isArray(image) && image[activeImageIndex]) {
-        img.src = image[activeImageIndex];
+      if (img && isArray(image) && isArray(image[0]) && image.slice(1)[activeImageIndex]) {
+        img.src = image.slice(1)[activeImageIndex];
       }
     }
-  }, [activeImageIndex]);
+  }, [activeImageIndex, node]);
 
   useEffect(() => {
     const { image } = values;
@@ -153,7 +153,7 @@ export function useProductImages(props: Props): UseProductImagesOutput {
       while (container.firstChild) {
         container.removeChild(container.firstChild);
       }
-      if (showVariantImage && isArray(image)) {
+      if (showVariantImage && isArray(image) && isArray(image[0])) {
         if (!style) {
           style = document.createElement('style');
           style.id = 'search-result-template-default-style';
@@ -167,7 +167,7 @@ export function useProductImages(props: Props): UseProductImagesOutput {
       `;
           document.head.appendChild(style);
         }
-        const images = image.map(getCreateImageElementFunc(setActiveImageIndex));
+        const images = image.slice(1).map(getCreateImageElementFunc(setActiveImageIndex));
         const fragment = document.createDocumentFragment();
         images.forEach((img) => {
           fragment.appendChild(img);
