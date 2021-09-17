@@ -65,6 +65,6 @@ const classes = [
   'Config',
 ].sort();
 
-const tracking = ['ClickTracking', 'PosNegTracking'].sort();
+const tracking = ['ClickTracking', 'PosNegTracking', 'Advanced'];
 
 export { classes, components, searchComponents, hooks, tracking };
