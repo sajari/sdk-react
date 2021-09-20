@@ -23,7 +23,7 @@ export function useHoverImage(props: Props): UseHoverImageOutput {
   const onRefChange = useCallback<UseHoverImageOutput>((element) => {
     const node = element;
     if (node) {
-      const img = node.querySelector('img[data-search-first-image]') as HTMLImageElement;
+      const img = node.querySelector('img[data-search-image-hover]') as HTMLImageElement;
       setImage(img);
     }
   }, []);
@@ -50,7 +50,7 @@ export function useHoverImage(props: Props): UseHoverImageOutput {
     if (hoverImageSrc && image && !showVariantImage) {
       const secondImageElement = document.createElement('img');
       secondImageElement.src = hoverImageSrc;
-      secondImageElement.dataset.searchSecondImage = '';
+      secondImageElement.dataset.searchSecondImageHover = '';
       secondImageElement.style.transition = 'opacity 0.2s ease-in';
       secondImageElement.style.opacity = '0%';
       secondImageElement.style.position = 'absolute';
