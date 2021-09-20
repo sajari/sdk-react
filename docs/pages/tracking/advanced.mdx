@@ -1,0 +1,136 @@
+import SEO from '../../components/SEO';
+
+<SEO
+  title="Advanced Tracking"
+  description="Advanced funnel tracking provides our artificial intelligence engine with extra information about the quality of search results."
+/>
+
+# Advanced Tracking
+
+Sajari's PosNegTracking aims to provide flexible tracking tokens which can be used in novel use-cases to provide both useful analytics and to feed Sajari's machine learning algorithm data about the performace of search results. The two primary features for advanced use-cases are multi-use and long lived tokens.
+
+## Multi-use Tokens and Search Funnels
+
+PosNeg tokens can be used more than once. This means that, a single token can be used to send positive signals of increasing weight as a user moved through a funnel.
+
+## Long Lived Tokens and Search Result Attribution
+
+Additionally tokens can be stored for long durations in order to attribute search queries with results even over long session times. For example if a user performs a webstore search, find a good result but doesn't actually purchase the product until much later.
+
+## Example
+
+This example includes three files of a shopping cart funnel where PosNegTokens are used to track search results (store products) as they move through the search -> add to cart -> purchase funnel. Additionally, localstorage is used to persist tokens long-term in case the initial search and final purchase occur over separate browser sessions.
+
+On a serach result screen, we can use the sajari pre-built support rendering search results which includes storing posneg tokens of clicked results into localstorage.
+
+```jsx
+/**
+ * example-store.com/product-search
+ */
+function ExampleProductSearch() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+    // Ensure field passed to PosNegTracking constructor is unique across products.
+    new PosNegTracking('id'),
+  );
+
+  // Our Results component works with both click and posneg tracking.
+  const ExampleSearchResults = React.memo(() => (
+    <div className="flex flex-col space-y-6">
+      <Input />
+      <Results />
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+      }}
+      searchOnLoad
+    >
+      <ExampleSearchResults />
+    </SearchProvider>
+  );
+}
+```
+
+Then on a product details page, we do two things.
+First, we submit any pending positive tokens associated with result clicks from the previous screen. This submits lets the Sajari engine know that this was likely a good result for the search term.
+Then, when a customer adds a product to their cart, we submit the token with a higher weight. This gives a stronger signal for this result. The customer has moved closer to the end of the funnel.
+
+```jsx
+/**
+ * example-store.com/product-details/{productId}
+ */
+import { PosNegLocalStorageManager } from '@sajari/sdk-js';
+function ExampleProductDetails({ productId }) {
+  const product = useAsync(fetchProductDetails(productId));
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+    // Ensure field passed to PosNegTracking constructor is unique across products.
+    new PosNegTracking('id'),
+  );
+  const posNegManager = new PosNegLocalStorageManager(pipeline.client);
+  // sendPendingClicks submits all pending positive events associated with clicked search results.
+  posNegManager.sendPendingClicks();
+
+  const addToCart = async () => {
+    await asyncAddToCart(product.id);
+    const posNegManager = new PosNegLocalStorageManager(pipeline.client);
+    // submit the positive token for this specific product with a weight of 3.
+    posNegManager.sendPosEvent(product.id, 'cartadd', 2);
+  };
+
+  return (
+    <ProductPageScaffolding>
+      <ProductDetails product={product} />
+      <AddToCartButton onClick={addToCart} />
+    </ProductPageScaffolding>
+  );
+}
+```
+
+Once a customer reaches the end point of the funnel, the cart checkout confirmation screen, we submit one more token with a greater weight indicating a successful purchase.
+
+```jsx
+/**
+ * example-store.com/cart-checkout-confirmation/{cartId}
+ */
+import { PosNegLocalStorageManager } from '@sajari/sdk-js';
+function ExampleCheckoutConfirmation({ productId }) {
+  const purchasedProducts = useAsync(fetchPurchasedProducts(cartId));
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+    // Ensure field passed to PosNegTracking constructor is unique across products.
+    new PosNegTracking('id'),
+  );
+  const posNegManager = new PosNegLocalStorageManager(pipeline.client);
+  // send a positive event with an identifier 'purcahse' and weight 5.
+  purchasedProducts.forEach((product) => {
+    posNegManager.sendPosEvent(product.id, 'purchase', 5);
+  });
+
+  return (
+    <CartPageScaffolding>
+      <PurchasedProductDetails purchasedProducts={purchasedProducts} />
+    </ProductPageScaffolding>
+  );
+}
+```
