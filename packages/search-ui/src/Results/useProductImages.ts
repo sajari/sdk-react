@@ -75,7 +75,7 @@ function getCreateImageElementFunc(setIndex: (i: number) => void) {
     });
 
     const innerContainer = document.createElement('div');
-    innerContainer.dataset.searchVariantImage = '';
+    innerContainer.dataset.searchVariant = '';
     Object.entries(imgStyle.innerContainer).forEach(([key, value]) => {
       innerContainer.style.setProperty(key, value);
     });
@@ -111,7 +111,7 @@ export function useProductImages(props: Props): UseProductImagesOutput {
   const onRefChange = useCallback<UseProductImagesOutput['onRefChange']>((element) => {
     if (element) {
       setNode(element);
-      const containerElement = element.querySelector('div[data-search-product-images-container]') as HTMLElement;
+      const containerElement = element.querySelector('div[data-search-variants]') as HTMLElement;
       setContainer(containerElement);
     }
   }, []);
@@ -138,7 +138,7 @@ export function useProductImages(props: Props): UseProductImagesOutput {
 
   useEffect(() => {
     if (node) {
-      const img = node.querySelector('img[data-search-first-image]') as HTMLImageElement;
+      const img = node.querySelector('img[data-search-image-hover]') as HTMLImageElement;
       const { image } = values;
       if (img && isArray(image) && isArray(image[0]) && image.slice(1)[activeImageIndex]) {
         img.src = image.slice(1)[activeImageIndex];
@@ -158,7 +158,7 @@ export function useProductImages(props: Props): UseProductImagesOutput {
           style = document.createElement('style');
           style.id = 'search-result-template-default-style';
           style.textContent = `
-        [data-search-variant-image]::before {
+        [data-search-variant]::before {
           padding-bottom: calc(100%);
           content: "";
           display: block;
