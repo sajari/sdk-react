@@ -9,6 +9,7 @@ import { TemplateResultsProps } from '../TemplateResults/types';
 type ExtraValues = {
   productStatus: UseProductStatusOutput;
   productPrice: UseRenderPriceOutput;
+  variantIndex: number;
 };
 
 interface Props extends Pick<TemplateResultsProps, 'showVariantImage'> {
