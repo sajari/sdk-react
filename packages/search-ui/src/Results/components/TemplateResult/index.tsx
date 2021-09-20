@@ -50,7 +50,12 @@ const TemplateResult = (props: TemplateResultProps) => {
     onSale: productStatus.onSale,
     activeImageIndex,
   });
-  const rendered = render({ ...{ ...values, url: href ?? values.url }, productStatus, productPrice });
+  const rendered = render({
+    ...{ ...values, url: href ?? values.url },
+    productStatus,
+    productPrice,
+    variantIndex: activeImageIndex,
+  });
   const onRefChangeHoverImage = useHoverImage({ image: values.image, showVariantImage });
   const ref = mergeRefs(onRefChangeHoverImage, onRefChangeProductImages);
 

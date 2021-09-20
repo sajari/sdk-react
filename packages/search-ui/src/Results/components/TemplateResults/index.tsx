@@ -21,6 +21,7 @@ const TemplateResults = (props: TemplateResultsProps) => {
   );
   keys.push('productStatus');
   keys.push('productPrice');
+  keys.push('variantIndex');
   const keysStringified = keys.join(',');
   const render = useMemo(() => compile(resultTemplate.html, { async: false, props: keys }), [
     resultTemplate.html,
