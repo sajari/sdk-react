@@ -16,16 +16,17 @@ import { useTracking } from '@sajari/react-hooks';
 
 ## Usage
 
-For more in-depth on how to use it, please refer to the [Tracking](/tracking) section.
+useTracking pulls the Sajari Pipeline, as provided by the closest [SearchProvider](searchprovider), and forwards a set of utilities which are useful for various tracking use-cases. For more in-depth on how to use it, please refer to the [Tracking](/tracking) section.
 
 ## Anatomy
 
 `useTracking` returns an object containing the following properties:
 
-| Name                      | Type                                                                                                 | Default | Description                                                                                      |
-| ------------------------- | ---------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------ |
-| `handleResultClicked`     | `(url: string) => void`                                                                              |         | The callback to attach on result when click, can be used in conjunction with GoogleAnalytics,... |
-| `consumeInteractionToken` | `(token: string, identifier: string, weight: number,data?: Record<string, string>) => Promise<void>` |         | Method to consume pos/neg token when using PosNegTracking.                                       |
+| Name                        | Type                                                                                                  | Default | Description                                                                                                                                                         |
+| --------------------------- | ----------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `handleResultClicked`       | `(url: string) => void`                                                                               |         | The callback to attach on result when click, can be used in conjunction with GoogleAnalytics,...                                                                    |
+| `consumeInteractionToken`   | `(token: string, identifier: string, weight: number,data?: Record<string, string>) => Promise<void>`  |         | Method to consume pos/neg token when using PosNegTracking.                                                                                                          |
+| `posNegLocalStorageManager` | [PosNegLocalStorageManager](https://sajari-sdk-js.netlify.app/classes/posneglocalstoragemanager.html) |         | instance of PosNegLocalStorageManager for localstorage based management of PosNeg tokens. See the [Advanced tracking](/tracking/advancedtracking) for more details. |
 
 ## Parameters
 
