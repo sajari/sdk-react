@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.10.0
+
+### Minor Changes
+
+- [`038f2e24`](https://github.com/sajari/sdk-react/commit/038f2e24110c4cdfba3d974ba1d29bfe3ddecda9) [#654](https://github.com/sajari/sdk-react/pull/654) Thanks [@wwalser](https://github.com/wwalser)! - feat: documentation for new hook features and advanced tracking use-cases
+
 ## 1.9.7
 
 ### Patch Changes

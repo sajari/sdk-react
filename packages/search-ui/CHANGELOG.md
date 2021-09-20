@@ -1,5 +1,17 @@
 # Change Log
 
+## 4.3.0
+
+### Minor Changes
+
+- [`fc1d5aeb`](https://github.com/sajari/sdk-react/commit/fc1d5aeb5560add699fefd2cf55b7caae37e337d) [#655](https://github.com/sajari/sdk-react/pull/655) Thanks [@tuanddd](https://github.com/tuanddd)! - Add a variantIndex to show which variant is being selected
+
+### Patch Changes
+
+- [`b1a9c8e9`](https://github.com/sajari/sdk-react/commit/b1a9c8e938d02b0306b29a03c9e8dbb24118cc33) [#656](https://github.com/sajari/sdk-react/pull/656) Thanks [@tuanddd](https://github.com/tuanddd)! - Rename attributes
+
+* [`8ac4813c`](https://github.com/sajari/sdk-react/commit/8ac4813ce87d2efab635f76e2a13832a3ab24461) [#652](https://github.com/sajari/sdk-react/pull/652) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Recover margin top for the reset button in `Message` component.
+
 ## 4.2.5
 
 ### Patch Changes
