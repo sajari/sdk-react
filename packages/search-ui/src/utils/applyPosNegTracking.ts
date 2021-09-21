@@ -1,6 +1,5 @@
-import { ClickTracking, PosNegTracking, ResultClickedFn, Token } from '@sajari/react-hooks';
+import { ClickTracking, PosNegLocalStorageManager, PosNegTracking, ResultClickedFn, Token } from '@sajari/react-hooks';
 import { isFunction, noop } from '@sajari/react-sdk-utils';
-import { PosNegLocalStorageManager } from '@sajari/sdk-js';
 
 import { ResultValues } from '../Results/types';
 
