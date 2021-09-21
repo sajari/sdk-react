@@ -1,6 +1,4 @@
-import { PosNegLocalStorageManager } from '@sajari/sdk-js';
-
-import { useContext } from '../ContextProvider';
+import { PosNegLocalStorageManager, useContext } from '../ContextProvider';
 import { UseTrackingResult } from './types';
 
 function useTracking(): UseTrackingResult {

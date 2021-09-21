@@ -8,6 +8,7 @@ export {
   FilterOptions,
   NoTracking,
   Pipeline,
+  PosNegLocalStorageManager,
   PosNegTracking,
   Range,
   RangeFilterBuilder,

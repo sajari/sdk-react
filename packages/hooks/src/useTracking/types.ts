@@ -1,5 +1,4 @@
-import { PosNegLocalStorageManager } from '@sajari/sdk-js';
-
+import { PosNegLocalStorageManager } from '../ContextProvider';
 import { ResultClickedFn } from '../ContextProvider/types';
 
 export interface UseTrackingResult {
