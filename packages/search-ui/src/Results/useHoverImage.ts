@@ -58,7 +58,7 @@ export function useHoverImage(props: Props): UseHoverImageOutput {
       secondImageElement.style.left = '0';
       secondImageElement.style.height = '100%';
       secondImageElement.style.width = '100%';
-      secondImageElement.style.objectFit = 'contain';
+      secondImageElement.style.objectFit = 'cover';
       secondImageElement.style.objectPosition = 'center';
       setSecondImage(secondImageElement);
       image.insertAdjacentElement('beforebegin', secondImageElement);
