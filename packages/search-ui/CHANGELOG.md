@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.3.1
+
+### Patch Changes
+
+- [`af60d71e`](https://github.com/sajari/sdk-react/commit/af60d71ef1455b16c082ffbebaf87c8044ee7423) [#659](https://github.com/sajari/sdk-react/pull/659) Thanks [@tuanddd](https://github.com/tuanddd)! - Change the object-fit style of the second hover image of result
+
 ## 4.3.0
 
 ### Minor Changes
