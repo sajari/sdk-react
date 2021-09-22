@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.11.1
+
+### Patch Changes
+
+- [`dd25d399`](https://github.com/sajari/sdk-react/commit/dd25d399b14f32074f4129a13a2fc4ea7954b952) [#664](https://github.com/sajari/sdk-react/pull/664) Thanks [@wwalser](https://github.com/wwalser)! - chore: docs example code syntax errors cleanup, link fixes and minor clarifications
+
 ## 1.11.0
 
 ### Minor Changes
