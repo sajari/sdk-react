@@ -71,7 +71,6 @@ Then, when a customer adds a product to their cart, we submit the token with a h
 /**
  * example-store.com/product-details/{productId}
  */
-import { PosNegLocalStorageManager } from '@sajari/sdk-js';
 function ExampleProductDetails({ productId }) {
   const product = useAsync(fetchProductDetails(productId));
   const pipeline = new Pipeline(
@@ -109,7 +108,6 @@ Once a customer reaches the end point of the funnel, the cart checkout confirmat
 /**
  * example-store.com/cart-checkout-confirmation/{cartId}
  */
-import { PosNegLocalStorageManager } from '@sajari/sdk-js';
 function ExampleCheckoutConfirmation({ productId }) {
   const purchasedProducts = useAsync(fetchPurchasedProducts(cartId));
   const pipeline = new Pipeline(

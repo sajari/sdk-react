@@ -1,4 +1,6 @@
-import { PosNegLocalStorageManager, useContext } from '../ContextProvider';
+import { PosNegLocalStorageManager } from '@sajari/react-hooks';
+
+import { useContext } from '../ContextProvider';
 import { UseTrackingResult } from './types';
 
 function useTracking(): UseTrackingResult {

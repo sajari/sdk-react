@@ -1,4 +1,5 @@
-import { PosNegLocalStorageManager } from '../ContextProvider';
+import { PosNegLocalStorageManager } from '@sajari/react-hooks';
+
 import { ResultClickedFn } from '../ContextProvider/types';
 
 export interface UseTrackingResult {
