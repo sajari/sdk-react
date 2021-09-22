@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.3.2
+
+### Patch Changes
+
+- [`a3aca791`](https://github.com/sajari/sdk-react/commit/a3aca791d3040abed30687cc8acccfb15b7a1fb6) [#661](https://github.com/sajari/sdk-react/pull/661) Thanks [@tuanddd](https://github.com/tuanddd)! - Synchronize variant images logic
+
 ## 4.3.1
 
 ### Patch Changes
