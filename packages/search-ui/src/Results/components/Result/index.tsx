@@ -72,7 +72,8 @@ const Result = React.memo(
         onClick();
       }
     };
-    const { title, description, subtitle, image } = values;
+    const { title, description, subtitle, image: imageProp } = values;
+    const image = imageProp && isArray(imageProp[0]) ? imageProp.slice(1) : imageProp;
     const [imageSrc, setImageSrc] = useState(isArray(image) ? image[0] : image);
     const [hoverImageSrc] = useState(isArray(image) && !showVariantImage ? image[1] : undefined);
     const rating = Number(values.rating);
