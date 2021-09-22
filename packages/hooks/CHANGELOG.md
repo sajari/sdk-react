@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.4.0
+
+### Minor Changes
+
+- [`70bba80a`](https://github.com/sajari/sdk-react/commit/70bba80ab5206ba0e5dd44e5c02af11705bf997d) [#658](https://github.com/sajari/sdk-react/pull/658) Thanks [@jkaho](https://github.com/jkaho)! - feat: export `PosNegLocalStorageManager` from hooks/search-ui, add class to docs
+
+* [`70bba80a`](https://github.com/sajari/sdk-react/commit/70bba80ab5206ba0e5dd44e5c02af11705bf997d) [#658](https://github.com/sajari/sdk-react/pull/658) Thanks [@jkaho](https://github.com/jkaho)! - feat: sajari/react-hooks now exports a utility class for managing posneg tokens PosNegLocalStorageManager
+
 ## 3.3.2
 
 ### Patch Changes
