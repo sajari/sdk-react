@@ -67,7 +67,9 @@ Then on a product details page, we do two things.
 First, we submit any pending positive tokens associated with result clicks from the previous screen. This submit lets the Sajari engine know that this was likely a good result for the search term.
 Then, when a customer adds a product to their cart, we submit the token with a higher weight. This gives a stronger signal for this result. The customer has moved closer to the end of the funnel.
 
-```jsx
+Unlike other examples which render Sajari search results, this is purely an example of how your own brand's storefront might be setup.
+
+```jsx live=false
 /**
  * example-store.com/product-details/{productId}
  */
@@ -86,8 +88,8 @@ function ExampleProductDetails({ productId }) {
   // sendPendingClicks submits all pending positive events associated with clicked search results.
   posNegManager.sendPendingClicks();
 
-  const addToCart = async () => {
-    await asyncAddToCart(product.id);
+  const addToCart = () => {
+    asyncAddToCart(product.id);
     const posNegManager = new PosNegLocalStorageManager(pipeline.client);
     // submit the positive token for this specific product with a weight of 3.
     posNegManager.sendPosEvent(product.id, 'cartadd', 2);
@@ -104,7 +106,9 @@ function ExampleProductDetails({ productId }) {
 
 Once a customer reaches the end point of the funnel, the cart checkout confirmation screen, we submit one more token with a greater weight indicating a successful purchase.
 
-```jsx
+Unlike other examples which render Sajari search results, this is purely an example of how your own brand's checkout might be setup.
+
+```jsx live=false
 /**
  * example-store.com/cart-checkout-confirmation/{cartId}
  */
@@ -128,7 +132,7 @@ function ExampleCheckoutConfirmation({ productId }) {
   return (
     <CartPageScaffolding>
       <PurchasedProductDetails purchasedProducts={purchasedProducts} />
-    </ProductPageScaffolding>
+    </CartPageScaffolding>
   );
 }
 ```

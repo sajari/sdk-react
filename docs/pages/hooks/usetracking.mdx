@@ -22,11 +22,11 @@ useTracking pulls the Sajari Pipeline, as provided by the closest [SearchProvide
 
 `useTracking` returns an object containing the following properties:
 
-| Name                        | Type                                                                                                  | Default | Description                                                                                                                                                         |
-| --------------------------- | ----------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `handleResultClicked`       | `(url: string) => void`                                                                               |         | The callback to attach on result when click, can be used in conjunction with GoogleAnalytics,...                                                                    |
-| `consumeInteractionToken`   | `(token: string, identifier: string, weight: number,data?: Record<string, string>) => Promise<void>`  |         | Method to consume pos/neg token when using PosNegTracking.                                                                                                          |
-| `posNegLocalStorageManager` | [PosNegLocalStorageManager](https://sajari-sdk-js.netlify.app/classes/posneglocalstoragemanager.html) |         | instance of PosNegLocalStorageManager for localstorage based management of PosNeg tokens. See the [Advanced tracking](/tracking/advancedtracking) for more details. |
+| Name                        | Type                                                                                                 | Default | Description                                                                                                                                             |
+| --------------------------- | ---------------------------------------------------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `handleResultClicked`       | `(url: string) => void`                                                                              |         | The callback to attach on result when click, can be used in conjunction with GoogleAnalytics,...                                                        |
+| `consumeInteractionToken`   | `(token: string, identifier: string, weight: number,data?: Record<string, string>) => Promise<void>` |         | Method to consume pos/neg token when using PosNegTracking.                                                                                              |
+| `posNegLocalStorageManager` | [PosNegLocalStorageManager](/classes/posneglocalstoragemanager)                                      |         | instance of PosNegLocalStorageManager for localstorage based management of PosNeg tokens. See [Advanced tracking](/tracking/advanced) for more details. |
 
 ## Parameters
 
