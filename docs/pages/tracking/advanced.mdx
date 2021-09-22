@@ -7,21 +7,21 @@ import SEO from '../../components/SEO';
 
 # Advanced Tracking
 
-Sajari's PosNegTracking aims to provide flexible tracking tokens which can be used in novel use-cases to provide both useful analytics and to feed Sajari's machine learning algorithm data about the performace of search results. The two primary features for advanced use-cases are multi-use and long lived tokens.
+Sajari's PosNegTracking aims to provide flexible tracking tokens which can be used in novel use-cases to provide both useful analytics and to feed Sajari's machine learning algorithm data about the performance of search results. The two primary features for advanced use-cases are multi-use and long lived tokens.
 
 ## Multi-use Tokens and Search Funnels
 
-PosNeg tokens can be used more than once. This means that, a single token can be used to send positive signals of increasing weight as a user moved through a funnel.
+PosNeg tokens can be used more than once. This means that a single token can be used to send positive signals of increasing weight as a user moves through a funnel.
 
 ## Long Lived Tokens and Search Result Attribution
 
-Additionally tokens can be stored for long durations in order to attribute search queries with results even over long session times. For example if a user performs a webstore search, find a good result but doesn't actually purchase the product until much later.
+Additionally, tokens can be stored for long durations in order to attribute search queries with results even over long session times. For example, if a user performs a webstore search and finds a good result but doesn't actually purchase the product until much later.
 
 ## Example
 
 This example includes three files of a shopping cart funnel where PosNegTokens are used to track search results (store products) as they move through the search -> add to cart -> purchase funnel. Additionally, localstorage is used to persist tokens long-term in case the initial search and final purchase occur over separate browser sessions.
 
-On a serach result screen, we can use the sajari pre-built support rendering search results which includes storing posneg tokens of clicked results into localstorage.
+On a search result screen, we can use the sajari pre-built support rendering search results which includes storing PosNeg tokens of clicked results into localstorage.
 
 ```jsx
 /**
@@ -64,7 +64,7 @@ function ExampleProductSearch() {
 ```
 
 Then on a product details page, we do two things.
-First, we submit any pending positive tokens associated with result clicks from the previous screen. This submits lets the Sajari engine know that this was likely a good result for the search term.
+First, we submit any pending positive tokens associated with result clicks from the previous screen. This submit lets the Sajari engine know that this was likely a good result for the search term.
 Then, when a customer adds a product to their cart, we submit the token with a higher weight. This gives a stronger signal for this result. The customer has moved closer to the end of the funnel.
 
 ```jsx
