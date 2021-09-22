@@ -63,6 +63,7 @@ const classes = [
   'Response',
   'Variables',
   'Config',
+  'PosNegLocalStorageManager',
 ].sort();
 
 const tracking = ['ClickTracking', 'PosNegTracking', 'Advanced'];

@@ -43,4 +43,4 @@ export { default as useTracking } from './useTracking';
 export * from './useTracking';
 export { default as useVariables } from './useVariables';
 export * from './useVariables';
-export { Token } from '@sajari/sdk-js';
+export { PosNegLocalStorageManager, Token } from '@sajari/sdk-js';
