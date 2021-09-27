@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.11.2
+
+### Patch Changes
+
+- [`e1a51f4e`](https://github.com/sajari/sdk-react/commit/e1a51f4e74daa1a45d397d5e1cf748acf69f9384) [#666](https://github.com/sajari/sdk-react/pull/666) Thanks [@wwalser](https://github.com/wwalser)! - chore: document z-index setting on modal
+
 ## 1.11.1
 
 ### Patch Changes
