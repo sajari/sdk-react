@@ -287,27 +287,28 @@ To disable this behavior, set `useInert` to `false`.
 
 ### Modal Props
 
-| Name                | Type              | Default | Description                                                                                                                             |
-| ------------------- | ----------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| open                | `boolean`         |         | If `true`, the modal will open                                                                                                          |
-| onClose             | `(event) => void` |         | Callback invoked to close the modal.                                                                                                    |
-| useInert            | `boolean`         | `true`  | A11y: If `true`, all elements behing the `Modal` will have `aria-hidden` set to `true` so that screen readers can only see the `Modal`. |
-| id                  | `string`          |         | The `id` of the modal.                                                                                                                  |
-| ariaLabelledby      | `string`          |         | ARIA label for the modal.                                                                                                               |
-| ariaDescribedby     | `string`          |         | ARIA description for the modal.                                                                                                         |
-| fullWidth           | `boolean`         | `false` | If `true`, the width of the content will be full screen.                                                                                |
-| fullHeight          | `boolean`         | `false` | If `true`, the height of the content will be full screen.                                                                               |
-| closeOnEsc          | `boolean`         | `true`  | Is the modal closable when user press esc key.                                                                                          |
-| closeOnOverlayClick | `boolean`         | `true`  | Is the modal closable when user click on overlay.                                                                                       |
-| blockScroll         | `boolean`         | `true`  | Whether to block scrolling when dialog is open.                                                                                         |
-| center              | `boolean`         | `true`  | Should the modal content be centered.                                                                                                   |
-| trapFocus           | `boolean`         | `true`  | When the modal is open, trap focus within it.                                                                                           |
-| initialFocusRef     | `React.Ref`       |         | The `ref` of the element to receive focus when the dialog opens                                                                         |
-| finalFocusRef       | `React.Ref`       |         | The `ref` of element to receive focus when the dialog closes                                                                            |
-| returnFocusOnClose  | `boolean`         | `true`  | If `true`, the modal will return focus to the element that triggered it when it closes.                                                 |
-| container           | `Element`         |         | The container where the portal will be rendered inside.                                                                                 |
-| size                | `string`          | `md`    | The width for the modal content.                                                                                                        |
-| modalId             | `string`          |         | `id` attribute for modal.                                                                                                               |
-| onEscKeyDown        | `(event) => void` |         | Callback fired when the escape key is pressed.                                                                                          |
-| onOverlayClick      | `(event) => void` |         | Callback fired when the overlay is clicked.                                                                                             |
-| onAnimationEnd      | `() => void`      |         | Callback fired when the Modal has exited and the animation is finished.                                                                 |
+| Name                | Type              | Default      | Description                                                                                                                             |
+| ------------------- | ----------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| open                | `boolean`         |              | If `true`, the modal will open                                                                                                          |
+| onClose             | `(event) => void` |              | Callback invoked to close the modal.                                                                                                    |
+| useInert            | `boolean`         | `true`       | A11y: If `true`, all elements behing the `Modal` will have `aria-hidden` set to `true` so that screen readers can only see the `Modal`. |
+| id                  | `string`          |              | The `id` of the modal.                                                                                                                  |
+| ariaLabelledby      | `string`          |              | ARIA label for the modal.                                                                                                               |
+| ariaDescribedby     | `string`          |              | ARIA description for the modal.                                                                                                         |
+| fullWidth           | `boolean`         | `false`      | If `true`, the width of the content will be full screen.                                                                                |
+| fullHeight          | `boolean`         | `false`      | If `true`, the height of the content will be full screen.                                                                               |
+| closeOnEsc          | `boolean`         | `true`       | Is the modal closable when user press esc key.                                                                                          |
+| closeOnOverlayClick | `boolean`         | `true`       | Is the modal closable when user click on overlay.                                                                                       |
+| blockScroll         | `boolean`         | `true`       | Whether to block scrolling when dialog is open.                                                                                         |
+| center              | `boolean`         | `true`       | Should the modal content be centered.                                                                                                   |
+| trapFocus           | `boolean`         | `true`       | When the modal is open, trap focus within it.                                                                                           |
+| initialFocusRef     | `React.Ref`       |              | The `ref` of the element to receive focus when the dialog opens                                                                         |
+| finalFocusRef       | `React.Ref`       |              | The `ref` of element to receive focus when the dialog closes                                                                            |
+| returnFocusOnClose  | `boolean`         | `true`       | If `true`, the modal will return focus to the element that triggered it when it closes.                                                 |
+| container           | `Element`         |              | The container where the portal will be rendered inside.                                                                                 |
+| size                | `string`          | `md`         | The width for the modal content.                                                                                                        |
+| modalId             | `string`          |              | `id` attribute for modal.                                                                                                               |
+| onEscKeyDown        | `(event) => void` |              | Callback fired when the escape key is pressed.                                                                                          |
+| onOverlayClick      | `(event) => void` |              | Callback fired when the overlay is clicked.                                                                                             |
+| onAnimationEnd      | `() => void`      |              | Callback fired when the Modal has exited and the animation is finished.                                                                 |
+| zIndex              | `2147483647`      | `2147483647` | z-index of the modal.                                                                                                                   |
