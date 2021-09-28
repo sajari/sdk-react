@@ -4,7 +4,8 @@ export const toRatingArray: (value: number, max: number) => ItemType[] = (value,
   const isHalf = Math.round(value) - value !== 0;
 
   if (max - value < 0) {
-    throw new RatingMaxmiumExceededError();
+    console.error(new RatingMaxmiumExceededError());
+    return [];
   }
 
   return [

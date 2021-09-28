@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
+import { __DEV__, getStylesObject, isEmptyArray } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
 import * as React from 'react';
 import tw from 'twin.macro';
@@ -26,10 +26,6 @@ const Rating = React.forwardRef((props: RatingProps, ref: React.Ref<HTMLDivEleme
     ...rest
   } = props;
 
-  if (Number.isNaN(value)) {
-    return null;
-  }
-
   const isHalf = Math.round(value) - value !== 0;
   const flipped = direction === 'rtl';
   const label = isHalf ? `Rating: ${value} point 5 out of ${max} ${unit}s` : `Rating: ${value} out of ${max} ${unit}s`;
@@ -43,6 +39,10 @@ const Rating = React.forwardRef((props: RatingProps, ref: React.Ref<HTMLDivEleme
     },
     disableDefaultStyles,
   );
+
+  if (Number.isNaN(value) || isEmptyArray(arr)) {
+    return null;
+  }
 
   return (
     <Box ref={ref} role="img" aria-label={label} css={[styles.container, stylesProp]} {...rest}>
