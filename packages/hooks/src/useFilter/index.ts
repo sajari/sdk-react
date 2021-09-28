@@ -73,6 +73,10 @@ function useFilter(
         ({ count = {} } = (aggregates || {})[field] || {});
       }
 
+      // If the count object contains too many properties (> 1000) it will potentially freeze the UI and make the webapp unresponsive
+      // Although this may accidentally remove data in count but it's a reasonable tradeoff
+      count = Object.fromEntries(Object.entries(count).slice(0, 1000));
+
       const temp = filterItems(sortItems(Object.entries(count), sort, sortAscending), {
         includes,
         excludes,
