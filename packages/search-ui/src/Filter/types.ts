@@ -57,6 +57,8 @@ export interface RatingFilterProps extends BaseFilterProps {
   type: 'rating';
   /** Hide total items count */
   hideCount?: boolean;
+  /** Max value, overrides context's value */
+  ratingMax?: number;
 }
 
 export interface TabFilterProps
