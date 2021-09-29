@@ -1,4 +1,4 @@
-import { Result } from '@sajari/sdk-js';
+import { Redirects, Result } from '@sajari/sdk-js';
 
 import { Pipeline, Variables } from '../ContextProvider';
 import { FieldDictionary } from '../ContextProvider/types';
@@ -20,6 +20,7 @@ export interface UseSearchResult {
   latency?: number;
   totalResults?: number;
   results?: Result[];
+  redirects: Redirects;
   search: (q?: string) => void;
   searchInstant?: (q?: string) => void;
   suggestions?: string[];

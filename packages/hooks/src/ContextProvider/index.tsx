@@ -1,6 +1,7 @@
 /* eslint-disable import/named */
 /* eslint-disable @typescript-eslint/no-shadow */
 import { createContext, isEmpty, isString } from '@sajari/react-sdk-utils';
+import { Redirects } from '@sajari/sdk-js';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { Config, defaultConfig } from './Config';
@@ -36,11 +37,12 @@ import {
   SearchProviderValues,
 } from './types';
 
-const updateState = (query: string, responseValues: Map<string, string> | undefined, config: Config) => {
-  const completion = query && responseValues ? responseValues.get(config.qParam) || '' : '';
+const updateState = (query: string, response: Response, config: Config) => {
+  const responseValues = response.getValues();
+  const completion = (query && responseValues ? responseValues.get(config.qParam) || '' : '') as string;
   let suggestions: string[] = [];
   if (responseValues) {
-    suggestions = (responseValues.get(config.qSuggestionsParam) || '')
+    suggestions = ((responseValues.get(config.qSuggestionsParam) || '') as string)
       .split(',')
       .filter((s) => s.length > 0)
       .slice(0, config.maxSuggestions);
@@ -50,21 +52,20 @@ const updateState = (query: string, responseValues: Map<string, string> | undefi
     completion,
     query,
     suggestions,
+    redirects: response.getRedirects() ?? {},
   };
 };
 
 const responseUpdatedListener = (variables: Variables, config: Config, response: Response) => {
   const query = variables.get()[config.qParam] || '';
-  const responseValues = response.getValues();
 
-  return updateState(query, responseValues, config);
+  return updateState(query, response, config);
 };
 
 const valuesUpdatedListener = (variables: Variables, pipeline: Pipeline, config: Config) => {
   const query = variables.get()[config.qParam] || '';
-  const responseValues = pipeline.getResponse().getValues();
 
-  return updateState(query, responseValues, config);
+  return updateState(query, pipeline.getResponse(), config);
 };
 
 const [Provider, useContext] = createContext<Context>({
@@ -78,6 +79,7 @@ const defaultState: ProviderPipelineState = {
   completion: '',
   suggestions: [],
   config: defaultConfig,
+  redirects: {},
 };
 
 // Map a serialized Response object back into a Response

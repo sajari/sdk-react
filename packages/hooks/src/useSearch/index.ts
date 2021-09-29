@@ -28,6 +28,7 @@ function useCustomSearch({ pipeline, variables }: UseSearchCustomConfig): UseSea
   const [searchOutput, setSearchOutput] = useState<Omit<UseSearchResult, 'searching'>>({
     search: searchFn,
     error: null,
+    redirects: {},
   });
 
   useEffect(() => {
@@ -42,6 +43,7 @@ function useCustomSearch({ pipeline, variables }: UseSearchCustomConfig): UseSea
         latency: response?.getTime(),
         totalResults: response?.getTotalResults(),
         error: response?.getError(),
+        redirects: response.getRedirects() ?? {},
       }));
     });
   }, []);
@@ -61,7 +63,7 @@ function useNormalSearch({ queryOverride, allowEmptySearch = true }: UseSearchCo
   const [error, setError] = useState<Error | null>(null);
   const {
     search: { searching, response, search },
-    autocomplete: { search: searchInstantFn, suggestions },
+    autocomplete: { search: searchInstantFn, suggestions, redirects },
   } = useContext();
 
   const results = response?.getResults();
@@ -98,6 +100,7 @@ function useNormalSearch({ queryOverride, allowEmptySearch = true }: UseSearchCo
     latency: response?.getTime(),
     totalResults: response?.getTotalResults(),
     suggestions: suggestions ?? [],
+    redirects,
     results,
     search,
     searchInstant,

@@ -1,6 +1,6 @@
-import { Aggregates, RequestError, Result } from '@sajari/sdk-js';
+import { Aggregates, Redirects, RequestError, Result } from '@sajari/sdk-js';
 
-export type ResponseMap = Map<string, number | Aggregates | Result[]>;
+export type ResponseMap = Map<string, number | Aggregates | Result[] | Redirects>;
 
 export class Response {
   private error: RequestError | null;
@@ -79,6 +79,13 @@ export class Response {
    */
   public getResults(): Result[] | undefined {
     return this.response !== undefined ? (this.response.get('results') as Result[]) : undefined;
+  }
+
+  /**
+   * Return redirects form the response.
+   */
+  public getRedirects(): Redirects | undefined {
+    return this.response !== undefined ? (this.response.get('redirect') as Redirects) : undefined;
   }
 
   /**
