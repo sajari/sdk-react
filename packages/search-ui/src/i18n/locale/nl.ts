@@ -52,7 +52,7 @@ const nl: Locale = {
   },
   result: {
     status: {
-      onSale: 'Te koop',
+      onSale: 'Sale',
       outOfStock: 'Geen voorraad meer',
       newArrival: 'Nieuwe aankomst',
     },
