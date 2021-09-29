@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.4.1
+
+### Patch Changes
+
+- [`f3fb3c7b`](https://github.com/sajari/sdk-react/commit/f3fb3c7bbfaff19a020f25a6b4f3b0abf7e99f47) [#674](https://github.com/sajari/sdk-react/pull/674) Thanks [@wwalser](https://github.com/wwalser)! - perf: improved performance of useFilter to account for very large option data sets
+
 ## 3.4.0
 
 ### Minor Changes
