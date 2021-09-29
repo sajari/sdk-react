@@ -4,7 +4,7 @@ import { FilterBuilder, useContext } from '../ContextProvider';
 import { EVENT_SELECTION_UPDATED } from '../ContextProvider/events';
 import { getBucketCount } from '../utils';
 import { FilterItem, SortType } from './types';
-import { filterItems, sortItems } from './utils';
+import { filterItems, sortItems, sortOptions } from './utils';
 
 function useFilter(
   name: string,
@@ -73,18 +73,26 @@ function useFilter(
         ({ count = {} } = (aggregates || {})[field] || {});
       }
 
-      const temp = filterItems(sortItems(Object.entries(count), sort, sortAscending), {
-        includes,
-        excludes,
-        prefixFilter,
-      }).map(({ count: itemCount, label, value }) => ({
+      const temp = sortOptions(
+        filterItems(Object.entries(count), {
+          includes,
+          excludes,
+          prefixFilter,
+        }),
+        sort,
+        sortAscending,
+      ).map(({ count: itemCount, label, value }) => ({
         label,
         count: itemCount,
         value: array ? `${field} ~ ["${value}"]` : `${field} = "${value}"`,
       }));
 
-      filter.setOptions(temp.reduce((a, c) => ({ ...a, [c.label]: c.value }), {}));
-
+      // perf hotspot: temp.reduce((a, c) => ({ ...a, [c.label]: c.value }), {})
+      const filterOptions = {};
+      temp.forEach((option) => {
+        filterOptions[option.label] = option.value;
+      });
+      filter.setOptions(filterOptions);
       return temp;
     }
 

@@ -1,8 +1,13 @@
-import { filterItems, Item, sortItems } from '../utils';
+import { filterItems, Item, Option, sortItems, sortOptions } from '../utils';
 
-describe('sortItems', () => {
+describe('sortItems and sortOptions', () => {
   // Decending
-  test.each<Array<Item[]>>([
+  const itemToOption = ([value, count]: Item): Option => ({
+    value,
+    count: Number(count),
+    label: value,
+  });
+  const descendingItems: Item[][][] = [
     [
       [
         ['a', 0],
@@ -51,12 +56,20 @@ describe('sortItems', () => {
         ['a', 2],
       ],
     ],
-  ])("sortItems(%o,'alpha', false)", (list, expected) => {
+  ];
+  test.each<Array<Item[]>>(descendingItems)("sortItems(%o,'alpha', false)", (list, expected) => {
     expect(sortItems(list, 'alpha', false)).toStrictEqual(expected);
+  });
+  const descendingOptions: Option[][][] = descendingItems.map(([list, expected]) => [
+    list.map(itemToOption),
+    expected.map(itemToOption),
+  ]);
+  test.each<Array<Option[]>>(descendingOptions)("sortOptions(%o,'alpha', false)", (list, expected) => {
+    expect(sortOptions(list, 'alpha', false)).toStrictEqual(expected);
   });
 
   // Ascending
-  test.each<Array<Item[]>>([
+  const ascendingItems: Item[][][] = [
     [
       [
         ['b', 2],
@@ -93,12 +106,20 @@ describe('sortItems', () => {
         ['d', 3],
       ],
     ],
-  ])("sortItems(%o,'alpha')", (list, expected) => {
+  ];
+  test.each<Array<Item[]>>(ascendingItems)("sortItems(%o,'alpha')", (list, expected) => {
     expect(sortItems(list, 'alpha')).toStrictEqual(expected);
+  });
+  const ascendingOptions: Option[][][] = ascendingItems.map(([list, expected]) => [
+    list.map(itemToOption),
+    expected.map(itemToOption),
+  ]);
+  test.each<Array<Option[]>>(ascendingOptions)("sortOptions(%o,'alpha')", (list, expected) => {
+    expect(sortOptions(list, 'alpha')).toStrictEqual(expected);
   });
 
   // No sort
-  test.each<Array<Item[]>>([
+  const noSortItems: Item[][][] = [
     [
       [
         ['b', 2],
@@ -135,12 +156,20 @@ describe('sortItems', () => {
         ['c', 4],
       ],
     ],
-  ])("sortItems(%o,'none')", (list, expected) => {
+  ];
+  test.each<Array<Item[]>>(noSortItems)("sortItems(%o,'none')", (list, expected) => {
     expect(sortItems(list, 'none')).toStrictEqual(expected);
+  });
+  const noSortOptions: Option[][][] = noSortItems.map(([list, expected]) => [
+    list.map(itemToOption),
+    expected.map(itemToOption),
+  ]);
+  test.each<Array<Option[]>>(noSortOptions)("sortOptions(%o,'none')", (list, expected) => {
+    expect(sortOptions(list, 'none')).toStrictEqual(expected);
   });
 
   // sort price range
-  test.each<Array<Item[]>>([
+  const priceRangeItems: Item[][][] = [
     [
       [
         ['> 10', 2],
@@ -169,12 +198,20 @@ describe('sortItems', () => {
         ['20 - 21', 1],
       ],
     ],
-  ])("sortItems(%o,'alpha')", (list, expected) => {
+  ];
+  test.each<Array<Item[]>>(priceRangeItems)("sortItems(%o,'alpha')", (list, expected) => {
     expect(sortItems(list, 'alpha')).toStrictEqual(expected);
+  });
+  const priceRangeOptions: Option[][][] = priceRangeItems.map(([list, expected]) => [
+    list.map(itemToOption),
+    expected.map(itemToOption),
+  ]);
+  test.each<Array<Option[]>>(priceRangeOptions)("sortOptions(%o,'alpha')", (list, expected) => {
+    expect(sortOptions(list, 'alpha')).toStrictEqual(expected);
   });
 
   // Numbers
-  test.each<Array<Item[]>>([
+  const numbersItems: Item[][][] = [
     [
       [
         ['a', 2],
@@ -197,8 +234,16 @@ describe('sortItems', () => {
         ['a', 1],
       ],
     ],
-  ])("sortItems(%o,'count')", (list, expected) => {
+  ];
+  test.each<Array<Item[]>>(numbersItems)("sortItems(%o,'count')", (list, expected) => {
     expect(sortItems(list, 'count')).toStrictEqual(expected);
+  });
+  const numbersOptions: Option[][][] = numbersItems.map(([list, expected]) => [
+    list.map(itemToOption),
+    expected.map(itemToOption),
+  ]);
+  test.each<Array<Option[]>>(numbersOptions)("sortOptions(%o,'count')", (list, expected) => {
+    expect(sortOptions(list, 'count')).toStrictEqual(expected);
   });
 });
 
