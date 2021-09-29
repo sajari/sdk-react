@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.5.0
+
+### Minor Changes
+
+- [`a2b735e6`](https://github.com/sajari/sdk-react/commit/a2b735e6d3379ea2a691a2f34fa6e78436f20dd2) [#672](https://github.com/sajari/sdk-react/pull/672) Thanks [@tuanddd](https://github.com/tuanddd)! - Add a local prop to Rating component to override context's max rating value (if needed)
+
 ## 4.4.0
 
 ### Minor Changes
