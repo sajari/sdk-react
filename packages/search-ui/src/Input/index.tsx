@@ -20,6 +20,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
     onSelect,
     onChange,
     maxSuggestions = mode === 'results' ? 5 : 10,
+    disableRedirects = mode === 'results' || mode === 'instant',
     className,
     retainFilters = false,
     minimumCharacters: minimumCharactersProp = 0,
@@ -28,24 +29,29 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
   const minimumCharacters = Math.max(0, minimumCharactersProp);
   const { results: rawResults, search: searchFunc, searching, fields, resetFilters } = useSearchContext();
   const results = React.useMemo(() => mapResultFields<ResultValues>(rawResults ?? [], fields), [rawResults]);
-  const { search: searchAutocompleteFunc, completion, suggestions } = useAutocomplete();
+  const { search: searchAutocompleteFunc, completion, suggestions, redirects } = useAutocomplete();
   const { customClassNames, disableDefaultStyles = false, tracking } = useSearchUIContext();
   const { query } = useQuery();
   const [internalSuggestions, setInternalSuggestions] = useState<Array<any>>([]);
   const [items, setItems] = useState(internalSuggestions);
   const lastItems = useRef(items);
 
-  const search = useCallback(
+  const submitValue = useCallback(
     (value: string) => {
+      const valueRedirect = redirects[value];
       if (value.length >= minimumCharacters) {
         if (!retainFilters) {
           resetFilters();
         }
 
-        searchFunc(value);
+        if (!disableRedirects && valueRedirect !== undefined) {
+          window.location.assign(valueRedirect.token ?? valueRedirect.target);
+        } else {
+          searchFunc(value);
+        }
       }
     },
-    [searchFunc, minimumCharacters, retainFilters, resetFilters],
+    [searchFunc, minimumCharacters, retainFilters, resetFilters, redirects],
   );
 
   const searchAutocomplete = useCallback(
@@ -93,7 +99,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
   }, [internalSuggestions, minimumCharacters]);
 
   const onChangeMemoized = useCallback(
-    (value) => {
+    (value: string) => {
       if (onChange) {
         onChange(value);
       }
@@ -107,10 +113,10 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
           searchAutocomplete(value);
         }
       } else if (mode === 'instant' || mode === 'results') {
-        search(value);
+        submitValue(value);
       }
     },
-    [onChange, mode, search, minimumCharacters],
+    [onChange, mode, submitValue, minimumCharacters],
   );
 
   const onVoiceInput = useCallback(
@@ -123,21 +129,21 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
         setItems([]);
       }
 
-      search(value);
+      submitValue(value);
     },
-    [search, onChange],
+    [submitValue, onChange],
   );
 
   const onKeyDownMemoized = useCallback(
-    (e) => {
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter' && (mode === 'typeahead' || mode === 'suggestions' || mode === 'standard')) {
         if (!retainFilters) {
           resetFilters();
         }
-        search((e.target as HTMLInputElement).value);
+        submitValue(e.currentTarget.value);
       }
     },
-    [mode, search],
+    [mode, submitValue],
   );
 
   const onSelectMemoized = useCallback(
@@ -146,10 +152,10 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.Ref<HTMLInput
         onSelect(item);
       }
       if (mode === 'suggestions') {
-        search(item as string);
+        submitValue(item as string);
       }
     },
-    [mode, search],
+    [mode, submitValue],
   );
 
   return (
