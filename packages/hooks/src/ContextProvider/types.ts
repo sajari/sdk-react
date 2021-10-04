@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Redirects } from '@sajari/sdk-js';
+
 import { Config } from './Config';
 import { FilterBuilder, Pipeline, RangeFilterBuilder, Response, Variables } from './controllers';
 
@@ -22,6 +24,7 @@ export interface PipelineContextState {
   fields?: FieldDictionary;
   searching: boolean;
   filters?: (FilterBuilder | RangeFilterBuilder)[];
+  redirects: Redirects;
 }
 
 export interface ProviderPipelineConfig {
@@ -38,6 +41,7 @@ export interface ProviderPipelineState {
   config: Config;
   completion: string;
   suggestions: string[];
+  redirects: Redirects;
 }
 
 export interface SearchProviderValues {
