@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.6.0
+
+### Minor Changes
+
+- [`7dd5a7dd`](https://github.com/sajari/sdk-react/commit/7dd5a7dd36909b7a10ef92211fdf01e165c15a71) [#678](https://github.com/sajari/sdk-react/pull/678) Thanks [@wwalser](https://github.com/wwalser)! - feat: implement redirects in search inputs
+
 ## 4.5.1
 
 ### Patch Changes
