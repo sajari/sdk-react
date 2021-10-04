@@ -85,7 +85,7 @@ export class Response {
    * Return redirects form the response.
    */
   public getRedirects(): Redirects | undefined {
-    return this.response !== undefined ? (this.response.get('redirect') as Redirects) : undefined;
+    return this.response !== undefined ? (this.response.get('redirects') as Redirects) : undefined;
   }
 
   /**
