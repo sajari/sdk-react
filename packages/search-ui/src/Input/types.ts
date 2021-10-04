@@ -24,6 +24,8 @@ interface Props<T>
   retainFilters?: boolean;
   /** The number of characters needed to trigger a search */
   minimumCharacters?: number;
+  /** Do not follow redirects. Used on result and instant pages to avoid unexpected navigation  */
+  disableRedirects?: boolean;
 }
 
 type HtmlAttributes<T> = Omit<React.InputHTMLAttributes<HTMLInputElement>, keyof Props<T>>;
