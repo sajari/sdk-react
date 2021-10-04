@@ -1,6 +1,6 @@
 {
   "name": "@sajari/server",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "SSR helpers",
   "sideEffects": false,
   "repository": {
@@ -26,8 +26,8 @@
     "react-dom": "^16.8.0"
   },
   "dependencies": {
-    "@sajari/react-hooks": "^3.5.0",
-    "@sajari/react-sdk-utils": "^1.6.0"
+    "@sajari/react-hooks": "^3.5.1",
+    "@sajari/react-sdk-utils": "^1.6.1"
   },
   "publishConfig": {
     "access": "public"
