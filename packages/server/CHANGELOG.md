@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.5.1
+
+### Patch Changes
+
+- [`506677e7`](https://github.com/sajari/sdk-react/commit/506677e75e93f24f39641b84d82ee558bed1483f) [#682](https://github.com/sajari/sdk-react/pull/682) Thanks [@wwalser](https://github.com/wwalser)! - feat: better handling of redirects
+
+- Updated dependencies [[`506677e7`](https://github.com/sajari/sdk-react/commit/506677e75e93f24f39641b84d82ee558bed1483f)]:
+  - @sajari/react-hooks@3.5.1
+  - @sajari/react-sdk-utils@1.6.1
+
 ## 1.5.0
 
 ### Minor Changes
