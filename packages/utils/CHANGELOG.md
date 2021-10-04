@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.6.0
+
+### Minor Changes
+
+- [`dcd39d99`](https://github.com/sajari/sdk-react/commit/dcd39d99115d3eae5cb375a8f2b2480eff2348a1) [#680](https://github.com/sajari/sdk-react/pull/680) Thanks [@wwalser](https://github.com/wwalser)! - feat: implement redirects across all relevant components
+
 ## 1.5.0
 
 ### Minor Changes
