@@ -1,7 +1,6 @@
 /* eslint-disable import/named */
 /* eslint-disable @typescript-eslint/no-shadow */
 import { createContext, isEmpty, isString } from '@sajari/react-sdk-utils';
-import { Redirects } from '@sajari/sdk-js';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { Config, defaultConfig } from './Config';
@@ -37,7 +36,7 @@ import {
   SearchProviderValues,
 } from './types';
 
-const updateState = (query: string, response: Response, config: Config) => {
+const updateState = (query: string, response: Response, config: Config): Partial<ProviderPipelineState> => {
   const responseValues = response.getValues();
   const completion = (query && responseValues ? responseValues.get(config.qParam) || '' : '') as string;
   let suggestions: string[] = [];
@@ -52,20 +51,26 @@ const updateState = (query: string, response: Response, config: Config) => {
     completion,
     query,
     suggestions,
-    redirects: response.getRedirects() ?? {},
   };
 };
 
-const responseUpdatedListener = (variables: Variables, config: Config, response: Response) => {
-  const query = variables.get()[config.qParam] || '';
+const responseUpdatedListener = (variables: Variables, prevState: ProviderPipelineState, response: Response) => {
+  const {
+    config,
+    config: { qParam },
+    redirects,
+  } = prevState;
+  const query = variables.get()[qParam] || '';
+  const newState = updateState(query, response, config);
+  newState.redirects = { ...redirects, ...response.getRedirects() };
 
-  return updateState(query, response, config);
+  return newState;
 };
 
-const valuesUpdatedListener = (variables: Variables, pipeline: Pipeline, config: Config) => {
-  const query = variables.get()[config.qParam] || '';
+const valuesUpdatedListener = (variables: Variables, pipeline: Pipeline, prevState: ProviderPipelineState) => {
+  const query = variables.get()[prevState.config.qParam] || '';
 
-  return updateState(query, pipeline.getResponse(), config);
+  return updateState(query, pipeline.getResponse(), prevState.config);
 };
 
 const [Provider, useContext] = createContext<Context>({
@@ -226,7 +231,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
             setSearchState((prevState) => ({
               ...prevState,
               response,
-              ...responseUpdatedListener(variables.current, prevState.config, response),
+              ...responseUpdatedListener(variables.current, prevState, response),
             }));
           },
           // Delay slightly longer if no results so if someone is typing they don't get a flash of no results
@@ -239,7 +244,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
       variables.current.listen(EVENT_VALUES_UPDATED, () =>
         setSearchState((prevState) => ({
           ...prevState,
-          ...valuesUpdatedListener(variables.current, search.pipeline, prevState.config),
+          ...valuesUpdatedListener(variables.current, search.pipeline, prevState),
         })),
       ),
     );
@@ -258,7 +263,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
         setAutocompleteState((prevState) => ({
           ...prevState,
           response,
-          ...responseUpdatedListener(autocompleteVariables.current, prevState.config, response),
+          ...responseUpdatedListener(autocompleteVariables.current, prevState, response),
         }));
       }),
     );
@@ -270,7 +275,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
           ...valuesUpdatedListener(
             autocompleteVariables.current,
             (autocomplete.current as ProviderPipelineConfig).pipeline,
-            prevState.config,
+            prevState,
           ),
         })),
       ),
