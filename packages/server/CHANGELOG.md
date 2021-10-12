@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.5.2
+
+### Patch Changes
+
+- [`1069d938`](https://github.com/sajari/sdk-react/commit/1069d93883c998d7b10129565cb0d915d7d99b08) [#684](https://github.com/sajari/sdk-react/pull/684) Thanks [@wwalser](https://github.com/wwalser)! - fix: bug fix for handling of redirect returned in autocomplete pipelines
+
+- Updated dependencies [[`1069d938`](https://github.com/sajari/sdk-react/commit/1069d93883c998d7b10129565cb0d915d7d99b08)]:
+  - @sajari/react-hooks@3.6.0
+  - @sajari/react-sdk-utils@1.6.2
+
 ## 1.5.1
 
 ### Patch Changes
