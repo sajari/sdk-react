@@ -17,7 +17,10 @@ import ComboboxContextProvider from './context';
 import { useComboboxStyles } from './styles';
 import { ComboboxProps, ResultItem } from './types';
 
-const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps<T>, ref: React.Ref<HTMLInputElement>) {
+const Combobox = React.forwardRef(function ComboboxInner<T>(
+  props: ComboboxProps<T>,
+  ref: React.ForwardedRef<HTMLInputElement>,
+) {
   const {
     mode = 'standard',
     label,
@@ -272,6 +275,15 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
     spellCheck: 'false',
     inputMode: 'search',
     ref: (node) => {
+      // necessary because of forwarded ref and inner ref
+      if (ref) {
+        if (typeof ref === 'function') {
+          ref(node);
+        } else {
+          // eslint-disable-next-line no-param-reassign
+          ref.current = node;
+        }
+      }
       inputRef.current = node;
     },
     onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => {
@@ -378,7 +390,6 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(props: ComboboxProps
             <Typeahead />
 
             <Box
-              ref={ref}
               as="input"
               css={styles.input}
               {...mergeProps(inputProps, focusProps)}
