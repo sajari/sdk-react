@@ -1,5 +1,14 @@
 # Change Log
 
+## 4.8.1
+
+### Patch Changes
+
+- [`7bfe133e`](https://github.com/sajari/sdk-react/commit/7bfe133e63c2a882f25f350527ccb58d78ccb632) [#686](https://github.com/sajari/sdk-react/pull/686) Thanks [@wwalser](https://github.com/wwalser)! - fix: encoding of entities in empty result message
+
+- Updated dependencies [[`7bfe133e`](https://github.com/sajari/sdk-react/commit/7bfe133e63c2a882f25f350527ccb58d78ccb632)]:
+  - @sajari/react-sdk-utils@1.6.3
+
 ## 4.8.0
 
 ### Minor Changes
