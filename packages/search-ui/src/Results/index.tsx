@@ -1,6 +1,6 @@
 import { ResizeObserver } from '@sajari/react-components';
 import { useQuery, useSearchContext } from '@sajari/react-hooks';
-import { getStylesObject, isEmpty, isNullOrUndefined } from '@sajari/react-sdk-utils';
+import { escapeHTML, getStylesObject, isEmpty, isNullOrUndefined } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
@@ -82,10 +82,12 @@ const Results = (props: ResultsProps) => {
       );
     }
 
+    const safeQuery = escapeHTML(query);
     return (
       <Message
+        appearance="default"
         title={t('results:empty.title')}
-        body={t('results:empty.body', { query: `<strong>${query}</strong>` })}
+        dangerouslySetHTMLBody={t('results:empty.body', { query: `<strong>${safeQuery}</strong>` })}
         disableDefaultStyles={disableDefaultStyles}
         className={customClassNames.results?.emptyMessage}
       />
@@ -95,8 +97,9 @@ const Results = (props: ResultsProps) => {
   if (checkValidResultTemplate(resultTemplate)) {
     const TemplateErrorMessage = () => (
       <Message
+        appearance="default"
         title={t('errors:template:title')}
-        body={t('errors:template:body')}
+        dangerouslySetHTMLBody={t('errors:template:body')}
         showReset
         onReset={onResetTemplate}
       />

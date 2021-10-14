@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import { Box, Button, Text } from '@sajari/react-components';
 import { useAutocomplete, useSearchContext } from '@sajari/react-hooks';
-import { pluralize } from '@sajari/react-sdk-utils';
+import { escapeHTML, pluralize } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { LiveMessage } from 'react-aria-live';
 import { useTranslation } from 'react-i18next';
@@ -53,7 +53,7 @@ const Summary = (props: SummaryProps) => {
                 : t('summary:results', {
                     count: totalResults.toLocaleString(language),
                     object: pluralize(totalResults, t('common:result'), t('common:results')).toLowerCase(),
-                    query: `<strong>${query}</strong>`,
+                    query: `<strong>${escapeHTML(query)}</strong>`,
                   } as Record<string, string>),
           }}
         />
