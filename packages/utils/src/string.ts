@@ -20,6 +20,15 @@ export function decodeHTML(input = ''): string {
   return txt.value;
 }
 
+export function escapeHTML(input = ''): string {
+  return input
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 export function pluralize(input: number, singular: string, plural: string): string {
   if (input === 1) {
     return singular;

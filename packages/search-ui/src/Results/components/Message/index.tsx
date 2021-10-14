@@ -7,10 +7,38 @@ import { useTranslation } from 'react-i18next';
 import useMessageStyles from './styles';
 import { MessageProps } from './types';
 
+const DefaultBodyContent = (
+  props: Pick<MessageProps, 'disableDefaultStyles' | 'dangerouslySetHTMLBody' | 'body'> & {
+    styles: Partial<ReturnType<typeof useMessageStyles>>;
+  },
+) => {
+  const { styles, disableDefaultStyles, dangerouslySetHTMLBody, body } = props;
+  if (body) {
+    return (
+      <Text css={styles.defaultText} disableDefaultStyles={disableDefaultStyles}>
+        {body}
+      </Text>
+    );
+  }
+  if (dangerouslySetHTMLBody) {
+    return (
+      <Text
+        css={styles.defaultText}
+        disableDefaultStyles={disableDefaultStyles}
+        dangerouslySetInnerHTML={{
+          __html: dangerouslySetHTMLBody,
+        }}
+      />
+    );
+  }
+  return null;
+};
+
 const Message = (props: MessageProps) => {
   const {
     title,
     body,
+    dangerouslySetHTMLBody,
     appearance,
     showReset = false,
     onReset = () => {},
@@ -69,21 +97,17 @@ const Message = (props: MessageProps) => {
             <Heading size="3xl" disableDefaultStyles={disableDefaultStyles}>
               {title}
             </Heading>
-            {body && (
-              <Text
-                css={styles.defaultText}
-                disableDefaultStyles={disableDefaultStyles}
-                dangerouslySetInnerHTML={{
-                  __html: body,
-                }}
-              />
-            )}
+            <DefaultBodyContent
+              body={body}
+              dangerouslySetHTMLBody={dangerouslySetHTMLBody}
+              styles={styles}
+              disableDefaultStyles={disableDefaultStyles}
+            />
             {renderResetButton}
           </React.Fragment>
         );
     }
   };
-
   return (
     <Box css={[styles.container, stylesProp]} {...rest}>
       {render()}
