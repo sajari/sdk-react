@@ -1,5 +1,5 @@
 import { mapStyles } from '@sajari/react-sdk-utils';
-import tw, { theme } from 'twin.macro';
+import tw from 'twin.macro';
 
 import { InternalRatingItemProps } from '../../types';
 
@@ -12,7 +12,7 @@ export default function useRatingItemStyles(props: InternalRatingItemProps) {
       tw`absolute top-0 w-1/2 h-full overflow-hidden select-none`,
       '& > * { flex-shrink: 0; }',
       flipped ? tw`right-0 flex flex-row-reverse` : tw`left-0 flex flex-row`,
-      half ? theme`colors.orange.400` : 'inherit',
+      half ? tw`text-orange-400` : 'inherit',
     ],
     secondHalf: [tw`flex`, 'color: inherit;'],
   };
