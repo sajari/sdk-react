@@ -46,6 +46,8 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
   const lastItems = useRef(items);
   const localRef = useRef<HTMLInputElement>(null);
   const inputRef = mergeRefs(ref, localRef);
+  const lastValue = useRef(query);
+  const searchDebounceRef = useRef(0);
 
   const searchValue = useCallback(
     (value: string) => {
@@ -53,7 +55,18 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
         if (!retainFilters) {
           resetFilters();
         }
-        searchFunc(value);
+        // cannot use useDebounce because we want to always clear timeout but not always trigger the debounce function
+        // this is to fix the bug where deleting multiple characters and then immediately start typing and the input value got magically removed because the remove debounce function is still running
+        window.clearTimeout(searchDebounceRef.current);
+        // backspace
+        if (lastValue.current.length > value.length) {
+          searchDebounceRef.current = window.setTimeout(() => {
+            searchFunc(value);
+          }, 300);
+        } else {
+          searchFunc(value);
+        }
+        lastValue.current = value;
       }
     },
     [searchFunc, minimumCharacters, retainFilters, resetFilters],
@@ -200,6 +213,12 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
     },
     [mode, searchValue],
   );
+
+  useEffect(() => {
+    return () => {
+      window.clearTimeout(searchDebounceRef.current);
+    };
+  }, []);
 
   return (
     <Combobox
