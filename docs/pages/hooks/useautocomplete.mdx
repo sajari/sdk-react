@@ -81,11 +81,13 @@ function Example() {
 
 `useAutocomplete` returns an object containing the following properties:
 
-| Name          | Type                   | Default | Description                                                           |
-| ------------- | ---------------------- | ------- | --------------------------------------------------------------------- |
-| `suggestions` | `string[]`             |         | An array of suggestions for the query.                                |
-| `completion`  | `string`               |         | A string that is predicted by the pipeline base on the current query. |
-| `search`      | `(q?: string) => void` |         | Function used to search for suggestions.                              |
+| Name          | Type                                          | Default | Description                                                                                                                                                                                                       |
+| ------------- | --------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `suggestions` | `string[]`                                    | `[]`    | An array of suggestions for the query.                                                                                                                                                                            |
+| `completion`  | `string`                                      |         | A string that is predicted by the pipeline base on the current query.                                                                                                                                             |
+| `search`      | `(q?: string) => void`                        |         | Function used to search for suggestions.                                                                                                                                                                          |
+| `searching`   | `boolean`                                     | `false` | A boolean that is true when the autocomplete is currently searching for the latest result.                                                                                                                        |
+| `redirects`   | `{ [redirectQuery: string]: RedirectTarget }` | `{}`    | An object which maps a search string, `redirectQuery`, to possible redirect completions for that string. See the [JS SDK](https://sajari-sdk-js.netlify.app/interfaces/redirects.html) for detailed object shape. |
 
 ## Parameters
 
