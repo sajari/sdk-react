@@ -18,7 +18,7 @@ const topNavLinks = [
 ];
 
 export const SideNavContent = () => (
-  <Box space="space-y-10" margin="mb-10">
+  <Box space="space-y-10" padding="pb-10">
     <Box>
       {topNavLinks.map(([name, link]) => (
         <SideNavLink key={link || name} href={link || stringToUrl(name)}>
