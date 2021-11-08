@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.13.1
+
+### Patch Changes
+
+- [`9fa111e3`](https://github.com/sajari/sdk-react/commit/9fa111e32d39f5a92506cd162d91559afca5e3ca) [#688](https://github.com/sajari/sdk-react/pull/688) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix half-star not showing in Rating component
+
 ## 1.13.0
 
 ### Minor Changes
