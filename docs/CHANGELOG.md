@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.12.1
+
+### Patch Changes
+
+- [`acbcfcf9`](https://github.com/sajari/sdk-react/commit/acbcfcf96d2b37117931232b6dd34767297e1c22) [#692](https://github.com/sajari/sdk-react/pull/692) Thanks [@wwalser](https://github.com/wwalser)! - add information about useAutocomplete return type
+
 ## 1.12.0
 
 ### Minor Changes
