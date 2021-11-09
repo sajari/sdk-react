@@ -117,7 +117,7 @@ export default class RangeFilterBuilder {
     }
   }
 
-  public getMinMax() {
+  public getMinMax(): [number, number] {
     return [this.min, this.max];
   }
 
@@ -129,7 +129,8 @@ export default class RangeFilterBuilder {
    * Builds up the filter string from the current state.
    */
   public filter() {
-    if (!this.range) {
+    const minMax = this.getMinMax();
+    if (!this.range || (this.range[0] === minMax[0] && this.range[1] === minMax[1])) {
       return '';
     }
 

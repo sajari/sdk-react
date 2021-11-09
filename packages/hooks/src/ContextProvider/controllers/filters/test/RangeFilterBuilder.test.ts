@@ -51,6 +51,8 @@ describe('RangeFilterBuilder', () => {
   it('filter and set', () => {
     priceFilter.set(null);
     expect(priceFilter.filter()).toBe('');
+    priceFilter.set(priceFilter.getMinMax());
+    expect(priceFilter.filter()).toBe('');
     priceFilter.set([0, 100]);
     expect(priceFilter.filter()).toBe('price >= 0 AND price <= 100');
     priceFilter.set([50, 200]);

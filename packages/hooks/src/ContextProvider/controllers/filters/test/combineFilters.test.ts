@@ -107,7 +107,14 @@ describe('combineFilters', () => {
 
   it('filter', () => {
     expect(combination.filter()).toBe(
-      'ARRAY_MATCH((color = "red") AND (size = "small")) AND (brand = "Apple") AND (price >= 200) AND (popularity >= 100 AND popularity <= 600) AND (rating >= 1 AND rating <= 5)',
+      'ARRAY_MATCH((color = "red") AND (size = "small")) AND (brand = "Apple") AND (price >= 200) AND (popularity >= 100 AND popularity <= 600)',
+    );
+  });
+
+  it('filter after rating range change', () => {
+    ratingRangeFilter.set([2, 5]);
+    expect(combination.filter()).toBe(
+      'ARRAY_MATCH((color = "red") AND (size = "small")) AND (brand = "Apple") AND (price >= 200) AND (popularity >= 100 AND popularity <= 600) AND (rating >= 2 AND rating <= 5)',
     );
   });
 
