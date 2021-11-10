@@ -1,5 +1,14 @@
 # Change Log
 
+## 4.8.2
+
+### Patch Changes
+
+- [`963b4d5b`](https://github.com/sajari/sdk-react/commit/963b4d5b0683a09a08d1047747bfb36dfb4ca923) [#695](https://github.com/sajari/sdk-react/pull/695) Thanks [@wwalser](https://github.com/wwalser)! - fix: avoid sending range filter when min and max values are set to the min and max of the collection
+
+- Updated dependencies [[`963b4d5b`](https://github.com/sajari/sdk-react/commit/963b4d5b0683a09a08d1047747bfb36dfb4ca923)]:
+  - @sajari/react-hooks@3.6.1
+
 ## 4.8.1
 
 ### Patch Changes
