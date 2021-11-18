@@ -1,0 +1,131 @@
+import React, { useEffect, useMemo, useState } from 'react';
+import router from 'next/router';
+import { Flex, Grid, Icon, TextInput } from '@sajari-ui/core';
+import { Modal, ModalBody, ModalHeader } from '@sajari/react-components';
+import { useSearchContext } from '@sajari/react-hooks';
+import SearchItem from './SearchItem';
+
+const headingFilter = ['Editable Example'];
+
+interface Props {
+  open: boolean;
+  onClose: () => void;
+}
+
+const SearchModal = ({ open, onClose }: Props) => {
+  const { clear, search, searching, results = [] } = useSearchContext();
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const onClick = (url: string) => {
+    router.push(url);
+    clear({ q: '' });
+    onClose();
+  };
+
+  const extendedResult = useMemo(
+    () =>
+      results.flatMap(({ values }, resultIndex) => {
+        const title = String(values.title).slice(0, String(values.title).indexOf(' |'));
+        return [
+          {
+            key: String(resultIndex),
+            mainText: title,
+            url: String(values.url).replace('https://react.docs.sajari.com', ''),
+          },
+          ...Array.from(values.headings)
+            .filter((heading) => !headingFilter.includes(heading) && heading !== title)
+            .map((heading, headingIndex) => ({
+              key: String(resultIndex + '_' + headingIndex),
+              subText: title,
+              mainText: heading,
+              url: String(values.url + '#' + heading.replace(/[\s.]+/g, '-').toLocaleLowerCase()).replace(
+                'https://react.docs.sajari.com',
+                '',
+              ),
+            })),
+        ];
+      }),
+    [results],
+  );
+
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    switch (true) {
+      case e.key === 'ArrowUp': {
+        e.preventDefault();
+        setSelectedIndex(Math.max(selectedIndex - 1, 0));
+        break;
+      }
+      case e.key === 'ArrowDown': {
+        e.preventDefault();
+        setSelectedIndex(Math.min(selectedIndex + 1, extendedResult.length - 1));
+        break;
+      }
+      case e.key === 'Enter': {
+        e.preventDefault();
+        if (extendedResult[selectedIndex]) {
+          onClick(extendedResult[selectedIndex].url);
+        }
+        break;
+      }
+      default:
+    }
+  };
+
+  useEffect(() => {
+    setSelectedIndex(0);
+  }, [searching, open]);
+
+  return (
+    <Modal
+      open={open}
+      onClose={() => {
+        clear({ q: '' });
+        onClose();
+      }}
+      center={false}
+      size="2xl"
+      animationDuration={100}
+    >
+      <ModalHeader styles={{ minHeight: 68 }}>
+        <Flex width="w-full" alignItems="items-center">
+          <Flex width="w-15" padding="pl-2" alignItems="items-center">
+            <Icon name="search" size="lg" textColor="text-blue-500" />
+          </Flex>
+          <TextInput
+            onChange={(e) => {
+              const { value } = e.currentTarget;
+              if (value.length > 1) {
+                search(value);
+              } else {
+                clear({ q: '' });
+              }
+            }}
+            onKeyDown={onKeyDown}
+            placeholder="Search the docs"
+            borderWidth="border-0"
+            boxShadow="focus:shadow-none"
+            padding="px-0"
+          />
+        </Flex>
+        {searching && <Icon name="spinner" margin="mr-7" />}
+      </ModalHeader>
+
+      {!searching && !!extendedResult.length && (
+        <ModalBody>
+          <Grid gap="gap-2">
+            {extendedResult.map((each, index) => (
+              <SearchItem
+                {...each}
+                selected={selectedIndex === index}
+                onSelected={() => setSelectedIndex(index)}
+                onClick={() => onClick(each.url)}
+              />
+            ))}
+          </Grid>
+        </ModalBody>
+      )}
+    </Modal>
+  );
+};
+
+export default SearchModal;
