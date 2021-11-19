@@ -7,7 +7,7 @@ interface Props {
   mainText: string;
   selected?: boolean;
   onSelected?: React.MouseEventHandler<HTMLElement>;
-  onClick?: () => void;
+  onClick?: React.MouseEventHandler<HTMLElement>;
 }
 
 const SearchItem = ({ subText, mainText, selected, onSelected, onClick }: Props) => {

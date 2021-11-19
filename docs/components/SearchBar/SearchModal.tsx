@@ -5,7 +5,7 @@ import { Modal, ModalBody, ModalHeader } from '@sajari/react-components';
 import { useSearchContext } from '@sajari/react-hooks';
 import SearchItem from './SearchItem';
 
-const headingFilter = ['Editable Example'];
+const headingFilter = ['Editable Example', 'Suggestions'];
 
 interface Props {
   open: boolean;
@@ -16,8 +16,12 @@ const SearchModal = ({ open, onClose }: Props) => {
   const { clear, search, searching, results = [] } = useSearchContext();
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const onClick = (url: string) => {
-    router.push(url);
+  const onClick = (url: string, e?: React.MouseEvent) => {
+    if (e?.ctrlKey || e?.shiftKey || e?.metaKey || e?.button === 1) {
+      window.open(url, '_blank');
+    } else {
+      router.push(url);
+    }
     clear({ q: '' });
     onClose();
   };
@@ -26,14 +30,16 @@ const SearchModal = ({ open, onClose }: Props) => {
     () =>
       results.flatMap(({ values }, resultIndex) => {
         const title = String(values.title).slice(0, String(values.title).indexOf(' |'));
+        const headings = Array.from(values.headings);
         return [
           {
             key: String(resultIndex),
             mainText: title,
             url: String(values.url).replace('https://react.docs.sajari.com', ''),
           },
-          ...Array.from(values.headings)
-            .filter((heading) => !headingFilter.includes(heading) && heading !== title)
+          ...headings
+            .slice(headings.includes(title) ? headings.lastIndexOf(title) + 1 : 0)
+            .filter((heading) => !headingFilter.includes(heading))
             .map((heading, headingIndex) => ({
               key: String(resultIndex + '_' + headingIndex),
               subText: title,
@@ -118,7 +124,7 @@ const SearchModal = ({ open, onClose }: Props) => {
                 {...each}
                 selected={selectedIndex === index}
                 onSelected={() => setSelectedIndex(index)}
-                onClick={() => onClick(each.url)}
+                onClick={(e) => onClick(each.url, e)}
               />
             ))}
           </Grid>
