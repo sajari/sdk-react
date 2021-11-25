@@ -1,7 +1,7 @@
 /* eslint-disable prefer-arrow-callback */
 
 import { mergeProps, useId } from '@react-aria/utils';
-import { __DEV__, getStylesObject, isFunction, isSSR } from '@sajari/react-sdk-utils';
+import { __DEV__, getStylesObject, isFunction, isSSR, mergeRefs } from '@sajari/react-sdk-utils';
 import { useCombobox } from 'downshift';
 import React, { ChangeEvent, KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
@@ -60,7 +60,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(
   const [typedInputValue, setTypedInputValue] = useState(valueProp.toString());
   const { supported: voiceSupported } = useVoiceInput();
   const [value, setValue] = useState(valueProp.toString());
-  const inputRef = useRef<HTMLInputElement | null>();
+  const inputRef = useRef<HTMLInputElement>(null);
   const inAttachMode = Boolean(inputElement?.current);
 
   useEffect(() => {
@@ -274,18 +274,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(
     autoCorrect: 'off',
     spellCheck: 'false',
     inputMode: 'search',
-    ref: (node) => {
-      // necessary because of forwarded ref and inner ref
-      if (ref) {
-        if (typeof ref === 'function') {
-          ref(node);
-        } else {
-          // eslint-disable-next-line no-param-reassign
-          ref.current = node;
-        }
-      }
-      inputRef.current = node;
-    },
+    ref: mergeRefs(ref, inputRef),
     onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => {
       // Don't supress native form submission when 'Enter' key is pressed
       // Only if the user isn't focused on an item in the suggestions
