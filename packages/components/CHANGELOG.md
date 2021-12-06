@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.13.2
+
+### Patch Changes
+
+- [`a153336e`](https://github.com/sajari/sdk-react/commit/a153336e1918f5f9f63185f7b0010e0a303f9806) [#702](https://github.com/sajari/sdk-react/pull/702) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix Rating error
+
 ## 1.13.1
 
 ### Patch Changes
