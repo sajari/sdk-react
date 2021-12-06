@@ -1,10 +1,12 @@
 import { ItemType, RatingMaxmiumExceededError } from '../Rating/types';
 
-export const toRatingArray: (value: number, max: number) => ItemType[] = (value, max) => {
+export const toRatingArray: (value: number, max: number) => ItemType[] | null = (value, max) => {
   const isHalf = Math.round(value) - value !== 0;
 
   if (max - value < 0) {
-    throw new RatingMaxmiumExceededError();
+    // eslint-disable-next-line no-console
+    console.error(new RatingMaxmiumExceededError());
+    return null;
   }
 
   return [

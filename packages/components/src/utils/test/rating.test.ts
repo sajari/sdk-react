@@ -3,7 +3,7 @@ import { toRatingArray } from '../rating';
 
 test.each([
   // valid
-  // [value, max, throw, isValid, expected]
+  // [value, max, error, isValid, expected]
   [1, 2, false, true, [ItemType.Filled, ItemType.Empty]],
   [1.3, 2, false, true, [ItemType.Filled, ItemType.HalfFilled]],
   [1.5, 2, false, true, [ItemType.Filled, ItemType.HalfFilled]],
@@ -16,11 +16,12 @@ test.each([
   [1.5, 2, false, false, [ItemType.HalfFilled, ItemType.Filled]],
   [1.5, 2, false, false, [ItemType.Empty, ItemType.Filled]],
   [4, 3, true, false, [ItemType.Empty, ItemType.Filled]],
-])('value: %d, max: %d', (value, max, willThrow, isValid, expected) => {
-  if (willThrow) {
-    expect(() => {
-      toRatingArray(value, max);
-    }).toThrowError(new RatingMaxmiumExceededError());
+])('value: %d, max: %d', (value, max, error, isValid, expected) => {
+  if (error) {
+    const mockedConsoleError = jest.spyOn(console, 'error');
+    const shouldBeNull = toRatingArray(value, max);
+    expect(shouldBeNull).toBeNull();
+    expect(mockedConsoleError.mock.calls[0][0]).toStrictEqual(new RatingMaxmiumExceededError());
   } else if (isValid) {
     expect(toRatingArray(value, max)).toEqual(expected);
   } else {

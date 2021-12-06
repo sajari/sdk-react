@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import { __DEV__, getStylesObject } from '@sajari/react-sdk-utils';
+import { __DEV__, getStylesObject, isNullOrUndefined } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
 import * as React from 'react';
 import tw from 'twin.macro';
@@ -43,6 +43,10 @@ const Rating = React.forwardRef((props: RatingProps, ref: React.Ref<HTMLDivEleme
     },
     disableDefaultStyles,
   );
+
+  if (isNullOrUndefined(arr)) {
+    return null;
+  }
 
   return (
     <Box ref={ref} role="img" aria-label={label} css={[styles.container, stylesProp]} {...rest}>
