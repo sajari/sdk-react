@@ -61,10 +61,10 @@ const Select = React.forwardRef((props: SelectProps, ref?: React.Ref<HTMLDivElem
   // Build items list from children
   const items: Array<Item> = React.useMemo(
     () =>
-      cleanChildren(children).reduce(
-        (out, { props: optionProps }: { props: OptionProps }) => [...out, optionProps],
-        [] as Array<Item>,
-      ),
+      cleanChildren(children).reduce((out, { props: optionProps }: { props: OptionProps }) => {
+        out.push(optionProps);
+        return out;
+      }, [] as Array<Item>),
     [children],
   );
 
