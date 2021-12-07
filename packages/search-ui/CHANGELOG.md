@@ -1,5 +1,16 @@
 # Change Log
 
+## 4.9.0
+
+### Minor Changes
+
+- [`3b75353e`](https://github.com/sajari/sdk-react/commit/3b75353e2085597df639d190b1917e7d93484813) [#700](https://github.com/sajari/sdk-react/pull/700) Thanks [@wwalser](https://github.com/wwalser)! - feat: redirects are now implemented in search-ui package - see the Input component
+
+### Patch Changes
+
+- Updated dependencies [[`a153336e`](https://github.com/sajari/sdk-react/commit/a153336e1918f5f9f63185f7b0010e0a303f9806), [`cddb252e`](https://github.com/sajari/sdk-react/commit/cddb252eceaabe633d160e47a1ff76df0f220b49), [`3b75353e`](https://github.com/sajari/sdk-react/commit/3b75353e2085597df639d190b1917e7d93484813)]:
+  - @sajari/react-components@1.13.2
+
 ## 4.8.2
 
 ### Patch Changes

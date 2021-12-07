@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.13.2
+
+### Patch Changes
+
+- [`a153336e`](https://github.com/sajari/sdk-react/commit/a153336e1918f5f9f63185f7b0010e0a303f9806) [#702](https://github.com/sajari/sdk-react/pull/702) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix Rating error
+
+* [`cddb252e`](https://github.com/sajari/sdk-react/commit/cddb252eceaabe633d160e47a1ff76df0f220b49) [#701](https://github.com/sajari/sdk-react/pull/701) Thanks [@wwalser](https://github.com/wwalser)! - perf: performance improvement to select component
+
+- [`3b75353e`](https://github.com/sajari/sdk-react/commit/3b75353e2085597df639d190b1917e7d93484813) [#700](https://github.com/sajari/sdk-react/pull/700) Thanks [@wwalser](https://github.com/wwalser)! - feat: redirects are now implemented in search-ui package - see the Input component
+
 ## 1.13.1
 
 ### Patch Changes
