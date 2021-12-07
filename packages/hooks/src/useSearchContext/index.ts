@@ -32,6 +32,7 @@ function useSearchContext() {
     config,
     clear,
     resetFilters,
+    activePromotions: response?.getActivePromotions() ?? [],
   };
 }
 
