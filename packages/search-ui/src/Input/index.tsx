@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Combobox } from '@sajari/react-components';
 import { useAutocomplete, useQuery, useSearchContext } from '@sajari/react-hooks';
-import { __DEV__, arraysEqual, isArray } from '@sajari/react-sdk-utils';
+import { __DEV__, arraysEqual, isArray, mergeRefs } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -21,6 +21,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
     onKeyDown,
     onChange,
     maxSuggestions = mode === 'results' ? 5 : 10,
+    disableRedirects = mode === 'results' || mode === 'instant',
     className,
     retainFilters = false,
     minimumCharacters: minimumCharactersProp = 0,
@@ -29,14 +30,24 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
   const minimumCharacters = Math.max(0, minimumCharactersProp);
   const { results: rawResults, search: searchFunc, searching, fields, resetFilters } = useSearchContext();
   const results = React.useMemo(() => mapResultFields<ResultValues>(rawResults ?? [], fields), [rawResults]);
-  const { search: searchAutocompleteFunc, completion, suggestions } = useAutocomplete();
+  const {
+    search: searchAutocompleteFunc,
+    completion,
+    suggestions,
+    redirects,
+    searching: autocompleteSearching,
+  } = useAutocomplete();
+  const redirectsRef = useRef(redirects);
+  redirectsRef.current = redirects;
   const { customClassNames, disableDefaultStyles = false, tracking } = useSearchUIContext();
   const { query } = useQuery();
   const [internalSuggestions, setInternalSuggestions] = useState<Array<any>>([]);
   const [items, setItems] = useState(internalSuggestions);
   const lastItems = useRef(items);
+  const localRef = useRef<HTMLInputElement>(null);
+  const inputRef = mergeRefs(ref, localRef);
 
-  const submitValue = useCallback(
+  const searchValue = useCallback(
     (value: string) => {
       if (value.length >= minimumCharacters) {
         if (!retainFilters) {
@@ -107,10 +118,10 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
           searchAutocomplete(value);
         }
       } else if (mode === 'instant' || mode === 'results') {
-        submitValue(value);
+        searchValue(value);
       }
     },
-    [onChange, mode, submitValue, minimumCharacters],
+    [onChange, mode, searchValue, minimumCharacters],
   );
 
   const onVoiceInput = useCallback(
@@ -123,42 +134,77 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
         setItems([]);
       }
 
-      submitValue(value);
+      searchValue(value);
     },
-    [submitValue, onChange],
+    [searchValue, onChange],
   );
+
+  const submitForm = useCallback(() => {
+    const input = localRef.current;
+    if (input) {
+      const wrappingForm = input.closest('form');
+      if (typeof wrappingForm?.requestSubmit === 'function') {
+        wrappingForm.requestSubmit();
+        return;
+      }
+      wrappingForm?.submit();
+    }
+  }, []);
 
   const onKeyDownMemoized = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (onKeyDown) {
-        onKeyDown(e);
-      }
+      const { value } = e.currentTarget;
       if (e.key === 'Enter' && (mode === 'typeahead' || mode === 'suggestions' || mode === 'standard')) {
         if (!retainFilters) {
           resetFilters();
         }
-        submitValue(e.currentTarget.value);
+        const redirectValue = redirectsRef.current[value];
+        if (!disableRedirects && redirectValue) {
+          window.location.assign(redirectValue.token || redirectValue.target);
+          e.preventDefault();
+        } else if (!disableRedirects && autocompleteSearching) {
+          // If we're performing an autocomplete search, wait a tick to recheck redirects before unloading
+          e.preventDefault();
+          setTimeout(() => {
+            const redirectTarget = redirectsRef.current[value];
+            if (redirectTarget) {
+              window.location.assign(redirectTarget.token || redirectTarget.target);
+            } else if (onKeyDown) {
+              onKeyDown(e);
+              // since we've prevented default above, we should fulfil the default behaviour.
+              submitForm();
+            }
+          }, 400);
+        } else if (onKeyDown) {
+          onKeyDown(e);
+        }
+        searchValue(value);
       }
     },
-    [mode, submitValue, onKeyDown],
+    [mode, searchValue, onKeyDown, autocompleteSearching, disableRedirects],
   );
 
   const onSelectMemoized = useCallback(
     (item) => {
+      const redirectValue = redirectsRef.current[item];
+      if (!disableRedirects && redirectValue) {
+        window.location.assign(redirectValue.token || redirectValue.target);
+        return;
+      }
       if (onSelect) {
         onSelect(item);
       }
       if (mode === 'suggestions') {
-        submitValue(item as string);
+        searchValue(item as string);
       }
     },
-    [mode, submitValue],
+    [mode, searchValue],
   );
 
   return (
     <Combobox
       {...rest}
-      ref={ref}
+      ref={inputRef}
       placeholder={placeholder}
       mode={mode as Exclude<InputProps<any>['mode'], 'instant'>}
       onVoiceInput={onVoiceInput}
