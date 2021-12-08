@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Redirects } from '@sajari/sdk-js';
+import { ActivePromotion, Redirects } from '@sajari/sdk-js';
 
 import { Config } from './Config';
 import { FilterBuilder, Pipeline, RangeFilterBuilder, Response, Variables } from './controllers';
@@ -25,6 +25,7 @@ export interface PipelineContextState {
   searching: boolean;
   filters?: (FilterBuilder | RangeFilterBuilder)[];
   redirects: Redirects;
+  activePromotions: ActivePromotion[];
 }
 
 export interface ProviderPipelineConfig {
@@ -42,6 +43,7 @@ export interface ProviderPipelineState {
   completion: string;
   suggestions: string[];
   redirects: Redirects;
+  activePromotions: ActivePromotion[];
 }
 
 export interface SearchProviderValues {

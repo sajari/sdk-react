@@ -85,6 +85,7 @@ const defaultState: ProviderPipelineState = {
   suggestions: [],
   config: defaultConfig,
   redirects: {},
+  activePromotions: [],
 };
 
 // Map a serialized Response object back into a Response

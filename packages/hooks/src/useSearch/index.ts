@@ -29,6 +29,7 @@ function useCustomSearch({ pipeline, variables }: UseSearchCustomConfig): UseSea
     search: searchFn,
     error: null,
     redirects: {},
+    activePromotions: [],
   });
 
   useEffect(() => {
@@ -44,6 +45,7 @@ function useCustomSearch({ pipeline, variables }: UseSearchCustomConfig): UseSea
         totalResults: response?.getTotalResults(),
         error: response?.getError(),
         redirects: response.getRedirects() ?? {},
+        activePromotions: response.getActivePromotions() ?? [],
       }));
     });
   }, []);
@@ -101,6 +103,7 @@ function useNormalSearch({ queryOverride, allowEmptySearch = true }: UseSearchCo
     totalResults: response?.getTotalResults(),
     suggestions: suggestions ?? [],
     redirects,
+    activePromotions: response?.getActivePromotions() ?? [],
     results,
     search,
     searchInstant,
