@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.7.0
+
+### Minor Changes
+
+- [`3d61fbee`](https://github.com/sajari/sdk-react/commit/3d61fbee55e3afc4d0cc121850445d0709185f02) [#704](https://github.com/sajari/sdk-react/pull/704) Thanks [@jkaho](https://github.com/jkaho)! - Make activePromotions accessible via search hooks
+
 ## 3.6.1
 
 ### Patch Changes
