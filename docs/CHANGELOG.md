@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.13.0
+
+### Minor Changes
+
+- [`d1de2dca`](https://github.com/sajari/sdk-react/commit/d1de2dcae1c5840bc6647cc381d1fc0af56ef7e9) [#709](https://github.com/sajari/sdk-react/pull/709) Thanks [@wwalser](https://github.com/wwalser)! - feat: update logo for rebrand
+
+### Patch Changes
+
+- [`0b08504d`](https://github.com/sajari/sdk-react/commit/0b08504d17e6788cfe45c134f80ae6755f059f43) [#711](https://github.com/sajari/sdk-react/pull/711) Thanks [@wwalser](https://github.com/wwalser)! - feat: new favicon
+
 ## 1.12.1
 
 ### Patch Changes
