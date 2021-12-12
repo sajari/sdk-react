@@ -12,7 +12,7 @@
     "@mdx-js/mdx": "^1.6.22",
     "@mdx-js/react": "^1.6.22",
     "@next/mdx": "^10.0.3",
-    "@sajari-ui/core": "^0.2.0",
+    "@sajari-ui/core": "^0.20.0",
     "@types/mdx-js__react": "^1.5.3",
     "@types/react-table": "^7.0.25",
     "lorem-ipsum": "^2.0.3",
