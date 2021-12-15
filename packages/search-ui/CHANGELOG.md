@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.10.0
+
+### Minor Changes
+
+- [`d89262be`](https://github.com/sajari/sdk-react/commit/d89262be2785ac6fe3a50fece1f3a8ef2bd9626b) [#691](https://github.com/sajari/sdk-react/pull/691) Thanks [@tuanddd](https://github.com/tuanddd)! - Debounce search if backspace
+
 ## 4.9.1
 
 ### Patch Changes
