@@ -48,6 +48,7 @@ const Result = React.memo(
       showVariantImage = false,
       showStatus: showStatusProp = false,
       openNewTab = false,
+      isPinned,
       ...rest
     } = props;
     const { t } = useTranslation('result');
@@ -253,7 +254,7 @@ const Result = React.memo(
     const showImage = showImageProp && (isValidURL(imageSrc, true) || forceImage);
 
     return (
-      <Box as="article" {...rest} css={[styles.container, stylesProp]}>
+      <Box as="article" {...rest} css={[styles.container, stylesProp]} data-pinned={isPinned}>
         {showImage && (
           <Box css={styles.wrapper}>
             <Link

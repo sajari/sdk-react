@@ -143,6 +143,7 @@ const Results = (props: ResultsProps) => {
           outOfStockStatusClassName={customClassNames.results?.outOfStockStatus}
           newArrivalStatusClassName={customClassNames.results?.newArrivalStatus}
           openNewTab={openNewTab}
+          isPinned={result.promotionPinned}
           {...rest}
         />
       ))}

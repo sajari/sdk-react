@@ -35,6 +35,8 @@ interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | '
   outOfStockStatusClassName?: string;
   /** The classname for the new arrival status */
   newArrivalStatusClassName?: string;
+  /** Indicates whether the result is pinned via a promotion */
+  isPinned?: boolean;
 }
 
 type HTMLAttributes = Omit<React.HTMLAttributes<HTMLDivElement>, keyof Props>;
