@@ -1,6 +1,6 @@
 const SEO = {
-  title: 'Sajari React SDK',
-  description: 'Build beautiful and accessible search interfaces with the Sajari React SDK.',
+  title: 'Search.io React SDK',
+  description: 'Build beautiful and accessible search interfaces with the Search.io React SDK.',
 };
 
 export default SEO;
