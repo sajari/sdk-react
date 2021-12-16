@@ -85,7 +85,6 @@ const defaultState: ProviderPipelineState = {
   suggestions: [],
   config: defaultConfig,
   redirects: {},
-  activePromotions: [],
 };
 
 // Map a serialized Response object back into a Response
@@ -115,7 +114,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
   const initialResponse = parseResponse(initialResponseProp);
   const [searching, setSearching] = useState(false);
   const [autocompleteSearching, setAutocompleteSearching] = useState(false);
-  const [searchState, setSearchState] = useState({ ...defaultState, response: initialResponse });
+  const [searchState, setSearchState] = useState<ProviderPipelineState>({ ...defaultState, response: initialResponse });
   const [autocompleteState, setAutocompleteState] = useState(defaultState);
   const [configDone, setConfigDone] = useState(false);
   const searchTimer = useRef<ReturnType<typeof setTimeout>>();

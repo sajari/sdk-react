@@ -27,4 +27,5 @@ export interface UseSearchResult {
   suggestions?: string[];
   searching: boolean;
   error: Error | null;
+  featureScoreWeight: number;
 }

@@ -25,7 +25,6 @@ export interface PipelineContextState {
   searching: boolean;
   filters?: (FilterBuilder | RangeFilterBuilder)[];
   redirects: Redirects;
-  activePromotions: ActivePromotion[];
 }
 
 export interface ProviderPipelineConfig {
@@ -43,7 +42,6 @@ export interface ProviderPipelineState {
   completion: string;
   suggestions: string[];
   redirects: Redirects;
-  activePromotions: ActivePromotion[];
 }
 
 export interface SearchProviderValues {

@@ -138,4 +138,11 @@ export class Response {
     }
     return aggregates as Aggregates;
   }
+
+  /**
+   * Return the featureScoreWeight in the response.
+   */
+  public getFeatureScoreWeight(): number | undefined {
+    return this.response !== undefined ? (this.response.get('featureScoreWeight') as number) : undefined;
+  }
 }
