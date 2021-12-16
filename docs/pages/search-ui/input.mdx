@@ -94,6 +94,45 @@ function Example() {
 }
 ```
 
+## Redirects
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+
+  const SearchPlayground = React.memo(() => (
+    <div className="space-y-4">
+      <p>
+        Search "google" and hit enter (or select the autocomplete suggestion) to be redirected to google.com. <br />
+        <span style={{ color: 'red' }}>Note: you'll be taken away from this page.</span>
+      </p>
+      <Input mode="suggestions" />
+    </div>
+  ));
+
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+      }}
+      searchOnLoad
+    >
+      <SearchPlayground />
+    </SearchProvider>
+  );
+}
+```
+
 ## Results
 
 ```jsx
