@@ -7,7 +7,7 @@ import SEO from '../../components/SEO';
 
 # Advanced Tracking
 
-Sajari's PosNegTracking aims to provide flexible tracking tokens which can be used in novel use-cases to provide both useful analytics and to feed Sajari's machine learning algorithm data about the performance of search results. The two primary features for advanced use-cases are multi-use and long lived tokens.
+Search.io's PosNegTracking aims to provide flexible tracking tokens which can be used in novel use-cases to provide both useful analytics and to feed Search.io's machine learning algorithm data about the performance of search results. The two primary features for advanced use-cases are multi-use and long lived tokens.
 
 ## Multi-use Tokens and Search Funnels
 
@@ -21,7 +21,7 @@ Additionally, tokens can be stored for long durations in order to attribute sear
 
 This example includes three files of a shopping cart funnel where PosNegTokens are used to track search results (store products) as they move through the search -> add to cart -> purchase funnel. Additionally, localstorage is used to persist tokens long-term in case the initial search and final purchase occur over separate browser sessions.
 
-On a search result screen, we can use the sajari pre-built support rendering search results which includes storing PosNeg tokens of clicked results into localstorage.
+On a search result screen, we can use the Search.io pre-built support rendering search results which includes storing PosNeg tokens of clicked results into localstorage.
 
 ```jsx
 /**
@@ -64,10 +64,10 @@ function ExampleProductSearch() {
 ```
 
 Then on a product details page, we do two things.
-First, we submit any pending positive tokens associated with result clicks from the previous screen. This submit lets the Sajari engine know that this was likely a good result for the search term.
+First, we submit any pending positive tokens associated with result clicks from the previous screen. This submit lets the Search.io engine know that this was likely a good result for the search term.
 Then, when a customer adds a product to their cart, we submit the token with a higher weight. This gives a stronger signal for this result. The customer has moved closer to the end of the funnel.
 
-Unlike other examples which render Sajari search results, this is purely an example of how your own brand's storefront might be setup.
+Unlike other examples which render Search.io search results, this is purely an example of how your own brand's storefront might be setup.
 
 ```jsx live=false
 /**
@@ -106,7 +106,7 @@ function ExampleProductDetails({ productId }) {
 
 Once a customer reaches the end point of the funnel, the cart checkout confirmation screen, we submit one more token with a greater weight indicating a successful purchase.
 
-Unlike other examples which render Sajari search results, this is purely an example of how your own brand's checkout might be setup.
+Unlike other examples which render Search.io search results, this is purely an example of how your own brand's checkout might be setup.
 
 ```jsx live=false
 /**

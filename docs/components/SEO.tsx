@@ -21,7 +21,7 @@ function SEO(props: SeoProps) {
   const title = [titleProp, scope].filter(Boolean).join(' | ');
   const seo = { ...defaultSEO, ...rest, title };
 
-  return <NextSeo {...seo} titleTemplate="%s | Sajari React SDK" />;
+  return <NextSeo {...seo} titleTemplate="%s | Search.io React SDK" />;
 }
 
 export default SEO;
