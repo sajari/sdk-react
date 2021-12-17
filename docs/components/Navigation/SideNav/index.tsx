@@ -15,7 +15,6 @@ const topNavLinks = [
   ['Server Side Rendering', '/ssr'],
   ['Styling'],
   ['Upgrading'],
-  ['Search.io Features', '/features'],
 ];
 
 export const SideNavContent = () => (
