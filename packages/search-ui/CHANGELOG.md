@@ -1,5 +1,16 @@
 # Change Log
 
+## 4.11.0
+
+### Minor Changes
+
+- [`b6199b7b`](https://github.com/sajari/sdk-react/commit/b6199b7b3c85b3774b7455d7f4776a3791bcf22e) [#712](https://github.com/sajari/sdk-react/pull/712) Thanks [@jkaho](https://github.com/jkaho)! - Add data attribute to Result component to identify items pinned via a promotion
+
+### Patch Changes
+
+- Updated dependencies [[`2ffb06f9`](https://github.com/sajari/sdk-react/commit/2ffb06f9ca870982760dcaab710eacce3d75f89c)]:
+  - @sajari/react-hooks@3.8.0
+
 ## 4.10.0
 
 ### Minor Changes
