@@ -1,5 +1,17 @@
 # Change Log
 
+## 1.14.0
+
+### Minor Changes
+
+- [`2ffb06f9`](https://github.com/sajari/sdk-react/commit/2ffb06f9ca870982760dcaab710eacce3d75f89c) [#717](https://github.com/sajari/sdk-react/pull/717) Thanks [@wwalser](https://github.com/wwalser)! - feat: thread featureScoreWeight, featureScore and neuralScore through from search queries
+
+### Patch Changes
+
+- [`6373a854`](https://github.com/sajari/sdk-react/commit/6373a85408aa698e5269704d9f4583e9a66025ff) [#715](https://github.com/sajari/sdk-react/pull/715) Thanks [@wwalser](https://github.com/wwalser)! - docs: documentation example for redirects
+
+* [`96234adb`](https://github.com/sajari/sdk-react/commit/96234adb881b10176528e781d483a75a8dbb8a9c) [#714](https://github.com/sajari/sdk-react/pull/714) Thanks [@wwalser](https://github.com/wwalser)! - rebrand: change sajari to search.io in react docs
+
 ## 1.13.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.8.0
+
+### Minor Changes
+
+- [`2ffb06f9`](https://github.com/sajari/sdk-react/commit/2ffb06f9ca870982760dcaab710eacce3d75f89c) [#717](https://github.com/sajari/sdk-react/pull/717) Thanks [@wwalser](https://github.com/wwalser)! - feat: thread featureScoreWeight, featureScore and neuralScore through from search queries
+
 ## 3.7.0
 
 ### Minor Changes
