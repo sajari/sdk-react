@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.14.1
+
+### Patch Changes
+
+- [`c9cb99d3`](https://github.com/sajari/sdk-react/commit/c9cb99d3aa408201cb07aea3889c4609f93cff0a) [#718](https://github.com/sajari/sdk-react/pull/718) Thanks [@wwalser](https://github.com/wwalser)! - bug: remove extraneous item from docs sidebar
+
 ## 1.14.0
 
 ### Minor Changes
