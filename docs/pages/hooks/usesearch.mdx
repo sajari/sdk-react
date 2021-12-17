@@ -172,14 +172,17 @@ function Example() {
 
 `useSearch` returns an object containing the following properties:
 
-| Name           | Type                   | Default | Description                                                                                |
-| -------------- | ---------------------- | ------- | ------------------------------------------------------------------------------------------ |
-| `results`      | `Result[]`             |         | An array of results that met the query.                                                    |
-| `latency`      | `number`               |         | The engine latency.                                                                        |
-| `totalResults` | `number`               |         | The total count of results.                                                                |
-| `search`       | `(q?: string) => void` |         | The search method, call without param to resend the search request with the current query. |
-| `searching`    | `boolean`              |         | Is a search request being processed.                                                       |
-| `error`        | `Error` \| `null`      |         | The error encountered while searching.                                                     |
+| Name                 | Type                                          | Default | Description                                                                                                                                                                                                       |
+| -------------------- | --------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `results`            | `Result[]`                                    |         | An array of results that met the query. See the [JS SDK](https://sajari-sdk-js.netlify.app/interfaces/result.html) for detailed object shape.                                                                     |
+| `latency`            | `number`                                      |         | The engine latency.                                                                                                                                                                                               |
+| `totalResults`       | `number`                                      |         | The total count of results.                                                                                                                                                                                       |
+| `search`             | `(q?: string) => void`                        |         | The search method, call without param to resend the search request with the current query.                                                                                                                        |
+| `searching`          | `boolean`                                     |         | Is a search request being processed.                                                                                                                                                                              |
+| `error`              | `Error` \| `null`                             |         | The error encountered while searching.                                                                                                                                                                            |
+| `redirects`          | `{ [redirectQuery: string]: RedirectTarget }` | `{}`    | An object which maps a search string, `redirectQuery`, to possible redirect completions for that string. See the [JS SDK](https://sajari-sdk-js.netlify.app/interfaces/redirects.html) for detailed object shape. |
+| `activePromotions`   | `ActivePromotion[]`                           | `[]`    | An array of active promotions on this result. See the [JS SDK](https://sajari-sdk-js.netlify.app/interfaces/activepromotion.html) for detailed object shape.                                                      |
+| `featureScoreWeight` | `number`                                      | 0       | Meta info about this query, feature score weight determines the weighting of featureScore vs neural and index scores.                                                                                             |
 
 ## Parameters
 
