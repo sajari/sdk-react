@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.11.1
+
+### Patch Changes
+
+- [`dc7d9b8f`](https://github.com/sajari/sdk-react/commit/dc7d9b8f216a07499dd76ed761b2bdc0886d73ba) [#720](https://github.com/sajari/sdk-react/pull/720) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix Input component value reappear
+
 ## 4.11.0
 
 ### Minor Changes
