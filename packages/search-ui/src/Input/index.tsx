@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Combobox } from '@sajari/react-components';
 import { useAutocomplete, useQuery, useSearchContext } from '@sajari/react-hooks';
-import { __DEV__, arraysEqual, isArray, mergeRefs } from '@sajari/react-sdk-utils';
+import { __DEV__, arraysEqual, isArray, isEmpty, mergeRefs } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -52,7 +52,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
   const searchValue = useCallback(
     (value: string) => {
       window.clearTimeout(searchDebounceRef.current);
-      if (value.length >= minimumCharacters) {
+      if (value.length >= minimumCharacters || isEmpty(value)) {
         if (!retainFilters) {
           resetFilters();
         }
