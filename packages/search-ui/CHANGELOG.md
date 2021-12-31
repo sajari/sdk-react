@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.11.2
+
+### Patch Changes
+
+- [`3b2e8ed7`](https://github.com/sajari/sdk-react/commit/3b2e8ed7552b04583d6da53cfcf638ca15b55a7a) [#722](https://github.com/sajari/sdk-react/pull/722) Thanks [@tuanddd](https://github.com/tuanddd)! - Allow for empty string search when using minimumCharacters prop
+
 ## 4.11.1
 
 ### Patch Changes
