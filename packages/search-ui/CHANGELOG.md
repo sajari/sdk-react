@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.11.3
+
+### Patch Changes
+
+- [`ee5945f`](https://github.com/sajari/sdk-react/pull/725/commits/ee5945fc14504f3a113cf9d52142f16f129b77a7) [#725](https://github.com/sajari/sdk-react/pull/725) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix circular import in react search ui
+
 ## 4.11.2
 
 ### Patch Changes
