@@ -1,9 +1,9 @@
 import { Box } from '@sajari/react-components';
 import { ClickTracking, useTracking } from '@sajari/react-hooks';
 import { mergeRefs } from '@sajari/react-sdk-utils';
-import { useSearchUIContext } from '@sajari/react-search-ui';
 import React from 'react';
 
+import { useSearchUIContext } from '../../../ContextProvider';
 import { applyClickTracking, applyPosNegTracking } from '../../../utils';
 import { useHoverImage } from '../../useHoverImage';
 import { useProductImages } from '../../useProductImages';
