@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.11.4
+
+### Patch Changes
+
+- [`23b76eca`](https://github.com/sajari/sdk-react/commit/23b76eca1907a5d9e8930e7a147581165a0030e3) [#724](https://github.com/sajari/sdk-react/pull/724) Thanks [@tuanddd](https://github.com/tuanddd)! - Allow enter key to trigger search when using minimumCharacter prop
+
 ## 4.11.3
 
 ### Patch Changes
