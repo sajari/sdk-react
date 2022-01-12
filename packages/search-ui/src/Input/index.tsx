@@ -50,16 +50,16 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
   const searchDebounceRef = useRef(0);
 
   const searchValue = useCallback(
-    (value: string) => {
+    (value: string, bypass = false) => {
       window.clearTimeout(searchDebounceRef.current);
-      if (value.length >= minimumCharacters || isEmpty(value)) {
+      if (value.length >= minimumCharacters || isEmpty(value) || bypass) {
         if (!retainFilters) {
           resetFilters();
         }
         // cannot use useDebounce because we want to always clear timeout but not always trigger the debounce function
         // this is to fix the bug where deleting multiple characters and then immediately start typing and the input value got magically removed because the remove debounce function is still running
         // backspace
-        if (lastValue.current.length > value.length) {
+        if (lastValue.current.length > value.length && !bypass) {
           searchDebounceRef.current = window.setTimeout(() => {
             searchFunc(value);
           }, 300);
@@ -167,31 +167,37 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
   const onKeyDownMemoized = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       const { value } = e.currentTarget;
-      if (e.key === 'Enter' && (mode === 'typeahead' || mode === 'suggestions' || mode === 'standard')) {
-        if (!retainFilters) {
-          resetFilters();
+      if (e.key === 'Enter') {
+        // Blur input to avoid Enter spamming
+        (e.target as HTMLInputElement).blur();
+        if (['typeahead', 'suggestions', 'standard'].includes(mode)) {
+          if (!retainFilters) {
+            resetFilters();
+          }
+          const redirectValue = redirectsRef.current[value];
+          if (!disableRedirects && redirectValue) {
+            window.location.assign(redirectValue.token || redirectValue.target);
+            e.preventDefault();
+          } else if (!disableRedirects && autocompleteSearching) {
+            // If we're performing an autocomplete search, wait a tick to recheck redirects before unloading
+            e.preventDefault();
+            setTimeout(() => {
+              const redirectTarget = redirectsRef.current[value];
+              if (redirectTarget) {
+                window.location.assign(redirectTarget.token || redirectTarget.target);
+              } else if (onKeyDown) {
+                onKeyDown(e);
+                // since we've prevented default above, we should fulfil the default behaviour.
+                submitForm();
+              }
+            }, 400);
+          } else if (onKeyDown) {
+            onKeyDown(e);
+          }
         }
-        const redirectValue = redirectsRef.current[value];
-        if (!disableRedirects && redirectValue) {
-          window.location.assign(redirectValue.token || redirectValue.target);
-          e.preventDefault();
-        } else if (!disableRedirects && autocompleteSearching) {
-          // If we're performing an autocomplete search, wait a tick to recheck redirects before unloading
-          e.preventDefault();
-          setTimeout(() => {
-            const redirectTarget = redirectsRef.current[value];
-            if (redirectTarget) {
-              window.location.assign(redirectTarget.token || redirectTarget.target);
-            } else if (onKeyDown) {
-              onKeyDown(e);
-              // since we've prevented default above, we should fulfil the default behaviour.
-              submitForm();
-            }
-          }, 400);
-        } else if (onKeyDown) {
-          onKeyDown(e);
+        if (!['instant', 'results'].includes(mode)) {
+          searchValue(value, true);
         }
-        searchValue(value);
       }
     },
     [mode, searchValue, onKeyDown, autocompleteSearching, disableRedirects],
