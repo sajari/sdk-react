@@ -16,10 +16,25 @@ function findBreakpoint<T>(breakpoints: Record<number, T>, target: number): T | 
   return match ? breakpoints[match] : null;
 }
 
+export function getNumberOfCols({ columns, columnMinWidth = 240, width }: Props) {
+  if (columns) {
+    if (isNumber(columns)) {
+      return columns;
+    }
+    if (isObject(columns)) {
+      const match = findBreakpoint<ColumnValue>(columns, width);
+      return match || 1;
+    }
+  } else if (isNumber(columnMinWidth)) {
+    return clamp(Math.floor(width / columnMinWidth), 1, 12) as ColumnValue;
+  }
+  return 1;
+}
+
 export default function useResultsStyles({
   appearance = 'list',
   columnMinWidth = 240,
-  columns: columnsProp,
+  columns,
   gap: gapProp = appearance === 'list' ? { 0: 4, 640: 8 } : undefined,
   width,
 }: Props) {
@@ -87,21 +102,8 @@ export default function useResultsStyles({
     styles.container.push(tw`grid`);
 
     // TODO: These sort of helpers should go in utils ideally, or find a better way to handle this
-    let columns: ColumnValue = 1;
     let gap: GapValue = 8;
-
-    if (columnsProp) {
-      if (isNumber(columnsProp)) {
-        columns = columnsProp;
-      } else if (isObject(columnsProp)) {
-        const match = findBreakpoint<ColumnValue>(columnsProp, width);
-        if (match) {
-          columns = match;
-        }
-      }
-    } else if (isNumber(columnMinWidth)) {
-      columns = clamp(Math.floor(width / columnMinWidth), 1, 12) as ColumnValue;
-    }
+    const numberOfCols = getNumberOfCols({ columns, columnMinWidth, width });
 
     if (gapProp) {
       if (isNumber(gapProp)) {
@@ -114,7 +116,7 @@ export default function useResultsStyles({
       }
     }
 
-    switch (columns) {
+    switch (numberOfCols) {
       case 1:
         styles.container.push(tw`grid-cols-1`);
         break;

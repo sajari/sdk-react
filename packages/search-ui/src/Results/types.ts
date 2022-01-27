@@ -27,6 +27,7 @@ export interface ResultsProps extends BoxProps {
   resultContainerTemplateElement?: TemplateResultProps['as'];
   onResetTemplate?: () => void;
   openNewTab?: boolean;
+  allowBanner?: boolean;
 }
 
 export { ResultValues };

@@ -8,10 +8,12 @@ import { useTranslation } from 'react-i18next';
 import { useSearchUIContext } from '../ContextProvider';
 import mapResultFields from '../utils/mapResultFields';
 import { checkValidResultTemplate } from './checkValidResultTemplate';
+import BannerItem from './components/BannerItem';
+import { banners } from './components/BannerItem/mockData';
 import Message from './components/Message';
 import Result from './components/Result';
 import TemplateResults from './components/TemplateResults';
-import useResultsStyles from './styles';
+import useResultsStyles, { getNumberOfCols } from './styles';
 import { ResultsProps, ResultValues } from './types';
 
 const Results = (props: ResultsProps) => {
@@ -29,12 +31,14 @@ const Results = (props: ResultsProps) => {
     resultTemplate,
     onResetTemplate,
     openNewTab = false,
+    allowBanner = false,
     ...rest
   } = props;
   const [width, setWidth] = React.useState(0);
   const hasImages = React.useMemo(() => results?.some((r) => r.values?.image), [results]);
   const styles = getStylesObject(useResultsStyles({ ...props, appearance, width }), disableDefaultStyles);
   const { t } = useTranslation(['common', 'errors', 'result']);
+  const numberOfCols = getNumberOfCols({ ...props, width });
 
   React.useEffect(() => {
     if (defaultAppearance) {
@@ -125,6 +129,9 @@ const Results = (props: ResultsProps) => {
       css={[styles.container, stylesProp]}
       className={customClassNames.results?.container}
     >
+      {appearance === 'grid' &&
+        allowBanner &&
+        banners.map((banner) => <BannerItem key={banner.id} banner={banner} numberOfCols={numberOfCols} />)}
       {results?.map((result, i) => (
         <Result
           // eslint-disable-next-line no-underscore-dangle
