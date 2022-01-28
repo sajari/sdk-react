@@ -21,7 +21,7 @@ const BannerItem = ({ banner, numberOfCols }: BannerItemProps) => {
       ]}
     >
       <Link href={targetUrl} css={styles.imageContainer}>
-        <Image src={imageUrl} objectFit="cover" containerClassName="flex w-full h-full opacity-75" />
+        <Image src={imageUrl} objectFit="cover" containerClassName="flex w-full h-full" />
         {title || description ? (
           <Box css={styles.textContainer}>
             {title ? (

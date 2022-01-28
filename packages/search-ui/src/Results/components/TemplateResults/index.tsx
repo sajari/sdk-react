@@ -9,7 +9,7 @@ import { TemplateResultsProps } from './types';
 
 const TemplateResults = (props: TemplateResultsProps) => {
   const { customClassNames } = useSearchUIContext();
-  const { results, resultTemplate, resultContainerTemplateElement, ...rest } = props;
+  const { results, resultTemplate, resultContainerTemplateElement, banners, ...rest } = props;
   // Get the keys of a result, using Set to eliminate dups
   const keys = Array.from(
     results
@@ -30,6 +30,7 @@ const TemplateResults = (props: TemplateResultsProps) => {
 
   return (
     <div className={customClassNames.results?.template?.container}>
+      {banners}
       {checkValidResultTemplate(resultTemplate) && resultTemplate.css ? (
         // We inject here (once) instead of mutliple times in each result component
         <Global

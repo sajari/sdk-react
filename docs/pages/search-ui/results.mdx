@@ -263,13 +263,13 @@ function Example() {
           subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
         }),
         variables: new Variables({
-          resultsPerPage: 6,
+          resultsPerPage: 20,
           q: '',
         }),
       }}
       searchOnLoad
     >
-      <Results resultTemplate={template} />
+      <Results resultTemplate={template} allowBanner columns={3} />
     </SearchProvider>
   );
 }

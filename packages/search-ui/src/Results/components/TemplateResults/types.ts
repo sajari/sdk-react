@@ -5,6 +5,7 @@ import type { ResultsProps, ResultTemplate } from '../../types';
 interface Props extends Pick<ResultsProps, 'resultContainerTemplateElement' | 'showVariantImage'> {
   resultTemplate: ResultTemplate;
   results: { values: ResultValues; token?: Token }[];
+  banners?: React.ReactNode[] | false;
 }
 
 export type TemplateResultsProps = Props;

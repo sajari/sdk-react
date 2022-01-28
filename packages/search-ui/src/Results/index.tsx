@@ -1,6 +1,7 @@
 import { ResizeObserver } from '@sajari/react-components';
 import { useQuery, useSearchContext } from '@sajari/react-hooks';
 import { escapeHTML, getStylesObject, isEmpty, isNullOrUndefined } from '@sajari/react-sdk-utils';
+import { Banner, TextPosition } from '@sajari/sdk-js';
 import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
@@ -38,6 +39,36 @@ const Results = (props: ResultsProps) => {
   const styles = getStylesObject(useResultsStyles({ ...props, appearance, width }), disableDefaultStyles);
   const { t } = useTranslation(['common', 'errors', 'result']);
   const numberOfCols = getNumberOfCols({ ...props, width });
+
+  // TODO(tuan): remove this
+  const sampleBanners: Banner[] = [
+    {
+      id: '0',
+      width: 2,
+      height: 1,
+      title: 'Title One',
+      description: 'This is an example description text.',
+      imageUrl:
+        'https://ik.imagekit.io/j7pm1g0d0uh/staging/1617265323067869891/tuandaosajari/24JjXXUTLX1yAc5v73DoNbWZa35',
+      position: 1,
+      textColor: '#1a181c',
+      targetUrl: 'https://example.com',
+      textPosition: TextPosition.BottomLeft,
+    },
+    {
+      id: '1',
+      width: 2,
+      height: 2,
+      title: 'Title Two',
+      description: 'Another example description but this time this text is purposely written in a longer form.',
+      imageUrl:
+        'https://ik.imagekit.io/j7pm1g0d0uh/staging/1617265323067869891/tuandaosajari/24JjXZb89U453ij8PqycN33od4p',
+      position: 5,
+      textColor: '#5c627b',
+      targetUrl: 'https://example.com',
+      textPosition: TextPosition.BottomLeft,
+    },
+  ];
 
   React.useEffect(() => {
     if (defaultAppearance) {
@@ -117,6 +148,10 @@ const Results = (props: ResultsProps) => {
           results={results}
           resultTemplate={resultTemplate}
           resultContainerTemplateElement={resultContainerTemplateElement}
+          banners={
+            allowBanner &&
+            sampleBanners.map((banner) => <BannerItem key={banner.id} banner={banner} numberOfCols={numberOfCols} />)
+          }
         />
       </ErrorBoundary>
     );
@@ -130,7 +165,7 @@ const Results = (props: ResultsProps) => {
     >
       {appearance === 'grid' &&
         allowBanner &&
-        banners.map((banner) => <BannerItem key={banner.id} banner={banner} numberOfCols={numberOfCols} />)}
+        sampleBanners.map((banner) => <BannerItem key={banner.id} banner={banner} numberOfCols={numberOfCols} />)}
       {results?.map((result, i) => (
         <Result
           // eslint-disable-next-line no-underscore-dangle
