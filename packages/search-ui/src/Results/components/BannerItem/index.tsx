@@ -1,4 +1,4 @@
-import { Box, Heading, Image, Link, Text } from '@sajari/react-components';
+import { Box, Heading, Link, Text } from '@sajari/react-components';
 import { getStylesObject } from '@sajari/react-sdk-utils';
 
 import { useSearchUIContext } from '../../../ContextProvider';
@@ -21,7 +21,7 @@ const BannerItem = ({ banner, numberOfCols }: BannerItemProps) => {
       ]}
     >
       <Link href={targetUrl} css={styles.imageContainer}>
-        <Image src={imageUrl} objectFit="cover" containerClassName="flex w-full h-full" />
+        <img src={imageUrl} css={styles.image} alt="" />
         {title || description ? (
           <Box css={styles.textContainer}>
             {title ? (

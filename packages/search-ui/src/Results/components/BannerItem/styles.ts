@@ -13,6 +13,7 @@ export const useBannerStyle = ({ banner }: Props) => {
     container: [tw`relative flex justify-center items-center overflow-hidden rounded-lg`],
     textContainer: [tw`absolute top-0 left-0 flex flex-col w-full h-full p-6`],
     imageContainer: [tw`w-full h-full`],
+    image: [tw`flex w-full h-full object-cover rounded-lg`],
     heading: [tw`max-w-md`],
     description: [tw`max-w-md text-sm`],
   };
