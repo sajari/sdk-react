@@ -1,5 +1,5 @@
 import { ResizeObserver } from '@sajari/react-components';
-import { useQuery, useSearchContext } from '@sajari/react-hooks';
+import { usePagination, useQuery, useSearchContext } from '@sajari/react-hooks';
 import { escapeHTML, getStylesObject, isEmpty, isNullOrUndefined } from '@sajari/react-sdk-utils';
 import { Banner, TextPosition } from '@sajari/sdk-js';
 import * as React from 'react';
@@ -13,6 +13,7 @@ import BannerItem from './components/BannerItem';
 import Message from './components/Message';
 import Result from './components/Result';
 import TemplateResults from './components/TemplateResults';
+import { filterBannersPerPage } from './filterBannersPerPage';
 import useResultsStyles, { getNumberOfCols } from './styles';
 import { ResultsProps, ResultValues } from './types';
 
@@ -39,6 +40,7 @@ const Results = (props: ResultsProps) => {
   const styles = getStylesObject(useResultsStyles({ ...props, appearance, width }), disableDefaultStyles);
   const { t } = useTranslation(['common', 'errors', 'result']);
   const numberOfCols = getNumberOfCols({ ...props, width });
+  const { resultsPerPage, page } = usePagination();
 
   // TODO(tuan): remove this
   const sampleBanners: Banner[] = [
@@ -69,6 +71,8 @@ const Results = (props: ResultsProps) => {
       textPosition: TextPosition.BottomLeft,
     },
   ];
+
+  const renderBanners = filterBannersPerPage(sampleBanners, resultsPerPage, page);
 
   React.useEffect(() => {
     if (defaultAppearance) {
@@ -150,7 +154,7 @@ const Results = (props: ResultsProps) => {
           resultContainerTemplateElement={resultContainerTemplateElement}
           banners={
             allowBanner &&
-            sampleBanners.map((banner) => <BannerItem key={banner.id} banner={banner} numberOfCols={numberOfCols} />)
+            renderBanners.map((banner) => <BannerItem key={banner.id} banner={banner} numberOfCols={numberOfCols} />)
           }
         />
       </ErrorBoundary>
@@ -165,7 +169,7 @@ const Results = (props: ResultsProps) => {
     >
       {appearance === 'grid' &&
         allowBanner &&
-        sampleBanners.map((banner) => <BannerItem key={banner.id} banner={banner} numberOfCols={numberOfCols} />)}
+        renderBanners.map((banner) => <BannerItem key={banner.id} banner={banner} numberOfCols={numberOfCols} />)}
       {results?.map((result, i) => (
         <Result
           // eslint-disable-next-line no-underscore-dangle
