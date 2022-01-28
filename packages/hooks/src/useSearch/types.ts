@@ -1,4 +1,4 @@
-import { ActivePromotion, Redirects, Result } from '@sajari/sdk-js';
+import { ActivePromotion, Banner, Redirects, Result } from '@sajari/sdk-js';
 
 import { Pipeline, Variables } from '../ContextProvider';
 import { FieldDictionary } from '../ContextProvider/types';
@@ -28,4 +28,5 @@ export interface UseSearchResult {
   searching: boolean;
   error: Error | null;
   featureScoreWeight: number;
+  banners: Banner[];
 }

@@ -33,6 +33,7 @@ function useSearchContext() {
     clear,
     resetFilters,
     activePromotions: response?.getActivePromotions() ?? [],
+    banners: response?.getBanners() ?? [],
   };
 }
 

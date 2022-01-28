@@ -1,6 +1,6 @@
-import { ActivePromotion, Aggregates, Redirects, RequestError, Result } from '@sajari/sdk-js';
+import { ActivePromotion, Aggregates, Banner, Redirects, RequestError, Result } from '@sajari/sdk-js';
 
-export type ResponseMap = Map<string, number | Aggregates | Result[] | Redirects | ActivePromotion[]>;
+export type ResponseMap = Map<string, number | Aggregates | Result[] | Redirects | ActivePromotion[] | Banner[]>;
 
 export class Response {
   private error: RequestError | null;
@@ -144,5 +144,9 @@ export class Response {
    */
   public getFeatureScoreWeight(): number | undefined {
     return this.response !== undefined ? (this.response.get('featureScoreWeight') as number) : undefined;
+  }
+
+  public getBanners(): Banner[] | undefined {
+    return this.response !== undefined ? (this.response.get('banners') as Banner[]) : undefined;
   }
 }

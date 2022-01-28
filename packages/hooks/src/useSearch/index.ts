@@ -31,6 +31,7 @@ function useCustomSearch({ pipeline, variables }: UseSearchCustomConfig): UseSea
     redirects: {},
     activePromotions: [],
     featureScoreWeight: 0,
+    banners: [],
   });
 
   useEffect(() => {
@@ -48,6 +49,7 @@ function useCustomSearch({ pipeline, variables }: UseSearchCustomConfig): UseSea
         redirects: response.getRedirects() ?? {},
         activePromotions: response.getActivePromotions() ?? [],
         featureScoreWeight: response.getFeatureScoreWeight() ?? 0,
+        banners: response.getBanners() ?? [],
       }));
     });
   }, []);
@@ -112,6 +114,7 @@ function useNormalSearch({ queryOverride, allowEmptySearch = true }: UseSearchCo
     searchInstant,
     searching,
     error,
+    banners: response?.getBanners() ?? [],
   };
 }
 
