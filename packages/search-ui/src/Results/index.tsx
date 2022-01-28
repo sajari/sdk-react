@@ -9,7 +9,6 @@ import { useSearchUIContext } from '../ContextProvider';
 import mapResultFields from '../utils/mapResultFields';
 import { checkValidResultTemplate } from './checkValidResultTemplate';
 import BannerItem from './components/BannerItem';
-import { banners } from './components/BannerItem/mockData';
 import Message from './components/Message';
 import Result from './components/Result';
 import TemplateResults from './components/TemplateResults';
@@ -17,7 +16,7 @@ import useResultsStyles, { getNumberOfCols } from './styles';
 import { ResultsProps, ResultValues } from './types';
 
 const Results = (props: ResultsProps) => {
-  const { results: rawResults, searching, fields, error } = useSearchContext();
+  const { results: rawResults, searching, fields, error, banners } = useSearchContext();
   const results = React.useMemo(() => (rawResults ? mapResultFields<ResultValues>(rawResults, fields) : undefined), [
     rawResults,
   ]);

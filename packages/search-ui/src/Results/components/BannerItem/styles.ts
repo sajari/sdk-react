@@ -1,7 +1,6 @@
 import { mapStyles } from '@sajari/react-sdk-utils';
+import { Banner, TextPosition } from '@sajari/sdk-js';
 import tw from 'twin.macro';
-
-import { Banner, TextPosition } from './types';
 
 interface Props {
   banner: Banner;
