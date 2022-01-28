@@ -617,7 +617,7 @@
   Before:
 
   ```js
-  pipeline.listen('result-clicked', url => {
+  pipeline.listen('result-clicked', (url) => {
     console.log(url);
   });
   ```
@@ -625,7 +625,7 @@
   After:
 
   ```js
-  pipeline.listen('result-clicked', data => {
+  pipeline.listen('result-clicked', (data) => {
     const {
       token,
       values: { id, url, title, subtitle, description, image, price, originalPrice, rating },
