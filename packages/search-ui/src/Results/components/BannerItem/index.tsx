@@ -9,8 +9,8 @@ const BannerItem = ({ banner, numberOfCols }: BannerItemProps) => {
   const { disableDefaultStyles = false, customClassNames } = useSearchUIContext();
   const { title, description, targetUrl, imageUrl, width, height, position = 1, textColor } = banner;
   const styles = getStylesObject(useBannerStyle({ banner }), disableDefaultStyles);
-  const col = position % numberOfCols;
-  const row = Math.floor(position / numberOfCols) + 1;
+  const col = ((position - 1) % numberOfCols) + 1;
+  const row = Math.floor((position - 1) / numberOfCols) + 1;
 
   return (
     <Box

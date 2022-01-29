@@ -47,7 +47,7 @@ const Results = (props: ResultsProps) => {
     {
       id: '0',
       width: 2,
-      height: 1,
+      height: 2,
       title: 'Title One',
       description: 'This is an example description text.',
       imageUrl:
@@ -59,13 +59,13 @@ const Results = (props: ResultsProps) => {
     },
     {
       id: '1',
-      width: 2,
-      height: 2,
+      width: 1,
+      height: 1,
       title: 'Title Two',
       description: 'Another example description but this time this text is purposely written in a longer form.',
       imageUrl:
         'https://ik.imagekit.io/j7pm1g0d0uh/staging/1617265323067869891/tuandaosajari/24JjXZb89U453ij8PqycN33od4p',
-      position: 5,
+      position: 3,
       textColor: '#5c627b',
       targetUrl: 'https://example.com',
       textPosition: TextPosition.BottomLeft,
