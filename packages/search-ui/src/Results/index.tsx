@@ -154,7 +154,9 @@ const Results = (props: ResultsProps) => {
           resultContainerTemplateElement={resultContainerTemplateElement}
           banners={
             allowBanner &&
-            renderBanners.map((banner) => <BannerItem key={banner.id} banner={banner} numberOfCols={numberOfCols} />)
+            renderBanners.map((banner) => (
+              <BannerItem key={banner.id} banner={banner} banners={renderBanners} numberOfCols={numberOfCols} />
+            ))
           }
         />
       </ErrorBoundary>
@@ -169,7 +171,9 @@ const Results = (props: ResultsProps) => {
     >
       {appearance === 'grid' &&
         allowBanner &&
-        renderBanners.map((banner) => <BannerItem key={banner.id} banner={banner} numberOfCols={numberOfCols} />)}
+        renderBanners.map((banner) => (
+          <BannerItem key={banner.id} banner={banner} banners={renderBanners} numberOfCols={numberOfCols} />
+        ))}
       {results?.map((result, i) => (
         <Result
           // eslint-disable-next-line no-underscore-dangle
