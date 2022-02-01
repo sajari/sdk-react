@@ -3690,6 +3690,13 @@
   resolved "https://registry.yarnpkg.com/@next/env/-/env-12.0.9.tgz#4c9e9eef00226145d9629a846b8cc31878e1328c"
   integrity sha512-oBlkyDop0Stf7MPIzETGv5r0YT/G/weBrknoPOUTaa5qwOeGjuy6gsOVc/SBtrBkOoBmRpD+fFhQJPvmo1mS+g==
 
+"@next/eslint-plugin-next@^12.0.9":
+  version "12.0.9"
+  resolved "https://registry.yarnpkg.com/@next/eslint-plugin-next/-/eslint-plugin-next-12.0.9.tgz#86edc490141fe3495765224d6cc25be158881802"
+  integrity sha512-Pi7eV7Omt4wkY1UI9Kvv3KQLvAkmWKb5EHePCE1fyR+LeYmKCNYtjVst3QTDkNeULbpPwnDqIISWu+x2y5G9EA==
+  dependencies:
+    glob "7.1.7"
+
 "@next/mdx@^12.0.9":
   version "12.0.9"
   resolved "https://registry.yarnpkg.com/@next/mdx/-/mdx-12.0.9.tgz#9a3036e6b95371301a503dd7992ced7e10dfc712"
@@ -7772,6 +7779,11 @@ eslint-config-prettier@^7.1.0:
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-7.1.0.tgz#5402eb559aa94b894effd6bddfa0b1ca051c858f"
   integrity sha512-9sm5/PxaFG7qNJvJzTROMM1Bk1ozXVTKI0buKOyb0Bsr1hrwi0H/TzxF/COtf1uxikIK8SwhX7K6zg78jAzbeA==
 
+eslint-config-prettier@^8.3.0:
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.3.0.tgz#f7471b20b6fe8a9a9254cc684454202886a2dd7a"
+  integrity sha512-BgZuLUSeKzvlL/VUjx/Yb787VQ26RU3gGjA3iiFvdsp/2bMfVIWUVP7tjxtjS0e+HP409cPlPvNkQloz8C91ew==
+
 eslint-config-react-app@^5.2.1:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/eslint-config-react-app/-/eslint-config-react-app-5.2.1.tgz#698bf7aeee27f0cea0139eaef261c7bf7dd623df"
@@ -8851,6 +8863,18 @@ glob-to-regexp@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/glob-to-regexp/-/glob-to-regexp-0.3.0.tgz#8c5a1494d2066c570cc3bfe4496175acc4d502ab"
   integrity sha1-jFoUlNIGbFcMw7/kSWF1rMTVAqs=
+
+glob@7.1.7:
+  version "7.1.7"
+  resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.7.tgz#3b193e9233f01d42d0b3f78294bbeeb418f94a90"
+  integrity sha512-OvD9ENzPLbegENnYP5UUfJIirTg4+XwMWGaQfQTY0JenxNvvIKP3U3/tAQSPIu/lHxXYSZmpXlUHeqAIdKzBLQ==
+  dependencies:
+    fs.realpath "^1.0.0"
+    inflight "^1.0.4"
+    inherits "2"
+    minimatch "^3.0.4"
+    once "^1.3.0"
+    path-is-absolute "^1.0.0"
 
 glob@^7.0.0, glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4, glob@^7.1.6:
   version "7.1.6"
@@ -12688,10 +12712,10 @@ posix-character-classes@^0.1.0:
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
   integrity sha1-AerA/jta9xoqbAL+q7jB/vfgDqs=
 
-postcss-clean@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/postcss-clean/-/postcss-clean-1.1.0.tgz#c2d61d5d8caf19a585adba16897726c2674c4207"
-  integrity sha512-83g3GqMbCM5NL6MlbbPLJ/m2NrUepBF44MoDk4Gt04QGXeXKh9+ilQa0DzLnYnvqYHQCw83nckuEzBFr2muwbg==
+postcss-clean@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/postcss-clean/-/postcss-clean-1.2.2.tgz#7b44303dcecbc2b29a70ed18d22af427203fa256"
+  integrity sha512-DpuMWW19Dd2K9KY4wknMz3khq9q2yZYa2U37bnhzdtBdBv0ggIfUj5T2XD3ir6gKVlDkb5OtOqw1iQJWq6qvpw==
   dependencies:
     clean-css "^4.x"
     postcss "^6.x"
@@ -12706,10 +12730,10 @@ postcss-functions@^3.0.0:
     postcss "^6.0.9"
     postcss-value-parser "^3.3.0"
 
-postcss-import@^13.0.0:
-  version "13.0.0"
-  resolved "https://registry.yarnpkg.com/postcss-import/-/postcss-import-13.0.0.tgz#d6960cd9e3de5464743b04dd8cd9d870662f8b8c"
-  integrity sha512-LPUbm3ytpYopwQQjqgUH4S3EM/Gb9QsaSPP/5vnoi+oKVy3/mIk2sc0Paqw7RL57GpScm9MdIMUypw2znWiBpg==
+postcss-import@^14.0.2:
+  version "14.0.2"
+  resolved "https://registry.yarnpkg.com/postcss-import/-/postcss-import-14.0.2.tgz#60eff77e6be92e7b67fe469ec797d9424cae1aa1"
+  integrity sha512-BJ2pVK4KhUyMcqjuKs9RijV5tatNzNa73e/32aBVE/ejYPe37iH+6vAu9WvqUkB5OAYgLHzbSvzHnorybJCm9g==
   dependencies:
     postcss-value-parser "^4.0.0"
     read-cache "^1.0.0"
@@ -12751,16 +12775,7 @@ postcss-value-parser@^4.0.0, postcss-value-parser@^4.1.0:
   resolved "https://registry.yarnpkg.com/postcss-value-parser/-/postcss-value-parser-4.1.0.tgz#443f6a20ced6481a2bda4fa8532a6e55d789a2cb"
   integrity sha512-97DXOFbQJhk71ne5/Mt6cOu6yxsSfM0QGQyl0L25Gca4yGWEGJaig7l7gbCX623VqTBNGLRLaVUCnNkcedlRSQ==
 
-postcss@7.0.32:
-  version "7.0.32"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.32.tgz#4310d6ee347053da3433db2be492883d62cec59d"
-  integrity sha512-03eXong5NLnNCD05xscnGKGDZ98CyzoqPSMjOe6SuoQY7Z2hIj0Ld1g/O/UQRuOle2aRtiIRDg9tDcTGAkLfKw==
-  dependencies:
-    chalk "^2.4.2"
-    source-map "^0.6.1"
-    supports-color "^6.1.0"
-
-postcss@8.4.5:
+postcss@7.0.32, postcss@8.4.5, postcss@^6.0.9, postcss@^6.x, postcss@^7.0.11, postcss@^7.0.18, postcss@^7.0.32, postcss@^8.4.5:
   version "8.4.5"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.5.tgz#bae665764dfd4c6fcc24dc0fdf7e7aa00cc77f95"
   integrity sha512-jBDboWM8qpaqwkMwItqTQTiFikhs/67OYVvblFFTM7MrZjt6yMKd6r2kgXizEbTTljacm4NldIlZnhbjr84QYg==
@@ -12768,24 +12783,6 @@ postcss@8.4.5:
     nanoid "^3.1.30"
     picocolors "^1.0.0"
     source-map-js "^1.0.1"
-
-postcss@^6.0.9, postcss@^6.x:
-  version "6.0.23"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-6.0.23.tgz#61c82cc328ac60e677645f979054eb98bc0e3324"
-  integrity sha512-soOk1h6J3VMTZtVeVpv15/Hpdl2cBLX3CAw4TAbkpTJiNPk9YP/zWcD1ND+xEtvyuuvKzbxliTOIyvkSeSJ6ag==
-  dependencies:
-    chalk "^2.4.1"
-    source-map "^0.6.1"
-    supports-color "^5.4.0"
-
-postcss@^7.0.11, postcss@^7.0.18, postcss@^7.0.32:
-  version "7.0.35"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.35.tgz#d2be00b998f7f211d8a276974079f2e92b970e24"
-  integrity sha512-3QT8bBJeX/S5zKTTjTCIjRF3If4avAT6kqxcASlTWEtAFCb9NH0OUxNDfgZSWdP5fJnBYCMEWkIFfWeugjzYMg==
-  dependencies:
-    chalk "^2.4.2"
-    source-map "^0.6.1"
-    supports-color "^6.1.0"
 
 preferred-pm@^3.0.0:
   version "3.0.2"
@@ -14624,7 +14621,7 @@ supports-color@^2.0.0:
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
   integrity sha1-U10EXOa2Nj+kARcIRimZXp3zJMc=
 
-supports-color@^5.3.0, supports-color@^5.4.0:
+supports-color@^5.3.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-5.5.0.tgz#e2e69a44ac8772f78a1ec0b35b689df6530efc8f"
   integrity sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==
