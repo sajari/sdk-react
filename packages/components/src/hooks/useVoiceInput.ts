@@ -2,6 +2,8 @@
 import { isSSR } from '@sajari/react-sdk-utils';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+import { SpeechRecognition } from '../types/speech-recognition';
+
 type SpeechRecognitionSupport = 'native' | 'webkit' | false;
 
 export default function useVoiceInput(onResult?: (r: string) => void) {
@@ -25,7 +27,8 @@ export default function useVoiceInput(onResult?: (r: string) => void) {
   useEffect(() => {
     if (supported) {
       if (supported === 'native') {
-        recognitionRef.current = new window.SpeechRecognition();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        recognitionRef.current = new (window as any).SpeechRecognition() as SpeechRecognition;
       } else {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         recognitionRef.current = new (window as any).webkitSpeechRecognition() as SpeechRecognition;

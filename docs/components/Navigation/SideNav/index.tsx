@@ -1,4 +1,4 @@
-import { Box, BoxProps, Heading, HeadingProps } from '@sajari-ui/core';
+import { Box, BoxProps } from '@sajari-ui/core';
 import * as React from 'react';
 
 import { classes, components, searchComponents, hooks, tracking } from '../../menu-items';

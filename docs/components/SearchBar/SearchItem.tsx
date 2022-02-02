@@ -55,7 +55,7 @@ const SearchItem = ({ subText, mainText, selected, onSelected, onClick }: Props)
               fill="none"
               fillRule="evenodd"
               strokeLinejoin="round"
-            ></path>
+            />
           </svg>
         ) : (
           <svg strokeWidth="2px" viewBox="0 0 20 20" width={20} height={20} opacity={0.4}>
@@ -66,7 +66,7 @@ const SearchItem = ({ subText, mainText, selected, onSelected, onClick }: Props)
               fillRule="evenodd"
               strokeLinecap="round"
               strokeLinejoin="round"
-            ></path>
+            />
           </svg>
         )}
       </Flex>
@@ -81,8 +81,8 @@ const SearchItem = ({ subText, mainText, selected, onSelected, onClick }: Props)
       <Flex padding="p-5" alignItems="items-center" justifyContent="justify-center">
         <svg strokeWidth="2px" viewBox="0 0 20 20" width={16} height={16} opacity={0.5}>
           <g stroke="currentColor" fill="none" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M18 3v4c0 2-2 4-4 4H2"></path>
-            <path d="M8 17l-6-6 6-6"></path>
+            <path d="M18 3v4c0 2-2 4-4 4H2" />
+            <path d="M8 17l-6-6 6-6" />
           </g>
         </svg>
       </Flex>

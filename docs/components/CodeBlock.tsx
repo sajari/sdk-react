@@ -90,7 +90,6 @@ const CodeBlock = (props: CodeBlockProps) => {
   const language = (className && (className.replace(/language-/, '') as Language)) || 'jsx';
   const { onCopy, hasCopied } = useClipboard(editorCode);
   const { pathname } = useRouter();
-
   // We have to do some manual work here to avoid naming conflict between components
   let imports = {};
 
