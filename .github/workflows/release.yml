@@ -31,6 +31,7 @@ jobs:
         uses: changesets/action@master
         with:
           publish: yarn release
+          title: Release latest to Production
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
