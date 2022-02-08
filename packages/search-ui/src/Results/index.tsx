@@ -16,6 +16,7 @@ import TemplateResults from './components/TemplateResults';
 import { filterBannersPerPage } from './filterBannersPerPage';
 import useResultsStyles, { getNumberOfCols } from './styles';
 import { ResultsProps, ResultValues } from './types';
+import { isBanner } from './utils';
 
 const Results = (props: ResultsProps) => {
   const { results: rawResults, searching, fields, error, banners } = useSearchContext();
@@ -59,13 +60,13 @@ const Results = (props: ResultsProps) => {
     },
     {
       id: '1',
-      width: 1,
+      width: 2,
       height: 1,
       title: 'Title Two',
       description: 'Another example description but this time this text is purposely written in a longer form.',
       imageUrl:
         'https://ik.imagekit.io/j7pm1g0d0uh/staging/1617265323067869891/tuandaosajari/24JjXZb89U453ij8PqycN33od4p',
-      position: 3,
+      position: 4,
       textColor: '#5c627b',
       targetUrl: 'https://example.com',
       textPosition: TextPosition.BottomLeft,
@@ -73,6 +74,17 @@ const Results = (props: ResultsProps) => {
   ];
 
   const renderBanners = filterBannersPerPage(sampleBanners, resultsPerPage, page);
+
+  const bannersExpanded = React.useMemo(() => {
+    if ((appearance === 'list' && !checkValidResultTemplate(resultTemplate)) || !allowBanner)
+      return (results ?? []).map(() => undefined);
+
+    return (results ?? []).map((_, i) => {
+      const matchingBanner = renderBanners.find((b) => b.position - 1 === i);
+
+      return matchingBanner;
+    });
+  }, [results, appearance, allowBanner]);
 
   React.useEffect(() => {
     if (defaultAppearance) {
@@ -150,14 +162,10 @@ const Results = (props: ResultsProps) => {
         <TemplateResults
           showVariantImage={rest.showVariantImage}
           results={results}
+          bannersExpanded={bannersExpanded}
           resultTemplate={resultTemplate}
           resultContainerTemplateElement={resultContainerTemplateElement}
-          banners={
-            allowBanner &&
-            renderBanners.map((banner) => (
-              <BannerItem key={banner.id} banner={banner} banners={renderBanners} numberOfCols={numberOfCols} />
-            ))
-          }
+          numberOfCols={numberOfCols}
         />
       </ErrorBoundary>
     );
@@ -169,33 +177,35 @@ const Results = (props: ResultsProps) => {
       css={[styles.container, stylesProp]}
       className={customClassNames.results?.container}
     >
-      {appearance === 'grid' &&
-        allowBanner &&
-        renderBanners.map((banner) => (
-          <BannerItem key={banner.id} banner={banner} banners={renderBanners} numberOfCols={numberOfCols} />
-        ))}
-      {results?.map((result, i) => (
-        <Result
-          // eslint-disable-next-line no-underscore-dangle
-          key={result.values._id ?? i}
-          result={result}
-          appearance={appearance}
-          forceImage={hasImages}
-          disableDefaultStyles={disableDefaultStyles}
-          className={customClassNames.results?.item}
-          headingClassName={customClassNames.results?.heading}
-          descriptionClassName={customClassNames.results?.description}
-          priceClassName={customClassNames.results?.price}
-          ratingClassName={customClassNames.results?.rating}
-          subTitleClassName={customClassNames.results?.subTitle}
-          onSaleStatusClassName={customClassNames.results?.onSaleStatus}
-          outOfStockStatusClassName={customClassNames.results?.outOfStockStatus}
-          newArrivalStatusClassName={customClassNames.results?.newArrivalStatus}
-          openNewTab={openNewTab}
-          isPinned={result.promotionPinned}
-          {...rest}
-        />
-      ))}
+      {results?.map((result, i) => {
+        const banner = bannersExpanded[i];
+
+        if (banner && isBanner(banner)) {
+          return <BannerItem key={`banner-${banner.id}`} banner={banner} numberOfCols={numberOfCols} />;
+        }
+        return (
+          <Result
+            // eslint-disable-next-line no-underscore-dangle
+            key={result.values._id ?? i}
+            result={result}
+            appearance={appearance}
+            forceImage={hasImages}
+            disableDefaultStyles={disableDefaultStyles}
+            className={customClassNames.results?.item}
+            headingClassName={customClassNames.results?.heading}
+            descriptionClassName={customClassNames.results?.description}
+            priceClassName={customClassNames.results?.price}
+            ratingClassName={customClassNames.results?.rating}
+            subTitleClassName={customClassNames.results?.subTitle}
+            onSaleStatusClassName={customClassNames.results?.onSaleStatus}
+            outOfStockStatusClassName={customClassNames.results?.outOfStockStatus}
+            newArrivalStatusClassName={customClassNames.results?.newArrivalStatus}
+            openNewTab={openNewTab}
+            isPinned={result.promotionPinned}
+            {...rest}
+          />
+        );
+      })}
     </ResizeObserver>
   );
 };

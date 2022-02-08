@@ -5,5 +5,4 @@ import { ColumnValue } from '../../types';
 export interface BannerItemProps {
   banner: Banner;
   numberOfCols: ColumnValue;
-  banners: Banner[];
 }
