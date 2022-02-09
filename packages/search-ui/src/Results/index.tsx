@@ -33,7 +33,7 @@ const Results = (props: ResultsProps) => {
     resultTemplate,
     onResetTemplate,
     openNewTab = false,
-    allowBanner = false,
+    allowBanners = false,
     ...rest
   } = props;
   const [width, setWidth] = React.useState(0);
@@ -42,41 +42,10 @@ const Results = (props: ResultsProps) => {
   const { t } = useTranslation(['common', 'errors', 'result']);
   const numberOfCols = getNumberOfCols({ ...props, width });
   const { resultsPerPage, page } = usePagination();
-
-  // TODO(tuan): remove this
-  const sampleBanners: Banner[] = [
-    {
-      id: '0',
-      width: 2,
-      height: 2,
-      title: 'Title One',
-      description: 'This is an example description text.',
-      imageUrl:
-        'https://ik.imagekit.io/j7pm1g0d0uh/staging/1617265323067869891/tuandaosajari/24JjXXUTLX1yAc5v73DoNbWZa35',
-      position: 1,
-      textColor: '#1a181c',
-      targetUrl: 'https://example.com',
-      textPosition: TextPosition.BottomLeft,
-    },
-    {
-      id: '1',
-      width: 2,
-      height: 1,
-      title: 'Title Two',
-      description: 'Another example description but this time this text is purposely written in a longer form.',
-      imageUrl:
-        'https://ik.imagekit.io/j7pm1g0d0uh/staging/1617265323067869891/tuandaosajari/24JjXZb89U453ij8PqycN33od4p',
-      position: 4,
-      textColor: '#5c627b',
-      targetUrl: 'https://example.com',
-      textPosition: TextPosition.BottomLeft,
-    },
-  ];
-
-  const renderBanners = filterBannersPerPage(sampleBanners, resultsPerPage, page);
+  const renderBanners = filterBannersPerPage(banners, resultsPerPage, page);
 
   const bannersExpanded = React.useMemo(() => {
-    if ((appearance === 'list' && !checkValidResultTemplate(resultTemplate)) || !allowBanner)
+    if ((appearance === 'list' && !checkValidResultTemplate(resultTemplate)) || !allowBanners)
       return (results ?? []).map(() => undefined);
 
     return (results ?? []).map((_, i) => {
@@ -84,7 +53,7 @@ const Results = (props: ResultsProps) => {
 
       return matchingBanner;
     });
-  }, [results, appearance, allowBanner]);
+  }, [results, appearance, allowBanners]);
 
   React.useEffect(() => {
     if (defaultAppearance) {

@@ -86,39 +86,6 @@ function Example() {
 }
 ```
 
-### Grid display with banner
-
-```jsx
-function Example() {
-  const pipeline = new Pipeline(
-    {
-      account: '1594153711901724220',
-      collection: 'bestbuy',
-    },
-    'query',
-  );
-
-  return (
-    <SearchProvider
-      search={{
-        pipeline,
-        fields: new FieldDictionary({
-          title: 'name',
-          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
-        }),
-        variables: new Variables({
-          resultsPerPage: 7,
-          q: 'macbook',
-        }),
-      }}
-      searchOnLoad
-    >
-      <Results appearance="grid" allowBanner />
-    </SearchProvider>
-  );
-}
-```
-
 ### Product status
 
 Currently three statuses are being supported, they are "out of stock", "sale" and "new arrival", they are hidden by default, to show them pass the `showStatus` prop,
@@ -263,13 +230,13 @@ function Example() {
           subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
         }),
         variables: new Variables({
-          resultsPerPage: 20,
+          resultsPerPage: 6,
           q: '',
         }),
       }}
       searchOnLoad
     >
-      <Results resultTemplate={template} allowBanner columns={3} />
+      <Results resultTemplate={template} />
     </SearchProvider>
   );
 }
