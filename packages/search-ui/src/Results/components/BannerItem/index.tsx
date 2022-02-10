@@ -19,7 +19,7 @@ const BannerItem = ({ banner, numberOfCols }: BannerItemProps) => {
       ]}
     >
       <Link href={targetUrl} css={styles.imageContainer}>
-        <img src={imageUrl} css={styles.image} alt="" />
+        <img src={imageUrl} css={styles.image} alt="" loading="lazy" />
         {title || description ? (
           <Box css={styles.textContainer}>
             {title ? (
