@@ -42,7 +42,7 @@ const Results = (props: ResultsProps) => {
   const numberOfCols = getNumberOfCols({ ...props, width });
   const { resultsPerPage, page } = usePagination();
   const bannersByPosition =
-    (appearance === 'list' && !checkValidResultTemplate(resultTemplate)) || !allowBanners
+    appearance !== 'grid' || !checkValidResultTemplate(resultTemplate) || !allowBanners
       ? {}
       : getBannersByPosition(banners, resultsPerPage, page);
 
