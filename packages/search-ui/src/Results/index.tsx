@@ -32,7 +32,7 @@ const Results = (props: ResultsProps) => {
     resultTemplate,
     onResetTemplate,
     openNewTab = false,
-    allowBanners = false,
+    allowBanners = true,
     ...rest
   } = props;
   const [width, setWidth] = React.useState(0);
