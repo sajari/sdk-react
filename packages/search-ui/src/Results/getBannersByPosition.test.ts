@@ -1,6 +1,7 @@
 import { Banner } from '@sajari/sdk-js';
 
-import { filterBannersPerPage } from './filterBannersPerPage';
+import { getBannersByPosition } from './getBannersByPosition';
+import { BannerByPosition } from './types';
 
 const testData = [
   {
@@ -37,13 +38,13 @@ const testData = [
   },
 ];
 
-test.each<[Banner[], number, number, Banner[]]>([
+test.each<[Banner[], number, number, BannerByPosition]>([
   [
     testData,
     10,
     1,
-    [
-      {
+    {
+      0: {
         id: '0',
         width: 2,
         height: 1,
@@ -51,14 +52,14 @@ test.each<[Banner[], number, number, Banner[]]>([
         position: 1,
         targetUrl: 'https://example.com',
       },
-    ],
+    },
   ],
   [
     testData,
     20,
     1,
-    [
-      {
+    {
+      0: {
         id: '0',
         width: 2,
         height: 1,
@@ -66,7 +67,7 @@ test.each<[Banner[], number, number, Banner[]]>([
         position: 1,
         targetUrl: 'https://example.com',
       },
-      {
+      10: {
         id: '1',
         width: 2,
         height: 2,
@@ -74,7 +75,7 @@ test.each<[Banner[], number, number, Banner[]]>([
         position: 11,
         targetUrl: 'https://example.com',
       },
-      {
+      19: {
         id: '2',
         width: 2,
         height: 1,
@@ -82,39 +83,39 @@ test.each<[Banner[], number, number, Banner[]]>([
         position: 20,
         targetUrl: 'https://example.com',
       },
-    ],
+    },
   ],
   [
     testData,
     15,
     2,
-    [
-      {
+    {
+      4: {
         id: '2',
         width: 2,
         height: 1,
         imageUrl: 'ipsum.png',
-        position: 5,
+        position: 20,
         targetUrl: 'https://example.com',
       },
-    ],
+    },
   ],
   [
     testData,
     20,
     3,
-    [
-      {
+    {
+      9: {
         id: '3',
         width: 2,
         height: 1,
         imageUrl: 'ipsum.png',
-        position: 10,
+        position: 50,
         targetUrl: 'https://example.com',
       },
-    ],
+    },
   ],
-  [testData, 10, 10, []],
-])('filterBannersPerPage(%o)', (banners, resultsPerPage, page, expected) => {
-  expect(filterBannersPerPage(banners, resultsPerPage, page)).toEqual(expected);
+  [testData, 10, 10, {}],
+])('getBannersByPosition(%o)', (banners, resultsPerPage, page, expected) => {
+  expect(getBannersByPosition(banners, resultsPerPage, page)).toEqual(expected);
 });

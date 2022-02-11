@@ -16,7 +16,17 @@ function findBreakpoint<T>(breakpoints: Record<number, T>, target: number): T | 
   return match ? breakpoints[match] : null;
 }
 
-export function getNumberOfCols({ columns, columnMinWidth = 240, width }: Props) {
+// Calculate the number of columns for a grid layout
+// based on the container width
+export function getNumberOfCols({
+  columns,
+  columnMinWidth = 240,
+  width,
+}: {
+  columns?: ResultsProps['columns'];
+  width: number;
+  columnMinWidth?: number;
+}) {
   if (columns) {
     if (isNumber(columns)) {
       return columns;
@@ -101,7 +111,6 @@ export default function useResultsStyles({
   } else if (appearance === 'grid') {
     styles.container.push(tw`grid`);
 
-    // TODO: These sort of helpers should go in utils ideally, or find a better way to handle this
     let gap: GapValue = 8;
     const numberOfCols = getNumberOfCols({ columns, columnMinWidth, width });
 

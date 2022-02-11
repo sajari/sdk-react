@@ -1,7 +1,6 @@
 import type { ResultValues, Token } from '@sajari/react-hooks';
-import { Banner } from '@sajari/sdk-js';
 
-import type { ColumnValue, ResultsProps, ResultTemplate } from '../../types';
+import type { BannerByPosition, ColumnValue, ResultsProps, ResultTemplate } from '../../types';
 
 export type Result = {
   values: ResultValues;
@@ -11,7 +10,7 @@ export type Result = {
 interface Props extends Pick<ResultsProps, 'resultContainerTemplateElement' | 'showVariantImage'> {
   resultTemplate: ResultTemplate;
   results: Array<Result>;
-  bannersExpanded: Array<Banner | undefined>;
+  bannersByPosition: BannerByPosition;
   numberOfCols: ColumnValue;
 }
 

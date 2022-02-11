@@ -1,7 +1,6 @@
 import { ResizeObserver } from '@sajari/react-components';
 import { usePagination, useQuery, useSearchContext } from '@sajari/react-hooks';
 import { escapeHTML, getStylesObject, isEmpty, isNullOrUndefined } from '@sajari/react-sdk-utils';
-import { Banner, TextPosition } from '@sajari/sdk-js';
 import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +12,7 @@ import BannerItem from './components/BannerItem';
 import Message from './components/Message';
 import Result from './components/Result';
 import TemplateResults from './components/TemplateResults';
-import { filterBannersPerPage } from './filterBannersPerPage';
+import { getBannersByPosition } from './getBannersByPosition';
 import useResultsStyles, { getNumberOfCols } from './styles';
 import { ResultsProps, ResultValues } from './types';
 import { isBanner } from './utils';
@@ -42,18 +41,10 @@ const Results = (props: ResultsProps) => {
   const { t } = useTranslation(['common', 'errors', 'result']);
   const numberOfCols = getNumberOfCols({ ...props, width });
   const { resultsPerPage, page } = usePagination();
-  const renderBanners = filterBannersPerPage(banners, resultsPerPage, page);
-
-  const bannersExpanded = React.useMemo(() => {
-    if ((appearance === 'list' && !checkValidResultTemplate(resultTemplate)) || !allowBanners)
-      return (results ?? []).map(() => undefined);
-
-    return (results ?? []).map((_, i) => {
-      const matchingBanner = renderBanners.find((b) => b.position - 1 === i);
-
-      return matchingBanner;
-    });
-  }, [results, appearance, allowBanners]);
+  const bannersByPosition =
+    (appearance === 'list' && !checkValidResultTemplate(resultTemplate)) || !allowBanners
+      ? {}
+      : getBannersByPosition(banners, resultsPerPage, page);
 
   React.useEffect(() => {
     if (defaultAppearance) {
@@ -131,7 +122,7 @@ const Results = (props: ResultsProps) => {
         <TemplateResults
           showVariantImage={rest.showVariantImage}
           results={results}
-          bannersExpanded={bannersExpanded}
+          bannersByPosition={bannersByPosition}
           resultTemplate={resultTemplate}
           resultContainerTemplateElement={resultContainerTemplateElement}
           numberOfCols={numberOfCols}
@@ -147,8 +138,7 @@ const Results = (props: ResultsProps) => {
       className={customClassNames.results?.container}
     >
       {results?.map((result, i) => {
-        const banner = bannersExpanded[i];
-
+        const banner = bannersByPosition[i];
         if (banner && isBanner(banner)) {
           return <BannerItem key={`banner-${banner.id}`} banner={banner} numberOfCols={numberOfCols} />;
         }

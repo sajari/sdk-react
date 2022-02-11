@@ -1,5 +1,6 @@
 import { BoxProps, ImageProps } from '@sajari/react-components';
 import { ResultValues } from '@sajari/react-hooks';
+import { Banner } from '@sajari/sdk-js';
 
 import type { TemplateResultProps } from './components/TemplateResult/types';
 
@@ -29,5 +30,7 @@ export interface ResultsProps extends BoxProps {
   openNewTab?: boolean;
   allowBanners?: boolean;
 }
+
+export type BannerByPosition = Record<number, Banner>;
 
 export { ResultValues };
