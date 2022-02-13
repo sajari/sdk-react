@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.15.0
+
+### Minor Changes
+
+- [`c9371277`](https://github.com/sajari/sdk-react/commit/c9371277b8a79c21ca70b483a322f274853d7f79) [#729](https://github.com/sajari/sdk-react/pull/729) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Add banner feature to Results component
+
+### Patch Changes
+
+- [`e9ae8692`](https://github.com/sajari/sdk-react/commit/e9ae8692e8136d954b0146d703a61cdd1cf7ad2b) [#731](https://github.com/sajari/sdk-react/pull/731) Thanks [@chidojiro](https://github.com/chidojiro)! - Integrate banners into useSearch
+
 ## 1.14.1
 
 ### Patch Changes
