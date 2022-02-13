@@ -4,16 +4,18 @@ import { compile } from 'tempura';
 
 import { useSearchUIContext } from '../../../ContextProvider';
 import { checkValidResultTemplate } from '../../checkValidResultTemplate';
+import { isBanner } from '../../utils';
+import BannerItem from '../BannerItem';
 import TemplateResult from '../TemplateResult';
-import { TemplateResultsProps } from './types';
+import { Result, TemplateResultsProps } from './types';
 
 const TemplateResults = (props: TemplateResultsProps) => {
   const { customClassNames } = useSearchUIContext();
-  const { results, resultTemplate, resultContainerTemplateElement, ...rest } = props;
+  const { results, bannersByPosition, resultTemplate, resultContainerTemplateElement, numberOfCols, ...rest } = props;
   // Get the keys of a result, using Set to eliminate dups
   const keys = Array.from(
     results
-      .map((r) => r.values)
+      .map((r) => (r as Result).values)
       .reduce((acc, cur) => {
         Object.keys(cur).forEach((k) => acc.add(k));
         return acc;
@@ -38,16 +40,24 @@ const TemplateResults = (props: TemplateResultsProps) => {
           `}
         />
       ) : null}
-      {results?.map((result, i) => (
-        <TemplateResult
-          // eslint-disable-next-line no-underscore-dangle
-          key={result.values._id ?? i}
-          result={result}
-          render={render}
-          as={resultContainerTemplateElement}
-          {...rest}
-        />
-      ))}
+      {results.map((result, i) => {
+        const banner = bannersByPosition[i];
+
+        if (banner && isBanner(banner)) {
+          return <BannerItem key={`banner-${banner.id}`} banner={banner} numberOfCols={numberOfCols} />;
+        }
+
+        return (
+          <TemplateResult
+            // eslint-disable-next-line no-underscore-dangle
+            key={result.values._id ?? i}
+            result={result as Result}
+            render={render}
+            as={resultContainerTemplateElement}
+            {...rest}
+          />
+        );
+      })}
     </div>
   );
 };

@@ -1,10 +1,17 @@
 import type { ResultValues, Token } from '@sajari/react-hooks';
 
-import type { ResultsProps, ResultTemplate } from '../../types';
+import type { BannerByPosition, ColumnValue, ResultsProps, ResultTemplate } from '../../types';
+
+export type Result = {
+  values: ResultValues;
+  tokens?: Token;
+};
 
 interface Props extends Pick<ResultsProps, 'resultContainerTemplateElement' | 'showVariantImage'> {
   resultTemplate: ResultTemplate;
-  results: { values: ResultValues; token?: Token }[];
+  results: Array<Result>;
+  bannersByPosition: BannerByPosition;
+  numberOfCols: ColumnValue;
 }
 
 export type TemplateResultsProps = Props;

@@ -39,6 +39,11 @@ export interface SearchUIContextProviderValues {
         resultContainer?: string;
       };
     };
+    banners?: {
+      container?: string;
+      heading?: string;
+      description?: string;
+    };
     sorting?: {
       container?: string;
       label?: string;
