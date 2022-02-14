@@ -1,5 +1,18 @@
 # Change Log
 
+## 4.12.0
+
+### Minor Changes
+
+- [`e9ae8692`](https://github.com/sajari/sdk-react/commit/e9ae8692e8136d954b0146d703a61cdd1cf7ad2b) [#731](https://github.com/sajari/sdk-react/pull/731) Thanks [@chidojiro](https://github.com/chidojiro)! - Integrate banners into useSearch
+
+* [`c9371277`](https://github.com/sajari/sdk-react/commit/c9371277b8a79c21ca70b483a322f274853d7f79) [#729](https://github.com/sajari/sdk-react/pull/729) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Add banner feature to Results component
+
+### Patch Changes
+
+- Updated dependencies [[`e9ae8692`](https://github.com/sajari/sdk-react/commit/e9ae8692e8136d954b0146d703a61cdd1cf7ad2b)]:
+  - @sajari/react-hooks@3.9.0
+
 ## 4.11.4
 
 ### Patch Changes
@@ -617,7 +630,7 @@
   Before:
 
   ```js
-  pipeline.listen('result-clicked', (url) => {
+  pipeline.listen('result-clicked', url => {
     console.log(url);
   });
   ```
@@ -625,7 +638,7 @@
   After:
 
   ```js
-  pipeline.listen('result-clicked', (data) => {
+  pipeline.listen('result-clicked', data => {
     const {
       token,
       values: { id, url, title, subtitle, description, image, price, originalPrice, rating },

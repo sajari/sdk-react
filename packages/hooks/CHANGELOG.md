@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.9.0
+
+### Minor Changes
+
+- [`e9ae8692`](https://github.com/sajari/sdk-react/commit/e9ae8692e8136d954b0146d703a61cdd1cf7ad2b) [#731](https://github.com/sajari/sdk-react/pull/731) Thanks [@chidojiro](https://github.com/chidojiro)! - Integrate banners into useSearch
+
 ## 3.8.0
 
 ### Minor Changes
