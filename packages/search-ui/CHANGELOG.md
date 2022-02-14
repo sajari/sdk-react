@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.12.1
+
+### Patch Changes
+
+- [`00fc005d`](https://github.com/sajari/sdk-react/commit/00fc005d95da736ea697efd1f8ff774aa7ef583d) [#739](https://github.com/sajari/sdk-react/pull/739) Thanks [@tuanddd](https://github.com/tuanddd)! - Only blur the input on Enter key if it is not wrapped by any form
+
 ## 4.12.0
 
 ### Minor Changes
