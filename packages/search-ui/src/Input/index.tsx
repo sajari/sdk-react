@@ -168,8 +168,11 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       const { value } = e.currentTarget;
       if (e.key === 'Enter') {
-        // Blur input to avoid Enter spamming
-        (e.target as HTMLInputElement).blur();
+        const closestForm = (e.target as HTMLInputElement).closest('form');
+        // Blur input to avoid Enter spamming, but only if the input is not wrapped by any form, otherwise the submit event won't be triggered
+        if (closestForm === null) {
+          (e.target as HTMLInputElement).blur();
+        }
         if (['typeahead', 'suggestions', 'standard'].includes(mode)) {
           if (!retainFilters) {
             resetFilters();
