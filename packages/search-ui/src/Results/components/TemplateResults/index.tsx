@@ -42,20 +42,20 @@ const TemplateResults = (props: TemplateResultsProps) => {
       ) : null}
       {results.map((result, i) => {
         const banner = bannersByPosition[i];
+        let bannerRender: React.ReactNode = null;
 
         if (banner && isBanner(banner)) {
-          return <BannerItem key={`banner-${banner.id}`} banner={banner} numberOfCols={numberOfCols} />;
+          bannerRender = <BannerItem key={`banner-${banner.id}`} banner={banner} numberOfCols={numberOfCols} />;
         }
 
         return (
-          <TemplateResult
+          <React.Fragment
             // eslint-disable-next-line no-underscore-dangle
             key={result.values._id ?? i}
-            result={result as Result}
-            render={render}
-            as={resultContainerTemplateElement}
-            {...rest}
-          />
+          >
+            {bannerRender}
+            <TemplateResult result={result as Result} render={render} as={resultContainerTemplateElement} {...rest} />
+          </React.Fragment>
         );
       })}
     </div>
