@@ -137,30 +137,37 @@ const Results = (props: ResultsProps) => {
     >
       {results?.map((result, i) => {
         const banner = bannersByPosition[i];
+        let bannerRender: React.ReactNode = null;
+
         if (banner && isBanner(banner)) {
-          return <BannerItem key={`banner-${banner.id}`} banner={banner} numberOfCols={numberOfCols} />;
+          bannerRender = <BannerItem key={`banner-${banner.id}`} banner={banner} numberOfCols={numberOfCols} />;
         }
+
         return (
-          <Result
+          <React.Fragment
             // eslint-disable-next-line no-underscore-dangle
             key={result.values._id ?? i}
-            result={result}
-            appearance={appearance}
-            forceImage={hasImages}
-            disableDefaultStyles={disableDefaultStyles}
-            className={customClassNames.results?.item}
-            headingClassName={customClassNames.results?.heading}
-            descriptionClassName={customClassNames.results?.description}
-            priceClassName={customClassNames.results?.price}
-            ratingClassName={customClassNames.results?.rating}
-            subTitleClassName={customClassNames.results?.subTitle}
-            onSaleStatusClassName={customClassNames.results?.onSaleStatus}
-            outOfStockStatusClassName={customClassNames.results?.outOfStockStatus}
-            newArrivalStatusClassName={customClassNames.results?.newArrivalStatus}
-            openNewTab={openNewTab}
-            isPinned={result.promotionPinned}
-            {...rest}
-          />
+          >
+            {bannerRender}
+            <Result
+              result={result}
+              appearance={appearance}
+              forceImage={hasImages}
+              disableDefaultStyles={disableDefaultStyles}
+              className={customClassNames.results?.item}
+              headingClassName={customClassNames.results?.heading}
+              descriptionClassName={customClassNames.results?.description}
+              priceClassName={customClassNames.results?.price}
+              ratingClassName={customClassNames.results?.rating}
+              subTitleClassName={customClassNames.results?.subTitle}
+              onSaleStatusClassName={customClassNames.results?.onSaleStatus}
+              outOfStockStatusClassName={customClassNames.results?.outOfStockStatus}
+              newArrivalStatusClassName={customClassNames.results?.newArrivalStatus}
+              openNewTab={openNewTab}
+              isPinned={result.promotionPinned}
+              {...rest}
+            />
+          </React.Fragment>
         );
       })}
     </ResizeObserver>
