@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.12.2
+
+### Patch Changes
+
+- [`02347a34`](https://github.com/sajari/sdk-react/commit/02347a34a80eaa77bd65bd1496d44a04a6948e54) [#741](https://github.com/sajari/sdk-react/pull/741) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix result being truncated if having the same position with banner.
+
 ## 4.12.1
 
 ### Patch Changes
