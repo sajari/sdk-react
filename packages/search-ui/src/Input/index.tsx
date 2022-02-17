@@ -198,7 +198,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
             onKeyDown(e);
           }
         }
-        if (!['instant', 'results'].includes(mode)) {
+        if (!['results'].includes(mode)) {
           searchValue(value, true);
         }
       }
