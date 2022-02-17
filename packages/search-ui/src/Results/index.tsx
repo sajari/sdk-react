@@ -123,7 +123,6 @@ const Results = (props: ResultsProps) => {
           bannersByPosition={bannersByPosition}
           resultTemplate={resultTemplate}
           resultContainerTemplateElement={resultContainerTemplateElement}
-          numberOfCols={numberOfCols}
         />
       </ErrorBoundary>
     );

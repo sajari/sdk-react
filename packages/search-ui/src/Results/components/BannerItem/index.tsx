@@ -5,7 +5,7 @@ import { useSearchUIContext } from '../../../ContextProvider';
 import { useBannerStyle } from './styles';
 import { BannerItemProps } from './types';
 
-const BannerItem = ({ banner, numberOfCols }: BannerItemProps) => {
+const BannerItem = ({ banner, templateMode = false, numberOfCols = 1 }: BannerItemProps) => {
   const { disableDefaultStyles = false, customClassNames } = useSearchUIContext();
   const { title, description, targetUrl, imageUrl, width, height, textColor } = banner;
   const styles = getStylesObject(useBannerStyle({ banner }), disableDefaultStyles);
@@ -15,7 +15,11 @@ const BannerItem = ({ banner, numberOfCols }: BannerItemProps) => {
       css={[
         styles.container,
         customClassNames.banners?.container,
-        { gridColumnEnd: `span ${Math.min(width ?? 1, numberOfCols)}`, gridRowEnd: `span ${height}` },
+        {
+          // In template mode (banners rendered in result template), the `numberOfCols` variable is always 0 because we aren't using ResizeObserver to watch the width anymore
+          gridColumnEnd: `span ${templateMode ? width : Math.min(width ?? 1, numberOfCols)}`,
+          gridRowEnd: `span ${height}`,
+        },
       ]}
     >
       <Link href={targetUrl} css={styles.imageContainer}>
