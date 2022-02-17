@@ -11,7 +11,6 @@ interface Props extends Pick<ResultsProps, 'resultContainerTemplateElement' | 's
   resultTemplate: ResultTemplate;
   results: Array<Result>;
   bannersByPosition: BannerByPosition;
-  numberOfCols: ColumnValue;
 }
 
 export type TemplateResultsProps = Props;

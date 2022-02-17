@@ -11,7 +11,7 @@ import { Result, TemplateResultsProps } from './types';
 
 const TemplateResults = (props: TemplateResultsProps) => {
   const { customClassNames } = useSearchUIContext();
-  const { results, bannersByPosition, resultTemplate, resultContainerTemplateElement, numberOfCols, ...rest } = props;
+  const { results, bannersByPosition, resultTemplate, resultContainerTemplateElement, ...rest } = props;
   // Get the keys of a result, using Set to eliminate dups
   const keys = Array.from(
     results
@@ -45,7 +45,7 @@ const TemplateResults = (props: TemplateResultsProps) => {
         let bannerRender: React.ReactNode = null;
 
         if (banner && isBanner(banner)) {
-          bannerRender = <BannerItem key={`banner-${banner.id}`} banner={banner} numberOfCols={numberOfCols} />;
+          bannerRender = <BannerItem key={`banner-${banner.id}`} templateMode banner={banner} />;
         }
 
         return (
