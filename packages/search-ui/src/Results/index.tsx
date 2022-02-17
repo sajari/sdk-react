@@ -1,21 +1,21 @@
 import { ResizeObserver } from '@sajari/react-components';
 import { usePagination, useQuery, useSearchContext } from '@sajari/react-hooks';
 import { escapeHTML, getStylesObject, isEmpty, isNullOrUndefined } from '@sajari/react-sdk-utils';
+import { Banner } from '@sajari/sdk-js';
 import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';
-import mapResultFields from '../utils/mapResultFields';
+import mapResultFields, { ResultField } from '../utils/mapResultFields';
 import { checkValidResultTemplate } from './checkValidResultTemplate';
 import BannerItem from './components/BannerItem';
 import Message from './components/Message';
 import Result from './components/Result';
 import TemplateResults from './components/TemplateResults';
-import { getBannersByPosition } from './getBannersByPosition';
 import useResultsStyles, { getNumberOfCols } from './styles';
 import { ResultsProps, ResultValues } from './types';
-import { isBanner } from './utils';
+import { filterBannersPerPage, isBanner, mergeBannersWithResults } from './utils';
 
 const Results = (props: ResultsProps) => {
   const { results: rawResults, searching, fields, error, banners } = useSearchContext();
@@ -41,8 +41,8 @@ const Results = (props: ResultsProps) => {
   const { t } = useTranslation(['common', 'errors', 'result']);
   const numberOfCols = getNumberOfCols({ ...props, width });
   const { resultsPerPage, page } = usePagination();
-  const bannersByPosition =
-    appearance !== 'grid' || !allowBanners ? {} : getBannersByPosition(banners, resultsPerPage, page);
+  const renderBanners =
+    appearance !== 'grid' || !allowBanners ? [] : filterBannersPerPage(banners.filter(isBanner), resultsPerPage, page);
 
   React.useEffect(() => {
     if (defaultAppearance) {
@@ -120,7 +120,7 @@ const Results = (props: ResultsProps) => {
         <TemplateResults
           showVariantImage={rest.showVariantImage}
           results={results}
-          bannersByPosition={bannersByPosition}
+          banners={renderBanners}
           resultTemplate={resultTemplate}
           resultContainerTemplateElement={resultContainerTemplateElement}
         />
@@ -128,45 +128,43 @@ const Results = (props: ResultsProps) => {
     );
   }
 
+  const list = mergeBannersWithResults<ResultField<ResultValues>>(renderBanners, results || []);
+
   return (
     <ResizeObserver
       onResize={(rect) => setWidth(rect.width)}
       css={[styles.container, stylesProp]}
       className={customClassNames.results?.container}
     >
-      {results?.map((result, i) => {
-        const banner = bannersByPosition[i];
-        let bannerRender: React.ReactNode = null;
+      {list.map((item, i) => {
+        const banner = item as Banner;
+        const result = item as ResultField<ResultValues>;
 
-        if (banner && isBanner(banner)) {
-          bannerRender = <BannerItem key={`banner-${banner.id}`} banner={banner} numberOfCols={numberOfCols} />;
+        if (isBanner(banner)) {
+          return <BannerItem key={`banner-${banner.id}`} banner={banner} numberOfCols={numberOfCols} />;
         }
 
         return (
-          <React.Fragment
+          <Result
             // eslint-disable-next-line no-underscore-dangle
             key={result.values._id ?? i}
-          >
-            {bannerRender}
-            <Result
-              result={result}
-              appearance={appearance}
-              forceImage={hasImages}
-              disableDefaultStyles={disableDefaultStyles}
-              className={customClassNames.results?.item}
-              headingClassName={customClassNames.results?.heading}
-              descriptionClassName={customClassNames.results?.description}
-              priceClassName={customClassNames.results?.price}
-              ratingClassName={customClassNames.results?.rating}
-              subTitleClassName={customClassNames.results?.subTitle}
-              onSaleStatusClassName={customClassNames.results?.onSaleStatus}
-              outOfStockStatusClassName={customClassNames.results?.outOfStockStatus}
-              newArrivalStatusClassName={customClassNames.results?.newArrivalStatus}
-              openNewTab={openNewTab}
-              isPinned={result.promotionPinned}
-              {...rest}
-            />
-          </React.Fragment>
+            result={result}
+            appearance={appearance}
+            forceImage={hasImages}
+            disableDefaultStyles={disableDefaultStyles}
+            className={customClassNames.results?.item}
+            headingClassName={customClassNames.results?.heading}
+            descriptionClassName={customClassNames.results?.description}
+            priceClassName={customClassNames.results?.price}
+            ratingClassName={customClassNames.results?.rating}
+            subTitleClassName={customClassNames.results?.subTitle}
+            onSaleStatusClassName={customClassNames.results?.onSaleStatus}
+            outOfStockStatusClassName={customClassNames.results?.outOfStockStatus}
+            newArrivalStatusClassName={customClassNames.results?.newArrivalStatus}
+            openNewTab={openNewTab}
+            isPinned={result.promotionPinned}
+            {...rest}
+          />
         );
       })}
     </ResizeObserver>
