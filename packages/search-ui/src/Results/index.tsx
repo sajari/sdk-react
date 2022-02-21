@@ -44,6 +44,11 @@ const Results = (props: ResultsProps) => {
   const renderBanners =
     appearance !== 'grid' || !allowBanners ? [] : filterBannersPerPage(banners.filter(isBanner), resultsPerPage, page);
 
+  const list = React.useMemo(() => mergeBannersWithResults<ResultField<ResultValues>>(renderBanners, results || []), [
+    renderBanners,
+    results,
+  ]);
+
   React.useEffect(() => {
     if (defaultAppearance) {
       setViewType(defaultAppearance);
@@ -128,8 +133,6 @@ const Results = (props: ResultsProps) => {
     );
   }
 
-  const list = mergeBannersWithResults<ResultField<ResultValues>>(renderBanners, results || []);
-
   return (
     <ResizeObserver
       onResize={(rect) => setWidth(rect.width)}
@@ -137,18 +140,15 @@ const Results = (props: ResultsProps) => {
       className={customClassNames.results?.container}
     >
       {list.map((item, i) => {
-        const banner = item as Banner;
-        const result = item as ResultField<ResultValues>;
-
-        if (isBanner(banner)) {
-          return <BannerItem key={`banner-${banner.id}`} banner={banner} numberOfCols={numberOfCols} />;
+        if (isBanner(item)) {
+          return <BannerItem key={`banner-${item.id}`} banner={item} numberOfCols={numberOfCols} />;
         }
 
         return (
           <Result
             // eslint-disable-next-line no-underscore-dangle
-            key={result.values._id ?? i}
-            result={result}
+            key={item.values._id ?? i}
+            result={item}
             appearance={appearance}
             forceImage={hasImages}
             disableDefaultStyles={disableDefaultStyles}
@@ -162,7 +162,7 @@ const Results = (props: ResultsProps) => {
             outOfStockStatusClassName={customClassNames.results?.outOfStockStatus}
             newArrivalStatusClassName={customClassNames.results?.newArrivalStatus}
             openNewTab={openNewTab}
-            isPinned={result.promotionPinned}
+            isPinned={item.promotionPinned}
             {...rest}
           />
         );

@@ -14,23 +14,22 @@ export function mergeBannersWithResults<T = any>(banners: Banner[], results: T[]
     if (positionA > positionB) {
       return 1;
     }
-    return 0;
+    return positionA - positionB;
   });
   const clonedResults = [...results];
   let count = 0;
   const list: (Banner | T)[] = [];
   const total = clonedBanners.length + clonedResults.length;
+  let currentResultIndex = 0;
+  let currentBannerIndex = 0;
   while (count < total) {
-    if (clonedBanners[0] && clonedBanners[0].position !== undefined && clonedBanners[0].position - 1 <= count) {
-      const banner = clonedBanners.shift();
-      if (banner) {
-        list.push(banner);
-      }
+    const banner = clonedBanners[currentBannerIndex];
+    if (banner && banner.position !== undefined && banner.position - 1 <= count) {
+      list.push(clonedBanners[currentBannerIndex]);
+      currentBannerIndex += 1;
     } else {
-      const result = clonedResults.shift();
-      if (result) {
-        list.push(result);
-      }
+      list.push(clonedResults[currentResultIndex]);
+      currentResultIndex += 1;
     }
     count += 1;
   }
