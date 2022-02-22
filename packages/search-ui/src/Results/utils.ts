@@ -5,7 +5,7 @@ export function isBanner(resultOrBanner: any): resultOrBanner is Banner {
 }
 
 export function mergeBannersWithResults<T = any>(banners: Banner[], results: T[]): (Banner | T)[] {
-  const clonedBanners = [...banners].sort((a, b) => {
+  const sortedBanners = [...banners].sort((a, b) => {
     const positionA = a.position || 0;
     const positionB = b.position || 0;
     if (positionA < positionB) {
@@ -16,19 +16,18 @@ export function mergeBannersWithResults<T = any>(banners: Banner[], results: T[]
     }
     return positionA - positionB;
   });
-  const clonedResults = [...results];
   let count = 0;
   const list: (Banner | T)[] = [];
-  const total = clonedBanners.length + clonedResults.length;
+  const total = sortedBanners.length + results.length;
   let currentResultIndex = 0;
   let currentBannerIndex = 0;
   while (count < total) {
-    const banner = clonedBanners[currentBannerIndex];
+    const banner = sortedBanners[currentBannerIndex];
     if (banner && banner.position !== undefined && banner.position - 1 <= count) {
-      list.push(clonedBanners[currentBannerIndex]);
+      list.push(sortedBanners[currentBannerIndex]);
       currentBannerIndex += 1;
     } else {
-      list.push(clonedResults[currentResultIndex]);
+      list.push(results[currentResultIndex]);
       currentResultIndex += 1;
     }
     count += 1;
