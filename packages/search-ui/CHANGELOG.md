@@ -1,5 +1,15 @@
 # Change Log
 
+## 4.12.3
+
+### Patch Changes
+
+- [`7feb09f5`](https://github.com/sajari/sdk-react/commit/7feb09f5bcffda24e68a4a981e18f4086839c945) [#744](https://github.com/sajari/sdk-react/pull/744) Thanks [@tuanddd](https://github.com/tuanddd)! - Banner size in result template mode
+
+* [`81b80579`](https://github.com/sajari/sdk-react/commit/81b80579cac0dd77db79a46fbc1bf38e2bc4cc28) [#743](https://github.com/sajari/sdk-react/pull/743) Thanks [@tuanddd](https://github.com/tuanddd)! - Pressing Enter on an instant Input should trigger a search
+
+- [`52ef27ef`](https://github.com/sajari/sdk-react/commit/52ef27ef4c83d769ebc841a856591af887d4b140) [#746](https://github.com/sajari/sdk-react/pull/746) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix render orders of banners
+
 ## 4.12.2
 
 ### Patch Changes
