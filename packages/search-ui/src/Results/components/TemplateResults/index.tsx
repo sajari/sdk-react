@@ -31,7 +31,7 @@ const TemplateResults = (props: TemplateResultsProps) => {
     keysStringified,
   ]);
 
-  const list = mergeBannersWithResults<Result>(banners, results || []);
+  const list = useMemo(() => mergeBannersWithResults<Result>(banners, results || []), [banners, results]);
 
   return (
     <div className={customClassNames.results?.template?.container}>

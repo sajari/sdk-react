@@ -8,12 +8,7 @@ export function mergeBannersWithResults<T = any>(banners: Banner[], results: T[]
   const sortedBanners = [...banners].sort((a, b) => {
     const positionA = a.position || 0;
     const positionB = b.position || 0;
-    if (positionA < positionB) {
-      return -1;
-    }
-    if (positionA > positionB) {
-      return 1;
-    }
+
     return positionA - positionB;
   });
   let count = 0;

@@ -137,6 +137,11 @@ test.each<[{ position: number }[], any[], any[]]>([
     [{ position: 1 }, { position: 2 }, 1, 2, 3, 4, 5],
   ],
   [
+    [{ position: 2 }, { position: 5 }, { position: 2 }, { position: 1 }],
+    [1, 2, 3, 4, 5],
+    [{ position: 1 }, { position: 2 }, { position: 2 }, 1, { position: 5 }, 2, 3, 4, 5],
+  ],
+  [
     [{ position: 1 }, { position: 3 }],
     [1, 2, 3, 4, 5],
     [{ position: 1 }, 1, { position: 3 }, 2, 3, 4, 5],
