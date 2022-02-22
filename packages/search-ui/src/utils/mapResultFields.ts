@@ -46,3 +46,7 @@ export default function mapResultFields<T = Record<string, string | string[]>>(
     values: mapFields<T>((values as unknown) as T, fields),
   }));
 }
+
+export type ResultField<T> = ReturnType<typeof mapResultFields>[0] & {
+  values: T;
+};

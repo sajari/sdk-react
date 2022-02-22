@@ -1,17 +1,18 @@
 import { css, Global } from '@emotion/core';
+import { Banner } from '@sajari/sdk-js';
 import React, { useMemo } from 'react';
 import { compile } from 'tempura';
 
 import { useSearchUIContext } from '../../../ContextProvider';
 import { checkValidResultTemplate } from '../../checkValidResultTemplate';
-import { isBanner } from '../../utils';
+import { isBanner, mergeBannersWithResults } from '../../utils';
 import BannerItem from '../BannerItem';
 import TemplateResult from '../TemplateResult';
 import { Result, TemplateResultsProps } from './types';
 
 const TemplateResults = (props: TemplateResultsProps) => {
   const { customClassNames } = useSearchUIContext();
-  const { results, bannersByPosition, resultTemplate, resultContainerTemplateElement, ...rest } = props;
+  const { results, banners, resultTemplate, resultContainerTemplateElement, ...rest } = props;
   // Get the keys of a result, using Set to eliminate dups
   const keys = Array.from(
     results
@@ -30,6 +31,8 @@ const TemplateResults = (props: TemplateResultsProps) => {
     keysStringified,
   ]);
 
+  const list = useMemo(() => mergeBannersWithResults<Result>(banners, results || []), [banners, results]);
+
   return (
     <div className={customClassNames.results?.template?.container}>
       {checkValidResultTemplate(resultTemplate) && resultTemplate.css ? (
@@ -40,22 +43,22 @@ const TemplateResults = (props: TemplateResultsProps) => {
           `}
         />
       ) : null}
-      {results.map((result, i) => {
-        const banner = bannersByPosition[i];
-        let bannerRender: React.ReactNode = null;
+      {list.map((item, i) => {
+        const banner = item as Banner;
+        const result = item as Result;
 
-        if (banner && isBanner(banner)) {
-          bannerRender = <BannerItem key={`banner-${banner.id}`} templateMode banner={banner} />;
+        if (isBanner(banner)) {
+          return <BannerItem key={`banner-${banner.id}`} templateMode banner={banner} />;
         }
 
         return (
-          <React.Fragment
-            // eslint-disable-next-line no-underscore-dangle
+          <TemplateResult // eslint-disable-next-line no-underscore-dangle
             key={result.values._id ?? i}
-          >
-            {bannerRender}
-            <TemplateResult result={result as Result} render={render} as={resultContainerTemplateElement} {...rest} />
-          </React.Fragment>
+            result={result as Result}
+            render={render}
+            as={resultContainerTemplateElement}
+            {...rest}
+          />
         );
       })}
     </div>
