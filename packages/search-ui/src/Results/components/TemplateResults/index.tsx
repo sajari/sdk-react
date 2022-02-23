@@ -11,7 +11,7 @@ import { Result, TemplateResultsProps } from './types';
 
 const TemplateResults = (props: TemplateResultsProps) => {
   const { customClassNames } = useSearchUIContext();
-  const { results, banners, resultTemplate, resultContainerTemplateElement, ...rest } = props;
+  const { results, banners, resultTemplate, resultContainerTemplateElement, numberOfCols, ...rest } = props;
   // Get the keys of a result, using Set to eliminate dups
   const keys = Array.from(
     results
@@ -44,7 +44,7 @@ const TemplateResults = (props: TemplateResultsProps) => {
       ) : null}
       {list.map((item, i) => {
         if (isBanner(item)) {
-          return <BannerItem key={`banner-${item.id}`} templateMode banner={item} />;
+          return <BannerItem key={`banner-${item.id}`} banner={item} numberOfCols={numberOfCols} />;
         }
 
         return (

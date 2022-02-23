@@ -122,13 +122,16 @@ const Results = (props: ResultsProps) => {
         FallbackComponent={TemplateErrorMessage}
         resetKeys={[`${resultTemplate.html}${resultTemplate.css}`]}
       >
-        <TemplateResults
-          showVariantImage={rest.showVariantImage}
-          results={results}
-          banners={renderBanners}
-          resultTemplate={resultTemplate}
-          resultContainerTemplateElement={resultContainerTemplateElement}
-        />
+        <ResizeObserver onResize={(rect) => setWidth(rect.width)}>
+          <TemplateResults
+            numberOfCols={numberOfCols}
+            showVariantImage={rest.showVariantImage}
+            results={results}
+            banners={renderBanners}
+            resultTemplate={resultTemplate}
+            resultContainerTemplateElement={resultContainerTemplateElement}
+          />
+        </ResizeObserver>
       </ErrorBoundary>
     );
   }
