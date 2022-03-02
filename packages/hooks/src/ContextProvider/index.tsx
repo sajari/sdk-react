@@ -6,6 +6,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Config, defaultConfig } from './Config';
 import {
   ClickTracking,
+  EventTracking,
   FilterBuilder,
   FilterOptions,
   NoTracking,
@@ -363,6 +364,7 @@ export {
   ClickTracking,
   combineFilters,
   Config,
+  EventTracking,
   FieldDictionary,
   FilterBuilder,
   FilterOptions,

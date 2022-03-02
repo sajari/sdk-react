@@ -1,11 +1,11 @@
-import { ClickTracking, PosNegTracking, ResultClickedFn, Token } from '@sajari/react-hooks';
+import { ClickTracking, EventTracking, PosNegTracking, ResultClickedFn, Token } from '@sajari/react-hooks';
 import { isEmpty, isFunction, isString, isValidURL, noop } from '@sajari/react-sdk-utils';
 
 import { ResultValues } from '../Results/types';
 
 export interface ApplyClickTrackingParams {
   token: Token | undefined;
-  tracking: ClickTracking | PosNegTracking | undefined;
+  tracking?: ClickTracking | PosNegTracking | EventTracking;
   values: ResultValues;
   onClick?: ResultClickedFn;
 }
@@ -14,7 +14,7 @@ function applyClickTracking(params: ApplyClickTrackingParams) {
   const { onClick, token, tracking, values } = params;
   const { url } = values;
 
-  if (!tracking || tracking instanceof PosNegTracking) {
+  if (!tracking || !(tracking instanceof ClickTracking)) {
     return {
       href: url,
       onClick: noop,

@@ -3,6 +3,7 @@ export {
   ClickTracking,
   combineFilters,
   Config,
+  EventTracking,
   FieldDictionary,
   FilterBuilder,
   FilterOptions,
@@ -43,4 +44,4 @@ export { default as useTracking } from './useTracking';
 export * from './useTracking';
 export { default as useVariables } from './useVariables';
 export * from './useVariables';
-export { PosNegLocalStorageManager, Token } from '@sajari/sdk-js';
+export { PosNegLocalStorageManager, SearchIOAnalytics, Token } from '@sajari/sdk-js';

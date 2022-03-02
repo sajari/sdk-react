@@ -1,6 +1,9 @@
 import { ActivePromotion, Aggregates, Banner, Redirects, RequestError, Result } from '@sajari/sdk-js';
 
-export type ResponseMap = Map<string, number | Aggregates | Result[] | Redirects | ActivePromotion[] | Banner[]>;
+export type ResponseMap = Map<
+  string,
+  number | string | Aggregates | Result[] | Redirects | ActivePromotion[] | Banner[]
+>;
 
 export class Response {
   private error: RequestError | null;
@@ -107,6 +110,13 @@ export class Response {
    */
   public getTime(): number | undefined {
     return this.response !== undefined ? (this.response.get('time') as number) : undefined;
+  }
+
+  /**
+   * Return queryId from the response.
+   */
+  public getQueryId(): string | undefined {
+    return this.response !== undefined ? (this.response.get('queryId') as string) : undefined;
   }
 
   /**

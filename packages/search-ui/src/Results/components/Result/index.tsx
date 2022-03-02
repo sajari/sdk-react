@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-target-blank */
 import { Box, Heading, Image, ImageProps, Link, Rating, Text } from '@sajari/react-components';
-import { ClickTracking, useTracking } from '@sajari/react-hooks';
+import { ClickTracking, EventTracking, useTracking } from '@sajari/react-hooks';
 import {
   __DEV__,
   decodeHTML,
@@ -17,7 +17,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../../../ContextProvider';
-import { applyClickTracking, applyPosNegTracking } from '../../../utils';
+import { applyClickTracking, applyEventTracking, applyPosNegTracking } from '../../../utils';
 import { useProductStatus } from '../../useProductStatus';
 import { useRenderPrice } from '../../useRenderPrice';
 import useResultStyles from './styles';
@@ -52,7 +52,7 @@ const Result = React.memo(
       ...rest
     } = props;
     const { t } = useTranslation('result');
-    const { posNegLocalStorageManager, handleResultClicked: onClickProp } = useTracking();
+    const { posNegLocalStorageManager, handleResultClicked: onClickProp, searchIOAnalytics } = useTracking();
     const { currency, language, ratingMax, tracking } = useSearchUIContext();
     const { href, onClick: clickTrackingOnClick } = applyClickTracking({
       token,
@@ -67,7 +67,18 @@ const Result = React.memo(
       onClick: onClickProp,
       posNegLocalStorageManager,
     });
-    const onClick = tracking instanceof ClickTracking ? clickTrackingOnClick : posNegOnClick;
+    const { onClick: eventTrackingOnClick } = applyEventTracking({
+      tracking,
+      values,
+      onClick: onClickProp,
+      searchIOAnalytics,
+    });
+    let onClick = posNegOnClick;
+    if (tracking instanceof EventTracking) {
+      onClick = eventTrackingOnClick;
+    } else if (tracking instanceof ClickTracking) {
+      onClick = clickTrackingOnClick;
+    }
     const mouseDownHandler = (e: React.MouseEvent<HTMLElement>) => {
       if (e.button === 1) {
         onClick();

@@ -13,6 +13,7 @@ function useTracking(): UseTrackingResult {
     consumeInteractionToken: client.interactionConsume,
     handleResultClicked: resultClicked,
     posNegLocalStorageManager: new PosNegLocalStorageManager(client),
+    searchIOAnalytics: pipeline.getSearchIOAnalytics(),
   };
 }
 

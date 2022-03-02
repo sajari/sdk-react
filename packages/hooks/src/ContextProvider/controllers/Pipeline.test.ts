@@ -1,9 +1,9 @@
 import { waitFor } from '@testing-library/react';
 
 import { EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED } from '../events';
-import { customConfigPipeline, pipeline1 } from './fixtures/Pipeline';
+import { pipeline1 } from './fixtures/Pipeline';
 import { Pipeline } from './Pipeline';
-import { ClickTracking } from './tracking';
+import { ClickTracking, EventTracking } from './tracking';
 
 describe('Pipeline', () => {
   it('should work normally', () => {
@@ -55,5 +55,25 @@ describe('Pipeline', () => {
     const pipeline = new Pipeline({ ...pipeline1, userAgent }, pipeline1.name, new ClickTracking());
 
     expect(pipeline.getClient().config.userAgent).toEqual(userAgent);
+  });
+
+  it('should update the analytics query id', async () => {
+    const pipeline = new Pipeline(pipeline1, pipeline1.name, new EventTracking());
+    const responseUpdated = jest.fn((response) => response);
+    const searchio = pipeline.getSearchIOAnalytics();
+    const updateQueryIdSpy = jest.spyOn(searchio, 'updateQueryId');
+
+    pipeline.listen(EVENT_RESPONSE_UPDATED, responseUpdated);
+    pipeline.search({ q: 'some search string' });
+    await waitFor(() => expect(responseUpdated).toHaveBeenCalled());
+
+    expect(updateQueryIdSpy).toHaveBeenCalled();
+  });
+
+  it('should set a custom analytics url', () => {
+    const searchIOAnalyticsEndpoint = 'https://example.com';
+    const pipeline = new Pipeline({ ...pipeline1, searchIOAnalyticsEndpoint }, pipeline1.name, new EventTracking());
+
+    expect(pipeline.getSearchIOAnalytics().endpoint).toEqual(searchIOAnalyticsEndpoint);
   });
 });

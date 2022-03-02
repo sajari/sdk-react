@@ -1,11 +1,18 @@
-import { ClickTracking, PosNegLocalStorageManager, PosNegTracking, ResultClickedFn, Token } from '@sajari/react-hooks';
+import {
+  ClickTracking,
+  EventTracking,
+  PosNegLocalStorageManager,
+  PosNegTracking,
+  ResultClickedFn,
+  Token,
+} from '@sajari/react-hooks';
 import { isFunction, noop } from '@sajari/react-sdk-utils';
 
 import { ResultValues } from '../Results/types';
 
 export interface ApplyPosNegTrackingParams {
   token: Token | undefined;
-  tracking: ClickTracking | PosNegTracking | undefined;
+  tracking?: ClickTracking | PosNegTracking | EventTracking;
   values: ResultValues;
   onClick?: ResultClickedFn;
   posNegLocalStorageManager: PosNegLocalStorageManager;

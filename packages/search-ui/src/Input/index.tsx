@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Combobox } from '@sajari/react-components';
-import { useAutocomplete, useQuery, useSearchContext } from '@sajari/react-hooks';
-import { __DEV__, arraysEqual, isArray, isEmpty, mergeRefs } from '@sajari/react-sdk-utils';
+import { EventTracking, useAutocomplete, useQuery, useSearchContext, useTracking } from '@sajari/react-hooks';
+import { __DEV__, arraysEqual, isArray, isEmpty, isEmptyObject, mergeRefs } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';
 import { ResultValues } from '../Results/types';
-import { applyClickTracking } from '../utils';
+import { applyClickTracking, applyEventTracking } from '../utils';
 import mapResultFields from '../utils/mapResultFields';
 import { InputProps } from './types';
 
@@ -39,6 +39,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
   } = useAutocomplete();
   const redirectsRef = useRef(redirects);
   redirectsRef.current = redirects;
+  const { searchIOAnalytics } = useTracking();
   const { customClassNames, disableDefaultStyles = false, tracking } = useSearchUIContext();
   const { query } = useQuery();
   const [internalSuggestions, setInternalSuggestions] = useState<Array<any>>([]);
@@ -89,19 +90,20 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
         results.splice(0, maxSuggestions).map((result) => {
           const { values, token } = result;
           const { description, image, title } = values;
-          const { href, onClick } = applyClickTracking({ tracking, values, token });
+          const { href, onClick: clickTrackingOnClick } = applyClickTracking({ tracking, values, token });
+          const { onClick: eventTrackingOnClick } = applyEventTracking({ tracking, values, searchIOAnalytics });
 
           return {
             title,
             url: href,
-            onClick,
+            onClick: tracking instanceof EventTracking ? eventTrackingOnClick : clickTrackingOnClick,
             description,
             image: isArray(image) ? image[0] : image,
           };
         }),
       );
     }
-  }, [mode, suggestions, maxSuggestions, results, applyClickTracking, tracking]);
+  }, [mode, suggestions, maxSuggestions, results, applyClickTracking, applyEventTracking, tracking]);
 
   useEffect(() => {
     if (!arraysEqual(lastItems.current, internalSuggestions)) {
@@ -175,6 +177,10 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
           }
           const redirectValue = redirectsRef.current[value];
           if (!disableRedirects && redirectValue) {
+            if (tracking instanceof EventTracking) {
+              const metadata = tracking.next({}).data;
+              searchIOAnalytics.track('redirect', redirectValue.id, !isEmptyObject(metadata) ? metadata : undefined);
+            }
             window.location.assign(redirectValue.token || redirectValue.target);
             e.preventDefault();
           } else if (!disableRedirects && autocompleteSearching) {
@@ -183,6 +189,14 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
             setTimeout(() => {
               const redirectTarget = redirectsRef.current[value];
               if (redirectTarget) {
+                if (tracking instanceof EventTracking) {
+                  const metadata = tracking.next({}).data;
+                  searchIOAnalytics.track(
+                    'redirect',
+                    redirectValue.id,
+                    !isEmptyObject(metadata) ? metadata : undefined,
+                  );
+                }
                 window.location.assign(redirectTarget.token || redirectTarget.target);
               } else if (onKeyDown) {
                 onKeyDown(e);
@@ -199,13 +213,17 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
         }
       }
     },
-    [mode, searchValue, onKeyDown, autocompleteSearching, disableRedirects],
+    [mode, searchValue, onKeyDown, autocompleteSearching, disableRedirects, tracking],
   );
 
   const onSelectMemoized = useCallback(
     (item) => {
       const redirectValue = redirectsRef.current[item];
       if (!disableRedirects && redirectValue) {
+        if (tracking instanceof EventTracking) {
+          const metadata = tracking.next({}).data;
+          searchIOAnalytics.track('redirect', redirectValue.id, !isEmptyObject(metadata) ? metadata : undefined);
+        }
         window.location.assign(redirectValue.token || redirectValue.target);
         return;
       }
@@ -216,7 +234,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
         searchValue(item as string);
       }
     },
-    [mode, searchValue],
+    [mode, searchValue, tracking],
   );
 
   useEffect(() => {

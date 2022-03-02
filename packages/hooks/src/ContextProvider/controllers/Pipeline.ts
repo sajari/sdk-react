@@ -1,13 +1,13 @@
 /* eslint-disable no-underscore-dangle */
 import { isNullOrUndefined, isSSR, isString } from '@sajari/react-sdk-utils';
-import { Client } from '@sajari/sdk-js';
+import { Client, SearchIOAnalytics } from '@sajari/sdk-js';
 
 import { EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED, EVENT_SEARCH_SENT } from '../events';
 import type { ResultValues } from '../types';
 import { Analytics, GoogleAnalytics } from './analytics';
 import { CallbackFn, Listener, ListenerMap, UnlistenFn } from './Listener';
 import { Response } from './Response';
-import { ClickTracking, NoTracking, PosNegTracking } from './tracking';
+import { EventTracking, NoTracking, Tracking } from './tracking';
 
 const events = [EVENT_SEARCH_SENT, EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED];
 
@@ -17,6 +17,7 @@ type PipelineConfig = {
   account: string;
   collection: string;
   endpoint?: string;
+  searchIOAnalyticsEndpoint?: string;
   key?: string;
   secret?: string;
   userAgent?: string;
@@ -30,7 +31,7 @@ export class Pipeline {
 
   private client: Client;
 
-  private tracking: ClickTracking | PosNegTracking | NoTracking;
+  private tracking: Tracking;
 
   private listeners: ListenerMap;
 
@@ -39,6 +40,8 @@ export class Pipeline {
   private response: Response = new Response(null);
 
   private analytics: Analytics;
+
+  private searchIOAnalytics: SearchIOAnalytics;
 
   /**
    * Constructs a Pipeline object.
@@ -50,10 +53,10 @@ export class Pipeline {
   constructor(
     config: PipelineConfig,
     name: string | { name: string; version?: string },
-    tracking: ClickTracking | PosNegTracking | NoTracking = new NoTracking(),
+    tracking: Tracking = new NoTracking(),
     analyticsAdapters = [GoogleAnalytics],
   ) {
-    const { account, collection, endpoint, key, secret } = config;
+    const { account, collection, endpoint, key, secret, searchIOAnalyticsEndpoint } = config;
     this.config = config;
 
     const p: { name?: string; version?: string } = {
@@ -97,6 +100,7 @@ export class Pipeline {
       // eslint-disable-next-line no-new
       new Adapter(this.analytics);
     });
+    this.searchIOAnalytics = new SearchIOAnalytics(account, collection, searchIOAnalyticsEndpoint);
   }
 
   /**
@@ -157,6 +161,9 @@ export class Pipeline {
           return;
         }
 
+        if (this.tracking instanceof EventTracking && response.queryId) {
+          this.searchIOAnalytics.updateQueryId(response.queryId);
+        }
         this.response = new Response(
           null,
           new Map(Object.entries(variables)),
@@ -207,6 +214,13 @@ export class Pipeline {
   }
 
   /**
+   * The SearchIOAnalytics instance
+   */
+  public getSearchIOAnalytics(): SearchIOAnalytics {
+    return this.searchIOAnalytics;
+  }
+
+  /**
    * The underlying client
    */
   public getClient(): Client {
@@ -216,7 +230,7 @@ export class Pipeline {
   /**
    * The tracking instance
    */
-  public getTracking(): ClickTracking | PosNegTracking | NoTracking {
+  public getTracking(): Tracking {
     return this.tracking;
   }
 }

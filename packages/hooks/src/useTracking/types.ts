@@ -1,4 +1,4 @@
-import { PosNegLocalStorageManager } from '@sajari/sdk-js';
+import { PosNegLocalStorageManager, SearchIOAnalytics } from '@sajari/sdk-js';
 
 import { ResultClickedFn } from '../ContextProvider/types';
 
@@ -13,4 +13,5 @@ export interface UseTrackingResult {
     data?: Record<string, string>,
   ) => Promise<void>;
   posNegLocalStorageManager: PosNegLocalStorageManager;
+  searchIOAnalytics: SearchIOAnalytics;
 }

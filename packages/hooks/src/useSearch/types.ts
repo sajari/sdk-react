@@ -29,4 +29,5 @@ export interface UseSearchResult {
   error: Error | null;
   featureScoreWeight: number;
   banners: Banner[];
+  queryId?: string;
 }

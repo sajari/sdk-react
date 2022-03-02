@@ -1,10 +1,10 @@
 import { Box } from '@sajari/react-components';
-import { ClickTracking, useTracking } from '@sajari/react-hooks';
+import { ClickTracking, EventTracking, useTracking } from '@sajari/react-hooks';
 import { mergeRefs } from '@sajari/react-sdk-utils';
 import React from 'react';
 
 import { useSearchUIContext } from '../../../ContextProvider';
-import { applyClickTracking, applyPosNegTracking } from '../../../utils';
+import { applyClickTracking, applyEventTracking, applyPosNegTracking } from '../../../utils';
 import { useHoverImage } from '../../useHoverImage';
 import { useProductImages } from '../../useProductImages';
 import { useProductStatus } from '../../useProductStatus';
@@ -12,7 +12,7 @@ import { useRenderPrice } from '../../useRenderPrice';
 import { TemplateResultProps } from './types';
 
 const TemplateResult = (props: TemplateResultProps) => {
-  const { handleResultClicked: onClickProp, posNegLocalStorageManager } = useTracking();
+  const { handleResultClicked: onClickProp, posNegLocalStorageManager, searchIOAnalytics } = useTracking();
   const { customClassNames, currency, language, viewType, tracking } = useSearchUIContext();
   const {
     render,
@@ -28,7 +28,18 @@ const TemplateResult = (props: TemplateResultProps) => {
     onClick: onClickProp,
     posNegLocalStorageManager,
   });
-  const onClick = tracking instanceof ClickTracking ? clickTrackingOnClick : posNegOnClick;
+  const { onClick: eventTrackingOnClick } = applyEventTracking({
+    tracking,
+    values,
+    onClick: onClickProp,
+    searchIOAnalytics,
+  });
+  let onClick = posNegOnClick;
+  if (tracking instanceof EventTracking) {
+    onClick = eventTrackingOnClick;
+  } else if (tracking instanceof ClickTracking) {
+    onClick = clickTrackingOnClick;
+  }
   const mouseDownHandler = (e: React.MouseEvent<HTMLElement>) => {
     if (e.button === 1) {
       onClick();
