@@ -1,5 +1,4 @@
 import { css, Global } from '@emotion/core';
-import { Banner } from '@sajari/sdk-js';
 import React, { useMemo } from 'react';
 import { compile } from 'tempura';
 
@@ -44,17 +43,14 @@ const TemplateResults = (props: TemplateResultsProps) => {
         />
       ) : null}
       {list.map((item, i) => {
-        const banner = item as Banner;
-        const result = item as Result;
-
-        if (isBanner(banner)) {
-          return <BannerItem key={`banner-${banner.id}`} templateMode banner={banner} />;
+        if (isBanner(item)) {
+          return <BannerItem key={`banner-${item.id}`} templateMode banner={item} />;
         }
 
         return (
           <TemplateResult // eslint-disable-next-line no-underscore-dangle
-            key={result.values._id ?? i}
-            result={result as Result}
+            key={item.values._id ?? i}
+            result={item as Result}
             render={render}
             as={resultContainerTemplateElement}
             {...rest}
