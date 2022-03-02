@@ -4,7 +4,7 @@ import isPropValid from '@emotion/is-prop-valid';
 import { TwStyle } from 'twin.macro';
 
 import { isNullOrUndefined } from '../assertion';
-import { default as tailwindConfig } from './tailwind.config';
+import * as tailwindConfig from './tailwind.config';
 import { replaceTailwindUnit, toEM } from './tailwind-unit-replace';
 
 export function mapStyles<T = Record<string, (TwStyle | string | SerializedStyles)[]>>(
@@ -47,7 +47,7 @@ export function filterProps(props?: Record<string, any>): Record<string, any> {
 const tailwindConfigEM = replaceTailwindUnit({
   exclude: ['fontFamily'],
   replacer: toEM,
-})(tailwindConfig);
+})(tailwindConfig.default);
 
 export { tailwindConfigEM as tailwindConfig };
 export { default as styled } from './styled';
