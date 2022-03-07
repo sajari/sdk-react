@@ -8,11 +8,11 @@ interface Props {
 
 export const useBannerStyle = ({ banner }: Props) => {
   const { textPosition, height = 1 } = banner;
-
   const styles = {
     container: [tw`relative flex justify-center overflow-hidden rounded-lg`],
     textContainer: [tw`absolute top-0 left-0 flex flex-col w-full h-full p-6`],
-    imageContainer: [tw`w-full`],
+    link: [tw`w-full`],
+    imageContainer: [tw`absolute w-full h-full`],
     image: [tw`flex w-full h-full object-cover rounded-lg`],
     heading: [tw`max-w-md text-2xl`],
     description: [tw`max-w-md text-sm`],
@@ -20,10 +20,10 @@ export const useBannerStyle = ({ banner }: Props) => {
 
   if (height > 1) {
     styles.container.push(tw`items-center`);
-    styles.imageContainer.push(tw`h-full`);
+    styles.link.push(tw`h-full`);
   } else {
     styles.container.push(tw`items-start`);
-    styles.imageContainer.push(tw`max-h-0`);
+    styles.link.push(tw`max-h-0`);
   }
 
   switch (textPosition) {
