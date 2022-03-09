@@ -75,10 +75,6 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
   const searchAutocomplete = useCallback(
     (value: string) => {
       if (value.length >= minimumCharacters) {
-        if (!retainFilters) {
-          resetFilters();
-        }
-
         searchAutocompleteFunc(value);
       }
     },
