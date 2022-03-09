@@ -1,5 +1,13 @@
 # Change Log
 
+## 4.12.4
+
+### Patch Changes
+
+- [`3fed0bd9`](https://github.com/sajari/sdk-react/commit/3fed0bd98250aeff49b52b276188d1c3ab463239) [#756](https://github.com/sajari/sdk-react/pull/756) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Remove `resetFilters` when calling autocomplete search. This trigger of the method is not only unnecessary, but it also introduces a mess in SearchContext to override the input value.
+
+* [`fd9c9583`](https://github.com/sajari/sdk-react/commit/fd9c95834a65d66f1a4b865089a329fb210cb13c) [#754](https://github.com/sajari/sdk-react/pull/754) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Remove type casting in `TemplateResults`
+
 ## 4.12.3
 
 ### Patch Changes
