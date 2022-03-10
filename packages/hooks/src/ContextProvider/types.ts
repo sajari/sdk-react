@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ActivePromotion, Redirects } from '@sajari/sdk-js';
+import { Redirects } from '@sajari/sdk-js';
 
 import { Config } from './Config';
 import { FilterBuilder, Pipeline, RangeFilterBuilder, Response, Variables } from './controllers';

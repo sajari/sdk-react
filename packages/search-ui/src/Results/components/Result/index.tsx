@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-no-target-blank */
 import { Box, Heading, Image, ImageProps, Link, Rating, Text } from '@sajari/react-components';
-import { ClickTracking, EventTracking, useTracking } from '@sajari/react-hooks';
 import {
   __DEV__,
   decodeHTML,
@@ -17,7 +16,6 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../../../ContextProvider';
-import { applyClickTracking, applyEventTracking, applyPosNegTracking } from '../../../utils';
 import { useProductStatus } from '../../useProductStatus';
 import { useRenderPrice } from '../../useRenderPrice';
 import useResultStyles from './styles';
@@ -52,33 +50,9 @@ const Result = React.memo(
       ...rest
     } = props;
     const { t } = useTranslation('result');
-    const { posNegLocalStorageManager, handleResultClicked: onClickProp, searchIOAnalytics } = useTracking();
     const { currency, language, ratingMax, tracking } = useSearchUIContext();
-    const { href, onClick: clickTrackingOnClick } = applyClickTracking({
-      token,
-      tracking,
-      values,
-      onClick: onClickProp,
-    });
-    const { onClick: posNegOnClick } = applyPosNegTracking({
-      token,
-      tracking,
-      values,
-      onClick: onClickProp,
-      posNegLocalStorageManager,
-    });
-    const { onClick: eventTrackingOnClick } = applyEventTracking({
-      tracking,
-      values,
-      onClick: onClickProp,
-      searchIOAnalytics,
-    });
-    let onClick = posNegOnClick;
-    if (tracking instanceof EventTracking) {
-      onClick = eventTrackingOnClick;
-    } else if (tracking instanceof ClickTracking) {
-      onClick = clickTrackingOnClick;
-    }
+    const href = tracking.getResultHref(values, token);
+    const onClick = () => tracking.onResultClick(values, token);
     const mouseDownHandler = (e: React.MouseEvent<HTMLElement>) => {
       if (e.button === 1) {
         onClick();

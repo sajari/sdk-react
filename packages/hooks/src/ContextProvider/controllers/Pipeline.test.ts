@@ -57,23 +57,24 @@ describe('Pipeline', () => {
     expect(pipeline.getClient().config.userAgent).toEqual(userAgent);
   });
 
-  it('should update the analytics query id', async () => {
-    const pipeline = new Pipeline(pipeline1, pipeline1.name, new EventTracking());
+  it('should call tracking.bootstrap on constructor', () => {
+    const eventTracking = new EventTracking();
+    const bootstrapSpy = jest.spyOn(eventTracking, 'bootstrap');
+    const pipeline = new Pipeline(pipeline1, pipeline1.name, eventTracking);
+
+    expect(bootstrapSpy).toHaveBeenCalledWith(pipeline.getClient(), pipeline.emitResultClicked);
+  });
+
+  it('should call tracking.onQueryResponse on search response', async () => {
+    const eventTracking = new EventTracking();
+    const onQueryResponseSpy = jest.spyOn(eventTracking, 'onQueryResponse');
+    const pipeline = new Pipeline(pipeline1, pipeline1.name, eventTracking);
     const responseUpdated = jest.fn((response) => response);
-    const searchio = pipeline.getSearchIOAnalytics();
-    const updateQueryIdSpy = jest.spyOn(searchio, 'updateQueryId');
 
     pipeline.listen(EVENT_RESPONSE_UPDATED, responseUpdated);
     pipeline.search({ q: 'some search string' });
     await waitFor(() => expect(responseUpdated).toHaveBeenCalled());
 
-    expect(updateQueryIdSpy).toHaveBeenCalled();
-  });
-
-  it('should set a custom analytics url', () => {
-    const searchIOAnalyticsEndpoint = 'https://example.com';
-    const pipeline = new Pipeline({ ...pipeline1, searchIOAnalyticsEndpoint }, pipeline1.name, new EventTracking());
-
-    expect(pipeline.getSearchIOAnalytics().endpoint).toEqual(searchIOAnalyticsEndpoint);
+    expect(onQueryResponseSpy).toHaveBeenCalled();
   });
 });

@@ -253,7 +253,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
     if (!autocomplete.current) {
       const { account, collection, endpoint } = search.pipeline.config;
       autocomplete.current = {
-        pipeline: new Pipeline({ account, collection, endpoint }, 'autocomplete'),
+        pipeline: new Pipeline({ account, collection, endpoint }, 'autocomplete', search.pipeline.getTracking()),
         variables: autocompleteVariables.current,
       };
     }
@@ -318,11 +318,6 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
     [search.pipeline, search.variables, searchState.config],
   );
 
-  const handleResultClicked = useCallback(
-    (args: { token: string; values: ResultValues }) => search.pipeline.emitResultClicked(args),
-    [],
-  );
-
   const resetFilters = (emitEvent = true) => {
     search.filters?.forEach((f) => f?.reset(emitEvent));
   };
@@ -352,7 +347,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
         fields: autocomplete.current?.fields,
         searching: autocompleteSearching,
       },
-      resultClicked: handleResultClicked,
+      resultClicked: search.pipeline.emitResultClicked,
       paginate: handlePaginate,
     } as Context);
 

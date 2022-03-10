@@ -1,13 +1,13 @@
 /* eslint-disable no-underscore-dangle */
 import { isNullOrUndefined, isSSR, isString } from '@sajari/react-sdk-utils';
-import { Client, SearchIOAnalytics } from '@sajari/sdk-js';
+import { Client } from '@sajari/sdk-js';
 
 import { EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED, EVENT_SEARCH_SENT } from '../events';
-import type { ResultValues } from '../types';
+import type { ResultClickedFn } from '../types';
 import { Analytics, GoogleAnalytics } from './analytics';
 import { CallbackFn, Listener, ListenerMap, UnlistenFn } from './Listener';
 import { Response } from './Response';
-import { EventTracking, NoTracking, Tracking } from './tracking';
+import { NoTracking, Tracking } from './tracking';
 
 const events = [EVENT_SEARCH_SENT, EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED];
 
@@ -17,7 +17,6 @@ type PipelineConfig = {
   account: string;
   collection: string;
   endpoint?: string;
-  searchIOAnalyticsEndpoint?: string;
   key?: string;
   secret?: string;
   userAgent?: string;
@@ -41,8 +40,6 @@ export class Pipeline {
 
   private analytics: Analytics;
 
-  private searchIOAnalytics: SearchIOAnalytics;
-
   /**
    * Constructs a Pipeline object.
    * @param config Account, Collection config
@@ -56,7 +53,7 @@ export class Pipeline {
     tracking: Tracking = new NoTracking(),
     analyticsAdapters = [GoogleAnalytics],
   ) {
-    const { account, collection, endpoint, key, secret, searchIOAnalyticsEndpoint } = config;
+    const { account, collection, endpoint, key, secret } = config;
     this.config = config;
 
     const p: { name?: string; version?: string } = {
@@ -100,7 +97,7 @@ export class Pipeline {
       // eslint-disable-next-line no-new
       new Adapter(this.analytics);
     });
-    this.searchIOAnalytics = new SearchIOAnalytics(account, collection, searchIOAnalyticsEndpoint);
+    this.tracking.bootstrap(this.client, this.emitResultClicked);
   }
 
   /**
@@ -140,11 +137,11 @@ export class Pipeline {
    * Emits a result clicked event to the results clicked event listeners.
    * @param args Values to send to the listeners.
    */
-  public emitResultClicked(args: { token: string; values: ResultValues }): void {
+  public emitResultClicked: ResultClickedFn = (args) => {
     (this.listeners.get(EVENT_RESULT_CLICKED) as Listener).notify((listener) => {
       listener(args);
     });
-  }
+  };
 
   /**
    * Perform a search.
@@ -161,15 +158,13 @@ export class Pipeline {
           return;
         }
 
-        if (this.tracking instanceof EventTracking && response.queryId) {
-          this.searchIOAnalytics.updateQueryId(response.queryId);
-        }
         this.response = new Response(
           null,
           new Map(Object.entries(variables)),
           new Map(Object.entries(response)),
           new Map(Object.entries(responseValues)),
         );
+        this.tracking.onQueryResponse(this.response);
       })
       .catch((error) => {
         // TODO: Should we have a debug option to enable console logging?
@@ -211,13 +206,6 @@ export class Pipeline {
    */
   public getAnalytics(): Analytics {
     return this.analytics;
-  }
-
-  /**
-   * The SearchIOAnalytics instance
-   */
-  public getSearchIOAnalytics(): SearchIOAnalytics {
-    return this.searchIOAnalytics;
   }
 
   /**
