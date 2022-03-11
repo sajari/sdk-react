@@ -1,5 +1,18 @@
 # Change Log
 
+## 4.13.0
+
+### Minor Changes
+
+- [`a4816979`](https://github.com/sajari/sdk-react/commit/a481697922c18cec57317dd7323349ec94d788d6) [#753](https://github.com/sajari/sdk-react/pull/753) Thanks [@JasonBerry](https://github.com/JasonBerry)! - Add EventTracking for simplified event tracking
+
+### Patch Changes
+
+- [`e4ce322d`](https://github.com/sajari/sdk-react/commit/e4ce322d721a3841a0980b87a56d52cf9957524f) [#752](https://github.com/sajari/sdk-react/pull/752) Thanks [@tuanddd](https://github.com/tuanddd)! - Banner should not increase the row height
+
+- Updated dependencies [[`a4816979`](https://github.com/sajari/sdk-react/commit/a481697922c18cec57317dd7323349ec94d788d6)]:
+  - @sajari/react-hooks@3.10.0
+
 ## 4.12.4
 
 ### Patch Changes
