@@ -18,7 +18,7 @@ export class Tracking {
 
   private listeners: ListenerMap;
 
-  protected client: Client;
+  public client: Client;
 
   public handleResultClicked: ResultClickedFn;
 

@@ -57,15 +57,19 @@ describe('Pipeline', () => {
     expect(pipeline.getClient().config.userAgent).toEqual(userAgent);
   });
 
-  it('should call tracking.bootstrap on constructor', () => {
+  it('should set up tracking object on construction', () => {
     const eventTracking = new EventTracking();
-    const bootstrapSpy = jest.spyOn(eventTracking, 'bootstrap');
+
+    expect(eventTracking.client).toBeUndefined();
+    expect(eventTracking.handleResultClicked).toBeUndefined();
+
     const pipeline = new Pipeline(pipeline1, pipeline1.name, eventTracking);
 
-    expect(bootstrapSpy).toHaveBeenCalledWith(pipeline.getClient(), pipeline.emitResultClicked);
+    expect(eventTracking.client).toBe(pipeline.getClient());
+    expect(eventTracking.handleResultClicked).toBe(pipeline.emitResultClicked);
   });
 
-  it('should call tracking.onQueryResponse on search response', async () => {
+  it('should call onQueryResponse on search response', async () => {
     const eventTracking = new EventTracking();
     const onQueryResponseSpy = jest.spyOn(eventTracking, 'onQueryResponse');
     const pipeline = new Pipeline(pipeline1, pipeline1.name, eventTracking);
