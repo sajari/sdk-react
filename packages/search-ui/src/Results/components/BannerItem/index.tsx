@@ -6,9 +6,10 @@ import { useBannerStyle } from './styles';
 import { BannerItemProps } from './types';
 
 const BannerItem = ({ banner, templateMode = false, numberOfCols = 1 }: BannerItemProps) => {
-  const { disableDefaultStyles = false, customClassNames } = useSearchUIContext();
+  const { disableDefaultStyles = false, customClassNames, tracking } = useSearchUIContext();
   const { title, description, targetUrl, imageUrl, width, height, textColor } = banner;
   const styles = getStylesObject(useBannerStyle({ banner }), disableDefaultStyles);
+  const onClick = () => tracking.onPromotionClick(banner);
 
   return (
     <Box
@@ -23,7 +24,7 @@ const BannerItem = ({ banner, templateMode = false, numberOfCols = 1 }: BannerIt
       ]}
     >
       <Box css={styles.imageContainer}>
-        <Link href={targetUrl} css={styles.link}>
+        <Link href={targetUrl} css={styles.link} onClick={onClick}>
           <img src={imageUrl} css={styles.image} alt="" loading="lazy" />
         </Link>
       </Box>

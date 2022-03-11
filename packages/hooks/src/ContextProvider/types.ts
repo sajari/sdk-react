@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ActivePromotion, Redirects } from '@sajari/sdk-js';
+import { Redirects } from '@sajari/sdk-js';
 
 import { Config } from './Config';
 import { FilterBuilder, Pipeline, RangeFilterBuilder, Response, Variables } from './controllers';
@@ -7,7 +7,7 @@ import { FilterBuilder, Pipeline, RangeFilterBuilder, Response, Variables } from
 export type SearchFn = (query?: string, override?: boolean) => void;
 export type ClearFn = (variables?: { [k: string]: string | undefined }) => void;
 export type ResetFiltersFn = (emitEvent?: boolean) => void;
-export type ResultClickedFn = (args: { token: string; values: ResultValues }) => void;
+export type ResultClickedFn = (args: { token?: string; values: ResultValues }) => void;
 export type PaginateFn = (page: number) => void;
 
 export interface PipelineContextState {

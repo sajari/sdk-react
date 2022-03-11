@@ -1,9 +1,9 @@
 import { waitFor } from '@testing-library/react';
 
 import { EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED } from '../events';
-import { customConfigPipeline, pipeline1 } from './fixtures/Pipeline';
+import { pipeline1 } from './fixtures/Pipeline';
 import { Pipeline } from './Pipeline';
-import { ClickTracking } from './tracking';
+import { ClickTracking, EventTracking } from './tracking';
 
 describe('Pipeline', () => {
   it('should work normally', () => {
@@ -55,5 +55,30 @@ describe('Pipeline', () => {
     const pipeline = new Pipeline({ ...pipeline1, userAgent }, pipeline1.name, new ClickTracking());
 
     expect(pipeline.getClient().config.userAgent).toEqual(userAgent);
+  });
+
+  it('should set up tracking object on construction', () => {
+    const eventTracking = new EventTracking();
+
+    expect(eventTracking.client).toBeUndefined();
+    expect(eventTracking.handleResultClicked).toBeUndefined();
+
+    const pipeline = new Pipeline(pipeline1, pipeline1.name, eventTracking);
+
+    expect(eventTracking.client).toBe(pipeline.getClient());
+    expect(eventTracking.handleResultClicked).toBe(pipeline.emitResultClicked);
+  });
+
+  it('should call onQueryResponse on search response', async () => {
+    const eventTracking = new EventTracking();
+    const onQueryResponseSpy = jest.spyOn(eventTracking, 'onQueryResponse');
+    const pipeline = new Pipeline(pipeline1, pipeline1.name, eventTracking);
+    const responseUpdated = jest.fn((response) => response);
+
+    pipeline.listen(EVENT_RESPONSE_UPDATED, responseUpdated);
+    pipeline.search({ q: 'some search string' });
+    await waitFor(() => expect(responseUpdated).toHaveBeenCalled());
+
+    expect(onQueryResponseSpy).toHaveBeenCalled();
   });
 });

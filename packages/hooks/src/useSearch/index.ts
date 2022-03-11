@@ -50,6 +50,7 @@ function useCustomSearch({ pipeline, variables }: UseSearchCustomConfig): UseSea
         activePromotions: response.getActivePromotions() ?? [],
         featureScoreWeight: response.getFeatureScoreWeight() ?? 0,
         banners: response.getBanners() ?? [],
+        queryId: response.getQueryId(),
       }));
     });
   }, []);
@@ -115,6 +116,7 @@ function useNormalSearch({ queryOverride, allowEmptySearch = true }: UseSearchCo
     searching,
     error,
     banners: response?.getBanners() ?? [],
+    queryId: response?.getQueryId(),
   };
 }
 

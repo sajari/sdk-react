@@ -8,9 +8,8 @@ export class NoTracking extends Tracking {
    * Construct a NoTracking instance.
    */
   constructor() {
-    super();
+    super('_id');
 
-    this.field = '_id';
     this.clientTracking = new DefaultSession(TrackingType.None, this.field, getTrackingData());
   }
 }

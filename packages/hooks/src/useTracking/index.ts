@@ -1,5 +1,3 @@
-import { PosNegLocalStorageManager } from '@sajari/sdk-js';
-
 import { useContext } from '../ContextProvider';
 import { UseTrackingResult } from './types';
 
@@ -8,11 +6,11 @@ function useTracking(): UseTrackingResult {
     resultClicked,
     search: { pipeline },
   } = useContext();
-  const client = pipeline.getClient();
   return {
-    consumeInteractionToken: client.interactionConsume,
+    consumeInteractionToken: pipeline.getClient().interactionConsume,
     handleResultClicked: resultClicked,
-    posNegLocalStorageManager: new PosNegLocalStorageManager(client),
+    // TODO: Remove in next major version bump
+    posNegLocalStorageManager: pipeline.getTracking().posNegLocalStorageManager,
   };
 }
 

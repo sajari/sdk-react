@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-underscore-dangle */
-import { Session } from '@sajari/sdk-js';
+import { isEmptyObject } from '@sajari/react-sdk-utils';
+import { Banner, Client, PosNegLocalStorageManager, RedirectTarget, Session, Token } from '@sajari/sdk-js';
 
 import { EVENT_TRACKING_RESET } from '../../events';
+import { ResultClickedFn, ResultValues } from '../../types';
 import { CallbackFn, Listener, ListenerMap, UnlistenFn } from '../Listener';
+import { Response } from '../Response';
 
 const events = [EVENT_TRACKING_RESET];
 
@@ -13,16 +16,27 @@ export type TrackingValues = Record<string, string>;
 export class Tracking {
   public clientTracking: Session | null = null;
 
+  public posNegLocalStorageManager: PosNegLocalStorageManager;
+
   private listeners: ListenerMap;
 
-  public field: string;
+  public client: Client;
 
-  constructor() {
+  public handleResultClicked: ResultClickedFn;
+
+  constructor(protected readonly field: string) {
     this.listeners = new Map(
       Object.entries({
         [EVENT_TRACKING_RESET]: new Listener(),
       }),
     );
+  }
+
+  public bootstrap(client: Client, handleResultClicked: ResultClickedFn) {
+    this.client = this.client ?? client;
+    this.handleResultClicked = handleResultClicked;
+    // TODO: Move to PosNegTracking in next major version bump
+    this.posNegLocalStorageManager = this.posNegLocalStorageManager ?? new PosNegLocalStorageManager(this.client);
   }
 
   /**
@@ -70,5 +84,22 @@ export class Tracking {
     }
 
     return this.clientTracking.next(variables);
+  }
+
+  protected getMetadata(): Record<string, string> | undefined {
+    const metadata = this.next({}).data;
+    return !isEmptyObject(metadata) ? metadata : undefined;
+  }
+
+  public onQueryResponse(response: Response) {}
+
+  public onResultClick(values: ResultValues, token?: Token) {}
+
+  public onPromotionClick(banner: Banner) {}
+
+  public onRedirect(redirect: RedirectTarget) {}
+
+  public getResultHref({ url }: ResultValues, token?: Token): string {
+    return url;
   }
 }

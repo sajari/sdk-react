@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 
 import { useSearchUIContext } from '../ContextProvider';
 import { ResultValues } from '../Results/types';
-import { applyClickTracking } from '../utils';
 import mapResultFields from '../utils/mapResultFields';
 import { InputProps } from './types';
 
@@ -89,11 +88,12 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
         results.splice(0, maxSuggestions).map((result) => {
           const { values, token } = result;
           const { description, image, title } = values;
-          const { href, onClick } = applyClickTracking({ tracking, values, token });
+          const url = tracking.getResultHref(values, token);
+          const onClick = () => tracking.onResultClick(values, token);
 
           return {
             title,
-            url: href,
+            url,
             onClick,
             description,
             image: isArray(image) ? image[0] : image,
@@ -101,7 +101,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
         }),
       );
     }
-  }, [mode, suggestions, maxSuggestions, results, applyClickTracking, tracking]);
+  }, [mode, suggestions, maxSuggestions, results, tracking]);
 
   useEffect(() => {
     if (!arraysEqual(lastItems.current, internalSuggestions)) {
@@ -175,6 +175,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
           }
           const redirectValue = redirectsRef.current[value];
           if (!disableRedirects && redirectValue) {
+            tracking.onRedirect(redirectValue);
             window.location.assign(redirectValue.token || redirectValue.target);
             e.preventDefault();
           } else if (!disableRedirects && autocompleteSearching) {
@@ -183,6 +184,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
             setTimeout(() => {
               const redirectTarget = redirectsRef.current[value];
               if (redirectTarget) {
+                tracking.onRedirect(redirectTarget);
                 window.location.assign(redirectTarget.token || redirectTarget.target);
               } else if (onKeyDown) {
                 onKeyDown(e);
@@ -199,13 +201,14 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
         }
       }
     },
-    [mode, searchValue, onKeyDown, autocompleteSearching, disableRedirects],
+    [mode, searchValue, onKeyDown, autocompleteSearching, disableRedirects, tracking],
   );
 
   const onSelectMemoized = useCallback(
     (item) => {
       const redirectValue = redirectsRef.current[item];
       if (!disableRedirects && redirectValue) {
+        tracking.onRedirect(redirectValue);
         window.location.assign(redirectValue.token || redirectValue.target);
         return;
       }
@@ -216,7 +219,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
         searchValue(item as string);
       }
     },
-    [mode, searchValue],
+    [mode, searchValue, tracking],
   );
 
   useEffect(() => {
