@@ -2,7 +2,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-underscore-dangle */
 import { isEmptyObject } from '@sajari/react-sdk-utils';
-import { Banner, Client, RedirectTarget, Session, Token } from '@sajari/sdk-js';
+import { Banner, Client, PosNegLocalStorageManager, RedirectTarget, Session, Token } from '@sajari/sdk-js';
 
 import { EVENT_TRACKING_RESET } from '../../events';
 import { ResultClickedFn, ResultValues } from '../../types';
@@ -15,6 +15,8 @@ export type TrackingValues = Record<string, string>;
 
 export class Tracking {
   public clientTracking: Session | null = null;
+
+  public posNegLocalStorageManager: PosNegLocalStorageManager;
 
   private listeners: ListenerMap;
 
@@ -33,6 +35,8 @@ export class Tracking {
   public bootstrap(client: Client, handleResultClicked: ResultClickedFn) {
     this.client = this.client ?? client;
     this.handleResultClicked = handleResultClicked;
+    // TODO: Move to PosNegTracking in next major version bump
+    this.posNegLocalStorageManager = this.posNegLocalStorageManager ?? new PosNegLocalStorageManager(this.client);
   }
 
   /**

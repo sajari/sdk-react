@@ -1,12 +1,10 @@
-import { Client, DefaultSession, PosNegLocalStorageManager, Token, TrackingType } from '@sajari/sdk-js';
+import { Client, DefaultSession, Token, TrackingType } from '@sajari/sdk-js';
 
 import { ResultClickedFn, ResultValues } from '../../types';
 import { Tracking } from './Tracking';
 import { getTrackingData } from './utils';
 
 export class PosNegTracking extends Tracking {
-  public posNegLocalStorageManager: PosNegLocalStorageManager;
-
   /**
    * Construct a PosNegTracking instance.
    * @param field Field to use for click token generation.
@@ -20,7 +18,6 @@ export class PosNegTracking extends Tracking {
 
   public bootstrap(client: Client, handleResultClicked: ResultClickedFn) {
     super.bootstrap(client, handleResultClicked);
-    this.posNegLocalStorageManager = this.posNegLocalStorageManager ?? new PosNegLocalStorageManager(client);
   }
 
   public onResultClick(values: ResultValues, token?: Token) {
