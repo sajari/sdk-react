@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.10.0
+
+### Minor Changes
+
+- [`a4816979`](https://github.com/sajari/sdk-react/commit/a481697922c18cec57317dd7323349ec94d788d6) [#753](https://github.com/sajari/sdk-react/pull/753) Thanks [@JasonBerry](https://github.com/JasonBerry)! - Add EventTracking for simplified event tracking
+
 ## 3.9.0
 
 ### Minor Changes
