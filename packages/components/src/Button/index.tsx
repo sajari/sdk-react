@@ -57,7 +57,10 @@ const Button = React.forwardRef((props: ButtonProps, ref?: React.Ref<HTMLElement
     hovered,
   });
 
-  const customProps = mergeProps(buttonProps, focusProps, hoverProps, focusRingProps);
+  const customProps = mergeProps(buttonProps, focusProps, hoverProps, focusRingProps, {
+    role: rest.role,
+    'aria-checked': rest['aria-checked'],
+  });
   const styles = getStylesObject({ container: containerStyles }, disableDefaultStyles);
 
   return (

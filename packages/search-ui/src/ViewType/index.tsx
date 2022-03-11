@@ -29,12 +29,15 @@ const ViewType = (props: ViewTypeProps) => {
         attached
         disableDefaultStyles={disableDefaultStyles}
         className={customClassNames.viewType?.buttonGroup}
+        role="radiogroup"
       >
         <Button
           onClick={() => setViewType('grid')}
           size={size}
           appearance={viewType === 'grid' ? 'primary' : undefined}
           aria-label={t('grid')}
+          aria-checked={viewType === 'grid'}
+          role="radio"
           css={tw`m-0`}
         >
           &#8203;
@@ -45,6 +48,8 @@ const ViewType = (props: ViewTypeProps) => {
           size={size}
           appearance={viewType === 'list' ? 'primary' : undefined}
           aria-label={t('list')}
+          aria-checked={viewType === 'list'}
+          role="radio"
           css={tw`m-0`}
         >
           &#8203;
