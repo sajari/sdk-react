@@ -1,7 +1,7 @@
 import { __DEV__ } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 
-import { LogoSajariColor, LogoSajariMono } from '../assets/logos';
+import { LogoSearchioColor, LogoSearchioMono } from '../assets/logos';
 import Box from '../Box';
 import Link from '../Link';
 import usePoweredByStyles from './styles';
@@ -22,7 +22,7 @@ const PoweredBy = React.forwardRef((props: PoweredByProps, ref?: React.Ref<HTMLA
       <Box as="span" css={styles.label}>
         Powered by
       </Box>
-      {appearance === 'color' ? <LogoSajariColor css={styles.logo} /> : <LogoSajariMono css={styles.logo} />}
+      {appearance === 'color' ? <LogoSearchioColor css={styles.logo} /> : <LogoSearchioMono css={styles.logo} />}
     </Link>
   );
 });
