@@ -13,7 +13,7 @@ const PoweredBy = React.forwardRef((props: PoweredByProps, ref?: React.Ref<HTMLA
 
   return (
     <Link
-      href="https://www.sajari.com/?utm_source=react&amp;utm_medium=referral&amp;utm_campaign=poweredby"
+      href="https://www.search.io/?utm_source=react&amp;utm_medium=referral&amp;utm_campaign=poweredby"
       target="_blank"
       ref={ref}
       css={[styles.container]}
