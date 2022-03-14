@@ -17,13 +17,13 @@ const fr: Locale = {
       body:
         'On dirait que nous avons du mal à analyser le modèle.<br/>Essayez de défaire vos modifications ou de passer la réinitialisation ci-dessous pour commencer à partir de zéro.',
     },
-    generic: "Quelque chose s'est mal passé. S'il vous plaît vérifier à nouveau.",
+    generic: 'Une erreur est survenue. Veuillez réessayer ultérieurement. Merci.',
   },
   filter: {
     all: 'Tout',
     rangeOver: 'Plus de {{value}}',
     rangeUnder: 'Sous {{value}}',
-    reset: 'Réinitialiser',
+    reset: 'Réessayer',
     select: 'Sélectionnez un filtre',
     selected: '{{count}} Filtres sélectionnés',
     showLess: 'Montrer moins',
