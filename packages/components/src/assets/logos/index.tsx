@@ -1,4 +1,4 @@
-import LogoSajariColor from './sajari-color.svg';
-import LogoSajariMono from './sajari-mono.svg';
+import LogoSearchioColor from './searchio-color.svg';
+import LogoSearchioMono from './searchio-mono.svg';
 
-export { LogoSajariColor, LogoSajariMono };
+export { LogoSearchioColor, LogoSearchioMono };
