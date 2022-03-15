@@ -2,7 +2,7 @@ export type FunctionArguments<T> = T extends (...args: infer R) => any ? R : nev
 
 export function callAllHandlers<T extends (event: any) => void>(...fns: (T | undefined)[]) {
   return (event: FunctionArguments<T>[0]) => {
-    fns.some(fn => {
+    fns.some((fn) => {
       if (fn) {
         fn(event);
       }

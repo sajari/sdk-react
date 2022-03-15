@@ -6,7 +6,7 @@ export * from './filters/types';
 export { Listener } from './Listener';
 export { Pipeline } from './Pipeline';
 export { Response } from './Response';
-export { ClickTracking, NoTracking, PosNegTracking, Tracking } from './tracking';
+export { ClickTracking, EventTracking, NoTracking, PosNegTracking, Tracking } from './tracking';
 export {
   VariableFieldValue,
   VariableFn,

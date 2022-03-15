@@ -21,6 +21,7 @@ export { SSRProvider, SSRProviderProps } from '@sajari/react-components';
 export {
   ClickTracking,
   Config,
+  EventTracking,
   FieldDictionary,
   FilterBuilder,
   FilterOptions,
@@ -31,6 +32,7 @@ export {
   Range,
   RangeFilterBuilder,
   RangeFilterOptions,
+  SearchIOAnalytics,
   SearchProviderValues,
   Tracking,
   Variables,

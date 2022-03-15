@@ -1,4 +1,4 @@
-import { ClickTracking, PosNegTracking, SearchProviderValues } from '@sajari/react-hooks';
+import { SearchProviderValues, Tracking } from '@sajari/react-hooks';
 import { ThemeProviderProps } from '@sajari/react-sdk-utils';
 import type { Environment } from 'downshift';
 
@@ -6,7 +6,7 @@ export type ResultViewType = 'grid' | 'list';
 
 export interface SearchUIContextProviderValues {
   /** The tracking instance */
-  tracking?: ClickTracking | PosNegTracking;
+  tracking?: Tracking;
   /** Maximum possible rating value */
   ratingMax?: number;
   /** Currency code to use for any price display */

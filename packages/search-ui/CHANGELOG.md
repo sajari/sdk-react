@@ -1,5 +1,32 @@
 # Change Log
 
+## 4.13.1
+
+### Patch Changes
+
+- [`b20d24f5`](https://github.com/sajari/sdk-react/commit/b20d24f521c77a19d956ed4da225e818ae77390a) [#759](https://github.com/sajari/sdk-react/pull/759) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix incorrect French translation for error message
+
+## 4.13.0
+
+### Minor Changes
+
+- [`a4816979`](https://github.com/sajari/sdk-react/commit/a481697922c18cec57317dd7323349ec94d788d6) [#753](https://github.com/sajari/sdk-react/pull/753) Thanks [@JasonBerry](https://github.com/JasonBerry)! - Add EventTracking for simplified event tracking
+
+### Patch Changes
+
+- [`e4ce322d`](https://github.com/sajari/sdk-react/commit/e4ce322d721a3841a0980b87a56d52cf9957524f) [#752](https://github.com/sajari/sdk-react/pull/752) Thanks [@tuanddd](https://github.com/tuanddd)! - Banner should not increase the row height
+
+- Updated dependencies [[`a4816979`](https://github.com/sajari/sdk-react/commit/a481697922c18cec57317dd7323349ec94d788d6)]:
+  - @sajari/react-hooks@3.10.0
+
+## 4.12.4
+
+### Patch Changes
+
+- [`3fed0bd9`](https://github.com/sajari/sdk-react/commit/3fed0bd98250aeff49b52b276188d1c3ab463239) [#756](https://github.com/sajari/sdk-react/pull/756) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Remove `resetFilters` when calling autocomplete search. This trigger of the method is not only unnecessary, but it also introduces a mess in SearchContext to override the input value.
+
+* [`fd9c9583`](https://github.com/sajari/sdk-react/commit/fd9c95834a65d66f1a4b865089a329fb210cb13c) [#754](https://github.com/sajari/sdk-react/pull/754) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Remove type casting in `TemplateResults`
+
 ## 4.12.3
 
 ### Patch Changes

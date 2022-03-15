@@ -3,11 +3,11 @@ import { isNullOrUndefined, isSSR, isString } from '@sajari/react-sdk-utils';
 import { Client } from '@sajari/sdk-js';
 
 import { EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED, EVENT_SEARCH_SENT } from '../events';
-import type { ResultValues } from '../types';
+import type { ResultClickedFn } from '../types';
 import { Analytics, GoogleAnalytics } from './analytics';
 import { CallbackFn, Listener, ListenerMap, UnlistenFn } from './Listener';
 import { Response } from './Response';
-import { ClickTracking, NoTracking, PosNegTracking } from './tracking';
+import { NoTracking, Tracking } from './tracking';
 
 const events = [EVENT_SEARCH_SENT, EVENT_RESPONSE_UPDATED, EVENT_RESULT_CLICKED];
 
@@ -30,7 +30,7 @@ export class Pipeline {
 
   private client: Client;
 
-  private tracking: ClickTracking | PosNegTracking | NoTracking;
+  private tracking: Tracking;
 
   private listeners: ListenerMap;
 
@@ -50,7 +50,7 @@ export class Pipeline {
   constructor(
     config: PipelineConfig,
     name: string | { name: string; version?: string },
-    tracking: ClickTracking | PosNegTracking | NoTracking = new NoTracking(),
+    tracking: Tracking = new NoTracking(),
     analyticsAdapters = [GoogleAnalytics],
   ) {
     const { account, collection, endpoint, key, secret } = config;
@@ -97,6 +97,7 @@ export class Pipeline {
       // eslint-disable-next-line no-new
       new Adapter(this.analytics);
     });
+    this.tracking.bootstrap(this.client, this.emitResultClicked);
   }
 
   /**
@@ -136,11 +137,11 @@ export class Pipeline {
    * Emits a result clicked event to the results clicked event listeners.
    * @param args Values to send to the listeners.
    */
-  public emitResultClicked(args: { token: string; values: ResultValues }): void {
+  public emitResultClicked: ResultClickedFn = (args) => {
     (this.listeners.get(EVENT_RESULT_CLICKED) as Listener).notify((listener) => {
       listener(args);
     });
-  }
+  };
 
   /**
    * Perform a search.
@@ -163,6 +164,7 @@ export class Pipeline {
           new Map(Object.entries(response)),
           new Map(Object.entries(responseValues)),
         );
+        this.tracking.onQueryResponse(this.response);
       })
       .catch((error) => {
         // TODO: Should we have a debug option to enable console logging?
@@ -216,7 +218,7 @@ export class Pipeline {
   /**
    * The tracking instance
    */
-  public getTracking(): ClickTracking | PosNegTracking | NoTracking {
+  public getTracking(): Tracking {
     return this.tracking;
   }
 }

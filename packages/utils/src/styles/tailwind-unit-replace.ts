@@ -1,5 +1,5 @@
-import resolveConfig from 'tailwindcss/lib/util/resolveConfig';
 import getAllConfigs from 'tailwindcss/lib/util/getAllConfigs';
+import resolveConfig from 'tailwindcss/lib/util/resolveConfig';
 import type { TailwindConfig } from 'tailwindcss/tailwind-config';
 
 interface Options {
@@ -10,15 +10,16 @@ interface Options {
 // recursively walks object/array to find a string value,
 // then apply `replacer` to it
 export function processTheme(
+  // eslint-disable-next-line @typescript-eslint/ban-types
   theme: Record<string, {} | string>,
   { exclude, replacer }: Omit<Options, 'exclude'> & { exclude: string[] },
 ) {
-  let replacedTheme = theme; // might need to deep clone this, but seems unecessary
+  const replacedTheme = theme; // might need to deep clone this, but seems unecessary
   // also work for array
-  for (const [key, value] of Object.entries(replacedTheme)) {
-    if ((exclude ?? []).includes(key)) continue;
+  Object.entries(replacedTheme).forEach(([key, value]) => {
+    if ((exclude ?? []).includes(key)) return;
 
-    let val = value;
+    let val;
     switch (typeof value) {
       case 'object':
         val = processTheme(value, { exclude, replacer });
@@ -26,9 +27,11 @@ export function processTheme(
       case 'string':
         val = replacer(value);
         break;
+      default:
+        val = value;
     }
     replacedTheme[key] = val;
-  }
+  });
 
   return replacedTheme;
 }

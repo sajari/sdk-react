@@ -64,7 +64,6 @@ describe('processTheme ', () => {
         },
         spacing: { '(screen-8)': 'calc(100vh - 2em)' },
       },
-      ,
     ];
     const [from, to] = configs;
     expect(processTheme(from, { exclude: ['fontSize'], replacer: toEM })).toEqual(to);
