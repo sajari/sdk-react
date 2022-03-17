@@ -1,7 +1,6 @@
 import { ResizeObserver } from '@sajari/react-components';
 import { usePagination, useQuery, useSearchContext } from '@sajari/react-hooks';
 import { escapeHTML, getStylesObject, isEmpty, isNullOrUndefined } from '@sajari/react-sdk-utils';
-import { Banner } from '@sajari/sdk-js';
 import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useTranslation } from 'react-i18next';
@@ -130,6 +129,7 @@ const Results = (props: ResultsProps) => {
             banners={renderBanners}
             resultTemplate={resultTemplate}
             resultContainerTemplateElement={resultContainerTemplateElement}
+            containerStyle={styles.container}
           />
         </ResizeObserver>
       </ErrorBoundary>

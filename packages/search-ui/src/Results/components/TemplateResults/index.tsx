@@ -11,7 +11,15 @@ import { Result, TemplateResultsProps } from './types';
 
 const TemplateResults = (props: TemplateResultsProps) => {
   const { customClassNames } = useSearchUIContext();
-  const { results, banners, resultTemplate, resultContainerTemplateElement, numberOfCols, ...rest } = props;
+  const {
+    results,
+    banners,
+    resultTemplate,
+    resultContainerTemplateElement,
+    numberOfCols,
+    containerStyle,
+    ...rest
+  } = props;
   // Get the keys of a result, using Set to eliminate dups
   const keys = Array.from(
     results
@@ -33,7 +41,7 @@ const TemplateResults = (props: TemplateResultsProps) => {
   const list = useMemo(() => mergeBannersWithResults<Result>(banners, results || []), [banners, results]);
 
   return (
-    <div className={customClassNames.results?.template?.container}>
+    <div css={containerStyle} className={customClassNames.results?.template?.container}>
       {checkValidResultTemplate(resultTemplate) && resultTemplate.css ? (
         // We inject here (once) instead of mutliple times in each result component
         <Global
