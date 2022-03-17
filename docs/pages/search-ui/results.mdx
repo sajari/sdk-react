@@ -212,17 +212,9 @@ function Example() {
 `,
   };
 
-  const customClassNames = {
-    results: {
-      template: {
-        container: 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6',
-      },
-    },
-  };
-
   return (
     <SearchProvider
-      customClassNames={customClassNames}
+      viewType="grid"
       search={{
         pipeline,
         fields: new FieldDictionary({
@@ -236,7 +228,10 @@ function Example() {
       }}
       searchOnLoad
     >
-      <Results resultTemplate={template} />
+      <div className="flex flex-col items-center space-y-4">
+        <ViewType />
+        <Results resultTemplate={template} />
+      </div>
     </SearchProvider>
   );
 }
