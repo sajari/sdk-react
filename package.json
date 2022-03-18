@@ -95,5 +95,6 @@
     "@types/react-dom": "^17.0.11",
     "postcss": "^8.4.5"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "packageManager": "yarn@1.22.10"
 }
