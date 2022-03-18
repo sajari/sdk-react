@@ -21,7 +21,16 @@ const Results = (props: ResultsProps) => {
   const results = React.useMemo(() => (rawResults ? mapResultFields<ResultValues>(rawResults, fields) : undefined), [
     rawResults,
   ]);
-  const { disableDefaultStyles = false, customClassNames, viewType, setViewType } = useSearchUIContext();
+  const {
+    disableDefaultStyles = false,
+    customClassNames,
+    viewType,
+    setViewType,
+    currency,
+    tracking,
+    ratingMax,
+    language,
+  } = useSearchUIContext();
   const { query } = useQuery();
   const {
     defaultAppearance,
@@ -166,6 +175,10 @@ const Results = (props: ResultsProps) => {
             newArrivalStatusClassName={customClassNames.results?.newArrivalStatus}
             openNewTab={openNewTab}
             isPinned={item.promotionPinned}
+            currency={currency}
+            ratingMax={ratingMax}
+            language={language}
+            tracking={tracking}
             {...rest}
           />
         );
