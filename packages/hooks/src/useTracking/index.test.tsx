@@ -3,6 +3,7 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import React from 'react';
 
 import { SearchProvider } from '..';
+import { EventTracking } from '../ContextProvider';
 import { pipeline1 } from '../ContextProvider/controllers/fixtures/Pipeline';
 import { EVENT_RESULT_CLICKED } from '../ContextProvider/events';
 import useTracking from '.';
@@ -45,5 +46,24 @@ describe('useTracking', () => {
 
     expect(onResultClickHandler).toBeCalled();
     expect(onResultClickHandler.mock.results[0].value).toEqual(data);
+  });
+
+  it('should return the current tracking instance', () => {
+    const eventTracking = new EventTracking();
+    const eventTrackingPipeline = new Pipeline(
+      {
+        account: pipeline1.account,
+        collection: pipeline1.collection,
+      },
+      pipeline1.name,
+      eventTracking,
+    );
+
+    const wrapper = ({ children }) => (
+      <SearchProvider search={{ pipeline: eventTrackingPipeline }}>{children}</SearchProvider>
+    );
+    const { result } = renderHook(() => useTracking(), { wrapper });
+
+    expect(result.current.tracking).toBe(eventTracking);
   });
 });

@@ -1,5 +1,6 @@
 import { PosNegLocalStorageManager } from '@sajari/sdk-js';
 
+import { Tracking } from '../ContextProvider';
 import { ResultClickedFn } from '../ContextProvider/types';
 
 export interface UseTrackingResult {
@@ -12,5 +13,6 @@ export interface UseTrackingResult {
     weight: number,
     data?: Record<string, string>,
   ) => Promise<void>;
+  tracking: Tracking;
   posNegLocalStorageManager: PosNegLocalStorageManager;
 }

@@ -9,6 +9,7 @@ function useTracking(): UseTrackingResult {
   return {
     consumeInteractionToken: pipeline.getClient().interactionConsume,
     handleResultClicked: resultClicked,
+    tracking: pipeline.getTracking(),
     // TODO: Remove in next major version bump
     posNegLocalStorageManager: pipeline.getTracking().posNegLocalStorageManager,
   };
