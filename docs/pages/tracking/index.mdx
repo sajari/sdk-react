@@ -9,23 +9,18 @@ import SEO from '../../components/SEO';
 
 Tracking in Search.io can give you insights into the search behavior of your users and how your content is performing. Tracking data is also fed back into Search.io's AI model to improve search ranking over time.
 
-There are two different kinds of tracking available, "click" and "posneg". ClickTracking is designed to be as simple as possible. Each search result has an associated click tracking link which, when followed, records the click and forwards the user to the result destination. PosNegTracking is designed for more advanced use-cases — an ecommerce purchase funnel for example.
+`EventTracking` records user interactions alongside search results and is designed to be as simple as possible while also being capable of handling complex/flexible use-cases - an ecommerce purchase funnel for example.
 
-Search.io's website search uses ClickTracking by default while our Shopify search solution uses PosNegTracking by default.
+For now, Search.io's website search uses [`ClickTracking`](/tracking/clicktracking) by default while our Shopify search solution uses [`PosNegTracking`](/tracking/posnegtracking) by default. Both will transition to using `EventTracking` in the near future.
 
-## 1. Getting Started
-
-Tracking in Search.io can be one of the following:
-
-- `ClickTracking`: records user click interactions alongside search results
-- `PosNegTracking`: refers to the recording of variably weighted user interactions with search results. This allows to record both positive and negative interactions on each search result and thus is more complex/flexible than `ClickTracking`
+## Usage
 
 The default when you create a new `Pipeline` instance is no tracking.
 
-## 2. Usage
+When using `EventTracking` the `field` value you specify must be the name of a field in [your schema](https://app.search.io/collection/schema) with the _Unique_ constraint.
 
 ```js
-import { ClickTracking, PosNegTracking, Pipeline } from '@sajari/react-hooks';
+import { EventTracking, Pipeline } from '@sajari/react-hooks';
 
 const commonConfig = {
   account: '1594153711901724220',
@@ -33,13 +28,23 @@ const commonConfig = {
 };
 
 const pipelineWithNoTracking = new Pipeline(commonConfig, 'query');
-const pipelineWithClickTracking = new Pipeline(commonConfig, 'query', new ClickTracking());
-const pipelineWithPosNegTracking = new Pipeline(commonConfig, 'query', new PosNegTracking('rating'));
+const field = 'id'; // replace 'id' with the name of a field that uniquely identifies the item in your schema
+const eventTracking = new EventTracking(field);
+const pipelineWithEventTracking = new Pipeline(commonConfig, 'query', eventTracking);
 ```
 
-Later after having received the search result, each entry will include a `token` field of that tracking type, you can then use that token to record the interactions.
+After having received the search result, clicks on an entry will record a `click` event against that query. Subsequent events tracked for the entry that was clicked will continue to be recorded against that query to improve search ranking.
 
-## 3. Example
+Data using `EventTracking` is persisted in localStorage and sent to Search.io automatically.
 
-- [`ClickTracking`](/tracking/clicktracking)
-- [`PosNegTracking`](/tracking/posnegtracking)
+```js
+// In the view item screen
+import { useTracking } from '@sajari/react-hooks';
+
+const { tracking } = useTracking();
+tracking.searchIOAnalytics.track('add_to_cart', item.id, { discount: 0.5 });
+```
+
+## Examples
+
+- [Advanced tracking](/tracking/advanced)
