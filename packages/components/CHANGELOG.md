@@ -1,5 +1,20 @@
 # Change Log
 
+## 1.14.0
+
+### Minor Changes
+
+- [`bde89e77`](https://github.com/sajari/sdk-react/commit/bde89e77ef8d00275aee524e485907a5929c871b) [#761](https://github.com/sajari/sdk-react/pull/761) Thanks [@jkaho](https://github.com/jkaho)! - Update the PoweredBy component to use the new logo
+
+### Patch Changes
+
+- [`ba03931b`](https://github.com/sajari/sdk-react/commit/ba03931bde8149706cb3185239971689c94aa5ca) [#760](https://github.com/sajari/sdk-react/pull/760) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix SEO issue - selected state of ViewType component not announced by screen reader
+
+* [`8e2c6a08`](https://github.com/sajari/sdk-react/commit/8e2c6a081431b697d23cf99ca219da1dee79acc7) [#768](https://github.com/sajari/sdk-react/pull/768) Thanks [@JasonBerry](https://github.com/JasonBerry)! - Correct React peer dependency versioning
+
+* Updated dependencies [[`8e2c6a08`](https://github.com/sajari/sdk-react/commit/8e2c6a081431b697d23cf99ca219da1dee79acc7)]:
+  - @sajari/react-sdk-utils@1.6.4
+
 ## 1.13.2
 
 ### Patch Changes
