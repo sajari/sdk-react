@@ -1,5 +1,20 @@
 # Change Log
 
+## 4.13.2
+
+### Patch Changes
+
+- [`ba03931b`](https://github.com/sajari/sdk-react/commit/ba03931bde8149706cb3185239971689c94aa5ca) [#760](https://github.com/sajari/sdk-react/pull/760) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix SEO issue - selected state of ViewType component not announced by screen reader
+
+* [`a1a4cbe4`](https://github.com/sajari/sdk-react/commit/a1a4cbe415a926b9a53f8d07e6932b90ace9910f) [#750](https://github.com/sajari/sdk-react/pull/750) Thanks [@tuanddd](https://github.com/tuanddd)! - Add ResizeObserver for custom templates
+
+- [`8e2c6a08`](https://github.com/sajari/sdk-react/commit/8e2c6a081431b697d23cf99ca219da1dee79acc7) [#768](https://github.com/sajari/sdk-react/pull/768) Thanks [@JasonBerry](https://github.com/JasonBerry)! - Correct React peer dependency versioning
+
+- Updated dependencies [[`ba03931b`](https://github.com/sajari/sdk-react/commit/ba03931bde8149706cb3185239971689c94aa5ca), [`bde89e77`](https://github.com/sajari/sdk-react/commit/bde89e77ef8d00275aee524e485907a5929c871b), [`8e2c6a08`](https://github.com/sajari/sdk-react/commit/8e2c6a081431b697d23cf99ca219da1dee79acc7)]:
+  - @sajari/react-components@1.14.0
+  - @sajari/react-hooks@3.10.1
+  - @sajari/react-sdk-utils@1.6.4
+
 ## 4.13.1
 
 ### Patch Changes
