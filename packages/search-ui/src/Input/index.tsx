@@ -167,7 +167,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
         const closestForm = (e.target as HTMLInputElement).closest('form');
         // Blur input to avoid Enter spamming, but only if the input is not wrapped by any form, otherwise the submit event won't be triggered
         if (closestForm === null) {
-          (e.target as HTMLInputElement).blur();
+          (e.target as HTMLInputElement).setAttribute('readonly', '');
         }
         if (['typeahead', 'suggestions', 'standard'].includes(mode)) {
           if (!retainFilters) {
@@ -227,6 +227,12 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
       window.clearTimeout(searchDebounceRef.current);
     };
   }, []);
+
+  useEffect(() => {
+    if (!searching && localRef.current) {
+      localRef.current.removeAttribute('readonly');
+    }
+  }, [searching]);
 
   return (
     <Combobox
