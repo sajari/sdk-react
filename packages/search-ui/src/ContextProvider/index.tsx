@@ -5,9 +5,9 @@ import { LiveAnnouncer } from 'react-aria-live';
 import { I18nextProvider } from 'react-i18next';
 
 import i18n from '../i18n';
-import { ContextProviderValues, ResultViewType, SearchUIContextProviderValues } from './types';
+import { ContextProviderValues, Language, ResultViewType, SearchUIContextProviderValues } from './types';
 
-const [Provider, useSearchUIContext] = createContext<Required<SearchUIContextProviderValues> & { language?: string }>({
+const [Provider, useSearchUIContext] = createContext<Required<SearchUIContextProviderValues> & Language>({
   strict: true,
   name: 'PipelineContext',
 });

@@ -131,6 +131,8 @@ export interface SearchUIContextProviderValues {
   };
 }
 
+export type Language = { language?: string };
+
 export interface ContextProviderValues
   extends SearchProviderValues,
     ThemeProviderProps,
