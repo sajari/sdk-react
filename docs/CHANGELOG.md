@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.15.1
+
+### Patch Changes
+
+- [`bde89e77`](https://github.com/sajari/sdk-react/commit/bde89e77ef8d00275aee524e485907a5929c871b) [#761](https://github.com/sajari/sdk-react/pull/761) Thanks [@jkaho](https://github.com/jkaho)! - Update the PoweredBy component to use the new logo
+
 ## 1.15.0
 
 ### Minor Changes

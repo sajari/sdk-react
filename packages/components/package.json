@@ -1,6 +1,6 @@
 {
   "name": "@sajari/react-components",
-  "version": "1.13.2",
+  "version": "1.14.0",
   "description": "Core components that allow you to build a beautiful search interface with any back end.",
   "sideEffects": false,
   "repository": {
@@ -22,8 +22,8 @@
     "dist"
   ],
   "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "dependencies": {
     "@popperjs/core": "^2.9.2",
@@ -35,7 +35,7 @@
     "@react-aria/textfield": "^3.2.2",
     "@react-aria/utils": "^3.5.0",
     "@react-types/button": "^3.3.0",
-    "@sajari/react-sdk-utils": "^1.6.2",
+    "@sajari/react-sdk-utils": "^1.6.4",
     "aria-hidden": "^1.1.2",
     "body-scroll-lock": "^3.1.5",
     "classnames": "^2.2.6",

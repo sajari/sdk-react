@@ -1,6 +1,6 @@
 {
   "name": "@sajari/server",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "SSR helpers",
   "sideEffects": false,
   "repository": {
@@ -22,12 +22,12 @@
     "dist"
   ],
   "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "dependencies": {
-    "@sajari/react-hooks": "^3.7.0",
-    "@sajari/react-sdk-utils": "^1.6.2"
+    "@sajari/react-hooks": "^3.10.1",
+    "@sajari/react-sdk-utils": "^1.6.4"
   },
   "publishConfig": {
     "access": "public"

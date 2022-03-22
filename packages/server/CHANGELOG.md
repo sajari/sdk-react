@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.5.5
+
+### Patch Changes
+
+- [`8e2c6a08`](https://github.com/sajari/sdk-react/commit/8e2c6a081431b697d23cf99ca219da1dee79acc7) [#768](https://github.com/sajari/sdk-react/pull/768) Thanks [@JasonBerry](https://github.com/JasonBerry)! - Correct React peer dependency versioning
+
+- Updated dependencies [[`8e2c6a08`](https://github.com/sajari/sdk-react/commit/8e2c6a081431b697d23cf99ca219da1dee79acc7)]:
+  - @sajari/react-hooks@3.10.1
+  - @sajari/react-sdk-utils@1.6.4
+
 ## 1.5.4
 
 ### Patch Changes
