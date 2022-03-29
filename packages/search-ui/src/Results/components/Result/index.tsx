@@ -144,10 +144,10 @@ const Result = React.memo(
       return (
         <Box css={styles.priceContainer}>
           <Text css={styles.price} className={priceClassName} disableDefaultStyles={disableDefaultStyles}>
-            {productPrice?.displayPrice}
+            {productPrice.displayPrice}
           </Text>
 
-          {productPrice?.originalPrice && (
+          {productPrice.originalPrice && (
             <Text
               css={styles.originalPrice}
               className={originalPriceClassName}

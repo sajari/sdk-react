@@ -1,4 +1,4 @@
-import { formatPrice, isArray, isEmpty } from '@sajari/react-sdk-utils';
+import { formatPrice, isArray, isEmpty, isNullOrUndefined } from '@sajari/react-sdk-utils';
 
 import type { ResultValues } from './types';
 
@@ -13,7 +13,7 @@ type Input = {
 export type UseRenderPriceOutput = {
   displayPrice: string;
   originalPrice?: string;
-} | null;
+};
 
 export function useRenderPrice({
   values,
@@ -26,7 +26,20 @@ export function useRenderPrice({
   let price = priceProp;
   let dataOriginalPrice = originalPriceProp;
 
-  if (isEmpty(price) || isEmpty(priceProp) || isEmpty(originalPriceProp)) return null;
+  if (isEmpty(price) || isEmpty(priceProp) || isEmpty(originalPriceProp)) {
+    const nonEmptyPrice = [priceProp, originalPriceProp].find((p) => !isEmpty(p));
+
+    // If everything is empty then just return empty string
+    if (isNullOrUndefined(nonEmptyPrice)) {
+      return {
+        displayPrice: '',
+      };
+    }
+
+    return {
+      displayPrice: formatPrice(nonEmptyPrice, { language, currency }),
+    };
+  }
 
   const hasVariantImages = isArray(price[0]);
 
@@ -35,7 +48,11 @@ export function useRenderPrice({
     dataOriginalPrice = originalPriceProp.slice(1);
   }
   const activePrice = isArray(price) ? price[activeImageIndex] ?? price : price;
-  if (isEmpty(activePrice)) return null;
+  if (isEmpty(activePrice)) {
+    return {
+      displayPrice: '',
+    };
+  }
   let displayPrice: string;
   let originalPrice: string | undefined;
 
