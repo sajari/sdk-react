@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.15.2
+
+### Patch Changes
+
+- [`b16ac53c`](https://github.com/sajari/sdk-react/commit/b16ac53c14f36d11e88164cd11beeaafec086c64) [#772](https://github.com/sajari/sdk-react/pull/772) Thanks [@JasonBerry](https://github.com/JasonBerry)! - Update docs to mention deprecation of old tracking means and highlight new EventTracking
+
 ## 1.15.1
 
 ### Patch Changes
