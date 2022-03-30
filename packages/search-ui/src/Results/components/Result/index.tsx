@@ -15,7 +15,6 @@ import utc from 'dayjs/plugin/utc';
 import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useSearchUIContext } from '../../../ContextProvider';
 import { useProductStatus } from '../../useProductStatus';
 import { useRenderPrice } from '../../useRenderPrice';
 import useResultStyles from './styles';
@@ -47,10 +46,13 @@ const Result = React.memo(
       showStatus: showStatusProp = false,
       openNewTab = false,
       isPinned,
+      language,
+      currency,
+      ratingMax,
+      tracking,
       ...rest
     } = props;
     const { t } = useTranslation('result');
-    const { currency, language, ratingMax, tracking } = useSearchUIContext();
     const href = tracking.getResultHref(values, token);
     const onClick = () => tracking.onResultClick(values, token);
     const mouseDownHandler = (e: React.MouseEvent<HTMLElement>) => {
@@ -142,10 +144,10 @@ const Result = React.memo(
       return (
         <Box css={styles.priceContainer}>
           <Text css={styles.price} className={priceClassName} disableDefaultStyles={disableDefaultStyles}>
-            {productPrice?.displayPrice}
+            {productPrice.displayPrice}
           </Text>
 
-          {productPrice?.originalPrice && (
+          {productPrice.originalPrice && (
             <Text
               css={styles.originalPrice}
               className={originalPriceClassName}

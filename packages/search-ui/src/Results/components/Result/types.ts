@@ -2,9 +2,14 @@ import { BoxProps } from '@sajari/react-components';
 import type { Token } from '@sajari/react-hooks';
 import * as React from 'react';
 
+import { Language, SearchUIContextProviderValues } from '../../../ContextProvider/types';
 import { ResultsProps, ResultValues } from '../../types';
 
-interface Props extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | 'imageObjectFit'>, BoxProps {
+interface Props
+  extends Pick<ResultsProps, 'appearance' | 'imageAspectRatio' | 'imageObjectFit'>,
+    BoxProps,
+    Pick<Required<SearchUIContextProviderValues>, 'currency' | 'ratingMax' | 'tracking'>,
+    Language {
   /** Search result values */
   result: { values: ResultValues; token?: Token };
   /** Open the result link in a new tab */

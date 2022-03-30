@@ -124,4 +124,40 @@ describe('Input', () => {
       undefined,
     );
   });
+
+  it('set the input to readonly after Enter key and remove it after it has done searching', async () => {
+    customRender(<Input data-testid="mysearch" />, {
+      search: { pipeline: eventTrackingPipeline },
+    });
+    const input = screen.getByTestId<HTMLInputElement>('mysearch');
+    const setAttributeSpy = jest.spyOn(input, 'setAttribute');
+    const removeAttributeSpy = jest.spyOn(input, 'removeAttribute');
+
+    input.focus();
+    user.keyboard('television{Enter}');
+    await waitFor(() => expect(input.attributes.getNamedItem('readonly')?.value).toBe(''));
+    await waitFor(() => expect(input.attributes.getNamedItem('readonly')).toBeNull());
+
+    expect(setAttributeSpy).toHaveBeenCalled();
+    expect(removeAttributeSpy).toHaveBeenCalled();
+  });
+
+  it('will not allow Enter key event to go through while `readonly` attribute is present', async () => {
+    customRender(<Input data-testid="mysearch" />, {
+      search: { pipeline: eventTrackingPipeline },
+    });
+    const input = screen.getByTestId<HTMLInputElement>('mysearch');
+    const setAttributeSpy = jest.spyOn(input, 'setAttribute');
+    const removeAttributeSpy = jest.spyOn(input, 'removeAttribute');
+
+    input.focus();
+    // Multiple enters in quick succession
+    user.keyboard('television{Enter}{Enter}{Enter}');
+
+    await waitFor(() => expect(input.attributes.getNamedItem('readonly')?.value).toBe(''));
+    await waitFor(() => expect(input.attributes.getNamedItem('readonly')).toBeNull());
+
+    expect(setAttributeSpy).toHaveBeenCalledTimes(1);
+    expect(removeAttributeSpy).toHaveBeenCalledTimes(1);
+  });
 });

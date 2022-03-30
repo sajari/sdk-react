@@ -162,12 +162,13 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
 
   const onKeyDownMemoized = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
+      const input = e.target as HTMLInputElement;
       const { value } = e.currentTarget;
-      if (e.key === 'Enter') {
-        const closestForm = (e.target as HTMLInputElement).closest('form');
-        // Blur input to avoid Enter spamming, but only if the input is not wrapped by any form, otherwise the submit event won't be triggered
+      if (e.key === 'Enter' && !input.hasAttribute('readonly')) {
+        const closestForm = input.closest('form');
+        // Set input to readonly, but only if the input is not wrapped by any form, otherwise the submit event won't be triggered
         if (closestForm === null) {
-          (e.target as HTMLInputElement).blur();
+          input.setAttribute('readonly', '');
         }
         if (['typeahead', 'suggestions', 'standard'].includes(mode)) {
           if (!retainFilters) {
@@ -227,6 +228,12 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
       window.clearTimeout(searchDebounceRef.current);
     };
   }, []);
+
+  useEffect(() => {
+    if (!searching && localRef.current) {
+      localRef.current.removeAttribute('readonly');
+    }
+  }, [searching]);
 
   return (
     <Combobox
