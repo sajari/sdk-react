@@ -5,23 +5,15 @@ import SEO from '../../components/SEO';
   description="Advanced funnel tracking provides our artificial intelligence engine with extra information about the quality of search results."
 />
 
-# Advanced Tracking
+# Advanced tracking
 
-Search.io's PosNegTracking aims to provide flexible tracking tokens which can be used in novel use-cases to provide both useful analytics and to feed Search.io's machine learning algorithm data about the performance of search results. The two primary features for advanced use-cases are multi-use and long lived tokens.
-
-## Multi-use Tokens and Search Funnels
-
-PosNeg tokens can be used more than once. This means that a single token can be used to send positive signals of increasing weight as a user moves through a funnel.
-
-## Long Lived Tokens and Search Result Attribution
-
-Additionally, tokens can be stored for long durations in order to attribute search queries with results even over long session times. For example, if a user performs a webstore search and finds a good result but doesn't actually purchase the product until much later.
+Search.io's `EventTracking` provides flexible tracking which can be used to provide both useful analytics and to feed Search.io's machine learning algorithm data about the performance of search results.
 
 ## Example
 
-This example includes three files of a shopping cart funnel where PosNegTokens are used to track search results (store products) as they move through the search -> add to cart -> purchase funnel. Additionally, localstorage is used to persist tokens long-term in case the initial search and final purchase occur over separate browser sessions.
+This example includes three files of a shopping cart funnel where events are used to track search results (store products) as they move through the search -> add to cart -> purchase funnel. Additionally, localStorage is used to persist events for 30 days in case the initial search and final purchase occur over separate browser sessions.
 
-On a search result screen, we can use the Search.io pre-built support rendering search results which includes storing PosNeg tokens of clicked results into localstorage.
+On a search result screen, we can use the Search.io pre-built support rendering search results which includes storing events of clicked results into localStorage and sending them to Search.io as soon as possible.
 
 ```jsx
 /**
@@ -34,11 +26,10 @@ function ExampleProductSearch() {
       collection: 'bestbuy',
     },
     'query',
-    // Ensure field passed to PosNegTracking constructor is unique across products.
-    new PosNegTracking('id'),
+    // Ensure field passed to EventTracking constructor is unique across products.
+    new EventTracking('id'),
   );
 
-  // Our Results component works with both click and posneg tracking.
   const ExampleSearchResults = React.memo(() => (
     <div className="flex flex-col space-y-6">
       <Input />
@@ -63,9 +54,8 @@ function ExampleProductSearch() {
 }
 ```
 
-Then on a product details page, we do two things.
-First, we submit any pending positive tokens associated with result clicks from the previous screen. This submit lets the Search.io engine know that this was likely a good result for the search term.
-Then, when a customer adds a product to their cart, we submit the token with a higher weight. This gives a stronger signal for this result. The customer has moved closer to the end of the funnel.
+When a result is clicked we track a `click` event associated with query result from the previous screen. This lets the Search.io engine know that this was likely a good result for the search term.
+Then, when a customer adds a product to their cart, we track an `add_to_cart` event which gives a stronger signal for this result. The customer has moved closer to the end of the funnel.
 
 Unlike other examples which render Search.io search results, this is purely an example of how your own brand's storefront might be setup.
 
@@ -73,6 +63,8 @@ Unlike other examples which render Search.io search results, this is purely an e
 /**
  * example-store.com/product-details/{productId}
  */
+import { useTracking } from '@sajari/react-hooks';
+
 function ExampleProductDetails({ productId }) {
   const product = useAsync(fetchProductDetails(productId));
   const pipeline = new Pipeline(
@@ -81,18 +73,15 @@ function ExampleProductDetails({ productId }) {
       collection: 'bestbuy',
     },
     'query',
-    // Ensure field passed to PosNegTracking constructor is unique across products.
-    new PosNegTracking('id'),
+    // Ensure field passed to EventTracking constructor is unique across products.
+    new EventTracking('id'),
   );
-  const posNegManager = new PosNegLocalStorageManager(pipeline.client);
-  // sendPendingClicks submits all pending positive events associated with clicked search results.
-  posNegManager.sendPendingClicks();
+  const { tracking } = useTracking();
 
   const addToCart = () => {
     asyncAddToCart(product.id);
-    const posNegManager = new PosNegLocalStorageManager(pipeline.client);
-    // submit the positive token for this specific product with a weight of 3.
-    posNegManager.sendPosEvent(product.id, 'cartadd', 2);
+    // send a 'add_to_cart' event for this specific product.
+    tracking.searchIOAnalytics.track('add_to_cart', product.id);
   };
 
   return (
@@ -104,7 +93,7 @@ function ExampleProductDetails({ productId }) {
 }
 ```
 
-Once a customer reaches the end point of the funnel, the cart checkout confirmation screen, we submit one more token with a greater weight indicating a successful purchase.
+Once a customer reaches the end point of the funnel, the cart checkout confirmation screen, we submit a `purchase` event indicating a successful purchase.
 
 Unlike other examples which render Search.io search results, this is purely an example of how your own brand's checkout might be setup.
 
@@ -112,6 +101,8 @@ Unlike other examples which render Search.io search results, this is purely an e
 /**
  * example-store.com/cart-checkout-confirmation/{cartId}
  */
+import { useTracking } from '@sajari/react-hooks';
+
 function ExampleCheckoutConfirmation({ productId }) {
   const purchasedProducts = useAsync(fetchPurchasedProducts(cartId));
   const pipeline = new Pipeline(
@@ -120,13 +111,14 @@ function ExampleCheckoutConfirmation({ productId }) {
       collection: 'bestbuy',
     },
     'query',
-    // Ensure field passed to PosNegTracking constructor is unique across products.
-    new PosNegTracking('id'),
+    // Ensure field passed to EventTracking constructor is unique across products.
+    new EventTracking('id'),
   );
-  const posNegManager = new PosNegLocalStorageManager(pipeline.client);
-  // send a positive event with an identifier 'purcahse' and weight 5.
+  const { tracking } = useTracking();
+
+  // send a 'purchase' event for each product.
   purchasedProducts.forEach((product) => {
-    posNegManager.sendPosEvent(product.id, 'purchase', 5);
+    tracking.searchIOAnalytics.track('purchase', product.id);
   });
 
   return (
