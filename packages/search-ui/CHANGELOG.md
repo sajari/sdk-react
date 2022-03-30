@@ -1,5 +1,18 @@
 # Change Log
 
+## 4.13.3
+
+### Patch Changes
+
+- [`70795629`](https://github.com/sajari/sdk-react/commit/7079562958f0f59ccbd20fb62a1775530e1493c9) [#771](https://github.com/sajari/sdk-react/pull/771) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix the productPrice sometimes being null as return value, this will break custom result template or require the user to perform an additional check before rendering
+
+* [`175629f4`](https://github.com/sajari/sdk-react/commit/175629f4c9a867c6889189c5b366a48c3993d0d4) [#758](https://github.com/sajari/sdk-react/pull/758) Thanks [@chidojiro](https://github.com/chidojiro)! - fix: performance issue on results
+
+- [`4000bc93`](https://github.com/sajari/sdk-react/commit/4000bc939f934c7708d385f1c597270fd472a555) [#770](https://github.com/sajari/sdk-react/pull/770) Thanks [@tuanddd](https://github.com/tuanddd)! - Set the input to readonly instead of blurring focus after the Enter key has been pressed
+
+- Updated dependencies [[`b16ac53c`](https://github.com/sajari/sdk-react/commit/b16ac53c14f36d11e88164cd11beeaafec086c64)]:
+  - @sajari/react-hooks@3.11.0
+
 ## 4.13.2
 
 ### Patch Changes

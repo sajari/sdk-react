@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.11.0
+
+### Minor Changes
+
+- [`b16ac53c`](https://github.com/sajari/sdk-react/commit/b16ac53c14f36d11e88164cd11beeaafec086c64) [#772](https://github.com/sajari/sdk-react/pull/772) Thanks [@JasonBerry](https://github.com/JasonBerry)! - Add tracking field to useTracking hook
+
 ## 3.10.1
 
 ### Patch Changes
