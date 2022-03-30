@@ -1,8 +1,9 @@
+// TODO(tuand): rename this into something else (current name is confusing - this is not a hook)
 import { formatPrice, isArray, isEmpty, isNullOrUndefined } from '@sajari/react-sdk-utils';
 
 import type { ResultValues } from './types';
 
-type Input = {
+export type UseRenderPriceInput = {
   activeImageIndex?: number;
   values: ResultValues;
   onSale: boolean;
@@ -15,13 +16,17 @@ export type UseRenderPriceOutput = {
   originalPrice?: string;
 };
 
+const defaultReturnValue: UseRenderPriceOutput = {
+  displayPrice: '',
+};
+
 export function useRenderPrice({
   values,
   activeImageIndex = 0,
   onSale,
   currency,
   language,
-}: Input): UseRenderPriceOutput {
+}: UseRenderPriceInput): UseRenderPriceOutput {
   const { price: priceProp, salePrice, originalPrice: originalPriceProp } = values;
   let price = priceProp;
   let dataOriginalPrice = originalPriceProp;
@@ -31,9 +36,7 @@ export function useRenderPrice({
 
     // If everything is empty then just return empty string
     if (isNullOrUndefined(nonEmptyPrice)) {
-      return {
-        displayPrice: '',
-      };
+      return defaultReturnValue;
     }
 
     return {
@@ -49,9 +52,7 @@ export function useRenderPrice({
   }
   const activePrice = isArray(price) ? price[activeImageIndex] ?? price : price;
   if (isEmpty(activePrice)) {
-    return {
-      displayPrice: '',
-    };
+    return defaultReturnValue;
   }
   let displayPrice: string;
   let originalPrice: string | undefined;
