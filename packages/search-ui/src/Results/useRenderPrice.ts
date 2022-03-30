@@ -1,8 +1,9 @@
-import { formatPrice, isArray, isEmpty } from '@sajari/react-sdk-utils';
+// TODO(tuand): rename this into something else (current name is confusing - this is not a hook)
+import { formatPrice, isArray, isEmpty, isNullOrUndefined } from '@sajari/react-sdk-utils';
 
 import type { ResultValues } from './types';
 
-type Input = {
+export type UseRenderPriceInput = {
   activeImageIndex?: number;
   values: ResultValues;
   onSale: boolean;
@@ -13,7 +14,11 @@ type Input = {
 export type UseRenderPriceOutput = {
   displayPrice: string;
   originalPrice?: string;
-} | null;
+};
+
+const defaultReturnValue: UseRenderPriceOutput = {
+  displayPrice: '',
+};
 
 export function useRenderPrice({
   values,
@@ -21,12 +26,23 @@ export function useRenderPrice({
   onSale,
   currency,
   language,
-}: Input): UseRenderPriceOutput {
+}: UseRenderPriceInput): UseRenderPriceOutput {
   const { price: priceProp, salePrice, originalPrice: originalPriceProp } = values;
   let price = priceProp;
   let dataOriginalPrice = originalPriceProp;
 
-  if (isEmpty(price) || isEmpty(priceProp) || isEmpty(originalPriceProp)) return null;
+  if (isEmpty(price) || isEmpty(priceProp) || isEmpty(originalPriceProp)) {
+    const nonEmptyPrice = [priceProp, originalPriceProp].find((p) => !isEmpty(p));
+
+    // If everything is empty then just return empty string
+    if (isNullOrUndefined(nonEmptyPrice)) {
+      return defaultReturnValue;
+    }
+
+    return {
+      displayPrice: formatPrice(nonEmptyPrice, { language, currency }),
+    };
+  }
 
   const hasVariantImages = isArray(price[0]);
 
@@ -35,7 +51,9 @@ export function useRenderPrice({
     dataOriginalPrice = originalPriceProp.slice(1);
   }
   const activePrice = isArray(price) ? price[activeImageIndex] ?? price : price;
-  if (isEmpty(activePrice)) return null;
+  if (isEmpty(activePrice)) {
+    return defaultReturnValue;
+  }
   let displayPrice: string;
   let originalPrice: string | undefined;
 
