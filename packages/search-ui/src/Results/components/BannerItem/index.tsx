@@ -8,7 +8,11 @@ import { BannerItemProps } from './types';
 const BannerItem = ({ banner, numberOfCols = 1 }: BannerItemProps) => {
   const { disableDefaultStyles = false, customClassNames, tracking } = useSearchUIContext();
   const { title, description, targetUrl, imageUrl, width, height, textColor } = banner;
-  const styles = getStylesObject(useBannerStyle({ banner }), disableDefaultStyles);
+  const colSpan = Math.min(width ?? 1, numberOfCols);
+  const styles = getStylesObject(
+    useBannerStyle({ banner, isOnItsOwnRow: colSpan >= numberOfCols }),
+    disableDefaultStyles,
+  );
   const onClick = () => tracking.onPromotionClick(banner);
 
   return (
@@ -17,12 +21,12 @@ const BannerItem = ({ banner, numberOfCols = 1 }: BannerItemProps) => {
         styles.container,
         customClassNames.banners?.container,
         {
-          gridColumnEnd: `span ${Math.min(width ?? 1, numberOfCols)}`,
+          gridColumnEnd: `span ${colSpan}`,
           gridRowEnd: `span ${height}`,
         },
       ]}
     >
-      <Box css={styles.imageContainer}>
+      <Box data-testid="banner-image-container" css={styles.imageContainer}>
         <Link href={targetUrl} css={styles.link} onClick={onClick}>
           <img src={imageUrl} css={styles.image} alt="" loading="lazy" />
         </Link>
