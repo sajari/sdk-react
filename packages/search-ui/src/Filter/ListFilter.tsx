@@ -1,6 +1,6 @@
-import { Box as CoreBox, Button, Checkbox, CheckboxGroup, Combobox, Radio, RadioGroup } from '@sajari/react-components';
+import { Box as CoreBox, Button, CheckboxGroup, Combobox, RadioGroup } from '@sajari/react-components';
 import { useFilter, useQuery } from '@sajari/react-hooks';
-import { getStylesObject, isBoolean, isEmpty, isNullOrUndefined, isSSR, noop, useTheme } from '@sajari/react-sdk-utils';
+import { getStylesObject, isBoolean, isEmpty, isNullOrUndefined, isSSR, useTheme } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import tw from 'twin.macro';
@@ -8,8 +8,9 @@ import tw from 'twin.macro';
 import { IconSmallChevronDown, IconSmallChevronUp } from '../assets/icons';
 import { useSearchUIContext } from '../ContextProvider';
 import Box from './Box';
+import ListFilterItem from './ListFilterItem';
 import { ListFilterProps } from './types';
-import { formatLabel, getHeaderId, pinItems } from './utils';
+import { getHeaderId, pinItems } from './utils';
 
 const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   const {
@@ -54,9 +55,6 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   const { t } = useTranslation('filter');
   const styles = getStylesObject(
     {
-      innerList: [tw`flex items-center justify-between`],
-      count: [tw`ml-2 text-xs text-gray-400`],
-      checkbox: [tw`text-sm`],
       searchWrapper: [tw`mb-2`],
       toggleButtonWrapper: [tw`mt-1`],
       toggleIcon: [tw`ml-2`, `color: ${theme.color.primary.base}`],
@@ -85,7 +83,6 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     }
   }, [JSON.stringify(selected)]);
 
-  const Control = multi ? Checkbox : Radio;
   const itemListFilteredByEmptyLabel = React.useMemo(
     () => options.filter((o) => !isNullOrUndefined(o.label) && !isEmpty(o.label)),
     [options],
@@ -128,20 +125,20 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   const innerList = React.useMemo(
     () =>
       items.map(({ label, count }) => (
-        <CoreBox css={styles.innerList} key={`${label}-${count}`}>
-          <Control
-            value={label}
-            checked={selected.includes(label)}
-            onChange={noop}
-            css={styles.checkbox}
-            disableDefaultStyles={disableDefaultStyles}
-          >
-            {typeof itemRender === 'function'
-              ? itemRender(label)
-              : formatLabel(label, { format, currency, textTransform, t })}
-          </Control>
-          {!hideCount && <span css={styles.count}>{count.toLocaleString(language)}</span>}
-        </CoreBox>
+        <ListFilterItem
+          label={label}
+          count={count}
+          language={language}
+          multi={multi}
+          disableDefaultStyles={disableDefaultStyles}
+          isChecked={selected.includes(label)}
+          hideCount={hideCount}
+          format={format}
+          currency={currency}
+          textTransform={textTransform}
+          itemRender={itemRender}
+          key={`${label}-${count}`}
+        />
       )),
     [JSON.stringify(items), itemRender, selected],
   );
