@@ -156,6 +156,9 @@ test.each<[{ position: number }[], any[], any[]]>([
     [1, 2, 3, 4, 5],
     [{ position: 1 }, { position: 1 }, { position: 1 }, { position: 4 }, 1, 2, 3, 4, 5],
   ],
+  [[{ position: 1 }, { position: 3 }], [], [{ position: 1 }, { position: 3 }]],
+  [[{ position: 1 }, { position: 3 }, { position: 10 }], [1], [{ position: 1 }, 1, { position: 3 }, { position: 10 }]],
+  [[{ position: 1 }, { position: 1 }, { position: 10 }], [1], [{ position: 1 }, { position: 1 }, 1, { position: 10 }]],
 ])('mergeBannersWithResults(%o)', (banners, results, expected) => {
   expect(mergeBannersWithResults(banners, results)).toStrictEqual(expected);
 });
