@@ -22,8 +22,15 @@ export function mergeBannersWithResults<T = any>(banners: Banner[], results: T[]
       list.push(sortedBanners[currentBannerIndex]);
       currentBannerIndex += 1;
     } else {
-      list.push(results[currentResultIndex]);
-      currentResultIndex += 1;
+      const addedResult = results[currentResultIndex];
+      const addedBanner = sortedBanners[currentBannerIndex];
+      if (addedResult) {
+        list.push(results[currentResultIndex]);
+        currentResultIndex += 1;
+      } else if (addedBanner) {
+        list.push(addedBanner);
+        currentBannerIndex += 1;
+      }
     }
     count += 1;
   }
