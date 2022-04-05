@@ -82,8 +82,8 @@ describe('BannerItem', () => {
     server.close();
   });
 
-  it('apply the right style to banner when `numberOfCols` changes', async () => {
-    const renderResult = customRender(<Results />, {
+  it('set the banner to position absolute', async () => {
+    const renderResult = customRender(<Results columns={4} />, {
       search: { pipeline: eventTrackingPipeline },
       viewType: 'grid',
       searchOnLoad: true,
@@ -91,14 +91,18 @@ describe('BannerItem', () => {
 
     const bannerImageContainer = await renderResult.findByTestId('banner-image-container');
 
-    global.innerWidth = 768;
-    global.dispatchEvent(new Event('resize'));
+    expect(bannerImageContainer).toHaveStyleRule('position', 'absolute');
+  });
+
+  it('will not apply position style on banner', async () => {
+    const renderResult = customRender(<Results columns={3} />, {
+      search: { pipeline: eventTrackingPipeline },
+      viewType: 'grid',
+      searchOnLoad: true,
+    });
+
+    const bannerImageContainer = await renderResult.findByTestId('banner-image-container');
 
     expect(bannerImageContainer).not.toHaveStyleRule('position');
-
-    global.innerWidth = 1440;
-    global.dispatchEvent(new Event('resize'));
-
-    expect(bannerImageContainer).toHaveStyleRule('position', 'absolute');
   });
 });
