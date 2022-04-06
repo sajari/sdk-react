@@ -1,5 +1,13 @@
 # Change Log
 
+## 4.13.4
+
+### Patch Changes
+
+- [`ca36473b`](https://github.com/sajari/sdk-react/commit/ca36473b3cf81d430ed5174dcfed8778f39c8bc5) [#775](https://github.com/sajari/sdk-react/pull/775) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix the output of `mergeBannersWithResults` will contain `undefined` value if there is a banner having a position being greater than the total number of banners and results. The `undefined` value will cause the check of `isBanner` method to break and cause the app to crash.
+
+* [`155e7202`](https://github.com/sajari/sdk-react/commit/155e7202789c9c02e9499190bacfc64838fbddee) [#774](https://github.com/sajari/sdk-react/pull/774) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix the banner collapsing to zero height in some cases
+
 ## 4.13.3
 
 ### Patch Changes
