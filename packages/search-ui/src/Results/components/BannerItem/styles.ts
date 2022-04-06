@@ -4,19 +4,27 @@ import tw from 'twin.macro';
 
 interface Props {
   banner: Banner;
+  isOnItsOwnRow: boolean;
 }
 
-export const useBannerStyle = ({ banner }: Props) => {
+export const useBannerStyle = ({ banner, isOnItsOwnRow = false }: Props) => {
   const { textPosition, height = 1 } = banner;
   const styles = {
     container: [tw`relative flex justify-center overflow-hidden rounded-lg`],
     textContainer: [tw`absolute top-0 left-0 flex flex-col w-full h-full p-6`],
     link: [tw`w-full`],
-    imageContainer: [tw`absolute w-full h-full`],
+    imageContainer: [tw`w-full h-full`],
     image: [tw`flex w-full h-full object-cover rounded-lg`],
     heading: [tw`max-w-md text-2xl`],
     description: [tw`max-w-md text-sm`],
   };
+
+  // We add absolute positioning to adjust the banner size to the row's item height
+  // but only when there is at least 1 item on the same row as the banner otherwise
+  // the banner will collapse with zero height because of absolute
+  if (!isOnItsOwnRow) {
+    styles.imageContainer.push(tw`absolute`);
+  }
 
   if (height > 1) {
     styles.container.push(tw`items-center`);
