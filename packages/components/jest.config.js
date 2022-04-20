@@ -7,4 +7,5 @@ module.exports = {
   testMatch: ['<rootDir>/packages/components/**/*.test.ts', '<rootDir>/packages/components/**/*.test.tsx'],
   name: '@sajari/react-components',
   displayName: 'components',
+  testEnvironment: 'jest-environment-jsdom-sixteen',
 };
