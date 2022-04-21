@@ -46,4 +46,16 @@ describe('Button', () => {
     fireEvent.click(button);
     expect(onClickSpy).toHaveBeenCalledTimes(1);
   });
+
+  it('can add custom data-* attributes', () => {
+    const { getByTestId } = render(
+      <Button data-testid="button" data-active="false">
+        Click me
+      </Button>,
+    );
+
+    const button = getByTestId('button');
+    expect(button).toBeVisible();
+    expect(button).toHaveAttribute('data-active', 'false');
+  });
 });

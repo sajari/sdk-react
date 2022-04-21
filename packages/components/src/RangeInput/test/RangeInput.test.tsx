@@ -81,4 +81,14 @@ describe('RangeInput', () => {
     expect(leftSlider.dataset.value).toBe('25');
     expect(onChange).toHaveBeenCalledWith([25, 75]);
   });
+
+  it('can add custom data-* attributes', () => {
+    const { getByTestId } = render(
+      <RangeInput data-testid="range-input" data-active="false" value={[50, 75]} min={0} max={500} step={25} />,
+    );
+
+    const rangeInput = getByTestId('range-input');
+    expect(rangeInput).toBeVisible();
+    expect(rangeInput).toHaveAttribute('data-active', 'false');
+  });
 });

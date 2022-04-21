@@ -65,4 +65,11 @@ describe('Radio', () => {
     expect(element).not.toBeNull();
     expect(element?.getAttribute('aria-invalid')).toBe('true');
   });
+
+  it('can add custom data-* attributes', () => {
+    const { getByTestId } = render(<Radio data-testid="radio" data-active="false" />);
+    const radio = getByTestId('radio');
+    expect(radio).toBeVisible();
+    expect(radio).toHaveAttribute('data-active', 'false');
+  });
 });

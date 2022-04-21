@@ -27,4 +27,11 @@ describe('Text', () => {
 
     expect(element).toHaveStyleRule('text-overflow', 'ellipsis');
   });
+
+  it('can add custom data-* attributes', () => {
+    const { getByTestId } = render(<Text data-testid="text" data-active="false" />);
+    const text = getByTestId('text');
+    expect(text).toBeVisible();
+    expect(text).toHaveAttribute('data-active', 'false');
+  });
 });

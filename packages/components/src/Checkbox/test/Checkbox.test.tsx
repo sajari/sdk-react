@@ -43,4 +43,11 @@ describe('Checkbox', () => {
     expect(element).not.toBeNull();
     expect(element?.getAttribute('aria-invalid')).toBe('true');
   });
+
+  it('can add custom data-* attributes', () => {
+    const { getByTestId } = render(<Checkbox data-testid="checkbox" data-active="false" />);
+    const checkbox = getByTestId('checkbox');
+    expect(checkbox).toBeVisible();
+    expect(checkbox).toHaveAttribute('data-active', 'false');
+  });
 });

@@ -33,6 +33,7 @@ const Select = React.forwardRef((props: SelectProps, ref?: React.Ref<HTMLDivElem
     dropdownClassName,
     optionClassName,
     downshiftEnvironment: environment,
+    ...rest
   } = props;
 
   const { styles: selectStyles } = useSelectStyles();
@@ -163,7 +164,7 @@ const Select = React.forwardRef((props: SelectProps, ref?: React.Ref<HTMLDivElem
 
   return (
     <SelectContextProvider value={context}>
-      <Box css={[styles.container, stylesProp]} ref={ref} className={className}>
+      <Box css={[styles.container, stylesProp]} ref={ref} className={className} {...rest}>
         {label && (
           <Label visuallyHidden {...getLabelProps()}>
             {label}
