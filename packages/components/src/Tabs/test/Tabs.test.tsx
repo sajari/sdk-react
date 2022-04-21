@@ -55,4 +55,23 @@ describe('Tabs', () => {
     expect(tabs[1].tabIndex).toBe(0);
     expect(tabPanels[1].textContent).toBe('Are 1, 2, 3');
   });
+
+  it('can add custom data-* attributes', () => {
+    const { getByTestId } = render(
+      <Tabs data-testid="tabs" data-active="false">
+        <TabList>
+          <Tab data-testid="tab" data-active="false">
+            Red
+          </Tab>
+        </TabList>
+      </Tabs>,
+    );
+    const tabs = getByTestId('tabs');
+    expect(tabs).toBeVisible();
+    expect(tabs).toHaveAttribute('data-active', 'false');
+
+    const tab = getByTestId('tab');
+    expect(tab).toBeVisible();
+    expect(tab).toHaveAttribute('data-active', 'false');
+  });
 });

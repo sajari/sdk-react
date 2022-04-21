@@ -1,3 +1,4 @@
+import { noop } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 
 import { render } from '../../test/utils';
@@ -52,5 +53,21 @@ describe('Pagination', () => {
     expect(getByLabelText('Trang sau')).toBeInTheDocument();
     expect(getByLabelText('Trang 1, trang hiện tại')).toBeInTheDocument();
     expect(getByLabelText('Trang 2')).toBeInTheDocument();
+  });
+
+  it('can add custom data-* attributes', () => {
+    const { getByTestId } = render(
+      <Pagination
+        data-testid="pagination"
+        data-active="false"
+        totalResults={10}
+        resultsPerPage={5}
+        page={1}
+        onChange={noop}
+      />,
+    );
+    const pagination = getByTestId('pagination');
+    expect(pagination).toBeVisible();
+    expect(pagination).toHaveAttribute('data-active', 'false');
   });
 });

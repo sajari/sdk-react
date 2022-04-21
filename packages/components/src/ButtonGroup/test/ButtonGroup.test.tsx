@@ -50,4 +50,17 @@ describe('ButtonGroup', () => {
 
     expect(asFragment()).toMatchSnapshot();
   });
+
+  it('can add custom data-* attributes', () => {
+    const { getByTestId } = render(
+      <ButtonGroup data-testid="button-group" data-active="false">
+        <Button>Button</Button>
+        <Button>Button</Button>
+      </ButtonGroup>,
+    );
+
+    const buttonGroup = getByTestId('button-group');
+    expect(buttonGroup).toBeVisible();
+    expect(buttonGroup).toHaveAttribute('data-active', 'false');
+  });
 });

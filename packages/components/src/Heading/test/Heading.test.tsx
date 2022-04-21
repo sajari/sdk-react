@@ -33,4 +33,11 @@ describe('Heading', () => {
 
     expect(element).toHaveStyleRule('text-overflow', 'ellipsis');
   });
+
+  it('can add custom data-* attributes', () => {
+    const { getByTestId } = render(<Heading as="h1" data-testid="heading" data-active="false" />);
+    const heading = getByTestId('heading');
+    expect(heading).toBeVisible();
+    expect(heading).toHaveAttribute('data-active', 'false');
+  });
 });
