@@ -1,5 +1,14 @@
 # Change Log
 
+## 4.13.5
+
+### Patch Changes
+
+- [`57926050`](https://github.com/sajari/sdk-react/commit/579260507ecf09a6e5b75e7d2ced872944bdbbce) [#779](https://github.com/sajari/sdk-react/pull/779) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Support the ability to add custom data-\* attributes for components
+
+- Updated dependencies [[`57926050`](https://github.com/sajari/sdk-react/commit/579260507ecf09a6e5b75e7d2ced872944bdbbce)]:
+  - @sajari/react-components@1.14.1
+
 ## 4.13.4
 
 ### Patch Changes
