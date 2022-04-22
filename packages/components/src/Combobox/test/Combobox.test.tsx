@@ -41,8 +41,10 @@ describe('Combobox', () => {
   });
 
   it('Resume default behavior of Tab key after completing the suggestion', async () => {
-    // so we don't get `getSelection is not defined` error
-    document.getSelection = () => null;
+    if (!document.getSelection) {
+      // so we don't get `getSelection is not defined` error
+      document.getSelection = () => null;
+    }
     const { getByTestId } = render(<Combobox mode="typeahead" completion="apple mac studio" />);
     const element = getByTestId('combobox-input') as HTMLInputElement;
     element.focus();
