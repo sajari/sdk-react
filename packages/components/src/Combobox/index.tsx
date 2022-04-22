@@ -1,7 +1,7 @@
 /* eslint-disable prefer-arrow-callback */
 
 import { mergeProps, useId } from '@react-aria/utils';
-import { __DEV__, getStylesObject, isFunction, isSSR, mergeRefs } from '@sajari/react-sdk-utils';
+import { __DEV__, getStylesObject, isEmpty, isFunction, isSSR, mergeRefs } from '@sajari/react-sdk-utils';
 import { useCombobox } from 'downshift';
 import React, { ChangeEvent, KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
@@ -293,9 +293,14 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(
         setTypedInputValue(itemToString(items[highlightedIndex]));
       }
 
-      if (mode === 'typeahead' && e.key === 'ArrowRight') {
+      if (mode === 'typeahead' && ['ArrowRight', 'Tab'].includes(e.key)) {
         if ((e.target as HTMLInputElement).selectionStart === inputValue.length) {
-          if (completion.startsWith(inputValue)) {
+          // only enable completion if user has typed something
+          if (!isEmpty(inputValue) && completion.startsWith(inputValue)) {
+            if (e.key === 'Tab' && inputValue.toLowerCase() !== completion.toLowerCase()) {
+              // to keep focus inside the input
+              e.preventDefault();
+            }
             setInputValue(completion);
             setTypedInputValue(completion);
           }
@@ -379,6 +384,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(
             <Typeahead />
 
             <Box
+              data-testid="combobox-input"
               as="input"
               css={styles.input}
               {...mergeProps(inputProps, focusProps)}
