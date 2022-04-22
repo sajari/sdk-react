@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.11.1
+
+### Patch Changes
+
+- [`ec185f6b`](https://github.com/sajari/sdk-react/commit/ec185f6bacf9550f6439ec7ea9589211b5bb183f) [#781](https://github.com/sajari/sdk-react/pull/781) Thanks [@JasonBerry](https://github.com/JasonBerry)! - chore: bumped version of sdk-js used by hooks
+
 ## 3.11.0
 
 ### Minor Changes
