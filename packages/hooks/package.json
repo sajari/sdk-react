@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@sajari/react-sdk-utils": "^1.6.4",
-    "@sajari/sdk-js": "^2.10.2",
+    "@sajari/sdk-js": "^2.10.4",
     "js-cookie": "^2.2.1"
   },
   "devDependencies": {
