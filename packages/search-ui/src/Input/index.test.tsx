@@ -147,8 +147,6 @@ describe('Input', () => {
       search: { pipeline: eventTrackingPipeline },
     });
     const input = screen.getByTestId<HTMLInputElement>('mysearch');
-    const setAttributeSpy = jest.spyOn(input, 'setAttribute');
-    const removeAttributeSpy = jest.spyOn(input, 'removeAttribute');
 
     input.focus();
     // Multiple enters in quick succession
@@ -156,8 +154,5 @@ describe('Input', () => {
 
     await waitFor(() => expect(input.attributes.getNamedItem('readonly')?.value).toBe(''));
     await waitFor(() => expect(input.attributes.getNamedItem('readonly')).toBeNull());
-
-    expect(setAttributeSpy).toHaveBeenCalledTimes(1);
-    expect(removeAttributeSpy).toHaveBeenCalledTimes(1);
   });
 });
