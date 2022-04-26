@@ -1,4 +1,4 @@
-import { Client, TrackingType } from '@sajari/sdk-js';
+import { Client, SearchIOAnalytics, TrackingType } from '@sajari/sdk-js';
 
 import { EVENT_TRACKING_RESET } from '../../events';
 import { Response } from '../Response';
@@ -42,6 +42,16 @@ describe('EventTracking', () => {
     expect(eventTracking.searchIOAnalytics.account).toEqual(account);
     expect(eventTracking.searchIOAnalytics.collection).toEqual(collection);
     expect(eventTracking.searchIOAnalytics.endpoint).toEqual(searchIOAnalyticsEndpoint);
+  });
+
+  it('should set a custom analytics instance', () => {
+    const account = 'account-id';
+    const collection = 'collection-id';
+    const searchIOAnalytics = new SearchIOAnalytics(account, collection);
+    const eventTracking = new EventTracking(undefined, undefined, searchIOAnalytics);
+    eventTracking.bootstrap(new Client(account, collection), jest.fn());
+
+    expect(eventTracking.searchIOAnalytics).toBe(searchIOAnalytics);
   });
 
   describe('onQueryResponse', () => {

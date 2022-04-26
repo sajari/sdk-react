@@ -8,14 +8,21 @@ import { getTrackingData } from './utils';
 export class EventTracking extends Tracking {
   public searchIOAnalytics: SearchIOAnalytics;
 
+  private searchIOAnalyticsEndpoint?: string;
+
   /**
    * Construct a EventTracking instance.
    * @param field Field to use for event tracking.
    * @param metadata Metadata fields.
    */
-  constructor(field = '_id', metadata = {}, private searchIOAnalyticsEndpoint?: string) {
+  constructor(field = '_id', metadata = {}, searchIOAnalytics?: string | SearchIOAnalytics) {
     super(field);
 
+    if (searchIOAnalytics instanceof SearchIOAnalytics) {
+      this.searchIOAnalytics = searchIOAnalytics;
+    } else {
+      this.searchIOAnalyticsEndpoint = searchIOAnalytics;
+    }
     this.clientTracking = new DefaultSession(TrackingType.Event, this.field, { ...getTrackingData(), ...metadata });
   }
 
