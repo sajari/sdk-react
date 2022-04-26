@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.12.0
+
+### Minor Changes
+
+- [`b7c398a8`](https://github.com/sajari/sdk-react/commit/b7c398a85fa6524cc3d49af3b9f670729aa89775) [#784](https://github.com/sajari/sdk-react/pull/784) Thanks [@JasonBerry](https://github.com/JasonBerry)! - feat: add ability to pass custom SearchIOAnalytics instance to EventTracking
+
 ## 3.11.1
 
 ### Patch Changes

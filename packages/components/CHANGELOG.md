@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.14.2
+
+### Patch Changes
+
+- [`8dccee68`](https://github.com/sajari/sdk-react/commit/8dccee6815c14fa2312b048a6fd400c863a18fc0) [#778](https://github.com/sajari/sdk-react/pull/778) Thanks [@tuanddd](https://github.com/tuanddd)! - Add Tab key as another way to complete the suggestion in typeahead mode
+
 ## 1.14.1
 
 ### Patch Changes
