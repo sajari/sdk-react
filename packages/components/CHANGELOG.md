@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.14.3
+
+### Patch Changes
+
+- [`e5043c0d`](https://github.com/sajari/sdk-react/commit/e5043c0d031806b847377cc51ce480488356c635) [#777](https://github.com/sajari/sdk-react/pull/777) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix the different height of typeahead text
+
 ## 1.14.2
 
 ### Patch Changes
