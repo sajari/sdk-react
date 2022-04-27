@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.14.0
+
+### Minor Changes
+
+- [`42b61092`](https://github.com/sajari/sdk-react/commit/42b61092b96481a29f7e6ff1517d6e91c8c136ba) [#787](https://github.com/sajari/sdk-react/pull/787) Thanks [@tuanddd](https://github.com/tuanddd)! - Bump hooks's version inside react-search-ui package
+
 ## 4.13.5
 
 ### Patch Changes
