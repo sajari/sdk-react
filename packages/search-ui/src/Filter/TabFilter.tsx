@@ -29,7 +29,7 @@ const TabFilter = (props: Omit<TabFilterProps, 'type'>) => {
   const sliced = limit && options.length > limit ? options.slice(0, limit) : options;
   const { disableDefaultStyles = false, customClassNames, currency, language } = useSearchUIContext();
 
-  if (isEmpty(sliced)) {
+  if (isEmpty(sliced) || sliced.length === 1) {
     return null;
   }
 
