@@ -150,7 +150,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     setQuery(value || '');
   }, []);
 
-  if (isEmpty(options) && isEmpty(selected)) {
+  if ((isEmpty(options) && isEmpty(selected)) || options.length === 1) {
     return null;
   }
 

@@ -32,7 +32,7 @@ const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
   const { disableDefaultStyles = false, customClassNames, currency, downshiftEnvironment } = useSearchUIContext();
   const { t } = useTranslation('filter');
 
-  if (isEmpty(options) && isEmpty(selected)) {
+  if ((isEmpty(options) && isEmpty(selected)) || options.length === 1) {
     return null;
   }
 
