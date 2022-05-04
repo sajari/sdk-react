@@ -1,5 +1,13 @@
 # Change Log
 
+## 4.14.1
+
+### Patch Changes
+
+- [`a72c66c6`](https://github.com/sajari/sdk-react/commit/a72c66c6d529d91c1833ae7db1fbbb778cba4e09) [#791](https://github.com/sajari/sdk-react/pull/791) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Support custom attributes for Filter component
+
+* [`b024e43e`](https://github.com/sajari/sdk-react/commit/b024e43e31ceb7f6ce1ddd1066d6a4b642ca3038) [#789](https://github.com/sajari/sdk-react/pull/789) Thanks [@jkaho](https://github.com/jkaho)! - fix: hide filters with only one option
+
 ## 4.14.0
 
 ### Minor Changes
