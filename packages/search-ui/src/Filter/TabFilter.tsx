@@ -1,7 +1,7 @@
 import { Box, Tab, TabList, Tabs } from '@sajari/react-components';
 import { useFilter } from '@sajari/react-hooks';
 import { isEmpty, useTheme } from '@sajari/react-sdk-utils';
-import * as React from 'react';
+import classnames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import tw from 'twin.macro';
 
@@ -22,6 +22,9 @@ const TabFilter = (props: Omit<TabFilterProps, 'type'>) => {
     excludes,
     includes,
     prefixFilter,
+    className,
+    onChange,
+    ...rest
   } = props;
   const { t } = useTranslation('filter');
   const theme = useTheme();
@@ -41,7 +44,8 @@ const TabFilter = (props: Omit<TabFilterProps, 'type'>) => {
       onChange={(index) => setSelected(index !== 0 ? [sliced[index - 1].label] : [])}
       index={selectedIndex < 0 ? 0 : selectedIndex + 1}
       disableDefaultStyles={disableDefaultStyles}
-      className={customClassNames.filter?.tabs?.container}
+      className={classnames(customClassNames.filter?.tabs?.container, className)}
+      {...rest}
     >
       <TabList className={customClassNames.filter?.tabs?.list}>
         <Tab
