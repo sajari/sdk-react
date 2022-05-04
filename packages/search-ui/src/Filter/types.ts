@@ -9,13 +9,14 @@ export interface HeaderProps {
   onReset?: () => void;
 }
 
-export interface BoxProps extends HeaderProps {
+export interface BoxProps
+  extends HeaderProps,
+    Omit<React.HTMLAttributes<HTMLDivElement>, 'title' | 'name' | 'onReset'> {
   children: React.ReactNode;
 }
 
-interface BaseFilterProps {
+interface BaseFilterProps extends Omit<BoxProps, 'children' | 'name' | 'onReset'> {
   name: string;
-  title: BoxProps['title'];
 }
 
 export type TextTransform = 'normal-case' | 'uppercase' | 'lowercase' | 'capitalize' | 'capitalize-first-letter';

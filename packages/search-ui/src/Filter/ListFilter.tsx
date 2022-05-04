@@ -26,6 +26,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     excludes,
     includes,
     prefixFilter,
+    ...rest
   } = props;
 
   const filterContainerId = `list-${name}`;
@@ -155,7 +156,7 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
   }
 
   return (
-    <Box title={title} name={name} showReset={showReset} onReset={reset}>
+    <Box title={title} name={name} showReset={showReset} onReset={reset} {...rest}>
       {searchable ? (
         <CoreBox css={styles.searchWrapper}>
           <Combobox

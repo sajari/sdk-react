@@ -21,6 +21,7 @@ const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
     excludes,
     includes,
     prefixFilter,
+    ...rest
   } = props;
   const { options, reset, setSelected, selected, multi, showReset } = useFilter(name, {
     sort,
@@ -50,7 +51,7 @@ const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
   };
 
   return (
-    <Box title={title} name={name} showReset={showReset} onReset={reset}>
+    <Box title={title} name={name} showReset={showReset} onReset={reset} {...rest}>
       {!isEmpty(options) && (
         <Select
           multiple={multi}
