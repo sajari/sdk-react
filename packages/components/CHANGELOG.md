@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.14.4
+
+### Patch Changes
+
+- [`c7193557`](https://github.com/sajari/sdk-react/commit/c7193557134693df3e1f6eef8d07b5ad39dced5b) [#792](https://github.com/sajari/sdk-react/pull/792) Thanks [@chidojiro](https://github.com/chidojiro)! - Add data-testid for range filter track
+
 ## 1.14.3
 
 ### Patch Changes
