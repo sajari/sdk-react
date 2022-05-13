@@ -9,13 +9,7 @@ import useResultsPerPage from '../useResultsPerPage';
 import useSearchContext from '../useSearchContext';
 import useSorting from '../useSorting';
 import { getSearchParams, isRange, paramToRange, rangeToParam } from '../utils/queryParams';
-import {
-  FilterWatcherProps,
-  ParamWatcherProps,
-  QueryParam,
-  RangeFilterWatcherProps,
-  SyncStateQueryParamsProps,
-} from './types';
+import { FilterWatcherProps, ParamWatcherProps, QueryParam, RangeFilterWatcherProps, URLStateSyncProps } from './types';
 
 const FilterWatcher = ({ filter, replace, delay }: FilterWatcherProps) => {
   const key = filter.getField() || filter.getName();
@@ -122,11 +116,7 @@ const ParamWatcher = ({ delay, replace, queryParam }: ParamWatcherProps) => {
   return null;
 };
 
-const SyncStateQueryParams = ({
-  delay = 500,
-  replace = false,
-  extendedParams = [],
-}: SyncStateQueryParamsProps = {}) => {
+const URLStateSync = ({ delay = 500, replace = false, extendedParams = [] }: URLStateSyncProps = {}) => {
   const {
     filters: filterBuilders = [],
     config: { qParam = 'q' },
@@ -188,5 +178,5 @@ const SyncStateQueryParams = ({
   );
 };
 
-export default SyncStateQueryParams;
+export default URLStateSync;
 export * from './types';

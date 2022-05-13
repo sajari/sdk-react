@@ -26,8 +26,8 @@ export {
   VariablesObject,
 } from './ContextProvider';
 export * from './ContextProvider/events';
-export { default as SyncStateQueryParams } from './SyncStateQueryParams';
-export * from './SyncStateQueryParams';
+export { default as URLStateSync } from './URLStateSync';
+export * from './URLStateSync';
 export { default as useAutocomplete } from './useAutocomplete';
 export { default as useFilter } from './useFilter';
 export * from './useFilter';

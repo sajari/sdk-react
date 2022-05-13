@@ -1,22 +1,22 @@
 import SEO, { scopes } from '../../components/SEO';
 
 <SEO
-  title="SyncStateQueryParams"
+  title="URLStateSync"
   scope={scopes.hooks}
-  description="The `SyncStateQueryParams` component should be used for synchronization between the URL query params and search props such as q, filters, sort, resultsPerPage."
+  description="The `URLStateSync`  component is used to synchronize the state of your search UI with the browser URL. By default, it works out of the box for syncing the state of `query`, `filters`, `sort` and `resultsPerPage` and provides the option to support external params."
 />
 
-# SyncStateQueryParams
+# URLStateSync
 
-The `SyncStateQueryParams` component should be used for synchronization between the URL query params and search props such as `q`, `filters`, `sort`, `resultsPerPage`.
+The `URLStateSync` component is used to synchronize the state of your search UI with the browser URL. By default, it works out of the box for syncing the state of `query`, `filters`, `sort` and `resultsPerPage` and provides the option to support external params.
 
 ```js
-import { SearchProvider, SyncStateQueryParams } from '@sajari/react-hooks';
+import { SearchProvider, URLStateSync } from '@sajari/react-hooks';
 ```
 
 ## Usage
 
-It must be wrapped by `SearchProvider`.
+The component should be placed inside the `SearchProvider`.
 
 ```jsx live=false
 <SearchProvider
@@ -30,12 +30,12 @@ It must be wrapped by `SearchProvider`.
     ),
   }}
 >
-  <SyncStateQueryParams />
+  <URLStateSync />
   <YourApp />
 </SearchProvider>
 ```
 
-## Completed example
+## Example
 
 ```jsx
 function Example() {
@@ -80,9 +80,21 @@ function Example() {
 
   const App = React.memo(() => {
     const { searched } = useSearchContext();
+    const { viewType, setViewType } = useSearchUIContext();
 
     return (
       <>
+        <URLStateSync
+          extendedParams={[
+            {
+              key: 'viewType',
+              value: viewType,
+              defaultValue: 'list',
+              callback: setViewType,
+            },
+          ]}
+        />
+
         <Input />
 
         <div className="flex items-center justify-end mt-3">
@@ -137,9 +149,25 @@ function Example() {
       }}
       searchOnLoad
     >
-      <SyncStateQueryParams />
       <App />
     </SearchProvider>
   );
 }
 ```
+
+## Props
+
+| Name             | Type                                | Default | Description                                                                           |
+| ---------------- | ----------------------------------- | ------- | ------------------------------------------------------------------------------------- |
+| `delay`          | `number`                            | 500     | The delay time to synchronize the param to URL                                        |
+| `replace`        | `boolean`                           | false   | If `true`, modifies the current history entry, replacing it with the new state object |
+| `extendedParams` | [`ExtendedParam[]`](#extendedparam) | []      | The extend params to be synchronized with the URL query params                        |
+
+### ExtendedParam
+
+| Name           | Type                                                                         | Default | Description                         |
+| -------------- | ---------------------------------------------------------------------------- | ------- | ----------------------------------- |
+| `key`          | `string`                                                                     |         | Key of the param                    |
+| `callback`     | `string`                                                                     |         | Callback when the URL param changes |
+| `defaultValue` | `string` \| `number` \| `boolean` \| `string[]` \| `number[]` \| `boolean[]` |         | Default value of the param          |
+| `value`        | `string` \| `number` \| `boolean` \| `string[]` \| `number[]` \| `boolean[]` |         | Current value of the param          |
