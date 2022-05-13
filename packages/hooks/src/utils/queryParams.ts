@@ -1,5 +1,6 @@
-import { Range } from '@sajari/react-hooks';
 import { isArray, isNumber, isSSR } from '@sajari/react-sdk-utils';
+
+import { Range } from '../ContextProvider';
 
 export function isRange(value: unknown) {
   return isArray(value) && value.length === 2 && isNumber(value[0]) && isNumber(value[1]);

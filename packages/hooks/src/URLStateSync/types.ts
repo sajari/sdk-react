@@ -1,4 +1,5 @@
-import { FilterBuilder, ParamValue, RangeFilterBuilder } from '@sajari/react-hooks';
+import { FilterBuilder, RangeFilterBuilder } from '../ContextProvider';
+import { ParamValue } from '../useQueryParams';
 
 export interface FilterWatcherProps {
   filter: FilterBuilder;
@@ -25,7 +26,7 @@ export interface ParamWatcherProps {
   replace?: boolean;
 }
 
-export interface SyncStateQueryParamsProps {
+export interface URLStateSyncProps {
   delay?: number;
   replace?: boolean;
   extendedParams?: QueryParam[];
