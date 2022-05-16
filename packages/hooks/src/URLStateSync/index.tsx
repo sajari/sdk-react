@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-import { FilterBuilder, Range } from '../ContextProvider';
+import { FilterBuilder, Range, RangeFilterBuilder } from '../ContextProvider';
 import useFilter from '../useFilter';
 import useQuery from '../useQuery';
 import useQueryParam from '../useQueryParam';
@@ -153,6 +153,20 @@ const URLStateSync = ({ delay = 500, replace = false, extendedParams = [] }: URL
         const key = filter.getField() || filter.getName();
         const value = params[key] || '';
         filter.set(value ? value.split(',') : []);
+      } else if (filter instanceof RangeFilterBuilder) {
+        const key = filter.getField() || filter.getName();
+        const value = params[key] || '';
+        const initialRange = paramToRange(value);
+        const limit = (params[`${key}_min_max`] || '').split(':').map(Number) as Range;
+        if (isRange(initialRange)) {
+          filter.set(initialRange as Range);
+        }
+        if (isRange(limit)) {
+          filter.setMin(limit[0]);
+          filter.setMax(limit[1]);
+          // Freeze the state of the filterBuilder to avoid the UI from being overridden at the first response
+          filter.setFrozen(true);
+        }
       }
     });
     paramWatchers.forEach(({ key, callback }) => {
