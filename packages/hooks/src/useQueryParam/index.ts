@@ -57,6 +57,7 @@ function useQueryParam(key: string, options?: UseQueryParamParams) {
   }, [debouncedValue]);
 
   const setParam = useCallback((val?: ParamValue) => {
+    // console.log('setParam', key, val);
     setInternalValue(val);
   }, []);
 
