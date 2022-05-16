@@ -1,5 +1,5 @@
 import { FilterBuilder, RangeFilterBuilder } from '../ContextProvider';
-import { ParamValue } from '../useQueryParams';
+import { ParamValue } from '../useQueryParam';
 
 export interface FilterWatcherProps {
   filter: FilterBuilder;

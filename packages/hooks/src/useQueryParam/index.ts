@@ -4,10 +4,10 @@ import { useCallback, useEffect, useState } from 'react';
 import useDebounce from '../useDebounce';
 import { ParamValue, UseQueryParamParams } from './types';
 
-function useQueryParams(key: string, options?: UseQueryParamParams) {
+function useQueryParam(key: string, options?: UseQueryParamParams) {
   const { callback, defaultValue, debounce, replace = false } = options ?? {};
   const [internalValue, setInternalValue] = useState<ParamValue | undefined>(undefined);
-  const debouncedValue = debounce ? useDebounce(internalValue, debounce) : internalValue;
+  const debouncedValue = useDebounce(internalValue, debounce ?? 0);
   const getValue = () => (!isSSR() ? new URLSearchParams(window.location.search).get(key) ?? '' : '');
 
   const setInternalParam = (val?: ParamValue) => {
@@ -63,5 +63,5 @@ function useQueryParams(key: string, options?: UseQueryParamParams) {
   return setParam;
 }
 
-export default useQueryParams;
+export default useQueryParam;
 export * from './types';
