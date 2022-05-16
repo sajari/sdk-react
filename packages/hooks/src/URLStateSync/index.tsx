@@ -14,20 +14,23 @@ import { FilterWatcherProps, ParamWatcherProps, QueryParam, RangeFilterWatcherPr
 const FilterWatcher = ({ filter, replace, delay }: FilterWatcherProps) => {
   const key = filter.getField() || filter.getName();
   const name = filter.getName();
-  const { setSelected, selected } = useFilter(name);
+  const { selected } = useFilter(name);
+  const params = getSearchParams();
   const setFilterParam = useQueryParam(key, {
     debounce: delay,
     replace,
-    callback: replace
-      ? undefined
-      : (value) => {
-          setSelected(value === '' ? [] : value.split(','));
-        },
   });
 
   useEffect(() => {
     setFilterParam(selected);
   }, [selected]);
+
+  const filterKey = filter.getField() || filter.getName();
+  const value = params[filterKey] || '';
+
+  useEffect(() => {
+    filter.set(value ? value.split(',') : []);
+  }, [value]);
 
   return null;
 };
@@ -100,14 +103,20 @@ const RangeFilterWatcher = ({ filter, replace, delay }: RangeFilterWatcherProps)
 };
 
 const ParamWatcher = ({ delay, replace, queryParam }: ParamWatcherProps) => {
-  const { key, callback, defaultValue, value } = queryParam;
+  const { key, defaultValue, value } = queryParam;
+  const params = getSearchParams();
+
+  if (key === 'show') console.log(params);
 
   const setParam = useQueryParam(key, {
     debounce: delay,
     replace,
     defaultValue,
-    callback: replace ? undefined : callback,
   });
+
+  useEffect(() => {
+    queryParam.callback?.(params[key]);
+  }, [params[key]]);
 
   useEffect(() => {
     setParam(value);
@@ -124,7 +133,6 @@ const URLStateSync = ({ delay = 500, replace = false, extendedParams = [] }: URL
   const { query, setQuery } = useQuery();
   const { sorting, setSorting } = useSorting();
   const { resultsPerPage, setResultsPerPage } = useResultsPerPage();
-  const params = getSearchParams();
   const paramWatchers: QueryParam[] = [
     {
       key: qParam,
@@ -146,21 +154,6 @@ const URLStateSync = ({ delay = 500, replace = false, extendedParams = [] }: URL
     },
     ...extendedParams.filter(({ key }) => ![qParam, 'sort', 'show'].includes(key)),
   ];
-
-  useEffect(() => {
-    filterBuilders.forEach((filter) => {
-      if (filter instanceof FilterBuilder) {
-        const key = filter.getField() || filter.getName();
-        const value = params[key] || '';
-        filter.set(value ? value.split(',') : []);
-      }
-    });
-    paramWatchers.forEach(({ key, callback }) => {
-      if (params[key] && callback) {
-        callback(params[key]);
-      }
-    });
-  }, []);
 
   return (
     <React.Fragment>

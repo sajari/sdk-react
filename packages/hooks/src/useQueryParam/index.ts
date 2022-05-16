@@ -9,6 +9,7 @@ function useQueryParam(key: string, options?: UseQueryParamParams) {
   const [internalValue, setInternalValue] = useState<ParamValue | undefined>(undefined);
   const debouncedValue = useDebounce(internalValue, debounce ?? 0);
   const getValue = () => (!isSSR() ? new URLSearchParams(window.location.search).get(key) ?? '' : '');
+  const [, setRerender] = useState(false);
 
   const setInternalParam = (val?: ParamValue) => {
     if (typeof val === 'undefined') {
@@ -45,6 +46,9 @@ function useQueryParam(key: string, options?: UseQueryParamParams) {
   useEffect(() => {
     // Listen for popstate changes
     window.addEventListener('popstate', handler);
+    window.addEventListener('popstate', () => {
+      setRerender((prev) => !prev);
+    });
 
     // Clean up the event binding
     return () => {
