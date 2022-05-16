@@ -2,11 +2,14 @@ import React, { useEffect, useRef } from 'react';
 
 import { FilterBuilder, Range } from '../ContextProvider';
 import useFilter from '../useFilter';
+import useQuery from '../useQuery';
 import useQueryParam from '../useQueryParam';
 import useRangeFilter from '../useRangeFilter';
+import useResultsPerPage from '../useResultsPerPage';
 import useSearchContext from '../useSearchContext';
+import useSorting from '../useSorting';
 import { getSearchParams, isRange, paramToRange, rangeToParam } from '../utils/queryParams';
-import { FilterWatcherProps, RangeFilterWatcherProps, URLStateSyncProps } from './types';
+import { FilterWatcherProps, ParamWatcherProps, QueryParam, RangeFilterWatcherProps, URLStateSyncProps } from './types';
 
 const FilterWatcher = ({ filter, replace, delay }: FilterWatcherProps) => {
   const key = filter.getField() || filter.getName();
@@ -25,13 +28,6 @@ const FilterWatcher = ({ filter, replace, delay }: FilterWatcherProps) => {
   useEffect(() => {
     setFilterParam(selected);
   }, [selected]);
-
-  useEffect(() => {
-    const params = getSearchParams();
-    const filterKey = filter.getField() || filter.getName();
-    const value = params[filterKey] || '';
-    filter.set(value ? value.split(',') : []);
-  }, []);
 
   return null;
 };
@@ -103,8 +99,68 @@ const RangeFilterWatcher = ({ filter, replace, delay }: RangeFilterWatcherProps)
   return null;
 };
 
-const URLStateSync = ({ delay = 500, replace = false }: URLStateSyncProps = {}) => {
-  const { filters: filterBuilders = [] } = useSearchContext();
+const ParamWatcher = ({ delay, replace, queryParam }: ParamWatcherProps) => {
+  const { key, callback, defaultValue, value } = queryParam;
+
+  const setParam = useQueryParam(key, {
+    debounce: delay,
+    replace,
+    defaultValue,
+    callback: replace ? undefined : callback,
+  });
+
+  useEffect(() => {
+    setParam(value);
+  }, [value]);
+
+  return null;
+};
+
+const URLStateSync = ({ delay = 500, replace = false, extendedParams = [] }: URLStateSyncProps = {}) => {
+  const {
+    filters: filterBuilders = [],
+    config: { qParam = 'q' },
+  } = useSearchContext();
+  const { query, setQuery } = useQuery();
+  const { sorting, setSorting } = useSorting();
+  const { resultsPerPage, setResultsPerPage } = useResultsPerPage();
+  const params = getSearchParams();
+  const paramWatchers: QueryParam[] = [
+    {
+      key: qParam,
+      value: query,
+      callback: setQuery,
+    },
+    {
+      key: 'sort',
+      value: sorting,
+      callback: setSorting,
+    },
+    {
+      key: 'show',
+      value: resultsPerPage,
+      defaultValue: 15,
+      callback: (value) => {
+        setResultsPerPage(Number(value) || 15);
+      },
+    },
+    ...extendedParams.filter(({ key }) => ![qParam, 'sort', 'show'].includes(key)),
+  ];
+
+  useEffect(() => {
+    filterBuilders.forEach((filter) => {
+      if (filter instanceof FilterBuilder) {
+        const key = filter.getField() || filter.getName();
+        const value = params[key] || '';
+        filter.set(value ? value.split(',') : []);
+      }
+    });
+    paramWatchers.forEach(({ key, callback }) => {
+      if (params[key] && callback) {
+        callback(params[key]);
+      }
+    });
+  }, []);
 
   return (
     <React.Fragment>
@@ -115,6 +171,9 @@ const URLStateSync = ({ delay = 500, replace = false }: URLStateSyncProps = {}) 
           <RangeFilterWatcher key={filter.getField()} {...{ replace, delay, filter }} />
         );
       })}
+      {paramWatchers.map((queryParam) => (
+        <ParamWatcher key={queryParam.key} {...{ replace, delay, queryParam }} />
+      ))}
     </React.Fragment>
   );
 };
