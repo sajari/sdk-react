@@ -1,19 +1,19 @@
 import { fireEvent } from '@testing-library/react';
 import { act, renderHook } from '@testing-library/react-hooks';
 
-import useQueryParams from '..';
+import useQueryParam from '..';
 
-describe('useQueryParams', () => {
+describe('useQueryParam', () => {
   it('calls the callback', async () => {
     const callback = jest.fn();
-    renderHook(() => useQueryParams('q', { callback }));
+    renderHook(() => useQueryParam('q', { callback }));
     expect(callback).not.toBeCalled();
     fireEvent.popState(window, { state: { q: 'query' } });
     expect(callback).toBeCalled();
   });
 
   it('update the url', async () => {
-    const { result } = renderHook(() => useQueryParams('q'));
+    const { result } = renderHook(() => useQueryParam('q'));
     act(() => {
       result.current('new-value');
     });
@@ -25,7 +25,7 @@ describe('useQueryParams', () => {
   });
 
   it('replaces the url', async () => {
-    const { result } = renderHook(() => useQueryParams('q', { replace: true }));
+    const { result } = renderHook(() => useQueryParam('q', { replace: true }));
     // TODO: find a better way to test this? (currently it is written with the assumption that the underlying mechanism is known - using pushState/replaceState)
     const pushState = jest.fn();
     const replaceState = jest.fn();

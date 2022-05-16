@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { FilterBuilder, Range } from '../ContextProvider';
 import useFilter from '../useFilter';
 import useQuery from '../useQuery';
-import useQueryParams from '../useQueryParams';
+import useQueryParam from '../useQueryParam';
 import useRangeFilter from '../useRangeFilter';
 import useResultsPerPage from '../useResultsPerPage';
 import useSearchContext from '../useSearchContext';
@@ -15,7 +15,7 @@ const FilterWatcher = ({ filter, replace, delay }: FilterWatcherProps) => {
   const key = filter.getField() || filter.getName();
   const name = filter.getName();
   const { setSelected, selected } = useFilter(name);
-  const setFilterParam = useQueryParams(key, {
+  const setFilterParam = useQueryParam(key, {
     debounce: delay,
     replace,
     callback: replace
@@ -39,7 +39,7 @@ const RangeFilterWatcher = ({ filter, replace, delay }: RangeFilterWatcherProps)
   const allowSetParam = useRef(false);
   const { response, results } = useSearchContext();
 
-  const setFilterParam = useQueryParams(key, {
+  const setFilterParam = useQueryParam(key, {
     debounce: delay,
     replace,
     callback: replace
@@ -59,7 +59,7 @@ const RangeFilterWatcher = ({ filter, replace, delay }: RangeFilterWatcherProps)
         },
   });
 
-  const setMinMaxParam = useQueryParams(`${key}_min_max`, {
+  const setMinMaxParam = useQueryParam(`${key}_min_max`, {
     debounce: delay,
     // Prevent min_max from being a part of the history
     replace: true,
@@ -102,7 +102,7 @@ const RangeFilterWatcher = ({ filter, replace, delay }: RangeFilterWatcherProps)
 const ParamWatcher = ({ delay, replace, queryParam }: ParamWatcherProps) => {
   const { key, callback, defaultValue, value } = queryParam;
 
-  const setParam = useQueryParams(key, {
+  const setParam = useQueryParam(key, {
     debounce: delay,
     replace,
     defaultValue,
