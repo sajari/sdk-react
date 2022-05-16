@@ -13,19 +13,19 @@ describe('useQueryParam', () => {
   });
 
   it('update the url', async () => {
-    const { result } = renderHook(() => useQueryParam('q'));
+    const { result, waitFor } = renderHook(() => useQueryParam('q'));
     act(() => {
       result.current('new-value');
     });
-    expect(new URLSearchParams(window.location.search).get('q')).toBe('new-value');
+    waitFor(() => expect(new URLSearchParams(window.location.search).get('q')).toBe('new-value'));
     act(() => {
       result.current(['brand-a', 'brand-b', 'brand-c']);
     });
-    expect(new URLSearchParams(window.location.search).get('q')).toBe('brand-a,brand-b,brand-c');
+    waitFor(() => expect(new URLSearchParams(window.location.search).get('q')).toBe('brand-a,brand-b,brand-c'));
   });
 
   it('replaces the url', async () => {
-    const { result } = renderHook(() => useQueryParam('q', { replace: true }));
+    const { result, waitFor } = renderHook(() => useQueryParam('q', { replace: true }));
     // TODO: find a better way to test this? (currently it is written with the assumption that the underlying mechanism is known - using pushState/replaceState)
     const pushState = jest.fn();
     const replaceState = jest.fn();
@@ -34,11 +34,11 @@ describe('useQueryParam', () => {
     act(() => {
       result.current('new-value');
     });
-    expect(pushState).not.toBeCalled();
-    expect(replaceState).toBeCalledTimes(1);
+    waitFor(() => expect(pushState).not.toBeCalled());
+    waitFor(() => expect(replaceState).toBeCalledTimes(1));
     act(() => {
       result.current('newer-value');
     });
-    expect(replaceState).toBeCalledTimes(2);
+    waitFor(() => expect(replaceState).toBeCalledTimes(2));
   });
 });
