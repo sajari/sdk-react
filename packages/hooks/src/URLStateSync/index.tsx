@@ -39,7 +39,6 @@ const FilterWatcher = ({ filter, replace, delay }: FilterWatcherProps) => {
   const key = filter.getField() || filter.getName();
   const name = filter.getName();
   const { selected } = useFilter(name);
-  const params = getSearchParams();
   const setFilterParam = useQueryParam(key, {
     debounce: delay,
     replace,
@@ -49,10 +48,10 @@ const FilterWatcher = ({ filter, replace, delay }: FilterWatcherProps) => {
     setFilterParam(selected);
   }, [selected]);
 
-  const filterKey = filter.getField() || filter.getName();
-  const value = params[filterKey] || '';
-
   useEffect(() => {
+    const params = getSearchParams();
+    const filterKey = filter.getField() || filter.getName();
+    const value = params[filterKey] || '';
     filter.set(value ? value.split(',') : []);
   }, []);
 
@@ -65,7 +64,6 @@ const RangeFilterWatcher = ({ filter, replace, delay }: RangeFilterWatcherProps)
   const { range, setRange, min, max, reset } = useRangeFilter(name);
   const allowSetParam = useRef(false);
   const { response, results } = useSearchContext();
-  const params = getSearchParams();
 
   const setFilterParam = useQueryParam(key, {
     debounce: delay,
@@ -125,6 +123,7 @@ const RangeFilterWatcher = ({ filter, replace, delay }: RangeFilterWatcherProps)
   }, [results]);
 
   useEffect(() => {
+    const params = getSearchParams();
     const filterKey = filter.getField() || filter.getName();
     const value = params[filterKey] || '';
     const initialRange = paramToRange(value);
@@ -145,7 +144,6 @@ const RangeFilterWatcher = ({ filter, replace, delay }: RangeFilterWatcherProps)
 
 const ParamWatcher = ({ delay, replace, queryParam }: ParamWatcherProps) => {
   const { key, defaultValue, value } = queryParam;
-  const params = getSearchParams();
 
   const setParam = useQueryParam(key, {
     debounce: delay,
@@ -154,6 +152,7 @@ const ParamWatcher = ({ delay, replace, queryParam }: ParamWatcherProps) => {
   });
 
   useEffect(() => {
+    const params = getSearchParams();
     queryParam.callback?.(params[key]);
   }, []);
 
