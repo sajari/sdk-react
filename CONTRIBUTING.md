@@ -55,7 +55,7 @@ notice the package name on package.json, it should be `@sajari/*`. In this case 
 yarn link @sajari/react-hooks
 ```
 
-now `./packages/hooks` will be linked to `{YOUR_REPO}/node_modules` and changes to `./packages/hooks` will affect that repository instantly
+now `./packages/hooks` will be linked to `{YOUR_REPO}/node_modules` and changes to `./packages/hooks/dist` will affect that repository instantly
 
 ## Unlink
 
