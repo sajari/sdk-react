@@ -70,6 +70,8 @@ to use the remote package
 
 ## Unlink all
 
+To clear all the linked packages you have register to yarn, run
+
 ```sh
 rm -rf ~/.config/yarn/link
 yarn install --force
