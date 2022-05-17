@@ -1,5 +1,14 @@
 # Change Log
 
+## 4.14.2
+
+### Patch Changes
+
+- [`c7193557`](https://github.com/sajari/sdk-react/commit/c7193557134693df3e1f6eef8d07b5ad39dced5b) [#792](https://github.com/sajari/sdk-react/pull/792) Thanks [@chidojiro](https://github.com/chidojiro)! - Add data-testid for range filter track
+
+- Updated dependencies [[`c7193557`](https://github.com/sajari/sdk-react/commit/c7193557134693df3e1f6eef8d07b5ad39dced5b)]:
+  - @sajari/react-components@1.14.4
+
 ## 4.14.1
 
 ### Patch Changes
@@ -738,7 +747,7 @@
   Before:
 
   ```js
-  pipeline.listen('result-clicked', url => {
+  pipeline.listen('result-clicked', (url) => {
     console.log(url);
   });
   ```
@@ -746,7 +755,7 @@
   After:
 
   ```js
-  pipeline.listen('result-clicked', data => {
+  pipeline.listen('result-clicked', (data) => {
     const {
       token,
       values: { id, url, title, subtitle, description, image, price, originalPrice, rating },

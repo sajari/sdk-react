@@ -269,6 +269,7 @@ function RangeInput<T extends RangeValue>(props: RangeInputProps<T>) {
           {...getTrackProps({ ref: trackRef })}
           className={trackClassName}
           disableDefaultStyles={disableDefaultStyles}
+          data-testid="range-filter-track"
         >
           {segments.map(({ getSegmentProps }, i: number) => (
             <Fill
