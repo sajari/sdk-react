@@ -90,7 +90,7 @@ function Example() {
               key: 'viewType',
               value: viewType,
               defaultValue: 'list',
-              callback: setViewType,
+              callback: (setView) => setViewType(viewType || 'list'),
             },
           ]}
         />
