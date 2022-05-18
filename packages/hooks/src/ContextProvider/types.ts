@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Redirects } from '@sajari/sdk-js';
 
+import { ParamValue } from '../useQueryParam';
 import { Config } from './Config';
 import { FilterBuilder, Pipeline, RangeFilterBuilder, Response, Variables } from './controllers';
 
@@ -44,12 +45,28 @@ export interface ProviderPipelineState {
   redirects: Redirects;
 }
 
+interface QueryParam {
+  key: string;
+  callback?: (value: string) => void;
+  defaultValue?: ParamValue;
+  value?: ParamValue;
+}
+
+export type SyncURLState =
+  | boolean
+  | {
+      syncParams?: QueryParam[];
+      delay?: number;
+      replace?: boolean;
+    };
+
 export interface SearchProviderValues {
   search: ProviderPipelineConfig;
   autocomplete?: ProviderPipelineConfig;
   defaultFilter?: string;
   searchOnLoad?: boolean;
   initialResponse?: string;
+  syncURLState?: SyncURLState;
 }
 
 export interface PipelineProviderState {
