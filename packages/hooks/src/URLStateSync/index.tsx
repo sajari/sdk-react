@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-import { FilterBuilder, Range } from '../ContextProvider';
+import { FilterBuilder, Range } from '../ContextProvider/controllers';
 import useFilter from '../useFilter';
 import useQuery from '../useQuery';
 import useQueryParam from '../useQueryParam';
@@ -116,7 +116,8 @@ const ParamWatcher = ({ delay, replace, queryParam }: ParamWatcherProps) => {
   return null;
 };
 
-const URLStateSync = ({ delay = 500, replace = false, extendedParams = [] }: URLStateSyncProps = {}) => {
+const URLStateSync = (props: URLStateSyncProps = {}) => {
+  const { delay = 500, replace = false, extendedParams = [] } = props;
   const {
     filters: filterBuilders = [],
     config: { qParam = 'q' },

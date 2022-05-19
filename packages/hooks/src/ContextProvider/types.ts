@@ -55,7 +55,7 @@ interface QueryParam {
 export type SyncURLState =
   | boolean
   | {
-      syncParams?: QueryParam[];
+      extendedParams?: QueryParam[];
       delay?: number;
       replace?: boolean;
     };

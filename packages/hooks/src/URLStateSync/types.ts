@@ -1,4 +1,4 @@
-import { FilterBuilder, RangeFilterBuilder } from '../ContextProvider';
+import { FilterBuilder, RangeFilterBuilder } from '../ContextProvider/controllers';
 import { ParamValue } from '../useQueryParam';
 
 export interface FilterWatcherProps {

@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { useContext } from '../ContextProvider';
+import { useContext } from '../ContextProvider/context';
 import { UseSortingResult } from './types';
 
 function useSorting(): UseSortingResult {

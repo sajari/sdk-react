@@ -1,11 +1,12 @@
 /* eslint-disable import/named */
 /* eslint-disable @typescript-eslint/no-shadow */
-import { createContext, isEmpty, isString } from '@sajari/react-sdk-utils';
+import { isEmpty, isString } from '@sajari/react-sdk-utils';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import URLStateSync from '../URLStateSync';
 import { initParam } from '../utils/queryParams';
 import { Config, defaultConfig } from './Config';
+import { Provider, useContext } from './context';
 import {
   ClickTracking,
   EventTracking,
@@ -75,11 +76,6 @@ const valuesUpdatedListener = (variables: Variables, pipeline: Pipeline, prevSta
 
   return updateState(query, pipeline.getResponse(), prevState.config);
 };
-
-const [Provider, useContext] = createContext<Context>({
-  strict: true,
-  name: 'PipelineContext',
-});
 
 const defaultState: ProviderPipelineState = {
   response: null,
