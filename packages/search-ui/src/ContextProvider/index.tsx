@@ -69,8 +69,8 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
           typeof syncURLState !== 'boolean' && typeof syncURLState !== 'undefined'
             ? {
                 ...syncURLState,
-                syncParams: [
-                  ...(syncURLState?.syncParams || []),
+                extendedParams: [
+                  ...(syncURLState?.extendedParams || []),
                   {
                     key: 'viewType',
                     defaultValue: 'list',

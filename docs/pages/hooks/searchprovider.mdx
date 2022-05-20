@@ -50,6 +50,7 @@ It is recommended that you only need to use `SearchProvider` once at the root of
 | `searchOnLoad`    | `boolean`                                           |         | Whether to search on initial load. **Note:** if you're also calling the `useSearch` hook in your app, you'll make two search requests. |
 | `initialResponse` | `string`                                            |         | An initial search response in JSON format, useful for [server-side rendering](/ssr).                                                   |
 | `defaultFilter`   | `string`                                            |         | A default filter to apply to all search requests.                                                                                      |
+| `syncURLState`    | `boolean` \| [`SyncURLState`](#SyncURLState)        | false   | Allow to synchronize the state of your search UI with the browser URL.                                                                 |
 
 ### ProviderPipelineConfig
 
@@ -60,3 +61,20 @@ It is recommended that you only need to use `SearchProvider` once at the root of
 | `config`    | [`Config`](/classes/config)                                                                              |         | Define mapping between key/value pair params to be sent with each and every request.                                                               |
 | `fields`    | [`FieldDictionary`](/classes/fielddictionary)                                                            |         | A configuration is used to map fields in your data to the required fields to display in the UI.                                                    |
 | `filters`   | `(`[`FilterBuilder`](/classes/filterbuilder) or [`RangeFilterBuilder`](/classes/rangefilterbuilder)`)[]` |         | A list of filters is used to navigate and find relevant results.                                                                                   |
+
+### SyncURLState
+
+| Name             | Type                                | Default | Description                                                                           |
+| ---------------- | ----------------------------------- | ------- | ------------------------------------------------------------------------------------- |
+| `delay`          | `number`                            | 500     | The delay time to synchronize the param to URL                                        |
+| `replace`        | `boolean`                           | false   | If `true`, modifies the current history entry, replacing it with the new state object |
+| `extendedParams` | [`ExtendedParam[]`](#extendedparam) | false   | The extend params to be synchronized with the URL query params                        |
+
+### ExtendedParam
+
+| Name           | Type                                                                         | Default | Description                         |
+| -------------- | ---------------------------------------------------------------------------- | ------- | ----------------------------------- |
+| `key`          | `string`                                                                     |         | Key of the param                    |
+| `callback`     | `string`                                                                     |         | Callback when the URL param changes |
+| `defaultValue` | `string` \| `number` \| `boolean` \| `string[]` \| `number[]` \| `boolean[]` |         | Default value of the param          |
+| `value`        | `string` \| `number` \| `boolean` \| `string[]` \| `number[]` \| `boolean[]` |         | Current value of the param          |

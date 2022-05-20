@@ -30,7 +30,6 @@ const components = [
 
 const hooks = [
   '!SearchProvider',
-  'URLStateSync',
   'useAutocomplete',
   'useFilter',
   'useRangeFilter',
