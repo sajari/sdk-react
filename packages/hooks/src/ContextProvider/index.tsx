@@ -1,9 +1,12 @@
 /* eslint-disable import/named */
 /* eslint-disable @typescript-eslint/no-shadow */
-import { createContext, isEmpty, isString } from '@sajari/react-sdk-utils';
+import { isEmpty, isString } from '@sajari/react-sdk-utils';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
+import URLStateSync from '../URLStateSync';
+import { initParam } from '../utils/queryParams';
 import { Config, defaultConfig } from './Config';
+import { Provider, useContext } from './context';
 import {
   ClickTracking,
   EventTracking,
@@ -74,11 +77,6 @@ const valuesUpdatedListener = (variables: Variables, pipeline: Pipeline, prevSta
   return updateState(query, pipeline.getResponse(), prevState.config);
 };
 
-const [Provider, useContext] = createContext<Context>({
-  strict: true,
-  name: 'PipelineContext',
-});
-
 const defaultState: ProviderPipelineState = {
   response: null,
   query: '',
@@ -111,6 +109,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
   defaultFilter,
   searchOnLoad,
   initialResponse: initialResponseProp,
+  syncURLState,
 }) => {
   const initialResponse = parseResponse(initialResponseProp);
   const [searching, setSearching] = useState(false);
@@ -139,22 +138,13 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
   }
 
   if (!configDone) {
-    const filter = combineFilters(search.filters ?? []);
-    const variablesFilterString = variables.current.get().filter ?? '';
-    const defaultFilterString = defaultFilter?.toString() ?? '';
-
-    variables.current.set({
-      filter: () => {
-        const expression = filter.filter();
-        return [defaultFilterString, variablesFilterString, isEmpty(expression) ? '_id != ""' : expression]
-          .filter(Boolean)
-          .join(' AND ');
-      },
-      countFilters: () => filter.countFilters(),
-      buckets: () => filter.buckets(),
-      count: () => filter.count(),
-      min: () => filter.min(),
-      max: () => filter.max(),
+    initParam({
+      filters: search.filters || [],
+      variables: variables.current,
+      searchState,
+      autocompleteState,
+      defaultFilter,
+      syncURLState,
     });
   }
 
@@ -351,7 +341,12 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
       paginate: handlePaginate,
     } as Context);
 
-  return <Provider value={getContext({ autocomplete: autocompleteState, search: searchState })}>{children}</Provider>;
+  return (
+    <Provider value={getContext({ autocomplete: autocompleteState, search: searchState })}>
+      {syncURLState && <URLStateSync {...(typeof syncURLState !== 'boolean' ? syncURLState : {})} />}
+      {children}
+    </Provider>
+  );
 };
 
 export default ContextProvider;

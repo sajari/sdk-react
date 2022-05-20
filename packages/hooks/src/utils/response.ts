@@ -1,7 +1,7 @@
 import { isNumber } from '@sajari/react-sdk-utils';
 import { CountAggregate } from '@sajari/sdk-js';
 
-import { Response } from '../ContextProvider';
+import { Response } from '../ContextProvider/controllers';
 
 export function getBucketCount(response: Response | null, value: string): number | null {
   if (!response || response?.isEmpty()) {

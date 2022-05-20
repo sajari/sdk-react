@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-import { FilterBuilder, Range, RangeFilterBuilder } from '../ContextProvider';
+import { FilterBuilder, Range } from '../ContextProvider/controllers';
 import useFilter from '../useFilter';
 import useQuery from '../useQuery';
 import useQueryParam from '../useQueryParam';
@@ -8,7 +8,7 @@ import useRangeFilter from '../useRangeFilter';
 import useResultsPerPage from '../useResultsPerPage';
 import useSearchContext from '../useSearchContext';
 import useSorting from '../useSorting';
-import { getSearchParams, isRange, paramToRange, rangeToParam } from '../utils/queryParams';
+import { isRange, paramToRange, rangeToParam } from '../utils/queryParams';
 import { FilterWatcherProps, ParamWatcherProps, QueryParam, RangeFilterWatcherProps, URLStateSyncProps } from './types';
 
 const FilterWatcher = ({ filter, replace, delay }: FilterWatcherProps) => {
@@ -116,7 +116,8 @@ const ParamWatcher = ({ delay, replace, queryParam }: ParamWatcherProps) => {
   return null;
 };
 
-const URLStateSync = ({ delay = 500, replace = false, extendedParams = [] }: URLStateSyncProps = {}) => {
+const URLStateSync = (props: URLStateSyncProps = {}) => {
+  const { delay = 500, replace = false, extendedParams = [] } = props;
   const {
     filters: filterBuilders = [],
     config: { qParam = 'q' },
@@ -124,7 +125,6 @@ const URLStateSync = ({ delay = 500, replace = false, extendedParams = [] }: URL
   const { query, setQuery } = useQuery();
   const { sorting, setSorting } = useSorting();
   const { resultsPerPage, setResultsPerPage } = useResultsPerPage();
-  const params = getSearchParams();
   const paramWatchers: QueryParam[] = [
     {
       key: qParam,
@@ -146,35 +146,6 @@ const URLStateSync = ({ delay = 500, replace = false, extendedParams = [] }: URL
     },
     ...extendedParams.filter(({ key }) => ![qParam, 'sort', 'show'].includes(key)),
   ];
-
-  useEffect(() => {
-    filterBuilders.forEach((filter) => {
-      if (filter instanceof FilterBuilder) {
-        const key = filter.getField() || filter.getName();
-        const value = params[key] || '';
-        filter.set(value ? value.split(',') : []);
-      } else if (filter instanceof RangeFilterBuilder) {
-        const key = filter.getField() || filter.getName();
-        const value = params[key] || '';
-        const initialRange = paramToRange(value);
-        const limit = (params[`${key}_min_max`] || '').split(':').map(Number) as Range;
-        if (isRange(initialRange)) {
-          filter.set(initialRange as Range);
-        }
-        if (isRange(limit)) {
-          filter.setMin(limit[0]);
-          filter.setMax(limit[1]);
-          // Freeze the state of the filterBuilder to avoid the UI from being overridden at the first response
-          filter.setFrozen(true);
-        }
-      }
-    });
-    paramWatchers.forEach(({ key, callback }) => {
-      if (params[key] && callback) {
-        callback(params[key]);
-      }
-    });
-  }, []);
 
   return (
     <React.Fragment>
