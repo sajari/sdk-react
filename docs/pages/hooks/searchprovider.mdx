@@ -37,6 +37,104 @@ It must wrap any components where you are using hooks, usually this is done in a
 - Replace the placeholders with your account and collection IDs from [the collection crendentials section](https://app.search.io/collection/credentials) in the console.
 - Replace the pipeline name placeholder with the pipeline you'd like to use to query.
 
+## Sync URL state
+
+Enable the `syncURLState` prop to synchronize the state of your search UI with the browser URL. By default, it works out of the box for syncing the state of `query`, `filters`, `sort` and `resultsPerPage` while providing a support for external params.
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+  );
+  const fields = new FieldDictionary({
+    title: 'name',
+    subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+  });
+  const brandFilter = new FilterBuilder({
+    name: 'brand',
+    field: 'brand',
+  });
+  const categoryFilter = new FilterBuilder({
+    name: 'level1',
+    field: 'level1',
+  });
+  const colorFilter = new FilterBuilder({
+    name: 'color',
+    field: 'imageTags',
+    array: true,
+  });
+  const priceFilter = new RangeFilterBuilder({
+    name: 'price',
+    field: 'price',
+  });
+  const ratingFilter = new FilterBuilder({
+    name: 'rating',
+    field: 'rating',
+  });
+  const App = React.memo(() => {
+    const { searched } = useSearchContext();
+    const { viewType, setViewType } = useSearchUIContext();
+    return (
+      <>
+        <Input />
+        <div className="flex items-center justify-end mt-3">
+          <Summary size="sm" />
+          <div className="flex space-x-4 ml-auto">
+            <Sorting
+              options={[
+                { name: 'Most relevant', value: '' },
+                { name: 'Brand: A to Z', value: 'brand' },
+                { name: 'Brand: Z to A', value: '-brand' },
+                { name: 'Rating: Low to High', value: 'rating' },
+                { name: 'Rating: High to Low', value: '-rating' },
+                { name: 'Popularity', value: 'popularity' },
+              ]}
+              size="sm"
+            />
+            <ResultsPerPage size="sm" />
+            <ViewType size="sm" />
+          </div>
+        </div>
+        <div className="flex mt-6">
+          {searched && (
+            <div className="w-1/4 pr-4 border-gray-100 border-r space-y-6">
+              <Filter type="list" name="brand" title="Brand" searchable />
+              <Filter type="list" name="level1" title="Category" searchable />
+              <Filter type="range" name="price" title="Price" format="price" />
+              <Filter type="color" name="color" title="Color" />
+              <Filter type="rating" name="rating" title="Rating" />
+            </div>
+          )}
+          <div className="flex-1 pl-4">
+            <Results />
+          </div>
+        </div>
+        <div className="sticky bottom-0 p-6">
+          <Pagination />
+        </div>
+      </>
+    );
+  });
+  return (
+    <SearchProvider
+      search={{
+        pipeline,
+        fields,
+        filters: [categoryFilter, priceFilter, colorFilter, ratingFilter, brandFilter],
+      }}
+      searchOnLoad
+      syncURLState
+    >
+      <App />
+    </SearchProvider>
+  );
+}
+```
+
 ## Note
 
 It is recommended that you only need to use `SearchProvider` once at the root of your application, if you find the need to use multiple collections then having multiple `SearchProvider`s would be okay too. You shouldn't nest `SearchProvider`s because each provider will create a separate new context which makes components beneath it (`Pagination`, `Sorting`) not behaving as they should.

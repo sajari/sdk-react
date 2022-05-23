@@ -4,7 +4,7 @@ import { isEmpty, isString } from '@sajari/react-sdk-utils';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import URLStateSync from '../URLStateSync';
-import { initParam } from '../utils/queryParams';
+import { getSearchParams, initFiltersFromURLState, initVariableFromURLState } from '../utils/queryParams';
 import { Config, defaultConfig } from './Config';
 import { Provider, useContext } from './context';
 import {
@@ -138,13 +138,39 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
   }
 
   if (!configDone) {
-    initParam({
-      filters: search.filters || [],
-      variables: variables.current,
-      searchState,
-      autocompleteState,
-      defaultFilter,
-      syncURLState,
+    if (syncURLState) {
+      const params = getSearchParams();
+      initFiltersFromURLState({
+        filters: search.filters || [],
+        params,
+      });
+      initVariableFromURLState({
+        variables: variables.current,
+        params,
+        mappingKeys: [
+          { paramKey: 'show', variableKey: 'resultsPerPage', defaultValue: '15' },
+          { paramKey: 'sort', variableKey: 'sort' },
+          { paramKey: autocompleteState.config.qParam, variableKey: autocompleteState.config.qParam },
+          { paramKey: searchState.config.qParam, variableKey: searchState.config.qParam },
+        ],
+      });
+    }
+    const filter = combineFilters(search.filters ?? []);
+    const variablesFilterString = variables.current.get().filter ?? '';
+    const defaultFilterString = defaultFilter?.toString() ?? '';
+
+    variables.current.set({
+      filter: () => {
+        const expression = filter.filter();
+        return [defaultFilterString, variablesFilterString, isEmpty(expression) ? '_id != ""' : expression]
+          .filter(Boolean)
+          .join(' AND ');
+      },
+      countFilters: () => filter.countFilters(),
+      buckets: () => filter.buckets(),
+      count: () => filter.count(),
+      min: () => filter.min(),
+      max: () => filter.max(),
     });
   }
 
