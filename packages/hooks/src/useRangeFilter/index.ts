@@ -1,7 +1,8 @@
 import { isNullOrUndefined } from '@sajari/react-sdk-utils';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { RangeFilterBuilder, useContext } from '../ContextProvider';
+import { useContext } from '../ContextProvider/context';
+import { RangeFilterBuilder } from '../ContextProvider/controllers';
 import { Range } from '../ContextProvider/controllers/filters/types';
 import { EVENT_RANGE_UPDATED } from '../ContextProvider/events';
 

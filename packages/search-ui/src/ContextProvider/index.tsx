@@ -27,6 +27,7 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
   customClassNames = {},
   viewType: viewTypeProp = 'list',
   downshiftEnvironment = null,
+  syncURLState,
 }) => {
   const [language, setLanguage] = useState(i18n.language);
   const [viewType, setViewType] = useState<ResultViewType>(viewTypeProp);
@@ -64,6 +65,24 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
         defaultFilter={defaultFilter}
         searchOnLoad={searchOnLoad}
         initialResponse={initialResponse}
+        syncURLState={
+          typeof syncURLState !== 'boolean' && typeof syncURLState !== 'undefined'
+            ? {
+                ...syncURLState,
+                extendedParams: [
+                  ...(syncURLState?.extendedParams || []),
+                  {
+                    key: 'viewType',
+                    defaultValue: 'list',
+                    callback: (value) => {
+                      setViewType((value as ResultViewType) || 'list');
+                    },
+                    value: viewType,
+                  },
+                ],
+              }
+            : syncURLState
+        }
       >
         <LiveAnnouncer>
           <I18nextProvider i18n={i18n}>
