@@ -4339,10 +4339,10 @@
     eslint-config-airbnb-typescript "^12.0.0"
     eslint-config-prettier "^7.1.0"
 
-"@sajari/sdk-js@^2.10.4":
-  version "2.10.4"
-  resolved "https://registry.yarnpkg.com/@sajari/sdk-js/-/sdk-js-2.10.4.tgz#fd08b08971436d4f65909adc419da6e540981753"
-  integrity sha512-hDuUVqmxo9F/yZfWHky34vjEt1qyi1QyumOnGTNfANwjJTaDDCPcdmRXNqFCoiTNoRrVBQfOJSMCNZm0KDnl/Q==
+"@sajari/sdk-js@^2.10.5":
+  version "2.10.5"
+  resolved "https://registry.yarnpkg.com/@sajari/sdk-js/-/sdk-js-2.10.5.tgz#876be97d78c7b192314b06d41e68d25577ee5011"
+  integrity sha512-Uusuop9qNQ9kpXa9RL8RJsCVbf/8g9MNypaR/LItgJQsPdc2zIK7Ej0JSbjhi5yotKRURAah9R5jWlOl6N5Mxw==
 
 "@sinonjs/commons@^1.7.0":
   version "1.8.1"
