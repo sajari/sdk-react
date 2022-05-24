@@ -30,6 +30,7 @@ const de: Locale = {
     showMore: 'Zeig mehr',
     show: 'Filter anzeigen',
     hide: 'Filter ausblenden',
+    toggleFilters: 'Filter umschalten',
   },
   input: {
     placeholder: 'Suche',
