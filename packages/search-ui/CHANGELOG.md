@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.15.0
+
+### Minor Changes
+
+- [`2167a962`](https://github.com/sajari/sdk-react/commit/2167a962c52781f5a365e22a4088d9154a8d50a0) [#799](https://github.com/sajari/sdk-react/pull/799) Thanks [@tuanddd](https://github.com/tuanddd)! - Add translation for toggle filters
+
 ## 4.14.2
 
 ### Patch Changes
