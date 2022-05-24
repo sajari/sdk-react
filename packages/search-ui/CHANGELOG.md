@@ -1,5 +1,14 @@
 # Change Log
 
+## 4.16.1
+
+### Patch Changes
+
+- [`05105918`](https://github.com/sajari/sdk-react/commit/051059186af08bfbbaaf9680e131c8d26332aeb0) [#803](https://github.com/sajari/sdk-react/pull/803) Thanks [@zlatanpham](https://github.com/zlatanpham)! - There are no changes in the version bump. This aims to release the most recent update in the hooks package when the version 3.13.0 failed to be published by changeset.
+
+- Updated dependencies [[`05105918`](https://github.com/sajari/sdk-react/commit/051059186af08bfbbaaf9680e131c8d26332aeb0), [`1e7ee9b2`](https://github.com/sajari/sdk-react/commit/1e7ee9b2b3f2b0f18d8fc51a81075a1a0b68fb18)]:
+  - @sajari/react-hooks@3.13.1
+
 ## 4.16.0
 
 ### Minor Changes
