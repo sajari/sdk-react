@@ -47,6 +47,8 @@ export type Locale = {
     show: string;
     /** Text in button to hide filters sidebar  */
     hide: string;
+    /** Text used by screen reader when the user focuses on the toggel filter button  */
+    toggleFilters: string;
   };
   input: {
     /** Placeholder for search input */
