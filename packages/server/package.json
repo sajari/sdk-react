@@ -26,8 +26,13 @@
     "react-dom": ">=16.8.0"
   },
   "dependencies": {
-    "@sajari/react-hooks": "^3.10.1",
-    "@sajari/react-sdk-utils": "^1.6.4"
+    "@sajari/react-hooks": "workspace:^",
+    "@sajari/react-sdk-utils": "workspace:^"
+  },
+  "devDependencies": {
+    "babel-jest": "^26.6.3",
+    "jest": "^26.6.3",
+    "tsdx": "^0.14.1"
   },
   "publishConfig": {
     "access": "public"
