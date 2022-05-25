@@ -35,8 +35,10 @@ export const initFiltersFromURLState = ({
   filters.forEach((filter) => {
     if (filter instanceof FilterBuilder) {
       const key = filter.getField() || filter.getName();
-      const value = params[key] || '';
-      filter.set(value ? value.split(',') : []);
+      const value = params[key];
+      if (value) {
+        filter.set(value.split(','));
+      }
     } else if (filter instanceof RangeFilterBuilder) {
       const key = filter.getField() || filter.getName();
       const value = params[key] || '';
