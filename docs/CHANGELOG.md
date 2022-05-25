@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.16.1
+
+### Patch Changes
+
+- [`c235dcc6`](https://github.com/sajari/sdk-react/commit/c235dcc6ded4e2e0d3b358796c2f0696e33359dd) [#808](https://github.com/sajari/sdk-react/pull/808) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix initial value for a filter will be overridden to an empty value if the URL param doesn't exist
+
 ## 1.16.0
 
 ### Minor Changes
