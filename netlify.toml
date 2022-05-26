@@ -1,4 +1,4 @@
 [build]
   base = "."
-  command = "yarn build:docs"
+  command = "yarn build && yarn build:docs"
   publish = "docs/out"
