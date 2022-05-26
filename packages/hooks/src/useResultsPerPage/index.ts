@@ -1,7 +1,7 @@
 import { isNumber } from '@sajari/react-sdk-utils';
 import * as React from 'react';
 
-import { useContext } from '../ContextProvider';
+import { useContext } from '../ContextProvider/context';
 import { UseResultsPerPageResult } from './types';
 
 function useResultsPerPage(): UseResultsPerPageResult {

@@ -30,6 +30,7 @@ const nl: Locale = {
     showMore: 'Laat meer zien',
     show: 'Toon filters',
     hide: 'Filters verbergen',
+    toggleFilters: 'Filters wisselen',
   },
   input: {
     placeholder: 'Zoeken',

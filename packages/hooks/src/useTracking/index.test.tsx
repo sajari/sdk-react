@@ -1,9 +1,8 @@
-import { FieldDictionary, Pipeline } from '@sajari/react-hooks';
 import { act, renderHook } from '@testing-library/react-hooks';
 import React from 'react';
 
 import { SearchProvider } from '..';
-import { EventTracking } from '../ContextProvider';
+import { EventTracking, FieldDictionary, Pipeline } from '../ContextProvider';
 import { pipeline1 } from '../ContextProvider/controllers/fixtures/Pipeline';
 import { EVENT_RESULT_CLICKED } from '../ContextProvider/events';
 import useTracking from '.';

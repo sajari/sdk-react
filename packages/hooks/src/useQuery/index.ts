@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { useContext } from '../ContextProvider';
+import { useContext } from '../ContextProvider/context';
 
 function useQuery() {
   const {

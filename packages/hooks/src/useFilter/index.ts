@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 
-import { FilterBuilder, useContext } from '../ContextProvider';
+import { useContext } from '../ContextProvider/context';
+import { FilterBuilder } from '../ContextProvider/controllers';
 import { EVENT_SELECTION_UPDATED } from '../ContextProvider/events';
 import { getBucketCount } from '../utils';
 import { FilterItem, SortType } from './types';

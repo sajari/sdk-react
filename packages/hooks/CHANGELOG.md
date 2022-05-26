@@ -1,5 +1,57 @@
 # Change Log
 
+## 3.13.2
+
+### Patch Changes
+
+- [`c235dcc6`](https://github.com/sajari/sdk-react/commit/c235dcc6ded4e2e0d3b358796c2f0696e33359dd) [#808](https://github.com/sajari/sdk-react/pull/808) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix initial value for a filter will be overridden to an empty value if the URL param doesn't exist
+
+## 3.13.1
+
+### Patch Changes
+
+- [`05105918`](https://github.com/sajari/sdk-react/commit/051059186af08bfbbaaf9680e131c8d26332aeb0) [#803](https://github.com/sajari/sdk-react/pull/803) Thanks [@zlatanpham](https://github.com/zlatanpham)! - There are no changes in the version bump. This aims to release the most recent update in the hooks package when the version 3.13.0 failed to be published by changeset.
+
+* [`1e7ee9b2`](https://github.com/sajari/sdk-react/commit/1e7ee9b2b3f2b0f18d8fc51a81075a1a0b68fb18) [#802](https://github.com/sajari/sdk-react/pull/802) Thanks [@wwalser](https://github.com/wwalser)! - chore: bump version of sdk-js used in order to get access to new bug fixes
+
+## 3.13.0
+
+### Minor Changes
+
+- [`0e0e4712`](https://github.com/sajari/sdk-react/commit/0e0e4712c0d5097476eb71fd562f077783d1b36e) [#794](https://github.com/sajari/sdk-react/pull/794) Thanks [@zlatanpham](https://github.com/zlatanpham)! - **Motivation**: It’s super useful to have the search UI state synchronizing with the browser URL and we had the functionality internally developed in the search widgets. However, when users build the search UI with React SDK (or JS SDK), they have to develop the feature by themselves and the work could be challenging even for an experienced developer. Thus, the goal of the change is to have the sync URLs functionality as a generic solution in the React SDK so it can be easily used by both our internal development (search-widgets, demo,…) and the outside world.
+
+  ### API proposal
+
+  The `URLStateSync` should be placed inside the `SearchProvider`. It will work out of box with any UI that consumes data from our hook components.
+
+  ```jsx
+  <SearchProvider {...}>
+    <URLStateSync />
+    <YourSearchUI />
+  </SearchProvider>
+  ```
+
+  By default, it supports state sync for the core params including `q`, `filters`, `sort` and `resultsPerPage` but we can extend other options via `extendedParams` prop:
+
+  ```jsx
+  const defaultViewType = 'list';
+  const [viewType, setViewType] = useState(defaultViewType);
+
+  <SearchProvider {...}>
+    <URLStateSync />
+    <YourSearchUI
+       extendedParams={[
+          {
+            key: 'viewType',
+            value: viewType,
+            defaultValue: defaultViewType,
+            callback: setViewType,
+          },
+        ]}
+     />
+  </SearchProvider>
+  ```
+
 ## 3.12.0
 
 ### Minor Changes

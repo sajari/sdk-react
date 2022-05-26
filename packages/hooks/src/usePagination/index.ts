@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 
-import { useContext } from '../ContextProvider';
+import { useContext } from '../ContextProvider/context';
 import { UsePaginationResult } from './types';
 
 function usePagination(key: 'search' | 'autocomplete' = 'search'): UsePaginationResult {
