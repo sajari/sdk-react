@@ -7,6 +7,7 @@ export * from './function';
 export * from './number';
 export * from './object';
 export * from './react-helpers';
+export * from './search-params';
 export * from './ssr';
 export * from './string';
 export * from './styles';

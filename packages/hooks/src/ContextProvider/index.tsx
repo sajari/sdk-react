@@ -1,10 +1,10 @@
 /* eslint-disable import/named */
 /* eslint-disable @typescript-eslint/no-shadow */
-import { isEmpty, isString } from '@sajari/react-sdk-utils';
+import { getSearchParams, isEmpty, isString } from '@sajari/react-sdk-utils';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import URLStateSync from '../URLStateSync';
-import { getSearchParams, initFiltersFromURLState, initVariableFromURLState } from '../utils/queryParams';
+import { initFiltersFromURLState, initVariableFromURLState } from '../utils/queryParams';
 import { Config, defaultConfig } from './Config';
 import { Provider, useContext } from './context';
 import {
