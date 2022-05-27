@@ -2,9 +2,11 @@
 
 We recommend that you use an [example](./example) or external app when developing and testing changes to this library.
 
-You can install all the dependencies in the root directory. Since the monorepo uses Lerna and Yarn Workspaces, npm CLI is not supported (only yarn).
+You can install all the dependencies in the root directory. Since the monorepo uses Lerna and Yarn Workspaces, npm CLI is not supported (only yarn). We declare a preferred NPM version in the root directory and if you have corepack enabled, the correct version of yarn will automatically be used.
 
 ```sh
+nvm use
+corepack enable
 yarn install
 ```
 
@@ -12,21 +14,30 @@ This will install all dependencies in each project, build them, and symlink them
 
 ## Development workflow
 
-In one terminal, run tsdx watch in parallel:
+Because sdk-react is a multi-package monorepo, one can work on multiple packages at the same time or on a single package within the larger set. All commands made from the root directory of the repo will execute that command in each of its packages.
+
+This will launch and watch all packages within sdk-react.
 
 ```sh
 yarn start
 ```
 
-This builds each package to `<packages>/<package>/dist` and runs the project in watch mode so any edits you save inside `<packages>/<package>/src` cause a rebuild to `<packages>/<package>/dist`. The results will stream to to the terminal.
+It is most often the case that developers are interesting in making changes in a single package within the monorepo. For those cases, it is faster to cd into the packages directory and behave as if you were working within a single project repository.
+
+```sh
+cd packages/hooks
+yarn start
+```
+
+Each package builds into it's `<packages>/<package>/dist` directory and runs the project in watch mode so any edits you save inside `<packages>/<package>/src` cause a rebuild to `<packages>/<package>/dist`. The results will stream to to the terminal.
 
 ### Using the example/playground
 
 You can play with local packages in the Parcel-powered example/playground.
 
 ```sh
-cd example
-yarn install # or yarn install
+cd example/parcel
+yarn
 yarn start
 ```
 
@@ -122,4 +133,10 @@ There's definitely room for improvement with this workflow, so please contribute
 
 ## Release
 
-1. Run `yarn release` which will trigger lerna to bump the appropriate package versions and build changelogs based on commits.
+We use [Changesets](https://github.com/changesets/changesets) and Github Pull Requests to manage releases. Any PR which makes changes to behaviour of a released package should create a changeset before posting the PR for review.
+
+```sh
+yarn changeset
+```
+
+When a PR with a changeset is merged to master, an automated process will handle creating a subsequent PR which can be used to release that new change publicly.
