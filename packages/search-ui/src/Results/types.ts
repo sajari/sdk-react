@@ -7,6 +7,8 @@ import type { TemplateResultProps } from './components/TemplateResult/types';
 export type ResultTemplate = {
   html: string;
   css: string;
+  // freely use any variables inside the template, default to false
+  loose?: boolean;
 };
 
 export type ColumnValue = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
