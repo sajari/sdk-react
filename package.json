@@ -2,7 +2,7 @@
   "name": "mono",
   "private": true,
   "scripts": {
-    "start": "turbo run start --parallel --no-cache --filter=!sajari-sdk-docs",
+    "start": "turbo run start --no-cache --filter=!sajari-sdk-docs",
     "test": "turbo run test --filter=!sajari-sdk-docs -- --passWithNoTests",
     "test:ci": "turbo run test:ci --filter=!sajari-sdk-docs -- --passWithNoTests",
     "build": "turbo run build --filter=!sajari-sdk-docs",
