@@ -1,10 +1,11 @@
 import { SearchProvider } from '@sajari/react-hooks';
-import { createContext, ThemeProvider } from '@sajari/react-sdk-utils';
+import { createContext, getSearchParams, ThemeProvider } from '@sajari/react-sdk-utils';
 import React, { useEffect, useState } from 'react';
 import { LiveAnnouncer } from 'react-aria-live';
 import { I18nextProvider } from 'react-i18next';
 
 import i18n from '../i18n';
+import { isViewType } from '../utils/queryParams';
 import { ContextProviderValues, Language, ResultViewType, SearchUIContextProviderValues } from './types';
 
 const [Provider, useSearchUIContext] = createContext<Required<SearchUIContextProviderValues> & Language>({
@@ -25,12 +26,15 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
   importantStyles,
   disableDefaultStyles = false,
   customClassNames = {},
-  viewType: viewTypeProp = 'list',
+  viewType: defaultViewType = 'grid',
   downshiftEnvironment = null,
   syncURLState,
 }) => {
+  const params = getSearchParams();
   const [language, setLanguage] = useState(i18n.language);
-  const [viewType, setViewType] = useState<ResultViewType>(viewTypeProp);
+  const [viewType, setViewType] = useState<ResultViewType>(
+    isViewType(params.viewType) && syncURLState ? params.viewType : defaultViewType,
+  );
 
   useEffect(() => {
     const event = 'languageChanged';
@@ -40,10 +44,6 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
       i18n.off(event);
     };
   }, []);
-
-  useEffect(() => {
-    setViewType(viewTypeProp);
-  }, [viewTypeProp]);
 
   return (
     <Provider
@@ -73,9 +73,9 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
                   ...(syncURLState?.extendedParams || []),
                   {
                     key: 'viewType',
-                    defaultValue: 'list',
+                    defaultValue: defaultViewType,
                     callback: (value) => {
-                      setViewType((value as ResultViewType) || 'list');
+                      setViewType(isViewType(value) ? value : defaultViewType);
                     },
                     value: viewType,
                   },
