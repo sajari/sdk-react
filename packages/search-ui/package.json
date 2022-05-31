@@ -27,9 +27,9 @@
   },
   "dependencies": {
     "@react-aria/utils": "3.5.0",
-    "@sajari/react-components": "workspace:^",
-    "@sajari/react-hooks": "workspace:^",
-    "@sajari/react-sdk-utils": "workspace:^",
+    "@sajari/react-components": "^1.14.4",
+    "@sajari/react-hooks": "^3.13.2",
+    "@sajari/react-sdk-utils": "^1.6.4",
     "dayjs": "^1.10.5",
     "i18next": "19.8.7",
     "i18next-browser-languagedetector": "^6.0.1",
