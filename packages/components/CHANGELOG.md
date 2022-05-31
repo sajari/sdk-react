@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.14.5
+
+### Patch Changes
+
+- [`4ef6dac4`](https://github.com/sajari/sdk-react/commit/4ef6dac45497c0b536efb72e7558c90da7824cdf) [#814](https://github.com/sajari/sdk-react/pull/814) Thanks [@wwalser](https://github.com/wwalser)! - chore: all packages have had their version bumped in order to facilitate a new release procedure using modern yarn
+
+- Updated dependencies [[`4ef6dac4`](https://github.com/sajari/sdk-react/commit/4ef6dac45497c0b536efb72e7558c90da7824cdf), [`6ad2dfb6`](https://github.com/sajari/sdk-react/commit/6ad2dfb6c9379ecb245f628a076661f07fff712f)]:
+  - @sajari/react-sdk-utils@1.6.5
+
 ## 1.14.4
 
 ### Patch Changes
