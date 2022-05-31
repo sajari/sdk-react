@@ -4,6 +4,7 @@ import { compile } from 'tempura';
 
 import { useSearchUIContext } from '../../../ContextProvider';
 import { checkValidResultTemplate } from '../../checkValidResultTemplate';
+import blocks from '../../resultTemplateHelpers';
 import { isBanner, mergeBannersWithResults } from '../../utils';
 import BannerItem from '../BannerItem';
 import TemplateResult from '../TemplateResult';
@@ -33,7 +34,7 @@ const TemplateResults = (props: TemplateResultsProps) => {
   keys.push('productPrice');
   keys.push('variantIndex');
   const keysStringified = keys.join(',');
-  const render = useMemo(() => compile(resultTemplate.html, { async: false, props: keys }), [
+  const render = useMemo(() => compile(resultTemplate.html, { async: false, props: keys, blocks }), [
     resultTemplate.html,
     keysStringified,
   ]);
