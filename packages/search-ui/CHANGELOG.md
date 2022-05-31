@@ -1,5 +1,13 @@
 # Change Log
 
+## 4.17.0
+
+### Minor Changes
+
+- [`2ac79ec1`](https://github.com/sajari/sdk-react/commit/2ac79ec138a868f57ce865ea08b55d26f6394b74) [#812](https://github.com/sajari/sdk-react/pull/812) Thanks [@tuanddd](https://github.com/tuanddd)! - Add "join" helper to result template
+
+* [`611ec53c`](https://github.com/sajari/sdk-react/commit/611ec53cf6454780b90e3a8a192773022b974706) [#813](https://github.com/sajari/sdk-react/pull/813) Thanks [@tuanddd](https://github.com/tuanddd)! - Add loose field in ResultTemplate prop object
+
 ## 4.16.3
 
 ### Patch Changes
