@@ -1,6 +1,6 @@
 {
   "name": "@sajari/server",
-  "version": "1.5.6",
+  "version": "1.5.7",
   "description": "SSR helpers",
   "sideEffects": false,
   "repository": {
@@ -26,8 +26,8 @@
     "react-dom": ">=16.8.0"
   },
   "dependencies": {
-    "@sajari/react-hooks": "^3.13.2",
-    "@sajari/react-sdk-utils": "^1.6.4"
+    "@sajari/react-hooks": "^3.13.3",
+    "@sajari/react-sdk-utils": "^1.6.5"
   },
   "devDependencies": {
     "babel-jest": "^26.6.3",
