@@ -1,7 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import { isNumber } from '@sajari/react-sdk-utils';
+import React, { useCallback, useEffect, useRef } from 'react';
 
 import { FilterBuilder, Range } from '../ContextProvider/controllers';
 import useFilter from '../useFilter';
+import usePagination from '../usePagination';
 import useQuery from '../useQuery';
 import useQueryParam from '../useQueryParam';
 import useRangeFilter from '../useRangeFilter';
@@ -120,10 +122,20 @@ const URLStateSync = (props: URLStateSyncProps = {}) => {
   const { delay = 500, replace = false, extendedParams = [] } = props;
   const {
     filters: filterBuilders = [],
-    config: { qParam = 'q' },
+    config: { qParam = 'q', pageParam = 'page' },
   } = useSearchContext();
   const { query, setQuery } = useQuery();
   const { sorting, setSorting } = useSorting();
+  const { page, setPage: setPageInner } = usePagination();
+  const setPage = useCallback(
+    (numStr: string) => {
+      const num = Number(numStr);
+      if (isNumber(num)) {
+        setPageInner(num);
+      }
+    },
+    [setPageInner],
+  );
   const { resultsPerPage, setResultsPerPage } = useResultsPerPage();
   const paramWatchers: QueryParam[] = [
     {
@@ -143,6 +155,11 @@ const URLStateSync = (props: URLStateSyncProps = {}) => {
       callback: (value) => {
         setResultsPerPage(Number(value) || 15);
       },
+    },
+    {
+      key: pageParam,
+      value: page,
+      callback: setPage,
     },
     ...extendedParams.filter(({ key }) => ![qParam, 'sort', 'show'].includes(key)),
   ];
