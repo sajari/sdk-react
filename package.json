@@ -14,7 +14,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "changeset": "changeset",
-    "release": "changeset publish"
+    "release": "changeset publish",
+    "version": "changeset version && yarn --no-immutable"
   },
   "workspaces": [
     "packages/*",

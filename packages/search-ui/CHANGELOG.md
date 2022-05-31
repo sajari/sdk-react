@@ -1,5 +1,18 @@
 # Change Log
 
+## 4.16.3
+
+### Patch Changes
+
+- [`4ef6dac4`](https://github.com/sajari/sdk-react/commit/4ef6dac45497c0b536efb72e7558c90da7824cdf) [#814](https://github.com/sajari/sdk-react/pull/814) Thanks [@wwalser](https://github.com/wwalser)! - chore: all packages have had their version bumped in order to facilitate a new release procedure using modern yarn
+
+* [`6ad2dfb6`](https://github.com/sajari/sdk-react/commit/6ad2dfb6c9379ecb245f628a076661f07fff712f) [#811](https://github.com/sajari/sdk-react/pull/811) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix incorrect intial value of viewType
+
+* Updated dependencies [[`4ef6dac4`](https://github.com/sajari/sdk-react/commit/4ef6dac45497c0b536efb72e7558c90da7824cdf), [`6ad2dfb6`](https://github.com/sajari/sdk-react/commit/6ad2dfb6c9379ecb245f628a076661f07fff712f)]:
+  - @sajari/react-components@1.14.5
+  - @sajari/react-hooks@3.13.3
+  - @sajari/react-sdk-utils@1.6.5
+
 ## 4.16.2
 
 ### Patch Changes
@@ -814,7 +827,7 @@
   Before:
 
   ```js
-  pipeline.listen('result-clicked', (url) => {
+  pipeline.listen('result-clicked', url => {
     console.log(url);
   });
   ```
@@ -822,7 +835,7 @@
   After:
 
   ```js
-  pipeline.listen('result-clicked', (data) => {
+  pipeline.listen('result-clicked', data => {
     const {
       token,
       values: { id, url, title, subtitle, description, image, price, originalPrice, rating },
