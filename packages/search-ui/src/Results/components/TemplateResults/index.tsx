@@ -34,10 +34,10 @@ const TemplateResults = (props: TemplateResultsProps) => {
   keys.push('productPrice');
   keys.push('variantIndex');
   const keysStringified = keys.join(',');
-  const render = useMemo(() => compile(resultTemplate.html, { async: false, props: keys, blocks }), [
-    resultTemplate.html,
-    keysStringified,
-  ]);
+  const render = useMemo(
+    () => compile(resultTemplate.html, { async: false, props: keys, blocks, loose: !!resultTemplate.loose }),
+    [resultTemplate.html, keysStringified],
+  );
 
   const list = useMemo(() => mergeBannersWithResults<Result>(banners, results || []), [banners, results]);
 
