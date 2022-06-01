@@ -152,6 +152,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
           { paramKey: 'sort', variableKey: 'sort' },
           { paramKey: autocompleteState.config.qParam, variableKey: autocompleteState.config.qParam },
           { paramKey: searchState.config.qParam, variableKey: searchState.config.qParam },
+          { paramKey: searchState.config.pageParam, variableKey: searchState.config.pageParam },
         ],
       });
     }

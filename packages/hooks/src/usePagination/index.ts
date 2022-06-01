@@ -5,10 +5,18 @@ import { UsePaginationResult } from './types';
 
 function usePagination(key: 'search' | 'autocomplete' = 'search'): UsePaginationResult {
   const context = useContext();
-  const { paginate } = context;
+  const {
+    search: { variables },
+    paginate,
+  } = context;
   const { response, config } = context[key];
   const queryValues = response?.getQueryValues();
-  const page = queryValues?.get(config.pageParam) ? parseInt(queryValues.get(config.pageParam) as string, 10) : 1;
+  let page = 1;
+  if (queryValues?.get(config.pageParam)) {
+    page = parseInt(queryValues.get(config.pageParam) as string, 10);
+  } else if (variables.get()[config.pageParam]) {
+    page = parseInt(variables.get()[config.pageParam], 10);
+  }
   const resultsPerPage = queryValues?.get(config.resultsPerPageParam)
     ? parseInt(queryValues?.get(config.resultsPerPageParam) as string, 10)
     : 15;

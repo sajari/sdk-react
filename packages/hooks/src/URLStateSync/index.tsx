@@ -158,7 +158,9 @@ const URLStateSync = (props: URLStateSyncProps = {}) => {
     },
     {
       key: pageParam,
-      value: page,
+      // Use -1 to remove `page=1` if it's present in the param
+      defaultValue: -1,
+      value: page === 1 ? -1 : page,
       callback: setPage,
     },
     ...extendedParams.filter(({ key }) => ![qParam, 'sort', 'show'].includes(key)),
