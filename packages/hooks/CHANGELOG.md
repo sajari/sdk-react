@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.14.0
+
+### Minor Changes
+
+- [`8d626482`](https://github.com/sajari/sdk-react/commit/8d6264826d209ea90c243150b1a960023dbec34c) [#818](https://github.com/sajari/sdk-react/pull/818) Thanks [@tuanddd](https://github.com/tuanddd)! - Add page param into sync state watcher
+
 ## 3.13.3
 
 ### Patch Changes
