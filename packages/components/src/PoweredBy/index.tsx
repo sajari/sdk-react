@@ -20,7 +20,7 @@ const PoweredBy = React.forwardRef((props: PoweredByProps, ref?: React.Ref<HTMLA
       {...props}
     >
       <Box as="span" css={styles.label}>
-        Powered by
+        Site search by
       </Box>
       {appearance === 'color' ? <LogoSearchioColor css={styles.logo} /> : <LogoSearchioMono css={styles.logo} />}
     </Link>
