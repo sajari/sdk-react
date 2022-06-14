@@ -20,6 +20,7 @@ const es: Locale = {
     generic: 'Algo salió mal. Por favor revise de nuevo.',
   },
   filter: {
+    label: 'Filtros',
     all: 'Todos',
     rangeOver: 'Sobre {{value}}',
     rangeUnder: 'Debajo {{value}}',
@@ -31,6 +32,8 @@ const es: Locale = {
     show: 'Mostrar filtros',
     hide: 'Ocultar filtros',
     toggleFilters: 'Alternar filtros',
+    clear: 'Claro',
+    apply: 'Aplicar',
   },
   input: {
     placeholder: 'Búsqueda',

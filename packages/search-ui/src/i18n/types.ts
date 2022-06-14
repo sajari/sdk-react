@@ -27,6 +27,7 @@ export type Locale = {
     generic: string;
   };
   filter: {
+    label: string;
     /** Shown in TabFilter component as the first tab */
     all: string;
     /** Shown when formatting price */
@@ -49,6 +50,10 @@ export type Locale = {
     hide: string;
     /** Text used by screen reader when the user focuses on the toggle filter button  */
     toggleFilters: string;
+    /** The clear filters button text  */
+    clear: string;
+    /** The apply filters button text  */
+    apply: string;
   };
   input: {
     /** Placeholder for search input */

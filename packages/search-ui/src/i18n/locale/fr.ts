@@ -20,10 +20,11 @@ const fr: Locale = {
     generic: 'Une erreur est survenue. Veuillez réessayer ultérieurement. Merci.',
   },
   filter: {
+    label: 'Filtres',
     all: 'Tout',
     rangeOver: 'Plus de {{value}}',
     rangeUnder: 'Sous {{value}}',
-    reset: 'Réessayer',
+    reset: 'Réinitialiser',
     select: 'Sélectionnez un filtre',
     selected: '{{count}} Filtres sélectionnés',
     showLess: 'Montrer moins',
@@ -31,6 +32,8 @@ const fr: Locale = {
     show: 'Afficher les filtres',
     hide: 'Masquer les filtres',
     toggleFilters: 'Basculer les filtres',
+    clear: 'Effacer',
+    apply: 'Appliquer',
   },
   input: {
     placeholder: 'Chercher',
