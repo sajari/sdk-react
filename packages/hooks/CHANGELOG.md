@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.14.2
+
+### Patch Changes
+
+- [`01b345fe`](https://github.com/sajari/sdk-react/commit/01b345fe76586c42e6817c0733b59f111bfac5c2) [#824](https://github.com/sajari/sdk-react/pull/824) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Allow to config URL param keys
+
 ## 3.14.1
 
 ### Patch Changes
