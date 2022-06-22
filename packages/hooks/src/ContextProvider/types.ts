@@ -26,6 +26,7 @@ export interface PipelineContextState {
   searching: boolean;
   filters?: (FilterBuilder | RangeFilterBuilder)[];
   redirects: Redirects;
+  defaultResultsPerPage: number;
 }
 
 export interface ProviderPipelineConfig {
