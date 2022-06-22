@@ -35,7 +35,7 @@ const TemplateResults = (props: TemplateResultsProps) => {
   keys.push('variantIndex');
   const keysStringified = keys.join(',');
   const render = useMemo(
-    () => compile(resultTemplate.html, { async: false, props: keys, blocks, loose: !!resultTemplate.loose }),
+    () => compile(resultTemplate.html, { async: false, props: keys, blocks, loose: resultTemplate.loose ?? true }),
     [resultTemplate.html, keysStringified],
   );
 
