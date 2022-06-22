@@ -1,5 +1,17 @@
 # Change Log
 
+## 4.17.1
+
+### Patch Changes
+
+- [`ff60fe99`](https://github.com/sajari/sdk-react/commit/ff60fe9924327863b45467fb60daa6ceeb4e0f3d) [#822](https://github.com/sajari/sdk-react/pull/822) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix wrong/missing French translation
+
+* [`a0041353`](https://github.com/sajari/sdk-react/commit/a004135327c2745780d78476e74ad7d548e68311) [#823](https://github.com/sajari/sdk-react/pull/823) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix using a different default `resultsPerPage` param causes URL param injection.
+
+* Updated dependencies [[`eadf699b`](https://github.com/sajari/sdk-react/commit/eadf699b8a2a589a788562b3e63fa8bf19cbe002), [`a0041353`](https://github.com/sajari/sdk-react/commit/a004135327c2745780d78476e74ad7d548e68311)]:
+  - @sajari/react-components@1.14.6
+  - @sajari/react-hooks@3.14.1
+
 ## 4.17.0
 
 ### Minor Changes
