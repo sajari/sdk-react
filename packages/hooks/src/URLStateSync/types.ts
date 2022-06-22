@@ -1,5 +1,6 @@
 import { FilterBuilder, RangeFilterBuilder } from '../ContextProvider/controllers';
 import { ParamValue } from '../useQueryParam';
+import { StateSyncURLParamConfig } from './config';
 
 export interface FilterWatcherProps {
   filter: FilterBuilder;
@@ -30,4 +31,5 @@ export interface URLStateSyncProps {
   delay?: number;
   replace?: boolean;
   extendedParams?: QueryParam[];
+  paramKeys?: Partial<StateSyncURLParamConfig>;
 }
