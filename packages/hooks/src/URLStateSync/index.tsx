@@ -11,6 +11,7 @@ import useResultsPerPage from '../useResultsPerPage';
 import useSearchContext from '../useSearchContext';
 import useSorting from '../useSorting';
 import { isRange, paramToRange, rangeToParam } from '../utils/queryParams';
+import { defaultURLParamKeys } from './Config';
 import { FilterWatcherProps, ParamWatcherProps, QueryParam, RangeFilterWatcherProps, URLStateSyncProps } from './types';
 
 const FilterWatcher = ({ filter, replace, delay }: FilterWatcherProps) => {
@@ -119,11 +120,9 @@ const ParamWatcher = ({ delay, replace, queryParam }: ParamWatcherProps) => {
 };
 
 const URLStateSync = (props: URLStateSyncProps = {}) => {
-  const { delay = 500, replace = false, extendedParams = [] } = props;
-  const {
-    filters: filterBuilders = [],
-    config: { qParam = 'q', pageParam = 'page' },
-  } = useSearchContext();
+  const { delay = 500, replace = false, extendedParams = [], paramKeys: defaultParamKeysProps } = props;
+  const defaultParamKeys = { ...defaultURLParamKeys, ...defaultParamKeysProps };
+  const { filters: filterBuilders = [] } = useSearchContext();
   const { query, setQuery } = useQuery();
   const { sorting, setSorting } = useSorting();
   const { page, setPage: setPageInner } = usePagination();
@@ -139,17 +138,17 @@ const URLStateSync = (props: URLStateSyncProps = {}) => {
   const { resultsPerPage, setResultsPerPage, defaultResultsPerPage } = useResultsPerPage();
   const paramWatchers: QueryParam[] = [
     {
-      key: qParam,
+      key: defaultParamKeys.q,
       value: query,
       callback: setQuery,
     },
     {
-      key: 'sort',
+      key: defaultParamKeys.sort,
       value: sorting,
       callback: setSorting,
     },
     {
-      key: 'show',
+      key: defaultParamKeys.resultsPerPage,
       value: resultsPerPage,
       defaultValue: defaultResultsPerPage,
       callback: (value) => {
@@ -157,13 +156,15 @@ const URLStateSync = (props: URLStateSyncProps = {}) => {
       },
     },
     {
-      key: pageParam,
+      key: defaultParamKeys.page,
       // Use -1 to remove `page=1` if it's present in the param
       defaultValue: -1,
       value: page === 1 ? -1 : page,
       callback: setPage,
     },
-    ...extendedParams.filter(({ key }) => ![qParam, 'sort', 'show'].includes(key)),
+    ...extendedParams.filter(
+      ({ key }) => ![defaultParamKeys.q, defaultParamKeys.sort, defaultParamKeys.resultsPerPage].includes(key),
+    ),
   ];
 
   return (

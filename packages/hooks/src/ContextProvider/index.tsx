@@ -4,6 +4,7 @@ import { getSearchParams, isEmpty, isNumber, isString } from '@sajari/react-sdk-
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import URLStateSync from '../URLStateSync';
+import { defaultURLParamKeys } from '../URLStateSync/Config';
 import { initFiltersFromURLState, initVariableFromURLState } from '../utils/queryParams';
 import { Config, defaultConfig } from './Config';
 import { Provider, useContext } from './context';
@@ -142,6 +143,9 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
 
   if (!configDone) {
     if (syncURLState) {
+      const paramKeys =
+        typeof syncURLState === 'boolean' ? defaultURLParamKeys : { ...defaultURLParamKeys, ...syncURLState.paramKeys };
+
       const params = getSearchParams();
       initFiltersFromURLState({
         filters: search.filters || [],
@@ -152,14 +156,14 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
         params,
         mappingKeys: [
           {
-            paramKey: 'show',
+            paramKey: paramKeys.resultsPerPage,
             variableKey: searchState.config.resultsPerPageParam,
             defaultValue: defaultResultsPerPage.current.toString(),
           },
-          { paramKey: 'sort', variableKey: 'sort' },
-          { paramKey: autocompleteState.config.qParam, variableKey: autocompleteState.config.qParam },
-          { paramKey: searchState.config.qParam, variableKey: searchState.config.qParam },
-          { paramKey: searchState.config.pageParam, variableKey: searchState.config.pageParam },
+          { paramKey: paramKeys.sort, variableKey: 'sort' },
+          { paramKey: paramKeys.q, variableKey: autocompleteState.config.qParam },
+          { paramKey: paramKeys.q, variableKey: searchState.config.qParam },
+          { paramKey: paramKeys.page, variableKey: searchState.config.pageParam },
         ],
       });
     }

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Redirects } from '@sajari/sdk-js';
 
+import { StateSyncURLParamConfig } from '../URLStateSync/Config';
 import { ParamValue } from '../useQueryParam';
 import { Config } from './Config';
 import { FilterBuilder, Pipeline, RangeFilterBuilder, Response, Variables } from './controllers';
@@ -59,6 +60,7 @@ export type SyncURLState =
       extendedParams?: QueryParam[];
       delay?: number;
       replace?: boolean;
+      paramKeys?: Partial<StateSyncURLParamConfig>;
     };
 
 export interface SearchProviderValues {
