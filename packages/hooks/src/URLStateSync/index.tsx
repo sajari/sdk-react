@@ -136,7 +136,7 @@ const URLStateSync = (props: URLStateSyncProps = {}) => {
     },
     [setPageInner],
   );
-  const { resultsPerPage, setResultsPerPage } = useResultsPerPage();
+  const { resultsPerPage, setResultsPerPage, defaultResultsPerPage } = useResultsPerPage();
   const paramWatchers: QueryParam[] = [
     {
       key: qParam,
@@ -151,9 +151,9 @@ const URLStateSync = (props: URLStateSyncProps = {}) => {
     {
       key: 'show',
       value: resultsPerPage,
-      defaultValue: 15,
+      defaultValue: defaultResultsPerPage,
       callback: (value) => {
-        setResultsPerPage(Number(value) || 15);
+        setResultsPerPage(Number(value) || defaultResultsPerPage);
       },
     },
     {

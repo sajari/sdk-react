@@ -10,6 +10,7 @@ function useResultsPerPage(): UseResultsPerPageResult {
       search,
       config: { resultsPerPageParam },
       variables,
+      defaultResultsPerPage,
     },
   } = useContext();
 
@@ -24,7 +25,8 @@ function useResultsPerPage(): UseResultsPerPageResult {
   const resultsPerPage = parseInt(variables.get()[resultsPerPageParam], 10);
 
   return {
-    resultsPerPage: isNumber(resultsPerPage) ? resultsPerPage : 15,
+    resultsPerPage: isNumber(resultsPerPage) ? resultsPerPage : defaultResultsPerPage,
+    defaultResultsPerPage,
     setResultsPerPage,
   };
 }

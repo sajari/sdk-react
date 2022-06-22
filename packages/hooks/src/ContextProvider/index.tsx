@@ -1,6 +1,6 @@
 /* eslint-disable import/named */
 /* eslint-disable @typescript-eslint/no-shadow */
-import { getSearchParams, isEmpty, isString } from '@sajari/react-sdk-utils';
+import { getSearchParams, isEmpty, isNumber, isString } from '@sajari/react-sdk-utils';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import URLStateSync from '../URLStateSync';
@@ -137,6 +137,9 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
     Object.assign(autocompleteProp, { variables: autocompleteVariables.current });
   }
 
+  const resultsPerPageValue = parseInt(variables.current.get()[searchState.config.resultsPerPageParam], 10);
+  const defaultResultsPerPage = React.useRef(isNumber(resultsPerPageValue) ? resultsPerPageValue : 15);
+
   if (!configDone) {
     if (syncURLState) {
       const params = getSearchParams();
@@ -148,7 +151,11 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
         variables: variables.current,
         params,
         mappingKeys: [
-          { paramKey: 'show', variableKey: 'resultsPerPage', defaultValue: '15' },
+          {
+            paramKey: 'show',
+            variableKey: searchState.config.resultsPerPageParam,
+            defaultValue: defaultResultsPerPage.current.toString(),
+          },
           { paramKey: 'sort', variableKey: 'sort' },
           { paramKey: autocompleteState.config.qParam, variableKey: autocompleteState.config.qParam },
           { paramKey: searchState.config.qParam, variableKey: searchState.config.qParam },
@@ -352,6 +359,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
         resetFilters,
         fields: search.fields,
         searching,
+        defaultResultsPerPage: defaultResultsPerPage.current,
       },
       autocomplete: {
         ...state.autocomplete,
