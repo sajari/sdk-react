@@ -20,6 +20,7 @@ const nl: Locale = {
     generic: 'Er is iets fout gegaan. Controleer alstublieft nog een keer.',
   },
   filter: {
+    label: 'Filteren',
     all: 'Alle',
     rangeOver: 'Over {{value}}',
     rangeUnder: 'Onder {{value}}',
@@ -31,6 +32,8 @@ const nl: Locale = {
     show: 'Toon filters',
     hide: 'Filters verbergen',
     toggleFilters: 'Filters wisselen',
+    clear: 'Mak leeg',
+    apply: 'Toepassen',
   },
   input: {
     placeholder: 'Zoeken',
