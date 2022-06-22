@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Redirects } from '@sajari/sdk-js';
 
-import { StateSyncURLParamConfig } from '../URLStateSync/Config';
+import { StateSyncURLParamConfig } from '../URLStateSync/config';
 import { ParamValue } from '../useQueryParam';
 import { Config } from './Config';
 import { FilterBuilder, Pipeline, RangeFilterBuilder, Response, Variables } from './controllers';

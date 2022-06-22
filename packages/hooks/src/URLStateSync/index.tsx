@@ -11,7 +11,7 @@ import useResultsPerPage from '../useResultsPerPage';
 import useSearchContext from '../useSearchContext';
 import useSorting from '../useSorting';
 import { isRange, paramToRange, rangeToParam } from '../utils/queryParams';
-import { defaultURLParamKeys } from './Config';
+import { defaultURLParamKeys } from './config';
 import { FilterWatcherProps, ParamWatcherProps, QueryParam, RangeFilterWatcherProps, URLStateSyncProps } from './types';
 
 const FilterWatcher = ({ filter, replace, delay }: FilterWatcherProps) => {

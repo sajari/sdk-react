@@ -4,7 +4,7 @@ import { getSearchParams, isEmpty, isNumber, isString } from '@sajari/react-sdk-
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import URLStateSync from '../URLStateSync';
-import { defaultURLParamKeys } from '../URLStateSync/Config';
+import { defaultURLParamKeys } from '../URLStateSync/config';
 import { initFiltersFromURLState, initVariableFromURLState } from '../utils/queryParams';
 import { Config, defaultConfig } from './Config';
 import { Provider, useContext } from './context';

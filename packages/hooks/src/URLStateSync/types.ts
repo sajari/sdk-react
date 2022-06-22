@@ -1,6 +1,6 @@
 import { FilterBuilder, RangeFilterBuilder } from '../ContextProvider/controllers';
 import { ParamValue } from '../useQueryParam';
-import { StateSyncURLParamConfig } from './Config';
+import { StateSyncURLParamConfig } from './config';
 
 export interface FilterWatcherProps {
   filter: FilterBuilder;
