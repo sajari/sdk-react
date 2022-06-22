@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.14.6
+
+### Patch Changes
+
+- [`eadf699b`](https://github.com/sajari/sdk-react/commit/eadf699b8a2a589a788562b3e63fa8bf19cbe002) [#820](https://github.com/sajari/sdk-react/pull/820) Thanks [@jkaho](https://github.com/jkaho)! - feat: update PoweredBy component text from 'Powered by Search.io' to 'Site search by Search.io'
+
 ## 1.14.5
 
 ### Patch Changes

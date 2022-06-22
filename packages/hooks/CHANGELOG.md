@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.14.1
+
+### Patch Changes
+
+- [`a0041353`](https://github.com/sajari/sdk-react/commit/a004135327c2745780d78476e74ad7d548e68311) [#823](https://github.com/sajari/sdk-react/pull/823) Thanks [@zlatanpham](https://github.com/zlatanpham)! - Fix using a different default `resultsPerPage` param causes URL param injection.
+
 ## 3.14.0
 
 ### Minor Changes
