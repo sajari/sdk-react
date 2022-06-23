@@ -1,5 +1,14 @@
 # Change Log
 
+## 4.17.4
+
+### Patch Changes
+
+- [`fab37fdc`](https://github.com/sajari/sdk-react/commit/fab37fdc69add2bc9e1b94f3bcaf0fdd61f0deb6) [#829](https://github.com/sajari/sdk-react/pull/829) Thanks [@wwalser](https://github.com/wwalser)! - bug: fix problem with input on mobile not changing input value when item is selected
+
+- Updated dependencies [[`fab37fdc`](https://github.com/sajari/sdk-react/commit/fab37fdc69add2bc9e1b94f3bcaf0fdd61f0deb6)]:
+  - @sajari/react-components@1.14.7
+
 ## 4.17.3
 
 ### Patch Changes

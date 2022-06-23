@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.14.7
+
+### Patch Changes
+
+- [`fab37fdc`](https://github.com/sajari/sdk-react/commit/fab37fdc69add2bc9e1b94f3bcaf0fdd61f0deb6) [#829](https://github.com/sajari/sdk-react/pull/829) Thanks [@wwalser](https://github.com/wwalser)! - bug: fix problem with input on mobile not changing input value when item is selected
+
 ## 1.14.6
 
 ### Patch Changes
