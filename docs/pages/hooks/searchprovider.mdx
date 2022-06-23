@@ -162,11 +162,12 @@ It is recommended that you only need to use `SearchProvider` once at the root of
 
 ### SyncURLState
 
-| Name             | Type                                | Default | Description                                                                           |
-| ---------------- | ----------------------------------- | ------- | ------------------------------------------------------------------------------------- |
-| `delay`          | `number`                            | 500     | The delay time to synchronize the param to URL                                        |
-| `replace`        | `boolean`                           | false   | If `true`, modifies the current history entry, replacing it with the new state object |
-| `extendedParams` | [`ExtendedParam[]`](#extendedparam) | false   | The extend params to be synchronized with the URL query params                        |
+| Name             | Type                                | Default                                                         | Description                                                                           |
+| ---------------- | ----------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `delay`          | `number`                            | 500                                                             | The delay time to synchronize the param to URL                                        |
+| `replace`        | `boolean`                           | false                                                           | If `true`, modifies the current history entry, replacing it with the new state object |
+| `extendedParams` | [`ExtendedParam[]`](#extendedparam) | false                                                           | The extend params to be synchronized with the URL query params                        |
+| `paramKeys`      | [`ParamKeys`](#paramkeys)           | `{ q: 'q', resultsPerPage: 'show', page: 'page', sort: 'sort'}` | The names of the URL query params                                                     |
 
 ### ExtendedParam
 
@@ -176,3 +177,12 @@ It is recommended that you only need to use `SearchProvider` once at the root of
 | `callback`     | `string`                                                                     |         | Callback when the URL param changes |
 | `defaultValue` | `string` \| `number` \| `boolean` \| `string[]` \| `number[]` \| `boolean[]` |         | Default value of the param          |
 | `value`        | `string` \| `number` \| `boolean` \| `string[]` \| `number[]` \| `boolean[]` |         | Current value of the param          |
+
+### ParamKeys
+
+| Name             | Type     | Default | Description                                      |
+| ---------------- | -------- | ------- | ------------------------------------------------ |
+| `q`              | `string` | 'q'     | The name of the search query URL param           |
+| `resultsPerPage` | `string` | 'show'  | The name of the total results per page URL param |
+| `page`           | `string` | 'page'  | The name of the current page URL param           |
+| `sort`           | `string` | 'sort'  | The name of the sort URL param                   |
