@@ -93,6 +93,11 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(
     onInputValueChange: (changes) => {
       setValue(changes.inputValue ?? '');
     },
+    onSelectedItemChange: (changes) => {
+      if (typeof changes.selectedItem === 'string') {
+        setValue(changes.selectedItem);
+      }
+    },
     stateReducer: (state, { changes, type }) => {
       if (mode === 'suggestions') {
         switch (type) {
