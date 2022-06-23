@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.17.3
+
+### Patch Changes
+
+- [`3704cb2a`](https://github.com/sajari/sdk-react/commit/3704cb2a7b292a417af7972c3a920bf2fb411901) [#826](https://github.com/sajari/sdk-react/pull/826) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix the loose option having falsy default value
+
 ## 4.17.2
 
 ### Patch Changes
