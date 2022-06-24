@@ -15,7 +15,6 @@ const DropdownItem = (props: DropdownItemProps) => {
     getItemProps,
     showDropdownTips,
     itemToString,
-    onSelect,
     disableDefaultStyles = false,
     customClassNames: {
       dropdownItemClassName = '',
@@ -49,11 +48,6 @@ const DropdownItem = (props: DropdownItemProps) => {
       {...getItemProps({
         index,
         item: value,
-        onClick: () => {
-          if (onSelect) {
-            onSelect(value);
-          }
-        },
       })}
       key={`${stringItem}_${index}`}
       css={styles.item}

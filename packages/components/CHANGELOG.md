@@ -1,5 +1,17 @@
 # Change Log
 
+## 1.14.8
+
+### Patch Changes
+
+- [`1daaf6f8`](https://github.com/sajari/sdk-react/commit/1daaf6f86bd92eb9feabec781eb4668a55a8bca3) [#831](https://github.com/sajari/sdk-react/pull/831) Thanks [@wwalser](https://github.com/wwalser)! - fix: another attempt at fixing input takeover not setting input value on mobile
+
+## 1.14.7
+
+### Patch Changes
+
+- [`fab37fdc`](https://github.com/sajari/sdk-react/commit/fab37fdc69add2bc9e1b94f3bcaf0fdd61f0deb6) [#829](https://github.com/sajari/sdk-react/pull/829) Thanks [@wwalser](https://github.com/wwalser)! - bug: fix problem with input on mobile not changing input value when item is selected
+
 ## 1.14.6
 
 ### Patch Changes
