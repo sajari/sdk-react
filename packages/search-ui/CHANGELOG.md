@@ -1,5 +1,14 @@
 # Change Log
 
+## 4.17.5
+
+### Patch Changes
+
+- [`1daaf6f8`](https://github.com/sajari/sdk-react/commit/1daaf6f86bd92eb9feabec781eb4668a55a8bca3) [#831](https://github.com/sajari/sdk-react/pull/831) Thanks [@wwalser](https://github.com/wwalser)! - fix: another attempt at fixing input takeover not setting input value on mobile
+
+- Updated dependencies [[`1daaf6f8`](https://github.com/sajari/sdk-react/commit/1daaf6f86bd92eb9feabec781eb4668a55a8bca3)]:
+  - @sajari/react-components@1.14.8
+
 ## 4.17.4
 
 ### Patch Changes
