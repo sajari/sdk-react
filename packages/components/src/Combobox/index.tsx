@@ -4,7 +4,7 @@ import { mergeProps, useId } from '@react-aria/utils';
 import { __DEV__, getStylesObject, isEmpty, isFunction, isSSR, mergeRefs } from '@sajari/react-sdk-utils';
 import { useCombobox } from 'downshift';
 import React, { ChangeEvent, KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM, { flushSync } from 'react-dom';
 import tw from 'twin.macro';
 
 import { IconSearch, IconSmallSearch, IconSpinner } from '../assets/icons';
@@ -94,8 +94,16 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(
       setValue(changes.inputValue ?? '');
     },
     onSelectedItemChange: (changes) => {
-      if (typeof changes.selectedItem === 'string') {
-        setValue(changes.selectedItem);
+      if (changes.type === useCombobox.stateChangeTypes.ItemClick) {
+        if (typeof changes.selectedItem === 'string') {
+          if (inAttachMode && inputElement?.current) {
+            inputElement.current.value = changes.selectedItem;
+          }
+          setValue((changes.selectedItem as unknown) as string);
+        }
+        if (onSelect) {
+          onSelect((changes.selectedItem as unknown) as T);
+        }
       }
     },
     stateReducer: (state, { changes, type }) => {
@@ -121,7 +129,6 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(
               return {
                 ...changes,
                 inputValue: stringItem,
-                selectedItem: item,
               };
             }
 
@@ -147,7 +154,6 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(
               return {
                 ...changes,
                 inputValue: stringItem,
-                selectedItem: item,
               };
             }
 
@@ -165,7 +171,6 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(
               return {
                 ...changes,
                 inputValue: stringItem,
-                selectedItem: item,
               };
             }
             return changes;
@@ -411,10 +416,6 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(
     </ComboboxContextProvider>
   );
 });
-
-if (__DEV__) {
-  Combobox.displayName = 'Combobox';
-}
 
 export default Combobox;
 export type { ComboboxProps };
