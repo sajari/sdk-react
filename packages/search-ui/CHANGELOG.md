@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.17.6
+
+### Patch Changes
+
+- [`6adca79f`](https://github.com/sajari/sdk-react/commit/6adca79f1a8d66f8c32578d4ce2be862d856138d) [#833](https://github.com/sajari/sdk-react/pull/833) Thanks [@tuanddd](https://github.com/tuanddd)! - Fix URL overlapping issue
+
 ## 4.17.5
 
 ### Patch Changes
