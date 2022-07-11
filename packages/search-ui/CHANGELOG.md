@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.18.0
+
+### Minor Changes
+
+- [`c5a4214f`](https://github.com/sajari/sdk-react/commit/c5a4214f89a44afbb843be78640f402ffd283752) [#835](https://github.com/sajari/sdk-react/pull/835) Thanks [@tuanddd](https://github.com/tuanddd)! - Add `date` helper to templating
+
 ## 4.17.6
 
 ### Patch Changes

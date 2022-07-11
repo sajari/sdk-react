@@ -1,5 +1,16 @@
 # Change Log
 
+## 1.17.0
+
+### Minor Changes
+
+- [`c5a4214f`](https://github.com/sajari/sdk-react/commit/c5a4214f89a44afbb843be78640f402ffd283752) [#835](https://github.com/sajari/sdk-react/pull/835) Thanks [@tuanddd](https://github.com/tuanddd)! - Add `date` helper to templating
+
+### Patch Changes
+
+- Updated dependencies [[`c5a4214f`](https://github.com/sajari/sdk-react/commit/c5a4214f89a44afbb843be78640f402ffd283752)]:
+  - @sajari/react-search-ui@4.18.0
+
 ## 1.16.2
 
 ### Patch Changes
