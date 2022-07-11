@@ -237,6 +237,60 @@ function Example() {
 }
 ```
 
+### Helpers
+
+When using custom templating, a number of helpers are available to help you in writing the template, they are:
+
+- `join` - join an list of strings
+- `date` - format the ISO date string into human-readable string (UTC only)
+
+```jsx
+function Example() {
+  const pipeline = new Pipeline(
+    {
+      account: '1594153711901724220',
+      collection: 'bestbuy',
+    },
+    'query',
+    new ClickTracking(),
+  );
+
+  const template = {
+    html: `
+<p>{{#join items=["this", "is", "convenient"]}}</p>
+<p>{{#join items=["1st", "2nd", "3rd"] joiner=", "}}</p>
+
+<p>{{#date value="2022-07-06T18:08Z"}}</p>
+<p>{{#date value="2022-07-06T18:08Z" format="DD/MM/YYYY"}}</p>
+`,
+    css: ``,
+  };
+
+  return (
+    <SearchProvider
+      viewType="grid"
+      search={{
+        pipeline,
+        fields: new FieldDictionary({
+          title: 'name',
+          subtitle: (data) => data.level4 || data.level3 || data.level2 || data.level1 || data.brand,
+        }),
+        variables: new Variables({
+          resultsPerPage: 1,
+          q: '',
+        }),
+      }}
+      searchOnLoad
+    >
+      <div className="flex flex-col items-center space-y-4">
+        <ViewType />
+        <Results resultTemplate={template} />
+      </div>
+    </SearchProvider>
+  );
+}
+```
+
 ## Props
 
 | Name                             | Type                                         | Default    | Description                                                                                                                     |
