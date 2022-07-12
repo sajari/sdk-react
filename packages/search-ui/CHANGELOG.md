@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.18.1
+
+### Patch Changes
+
+- [`3224c15a`](https://github.com/sajari/sdk-react/commit/3224c15a64e11d2c5a2d2e8d1bebc11ed4587503) [#837](https://github.com/sajari/sdk-react/pull/837) Thanks [@JasonBerry](https://github.com/JasonBerry)! - Improve French translations
+
 ## 4.18.0
 
 ### Minor Changes
