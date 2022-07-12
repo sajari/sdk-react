@@ -27,8 +27,8 @@ const fr: Locale = {
     reset: 'Réinitialiser',
     select: 'Sélectionnez un filtre',
     selected: '{{count}} Filtres sélectionnés',
-    showLess: 'Montrer moins',
-    showMore: 'Montre plus',
+    showLess: 'Afficher moins',
+    showMore: 'Afficher plus',
     show: 'Afficher les filtres',
     hide: 'Masquer les filtres',
     toggleFilters: 'Basculer les filtres',
@@ -51,7 +51,7 @@ const fr: Locale = {
   results: {
     empty: {
       title: 'Aucun résultat',
-      body: 'Aucun match n\'a été trouvé pour "{{query}}".',
+      body: 'Aucune résultat n\'a été trouvée pour "{{query}}".',
     },
   },
   result: {
