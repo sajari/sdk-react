@@ -151,7 +151,14 @@ const ListFilter = (props: Omit<ListFilterProps, 'type'>) => {
     setQuery(value || '');
   }, []);
 
-  if ((isEmpty(options) && isEmpty(selected)) || options.length === 1) {
+  if (isEmpty(options) && isEmpty(selected)) {
+    return null;
+  }
+
+  // We want to hide filters which only contain a single option
+  // But many queries only return relevant aggregate filters which have counts.
+  // If a filter is selected, it can be the only aggregate with a count
+  if (options.length === 1 && isEmpty(selected)) {
     return null;
   }
 

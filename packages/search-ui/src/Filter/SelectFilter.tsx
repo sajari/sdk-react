@@ -37,6 +37,13 @@ const SelectFilter = (props: Omit<SelectFilterProps, 'type'>) => {
     return null;
   }
 
+  // We want to hide filters which only contain a single option
+  // But many queries only return relevant aggregate filters which have counts.
+  // If a filter is selected, it can be the only aggregate with a count
+  if (options.length === 1 && isEmpty(selected)) {
+    return null;
+  }
+
   const getSelectText = (labels: Array<string | number>) => {
     if (!labels.length) {
       return t('select');
