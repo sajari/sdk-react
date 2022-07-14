@@ -27,7 +27,7 @@ const es: Locale = {
     reset: 'Reiniciar',
     select: 'Seleccione un filtro',
     selected: '{{count}} Filtros seleccionados',
-    showLess: 'Muestra menos',
+    showLess: 'Mostrar menos',
     showMore: 'Mostrar más',
     show: 'Mostrar filtros',
     hide: 'Ocultar filtros',

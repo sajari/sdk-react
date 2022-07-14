@@ -24,7 +24,7 @@ const it: Locale = {
     all: 'Tutto',
     rangeOver: 'Oltre {{value}}',
     rangeUnder: 'Sotto {{value}}',
-    reset: 'Ripristina',
+    reset: 'Resettare',
     select: 'Seleziona un filtro',
     selected: '{{count}} filtri selezionati',
     showLess: 'Mostra meno',
@@ -74,7 +74,7 @@ const it: Locale = {
     alternative: 'Ricerca invece per',
   },
   viewType: {
-    label: 'Visualizza',
+    label: 'Vedere',
     grid: 'Griglia',
     list: 'Elenco',
   },
