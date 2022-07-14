@@ -32,7 +32,7 @@ const it: Locale = {
     show: 'Mostra filtri.',
     hide: 'Nascondi filtri',
     toggleFilters: 'Attiva/disattiva i filtri',
-    clear: 'Chiaro',
+    clear: 'Cancellare',
     apply: 'Applicare',
   },
   input: {
