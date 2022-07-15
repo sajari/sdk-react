@@ -29,7 +29,14 @@ const ColorFilter = ({ name, title, ...rest }: Omit<ColorFilterProps, 'type'>) =
     [JSON.stringify(filtered)],
   );
 
-  if ((isEmpty(filtered) && isEmpty(selected)) || filtered.length === 1) {
+  if (isEmpty(filtered) && isEmpty(selected)) {
+    return null;
+  }
+
+  // We want to hide filters which only contain a single option
+  // But many queries only return relevant aggregate filters which have counts.
+  // If a filter is selected, it can be the only aggregate with a count
+  if (filtered.length === 1 && isEmpty(selected)) {
     return null;
   }
 
