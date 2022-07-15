@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.18.2
+
+### Patch Changes
+
+- [`d7a41098`](https://github.com/sajari/sdk-react/commit/d7a41098c7574d015267a3f8e7919e32675e7a08) [#839](https://github.com/sajari/sdk-react/pull/839) Thanks [@jkaho](https://github.com/jkaho)! - fix: improve some translations for German, Italian, and Spanish
+
 ## 4.18.1
 
 ### Patch Changes
