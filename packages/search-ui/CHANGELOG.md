@@ -1,5 +1,13 @@
 # Change Log
 
+## 4.18.4
+
+### Patch Changes
+
+- [`971f7cc6`](https://github.com/sajari/sdk-react/commit/971f7cc6620b4671f223ca1a79829bcd90f7d4c2) [#843](https://github.com/sajari/sdk-react/pull/843) Thanks [@wwalser](https://github.com/wwalser)! - bug: select filter should display when it has selected items
+
+* [`971f7cc6`](https://github.com/sajari/sdk-react/commit/971f7cc6620b4671f223ca1a79829bcd90f7d4c2) [#843](https://github.com/sajari/sdk-react/pull/843) Thanks [@wwalser](https://github.com/wwalser)! - bug: a filter with a single option which is selected should not be hidden
+
 ## 4.18.3
 
 ### Patch Changes
