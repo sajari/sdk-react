@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.18.3
+
+### Patch Changes
+
+- [`8afc8495`](https://github.com/sajari/sdk-react/commit/8afc84954372c0bc4244545c9bbd73ea9bd271e8) [#840](https://github.com/sajari/sdk-react/pull/840) Thanks [@wwalser](https://github.com/wwalser)! - bug: a filter with a single option which is selected should not be hidden
+
 ## 4.18.2
 
 ### Patch Changes
