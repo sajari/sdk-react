@@ -51,7 +51,7 @@ const fr: Locale = {
   results: {
     empty: {
       title: 'Aucun résultat',
-      body: 'Aucune résultat n\'a été trouvée pour "{{query}}".',
+      body: 'Aucun résultat n\'a été trouvé pour "{{query}}".',
     },
   },
   result: {
@@ -64,7 +64,7 @@ const fr: Locale = {
     previewImage: "{{product}} numéro d'image {{number}}",
   },
   sorting: {
-    label: 'Sorte',
+    label: 'Classement',
     mostRelevantOption: 'Le plus pertinent',
   },
   summary: {
