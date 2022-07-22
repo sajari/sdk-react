@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.18.5
+
+### Patch Changes
+
+- [`fbfef30a`](https://github.com/sajari/sdk-react/commit/fbfef30a8a985758c80093e2bf5be6d1faaea318) [#845](https://github.com/sajari/sdk-react/pull/845) Thanks [@jkaho](https://github.com/jkaho)! - fix: improve french translations for sort and no results message
+
 ## 4.18.4
 
 ### Patch Changes
