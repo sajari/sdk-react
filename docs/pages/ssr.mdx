@@ -15,10 +15,10 @@ In React, SSR works by rendering the component to HTML on the server, and then h
 
 In order to make the hooks and components work with SSR, you will need to wrap your application in an SSRProvider component. This signals to all nested components that they are being rendered in an SSR context.
 
-If you're using `@sajari/search-ui`...
+If you're using `@sajari/react-search-ui`...
 
 ```jsx live=false
-import { SSRProvider, SearchProvider } from '@sajari/search-ui';
+import { SSRProvider, SearchProvider } from '@sajari/react-search-ui';
 
 export default () => (
   <SSRProvider>
