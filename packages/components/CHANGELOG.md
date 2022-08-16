@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.14.9
+
+### Patch Changes
+
+- [`fb77ad70`](https://github.com/sajari/sdk-react/commit/fb77ad70181063c6fdc80f5d02f563b0b3d0f87d) [#850](https://github.com/sajari/sdk-react/pull/850) Thanks [@wwalser](https://github.com/wwalser)! - fix: disable chrome pw manager in combobox
+
 ## 1.14.8
 
 ### Patch Changes
