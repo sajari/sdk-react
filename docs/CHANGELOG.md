@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.17.1
+
+### Patch Changes
+
+- [`9f26d70e`](https://github.com/sajari/sdk-react/commit/9f26d70e307bb4be89248f40dee62b97c90dd279) [#847](https://github.com/sajari/sdk-react/pull/847) Thanks [@JasonBerry](https://github.com/JasonBerry)! - Fix package names in docs
+
+- Updated dependencies [[`fb77ad70`](https://github.com/sajari/sdk-react/commit/fb77ad70181063c6fdc80f5d02f563b0b3d0f87d)]:
+  - @sajari/react-components@1.14.9
+  - @sajari/react-search-ui@4.18.6
+
 ## 1.17.0
 
 ### Minor Changes
