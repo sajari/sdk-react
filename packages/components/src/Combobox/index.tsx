@@ -280,7 +280,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(
     placeholder,
     'aria-invalid': invalid,
     autoCapitalize: 'off',
-    autoComplete: 'off',
+    autoComplete: 'one-time-code',
     autoCorrect: 'off',
     spellCheck: 'false',
     inputMode: 'search',
