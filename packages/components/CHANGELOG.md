@@ -1,5 +1,16 @@
 # Change Log
 
+## 1.15.0
+
+### Minor Changes
+
+- [`6aef22d1`](https://github.com/sajari/sdk-react/commit/6aef22d177248065e0b2cc021905d992bd0bd1df) [#853](https://github.com/sajari/sdk-react/pull/853) Thanks [@JasonBerry](https://github.com/JasonBerry)! - Bump dset dependency for security fix
+
+### Patch Changes
+
+- Updated dependencies [[`6aef22d1`](https://github.com/sajari/sdk-react/commit/6aef22d177248065e0b2cc021905d992bd0bd1df)]:
+  - @sajari/react-sdk-utils@1.7.0
+
 ## 1.14.9
 
 ### Patch Changes

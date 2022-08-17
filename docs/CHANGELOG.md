@@ -1,5 +1,20 @@
 # Change Log
 
+## 1.18.0
+
+### Minor Changes
+
+- [`6aef22d1`](https://github.com/sajari/sdk-react/commit/6aef22d177248065e0b2cc021905d992bd0bd1df) [#853](https://github.com/sajari/sdk-react/pull/853) Thanks [@JasonBerry](https://github.com/JasonBerry)! - Bump dset dependency for security fix
+
+### Patch Changes
+
+- [`a9f5de61`](https://github.com/sajari/sdk-react/commit/a9f5de61d4e0cd069a4fca0c6e3850f51dc4cb45) [#851](https://github.com/sajari/sdk-react/pull/851) Thanks [@JasonBerry](https://github.com/JasonBerry)! - Fix SSR examples
+
+- Updated dependencies [[`6aef22d1`](https://github.com/sajari/sdk-react/commit/6aef22d177248065e0b2cc021905d992bd0bd1df)]:
+  - @sajari/react-components@1.15.0
+  - @sajari/react-hooks@3.15.0
+  - @sajari/react-search-ui@4.19.0
+
 ## 1.17.1
 
 ### Patch Changes
