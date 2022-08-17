@@ -90,7 +90,7 @@ const Page = ({ initialResponse }: Props) => (
   </SearchProvider>
 );
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps<Props> = async () => {
   const initialResponse = await search({
     pipeline,
     variables,
@@ -101,9 +101,7 @@ export const getStaticProps: GetStaticProps = async () => {
   // If we couldn't get an initial response server side, render client side
   if (initialResponse === null) {
     return {
-      props: {
-        notFound: true,
-      },
+      notFound: true,
     };
   }
 
