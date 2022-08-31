@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.19.1
+
+### Patch Changes
+
+- [`0b2924b0`](https://github.com/sajari/sdk-react/commit/0b2924b014bccc865e09b53687b6179bc3255d39) [#854](https://github.com/sajari/sdk-react/pull/854) Thanks [@JasonBerry](https://github.com/JasonBerry)! - Make promo overlays clickable
+
 ## 4.19.0
 
 ### Minor Changes
