@@ -29,22 +29,29 @@ const BannerItem = ({ banner, numberOfCols = 1 }: BannerItemProps) => {
       <Box data-testid="banner-image-container" css={styles.imageContainer}>
         <Link href={targetUrl} css={styles.link} onClick={onClick}>
           <img src={imageUrl} css={styles.image} alt="" loading="lazy" />
+          {(title || description) && (
+            <Box css={styles.textContainer}>
+              {title && (
+                <Heading
+                  as="h2"
+                  className={customClassNames.banners?.heading}
+                  css={[{ color: textColor }, styles.heading]}
+                >
+                  {title}
+                </Heading>
+              )}
+              {description && (
+                <Text
+                  className={customClassNames.banners?.description}
+                  css={[{ color: textColor }, styles.description]}
+                >
+                  {description}
+                </Text>
+              )}
+            </Box>
+          )}
         </Link>
       </Box>
-      {title || description ? (
-        <Box css={styles.textContainer}>
-          {title ? (
-            <Heading as="h2" className={customClassNames.banners?.heading} css={[{ color: textColor }, styles.heading]}>
-              {title}
-            </Heading>
-          ) : null}
-          {description ? (
-            <Text className={customClassNames.banners?.description} css={[{ color: textColor }, styles.description]}>
-              {description}
-            </Text>
-          ) : null}
-        </Box>
-      ) : null}
     </Box>
   );
 };
