@@ -263,7 +263,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(
     onVoiceInput(input);
   };
 
-  const { styles: comboboxStyles, focusProps } = useComboboxStyles({
+  const { styles: comboboxStyles } = useComboboxStyles({
     size,
     voiceEnabled: enableVoice && voiceSupported,
     loading,
@@ -398,7 +398,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(
               data-testid="combobox-input"
               as="input"
               css={styles.input}
-              {...mergeProps(inputProps, focusProps)}
+              {...mergeProps(inputProps)}
               enterKeyHint={enterKeyHint}
               {...rest}
             />

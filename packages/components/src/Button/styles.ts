@@ -2,29 +2,27 @@ import { css } from '@emotion/core';
 import { useTheme } from '@sajari/react-sdk-utils';
 import tw, { TwStyle } from 'twin.macro';
 
-import { useFocusRingStyles } from '../hooks';
 import { ButtonProps } from './types';
 
 interface UseButtonStylesProps extends ButtonProps {
   pressed: boolean;
   hovered: boolean;
-  focused: boolean;
 }
 
 const useButtonStyles = (props: UseButtonStylesProps) => {
-  const { size, fullWidth, appearance, spacing, disabled, loading, pressed, focused, hovered } = props;
+  const { size, fullWidth, appearance, spacing, disabled, loading, pressed } = props;
   const theme = useTheme();
   const isLink = (['link', 'subtle-link'] as Array<ButtonProps['apperance']>).includes(appearance);
   const styles: (string | TwStyle)[] = [];
-  const { focusProps: focusRingProps, focusRingStyles } = useFocusRingStyles();
-  const returnStyles = (val: typeof styles) => ({ styles: [css(val), focusRingStyles], focusRingProps });
+  const returnStyles = (val: typeof styles) => ({ styles: [css(val)] });
 
   styles.push(
-    tw`relative items-center justify-center leading-normal no-underline transition duration-150 ease-in-out border border-transparent border-solid cursor-pointer font-inherit focus:outline-none h-auto`,
+    tw`relative items-center justify-center h-auto leading-normal no-underline transition duration-150 ease-in-out border border-transparent border-solid rounded-md cursor-pointer font-inherit focus:outline-none`,
+    `&:focus { box-shadow: 0 0 0 1px #fff, 0 0 0 3px ${theme.color.primary.base} }`,
   );
 
   if (!isLink) {
-    styles.push(tw`font-medium rounded-md select-none`);
+    styles.push(tw`font-medium select-none`);
   }
 
   styles.push(fullWidth ? tw`flex` : tw`inline-flex`);
@@ -117,15 +115,11 @@ const useButtonStyles = (props: UseButtonStylesProps) => {
 
   switch (appearance) {
     case 'primary':
-      styles.push(`color: ${theme.color.primary.text};`);
-
-      if (focused || pressed) {
-        styles.push(`background: ${theme.color.primary.active};`);
-      } else if (hovered) {
-        styles.push(`background: ${theme.color.primary.active};`);
-      } else {
-        styles.push(`background: ${theme.color.primary.base};`);
-      }
+      styles.push(
+        `color: ${theme.color.primary.text};`,
+        `background: ${theme.color.primary.base};`,
+        `&:hover, &:focus, &:hover { background: ${theme.color.primary.active} }`,
+      );
       break;
 
     case 'default':
@@ -144,7 +138,7 @@ const useButtonStyles = (props: UseButtonStylesProps) => {
 
     case 'link':
       styles.push(
-        tw`p-0 no-underline bg-transparent hover:bg-transparent focus:bg-transparent hover:underline focus:underline leading-inherit`,
+        tw`p-0 no-underline bg-transparent hover:bg-transparent focus:bg-transparent hover:underline focus:underline leading-inherit focus:border-white`,
         {
           color: pressed ? theme.color.primary.active : theme.color.primary.base,
         },
@@ -157,7 +151,7 @@ const useButtonStyles = (props: UseButtonStylesProps) => {
 
     case 'subtle-link':
       styles.push(
-        tw`p-0 no-underline bg-transparent hover:underline focus:underline leading-inherit`,
+        tw`p-0 no-underline bg-transparent hover:underline focus:underline leading-inherit focus:border-white`,
         pressed ? tw`text-gray-700` : tw`text-gray-500`,
       );
 

@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { inferStylesObjectKeys, mapStyles } from '@sajari/react-sdk-utils';
+import { inferStylesObjectKeys, mapStyles, useTheme } from '@sajari/react-sdk-utils';
 import tw, { TwStyle } from 'twin.macro';
 
-import { useFocusRingStyles } from '../hooks';
 import { ComboboxProps, ComboboxSize } from './types';
 
 interface UseComboboxStylesProps {
@@ -34,7 +33,7 @@ export function getInputSpacingStyles(size?: ComboboxSize) {
 
 export function useComboboxStyles(props: UseComboboxStylesProps) {
   const { size, voiceEnabled, loading, variant } = props;
-  const { focusProps, focusRingStyles } = useFocusRingStyles();
+  const theme = useTheme();
   const containerStyles: TwStyle[] = [];
   const iconContainerStyles: TwStyle[] = [tw`absolute inset-y-0 flex items-center space-x-2 text-gray-400`];
   const iconSearchStyles: TwStyle[] = [];
@@ -129,7 +128,10 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
   });
 
   if (variant === 'outline') {
-    styles.inputContainer.push(...[tw`bg-white border border-gray-200 border-solid`, ...focusRingStyles]);
+    styles.inputContainer.push(
+      tw`bg-white border border-gray-200 border-solid`,
+      `&:focus-within { box-shadow: 0 0 0 1px #fff, 0 0 0 3px ${theme.color.primary.base} }`,
+    );
   } else {
     styles.inputContainer.push(tw`py-0 border-none`);
   }
@@ -140,5 +142,5 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
     styles.iconSpinner.push(tw`w-5 h-5`);
   }
 
-  return { styles: mapStyles(styles), focusProps };
+  return { styles: mapStyles(styles) };
 }
