@@ -13,54 +13,64 @@ exports[`ButtonGroup attached and inline 1`] = `
 }
 
 .emotion-0>button:first-of-type {
-  border-radius: 0;
+  border-radius: 0px;
   border-top-left-radius: 0.375em;
   border-bottom-left-radius: 0.375em;
 }
 
 .emotion-0>button:first-of-type:after {
-  border-radius: 0;
+  content: "";
+  border-radius: 0px;
   border-top-left-radius: 0.5em;
   border-bottom-left-radius: 0.5em;
 }
 
 .emotion-0>button:last-of-type {
-  border-radius: 0;
+  border-radius: 0px;
   border-top-right-radius: 0.375em;
   border-bottom-right-radius: 0.375em;
 }
 
 .emotion-0>button:last-of-type:after {
-  border-radius: 0;
+  content: "";
+  border-radius: 0px;
   border-top-right-radius: 0.5em;
   border-bottom-right-radius: 0.5em;
 }
 
 .emotion-0>button:not(:last-of-type):not(:first-of-type) {
-  border-radius: 0;
+  border-radius: 0px;
 }
 
 .emotion-0>button:not(:last-of-type):not(:first-of-type):after {
-  border-radius: 0;
+  content: "";
+  border-radius: 0px;
 }
 
 .emotion-0>button:focus {
   z-index: 10;
 }
 
-.emotion-0>:not(template)~:not(template) {
-  --space-x-reverse: 0;
-  margin-right: calc(1em * var(--space-x-reverse));
-  margin-left: calc(1em * calc(1 - var(--space-x-reverse)));
+.emotion-0>:not([hidden])~:not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1em * var(--tw-space-x-reverse));
+  margin-left: calc(1em * calc(1 - var(--tw-space-x-reverse)));
 }
 
-.emotion-0>:not(template)~:not(template) {
-  --space-x-reverse: 0;
-  margin-right: calc(-1px * var(--space-x-reverse));
-  margin-left: calc(-1px * calc(1 - var(--space-x-reverse)));
+.emotion-0>:not([hidden])~:not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(-1px * var(--tw-space-x-reverse));
+  margin-left: calc(-1px * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .emotion-2 {
+  -webkit-transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,-webkit-transform,filter,backdrop-filter;
+  -webkit-transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;
+  transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;
+  -webkit-transition-timing-function: cubic-bezier(0.4,0,0.2,1);
+  transition-timing-function: cubic-bezier(0.4,0,0.2,1);
+  -webkit-transition-duration: 150ms;
+  transition-duration: 150ms;
   position: relative;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -70,24 +80,17 @@ exports[`ButtonGroup attached and inline 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  height: auto;
   line-height: 1.5;
   -webkit-text-decoration: none;
   text-decoration: none;
-  -webkit-transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,-webkit-transform;
-  -webkit-transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
-  transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
-  -webkit-transition-duration: 150ms;
-  transition-duration: 150ms;
-  -webkit-transition-timing-function: cubic-bezier(0.4,0,0.2,1);
-  transition-timing-function: cubic-bezier(0.4,0,0.2,1);
   border-width: 1px;
-  border-color: transparent;
+  border-color: rgba(0,0,0,0);
   border-style: solid;
+  border-radius: 0.375em;
   cursor: pointer;
   font-family: inherit;
-  height: auto;
   font-weight: 500;
-  border-radius: 0.375em;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -101,13 +104,14 @@ exports[`ButtonGroup attached and inline 1`] = `
   padding-right: 1em;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
-  --bg-opacity: 1;
-  background-color: rgba(255,255,255,var(--bg-opacity));
-  --border-opacity: 1;
-  border-color: rgba(229,231,235,var(--border-opacity));
-  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
-  --text-opacity: 1;
-  color: rgba(107,114,128,var(--text-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgba(255,255,255,var(--tw-bg-opacity));
+  --tw-border-opacity: 1;
+  border-color: rgba(229,231,235,var(--tw-border-opacity));
+  --tw-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+  box-shadow: var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);
+  --tw-text-opacity: 1;
+  color: rgba(107,114,128,var(--tw-text-opacity));
 }
 
 .emotion-2:focus {
@@ -115,24 +119,28 @@ exports[`ButtonGroup attached and inline 1`] = `
   outline-offset: 2px;
 }
 
-.emotion-2:hover {
-  --bg-opacity: 1;
-  background-color: rgba(244,245,247,var(--bg-opacity));
-}
-
 .emotion-2:focus {
-  --bg-opacity: 1;
-  background-color: rgba(244,245,247,var(--bg-opacity));
+  box-shadow: 0 0 0 1px #fff,0 0 0 3px #6366f1;
 }
 
 .emotion-2:hover {
-  --text-opacity: 1;
-  color: rgba(107,114,128,var(--text-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgba(243,244,246,var(--tw-bg-opacity));
 }
 
 .emotion-2:focus {
-  --text-opacity: 1;
-  color: rgba(107,114,128,var(--text-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgba(243,244,246,var(--tw-bg-opacity));
+}
+
+.emotion-2:hover {
+  --tw-text-opacity: 1;
+  color: rgba(107,114,128,var(--tw-text-opacity));
+}
+
+.emotion-2:focus {
+  --tw-text-opacity: 1;
+  color: rgba(107,114,128,var(--tw-text-opacity));
 }
 
 <div
@@ -173,54 +181,64 @@ exports[`ButtonGroup attached and not inline 1`] = `
 }
 
 .emotion-0>button:first-of-type {
-  border-radius: 0;
+  border-radius: 0px;
   border-top-left-radius: 0.375em;
   border-bottom-left-radius: 0.375em;
 }
 
 .emotion-0>button:first-of-type:after {
-  border-radius: 0;
+  content: "";
+  border-radius: 0px;
   border-top-left-radius: 0.5em;
   border-bottom-left-radius: 0.5em;
 }
 
 .emotion-0>button:last-of-type {
-  border-radius: 0;
+  border-radius: 0px;
   border-top-right-radius: 0.375em;
   border-bottom-right-radius: 0.375em;
 }
 
 .emotion-0>button:last-of-type:after {
-  border-radius: 0;
+  content: "";
+  border-radius: 0px;
   border-top-right-radius: 0.5em;
   border-bottom-right-radius: 0.5em;
 }
 
 .emotion-0>button:not(:last-of-type):not(:first-of-type) {
-  border-radius: 0;
+  border-radius: 0px;
 }
 
 .emotion-0>button:not(:last-of-type):not(:first-of-type):after {
-  border-radius: 0;
+  content: "";
+  border-radius: 0px;
 }
 
 .emotion-0>button:focus {
   z-index: 10;
 }
 
-.emotion-0>:not(template)~:not(template) {
-  --space-x-reverse: 0;
-  margin-right: calc(1em * var(--space-x-reverse));
-  margin-left: calc(1em * calc(1 - var(--space-x-reverse)));
+.emotion-0>:not([hidden])~:not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1em * var(--tw-space-x-reverse));
+  margin-left: calc(1em * calc(1 - var(--tw-space-x-reverse)));
 }
 
-.emotion-0>:not(template)~:not(template) {
-  --space-x-reverse: 0;
-  margin-right: calc(-1px * var(--space-x-reverse));
-  margin-left: calc(-1px * calc(1 - var(--space-x-reverse)));
+.emotion-0>:not([hidden])~:not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(-1px * var(--tw-space-x-reverse));
+  margin-left: calc(-1px * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .emotion-2 {
+  -webkit-transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,-webkit-transform,filter,backdrop-filter;
+  -webkit-transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;
+  transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;
+  -webkit-transition-timing-function: cubic-bezier(0.4,0,0.2,1);
+  transition-timing-function: cubic-bezier(0.4,0,0.2,1);
+  -webkit-transition-duration: 150ms;
+  transition-duration: 150ms;
   position: relative;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -230,24 +248,17 @@ exports[`ButtonGroup attached and not inline 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  height: auto;
   line-height: 1.5;
   -webkit-text-decoration: none;
   text-decoration: none;
-  -webkit-transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,-webkit-transform;
-  -webkit-transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
-  transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
-  -webkit-transition-duration: 150ms;
-  transition-duration: 150ms;
-  -webkit-transition-timing-function: cubic-bezier(0.4,0,0.2,1);
-  transition-timing-function: cubic-bezier(0.4,0,0.2,1);
   border-width: 1px;
-  border-color: transparent;
+  border-color: rgba(0,0,0,0);
   border-style: solid;
+  border-radius: 0.375em;
   cursor: pointer;
   font-family: inherit;
-  height: auto;
   font-weight: 500;
-  border-radius: 0.375em;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -261,13 +272,14 @@ exports[`ButtonGroup attached and not inline 1`] = `
   padding-right: 1em;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
-  --bg-opacity: 1;
-  background-color: rgba(255,255,255,var(--bg-opacity));
-  --border-opacity: 1;
-  border-color: rgba(229,231,235,var(--border-opacity));
-  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
-  --text-opacity: 1;
-  color: rgba(107,114,128,var(--text-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgba(255,255,255,var(--tw-bg-opacity));
+  --tw-border-opacity: 1;
+  border-color: rgba(229,231,235,var(--tw-border-opacity));
+  --tw-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+  box-shadow: var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);
+  --tw-text-opacity: 1;
+  color: rgba(107,114,128,var(--tw-text-opacity));
 }
 
 .emotion-2:focus {
@@ -275,24 +287,28 @@ exports[`ButtonGroup attached and not inline 1`] = `
   outline-offset: 2px;
 }
 
-.emotion-2:hover {
-  --bg-opacity: 1;
-  background-color: rgba(244,245,247,var(--bg-opacity));
-}
-
 .emotion-2:focus {
-  --bg-opacity: 1;
-  background-color: rgba(244,245,247,var(--bg-opacity));
+  box-shadow: 0 0 0 1px #fff,0 0 0 3px #6366f1;
 }
 
 .emotion-2:hover {
-  --text-opacity: 1;
-  color: rgba(107,114,128,var(--text-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgba(243,244,246,var(--tw-bg-opacity));
 }
 
 .emotion-2:focus {
-  --text-opacity: 1;
-  color: rgba(107,114,128,var(--text-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgba(243,244,246,var(--tw-bg-opacity));
+}
+
+.emotion-2:hover {
+  --tw-text-opacity: 1;
+  color: rgba(107,114,128,var(--tw-text-opacity));
+}
+
+.emotion-2:focus {
+  --tw-text-opacity: 1;
+  color: rgba(107,114,128,var(--tw-text-opacity));
 }
 
 <div
@@ -340,13 +356,20 @@ exports[`ButtonGroup not attached and inline 1`] = `
   z-index: 10;
 }
 
-.emotion-0>:not(template)~:not(template) {
-  --space-x-reverse: 0;
-  margin-right: calc(1em * var(--space-x-reverse));
-  margin-left: calc(1em * calc(1 - var(--space-x-reverse)));
+.emotion-0>:not([hidden])~:not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1em * var(--tw-space-x-reverse));
+  margin-left: calc(1em * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .emotion-2 {
+  -webkit-transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,-webkit-transform,filter,backdrop-filter;
+  -webkit-transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;
+  transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;
+  -webkit-transition-timing-function: cubic-bezier(0.4,0,0.2,1);
+  transition-timing-function: cubic-bezier(0.4,0,0.2,1);
+  -webkit-transition-duration: 150ms;
+  transition-duration: 150ms;
   position: relative;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -356,24 +379,17 @@ exports[`ButtonGroup not attached and inline 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  height: auto;
   line-height: 1.5;
   -webkit-text-decoration: none;
   text-decoration: none;
-  -webkit-transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,-webkit-transform;
-  -webkit-transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
-  transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
-  -webkit-transition-duration: 150ms;
-  transition-duration: 150ms;
-  -webkit-transition-timing-function: cubic-bezier(0.4,0,0.2,1);
-  transition-timing-function: cubic-bezier(0.4,0,0.2,1);
   border-width: 1px;
-  border-color: transparent;
+  border-color: rgba(0,0,0,0);
   border-style: solid;
+  border-radius: 0.375em;
   cursor: pointer;
   font-family: inherit;
-  height: auto;
   font-weight: 500;
-  border-radius: 0.375em;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -387,13 +403,14 @@ exports[`ButtonGroup not attached and inline 1`] = `
   padding-right: 1em;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
-  --bg-opacity: 1;
-  background-color: rgba(255,255,255,var(--bg-opacity));
-  --border-opacity: 1;
-  border-color: rgba(229,231,235,var(--border-opacity));
-  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
-  --text-opacity: 1;
-  color: rgba(107,114,128,var(--text-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgba(255,255,255,var(--tw-bg-opacity));
+  --tw-border-opacity: 1;
+  border-color: rgba(229,231,235,var(--tw-border-opacity));
+  --tw-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+  box-shadow: var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);
+  --tw-text-opacity: 1;
+  color: rgba(107,114,128,var(--tw-text-opacity));
 }
 
 .emotion-2:focus {
@@ -401,24 +418,28 @@ exports[`ButtonGroup not attached and inline 1`] = `
   outline-offset: 2px;
 }
 
-.emotion-2:hover {
-  --bg-opacity: 1;
-  background-color: rgba(244,245,247,var(--bg-opacity));
-}
-
 .emotion-2:focus {
-  --bg-opacity: 1;
-  background-color: rgba(244,245,247,var(--bg-opacity));
+  box-shadow: 0 0 0 1px #fff,0 0 0 3px #6366f1;
 }
 
 .emotion-2:hover {
-  --text-opacity: 1;
-  color: rgba(107,114,128,var(--text-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgba(243,244,246,var(--tw-bg-opacity));
 }
 
 .emotion-2:focus {
-  --text-opacity: 1;
-  color: rgba(107,114,128,var(--text-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgba(243,244,246,var(--tw-bg-opacity));
+}
+
+.emotion-2:hover {
+  --tw-text-opacity: 1;
+  color: rgba(107,114,128,var(--tw-text-opacity));
+}
+
+.emotion-2:focus {
+  --tw-text-opacity: 1;
+  color: rgba(107,114,128,var(--tw-text-opacity));
 }
 
 <div
@@ -460,13 +481,20 @@ exports[`ButtonGroup not attached and not inline 1`] = `
   z-index: 10;
 }
 
-.emotion-0>:not(template)~:not(template) {
-  --space-y-reverse: 0;
-  margin-top: calc(0.5em * calc(1 - var(--space-y-reverse)));
-  margin-bottom: calc(0.5em * var(--space-y-reverse));
+.emotion-0>:not([hidden])~:not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.5em * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.5em * var(--tw-space-y-reverse));
 }
 
 .emotion-2 {
+  -webkit-transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,-webkit-transform,filter,backdrop-filter;
+  -webkit-transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;
+  transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;
+  -webkit-transition-timing-function: cubic-bezier(0.4,0,0.2,1);
+  transition-timing-function: cubic-bezier(0.4,0,0.2,1);
+  -webkit-transition-duration: 150ms;
+  transition-duration: 150ms;
   position: relative;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -476,24 +504,17 @@ exports[`ButtonGroup not attached and not inline 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  height: auto;
   line-height: 1.5;
   -webkit-text-decoration: none;
   text-decoration: none;
-  -webkit-transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,-webkit-transform;
-  -webkit-transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
-  transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
-  -webkit-transition-duration: 150ms;
-  transition-duration: 150ms;
-  -webkit-transition-timing-function: cubic-bezier(0.4,0,0.2,1);
-  transition-timing-function: cubic-bezier(0.4,0,0.2,1);
   border-width: 1px;
-  border-color: transparent;
+  border-color: rgba(0,0,0,0);
   border-style: solid;
+  border-radius: 0.375em;
   cursor: pointer;
   font-family: inherit;
-  height: auto;
   font-weight: 500;
-  border-radius: 0.375em;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -507,13 +528,14 @@ exports[`ButtonGroup not attached and not inline 1`] = `
   padding-right: 1em;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
-  --bg-opacity: 1;
-  background-color: rgba(255,255,255,var(--bg-opacity));
-  --border-opacity: 1;
-  border-color: rgba(229,231,235,var(--border-opacity));
-  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
-  --text-opacity: 1;
-  color: rgba(107,114,128,var(--text-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgba(255,255,255,var(--tw-bg-opacity));
+  --tw-border-opacity: 1;
+  border-color: rgba(229,231,235,var(--tw-border-opacity));
+  --tw-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+  box-shadow: var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);
+  --tw-text-opacity: 1;
+  color: rgba(107,114,128,var(--tw-text-opacity));
 }
 
 .emotion-2:focus {
@@ -521,24 +543,28 @@ exports[`ButtonGroup not attached and not inline 1`] = `
   outline-offset: 2px;
 }
 
-.emotion-2:hover {
-  --bg-opacity: 1;
-  background-color: rgba(244,245,247,var(--bg-opacity));
-}
-
 .emotion-2:focus {
-  --bg-opacity: 1;
-  background-color: rgba(244,245,247,var(--bg-opacity));
+  box-shadow: 0 0 0 1px #fff,0 0 0 3px #6366f1;
 }
 
 .emotion-2:hover {
-  --text-opacity: 1;
-  color: rgba(107,114,128,var(--text-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgba(243,244,246,var(--tw-bg-opacity));
 }
 
 .emotion-2:focus {
-  --text-opacity: 1;
-  color: rgba(107,114,128,var(--text-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgba(243,244,246,var(--tw-bg-opacity));
+}
+
+.emotion-2:hover {
+  --tw-text-opacity: 1;
+  color: rgba(107,114,128,var(--tw-text-opacity));
+}
+
+.emotion-2:focus {
+  --tw-text-opacity: 1;
+  color: rgba(107,114,128,var(--tw-text-opacity));
 }
 
 <div

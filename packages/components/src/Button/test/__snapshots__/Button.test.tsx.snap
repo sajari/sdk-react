@@ -3,6 +3,13 @@
 exports[`Button Should match snapshot 1`] = `
 <DocumentFragment>
   .emotion-0 {
+  -webkit-transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,-webkit-transform,filter,backdrop-filter;
+  -webkit-transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;
+  transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;
+  -webkit-transition-timing-function: cubic-bezier(0.4,0,0.2,1);
+  transition-timing-function: cubic-bezier(0.4,0,0.2,1);
+  -webkit-transition-duration: 150ms;
+  transition-duration: 150ms;
   position: relative;
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -12,24 +19,17 @@ exports[`Button Should match snapshot 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  height: auto;
   line-height: 1.5;
   -webkit-text-decoration: none;
   text-decoration: none;
-  -webkit-transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,-webkit-transform;
-  -webkit-transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
-  transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
-  -webkit-transition-duration: 150ms;
-  transition-duration: 150ms;
-  -webkit-transition-timing-function: cubic-bezier(0.4,0,0.2,1);
-  transition-timing-function: cubic-bezier(0.4,0,0.2,1);
   border-width: 1px;
-  border-color: transparent;
+  border-color: rgba(0,0,0,0);
   border-style: solid;
+  border-radius: 0.375em;
   cursor: pointer;
   font-family: inherit;
-  height: auto;
   font-weight: 500;
-  border-radius: 0.375em;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -43,13 +43,14 @@ exports[`Button Should match snapshot 1`] = `
   padding-right: 1em;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
-  --bg-opacity: 1;
-  background-color: rgba(255,255,255,var(--bg-opacity));
-  --border-opacity: 1;
-  border-color: rgba(229,231,235,var(--border-opacity));
-  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
-  --text-opacity: 1;
-  color: rgba(107,114,128,var(--text-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgba(255,255,255,var(--tw-bg-opacity));
+  --tw-border-opacity: 1;
+  border-color: rgba(229,231,235,var(--tw-border-opacity));
+  --tw-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+  box-shadow: var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);
+  --tw-text-opacity: 1;
+  color: rgba(107,114,128,var(--tw-text-opacity));
 }
 
 .emotion-0:focus {
@@ -57,24 +58,28 @@ exports[`Button Should match snapshot 1`] = `
   outline-offset: 2px;
 }
 
-.emotion-0:hover {
-  --bg-opacity: 1;
-  background-color: rgba(244,245,247,var(--bg-opacity));
-}
-
 .emotion-0:focus {
-  --bg-opacity: 1;
-  background-color: rgba(244,245,247,var(--bg-opacity));
+  box-shadow: 0 0 0 1px #fff,0 0 0 3px #6366f1;
 }
 
 .emotion-0:hover {
-  --text-opacity: 1;
-  color: rgba(107,114,128,var(--text-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgba(243,244,246,var(--tw-bg-opacity));
 }
 
 .emotion-0:focus {
-  --text-opacity: 1;
-  color: rgba(107,114,128,var(--text-opacity));
+  --tw-bg-opacity: 1;
+  background-color: rgba(243,244,246,var(--tw-bg-opacity));
+}
+
+.emotion-0:hover {
+  --tw-text-opacity: 1;
+  color: rgba(107,114,128,var(--tw-text-opacity));
+}
+
+.emotion-0:focus {
+  --tw-text-opacity: 1;
+  color: rgba(107,114,128,var(--tw-text-opacity));
 }
 
 <button
