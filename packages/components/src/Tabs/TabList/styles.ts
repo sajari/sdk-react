@@ -7,7 +7,7 @@ export default function useTabListStyles() {
   const { align } = useTabContext();
   const styles = {
     container: [
-      tw`overflow-auto whitespace-no-wrap`,
+      tw`overflow-auto whitespace-nowrap`,
       { boxShadow: `inset 0 -1px 0 ${twTheme`colors.gray.200`.toString()}` },
     ],
     innerContainer: [tw`flex border-0 border-b border-gray-200 border-solid`],

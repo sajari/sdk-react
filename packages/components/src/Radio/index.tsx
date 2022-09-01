@@ -35,7 +35,7 @@ const Radio = React.forwardRef((props: RadioProps, ref?: React.Ref<HTMLInputElem
   const [privateChecked, setPrivateChecked] = React.useState(defaultChecked ?? false);
   const { current: controlled } = React.useRef(typeof checked !== 'undefined');
   const internalChecked = (controlled ? checked : privateChecked) ?? false;
-  const { styles: radioStyles, focusProps } = useRadioStyles(props);
+  const { styles: radioStyles } = useRadioStyles(props);
   const styles = getStylesObject(radioStyles, disableDefaultStyles);
 
   const internalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,28 +49,24 @@ const Radio = React.forwardRef((props: RadioProps, ref?: React.Ref<HTMLInputElem
 
   const comp = (
     <Box css={[styles.componentWrapper, !children && stylesProp]} {...(!children ? rest : {})}>
-      &#8203;
-      <Box as="span" css={styles.inputWrapper}>
-        <input
-          ref={ref}
-          type="radio"
-          id={id}
-          name={name}
-          value={value}
-          onChange={internalChange}
-          onBlur={onBlur}
-          onFocus={onFocus}
-          checked={internalChecked}
-          disabled={disabled}
-          readOnly={readOnly}
-          aria-label={ariaLabel}
-          aria-labelledby={ariaLabelledBy}
-          aria-invalid={invalid}
-          aria-checked={internalChecked}
-          css={styles.input}
-          {...focusProps}
-        />
-      </Box>
+      <input
+        ref={ref}
+        type="radio"
+        id={id}
+        name={name}
+        value={value}
+        onChange={internalChange}
+        onBlur={onBlur}
+        onFocus={onFocus}
+        checked={internalChecked}
+        disabled={disabled}
+        readOnly={readOnly}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        aria-invalid={invalid}
+        aria-checked={internalChecked}
+        css={styles.input}
+      />
     </Box>
   );
 

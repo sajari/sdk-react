@@ -1,9 +1,6 @@
 import { css } from '@emotion/core';
 import { useTheme } from '@sajari/react-sdk-utils';
-import Color from 'color';
 import tw, { TwStyle } from 'twin.macro';
-
-import useFocusRingStyles from './useFocusRingStyles';
 
 export interface UseInputStyleProps {
   disabled?: boolean;
@@ -16,17 +13,11 @@ export interface UseInputStyleProps {
 
 export default function useInputStyles(props: UseInputStyleProps) {
   const { disabled, indeterminate, invalid, readOnly, size, type } = props;
-  const { focusRingStyles, focusProps } = useFocusRingStyles({
-    disabled,
-    invalid,
-    rounded: type === 'radio' ? 'full' : undefined,
-  });
   const theme = useTheme();
-  const fill = encodeURIComponent(new Color(theme.color.primary.text).hex());
   const styles: (TwStyle | string)[] = [];
 
   styles.push(
-    tw`leading-normal text-gray-600 transition-all duration-150 bg-white border border-gray-200 border-solid outline-none font-inherit invalid:(bg-white border-gray-200 outline-none shadow-none)`,
+    tw`leading-normal text-gray-600 transition-all duration-150 bg-white border border-gray-200 border-solid font-inherit`,
   );
 
   // Map the size to padding and font size
@@ -50,12 +41,25 @@ export default function useInputStyles(props: UseInputStyleProps) {
   // Cancel out the form controls plugin styles since we use the ring
   styles.push(tw`focus:outline-none focus:shadow-none focus:border-gray-200`);
 
+  if (['radio', 'checkbox'].includes(type)) {
+    styles.push(tw`flex-none w-4 h-4 p-0 m-0 focus:ring-2 focus:ring-current`, `color: ${theme.color.primary.base};`);
+
+    if (indeterminate) {
+      styles.push(tw`border-transparent`, `background-color: ${theme.color.primary.base};`);
+    }
+  }
+
+  if (type === 'select') {
+    styles.push(tw`block w-full pr-10 font-normal text-left truncate rounded-md`);
+  }
+
+  // Modifiers need to go last so that their specificity is highest
   if (disabled || readOnly) {
     styles.push(tw`cursor-not-allowed`);
   }
 
   if (disabled) {
-    styles.push(tw`text-gray-400 bg-gray-100 border-gray-200`);
+    styles.push(tw`text-gray-400 bg-gray-100`);
 
     if (['radio', 'checkbox'].includes(type)) {
       styles.push(tw`checked:bg-gray-400 checked:border-gray-400`);
@@ -66,35 +70,9 @@ export default function useInputStyles(props: UseInputStyleProps) {
     styles.push(tw`border-red-500 bg-red-50 focus:border-red-500`);
 
     if (['radio', 'checkbox'].includes(type)) {
-      styles.push(tw`bg-red-100 checked:bg-red-500`);
+      styles.push(tw`text-red-500 bg-red-100 checked:bg-red-500`);
     }
   }
 
-  if (['radio', 'checkbox'].includes(type)) {
-    styles.push(tw`flex-none w-4 h-4 p-0 m-0 text-blue-500 focus:outline-none`, `color: ${theme.color.primary.base};`);
-
-    if (type === 'checkbox') {
-      if (indeterminate) {
-        styles.push(tw`border-transparent`, `background-color: ${theme.color.primary.base};`);
-      } else {
-        styles.push(
-          `&:checked {
-            background-image: url("data:image/svg+xml,%3Csvg fill='${fill}' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m6.9919558 12.0005941c-.26547704 0-.52006014-.1054507-.7077524-.293l-2.00319264-2.00000003c-.37937552-.39237889-.37394992-1.01608478.01219439-1.40181858.3861443-.38573379 1.01051394-.39115363 1.40331041-.01218142l1.20234127 1.2 3.30864357-5.107c.3394637-.43630494.9687248-.51510281 1.4054941-.17599998.4367692.33910283.515651.96769503.1761873 1.40399998l-4.00638527 6.00000003c-.1761023.2273124-.44160568.3679379-.72877475.386z'/%3E%3C/svg%3E");
-          `,
-        );
-      }
-    } else {
-      styles.push(
-        `&:checked {
-          background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='${fill}' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");
-        `,
-      );
-    }
-  }
-
-  if (type === 'select') {
-    styles.push(tw`block w-full pr-10 font-normal text-left truncate rounded-md`);
-  }
-
-  return { styles: css(styles), focusRingStyles, focusProps };
+  return { styles: css(styles) };
 }

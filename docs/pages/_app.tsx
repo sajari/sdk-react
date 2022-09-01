@@ -35,7 +35,7 @@ const Layout = (props: FlexProps) => {
         {...rest}
       >
         <Flex alignItems="items-center">
-          <Logomark useNewLogomark size="sm" margin="mr-3" />
+          <Logomark size="sm" margin="mr-3" />
           <Heading as="h3" size="md">
             React SDK
           </Heading>

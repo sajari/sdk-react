@@ -136,12 +136,12 @@ export function useModalStyles(props: ModalProps) {
     ],
     content: [
       zOrDefault,
-      tw`relative flex flex-col flex-1 w-full overflow-auto scrolling-touch transition-all transform bg-white`,
+      tw`relative flex flex-col flex-1 w-full overflow-auto transition-all transform bg-white`,
       tw`shadow-lg outline-none`,
       center ? tw`m-auto` : tw`mx-auto`,
       fullWidth ? tw`max-w-full` : sizeStyle,
       fullWidth ? tw`rounded-none` : tw`rounded-xl`,
-      fullHeight ? tw`h-full` : tw`max-h-(full-12)`,
+      fullHeight ? tw`h-full` : tw`max-h-[calc(100% - 3rem)]`,
     ],
   };
 

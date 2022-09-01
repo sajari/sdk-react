@@ -8,22 +8,21 @@ export default function useRadioStyles(props: RadioProps) {
   const { invalid = false, fontSize } = props;
   const sizeStyles = useFontSize({ size: fontSize });
 
-  const { styles: inputStyles, focusRingStyles, focusProps } = useInputStyles({
+  const { styles: inputStyles } = useInputStyles({
     type: 'radio',
     ...props,
   } as UseInputStyleProps);
 
   const styles = {
     container: [tw`flex items-center`],
-    label: [tw`ml-2 p-0`, sizeStyles],
+    label: [tw`p-0 ml-2`, sizeStyles],
     componentWrapper: [tw`inline-flex items-center`],
-    inputWrapper: [tw`relative flex`, focusRingStyles],
-    input: [[tw`form-radio m-0`, inputStyles]],
+    input: [tw`m-0`, inputStyles],
   };
 
   if (invalid) {
     styles.label.push(tw`text-red-500`);
   }
 
-  return { styles: mapStyles(styles), focusProps };
+  return { styles: mapStyles(styles) };
 }

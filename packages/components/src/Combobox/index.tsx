@@ -361,18 +361,19 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(
   }, [inputValue]);
 
   useEffect(() => {
-    if (inputElement?.current) {
-      inputElement.current.setAttribute('autocomplete', 'off');
-      inputElement.current.setAttribute('autocapitalize', 'off');
-      inputElement.current.setAttribute('autocorrect', 'off');
-      inputElement.current.setAttribute('spellcheck', 'false');
+    const el = inputElement?.current;
+    if (el) {
+      el.setAttribute('autocomplete', 'off');
+      el.setAttribute('autocapitalize', 'off');
+      el.setAttribute('autocorrect', 'off');
+      el.setAttribute('spellcheck', 'false');
 
-      inputElement.current.addEventListener('keydown', inputProps.onKeyDown);
-      inputElement.current.addEventListener('input', inputProps.onChange);
+      el.addEventListener('keydown', inputProps.onKeyDown);
+      el.addEventListener('input', inputProps.onChange);
     }
     return () => {
-      inputElement?.current?.removeEventListener('keydown', inputProps.onKeyDown);
-      inputElement?.current?.removeEventListener('input', inputProps.onChange);
+      el?.removeEventListener('keydown', inputProps.onKeyDown);
+      el?.removeEventListener('input', inputProps.onChange);
     };
   }, [inputElement, inputProps.onKeyDown, inputProps.onChange]);
 

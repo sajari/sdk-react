@@ -22,10 +22,11 @@
     "dist"
   ],
   "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "react": ">=17",
+    "react-dom": ">=17"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.8",
     "@popperjs/core": "^2.9.2",
     "@react-aria/button": "^3.3.0",
     "@react-aria/focus": "^3.2.3",

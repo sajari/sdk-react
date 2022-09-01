@@ -1,7 +1,9 @@
 import { mergeProps } from '@react-aria/utils';
 import { getStylesObject } from '@sajari/react-sdk-utils';
 import * as React from 'react';
+import tw from 'twin.macro';
 
+import { IconChevronUpDown } from '../../../assets/icons';
 import Box from '../../../Box';
 import { useSelectContext } from '../../context';
 import { useButtonStyles } from './styles';
@@ -58,6 +60,13 @@ const Button = () => {
     return 'Select an option';
   }, [JSON.stringify(selectedItems), text]);
 
+  let iconSize = tw`w-6 h-6`;
+  if (size === 'sm') {
+    iconSize = tw`w-5 h-5`;
+  } else if (size === 'lg') {
+    iconSize = tw`w-7 h-7`;
+  }
+
   return (
     <Box
       as="button"
@@ -66,7 +75,10 @@ const Button = () => {
       className={customClassNames.buttonClassName}
       {...mergeProps(focusRingProps, getToggleButtonProps({ disabled, ref }), { id })}
     >
-      {children}
+      <span css={[tw`flex items-center`, invalid && tw`text-red-500`]}>{children}</span>
+      <span css={[tw`absolute inset-y-0 right-0 flex items-center pr-2 ml-3 pointer-events-none`]}>
+        <IconChevronUpDown css={[iconSize, invalid ? tw`text-red-400` : tw`text-gray-400`]} aria-hidden="true" />
+      </span>
     </Box>
   );
 };
