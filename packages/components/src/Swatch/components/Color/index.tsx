@@ -51,7 +51,6 @@ const FunctionalColor = React.memo(
       toggleState,
       ref,
     );
-    // const { focusProps, focusRingStyles } = useFocusRingStyles({ color: border.toString() });
     const { styles: colorStyles, focusProps } = useColorStyles({ border, checked, rounded });
     const styles = getStylesObject(colorStyles, disableDefaultStyles);
 

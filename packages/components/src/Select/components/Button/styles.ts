@@ -4,15 +4,19 @@ import tw from 'twin.macro';
 import { UseInputStyleProps, useInputStyles } from '../../../hooks';
 import { SelectProps } from '../../types';
 
-export type UseButtonStylesParams = Required<Pick<SelectProps, 'size' | 'invalid' | 'disabled'>>;
+export type UseButtonStylesParams = Required<Pick<SelectProps, 'size' | 'invalid' | 'disabled'>> & { open: boolean };
 
 export function useButtonStyles(params: UseButtonStylesParams) {
-  const { styles: inputStyles, focusProps: focusRingProps, focusRingStyles } = useInputStyles({
+  const { styles: inputStyles } = useInputStyles({
     type: 'select',
     ...params,
   } as UseInputStyleProps);
 
   const styles = { container: [tw`h-auto m-0`, inputStyles] };
 
-  return { styles: mapStyles(styles), focusRingProps, focusRingStyles };
+  if (params.open) {
+    styles.container.push(tw`ring-2 ring-offset-1 ring-current`);
+  }
+
+  return { styles: mapStyles(styles) };
 }

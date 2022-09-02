@@ -15,6 +15,7 @@ const Button = () => {
     id,
     invalid,
     items,
+    open,
     selectedItems,
     autofocus,
     size,
@@ -22,7 +23,7 @@ const Button = () => {
     disableDefaultStyles,
     customClassNames,
   } = useSelectContext();
-  const { styles: buttonStyles, focusRingProps, focusRingStyles } = useButtonStyles({ size, disabled, invalid });
+  const { styles: buttonStyles } = useButtonStyles({ size, disabled, invalid, open });
   const styles = getStylesObject(buttonStyles, disableDefaultStyles);
   const ref = React.useRef<HTMLButtonElement>(null);
 
@@ -71,11 +72,13 @@ const Button = () => {
     <Box
       as="button"
       type="button"
-      css={[styles.container, focusRingStyles]}
+      css={[styles.container]}
       className={customClassNames.buttonClassName}
-      {...mergeProps(focusRingProps, getToggleButtonProps({ disabled, ref }), { id })}
+      {...mergeProps(getToggleButtonProps({ disabled, ref }), { id })}
     >
-      <span css={[tw`flex items-center`, invalid && tw`text-red-500`]}>{children}</span>
+      <span css={[tw`flex items-center text-gray-600`, invalid && tw`text-red-500`, disabled && tw`text-current`]}>
+        {children}
+      </span>
       <span css={[tw`absolute inset-y-0 right-0 flex items-center pr-2 ml-3 pointer-events-none`]}>
         <IconChevronUpDown css={[iconSize, invalid ? tw`text-red-400` : tw`text-gray-400`]} aria-hidden="true" />
       </span>

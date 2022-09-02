@@ -9,14 +9,10 @@ import { LinkProps } from './types';
 
 const Link = React.forwardRef((props: LinkProps, ref?: React.Ref<HTMLAnchorElement>) => {
   const { disableDefaultStyles = false, styles: stylesProp, ...rest } = props;
-  const { styles, focusRingProps } = useLinkStyles();
+  const { styles } = useLinkStyles();
 
   return (
-    <a
-      {...mergeProps(rest, focusRingProps)}
-      ref={ref}
-      css={[getStylesObject(styles.container, disableDefaultStyles), stylesProp]}
-    />
+    <a {...mergeProps(rest)} ref={ref} css={[getStylesObject(styles.container, disableDefaultStyles), stylesProp]} />
   );
 });
 

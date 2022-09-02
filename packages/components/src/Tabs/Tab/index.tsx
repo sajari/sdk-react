@@ -11,7 +11,7 @@ import { TabProps } from './types';
 const Tab = React.forwardRef((props: TabProps, ref?: React.Ref<HTMLButtonElement>) => {
   const { selected, disabled, id, className, selectedClassName = '', ...rest } = props;
   const { disableDefaultStyles = false } = useTabContext();
-  const { styles: containerStyles, focusRingProps } = useTabStyles(props);
+  const { styles: containerStyles } = useTabStyles(props);
   const styles = getStylesObject({ container: containerStyles }, disableDefaultStyles);
 
   return (
@@ -28,7 +28,7 @@ const Tab = React.forwardRef((props: TabProps, ref?: React.Ref<HTMLButtonElement
       aria-controls={`panel-${id}`}
       className={classnames(className, { [selectedClassName]: selected })}
       css={styles.container}
-      {...mergeProps(rest, focusRingProps)}
+      {...mergeProps(rest)}
     />
   );
 });

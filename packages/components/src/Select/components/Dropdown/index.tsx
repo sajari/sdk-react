@@ -9,17 +9,12 @@ import { useDropdownStyles } from './styles';
 
 const Dropdown = () => {
   const { items, open, getMenuProps, disableDefaultStyles, customClassNames } = useSelectContext();
-  const { styles: dropdownStyles, focusRingProps } = useDropdownStyles({ shown: open });
+  const { styles: dropdownStyles } = useDropdownStyles({ shown: open });
   const styles = getStylesObject(dropdownStyles, disableDefaultStyles);
   const options = items.map((item) => <Option {...item} key={item.value} />);
 
   return (
-    <Box
-      as="ul"
-      css={styles.container}
-      {...mergeProps(focusRingProps, getMenuProps())}
-      className={customClassNames.dropdownClassName}
-    >
+    <Box as="ul" css={styles.container} {...mergeProps(getMenuProps())} className={customClassNames.dropdownClassName}>
       {open && options}
     </Box>
   );

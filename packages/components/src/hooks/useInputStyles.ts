@@ -50,7 +50,10 @@ export default function useInputStyles(props: UseInputStyleProps) {
   }
 
   if (type === 'select') {
-    styles.push(tw`block w-full pr-10 font-normal text-left truncate rounded-md`);
+    styles.push(
+      tw`block w-full pr-10 font-normal text-left truncate rounded-md focus:ring-2 focus:ring-offset-1 focus:ring-current`,
+      `color: ${theme.color.primary.base};`,
+    );
   }
 
   // Modifiers need to go last so that their specificity is highest
