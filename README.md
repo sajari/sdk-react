@@ -4,13 +4,13 @@
 
 ## Introduction
 
-The Sajari React SDK is a library of React Hooks and Components to help build fast and powerful search interfaces.
+The Search.io React SDK is a library of React Hooks and Components to help build fast and powerful search interfaces.
 
-React provides a simple and elegant way to structure user interfaces. Aside from providing generic UI components, the Sajari React SDK also provides a way to seamlessly integrate the Sajari Search platform into any web-based app through the use of easily composable Components.
+React provides a simple and elegant way to structure user interfaces. Aside from providing generic UI components, the Search.io React SDK also provides a way to seamlessly integrate the Search.io Search platform into any web-based app through the use of easily composable Components.
 
 There are three main packages allowing you to pick and choose the right solution for your application:
 
-The Sajari React SDK is broken into 4 separate packages:
+The Search.io React SDK is broken into 4 separate packages:
 
 ### @sajari/react-components
 
@@ -32,7 +32,7 @@ Easy to use search components to quickly build a beautiful search interface. If 
 
 ### @sajari/server
 
-Helpers for server-side rendering your React application using Sajari search.
+Helpers for server-side rendering your React application using Search.io search.
 
 ## Documentation
 
