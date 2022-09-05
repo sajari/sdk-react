@@ -16,11 +16,10 @@ import { ColorProps } from '../../types';
 import useColorStyles from './styles';
 
 const StyledLabel = styled.label<{
-  textColor: ColorProps['color'];
   bg: ColorProps['bg'];
   border: ColorProps['border'];
 }>`
-  color: ${({ textColor }) => textColor};
+  color: ${({ border }) => border};
   background-color: ${({ bg }) => bg};
   border-color: ${({ border }) => border};
 `;
@@ -51,29 +50,20 @@ const FunctionalColor = React.memo(
       toggleState,
       ref,
     );
-    const { styles: colorStyles, focusProps } = useColorStyles({ border, checked, rounded });
+    const { styles: colorStyles } = useColorStyles({ border, checked, color, rounded });
     const styles = getStylesObject(colorStyles, disableDefaultStyles);
 
     return (
       <StyledLabel
         bg={bg}
         border={border}
-        textColor={color}
         css={styles.container}
         className={classnames(className, { [checkedClassName]: checked })}
       >
         <Box as="span" css={tw`sr-only`}>
           {id}
         </Box>
-        <Box
-          as="input"
-          css={tw`sr-only`}
-          {...inputProps}
-          {...focusProps}
-          ref={ref}
-          aria-checked={checked}
-          onClick={toggle}
-        />
+        <Box as="input" css={tw`sr-only`} {...inputProps} ref={ref} aria-checked={checked} onClick={toggle} />
         <IconCheck css={styles.iconCheck} />
       </StyledLabel>
     );
