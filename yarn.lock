@@ -5291,7 +5291,7 @@ __metadata:
     tsdx: ^0.14.1
     twin.macro: ^2.8.2
   peerDependencies:
-    react: ">=16.8.0"
+    react: ">=17"
   languageName: unknown
   linkType: soft
 
