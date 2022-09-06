@@ -1,5 +1,18 @@
 # Change Log
 
+## 2.0.0
+
+### Major Changes
+
+- [`3f6f72c4`](https://github.com/sajari/sdk-react/commit/3f6f72c4e7768e0859edb25c9835f46f31a4d2db) [#856](https://github.com/sajari/sdk-react/pull/856) Thanks [@JasonBerry](https://github.com/JasonBerry)! - Major version bump of Tailwind. Require React 17 peer dependency. Remove useFocusRingStyles and useRingStyles hooks.
+
+### Patch Changes
+
+- Updated dependencies [[`3f6f72c4`](https://github.com/sajari/sdk-react/commit/3f6f72c4e7768e0859edb25c9835f46f31a4d2db)]:
+  - @sajari/react-components@2.0.0
+  - @sajari/react-hooks@4.0.0
+  - @sajari/react-search-ui@5.0.0
+
 ## 1.18.0
 
 ### Minor Changes
