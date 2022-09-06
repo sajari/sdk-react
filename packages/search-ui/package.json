@@ -22,8 +22,8 @@
     "dist"
   ],
   "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "react": ">=17",
+    "react-dom": ">=17"
   },
   "dependencies": {
     "@react-aria/utils": "3.5.0",

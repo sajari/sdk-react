@@ -14,7 +14,7 @@ function Input<T extends RangeValue>(props: RangeInputInputProps<T>) {
   const { label, min, max, step, disableDefaultStyles = false, styles: stylesProp, className } = props;
   const ref = React.useRef<HTMLInputElement>(null);
   const { inputProps, labelProps } = useTextField(props, ref);
-  const { styles: inputStyles, focusProps } = useRangeInputStyles(props);
+  const { styles: inputStyles } = useRangeInputStyles(props);
   const styles = getStylesObject(inputStyles, disableDefaultStyles);
 
   return (
@@ -22,7 +22,7 @@ function Input<T extends RangeValue>(props: RangeInputInputProps<T>) {
       <Box as="label" css={tw`sr-only`} {...labelProps}>
         {label}
       </Box>
-      <input css={styles.input} {...mergeProps(inputProps, focusProps)} min={min} max={max} step={step} ref={ref} />
+      <input css={styles.input} {...mergeProps(inputProps)} min={min} max={max} step={step} ref={ref} />
     </Box>
   );
 }

@@ -17,15 +17,16 @@ export default function useFormValidity(
   React.useEffect(() => {
     checkValidity();
 
-    if (ref.current) {
-      ref.current.addEventListener('input', checkValidity);
-      ref.current.addEventListener('change', checkValidity);
+    const curRef = ref.current;
+    if (curRef) {
+      curRef.addEventListener('input', checkValidity);
+      curRef.addEventListener('change', checkValidity);
     }
 
     return () => {
-      if (ref.current) {
-        ref.current.removeEventListener('input', checkValidity);
-        ref.current.removeEventListener('change', checkValidity);
+      if (curRef) {
+        curRef.removeEventListener('input', checkValidity);
+        curRef.removeEventListener('change', checkValidity);
       }
     };
   }, [ref.current]);

@@ -33,7 +33,7 @@ const Checkbox = React.forwardRef((props: CheckboxProps, ref?: React.Ref<HTMLInp
   const [privateChecked, setPrivateChecked] = React.useState(defaultChecked ?? false);
   const { current: controlled } = React.useRef(typeof checked !== 'undefined');
   const internalChecked = (controlled ? checked : privateChecked) ?? false;
-  const { styles: checkboxStyles, focusProps } = useCheckboxStyles(props);
+  const { styles: checkboxStyles } = useCheckboxStyles(props);
   const styles = getStylesObject(checkboxStyles, disableDefaultStyles);
 
   const internalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,33 +47,29 @@ const Checkbox = React.forwardRef((props: CheckboxProps, ref?: React.Ref<HTMLInp
 
   const comp = (
     <Box css={[styles.componentWrapper, !children && stylesProp]} {...(!children ? rest : {})}>
-      &#8203;
-      <Box as="span" css={styles.inputWrapper}>
-        {indeterminate && (
-          <Box css={styles.indeterminate}>
-            <Box css={styles.indeterminateInner} />
-          </Box>
-        )}
-        <input
-          ref={ref}
-          type="checkbox"
-          id={id}
-          name={name}
-          value={value}
-          checked={internalChecked}
-          disabled={disabled}
-          readOnly={readOnly}
-          onChange={internalChange}
-          onBlur={onBlur}
-          onFocus={onFocus}
-          aria-invalid={invalid}
-          aria-label={ariaLabel}
-          aria-labelledby={ariaLabelledBy}
-          aria-checked={internalChecked}
-          css={styles.input}
-          {...focusProps}
-        />
-      </Box>
+      {indeterminate && (
+        <Box css={styles.indeterminate}>
+          <Box css={styles.indeterminateInner} />
+        </Box>
+      )}
+      <input
+        ref={ref}
+        type="checkbox"
+        id={id}
+        name={name}
+        value={value}
+        checked={internalChecked}
+        disabled={disabled}
+        readOnly={readOnly}
+        onChange={internalChange}
+        onBlur={onBlur}
+        onFocus={onFocus}
+        aria-invalid={invalid}
+        aria-label={ariaLabel}
+        aria-labelledby={ariaLabelledBy}
+        aria-checked={internalChecked}
+        css={styles.input}
+      />
     </Box>
   );
 

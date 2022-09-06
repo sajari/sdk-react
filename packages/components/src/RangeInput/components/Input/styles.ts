@@ -8,7 +8,7 @@ type UseRangeInputStylesParams<T> = RangeInputInputProps<T>;
 
 export default function useRangeInputStyles<T>(props: UseRangeInputStylesParams<T>) {
   const { max, step } = props;
-  const { styles: inputStyles, focusRingStyles, focusProps } = useInputStyles({
+  const { styles: inputStyles } = useInputStyles({
     type: 'text',
     size: 'sm',
     ...props,
@@ -17,10 +17,10 @@ export default function useRangeInputStyles<T>(props: UseRangeInputStylesParams<
   const charLength = (max + step).toString().length;
 
   const styles = {
-    container: [tw`relative`, focusRingStyles],
+    container: [tw`relative`],
     // TODO: Replace the magic numbers with calculated ones
-    input: [tw`form-input`, inputStyles, `width: calc(${charLength * 9}px + 2.5rem)`],
+    input: [inputStyles, `width: calc(${charLength * 9}px + 2.5rem)`],
   };
 
-  return { styles: mapStyles(styles), focusProps };
+  return { styles: mapStyles(styles) };
 }

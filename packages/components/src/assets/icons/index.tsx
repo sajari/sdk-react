@@ -1,3 +1,5 @@
+import { ChevronUpDownIcon as IconChevronUpDown } from '@heroicons/react/24/solid';
+
 import IconCheck from './check.svg';
 import IconChevronLeft from './chevron-left.svg';
 import IconChevronRight from './chevron-right.svg';
@@ -17,6 +19,7 @@ export {
   IconCheck,
   IconChevronLeft,
   IconChevronRight,
+  IconChevronUpDown,
   IconClose,
   IconDownKey,
   IconEmptyMic,

@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { inferStylesObjectKeys, mapStyles } from '@sajari/react-sdk-utils';
+import { inferStylesObjectKeys, mapStyles, useTheme } from '@sajari/react-sdk-utils';
 import tw, { TwStyle } from 'twin.macro';
 
-import { useFocusRingStyles } from '../hooks';
 import { ComboboxProps, ComboboxSize } from './types';
 
 interface UseComboboxStylesProps {
@@ -15,16 +14,16 @@ interface UseComboboxStylesProps {
 export function getInputSpacingStyles(size?: ComboboxSize) {
   switch (size) {
     case 'sm':
-      return tw`text-sm pl-8`;
+      return tw`pl-8 text-sm`;
 
     case '2xl':
-      return tw`pl-9 text-2xl`;
+      return tw`text-2xl pl-9`;
 
     case 'xl':
       return tw`pl-10 text-xl`;
 
     case 'lg':
-      return tw`text-lg pl-10`;
+      return tw`pl-10 text-lg`;
 
     case 'md':
     default:
@@ -34,7 +33,7 @@ export function getInputSpacingStyles(size?: ComboboxSize) {
 
 export function useComboboxStyles(props: UseComboboxStylesProps) {
   const { size, voiceEnabled, loading, variant } = props;
-  const { focusProps, focusRingStyles } = useFocusRingStyles();
+  const theme = useTheme();
   const containerStyles: TwStyle[] = [];
   const iconContainerStyles: TwStyle[] = [tw`absolute inset-y-0 flex items-center space-x-2 text-gray-400`];
   const iconSearchStyles: TwStyle[] = [];
@@ -105,12 +104,11 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
 
   const styles = inferStylesObjectKeys({
     container: [tw`relative`],
-    inputContainer: [tw`form-input`, tw`relative text-base transition-all duration-150 px-0`, ...containerStyles],
+    inputContainer: [tw`relative px-0 py-2 text-base transition-all duration-150 rounded-md`, ...containerStyles],
     iconContainerLeft: [...iconContainerStyles, tw`left-0`],
     iconContainerRight: [...iconContainerStyles, tw`right-0`],
     input: [
-      tw`form-input`,
-      tw`absolute inset-0 w-full min-h-full bg-transparent border-0 focus:border-0 outline-none focus:outline-none shadow-none focus:shadow-none font-inherit m-0 p-0 box-border`,
+      tw`box-border absolute inset-0 w-full min-h-full p-0 m-0 bg-transparent border-0 outline-none ring-0 focus:border-0 focus:outline-none focus:ring-0 font-inherit`,
       inputStyles,
       ` &::-ms-clear,
         &::-ms-reveal {
@@ -130,9 +128,12 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
   });
 
   if (variant === 'outline') {
-    styles.inputContainer.push(...[tw`bg-white border border-gray-200 border-solid`, ...focusRingStyles]);
+    styles.inputContainer.push(
+      tw`bg-white border border-gray-200 border-solid`,
+      `&:focus-within { box-shadow: 0 0 0 1px #fff, 0 0 0 3px ${theme.color.primary.base} }`,
+    );
   } else {
-    styles.inputContainer.push(tw`border-none py-0`);
+    styles.inputContainer.push(tw`py-0 border-none`);
   }
 
   if (size === 'sm') {
@@ -141,5 +142,5 @@ export function useComboboxStyles(props: UseComboboxStylesProps) {
     styles.iconSpinner.push(tw`w-5 h-5`);
   }
 
-  return { styles: mapStyles(styles), focusProps };
+  return { styles: mapStyles(styles) };
 }

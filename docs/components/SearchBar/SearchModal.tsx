@@ -109,7 +109,7 @@ const SearchModal = ({ open, onClose }: Props) => {
             onKeyDown={onKeyDown}
             placeholder="Search the docs"
             borderWidth="border-0"
-            boxShadow="focus:shadow-none"
+            ringWidth="focus:ring-0"
             padding="px-0"
           />
         </Flex>

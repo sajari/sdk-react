@@ -22,18 +22,19 @@
     "dist"
   ],
   "peerDependencies": {
-    "react": ">=16.8.0"
+    "react": ">=17"
   },
   "dependencies": {
     "@emotion/core": "^10.1.1",
     "@emotion/is-prop-valid": "1.0.0",
     "@emotion/styled": "^10.0.27",
-    "@tailwindcss/ui": "^0.7.2",
+    "@tailwindcss/forms": "^0.3.4",
+    "@tailwindcss/typography": "^0.4.1",
     "emotion-theming": "^10.0.27",
-    "tailwindcss": "^1.9.6",
+    "tailwindcss": "^2.2.19",
     "tailwindcss-filters": "^3.0.0",
     "tailwindcss-truncate-multiline": "^1.0.3",
-    "twin.macro": "^1.12.1"
+    "twin.macro": "^2.8.2"
   },
   "publishConfig": {
     "access": "public"

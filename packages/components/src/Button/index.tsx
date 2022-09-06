@@ -1,5 +1,5 @@
 import { useButton } from '@react-aria/button';
-import { useFocus, useHover } from '@react-aria/interactions';
+import { useHover } from '@react-aria/interactions';
 import { mergeProps } from '@react-aria/utils';
 import { getStylesObject, mergeRefs } from '@sajari/react-sdk-utils';
 import classnames from 'classnames';
@@ -28,7 +28,6 @@ const Button = React.forwardRef((props: ButtonProps, ref?: React.Ref<HTMLElement
     ...rest
   } = props;
 
-  const [focused, setFocused] = React.useState(false);
   const buttonRef = useRef<HTMLElement | null>(null);
   const ownRef = mergeRefs(buttonRef, ref);
 
@@ -39,13 +38,8 @@ const Button = React.forwardRef((props: ButtonProps, ref?: React.Ref<HTMLElement
   const { hoverProps, isHovered: hovered } = useHover({
     isDisabled: disabled,
   });
-  const { focusProps } = useFocus({
-    isDisabled: disabled,
-    onFocus: () => setFocused(true),
-    onBlur: () => setFocused(false),
-  });
 
-  const { styles: containerStyles, focusRingProps } = useButtonStyles({
+  const { styles: containerStyles } = useButtonStyles({
     pressed,
     appearance,
     disabled,
@@ -53,11 +47,10 @@ const Button = React.forwardRef((props: ButtonProps, ref?: React.Ref<HTMLElement
     loading,
     size,
     spacing,
-    focused,
     hovered,
   });
 
-  const customProps = mergeProps(buttonProps, focusProps, hoverProps, focusRingProps, rest);
+  const customProps = mergeProps(buttonProps, hoverProps, rest);
   const styles = getStylesObject({ container: containerStyles }, disableDefaultStyles);
 
   return (

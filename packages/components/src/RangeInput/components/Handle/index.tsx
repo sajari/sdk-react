@@ -8,7 +8,7 @@ import { HandleProps } from './types';
 
 const Handle = React.forwardRef((props: HandleProps, ref?: React.Ref<HTMLButtonElement>) => {
   const { active, styles: stylesProp, disableDefaultStyles = false, className, activeClassName = '', ...rest } = props;
-  const { focusProps, styles: fillStyles } = useHandleStyles(props);
+  const { styles: fillStyles } = useHandleStyles(props);
   const styles = getStylesObject(fillStyles, disableDefaultStyles);
 
   return (
@@ -17,7 +17,6 @@ const Handle = React.forwardRef((props: HandleProps, ref?: React.Ref<HTMLButtonE
       type="button"
       css={[styles.container, stylesProp]}
       ref={ref}
-      {...focusProps}
       className={classnames(className, { [activeClassName]: active })}
       {...rest}
     />
