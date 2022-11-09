@@ -94,7 +94,4 @@
     "postcss": "^8.4.16"
   },
   "packageManager": "yarn@3.2.1",
-  "dependencies": {
-    "yalc": "^1.0.0-pre.53"
-  }
 }
