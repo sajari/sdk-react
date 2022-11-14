@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.1.0
+
+### Minor Changes
+
+- [`8af1058b`](https://github.com/sajari/sdk-react/commit/8af1058b51cc608e3c364685dd953cf4cccb3113) [#858](https://github.com/sajari/sdk-react/pull/858) Thanks [@beatrice94](https://github.com/beatrice94)! - Upgrade Downshift to v7.0.1 and changes to default Combobox styling
+
 ## 2.0.0
 
 ### Major Changes
