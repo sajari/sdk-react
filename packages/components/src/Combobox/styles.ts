@@ -27,7 +27,7 @@ export function getInputSpacingStyles(size?: ComboboxSize) {
 
     case 'md':
     default:
-      return tw`pl-9`;
+      return tw`pl-9 text-base`;
   }
 }
 

@@ -79,7 +79,6 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(
     getMenuProps,
     getItemProps,
     getInputProps,
-    getComboboxProps,
     selectedItem,
     highlightedIndex,
     inputValue,
@@ -383,7 +382,7 @@ const Combobox = React.forwardRef(function ComboboxInner<T>(
         renderInAttachMode()
       ) : (
         <Box css={[styles.container, stylesProp]} className={className}>
-          <Box css={styles.inputContainer} {...getComboboxProps()}>
+          <Box css={styles.inputContainer}>
             <Box as="label" css={tw`sr-only`} {...getLabelProps({ htmlFor: id })}>
               {label ?? placeholder}
             </Box>
