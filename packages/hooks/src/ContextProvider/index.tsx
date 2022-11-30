@@ -339,7 +339,7 @@ const ContextProvider: React.FC<SearchProviderValues> = ({
       const { pipeline, variables } = search as Required<ProviderPipelineConfig>;
       const { config } = searchState;
 
-      variables.set({ [config.pageParam]: String(page) });
+      variables.set({ [config.pageParam]: String(Math.max(page, 1)) });
       setSearching(true);
       pipeline.search(variables.get());
     },
