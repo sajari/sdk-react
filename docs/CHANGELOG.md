@@ -1,5 +1,14 @@
 # Change Log
 
+## 2.0.1
+
+### Patch Changes
+
+- [`b3b91fc7`](https://github.com/sajari/sdk-react/commit/b3b91fc7a713e0384c45f048376096ff32b18447) [#866](https://github.com/sajari/sdk-react/pull/866) Thanks [@wwalser](https://github.com/wwalser)! - fix: upgrade package to adopt bugfix
+
+- Updated dependencies [[`b3b91fc7`](https://github.com/sajari/sdk-react/commit/b3b91fc7a713e0384c45f048376096ff32b18447)]:
+  - @sajari/react-search-ui@5.0.1
+
 ## 2.0.0
 
 ### Major Changes
