@@ -1,7 +1,6 @@
 import { SearchProvider } from '@sajari/react-hooks';
 import { createContext, getSearchParams, ThemeProvider } from '@sajari/react-sdk-utils';
 import React, { useEffect, useState } from 'react';
-import { LiveAnnouncer } from 'react-aria-live';
 import { I18nextProvider } from 'react-i18next';
 
 import i18n from '../i18n';
@@ -84,13 +83,11 @@ const ContextProvider: React.FC<ContextProviderValues> = ({
             : syncURLState
         }
       >
-        <LiveAnnouncer>
-          <I18nextProvider i18n={i18n}>
-            <ThemeProvider theme={theme} importantStyles={importantStyles}>
-              {children}
-            </ThemeProvider>
-          </I18nextProvider>
-        </LiveAnnouncer>
+        <I18nextProvider i18n={i18n}>
+          <ThemeProvider theme={theme} importantStyles={importantStyles}>
+            {children}
+          </ThemeProvider>
+        </I18nextProvider>
       </SearchProvider>
     </Provider>
   );
