@@ -1,5 +1,11 @@
 # Change Log
 
+## 4.0.1
+
+### Patch Changes
+
+- [`b21ad038`](https://github.com/sajari/sdk-react/commit/b21ad038091bd355f27d084ae967b1937553f368) [#863](https://github.com/sajari/sdk-react/pull/863) Thanks [@beatrice94](https://github.com/beatrice94)! - Add check to ensure page is never 0
+
 ## 4.0.0
 
 ### Major Changes
