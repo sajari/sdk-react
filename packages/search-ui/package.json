@@ -28,7 +28,7 @@
   "dependencies": {
     "@react-aria/utils": "3.5.0",
     "@sajari/react-components": "^2.0.0",
-    "@sajari/react-hooks": "^4.0.0",
+    "@sajari/react-hooks": "^4.0.1",
     "@sajari/react-sdk-utils": "^2.0.0",
     "dayjs": "^1.10.5",
     "i18next": "19.8.7",

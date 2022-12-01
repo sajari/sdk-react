@@ -5254,7 +5254,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@sajari/react-hooks@^4.0.0, @sajari/react-hooks@workspace:packages/hooks":
+"@sajari/react-hooks@^4.0.1, @sajari/react-hooks@workspace:packages/hooks":
   version: 0.0.0-use.local
   resolution: "@sajari/react-hooks@workspace:packages/hooks"
   dependencies:
@@ -5301,7 +5301,7 @@ __metadata:
   dependencies:
     "@react-aria/utils": 3.5.0
     "@sajari/react-components": ^2.0.0
-    "@sajari/react-hooks": ^4.0.0
+    "@sajari/react-hooks": ^4.0.1
     "@sajari/react-sdk-utils": ^2.0.0
     "@types/jest": ^26.0.20
     babel-jest: ^26.6.3
@@ -5331,7 +5331,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@sajari/server@workspace:packages/server"
   dependencies:
-    "@sajari/react-hooks": ^4.0.0
+    "@sajari/react-hooks": ^4.0.1
     "@sajari/react-sdk-utils": ^2.0.0
     babel-jest: ^26.6.3
     jest: ^26.6.3
@@ -17280,7 +17280,7 @@ __metadata:
     "@next/mdx": ^12.0.9
     "@sajari-ui/core": ^3.0.2
     "@sajari/react-components": ^2.0.0
-    "@sajari/react-hooks": ^4.0.0
+    "@sajari/react-hooks": ^4.0.1
     "@sajari/react-search-ui": ^5.0.0
     "@types/mdx-js__react": ^1.5.3
     "@types/react-table": ^7.0.25
