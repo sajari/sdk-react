@@ -1,6 +1,6 @@
 {
   "name": "sajari-sdk-docs",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -15,7 +15,7 @@
     "@sajari-ui/core": "^3.0.2",
     "@sajari/react-components": "^2.0.0",
     "@sajari/react-hooks": "^4.0.1",
-    "@sajari/react-search-ui": "^5.0.1",
+    "@sajari/react-search-ui": "^5.0.2",
     "@types/mdx-js__react": "^1.5.3",
     "@types/react-table": "^7.0.25",
     "lorem-ipsum": "^2.0.3",

@@ -1,5 +1,14 @@
 # Change Log
 
+## 2.0.2
+
+### Patch Changes
+
+- [`79a49cb4`](https://github.com/sajari/sdk-react/commit/79a49cb4e64c90cebd404115aa2f5b6dc444eea6) [#868](https://github.com/sajari/sdk-react/pull/868) Thanks [@wwalser](https://github.com/wwalser)! - fix: move from react-aria-live to @react-aria/live-announcer
+
+- Updated dependencies [[`79a49cb4`](https://github.com/sajari/sdk-react/commit/79a49cb4e64c90cebd404115aa2f5b6dc444eea6)]:
+  - @sajari/react-search-ui@5.0.2
+
 ## 2.0.1
 
 ### Patch Changes
