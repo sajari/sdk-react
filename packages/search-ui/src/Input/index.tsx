@@ -35,6 +35,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
     suggestions,
     redirects,
     searching: autocompleteSearching,
+    response,
   } = useAutocomplete();
   const redirectsRef = useRef(redirects);
   redirectsRef.current = redirects;
@@ -47,6 +48,9 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
   const inputRef = mergeRefs(ref, localRef);
   const lastValue = useRef(query);
   const searchDebounceRef = useRef(0);
+  const qOriginal = response?.getValues()?.get('q.original');
+  const responseQuery = useRef(qOriginal);
+  responseQuery.current = qOriginal;
 
   const searchValue = useCallback(
     (value: string, bypass = false) => {
@@ -174,7 +178,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
           if (!retainFilters) {
             resetFilters();
           }
-          const redirectValue = redirectsRef.current[value];
+          const redirectValue = redirectsRef.current[responseQuery.current ?? value];
           if (!disableRedirects && redirectValue) {
             tracking.onRedirect(redirectValue);
             window.location.assign(redirectValue.token || redirectValue.target);
@@ -183,7 +187,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
             // If we're performing an autocomplete search, wait a tick to recheck redirects before unloading
             e.preventDefault();
             setTimeout(() => {
-              const redirectTarget = redirectsRef.current[value];
+              const redirectTarget = redirectsRef.current[responseQuery.current ?? value];
               if (redirectTarget) {
                 tracking.onRedirect(redirectTarget);
                 window.location.assign(redirectTarget.token || redirectTarget.target);

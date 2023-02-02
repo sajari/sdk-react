@@ -1,11 +1,13 @@
 import { useContext } from '../ContextProvider';
 
 function useAutocomplete() {
+  // TODO: might not make sense to return the last response from this hook?
   const {
-    autocomplete: { suggestions, search, completion, searching, redirects },
+    autocomplete: { response, suggestions, search, completion, searching, redirects },
   } = useContext();
 
   return {
+    response,
     suggestions,
     search,
     completion,
