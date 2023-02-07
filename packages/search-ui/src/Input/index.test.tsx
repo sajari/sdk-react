@@ -101,6 +101,22 @@ describe('Input', () => {
     });
   });
 
+  it('ignores letter casing of input query on redirect lookup', async () => {
+    const onRedirectSpy = jest.spyOn(eventTrackingPipeline.getTracking(), 'onRedirect');
+    customRender(<Input data-testid="mysearch" mode="suggestions" />, {
+      search: { pipeline: eventTrackingPipeline },
+    });
+    const input = screen.getByTestId('mysearch');
+    input.focus(); // need this else we get TypeError: element.ownerDocument.getSelection is not a function
+    await user.keyboard('ShEeTs');
+    await waitFor(() => expect(input).toHaveTextContent('ShEeTs'));
+    await user.keyboard('{enter}');
+    expect(onRedirectSpy).toHaveBeenCalledWith({
+      ...redirectTarget,
+      token: `https://re.sajari.com/token/${redirectTarget.token}`, // sdk-js prepends the clickTokenURL
+    });
+  });
+
   it('calls onResultClick on results click', async () => {
     const onResultClickSpy = jest.spyOn(eventTrackingPipeline.getTracking(), 'onResultClick');
     customRender(<Input data-testid="mysearch" mode="results" />, {

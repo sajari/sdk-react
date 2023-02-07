@@ -174,7 +174,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
           if (!retainFilters) {
             resetFilters();
           }
-          const redirectValue = redirectsRef.current[value];
+          const redirectValue = redirectsRef.current[value.toLowerCase()];
           if (!disableRedirects && redirectValue) {
             tracking.onRedirect(redirectValue);
             window.location.assign(redirectValue.token || redirectValue.target);
@@ -183,7 +183,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
             // If we're performing an autocomplete search, wait a tick to recheck redirects before unloading
             e.preventDefault();
             setTimeout(() => {
-              const redirectTarget = redirectsRef.current[value];
+              const redirectTarget = redirectsRef.current[value.toLowerCase()];
               if (redirectTarget) {
                 tracking.onRedirect(redirectTarget);
                 window.location.assign(redirectTarget.token || redirectTarget.target);
