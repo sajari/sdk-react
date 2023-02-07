@@ -49,7 +49,7 @@ const server = setupServer(
         values: {
           q: 'sheets',
           'q.original': 'sheets',
-          'q.suggestions': 'sheets',
+          'q.suggestions': 'suggestion',
         },
         redirects: {
           sheets: redirectTarget,
@@ -92,7 +92,7 @@ describe('Input', () => {
     const input = screen.getByTestId('mysearch');
     input.focus(); // need this else we get TypeError: element.ownerDocument.getSelection is not a function
     await user.keyboard('sheets');
-    await waitFor(() => expect(screen.getByText('sheets')).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText('suggestion')).toBeInTheDocument());
     await user.keyboard('{enter}');
 
     expect(onRedirectSpy).toHaveBeenCalledWith({
@@ -109,7 +109,7 @@ describe('Input', () => {
     const input = screen.getByTestId('mysearch');
     input.focus(); // need this else we get TypeError: element.ownerDocument.getSelection is not a function
     await user.keyboard('ShEeTs');
-    await waitFor(() => expect(input).toHaveTextContent('ShEeTs'));
+    await waitFor(() => expect(screen.getByText('suggestion')).toBeInTheDocument());
     await user.keyboard('{enter}');
     expect(onRedirectSpy).toHaveBeenCalledWith({
       ...redirectTarget,

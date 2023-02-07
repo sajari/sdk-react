@@ -10,6 +10,7 @@ import { useSearchUIContext } from '../ContextProvider';
 import { ResultValues } from '../Results/types';
 import mapResultFields from '../utils/mapResultFields';
 import { InputProps } from './types';
+import { lowercaseObjectKeys } from './utils';
 
 const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<HTMLInputElement>) => {
   const { t } = useTranslation('input');
@@ -36,8 +37,9 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
     redirects,
     searching: autocompleteSearching,
   } = useAutocomplete();
-  const redirectsRef = useRef(redirects);
-  redirectsRef.current = redirects;
+  const lowercasedRedirects = lowercaseObjectKeys(redirects);
+  const redirectsRef = useRef(lowercasedRedirects);
+  redirectsRef.current = lowercasedRedirects;
   const { customClassNames, disableDefaultStyles = false, tracking } = useSearchUIContext();
   const { query } = useQuery();
   const [internalSuggestions, setInternalSuggestions] = useState<Array<any>>([]);
