@@ -13,8 +13,7 @@
     "react/react-in-jsx-scope": "off",
 
     // TODO: We should re-enable this if we think it's worthwhile
-    "@typescript-eslint/explicit-module-boundary-types": "off",
-    "no-plusplus": "off"
+    "@typescript-eslint/explicit-module-boundary-types": "off"
   },
   "settings": {
     "react": {

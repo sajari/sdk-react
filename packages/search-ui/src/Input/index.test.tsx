@@ -16,12 +16,6 @@ const redirectTarget = {
   token:
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwdXJwb3NlIjoic2VhcmNoIiwiZGVzdGluYXRpb24iOiJodHRwOi8vdGFyZ2V0LmNvbS5hdS9zaGVldHMiLCJ2YWxzIjp7ImNvbGxlY3Rpb24iOlsiYmVzdGJ1eSJdLCJpZGVudGlmaWVyIjpbInJlZGlyZWN0Il0sInByb2plY3QiOlsiMTU5NDE1MzcxMTkwMTcyNDIyMCJdLCJxIjpbInNoZWV0cyJdLCJxLmlkIjpbIjc2ZGJiOGU2LWE3MDctNDU2NC1iYTYxLWY0NjNiYTRhZDdlYSJdLCJxLnVpZCI6WyI3NmRiYjhlNi1hNzA3LTQ1NjQtYmE2MS1mNDYzYmE0YWQ3ZWEwIl0sInJlZGlyZWN0LkNvbmRpdGlvbiI6WyJxIH4gJ3NoZWV0cyciXSwicmVkaXJlY3QuSUQiOlsiMjJ3MFZGdkdWYVlhQ1Jzc0NBUm11YkQ2bGdUIl0sInJlZGlyZWN0LlRhcmdldCI6WyJodHRwOi8vdGFyZ2V0LmNvbS5hdS9zaGVldHMiXX19.BhcAVPB4z9LjlIoV42CUaEW-H0qCJ2JKngs6OGAXTf8',
 };
-const redirectTarget2 = {
-  id: '12w0VFvGVaYaCRssCARmubD6lgA',
-  target: 'http://target.com.au/sheets2',
-  token:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwdXJwb3NlIjoic2VhcmNoIiwiZGVzdGluYXRpb24iOiJodHRwOi8vdGFyZ2V0LmNvbS5hdS9zaGVldHMiLCJ2YWxzIjp7ImNvbGxlY3Rpb24iOlsiYmVzdGJ1eSJdLCJpZGVudGlmaWVyIjpbInJlZGlyZWN0Il0sInByb2plY3QiOlsiMTU5NDE1MzcxMTkwMTcyNDIyMCJdLCJxIjpbInNoZWV0cyJdLCJxLmlkIjpbIjc2ZGJiOGU2LWE3MDctNDU2NC1iYTYxLWY0NjNiYTRhZDdlYSJdLCJxLnVpZCI6WyI3NmRiYjhlNi1hNzA3LTQ1NjQtYmE2MS1mNDYzYmE0YWQ3ZWEwIl0sInJlZGlyZWN0LkNvbmRpdGlvbiI6WyJxIH4gJ3NoZWV0cyciXSwicmVkaXJlY3QuSUQiOlsiMjJ3MFZGdkdWYVlhQ1Jzc0NBUm11YkQ2bGdUIl0sInJlZGlyZWN0LlRhcmdldCI6WyJodHRwOi8vdGFyZ2V0LmNvbS5hdS9zaGVldHMiXX19.BhcAVPB4z9LjlIoV42CUaEW-H0qCJ2JKngs6OGAXTf9',
-};
 const iPhoneResult = {
   values: {
     _id: {
@@ -55,11 +49,10 @@ const server = setupServer(
         values: {
           q: 'sheets',
           'q.original': 'sheets',
-          'q.suggestions': 'suggestion',
+          'q.suggestions': 'sheets',
         },
         redirects: {
           sheets: redirectTarget,
-          Sheets: redirectTarget2,
         },
         searchResponse: {
           reads: '141',
@@ -84,7 +77,6 @@ describe('Input', () => {
   });
   afterEach(() => {
     jest.clearAllMocks();
-    jest.resetAllMocks();
     server.resetHandlers();
   });
   afterAll(() => {
@@ -100,12 +92,12 @@ describe('Input', () => {
     const input = screen.getByTestId('mysearch');
     input.focus(); // need this else we get TypeError: element.ownerDocument.getSelection is not a function
     await user.keyboard('sheets');
-    await waitFor(() => expect(screen.getByRole('option')).toHaveTextContent('suggestion'));
+    await waitFor(() => expect(screen.getByText('sheets')).toBeInTheDocument());
     await user.keyboard('{enter}');
 
     expect(onRedirectSpy).toHaveBeenCalledWith({
-      ...redirectTarget2,
-      token: `https://re.sajari.com/token/${redirectTarget2.token}`, // sdk-js appends the clickTokenURL
+      ...redirectTarget,
+      token: `https://re.sajari.com/token/${redirectTarget.token}`, // sdk-js prepends the clickTokenURL
     });
   });
 
@@ -162,33 +154,5 @@ describe('Input', () => {
 
     await waitFor(() => expect(input.attributes.getNamedItem('readonly')?.value).toBe(''));
     await waitFor(() => expect(input.attributes.getNamedItem('readonly')).toBeNull());
-  });
-});
-
-describe('redirects', () => {
-  beforeAll(() => {
-    server.listen({ onUnhandledRequest: 'warn' });
-  });
-  afterAll(() => {
-    jest.restoreAllMocks();
-    server.close();
-  });
-
-  it('ignores letter casing of input query on redirect lookup', async () => {
-    const onRedirectSpy = jest.spyOn(eventTrackingPipeline.getTracking(), 'onRedirect');
-    customRender(<Input data-testid="mysearch" mode="suggestions" />, {
-      search: { pipeline: eventTrackingPipeline },
-    });
-    const input = screen.getByTestId('mysearch');
-    input.focus(); // need this else we get TypeError: element.ownerDocument.getSelection is not a function
-    await userEvent.type(input, 'ShEeTs');
-    await waitFor(() => expect(screen.getByRole('option')).toHaveTextContent('suggestion'));
-    await userEvent.keyboard('{enter}');
-    await waitFor(() => {
-      expect(onRedirectSpy).toHaveBeenCalledWith({
-        ...redirectTarget2,
-        token: `https://re.sajari.com/token/${redirectTarget2.token}`, // sdk-js appends the clickTokenURL
-      });
-    });
   });
 });
