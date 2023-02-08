@@ -1,5 +1,14 @@
 # Change Log
 
+## 2.0.3
+
+### Patch Changes
+
+- [`30eefe22`](https://github.com/sajari/sdk-react/commit/30eefe22c2b7f9e1a97c59629dbd836f6fdcaad2) [#875](https://github.com/sajari/sdk-react/pull/875) Thanks [@jkaho](https://github.com/jkaho)! - feat: make redirects case-insensitive for search input component
+
+- Updated dependencies [[`30eefe22`](https://github.com/sajari/sdk-react/commit/30eefe22c2b7f9e1a97c59629dbd836f6fdcaad2)]:
+  - @sajari/react-search-ui@5.1.0
+
 ## 2.0.2
 
 ### Patch Changes
