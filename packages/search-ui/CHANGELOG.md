@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.1.1
+
+### Patch Changes
+
+- [`f2279a4a`](https://github.com/sajari/sdk-react/commit/f2279a4a3fcf20ba01d1d24eb5c637f96ef158e7) [#877](https://github.com/sajari/sdk-react/pull/877) Thanks [@jkaho](https://github.com/jkaho)! - chore: revert "feat: make redirects via the input component case-insensitive"
+
 ## 5.1.0
 
 ### Minor Changes
