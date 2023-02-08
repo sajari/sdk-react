@@ -10,6 +10,7 @@ import { useSearchUIContext } from '../ContextProvider';
 import { ResultValues } from '../Results/types';
 import mapResultFields from '../utils/mapResultFields';
 import { InputProps } from './types';
+import { lowercaseObjectKeys } from './utils';
 
 const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<HTMLInputElement>) => {
   const { t } = useTranslation('input');
@@ -36,8 +37,9 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
     redirects,
     searching: autocompleteSearching,
   } = useAutocomplete();
-  const redirectsRef = useRef(redirects);
-  redirectsRef.current = redirects;
+  const lowercasedRedirects = lowercaseObjectKeys(redirects);
+  const redirectsRef = useRef(lowercasedRedirects);
+  redirectsRef.current = lowercasedRedirects;
   const { customClassNames, disableDefaultStyles = false, tracking } = useSearchUIContext();
   const { query } = useQuery();
   const [internalSuggestions, setInternalSuggestions] = useState<Array<any>>([]);
@@ -174,7 +176,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
           if (!retainFilters) {
             resetFilters();
           }
-          const redirectValue = redirectsRef.current[value];
+          const redirectValue = redirectsRef.current[value.toLowerCase()];
           if (!disableRedirects && redirectValue) {
             tracking.onRedirect(redirectValue);
             window.location.assign(redirectValue.token || redirectValue.target);
@@ -183,7 +185,7 @@ const Input = React.forwardRef((props: InputProps<any>, ref: React.ForwardedRef<
             // If we're performing an autocomplete search, wait a tick to recheck redirects before unloading
             e.preventDefault();
             setTimeout(() => {
-              const redirectTarget = redirectsRef.current[value];
+              const redirectTarget = redirectsRef.current[value.toLowerCase()];
               if (redirectTarget) {
                 tracking.onRedirect(redirectTarget);
                 window.location.assign(redirectTarget.token || redirectTarget.target);
