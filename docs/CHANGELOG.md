@@ -1,5 +1,16 @@
 # Change Log
 
+## 2.0.5
+
+### Patch Changes
+
+- [`7b64e6ca`](https://github.com/sajari/sdk-react/commit/7b64e6caf81845e934f4214099e9a1906c012d7c) [#879](https://github.com/sajari/sdk-react/pull/879) Thanks [@jkaho](https://github.com/jkaho)! - feat: make redirects via the input component case-insensitive
+
+  Note: This update includes a breaking change to the way redirects work in the `@sajari/react-search-ui` `Input` component. The component no longer supports case-sensitive redirects.
+
+- Updated dependencies [[`7b64e6ca`](https://github.com/sajari/sdk-react/commit/7b64e6caf81845e934f4214099e9a1906c012d7c)]:
+  - @sajari/react-search-ui@6.0.0
+
 ## 2.0.4
 
 ### Patch Changes
