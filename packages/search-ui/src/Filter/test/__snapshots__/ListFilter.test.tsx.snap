@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListFilter rendering standard render 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  margin-bottom: 0.5em;
+  line-height: 1;
+}
+
+.emotion-1 {
+  padding: 0;
+  margin: 0;
+  --text-opacity: 1;
+  color: rgba(159,166,178,var(--text-opacity));
+  font-size: 0.75em;
+  font-weight: 500;
+  -webkit-letter-spacing: 0.025em;
+  -moz-letter-spacing: 0.025em;
+  -ms-letter-spacing: 0.025em;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+  line-height: 1.375;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-2>:not(template)~:not(template) {
+  --space-y-reverse: 0;
+  margin-top: calc(0.25em * calc(1 - var(--space-y-reverse)));
+  margin-bottom: calc(0.25em * var(--space-y-reverse));
+}
+
+<div>
+  <div
+    className="emotion-0"
+  >
+    <h2
+      className="emotion-1"
+      id="filter-price-label"
+    >
+      Price Filter
+    </h2>
+  </div>
+  <div
+    id="list-price"
+  >
+    <div
+      aria-labelledby="filter-price-label"
+      className="emotion-2"
+      role="radiogroup"
+    />
+  </div>
+</div>
+`;
